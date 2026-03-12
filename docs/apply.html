@@ -5,12 +5,107 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Apply to Join - Our Wedding Day Hub</title>
 <link rel="stylesheet" href="style.css">
+<style>
+/* Apply page specific styling */
+body.apply-page {
+  font-family: Georgia, serif;
+  background-color: #ffffff;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+body.apply-page h1, 
+body.apply-page h2, 
+body.apply-page h3, 
+body.apply-page p, 
+body.apply-page a {
+  font-family: Georgia, serif;
+  color: #2F4F2F;
+}
+
+body.apply-page a {
+  text-decoration: none;
+}
+
+body.apply-page a:hover {
+  text-decoration: underline;
+}
+
+.vendor-info {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.vendor-info h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.vendor-info h2 {
+  font-size: 1.5rem;
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+
+.vendor-info p {
+  font-size: 1rem;
+  margin: 5px 0;
+  line-height: 1.6;
+}
+
+.pricing-tiers {
+  max-width: 700px;
+  margin: 30px auto 0 auto;
+  padding: 0;
+}
+
+.pricing-tier {
+  margin-bottom: 20px;
+  border: 2px solid #2F4F2F;
+  border-radius: 12px;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.pricing-tier:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.pricing-tier h3 {
+  margin: 0 0 10px 0;
+  font-weight: bold;
+  text-align: center;
+}
+
+.pricing-tier p {
+  margin: 0;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 20px;
+  color: #2F4F2F;
+  font-weight: bold;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+</style>
 </head>
-<body>
+<body class="apply-page">
 
 <header class="hero">
-  <a href="index.html" class="back-link" style="color:#2F4F2F; text-decoration:none;">← Back to Home</a>
-  <h1 class="vendor-info">Join Our Wedding Day Hub as a Vendor</h1>
+  <a href="index.html" class="back-link">← Back to Home</a>
+  <h1>Join Our Wedding Day Hub as a Vendor</h1>
 </header>
 
 <main class="vendor-info">
