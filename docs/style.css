@@ -1,45 +1,6 @@
 /* ==========================
-   GENERAL PAGE STYLING
+   SEARCH BAR - FOREST GREEN
 ========================== */
-body {
-  font-family: Georgia, serif;
-  background-color: #ffffff;   /* white background */
-  color: #333;                 /* dark text for readability */
-  margin: 0;
-  padding: 0;
-}
-
-/* HEADINGS */
-h1, h2, h3 {
-  font-family: "Lucida Calligraphy", cursive;
-  color: #2F4F2F;              /* forest green */
-}
-
-h1 { font-size: 3rem; }
-h2 { font-size: 2rem; }
-h3 { font-size: 1.4rem; }
-
-/* ==========================
-   HEADER
-========================== */
-header.hero {
-  text-align: center;
-  padding: 40px 20px;
-  background-color: #ffffff;   /* white header */
-}
-
-/* HEADER IMAGE */
-.header-image {
-  width: 100%;
-  max-width: 1500px;
-  height: auto;
-  display: block;
-  margin: 0 auto 20px;
-  border-radius: 10px;
-}
-
-/* SEARCH BAR */
-.search { text-align: center; margin: 20px; }
 .search input {
   padding: 10px;
   width: 250px;
@@ -47,12 +8,9 @@ header.hero {
   border-radius: 4px;
 }
 
-/* CATEGORY BUTTONS */
-.category-buttons {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
+/* ==========================
+   CATEGORY BUTTONS - FOREST GREEN
+========================== */
 .category-buttons button {
   background-color: #2F4F2F;  /* forest green button */
   color: white;
@@ -61,160 +19,20 @@ header.hero {
   margin: 5px;
   border-radius: 4px;
   cursor: pointer;
+  font-family: Georgia, serif;  /* keeps it consistent with vendor headings */
 }
 
 .category-buttons button:hover {
-  background-color: #24412D;  /* darker green on hover */
+  background-color: #24412D;  /* darker forest green on hover */
 }
 
 /* ==========================
-   VENDOR GRID
+   VENDOR CARD HEADINGS ON HOMEPAGE
 ========================== */
-.vendors {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
-  padding: 20px;
-}
-
-/* VENDOR CARD */
-.vendor-card {
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-  text-align: center;
-  overflow: hidden;
-}
-
-.vendor-card img { width: 100%; }
-
-/* Vendor card headings on homepage in Georgia */
 .vendors .vendor-card h3 {
   font-family: Georgia, serif;
   font-weight: bold;
   font-size: 1.2rem;
   margin: 10px 0 5px 0;
-  color: #2F4F2F;  /* forest green */
-}
-
-/* ==========================
-   VENDOR PAGE CONTENT
-========================== */
-.vendor-info {
-  max-width: 800px;
-  margin: auto;
-  padding: 20px;
-  text-align: center;
-  background-color: #ffffff;
-}
-
-.vendor-info h1 {
-  font-family: Georgia, serif;
-  font-size: 2rem;
-  color: #2F4F2F;
-  margin-bottom: 20px;
-}
-
-.vendor-info p {
-  font-family: Georgia, serif;
-  font-size: 1rem;
-  color: #333;
-  line-height: 1.6;
-  margin: 5px 0;
-  text-align: center;
-}
-
-.vendor-info a {
-  color: #2F4F2F;
-  text-decoration: none;
-}
-
-.vendor-info a:hover {
-  text-decoration: underline;
-}
-
-/* ==========================
-   GALLERY
-========================== */
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 15px;
-  margin-top: 20px;
-}
-
-.gallery img {
-  width: 100%;
-  border-radius: 8px;
-  border: 2px solid #2F4F2F;  /* forest green border */
-}
-
-/* ==========================
-   APPLY SECTION / JOIN
-========================== */
-.join {
-  text-align: center;
-  padding: 30px;
-  background-color: #ffffff;
-}
-
-.join button {
-  background-color: #2F4F2F;
-  color: white;
-  border: none;
-  padding: 12px 22px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.join button:hover {
-  background-color: #24412D;  /* darker green hover */
-}
-
-/* ==========================
-   FOOTER
-========================== */
-footer {
-  text-align: center;
-  padding: 20px;
-  background-color: #ffffff;
-  margin-top: 30px;
-  color: #333;
-}
-
-/* ==========================
-   APPLY PAGE PRICING TIERS
-========================== */
-.pricing-tiers {
-  max-width: 700px;
-  margin: 30px auto 0 auto;
-  padding: 0;
-}
-
-.pricing-tier {
-  margin-bottom: 20px;
-  border: 2px solid #2F4F2F;  /* forest green border */
-  border-radius: 12px;
-  padding: 20px;
-  background-color: #ffffff;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.05);
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.pricing-tier:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-}
-
-.pricing-tier h3 {
-  color: #2F4F2F;
-  font-family: Georgia, serif;
-  font-weight: bold;
-  text-align: center;
-}
-
-.pricing-tier p {
-  color: #333;
-  text-align: center;
-  line-height: 1.5;
+  color: #2F4F2F;  /* forest green headings */
 }
