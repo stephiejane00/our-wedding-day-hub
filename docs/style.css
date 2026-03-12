@@ -1,5 +1,4 @@
 /* GENERAL PAGE STYLING */
-
 body {
   font-family: Georgia, serif;
   background-color: #fdf7f0;
@@ -9,7 +8,6 @@ body {
 }
 
 /* HEADINGS */
-
 h1, h2, h3 {
   font-family: "Lucida Calligraphy", cursive;
   color: #b37d4d;
@@ -28,7 +26,6 @@ h3 {
 }
 
 /* HEADER */
-
 header.hero {
   text-align: center;
   padding: 40px 20px;
@@ -37,15 +34,17 @@ header.hero {
 }
 
 /* HEADER IMAGE */
-
 .header-image {
-  width: 150px;
+  width: 100%;              /* full width */
+  max-width: 1500px;        /* prevent huge size on large screens */
+  height: auto;             /* maintain aspect ratio */
   display: block;
-  margin: 0 auto 20px;
+  margin: 0 auto 20px;      /* center and spacing */
+  box-shadow: 0 8px 15px rgba(0,0,0,0.1); /* soft shadow for elegance */
+  border-radius: 10px;      /* rounded corners */
 }
 
 /* SEARCH BAR */
-
 .search {
   text-align: center;
   margin: 20px;
@@ -59,7 +58,6 @@ header.hero {
 }
 
 /* CATEGORY BUTTONS */
-
 .category-buttons {
   text-align: center;
   margin-bottom: 20px;
@@ -80,7 +78,6 @@ header.hero {
 }
 
 /* VENDOR GRID */
-
 .vendors {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -89,7 +86,6 @@ header.hero {
 }
 
 /* VENDOR CARD */
-
 .vendor-card {
   background-color: white;
   border-radius: 10px;
@@ -102,12 +98,15 @@ header.hero {
   width: 100%;
 }
 
-.vendor-card h3 {
-  margin: 10px 0;
+/* Vendor card headings on homepage in Georgia */
+.vendors .vendor-card h3 {
+  font-family: Georgia, serif;
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin: 10px 0 5px 0;
 }
 
 /* VENDOR PAGE CONTENT */
-
 .vendor-info {
   max-width: 800px;
   margin: auto;
@@ -120,7 +119,6 @@ header.hero {
 }
 
 /* GALLERY */
-
 .gallery {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -134,7 +132,6 @@ header.hero {
 }
 
 /* APPLY SECTION */
-
 .join {
   text-align: center;
   padding: 30px;
@@ -155,7 +152,6 @@ header.hero {
 }
 
 /* FOOTER */
-
 footer {
   text-align: center;
   padding: 20px;
