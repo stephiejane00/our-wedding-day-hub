@@ -40,7 +40,6 @@ header.hero {
   height: auto;             /* maintain aspect ratio */
   display: block;
   margin: 0 auto 20px;      /* center and spacing */
-  box-shadow: 0 8px 15px rgba(0,0,0,0.1); /* soft shadow for elegance */
   border-radius: 10px;      /* rounded corners */
 }
 
