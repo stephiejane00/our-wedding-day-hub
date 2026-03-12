@@ -1,7 +1,9 @@
-/* GENERAL PAGE STYLING */
+/* ==========================
+   GENERAL PAGE STYLING
+========================== */
 body {
   font-family: Georgia, serif;
-  background-color: #ffffff;   /* changed to white */
+  background-color: #ffffff;   /* white background */
   color: #333;                 /* dark text for readability */
   margin: 0;
   padding: 0;
@@ -10,49 +12,38 @@ body {
 /* HEADINGS */
 h1, h2, h3 {
   font-family: "Lucida Calligraphy", cursive;
-  color: #d4af37;              /* soft gold for headings */
+  color: #2F4F2F;              /* forest green */
 }
 
-h1 {
-  font-size: 3rem;
-}
+h1 { font-size: 3rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.4rem; }
 
-h2 {
-  font-size: 2rem;
-}
-
-h3 {
-  font-size: 1.4rem;
-}
-
-/* HEADER */
+/* ==========================
+   HEADER
+========================== */
 header.hero {
   text-align: center;
   padding: 40px 20px;
   background-color: #ffffff;   /* white header */
-  /* removed box-shadow for cleaner look */
 }
 
 /* HEADER IMAGE */
 .header-image {
-  width: 100%;              
-  max-width: 1500px;        
-  height: auto;             
+  width: 100%;
+  max-width: 1500px;
+  height: auto;
   display: block;
-  margin: 0 auto 20px;      
-  border-radius: 10px;      
+  margin: 0 auto 20px;
+  border-radius: 10px;
 }
 
 /* SEARCH BAR */
-.search {
-  text-align: center;
-  margin: 20px;
-}
-
+.search { text-align: center; margin: 20px; }
 .search input {
   padding: 10px;
   width: 250px;
-  border: 1px solid #d4af37;  /* gold border */
+  border: 1px solid #2F4F2F;  /* forest green border */
   border-radius: 4px;
 }
 
@@ -63,7 +54,7 @@ header.hero {
 }
 
 .category-buttons button {
-  background-color: #d4af37;  /* gold button */
+  background-color: #2F4F2F;  /* forest green button */
   color: white;
   border: none;
   padding: 10px 16px;
@@ -73,10 +64,12 @@ header.hero {
 }
 
 .category-buttons button:hover {
-  background-color: #b38f2f;  /* darker gold on hover */
+  background-color: #24412D;  /* darker green on hover */
 }
 
-/* VENDOR GRID */
+/* ==========================
+   VENDOR GRID
+========================== */
 .vendors {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -86,16 +79,14 @@ header.hero {
 
 /* VENDOR CARD */
 .vendor-card {
-  background-color: #ffffff;   /* white cards */
+  background-color: #ffffff;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.05);
   text-align: center;
   overflow: hidden;
 }
 
-.vendor-card img {
-  width: 100%;
-}
+.vendor-card img { width: 100%; }
 
 /* Vendor card headings on homepage in Georgia */
 .vendors .vendor-card h3 {
@@ -103,76 +94,25 @@ header.hero {
   font-weight: bold;
   font-size: 1.2rem;
   margin: 10px 0 5px 0;
-  color: #d4af37;              /* gold heading */
+  color: #2F4F2F;  /* forest green */
 }
 
-/* VENDOR PAGE CONTENT */
+/* ==========================
+   VENDOR PAGE CONTENT
+========================== */
 .vendor-info {
   max-width: 800px;
   margin: auto;
   padding: 20px;
   text-align: center;
-  background-color: #ffffff;   /* white background */
-}
-
-.vendor-info p {
-  line-height: 1.6;
-}
-
-/* GALLERY */
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 15px;
-  margin-top: 20px;
-}
-
-.gallery img {
-  width: 100%;
-  border-radius: 8px;
-  border: 2px solid #d4af37;   /* subtle gold border on gallery images */
-}
-
-/* APPLY SECTION */
-.join {
-  text-align: center;
-  padding: 30px;
-  background-color: #ffffff;   /* white section */
-}
-
-.join button {
-  background-color: #d4af37;
-  color: white;
-  border: none;
-  padding: 12px 22px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.join button:hover {
-  background-color: #b38f2f;  /* darker gold hover */
-}
-
-/* FOOTER */
-footer {
-  text-align: center;
-  padding: 20px;
   background-color: #ffffff;
-  margin-top: 30px;
-  color: #333;
-}
-
-/* APPLY PAGE HEADING AND INFO STYLING - FOREST GREEN VERSION */
-body, .vendor-info {
-  background-color: #ffffff;  /* white background */
 }
 
 .vendor-info h1 {
   font-family: Georgia, serif;
   font-size: 2rem;
-  color: #2F4F2F;            /* forest green */
+  color: #2F4F2F;
   margin-bottom: 20px;
-  text-align: center;
 }
 
 .vendor-info p {
@@ -185,7 +125,7 @@ body, .vendor-info {
 }
 
 .vendor-info a {
-  color: #2F4F2F;            /* forest green links */
+  color: #2F4F2F;
   text-decoration: none;
 }
 
@@ -193,24 +133,88 @@ body, .vendor-info {
   text-decoration: underline;
 }
 
-/* Add spacing before pricing tiers */
-.pricing-tiers {
-  margin-top: 30px;
+/* ==========================
+   GALLERY
+========================== */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
 }
 
-/* Pricing tier borders and headings in forest green */
-.pricing-tier {
-  border: 2px solid #2F4F2F;
+.gallery img {
+  width: 100%;
+  border-radius: 8px;
+  border: 2px solid #2F4F2F;  /* forest green border */
+}
+
+/* ==========================
+   APPLY SECTION / JOIN
+========================== */
+.join {
+  text-align: center;
+  padding: 30px;
   background-color: #ffffff;
+}
+
+.join button {
+  background-color: #2F4F2F;
+  color: white;
+  border: none;
+  padding: 12px 22px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.join button:hover {
+  background-color: #24412D;  /* darker green hover */
+}
+
+/* ==========================
+   FOOTER
+========================== */
+footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #ffffff;
+  margin-top: 30px;
+  color: #333;
+}
+
+/* ==========================
+   APPLY PAGE PRICING TIERS
+========================== */
+.pricing-tiers {
+  max-width: 700px;
+  margin: 30px auto 0 auto;
+  padding: 0;
+}
+
+.pricing-tier {
+  margin-bottom: 20px;
+  border: 2px solid #2F4F2F;  /* forest green border */
+  border-radius: 12px;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.pricing-tier:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
 }
 
 .pricing-tier h3 {
   color: #2F4F2F;
   font-family: Georgia, serif;
+  font-weight: bold;
   text-align: center;
 }
 
 .pricing-tier p {
   color: #333;
   text-align: center;
+  line-height: 1.5;
 }
