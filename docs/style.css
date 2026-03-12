@@ -161,3 +161,35 @@ footer {
   margin-top: 30px;
   color: #333;
 }
+
+/* APPLY PAGE HEADING AND INFO STYLING */
+.vendor-info h1 {
+  font-family: Georgia, serif;   /* main heading in Georgia */
+  font-size: 2rem;               /* smaller, elegant size */
+  color: #d4af37;                /* gold */
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.vendor-info p {
+  font-family: Georgia, serif;   /* body text in Georgia */
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.6;
+  margin: 5px 0;
+  text-align: center;
+}
+
+.vendor-info a {
+  color: #d4af37;                /* gold link */
+  text-decoration: none;
+}
+
+.vendor-info a:hover {
+  text-decoration: underline;
+}
+
+/* Add spacing before pricing tiers */
+.pricing-tiers {
+  margin-top: 30px;
+}
