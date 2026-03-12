@@ -1,6 +1,52 @@
 /* ==========================
-   SEARCH BAR - FOREST GREEN
+   GENERAL PAGE STYLING
 ========================== */
+body {
+  font-family: Georgia, serif;
+  background-color: #ffffff;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+/* HEADINGS */
+h1, h2, h3 {
+  font-family: "Lucida Calligraphy", cursive;
+  color: #2F4F2F;              /* forest green */
+}
+
+h1 { font-size: 3rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.4rem; }
+
+/* ==========================
+   HEADER
+========================== */
+header.hero {
+  text-align: center;
+  padding: 40px 20px;
+  background-color: #ffffff;   /* white header */
+}
+
+/* HEADER IMAGE */
+.header-image {
+  width: 100%;
+  max-width: 1500px;
+  height: auto;
+  display: block;
+  margin: 0 auto 20px;
+  border-radius: 10px;
+}
+
+/* ==========================
+   SEARCH BAR
+========================== */
+.search {
+  display: flex;
+  justify-content: center;   /* center the search bar */
+  margin: 20px 0;
+}
+
 .search input {
   padding: 10px;
   width: 250px;
@@ -9,17 +55,24 @@
 }
 
 /* ==========================
-   CATEGORY BUTTONS - FOREST GREEN
+   CATEGORY BUTTONS
 ========================== */
+.category-buttons {
+  display: flex;
+  justify-content: center; /* center buttons horizontally */
+  flex-wrap: wrap;         /* wrap on smaller screens */
+  margin-bottom: 20px;
+}
+
 .category-buttons button {
-  background-color: #2F4F2F;  /* forest green button */
+  background-color: #2F4F2F;  /* forest green */
   color: white;
   border: none;
   padding: 10px 16px;
   margin: 5px;
   border-radius: 4px;
   cursor: pointer;
-  font-family: Georgia, serif;  /* keeps it consistent with vendor headings */
+  font-family: Georgia, serif;
 }
 
 .category-buttons button:hover {
@@ -27,12 +80,161 @@
 }
 
 /* ==========================
-   VENDOR CARD HEADINGS ON HOMEPAGE
+   VENDORS GRID
 ========================== */
+.vendors {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  justify-items: center;  /* center each card */
+  text-align: center;     /* center text inside cards */
+}
+
+/* VENDOR CARD */
+.vendor-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  text-align: center;
+  overflow: hidden;
+  width: 100%;
+  max-width: 300px;        /* keep cards consistent size */
+}
+
+.vendor-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Vendor card headings on homepage */
 .vendors .vendor-card h3 {
   font-family: Georgia, serif;
   font-weight: bold;
   font-size: 1.2rem;
   margin: 10px 0 5px 0;
-  color: #2F4F2F;  /* forest green headings */
+  color: #2F4F2F;
+}
+
+/* ==========================
+   VENDOR PAGE CONTENT
+========================== */
+.vendor-info {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+  text-align: center;
+  background-color: #ffffff;
+}
+
+.vendor-info h1 {
+  font-family: Georgia, serif;
+  font-size: 2rem;
+  color: #2F4F2F;
+  margin-bottom: 20px;
+}
+
+.vendor-info p {
+  font-family: Georgia, serif;
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.6;
+  margin: 5px 0;
+  text-align: center;
+}
+
+.vendor-info a {
+  color: #2F4F2F;
+  text-decoration: none;
+}
+
+.vendor-info a:hover {
+  text-decoration: underline;
+}
+
+/* ==========================
+   GALLERY
+========================== */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.gallery img {
+  width: 100%;
+  border-radius: 8px;
+  border: 2px solid #2F4F2F;
+}
+
+/* ==========================
+   APPLY / JOIN SECTION
+========================== */
+.join {
+  text-align: center;
+  padding: 30px;
+  background-color: #ffffff;
+}
+
+.join button {
+  background-color: #2F4F2F;
+  color: white;
+  border: none;
+  padding: 12px 22px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.join button:hover {
+  background-color: #24412D;
+}
+
+/* ==========================
+   FOOTER
+========================== */
+footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #ffffff;
+  margin-top: 30px;
+  color: #333;
+}
+
+/* ==========================
+   APPLY PAGE PRICING TIERS
+========================== */
+.pricing-tiers {
+  max-width: 700px;
+  margin: 30px auto 0 auto;
+  padding: 0;
+}
+
+.pricing-tier {
+  margin-bottom: 20px;
+  border: 2px solid #2F4F2F;
+  border-radius: 12px;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.pricing-tier:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.pricing-tier h3 {
+  color: #2F4F2F;
+  font-family: Georgia, serif;
+  font-weight: bold;
+  text-align: center;
+}
+
+.pricing-tier p {
+  color: #333;
+  text-align: center;
+  line-height: 1.5;
 }
