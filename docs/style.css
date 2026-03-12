@@ -162,17 +162,21 @@ footer {
   color: #333;
 }
 
-/* APPLY PAGE HEADING AND INFO STYLING */
+/* APPLY PAGE HEADING AND INFO STYLING - FOREST GREEN VERSION */
+body, .vendor-info {
+  background-color: #ffffff;  /* white background */
+}
+
 .vendor-info h1 {
-  font-family: Georgia, serif;   /* main heading in Georgia */
-  font-size: 2rem;               /* smaller, elegant size */
-  color: #d4af37;                /* gold */
+  font-family: Georgia, serif;
+  font-size: 2rem;
+  color: #2F4F2F;            /* forest green */
   margin-bottom: 20px;
   text-align: center;
 }
 
 .vendor-info p {
-  font-family: Georgia, serif;   /* body text in Georgia */
+  font-family: Georgia, serif;
   font-size: 1rem;
   color: #333;
   line-height: 1.6;
@@ -181,7 +185,7 @@ footer {
 }
 
 .vendor-info a {
-  color: #d4af37;                /* gold link */
+  color: #2F4F2F;            /* forest green links */
   text-decoration: none;
 }
 
@@ -192,4 +196,21 @@ footer {
 /* Add spacing before pricing tiers */
 .pricing-tiers {
   margin-top: 30px;
+}
+
+/* Pricing tier borders and headings in forest green */
+.pricing-tier {
+  border: 2px solid #2F4F2F;
+  background-color: #ffffff;
+}
+
+.pricing-tier h3 {
+  color: #2F4F2F;
+  font-family: Georgia, serif;
+  text-align: center;
+}
+
+.pricing-tier p {
+  color: #333;
+  text-align: center;
 }
