@@ -9,54 +9,63 @@
 <body>
 
 <header class="hero">
-<h1>Our Wedding Day Hub</h1>
-<p>Discover the most beautiful wedding vendors for your dream day</p>
+  <img src="images/header-dove-rings.png" alt="Wedding dove and rings" class="header-image">
+  <h1>Our Wedding Day Hub</h1>
+  <p>Discover the most beautiful wedding vendors for your dream day</p>
 
-<input type="text" id="search" placeholder="Search vendors..." onkeyup="searchVendors()">
+  <input type="text" id="search" placeholder="Search vendors..." onkeyup="searchVendors()">
 
-<div class="category-buttons">
-<button onclick="filterVendors('all')">All Vendors</button>
-<button onclick="filterVendors('flowers')">Florists</button>
-<button onclick="filterVendors('photography')">Photography</button>
-<button onclick="filterVendors('cakes')">Cakes</button>
-<button onclick="filterVendors('beauty')">Hair & Beauty</button>
-</div>
+  <div class="category-buttons">
+    <button onclick="filterVendors('all')">All Vendors</button>
+    <button onclick="filterVendors('flowers')">Florists</button>
+    <button onclick="filterVendors('cakes')">Cakes</button>
+    <button onclick="filterVendors('photography')">Photography</button>
+    <button onclick="filterVendors('beauty')">Hair & Beauty</button>
+  </div>
 </header>
 
 <section class="vendors">
-<div class="vendor-card flowers">
-<img src="https://via.placeholder.com/400" alt="Rosita Flowers">
-<h3>Rosita Flowers</h3>
-<p>Luxury wedding florals</p>
-</div>
+  <div class="vendor-card flowers">
+    <a href="vendors/rosita-flowers.html">
+      <img src="images/rosita1.jpg" alt="Rosita Flowers">
+      <h3>Rosita Flowers</h3>
+      <p>Luxury wedding florals</p>
+    </a>
+  </div>
 
-<div class="vendor-card cakes">
-<img src="https://via.placeholder.com/400" alt="Passion For Cakes">
-<h3>Passion For Cakes</h3>
-<p>Custom wedding cakes</p>
-</div>
+  <div class="vendor-card cakes">
+    <a href="vendors/passion-cakes.html">
+      <img src="images/cake1.jpg" alt="Passion For Cakes">
+      <h3>Passion For Cakes</h3>
+      <p>Custom wedding cakes</p>
+    </a>
+  </div>
 
-<div class="vendor-card photography">
-<img src="https://via.placeholder.com/400" alt="Tulieve Photography">
-<h3>Tulieve Photography</h3>
-<p>Capturing your special moments</p>
-</div>
+  <div class="vendor-card photography">
+    <a href="vendors/tulieve-photography.html">
+      <img src="images/tulieve1.jpg" alt="Tulieve Photography">
+      <h3>Tulieve Photography</h3>
+      <p>Capturing your special moments</p>
+    </a>
+  </div>
 
-<div class="vendor-card beauty">
-<img src="https://via.placeholder.com/400" alt="Brazilian Beauty">
-<h3>Brazilian Beauty</h3>
-<p>Bridal hair & makeup specialists</p>
-</div>
+  <div class="vendor-card beauty">
+    <a href="vendors/brazilian-beauty.html">
+      <img src="images/beauty1.jpg" alt="Brazilian Beauty">
+      <h3>Brazilian Beauty</h3>
+      <p>Bridal hair & makeup specialists</p>
+    </a>
+  </div>
 </section>
 
 <section class="join">
-<h2>Join Our Wedding Vendor Hub</h2>
-<p>Showcase your business to couples actively planning their wedding.</p>
-<button>Apply To Join</button>
+  <h2>Join Our Wedding Vendor Hub</h2>
+  <p>Showcase your business to couples actively planning their wedding.</p>
+  <button onclick="window.location.href='apply.html'">Apply To Join</button>
 </section>
 
 <footer>
-<p>© 2026 Our Wedding Day Hub</p>
+  <p>© 2026 Our Wedding Day Hub</p>
 </footer>
 
 <script src="script.js"></script>
