@@ -1,8 +1,8 @@
 /* GENERAL PAGE STYLING */
 body {
   font-family: Georgia, serif;
-  background-color: #fdf7f0;
-  color: #333;
+  background-color: #ffffff;   /* changed to white */
+  color: #333;                 /* dark text for readability */
   margin: 0;
   padding: 0;
 }
@@ -10,7 +10,7 @@ body {
 /* HEADINGS */
 h1, h2, h3 {
   font-family: "Lucida Calligraphy", cursive;
-  color: #b37d4d;
+  color: #d4af37;              /* soft gold for headings */
 }
 
 h1 {
@@ -29,18 +29,18 @@ h3 {
 header.hero {
   text-align: center;
   padding: 40px 20px;
-  background-color: #fff8f2;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  background-color: #ffffff;   /* white header */
+  /* removed box-shadow for cleaner look */
 }
 
 /* HEADER IMAGE */
 .header-image {
-  width: 100%;              /* full width */
-  max-width: 1500px;        /* prevent huge size on large screens */
-  height: auto;             /* maintain aspect ratio */
+  width: 100%;              
+  max-width: 1500px;        
+  height: auto;             
   display: block;
-  margin: 0 auto 20px;      /* center and spacing */
-  border-radius: 10px;      /* rounded corners */
+  margin: 0 auto 20px;      
+  border-radius: 10px;      
 }
 
 /* SEARCH BAR */
@@ -52,7 +52,7 @@ header.hero {
 .search input {
   padding: 10px;
   width: 250px;
-  border: 1px solid #ccc;
+  border: 1px solid #d4af37;  /* gold border */
   border-radius: 4px;
 }
 
@@ -63,7 +63,7 @@ header.hero {
 }
 
 .category-buttons button {
-  background-color: #b37d4d;
+  background-color: #d4af37;  /* gold button */
   color: white;
   border: none;
   padding: 10px 16px;
@@ -73,7 +73,7 @@ header.hero {
 }
 
 .category-buttons button:hover {
-  background-color: #8f613d;
+  background-color: #b38f2f;  /* darker gold on hover */
 }
 
 /* VENDOR GRID */
@@ -86,9 +86,9 @@ header.hero {
 
 /* VENDOR CARD */
 .vendor-card {
-  background-color: white;
+  background-color: #ffffff;   /* white cards */
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
   text-align: center;
   overflow: hidden;
 }
@@ -103,6 +103,7 @@ header.hero {
   font-weight: bold;
   font-size: 1.2rem;
   margin: 10px 0 5px 0;
+  color: #d4af37;              /* gold heading */
 }
 
 /* VENDOR PAGE CONTENT */
@@ -111,6 +112,7 @@ header.hero {
   margin: auto;
   padding: 20px;
   text-align: center;
+  background-color: #ffffff;   /* white background */
 }
 
 .vendor-info p {
@@ -128,17 +130,18 @@ header.hero {
 .gallery img {
   width: 100%;
   border-radius: 8px;
+  border: 2px solid #d4af37;   /* subtle gold border on gallery images */
 }
 
 /* APPLY SECTION */
 .join {
   text-align: center;
   padding: 30px;
-  background-color: #fff8f2;
+  background-color: #ffffff;   /* white section */
 }
 
 .join button {
-  background-color: #b37d4d;
+  background-color: #d4af37;
   color: white;
   border: none;
   padding: 12px 22px;
@@ -147,13 +150,14 @@ header.hero {
 }
 
 .join button:hover {
-  background-color: #8f613d;
+  background-color: #b38f2f;  /* darker gold hover */
 }
 
 /* FOOTER */
 footer {
   text-align: center;
   padding: 20px;
-  background-color: #fff8f2;
+  background-color: #ffffff;
   margin-top: 30px;
+  color: #333;
 }
