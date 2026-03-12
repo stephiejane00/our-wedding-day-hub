@@ -11,7 +11,10 @@
 <header class="hero">
   <img src="images/header.png" alt="" class="header-image">
 
-  <input type="text" id="search" placeholder="Search vendors..." onkeyup="searchVendors()">
+  <!-- SEARCH BAR -->
+  <div class="search">
+    <input type="text" id="search" placeholder="Search vendors..." onkeyup="searchVendors()">
+  </div>
 
   <div class="category-buttons">
     <button onclick="filterVendors('all')">All Vendors</button>
@@ -23,6 +26,7 @@
 </header>
 
 <section class="vendors">
+
   <!-- Rosita Flowers -->
   <div class="vendor-card flowers">
     <a href="vendors/rosita-flowers.html">
@@ -58,10 +62,11 @@
       <p>Bridal hair & makeup specialists</p>
     </a>
   </div>
+
 </section>
 
 <section class="join">
-  <h2>Join Our Wedding Day Hub as a Vendor </h2>
+  <h2>Join Our Wedding Day Hub as a Vendor</h2>
   <p>Showcase your business to couples actively planning their wedding.</p>
   <button onclick="window.location.href='apply.html'">Apply To Join</button>
 </section>
