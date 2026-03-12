@@ -39,36 +39,28 @@ header.hero {
 }
 
 /* ==========================
-   SEARCH BAR - Elegant Forest Green
+  /* ==========================
+   SEARCH BAR - HOMEPAGE
 ========================== */
 .search {
   display: flex;
-  justify-content: center;
-  margin: 30px 0;
+  justify-content: center;   /* center the search bar */
+  margin: 25px 0;
 }
 
 .search input {
-  padding: 15px 20px;
-  width: 300px;
-  max-width: 90%;
-  border: 2px solid #2F4F2F;
-  border-radius: 25px;
+  padding: 14px 20px;        /* bigger and easier to type in */
+  width: 300px;              /* wider input */
+  border: 2px solid #2F4F2F; /* forest green border */
+  border-radius: 8px;
   font-size: 1.1rem;
-  font-family: Georgia, serif;
-  color: #2F4F2F;
-  outline: none;
-  transition: all 0.3s ease;
-}
-
-.search input::placeholder {
-  color: #2F4F2F;
-  opacity: 0.7;
-  font-style: italic;
+  outline: none;             /* removes default outline on focus */
+  transition: box-shadow 0.3s, border-color 0.3s;
 }
 
 .search input:focus {
-  border-color: #3e6b3e;
-  box-shadow: 0 0 8px rgba(46,79,46,0.2);
+  border-color: #24412D;      /* darker forest green on focus */
+  box-shadow: 0 0 8px rgba(47,79,47,0.3); /* subtle shadow when typing */
 }
 
 /* ==========================
