@@ -255,3 +255,18 @@ footer {
   text-align: center;
   line-height: 1.5;
 }
+/* ==========================
+   APPLY PAGE - ALL GEORGIA FONT
+========================== */
+.vendor-info, 
+.vendor-info h1, 
+.vendor-info h2, 
+.vendor-info h3, 
+.vendor-info p, 
+.vendor-info a, 
+.pricing-tiers, 
+.pricing-tier, 
+.pricing-tier h3, 
+.pricing-tier p {
+  font-family: Georgia, serif;   /* all text in Georgia */
+}
