@@ -1,19 +1,42 @@
-/* GENERAL STYLING */
+/* GENERAL PAGE STYLING */
+
 body {
-  font-family: 'Lucida Calligraphy', cursive; /* your manager’s favorite font for the title */
-  background-color: #fdf7f0; /* soft luxury beige */
+  font-family: Georgia, serif;
+  background-color: #fdf7f0;
   color: #333;
   margin: 0;
   padding: 0;
 }
 
+/* HEADINGS */
+
+h1, h2, h3 {
+  font-family: "Lucida Calligraphy", cursive;
+  color: #b37d4d;
+}
+
+h1 {
+  font-size: 3rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.4rem;
+}
+
 /* HEADER */
+
 header.hero {
   text-align: center;
   padding: 40px 20px;
-  background-color: #fff8f2; /* soft, less orange */
+  background-color: #fff8f2;
   box-shadow: 0 4px 6px rgba(0,0,0,0.05);
 }
+
+/* HEADER IMAGE */
 
 .header-image {
   width: 150px;
@@ -21,36 +44,43 @@ header.hero {
   margin: 0 auto 20px;
 }
 
-header.hero h1 {
-  font-family: 'Lucida Calligraphy', cursive;
-  font-size: 3rem;
-  color: #b37d4d; /* soft gold */
-  margin: 10px 0;
+/* SEARCH BAR */
+
+.search {
+  text-align: center;
+  margin: 20px;
 }
 
-header.hero p {
-  font-size: 1.2rem;
-  color: #7a5a3c;
-  margin-bottom: 20px;
+.search input {
+  padding: 10px;
+  width: 250px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 /* CATEGORY BUTTONS */
+
+.category-buttons {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
 .category-buttons button {
   background-color: #b37d4d;
-  color: #fff;
+  color: white;
   border: none;
-  border-radius: 5px;
-  padding: 8px 15px;
+  padding: 10px 16px;
   margin: 5px;
+  border-radius: 4px;
   cursor: pointer;
-  transition: background 0.3s ease;
 }
 
 .category-buttons button:hover {
   background-color: #8f613d;
 }
 
-/* VENDOR CARDS */
+/* VENDOR GRID */
+
 .vendors {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -58,64 +88,66 @@ header.hero p {
   padding: 20px;
 }
 
+/* VENDOR CARD */
+
 .vendor-card {
-  background-color: #fff;
+  background-color: white;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  overflow: hidden;
   text-align: center;
-  transition: transform 0.3s ease;
-}
-
-.vendor-card:hover {
-  transform: translateY(-5px);
+  overflow: hidden;
 }
 
 .vendor-card img {
   width: 100%;
-  border-radius: 10px 10px 0 0;
 }
 
 .vendor-card h3 {
-  margin: 10px 0 5px 0;
-  color: #b37d4d;
+  margin: 10px 0;
 }
 
-.vendor-card p {
-  color: #7a5a3c;
-  margin-bottom: 10px;
+/* VENDOR PAGE CONTENT */
+
+.vendor-info {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.vendor-info p {
+  line-height: 1.6;
 }
 
 /* GALLERY */
+
 .gallery {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 15px;
-  padding: 10px 0;
+  margin-top: 20px;
 }
 
 .gallery img {
   width: 100%;
-  border-radius: 10px;
+  border-radius: 8px;
 }
 
-/* JOIN BUTTON */
+/* APPLY SECTION */
+
 .join {
   text-align: center;
-  padding: 30px 20px;
+  padding: 30px;
   background-color: #fff8f2;
-  margin: 20px 0;
 }
 
 .join button {
   background-color: #b37d4d;
-  color: #fff;
+  color: white;
   border: none;
+  padding: 12px 22px;
   border-radius: 5px;
-  padding: 10px 20px;
-  font-size: 1rem;
   cursor: pointer;
-  transition: background 0.3s ease;
 }
 
 .join button:hover {
@@ -123,10 +155,10 @@ header.hero p {
 }
 
 /* FOOTER */
+
 footer {
   text-align: center;
   padding: 20px;
   background-color: #fff8f2;
-  color: #7a5a3c;
-  font-size: 0.9rem;
+  margin-top: 30px;
 }
