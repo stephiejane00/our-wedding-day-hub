@@ -39,21 +39,38 @@ header.hero {
 }
 
 /* ==========================
-   SEARCH BAR
+/* ==========================
+   SEARCH BAR - Elegant Forest Green Style
 ========================== */
 .search {
   display: flex;
-  justify-content: center;   /* center the search bar */
-  margin: 20px 0;
+  justify-content: center;        /* center the search bar */
+  margin: 30px 0;                 /* more spacing */
 }
 
 .search input {
-  padding: 10px;
-  width: 250px;
-  border: 1px solid #2F4F2F;  /* forest green border */
-  border-radius: 4px;
+  padding: 15px 20px;             /* bigger and comfy to type */
+  width: 300px;                    /* slightly wider */
+  max-width: 90%;                  /* responsive for smaller screens */
+  border: 2px solid #2F4F2F;      /* forest green border */
+  border-radius: 25px;             /* pill-shaped */
+  font-size: 1.1rem;               /* bigger text */
+  font-family: Georgia, serif;     /* consistent with body text */
+  color: #2F4F2F;
+  outline: none;
+  transition: all 0.3s ease;
 }
 
+.search input::placeholder {
+  color: #2F4F2F;                  /* forest green placeholder text */
+  opacity: 0.7;
+  font-style: italic;
+}
+
+.search input:focus {
+  border-color: #3e6b3e;           /* slightly brighter green on focus */
+  box-shadow: 0 0 8px rgba(46,79,46,0.2); /* subtle glow on focus */
+}
 /* ==========================
    CATEGORY BUTTONS
 ========================== */
