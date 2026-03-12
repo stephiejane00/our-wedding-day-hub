@@ -1,21 +1,27 @@
-function filterVendors(category){
-let vendors = document.querySelectorAll(".vendor-card");
-vendors.forEach(vendor=>{
-    if(category==="all"){
-        vendor.style.display="block";
-    } else if(vendor.classList.contains(category)){
-        vendor.style.display="block";
+// SEARCH FUNCTION
+function searchVendors() {
+  let input = document.getElementById('search').value.toLowerCase();
+  let vendors = document.querySelectorAll('.vendor-card');
+
+  vendors.forEach(vendor => {
+    let name = vendor.querySelector('h3').innerText.toLowerCase();
+    if(name.includes(input)) {
+      vendor.style.display = '';
     } else {
-        vendor.style.display="none";
+      vendor.style.display = 'none';
     }
-});
+  });
 }
 
-function searchVendors(){
-let input = document.getElementById("search").value.toLowerCase();
-let vendors = document.querySelectorAll(".vendor-card");
-vendors.forEach(vendor=>{
-    let text = vendor.innerText.toLowerCase();
-    vendor.style.display = text.includes(input) ? "block" : "none";
-});
+// CATEGORY FILTER
+function filterVendors(category) {
+  let vendors = document.querySelectorAll('.vendor-card');
+
+  vendors.forEach(vendor => {
+    if(category === 'all' || vendor.classList.contains(category)) {
+      vendor.style.display = '';
+    } else {
+      vendor.style.display = 'none';
+    }
+  });
 }
