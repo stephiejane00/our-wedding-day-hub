@@ -1,50 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Wedding Day Hub 💛</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Wedding Day Hub 💛</title>
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <!-- Header -->
-    <header>
-        <h1>Our Wedding Day Hub 💛</h1>
-        <p>Discover the best local vendors for your dream wedding!</p>
-    </header>
 
-    <!-- Vendor Gallery -->
-    <section id="vendors">
-        <h2>Featured Vendors</h2>
-        <div class="vendor-gallery">
-            <!-- Example vendor card -->
-            <div class="vendor-card">
-                <img src="https://via.placeholder.com/200" alt="Vendor Logo">
-                <h3>Rosita Flowers</h3>
-                <p>Fresh, beautiful flowers for every wedding style.</p>
-                <a href="mailto:rosita@example.com">Contact</a>
-            </div>
-            <div class="vendor-card">
-                <img src="https://via.placeholder.com/200" alt="Vendor Logo">
-                <h3>Forever Cakes</h3>
-                <p>Delicious cakes that are as stunning as your wedding.</p>
-                <a href="mailto:cakes@example.com">Contact</a>
-            </div>
-        </div>
-    </section>
+<header>
+<h1>Our Wedding Day Hub 💛</h1>
+<p>Discover the best vendors for your dream wedding</p>
+</header>
 
-    <!-- Call to Action -->
-    <section id="join">
-        <h2>Vendors – Join Us!</h2>
-        <p>Get featured and showcase your business to couples planning their dream wedding.</p>
-        <button onclick="alert('Thank you for joining! 💛')">Apply Now</button>
-    </section>
+<section class="filters">
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2026 Our Wedding Day Hub 💛 | Designed with love</p>
-    </footer>
+<button onclick="filterVendors('all')">All</button>
+<button onclick="filterVendors('flowers')">Florists</button>
+<button onclick="filterVendors('photography')">Photography</button>
+<button onclick="filterVendors('cakes')">Cakes</button>
+<button onclick="filterVendors('beauty')">Hair & Beauty</button>
 
-    <script src="script.js"></script>
+</section>
+
+<section class="vendors">
+
+<div class="vendor-card flowers">
+<img src="https://via.placeholder.com/300">
+<h3>Rosita Flowers</h3>
+<p>Elegant floral arrangements for weddings</p>
+<a href="#">View Gallery</a>
+</div>
+
+<div class="vendor-card cakes">
+<img src="https://via.placeholder.com/300">
+<h3>Passion For Cakes</h3>
+<p>Luxury custom wedding cakes</p>
+<a href="#">View Gallery</a>
+</div>
+
+<div class="vendor-card photography">
+<img src="https://via.placeholder.com/300">
+<h3>Tulieve Photography</h3>
+<p>Capturing magical wedding moments</p>
+<a href="#">View Gallery</a>
+</div>
+
+<div class="vendor-card beauty">
+<img src="https://via.placeholder.com/300">
+<h3>Brazilian Beauty</h3>
+<p>Bridal hair & beauty specialists</p>
+<a href="#">View Gallery</a>
+</div>
+
+</section>
+
+<section class="join">
+
+<h2>💛 Vendors – Join Our Hub</h2>
+
+<p>Be part of a handpicked community of top wedding vendors and showcase your services to couples planning their dream day.</p>
+
+<button>Apply To Join</button>
+
+</section>
+
+<footer>
+
+<p>© 2026 Our Wedding Day Hub 💛</p>
+
+</footer>
+
+<script src="script.js"></script>
+
 </body>
 </html>
