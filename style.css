@@ -1,0 +1,88 @@
+body {
+    font-family: 'Helvetica', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fff8f0;
+    color: #333;
+}
+
+header {
+    text-align: center;
+    padding: 50px 20px;
+    background: #ffefdb;
+}
+
+header h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+header p {
+    font-size: 1.2rem;
+    color: #555;
+}
+
+section {
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.vendor-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.vendor-card {
+    background: #fff;
+    border: 2px solid #ffd6a5;
+    border-radius: 15px;
+    padding: 20px;
+    width: 220px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.vendor-card img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.vendor-card h3 {
+    margin: 15px 0 5px 0;
+    font-size: 1.2rem;
+}
+
+.vendor-card p {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.vendor-card a {
+    display: inline-block;
+    margin-top: 10px;
+    text-decoration: none;
+    color: #fff;
+    background: #ff9f1c;
+    padding: 8px 15px;
+    border-radius: 8px;
+}
+
+button {
+    padding: 12px 25px;
+    font-size: 1rem;
+    background: #ff9f1c;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #ffb84d;
+}
+
+footer {
+    background: #ffefdb;
+    padding: 20px;
+}
