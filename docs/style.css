@@ -25,7 +25,7 @@ h3 { font-size: 1.4rem; }
 header.hero {
   text-align: center;
   padding: 40px 20px;
-  background-color: #ffffff;   /* white header */
+  background-color: #ffffff;
 }
 
 /* HEADER IMAGE */
@@ -39,50 +39,50 @@ header.hero {
 }
 
 /* ==========================
-/* ==========================
-   SEARCH BAR - Elegant Forest Green Style
+   SEARCH BAR - Elegant Forest Green
 ========================== */
 .search {
   display: flex;
-  justify-content: center;        /* center the search bar */
-  margin: 30px 0;                 /* more spacing */
+  justify-content: center;
+  margin: 30px 0;
 }
 
 .search input {
-  padding: 15px 20px;             /* bigger and comfy to type */
-  width: 300px;                    /* slightly wider */
-  max-width: 90%;                  /* responsive for smaller screens */
-  border: 2px solid #2F4F2F;      /* forest green border */
-  border-radius: 25px;             /* pill-shaped */
-  font-size: 1.1rem;               /* bigger text */
-  font-family: Georgia, serif;     /* consistent with body text */
+  padding: 15px 20px;
+  width: 300px;
+  max-width: 90%;
+  border: 2px solid #2F4F2F;
+  border-radius: 25px;
+  font-size: 1.1rem;
+  font-family: Georgia, serif;
   color: #2F4F2F;
   outline: none;
   transition: all 0.3s ease;
 }
 
 .search input::placeholder {
-  color: #2F4F2F;                  /* forest green placeholder text */
+  color: #2F4F2F;
   opacity: 0.7;
   font-style: italic;
 }
 
 .search input:focus {
-  border-color: #3e6b3e;           /* slightly brighter green on focus */
-  box-shadow: 0 0 8px rgba(46,79,46,0.2); /* subtle glow on focus */
+  border-color: #3e6b3e;
+  box-shadow: 0 0 8px rgba(46,79,46,0.2);
 }
+
 /* ==========================
    CATEGORY BUTTONS
 ========================== */
 .category-buttons {
   display: flex;
-  justify-content: center; /* center buttons horizontally */
-  flex-wrap: wrap;         /* wrap on smaller screens */
+  justify-content: center;
+  flex-wrap: wrap;
   margin-bottom: 20px;
 }
 
 .category-buttons button {
-  background-color: #2F4F2F;  /* forest green */
+  background-color: #2F4F2F;
   color: white;
   border: none;
   padding: 10px 16px;
@@ -93,7 +93,7 @@ header.hero {
 }
 
 .category-buttons button:hover {
-  background-color: #24412D;  /* darker forest green on hover */
+  background-color: #24412D;
 }
 
 /* ==========================
@@ -104,11 +104,10 @@ header.hero {
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 20px;
   padding: 20px;
-  justify-items: center;  /* center each card */
-  text-align: center;     /* center text inside cards */
+  justify-items: center;
+  text-align: center;
 }
 
-/* VENDOR CARD */
 .vendor-card {
   background-color: #ffffff;
   border-radius: 10px;
@@ -116,7 +115,7 @@ header.hero {
   text-align: center;
   overflow: hidden;
   width: 100%;
-  max-width: 300px;        /* keep cards consistent size */
+  max-width: 300px;
 }
 
 .vendor-card img {
@@ -152,12 +151,12 @@ header.hero {
   margin-bottom: 20px;
 }
 
-.vendor-info p {
+.vendor-info p,
+.vendor-info a {
   font-family: Georgia, serif;
   font-size: 1rem;
   color: #333;
   line-height: 1.6;
-  margin: 5px 0;
   text-align: center;
 }
 
@@ -243,30 +242,17 @@ footer {
   box-shadow: 0 10px 25px rgba(0,0,0,0.1);
 }
 
-.pricing-tier h3 {
-  color: #2F4F2F;
+.pricing-tier h3,
+.pricing-tier p {
   font-family: Georgia, serif;
-  font-weight: bold;
+  color: #2F4F2F;
   text-align: center;
 }
 
-.pricing-tier p {
-  color: #333;
-  text-align: center;
-  line-height: 1.5;
-}
 /* ==========================
-   APPLY PAGE - ALL GEORGIA FONT
+   FORCE ALL APPLY PAGE TEXT TO GEORGIA
 ========================== */
-.vendor-info, 
-.vendor-info h1, 
-.vendor-info h2, 
-.vendor-info h3, 
-.vendor-info p, 
-.vendor-info a, 
-.pricing-tiers, 
-.pricing-tier, 
-.pricing-tier h3, 
-.pricing-tier p {
-  font-family: Georgia, serif;   /* all text in Georgia */
+body.apply-page,
+body.apply-page * {
+  font-family: Georgia, serif !important;
 }
