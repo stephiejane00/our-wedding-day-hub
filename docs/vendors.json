@@ -2,56 +2,115 @@
   {
     "name": "Rosita Flowers",
     "category": "flowers",
+    "location": "Brisbane",
+    "email": "info@rositaflowers.com",
+    "phone": "",
+    "instagram": "",
     "image": "images/rosita2.jpg",
+    "gallery": [
+      "images/rosita2.jpg"
+    ],
     "description": "Luxury wedding florals",
+    "tier": "classic",
     "page": "vendors/rosita-flowers.html"
   },
 
   {
     "name": "Passion For Cakes",
     "category": "cakes",
+    "location": "Brisbane",
+    "email": "",
+    "phone": "",
+    "instagram": "",
     "image": "images/cake2.jpg",
+    "gallery": [
+      "images/cake2.jpg"
+    ],
     "description": "Custom wedding cakes",
+    "tier": "classic",
     "page": "vendors/passion-cakes.html"
   },
 
   {
     "name": "Tulieve Photography",
     "category": "photography",
+    "location": "",
+    "email": "",
+    "phone": "",
+    "instagram": "",
     "image": "images/tulieve2.jpg",
+    "gallery": [
+      "images/tulieve2.jpg"
+    ],
     "description": "Capturing your special moments",
+    "tier": "classic",
     "page": "vendors/tulieve-photography.html"
   },
 
   {
     "name": "Brazilian Beauty",
     "category": "beauty",
+    "location": "",
+    "email": "",
+    "phone": "",
+    "instagram": "",
     "image": "images/beauty2.jpg",
+    "gallery": [
+      "images/beauty2.jpg"
+    ],
     "description": "Bridal hair & makeup specialists",
+    "tier": "classic",
     "page": "vendors/brazilian-beauty.html"
   },
 
   {
     "name": "The Roamed Collective",
     "category": "photography",
+    "location": "Bribie Island",
+    "email": "",
+    "phone": "0428953023",
+    "instagram": "",
     "image": "images/trc1.jpg",
+    "gallery": [
+      "images/trc1.jpg",
+      "images/trc2.jpg",
+      "images/trc3.jpg",
+      "images/trc4.jpg"
+    ],
     "description": "Photography & lifestyle by Kimberly Kearn",
+    "tier": "signature",
     "page": "vendors/roamed-collective.html"
   },
 
   {
     "name": "Kaity Kissed Nails and Designs",
     "category": "beauty",
+    "location": "",
+    "email": "",
+    "phone": "0432129525",
+    "instagram": "",
     "image": "images/nails1.jpg",
+    "gallery": [
+      "images/nails1.jpg"
+    ],
     "description": "Bridal nails & custom designs",
+    "tier": "signature",
     "page": "vendors/kaity-anderson.html"
   },
 
   {
     "name": "Moments with Koarlie Studios",
     "category": "photography",
+    "location": "",
+    "email": "",
+    "phone": "",
+    "instagram": "",
     "image": "images/koarlie1.jpg",
+    "gallery": [
+      "images/koarlie1.jpg"
+    ],
     "description": "Wedding and lifestyle photography",
+    "tier": "signature",
     "page": "vendors/moments-with-koarlie.html"
   }
 ]
