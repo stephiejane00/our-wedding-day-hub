@@ -1,6 +1,7 @@
-/* ==========================
-   GENERAL PAGE STYLING
-========================== */
+/* =================================
+GLOBAL STYLES
+================================= */
+
 body {
   font-family: Georgia, serif;
   background-color: #ffffff;
@@ -9,38 +10,77 @@ body {
   padding: 0;
 }
 
-/* HEADINGS */
 h1, h2, h3 {
   font-family: Georgia, serif;
-  color: #2F4F2F;  /* forest green */
+  color: #2F4F2F;
+  margin-bottom: 10px;
 }
 
-h1 { font-size: 3rem; }
-h2 { font-size: 2rem; }
-h3 { font-size: 1.4rem; }
+h1 {
+  font-size: 2.6rem;
+}
 
-/* ==========================
-   HEADER
-========================== */
-header.hero {
+h2 {
+  font-size: 1.9rem;
+}
+
+h3 {
+  font-size: 1.3rem;
+}
+
+p {
+  line-height: 1.6;
+}
+
+
+/* =================================
+HEADER / HERO
+================================= */
+
+.hero {
   text-align: center;
   padding: 40px 20px;
-  background-color: #ffffff;
 }
 
-/* HEADER IMAGE */
 .header-image {
   width: 100%;
   max-width: 1500px;
-  height: auto;
-  display: block;
-  margin: 0 auto 20px;
   border-radius: 10px;
+  margin-bottom: 20px;
 }
 
-/* ==========================
-   SEARCH BAR - HOMEPAGE
-========================== */
+.tagline {
+  font-size: 1.2rem;
+  margin-bottom: 25px;
+  color: #444;
+}
+
+
+/* =================================
+PAGE HEADER
+================================= */
+
+.page-header {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 20px;
+  font-weight: bold;
+  color: #2F4F2F;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+
+/* =================================
+SEARCH BAR
+================================= */
+
 .search {
   display: flex;
   justify-content: center;
@@ -48,29 +88,30 @@ header.hero {
 }
 
 .search input {
-  padding: 16px 22px;
+  padding: 14px 20px;
   width: 320px;
-  border: 2px solid #2F4F2F;  /* forest green border */
+  border: 2px solid #2F4F2F;
   border-radius: 10px;
-  font-size: 1.1rem;
+  font-size: 1rem;
   outline: none;
-  transition: box-shadow 0.3s, border-color 0.3s, transform 0.2s;
+  transition: 0.3s;
 }
 
 .search input:focus {
   border-color: #24412D;
-  box-shadow: 0 0 10px rgba(47,79,47,0.3);
-  transform: scale(1.02);
+  box-shadow: 0 0 10px rgba(47,79,47,0.25);
 }
 
-/* ==========================
-   CATEGORY BUTTONS
-========================== */
+
+/* =================================
+CATEGORY BUTTONS
+================================= */
+
 .category-buttons {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 .category-buttons button {
@@ -82,9 +123,8 @@ header.hero {
   border-radius: 8px;
   cursor: pointer;
   font-family: Georgia, serif;
-  font-weight: bold;
   font-size: 1rem;
-  transition: background-color 0.3s, transform 0.2s;
+  transition: 0.25s;
 }
 
 .category-buttons button:hover {
@@ -92,98 +132,79 @@ header.hero {
   transform: scale(1.05);
 }
 
-/* ==========================
-   VENDORS GRID
-========================== */
+
+/* =================================
+VENDOR GRID
+================================= */
+
 .vendors {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
   gap: 25px;
-  padding: 20px;
-  justify-items: center;
-  text-align: center;
+  padding: 30px;
+  max-width: 1200px;
+  margin: auto;
 }
 
 .vendor-card {
-  background-color: #ffffff;
+  background: #fff;
   border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-  text-align: center;
   overflow: hidden;
-  width: 100%;
-  max-width: 300px;
-  transition: transform 0.3s, box-shadow 0.3s;
+  text-align: center;
+  box-shadow: 0 5px 12px rgba(0,0,0,0.06);
+  transition: 0.3s;
 }
 
 .vendor-card:hover {
-  transform: translateY(-5px) scale(1.02);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+  transform: translateY(-6px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.12);
 }
 
 .vendor-card img {
   width: 100%;
-  height: auto;
   display: block;
-  transition: transform 0.3s;
 }
 
-.vendor-card img:hover {
-  transform: scale(1.05);
+.vendor-card h3 {
+  margin: 12px 0 5px 0;
 }
 
-.vendors .vendor-card h3 {
-  font-family: Georgia, serif;
-  font-weight: bold;
-  font-size: 1.2rem;
-  margin: 10px 0 5px 0;
-  color: #2F4F2F;
+.vendor-card p {
+  font-size: 0.95rem;
+  margin-bottom: 15px;
 }
 
-.vendors .vendor-card p {
-  font-size: 1rem;
-  color: #333;
+.vendor-card a {
+  text-decoration: none;
+  color: inherit;
 }
 
-/* ==========================
-   VENDOR PAGE / APPLY PAGE
-========================== */
+
+/* =================================
+VENDOR PAGE
+================================= */
+
 .vendor-info {
-  max-width: 800px;
+  max-width: 850px;
   margin: auto;
-  padding: 20px;
+  padding: 30px 20px;
   text-align: center;
-  background-color: #ffffff;
-  font-family: Georgia, serif; /* all text Georgia */
-}
-
-.vendor-info h1, .vendor-info h2, .vendor-info h3 {
-  color: #2F4F2F;
 }
 
 .vendor-info p {
-  font-size: 1rem;
-  color: #333;
-  line-height: 1.6;
-  margin: 5px 0;
+  margin: 6px 0;
 }
 
-.vendor-info a {
-  color: #2F4F2F;
-  text-decoration: none;
-}
 
-.vendor-info a:hover {
-  text-decoration: underline;
-}
+/* =================================
+GALLERY
+================================= */
 
-/* ==========================
-   GALLERY
-========================== */
 .gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
   gap: 15px;
-  margin-top: 20px;
+  margin-top: 25px;
 }
 
 .gallery img {
@@ -194,28 +215,29 @@ header.hero {
 }
 
 .gallery img:hover {
-  transform: scale(1.03);
+  transform: scale(1.04);
 }
 
-/* ==========================
-   APPLY / JOIN SECTION
-========================== */
+
+/* =================================
+JOIN SECTION
+================================= */
+
 .join {
   text-align: center;
-  padding: 30px;
-  background-color: #ffffff;
+  padding: 40px 20px;
 }
 
 .join button {
   background-color: #2F4F2F;
   color: white;
   border: none;
-  padding: 12px 22px;
-  border-radius: 5px;
-  cursor: pointer;
+  padding: 12px 24px;
   font-family: Georgia, serif;
-  font-weight: bold;
-  transition: background-color 0.3s, transform 0.2s;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.25s;
 }
 
 .join button:hover {
@@ -223,50 +245,60 @@ header.hero {
   transform: scale(1.05);
 }
 
-/* ==========================
-   FOOTER
-========================== */
-footer {
-  text-align: center;
-  padding: 20px;
-  background-color: #ffffff;
-  margin-top: 30px;
-  color: #333;
-}
 
-/* ==========================
-   APPLY PAGE PRICING TIERS
-========================== */
+/* =================================
+PRICING TIERS
+================================= */
+
 .pricing-tiers {
   max-width: 700px;
-  margin: 30px auto 0 auto;
-  padding: 0;
+  margin: 30px auto;
 }
 
 .pricing-tier {
-  margin-bottom: 20px;
   border: 2px solid #2F4F2F;
   border-radius: 12px;
   padding: 20px;
-  background-color: #ffffff;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.05);
-  transition: transform 0.3s, box-shadow 0.3s;
+  margin-bottom: 20px;
+  background: #fff;
+  transition: 0.3s;
 }
 
 .pricing-tier:hover {
-  transform: translateY(-5px) scale(1.02);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }
 
 .pricing-tier h3 {
-  color: #2F4F2F;
-  font-family: Georgia, serif;
-  font-weight: bold;
   text-align: center;
 }
 
 .pricing-tier p {
-  color: #333;
   text-align: center;
-  line-height: 1.5;
+}
+
+
+/* =================================
+LISTS
+================================= */
+
+.requirements {
+  list-style: none;
+  padding: 0;
+}
+
+.requirements li {
+  margin: 8px 0;
+}
+
+
+/* =================================
+FOOTER
+================================= */
+
+footer {
+  text-align: center;
+  padding: 25px;
+  margin-top: 40px;
+  border-top: 1px solid #eee;
 }
