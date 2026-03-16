@@ -16,22 +16,11 @@ h1, h2, h3 {
   margin-bottom: 10px;
 }
 
-h1 {
-  font-size: 2.6rem;
-}
+h1 { font-size: 2.6rem; }
+h2 { font-size: 1.9rem; }
+h3 { font-size: 1.3rem; }
 
-h2 {
-  font-size: 1.9rem;
-}
-
-h3 {
-  font-size: 1.3rem;
-}
-
-p {
-  line-height: 1.6;
-}
-
+p { line-height: 1.6; }
 
 /* =================================
 HEADER / HERO
@@ -55,9 +44,8 @@ HEADER / HERO
   color: #444;
 }
 
-
 /* =================================
-PAGE HEADER
+PAGE HEADER & BACK LINK
 ================================= */
 
 .page-header {
@@ -75,7 +63,6 @@ PAGE HEADER
 .back-link:hover {
   text-decoration: underline;
 }
-
 
 /* =================================
 SEARCH BAR
@@ -101,7 +88,6 @@ SEARCH BAR
   border-color: #24412D;
   box-shadow: 0 0 10px rgba(47,79,47,0.25);
 }
-
 
 /* =================================
 CATEGORY BUTTONS
@@ -132,9 +118,8 @@ CATEGORY BUTTONS
   transform: scale(1.05);
 }
 
-
 /* =================================
-VENDOR GRID
+VENDOR GRID (HOMEPAGE)
 ================================= */
 
 .vendors {
@@ -179,7 +164,6 @@ VENDOR GRID
   color: inherit;
 }
 
-
 /* =================================
 VENDOR PAGE
 ================================= */
@@ -195,32 +179,34 @@ VENDOR PAGE
   margin: 6px 0;
 }
 
-
 /* =================================
-GALLERY
+GALLERY (VENDOR PAGES)
 ================================= */
 
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
-  gap: 15px;
+/* Stacked, larger images */
+.vendor-info .gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
   margin-top: 25px;
+  align-items: center;
 }
 
-.gallery img {
-  width: 100%;
-  border-radius: 8px;
+.vendor-info .gallery img {
+  width: 90%;
+  max-width: 800px;
+  border-radius: 10px;
   border: 2px solid #2F4F2F;
+  cursor: pointer;
   transition: transform 0.3s;
 }
 
-.gallery img:hover {
-  transform: scale(1.04);
+.vendor-info .gallery img:hover {
+  transform: scale(1.03);
 }
 
-
 /* =================================
-JOIN SECTION
+JOIN / APPLY SECTION
 ================================= */
 
 .join {
@@ -244,7 +230,6 @@ JOIN SECTION
   background-color: #24412D;
   transform: scale(1.05);
 }
-
 
 /* =================================
 PRICING TIERS
@@ -277,7 +262,6 @@ PRICING TIERS
   text-align: center;
 }
 
-
 /* =================================
 LISTS
 ================================= */
@@ -290,7 +274,6 @@ LISTS
 .requirements li {
   margin: 8px 0;
 }
-
 
 /* =================================
 FOOTER
