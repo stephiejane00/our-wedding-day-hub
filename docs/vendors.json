@@ -31,21 +31,7 @@
     "page": "vendors/passion-cakes.html"
   },
 
-  {
-    "name": "Tulieve Photography",
-    "category": "photography",
-    "location": "",
-    "email": "",
-    "phone": "",
-    "instagram": "",
-    "image": "images/tulieve2.jpg",
-    "gallery": [
-      "images/tulieve2.jpg"
-    ],
-    "description": "Capturing your special moments",
-    "tier": "classic",
-    "page": "vendors/tulieve-photography.html"
-  },
+ 
 
   {
     "name": "Brazilian Beauty",
