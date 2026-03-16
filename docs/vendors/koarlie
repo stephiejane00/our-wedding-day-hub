@@ -20,13 +20,15 @@
   <p style="font-size:1rem; margin:10px 0;">Phone: <strong>0423 949 366</strong></p>
   <p style="font-size:1rem; margin:10px 0;">Instagram: <a href="https://www.instagram.com/momentswithkoarlie" target="_blank">@momentswithkoarlie</a></p>
 
-  <!-- Gallery -->
-  <div class="gallery">
-    <img src="../images/koarlie1.jpg" alt="Moments with Koarlie photography 1">
-    <img src="../images/koarlie2.jpg" alt="Moments with Koarlie photography 2">
-    <img src="../images/koarlie3.jpg" alt="Moments with Koarlie photography 3">
-    <img src="../images/koarlie4.jpg" alt="Moments with Koarlie photography 4">
-  </div>
+ <!-- Gallery -->
+<div class="gallery">
+  <img src="../images/koarlie1.jpg" alt="Moments with Koarlie photography 1">
+  <img src="../images/koarlie2.jpg" alt="Moments with Koarlie photography 2">
+  <img src="../images/koarlie3.jpg" alt="Moments with Koarlie photography 3">
+  <img src="../images/koarlie4.jpg" alt="Moments with Koarlie photography 4">
+  <img src="../images/koarlie5.jpg" alt="Moments with Koarlie photography 5">
+  <img src="../images/koarlie6.jpg" alt="Moments with Koarlie photography 6">
+</div>
 
   <!-- Optional future GoCardless QR for payments -->
   <div class="join" style="margin-top:30px;">
