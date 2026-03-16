@@ -1,0 +1,33 @@
+[
+  {
+    "name": "Rosita Flowers",
+    "category": "flowers",
+    "image": "images/rosita2.jpg",
+    "description": "Luxury wedding florals",
+    "page": "vendors/rosita-flowers.html"
+  },
+
+  {
+    "name": "Passion For Cakes",
+    "category": "cakes",
+    "image": "images/cake2.jpg",
+    "description": "Custom wedding cakes",
+    "page": "vendors/passion-cakes.html"
+  },
+
+  {
+    "name": "Tulieve Photography",
+    "category": "photography",
+    "image": "images/tulieve2.jpg",
+    "description": "Capturing your special moments",
+    "page": "vendors/tulieve-photography.html"
+  },
+
+  {
+    "name": "Brazilian Beauty",
+    "category": "beauty",
+    "image": "images/beauty2.jpg",
+    "description": "Bridal hair & makeup specialists",
+    "page": "vendors/brazilian-beauty.html"
+  }
+]
