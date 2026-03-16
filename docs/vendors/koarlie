@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moments with Koarlie Studios - Our Wedding Day Hub</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<header class="hero">
+  <a href="../index.html" class="back-link" style="color:#2F4F2F; text-decoration:none;">← Back to Home</a>
+  <h1 class="vendor-info">Moments with Koarlie Studios</h1>
+</header>
+
+<main class="vendor-info">
+
+  <!-- Vendor Bio -->
+  <p style="font-size:1rem; margin:10px 0;">Hi! I'm <strong>Kaity Hartley</strong>, a passionate photographer capturing the magical moments of your wedding day. I aim to create timeless memories you'll cherish forever.</p>
+  <p style="font-size:1rem; margin:10px 0;">Phone: <strong>0423 949 366</strong></p>
+  <p style="font-size:1rem; margin:10px 0;">Instagram: <a href="https://www.instagram.com/momentswithkoarlie" target="_blank">@momentswithkoarlie</a></p>
+
+  <!-- Gallery -->
+  <div class="gallery">
+    <img src="../images/koarlie1.jpg" alt="Moments with Koarlie photography 1">
+    <img src="../images/koarlie2.jpg" alt="Moments with Koarlie photography 2">
+    <img src="../images/koarlie3.jpg" alt="Moments with Koarlie photography 3">
+    <img src="../images/koarlie4.jpg" alt="Moments with Koarlie photography 4">
+  </div>
+
+  <!-- Optional future GoCardless QR for payments -->
+  <div class="join" style="margin-top:30px;">
+    <h2>Book or Upgrade Your Listing</h2>
+    <p>Coming soon: pay directly via GoCardless to reserve your wedding photography package!</p>
+    <!-- Example placeholder QR -->
+    <img src="../images/qrcode-placeholder.png" alt="GoCardless QR" style="width:150px; margin-top:10px;">
+  </div>
+
+</main>
+
+<footer>
+  <p>© 2026 Our Wedding Day Hub</p>
+</footer>
+
+</body>
+</html>
