@@ -29,5 +29,29 @@
     "image": "images/beauty2.jpg",
     "description": "Bridal hair & makeup specialists",
     "page": "vendors/brazilian-beauty.html"
+  },
+
+  {
+    "name": "The Roamed Collective",
+    "category": "photography",
+    "image": "images/trc1.jpg",
+    "description": "Photography & lifestyle by Kimberly Kearn",
+    "page": "vendors/roamed-collective.html"
+  },
+
+  {
+    "name": "Kaity Kissed Nails and Designs",
+    "category": "beauty",
+    "image": "images/nails1.jpg",
+    "description": "Bridal nails & custom designs",
+    "page": "vendors/kaity-anderson.html"
+  },
+
+  {
+    "name": "Moments with Koarlie Studios",
+    "category": "photography",
+    "image": "images/koarlie1.jpg",
+    "description": "Wedding and lifestyle photography",
+    "page": "vendors/moments-with-koarlie.html"
   }
 ]
