@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Roamed Collective - Our Wedding Day Hub</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<header class="hero">
+  <a href="../index.html" class="back-link" style="color:#2F4F2F; text-decoration:none;">← Back to Home</a>
+  <h1 class="vendor-info">The Roamed Collective</h1>
+</header>
+
+<main class="vendor-info">
+  <p><strong>Photographer:</strong> Kaity Hartley</p>
+  <p><strong>Contact:</strong> 0428 953 023</p>
+
+  <h2>About The Roamed Collective</h2>
+  <p>The Roamed Collective captures the magic of your wedding day with creativity, warmth, and a storytelling approach. From the intimate moments to the grand celebrations, Kaity Hartley and her team ensure every detail is beautifully documented, creating memories you'll cherish forever.</p>
+
+  <h2>Gallery</h2>
+  <div class="gallery">
+    <img src="../images/roamed1.jpg" alt="The Roamed Collective Wedding Photo 1">
+    <img src="../images/roamed2.jpg" alt="The Roamed Collective Wedding Photo 2">
+    <img src="../images/roamed3.jpg" alt="The Roamed Collective Wedding Photo 3">
+    <img src="../images/roamed4.jpg" alt="The Roamed Collective Wedding Photo 4">
+    <img src="../images/roamed5.jpg" alt="The Roamed Collective Wedding Photo 5">
+    <img src="../images/roamed6.jpg" alt="The Roamed Collective Wedding Photo 6">
+  </div>
+</main>
+
+<footer>
+  <p>© 2026 Our Wedding Day Hub</p>
+</footer>
+
+</body>
+</html>
