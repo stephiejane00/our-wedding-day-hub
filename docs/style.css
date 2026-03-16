@@ -285,3 +285,80 @@ footer {
   margin-top: 40px;
   border-top: 1px solid #eee;
 }
+/* =================================
+CONTACT FORM STYLES
+================================= */
+
+#contact-form {
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 20px;
+  text-align: center;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+}
+
+#contact-form label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+  color: #2F4F2F;
+  text-align: left;
+}
+
+#contact-form input,
+#contact-form textarea {
+  width: 100%;
+  padding: 14px 18px;
+  margin-bottom: 15px;
+  border: 2px solid #2F4F2F;
+  border-radius: 12px;
+  font-family: Georgia, serif;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s;
+}
+
+#contact-form input:focus,
+#contact-form textarea:focus {
+  border-color: #24412D;
+  box-shadow: 0 0 10px rgba(47,79,47,0.25);
+  transform: scale(1.02);
+}
+
+/* Cute Send Button */
+.send-btn {
+  background-color: #2F4F2F;
+  color: white;
+  font-family: Georgia, serif;
+  font-size: 1.1rem;
+  font-weight: bold;
+  padding: 14px 28px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.send-btn:hover {
+  background-color: #24412D;
+  transform: scale(1.08);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+/* Success Message */
+.success-msg {
+  display: none;
+  margin-top: 15px;
+  font-weight: bold;
+  color: #2F4F2F;
+  font-size: 1rem;
+  animation: fadeIn 0.5s ease forwards;
+}
+
+/* Fade-in animation for success message */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
