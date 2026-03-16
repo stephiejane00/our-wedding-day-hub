@@ -11,28 +11,22 @@
 <header class="hero">
   <a href="index.html" class="back-link">← Back to Home</a>
   <h1>Contact Us</h1>
-  <p class="tagline">We’d love to hear from you!</p>
 </header>
 
-<main class="vendor-info">
-
+<main id="contact-main">
   <form id="contact-form" action="https://formspree.io/f/xwvrrkwg" method="POST">
-    
-    <label for="name">Your Name</label>
-    <input type="text" id="name" name="name" placeholder="Your name" required>
-    
-    <label for="email">Email</label>
-    <input type="email" id="email" name="_replyto" placeholder="you@example.com" required>
-    
-    <label for="message">Message</label>
-    <textarea id="message" name="message" placeholder="Write your message..." rows="5" required></textarea>
-    
-    <button type="submit" class="send-btn">💌 Send Message</button>
-    
-    <p id="success-message" class="success-msg">Your message has been sent! 💖</p>
-    
-  </form>
+    <label for="name">Name</label>
+    <input type="text" id="name" name="name" required placeholder="Your full name">
 
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" required placeholder="you@example.com">
+
+    <label for="message">Message</label>
+    <textarea id="message" name="message" rows="5" required placeholder="Write your message here..."></textarea>
+
+    <button type="submit" class="send-btn">Send Message 🕊️</button>
+    <p class="success-msg">Your message has been sent! 🕊️ We’ll get back to you soon.</p>
+  </form>
 </main>
 
 <footer>
@@ -41,23 +35,27 @@
 
 <script>
   const form = document.getElementById('contact-form');
-  const successMsg = document.getElementById('success-message');
+  const successMsg = document.querySelector('.success-msg');
 
-  form.addEventListener('submit', (e) => {
-    e.preventDefault(); // Prevent default form submission
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+    const formData = new FormData(form);
+
     fetch(form.action, {
-      method: form.method,
-      body: new FormData(form),
+      method: 'POST',
+      body: formData,
       headers: { 'Accept': 'application/json' }
-    }).then(response => {
+    })
+    .then(response => {
       if (response.ok) {
         successMsg.style.display = 'block';
         form.reset();
-        setTimeout(() => successMsg.style.display = 'none', 5000); // hide after 5s
+        setTimeout(() => { successMsg.style.display = 'none'; }, 5000);
       } else {
-        alert("Oops! There was a problem submitting your form.");
+        alert('Oops! Something went wrong.');
       }
-    });
+    })
+    .catch(error => { alert('Oops! Something went wrong.'); });
   });
 </script>
 
