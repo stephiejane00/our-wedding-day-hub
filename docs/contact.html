@@ -5,94 +5,42 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Contact Us - Our Wedding Day Hub</title>
 <link rel="stylesheet" href="style.css">
-<style>
-  /* Fade-in animation for thank you message */
-  #thank-you {
-    display: none;
-    margin-top: 20px;
-    font-size: 1.1rem;
-    color: #2F4F2F;
-    font-weight: bold;
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
-  }
-
-  #thank-you.show {
-    display: block;
-    opacity: 1;
-  }
-</style>
 </head>
 <body>
 
 <header class="hero">
   <a href="index.html" class="back-link">← Back to Home</a>
-  <h1>Contact Us</h1>
+  <h1 class="page-header">Contact Us</h1>
 </header>
 
 <main class="vendor-info">
-  <p>We’d love to hear from you! Whether you have a question, feedback, or want to become a vendor, fill out the form below and we’ll get back to you as soon as possible.</p>
+  <p>Have a question or want to get in touch? Fill out the form below and we’ll get back to you as soon as possible.</p>
 
-  <!-- Formspree form -->
-  <form id="contact-form" action="https://formspree.io/f/xwvrrkwg" method="POST">
+  <form action="https://formspree.io/f/xwvrrkwg" method="POST" class="contact-form">
     <p>
-      <label for="name">Your Name:</label><br>
-      <input type="text" name="name" id="name" required>
+      <label for="name">Your Name</label><br>
+      <input type="text" name="name" id="name" required style="width:90%; max-width:500px; padding:10px; margin-top:5px; border:2px solid #2F4F2F; border-radius:8px;">
     </p>
+
     <p>
-      <label for="email">Your Email:</label><br>
-      <input type="email" name="email" id="email" required>
+      <label for="email">Your Email</label><br>
+      <input type="email" name="email" id="email" required style="width:90%; max-width:500px; padding:10px; margin-top:5px; border:2px solid #2F4F2F; border-radius:8px;">
     </p>
+
     <p>
-      <label for="message">Your Message:</label><br>
-      <textarea name="message" id="message" rows="6" required></textarea>
+      <label for="message">Message</label><br>
+      <textarea name="message" id="message" rows="6" required style="width:90%; max-width:500px; padding:10px; margin-top:5px; border:2px solid #2F4F2F; border-radius:8px;"></textarea>
     </p>
+
     <p>
       <button type="submit">Send Message</button>
     </p>
   </form>
-
-  <!-- Thank You message -->
-  <div id="thank-you">
-    Thank you! Your message has been sent. 💌
-  </div>
-
 </main>
 
 <footer>
   <p>© 2026 Our Wedding Day Hub</p>
 </footer>
-
-<script>
-  const form = document.getElementById('contact-form');
-  const thankYou = document.getElementById('thank-you');
-
-  form.addEventListener('submit', async function(e) {
-    e.preventDefault();
-
-    const formData = new FormData(form);
-
-    try {
-      const response = await fetch(form.action, {
-        method: form.method,
-        body: formData,
-        headers: { 'Accept': 'application/json' }
-      });
-
-      if (response.ok) {
-        // Hide form
-        form.style.display = 'none';
-
-        // Show thank you with fade-in
-        thankYou.classList.add('show');
-      } else {
-        alert('Oops! There was a problem submitting your form. Please try again.');
-      }
-    } catch (error) {
-      alert('Oops! There was a problem submitting your form. Please try again.');
-    }
-  });
-</script>
 
 </body>
 </html>
