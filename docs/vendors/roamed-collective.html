@@ -3,24 +3,85 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Roamed Collective - Our Wedding Day Hub</title>
+<title>The Roamed Collective | Our Wedding Day Hub</title>
 <link rel="stylesheet" href="../style.css">
+<style>
+  /* Vendor page gallery and lightbox */
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+  }
+
+  .gallery img {
+    width: 100%;
+    border-radius: 8px;
+    border: 2px solid #2F4F2F;
+    cursor: pointer;
+    transition: transform 0.3s;
+  }
+
+  .gallery img:hover {
+    transform: scale(1.05);
+  }
+
+  /* Lightbox overlay */
+  .lightbox {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.85);
+    justify-content: center;
+    align-items: center;
+  }
+
+  .lightbox-img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 10px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+  }
+
+  #lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  #lightbox-prev, #lightbox-next {
+    position: absolute;
+    top: 50%;
+    color: white;
+    font-size: 2.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none;
+    transform: translateY(-50%);
+  }
+
+  #lightbox-prev { left: 30px; }
+  #lightbox-next { right: 30px; }
+</style>
 </head>
 <body>
 
-<header class="hero">
-  <a href="../index.html" class="back-link" style="color:#2F4F2F; text-decoration:none;">← Back to Home</a>
-  <h1 class="vendor-info">The Roamed Collective</h1>
-</header>
+<a href="../index.html" class="back-link">← Back to Home</a>
 
 <main class="vendor-info">
-  <p><strong>Photographer:</strong> Kimberly Hearn</p>
-  <p><strong>Phone:</strong> 0428 953 023</p>
+  <h1>The Roamed Collective</h1>
+  <p>Photography & lifestyle | Kimberly Hearn | 0428 953 023</p>
+  <p>Capturing natural, timeless moments for your wedding day. We focus on storytelling and beautiful imagery that lasts a lifetime.</p>
 
-  <h2>About The Roamed Collective</h2>
-  <p>The Roamed Collective, led by Kimberly Hearn, captures moments with creativity and a storytelling approach. Whether it’s a special event, lifestyle shoot, or a wedding, Kimberly ensures every detail is beautifully documented, creating memories you'll cherish forever.</p>
-
-  <h2>Portfolio</h2>
+  <h2>Gallery</h2>
   <div class="gallery">
     <img src="../images/trc1.jpg" alt="The Roamed Collective 1">
     <img src="../images/trc2.jpg" alt="The Roamed Collective 2">
@@ -29,9 +90,60 @@
   </div>
 </main>
 
+<!-- Lightbox -->
+<div id="lightbox" class="lightbox">
+  <span id="lightbox-close">&times;</span>
+  <span id="lightbox-prev">&#10094;</span>
+  <img class="lightbox-img" src="" alt="Vendor Image">
+  <span id="lightbox-next">&#10095;</span>
+</div>
+
 <footer>
   <p>© 2026 Our Wedding Day Hub</p>
 </footer>
+
+<script>
+  const galleryImages = document.querySelectorAll('.gallery img');
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.querySelector('.lightbox-img');
+  const closeBtn = document.getElementById('lightbox-close');
+  const prevBtn = document.getElementById('lightbox-prev');
+  const nextBtn = document.getElementById('lightbox-next');
+
+  let currentIndex = 0;
+
+  function openLightbox(index) {
+    currentIndex = index;
+    lightbox.style.display = 'flex';
+    lightboxImg.src = galleryImages[currentIndex].src;
+    lightboxImg.alt = galleryImages[currentIndex].alt;
+  }
+
+  function showPrev() {
+    currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+    lightboxImg.src = galleryImages[currentIndex].src;
+    lightboxImg.alt = galleryImages[currentIndex].alt;
+  }
+
+  function showNext() {
+    currentIndex = (currentIndex + 1) % galleryImages.length;
+    lightboxImg.src = galleryImages[currentIndex].src;
+    lightboxImg.alt = galleryImages[currentIndex].alt;
+  }
+
+  galleryImages.forEach((img, index) => {
+    img.addEventListener('click', () => openLightbox(index));
+  });
+
+  closeBtn.addEventListener('click', () => lightbox.style.display = 'none');
+  prevBtn.addEventListener('click', showPrev);
+  nextBtn.addEventListener('click', showNext);
+
+  // Close if clicking outside image
+  lightbox.addEventListener('click', e => {
+    if (e.target === lightbox) lightbox.style.display = 'none';
+  });
+</script>
 
 </body>
 </html>
