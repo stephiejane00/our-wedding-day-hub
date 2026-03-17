@@ -8,6 +8,10 @@ fetch('vendors.json')
     displayFeatured();
   });
 
+function createVendorLink(name) {
+  return "vendors/" + name.toLowerCase().replace(/ /g, '-') + ".html";
+}
+
 function displayFeatured() {
   vendorsContainer.innerHTML = '';
 
@@ -16,10 +20,12 @@ function displayFeatured() {
     .forEach(v => {
       vendorsContainer.innerHTML += `
         <div class="vendor-card">
-          <img src="${v.image}" alt="${v.name}">
-          <h3>${v.name || ''}</h3>
-          <p>${v.description || ''}</p>
-          <p><small>${v.location || ''}</small></p>
+          <a href="${createVendorLink(v.name)}">
+            <img src="${v.image}" alt="${v.name}">
+            <h3>${v.name}</h3>
+            <p>${v.description}</p>
+            <p><small>${v.location}</small></p>
+          </a>
         </div>
       `;
     });
@@ -38,10 +44,12 @@ function searchVendors() {
     .forEach(v => {
       vendorsContainer.innerHTML += `
         <div class="vendor-card">
-          <img src="${v.image}" alt="${v.name}">
-          <h3>${v.name}</h3>
-          <p>${v.description}</p>
-          <p><small>${v.location}</small></p>
+          <a href="${createVendorLink(v.name)}">
+            <img src="${v.image}" alt="${v.name}">
+            <h3>${v.name}</h3>
+            <p>${v.description}</p>
+            <p><small>${v.location}</small></p>
+          </a>
         </div>
       `;
     });
