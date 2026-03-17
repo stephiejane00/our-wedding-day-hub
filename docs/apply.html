@@ -5,60 +5,143 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Apply | Our Wedding Day Hub</title>
 <link rel="stylesheet" href="style.css">
-</head>
+<style>
+  /* Center header and subheader */
+  .page-header {
+    text-align: center;
+    padding: 40px 20px;
+  }
 
+  .page-header h1 {
+    font-family: "Times New Roman", serif;
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+    color: #000;
+  }
+
+  .page-header p {
+    font-family: Georgia, serif;
+    font-size: 1.1rem;
+    color: #444;
+    margin-bottom: 25px;
+  }
+
+  .vendor-info {
+    max-width: 850px;
+    margin: 0 auto 50px;
+    text-align: center;
+  }
+
+  .pricing-tiers {
+    margin-top: 30px;
+  }
+
+  .pricing-tier {
+    border: 2px solid #000;
+    border-radius: 12px;
+    padding: 25px 20px;
+    margin-bottom: 20px;
+    background: #fff;
+    transition: 0.3s;
+    position: relative;
+  }
+
+  .pricing-tier:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  }
+
+  /* Premium Showcase Glow */
+  .pricing-tier.premium {
+    box-shadow: 0 0 30px rgba(0,0,0,0.25);
+    border-color: #000;
+  }
+
+  .pricing-tier h3 {
+    margin-bottom: 12px;
+  }
+
+  .pricing-tier p {
+    margin-bottom: 10px;
+  }
+
+  .apply-button {
+    background-color: #000;
+    color: white;
+    font-family: Georgia, serif;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 14px 28px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 20px;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .apply-button:hover {
+    background-color: #333;
+    transform: scale(1.05);
+  }
+
+  .funnel-link {
+    margin-top: 20px;
+    display: block;
+    font-family: Georgia, serif;
+    color: #000;
+    font-weight: bold;
+    text-decoration: underline;
+    transition: 0.3s;
+  }
+
+  .funnel-link:hover {
+    color: #444;
+  }
+</style>
+</head>
 <body>
 
-<header class="page-header" style="text-align: center;">
-  <a href="index.html" class="back-link">← Back to Home</a>
-  <h1>Become a Featured Vendor</h1>
-  <p>Sign up today and let couples find your business easily!</p>
-  <p>
-    <a href="https://join.ourweddingday.com.au/funnel/aah/join/" target="_blank" style="color:#000; font-weight:bold; text-decoration:underline;">
-      Start your vendor sign-up here
-    </a>
-  </p>
+<header class="page-header">
+  <h1>Showcase Your Business to Engaged Couples</h1>
+  <p>Connect with couples actively planning their wedding and elevate your online presence within a curated directory of trusted suppliers.</p>
+  <a href="https://join.ourweddingday.com.au/funnel/aah/join/" class="funnel-link">Already ready to join? Begin your vendor application here →</a>
 </header>
 
-<section class="vendor-info" style="text-align: center;">
+<section class="vendor-info">
 
-  <h2>How To Apply</h2>
-  <p>Email your business details and portfolio to:</p>
-  <p><a href="mailto:info@ourweddingday.com.au">info@ourweddingday.com.au</a></p>
-
-  <h2>Information Required</h2>
-  <p>
-    Business Name<br>
-    Contact Email & Phone<br>
-    Vendor Category<br>
-    Short Business Description<br>
-    Portfolio Images
-  </p>
+  <a href="https://join.ourweddingday.com.au/funnel/aah/join/" class="apply-button">Start Showcasing Your Business</a>
 
   <h2>Pricing Tiers</h2>
   <div class="pricing-tiers">
 
     <div class="pricing-tier">
       <h3>Classic Listing – $4.75 / month</h3>
-      <p>Basic listing with name, logo, and contact details. <br><small>$50 one-off joining fee grants full account access to customize your page.</small></p>
+      <p>Get your name, logo, and contact details listed for couples to find you easily.</p>
+      <p style="font-size:0.85rem; color:#555;">+ $50 joining fee grants full control of your page to make it shine.</p>
     </div>
 
     <div class="pricing-tier">
       <h3>Signature Spotlight – $5.95 / month</h3>
-      <p>Highlighted listing with description and priority placement. <br><small>$50 one-off joining fee grants full account access to customize your page.</small></p>
+      <p>Stand out with a featured description and priority placement in searches.</p>
+      <p style="font-size:0.85rem; color:#555;">+ $50 joining fee gives full access to edit and personalize your listing.</p>
     </div>
 
     <div class="pricing-tier">
       <h3>Elite Feature – $7.25 / month</h3>
-      <p>Featured listing with gallery and extended description. <br><small>$50 one-off joining fee grants full account access to customize your page.</small></p>
+      <p>Showcase a full gallery, extended description, and enhanced visibility.</p>
+      <p style="font-size:0.85rem; color:#555;">+ $50 joining fee allows complete customization of your page.</p>
     </div>
 
-    <div class="pricing-tier">
+    <div class="pricing-tier premium">
       <h3>Premium Showcase – $9.95 / month</h3>
-      <p>Full gallery, homepage feature, and top search placement. <br><small>$50 one-off joining fee grants full account access to customize your page.</small></p>
+      <p>Top-of-the-line exposure: full gallery, homepage feature, priority search results, and VIP placement.</p>
+      <p style="font-size:0.85rem; color:#555;">+ $50 joining fee unlocks total control of your page — make it truly yours and dazzle couples immediately!</p>
     </div>
 
   </div>
+
 </section>
 
 <footer>
