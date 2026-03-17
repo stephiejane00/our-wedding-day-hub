@@ -1,47 +1,65 @@
 /* =================================
 GLOBAL STYLES
 ================================= */
+
 body {
   font-family: Georgia, serif;
-  background-color: #fff;
+  background-color: #fdf7f0; /* soft beige */
   color: #333;
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
+  animation: fadeInPage 0.8s ease-in;
 }
 
 h1, h2, h3 {
+  font-family: "Times New Roman", serif; /* headers */
   color: #000; /* black headers */
   margin-bottom: 10px;
 }
 
-h1 { font-family: "Times New Roman", serif; font-size: 2.6rem; }
+h1 { font-size: 2.6rem; }
 h2 { font-size: 1.9rem; }
 h3 { font-size: 1.3rem; }
 
 p { line-height: 1.6; }
 
 /* =================================
+PAGE FADE-IN
+================================= */
+@keyframes fadeInPage {
+  from { opacity: 0; transform: translateY(10px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+
+/* =================================
 HEADER / HERO
 ================================= */
 .hero {
   text-align: center;
-  padding: 20px;
+  padding: 40px 20px;
+  position: relative;
 }
 
 .header-image {
   width: 100%;
   max-width: 1500px;
   border-radius: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
+  animation: logoBounce 1.2s ease forwards;
 }
 
-/* =================================
-SEARCH BAR
-================================= */
+/* Subtle logo animation */
+@keyframes logoBounce {
+  0% { transform: translateY(-10px); opacity:0.5;}
+  50% { transform: translateY(0); opacity:1;}
+  100% { transform: translateY(0); opacity:1;}
+}
+
 .search {
   display: flex;
   justify-content: center;
-  margin: 20px 0;
+  margin: 15px 0 35px 0;
 }
 
 .search input {
@@ -51,20 +69,21 @@ SEARCH BAR
   border-radius: 10px;
   font-size: 1rem;
   outline: none;
-  transition: 0.3s;
+  transition: all 0.3s;
 }
 
 .search input:focus {
   border-color: #000;
-  box-shadow: 0 0 10px rgba(0,0,0,0.25);
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  transform: scale(1.02);
 }
 
 /* =================================
-VENDOR GRID (HOMEPAGE)
+VENDOR GRID
 ================================= */
 .vendors {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 25px;
   padding: 30px;
   max-width: 1200px;
@@ -75,9 +94,11 @@ VENDOR GRID (HOMEPAGE)
   background: #fff;
   border-radius: 12px;
   overflow: hidden;
+  position: relative;
   text-align: center;
   box-shadow: 0 5px 12px rgba(0,0,0,0.06);
   transition: 0.3s;
+  cursor: pointer;
 }
 
 .vendor-card:hover {
@@ -85,11 +106,50 @@ VENDOR GRID (HOMEPAGE)
   box-shadow: 0 12px 25px rgba(0,0,0,0.12);
 }
 
+/* Featured ribbon */
+.vendor-card.featured::before {
+  content: "★ Featured";
+  position: absolute;
+  top: 12px;
+  left: -12px;
+  background: gold;
+  color: #000;
+  font-weight: bold;
+  padding: 5px 15px;
+  border-radius: 0 6px 6px 0;
+  transform: rotate(-15deg);
+  font-size: 0.9rem;
+}
+
+/* Vendor card image */
 .vendor-card img {
   width: 100%;
   display: block;
+  border-bottom: 2px solid #ddd;
 }
 
+/* Hover overlay */
+.vendor-card .overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.55);
+  color: #fff;
+  font-family: "Times New Roman", serif;
+  font-size: 1.1rem;
+  font-weight: bold;
+  padding: 10px;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.vendor-card:hover .overlay {
+  opacity: 1;
+}
+
+/* Vendor card text */
 .vendor-card h3 {
   margin: 12px 0 5px 0;
 }
@@ -97,11 +157,6 @@ VENDOR GRID (HOMEPAGE)
 .vendor-card p {
   font-size: 0.95rem;
   margin-bottom: 15px;
-}
-
-.vendor-card a {
-  text-decoration: none;
-  color: inherit;
 }
 
 /* =================================
@@ -118,9 +173,6 @@ VENDOR PAGE
   margin: 6px 0;
 }
 
-/* =================================
-GALLERY (VENDOR PAGES)
-================================= */
 .vendor-info .gallery {
   display: flex;
   flex-direction: column;
@@ -142,6 +194,26 @@ GALLERY (VENDOR PAGES)
   transform: scale(1.03);
 }
 
+/* Enquiry button on vendor pages */
+.vendor-info .enquire-btn {
+  background-color: gold;
+  color: #000;
+  font-family: "Times New Roman", serif;
+  font-size: 1.1rem;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 8px;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.vendor-info .enquire-btn:hover {
+  background-color: #d4af37;
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+
 /* =================================
 JOIN / APPLY SECTION
 ================================= */
@@ -151,20 +223,124 @@ JOIN / APPLY SECTION
 }
 
 .join button {
-  background-color: #000;
-  color: white;
+  background-color: gold;
+  color: #000;
   border: none;
-  padding: 12px 24px;
+  padding: 12px 28px;
   font-family: "Times New Roman", serif;
-  font-size: 1rem;
+  font-size: 1.1rem;
   border-radius: 6px;
   cursor: pointer;
   transition: 0.25s;
 }
 
 .join button:hover {
-  background-color: #222;
+  background-color: #d4af37;
   transform: scale(1.05);
+}
+
+/* =================================
+PRICING TIERS
+================================= */
+.pricing-tiers {
+  max-width: 700px;
+  margin: 30px auto;
+}
+
+.pricing-tier {
+  border: 2px solid #000;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  background: #fff;
+  transition: 0.3s;
+}
+
+.pricing-tier:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.pricing-tier h3 {
+  text-align: center;
+}
+
+.pricing-tier p {
+  text-align: center;
+}
+
+/* =================================
+CONTACT FORM
+================================= */
+#contact-form {
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 20px;
+  text-align: center;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+}
+
+#contact-form label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+  color: #000;
+  text-align: left;
+}
+
+#contact-form input,
+#contact-form textarea {
+  width: 100%;
+  padding: 14px 18px;
+  margin-bottom: 15px;
+  border: 2px solid #000;
+  border-radius: 12px;
+  font-family: Georgia, serif;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s;
+}
+
+#contact-form input:focus,
+#contact-form textarea:focus {
+  border-color: #000;
+  box-shadow: 0 0 10px rgba(0,0,0,0.15);
+  transform: scale(1.02);
+}
+
+.send-btn {
+  background-color: gold;
+  color: #000;
+  font-family: "Times New Roman", serif;
+  font-size: 1.1rem;
+  font-weight: bold;
+  padding: 14px 28px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.send-btn:hover {
+  background-color: #d4af37;
+  transform: scale(1.08);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.success-msg {
+  display: none;
+  margin-top: 15px;
+  font-weight: bold;
+  color: #000;
+  font-size: 1rem;
+  animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 /* =================================
@@ -174,5 +350,13 @@ footer {
   text-align: center;
   padding: 25px;
   margin-top: 40px;
-  border-top: 1px solid #eee;
+  border-top: 1px solid #ddd;
+}
+.footer-link {
+  color: #000;
+  text-decoration: none;
+  font-weight: bold;
+}
+.footer-link:hover {
+  text-decoration: underline;
 }
