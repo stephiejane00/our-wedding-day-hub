@@ -1,51 +1,88 @@
-// script.js
-
 let vendors = [];
+let currentSlide = 0;
 
-// Fetch vendors from vendors.json
+/* LOAD VENDORS */
 fetch('vendors.json')
-  .then(response => response.json())
+  .then(res => res.json())
   .then(data => {
     vendors = data;
-    displayVendors();
+    loadFeatured();
   });
 
-// Display vendors
-function displayVendors(searchTerm = '') {
-  const container = document.getElementById('vendors-container');
-  container.innerHTML = '';
+/* LOAD FEATURED SLIDER */
+function loadFeatured() {
+  const track = document.getElementById("slider-track");
+  track.innerHTML = "";
 
-  let filtered = vendors;
+  const featured = vendors.filter(v => v.featured);
 
-  if (searchTerm.trim() !== '') {
-    const term = searchTerm.toLowerCase();
-    filtered = vendors.filter(v => 
-      v.name.toLowerCase().includes(term) ||
-      v.category.toLowerCase().includes(term) ||
-      v.location.toLowerCase().includes(term)
-    );
-  } else {
-    // Show only featured vendors when search is empty
-    filtered = vendors.filter(v => v.featured);
-  }
-
-  filtered.forEach(vendor => {
-    const card = document.createElement('div');
-    card.classList.add('vendor-card');
-
-    card.innerHTML = `
-      <a href="${vendor.page}">
-        <img src="${vendor.image}" alt="${vendor.name}">
-        <h3>${vendor.name}</h3>
-        <p>${vendor.category} - ${vendor.location}</p>
-      </a>
+  featured.forEach(v => {
+    track.innerHTML += `
+      <div class="slide">
+        <div class="vendor-card featured" onclick="openVendor('${v.id}')">
+          <img src="images/${v.image}" alt="${v.name}">
+          <h3>${v.name}</h3>
+          <p>${v.category} • ${v.location}</p>
+          <div class="overlay">View Profile →</div>
+        </div>
+      </div>
     `;
+  });
 
-    container.appendChild(card);
+  autoSlide();
+}
+
+/* SLIDER CONTROLS */
+function updateSlider() {
+  const track = document.getElementById("slider-track");
+  track.style.transform = `translateX(-${currentSlide * 100}%)`;
+}
+
+function nextSlide() {
+  const total = document.querySelectorAll(".slide").length;
+  currentSlide = (currentSlide + 1) % total;
+  updateSlider();
+}
+
+function prevSlide() {
+  const total = document.querySelectorAll(".slide").length;
+  currentSlide = (currentSlide - 1 + total) % total;
+  updateSlider();
+}
+
+/* AUTO SLIDE */
+function autoSlide() {
+  setInterval(() => {
+    nextSlide();
+  }, 5000);
+}
+
+/* SEARCH */
+function searchVendors() {
+  const query = document.getElementById("search").value.toLowerCase();
+  const container = document.getElementById("vendors-container");
+
+  container.innerHTML = "";
+
+  const results = vendors.filter(v =>
+    v.name.toLowerCase().includes(query) ||
+    v.category.toLowerCase().includes(query) ||
+    v.location.toLowerCase().includes(query)
+  );
+
+  results.forEach(v => {
+    container.innerHTML += `
+      <div class="vendor-card" onclick="openVendor('${v.id}')">
+        <img src="images/${v.image}" alt="${v.name}">
+        <h3>${v.name}</h3>
+        <p>${v.category} • ${v.location}</p>
+        <div class="overlay">View Profile →</div>
+      </div>
+    `;
   });
 }
 
-// Search input event
-document.getElementById('search').addEventListener('keyup', e => {
-  displayVendors(e.target.value);
-});
+/* OPEN VENDOR PAGE */
+function openVendor(id) {
+  window.location.href = `vendor.html?id=${id}`;
+}
