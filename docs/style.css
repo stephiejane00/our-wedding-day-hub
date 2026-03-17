@@ -362,3 +362,54 @@ CONTACT FORM STYLES
   from { opacity: 0; }
   to { opacity: 1; }
 }
+/* =================================
+NEW HEADER LAYOUT
+================================= */
+
+.hero-flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  padding: 40px 20px;
+  flex-wrap: wrap;
+}
+
+/* LEFT SIDE (LOGO) */
+.header-left {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+/* LOGO IMAGE */
+.logo {
+  width: 100%;
+  max-width: 220px;
+  height: auto;
+}
+
+/* RIGHT SIDE */
+.header-right {
+  flex: 2;
+  max-width: 600px;
+  text-align: left;
+}
+
+/* spacing */
+.header-right h1 {
+  margin-bottom: 10px;
+}
+
+.header-right .tagline {
+  margin-bottom: 20px;
+}
+
+/* align search + buttons left */
+.header-right .search {
+  justify-content: flex-start;
+}
+
+.header-right .category-buttons {
+  justify-content: flex-start;
+}
