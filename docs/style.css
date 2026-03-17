@@ -12,7 +12,7 @@ body {
 
 h1, h2, h3 {
   font-family: Georgia, serif;
-  color: #42512c; /* updated green */
+  color: #000000; /* now black */
   margin-bottom: 10px;
 }
 
@@ -38,6 +38,10 @@ HEADER / HERO
   margin-bottom: 20px;
 }
 
+/* =================================
+TAGLINE
+================================= */
+
 .tagline {
   font-size: 1.2rem;
   margin-bottom: 25px;
@@ -57,7 +61,7 @@ PAGE HEADER & BACK LINK
   display: inline-block;
   margin-bottom: 20px;
   font-weight: bold;
-  color: #42512c; /* updated green */
+  color: #000000; /* black */
 }
 
 .back-link:hover {
@@ -77,7 +81,7 @@ SEARCH BAR
 .search input {
   padding: 14px 20px;
   width: 320px;
-  border: 2px solid #42512c; /* updated green */
+  border: 2px solid #000000; /* black border */
   border-radius: 10px;
   font-size: 1rem;
   outline: none;
@@ -85,8 +89,8 @@ SEARCH BAR
 }
 
 .search input:focus {
-  border-color: #344122; /* darker for focus */
-  box-shadow: 0 0 10px rgba(66,81,44,0.25);
+  border-color: #222222; /* darker on focus */
+  box-shadow: 0 0 10px rgba(0,0,0,0.25);
 }
 
 /* =================================
@@ -101,7 +105,7 @@ CATEGORY BUTTONS
 }
 
 .category-buttons button {
-  background-color: #42512c; /* updated green */
+  background-color: #000000; /* black */
   color: white;
   border: none;
   padding: 12px 18px;
@@ -114,7 +118,7 @@ CATEGORY BUTTONS
 }
 
 .category-buttons button:hover {
-  background-color: #344122; /* slightly darker for hover */
+  background-color: #222222; /* hover dark gray */
   transform: scale(1.05);
 }
 
@@ -195,7 +199,7 @@ GALLERY (VENDOR PAGES)
   width: 90%;
   max-width: 800px;
   border-radius: 10px;
-  border: 2px solid #42512c; /* updated green */
+  border: 2px solid #000000; /* black border */
   cursor: pointer;
   transition: transform 0.3s;
 }
@@ -214,7 +218,7 @@ JOIN / APPLY SECTION
 }
 
 .join button {
-  background-color: #42512c; /* updated green */
+  background-color: #000000; /* black */
   color: white;
   border: none;
   padding: 12px 24px;
@@ -226,7 +230,7 @@ JOIN / APPLY SECTION
 }
 
 .join button:hover {
-  background-color: #344122;
+  background-color: #222222;
   transform: scale(1.05);
 }
 
@@ -240,7 +244,7 @@ PRICING TIERS
 }
 
 .pricing-tier {
-  border: 2px solid #42512c; /* updated green */
+  border: 2px solid #000000; /* black border */
   border-radius: 12px;
   padding: 20px;
   margin-bottom: 20px;
@@ -303,7 +307,7 @@ CONTACT FORM STYLES
   display: block;
   margin-bottom: 6px;
   font-weight: bold;
-  color: #42512c; /* updated green */
+  color: #000000; /* black labels */
   text-align: left;
 }
 
@@ -312,7 +316,7 @@ CONTACT FORM STYLES
   width: 100%;
   padding: 14px 18px;
   margin-bottom: 15px;
-  border: 2px solid #42512c; /* updated green */
+  border: 2px solid #000000; /* black */
   border-radius: 12px;
   font-family: Georgia, serif;
   font-size: 1rem;
@@ -322,14 +326,14 @@ CONTACT FORM STYLES
 
 #contact-form input:focus,
 #contact-form textarea:focus {
-  border-color: #344122;
-  box-shadow: 0 0 10px rgba(66,81,44,0.25);
+  border-color: #222222;
+  box-shadow: 0 0 10px rgba(0,0,0,0.25);
   transform: scale(1.02);
 }
 
 /* Cute Send Button */
 .send-btn {
-  background-color: #42512c; /* updated green */
+  background-color: #000000; /* black */
   color: white;
   font-family: Georgia, serif;
   font-size: 1.1rem;
@@ -342,7 +346,7 @@ CONTACT FORM STYLES
 }
 
 .send-btn:hover {
-  background-color: #344122; /* hover darker */
+  background-color: #222222;
   transform: scale(1.08);
   box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
@@ -352,21 +356,13 @@ CONTACT FORM STYLES
   display: none;
   margin-top: 15px;
   font-weight: bold;
-  color: #42512c; /* updated green */
+  color: #000000; /* black */
   font-size: 1rem;
   animation: fadeIn 0.5s ease forwards;
 }
 
+/* Fade-in animation for success message */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
-}
-
-/* =================================
-HEADER LAYOUT
-================================= */
-
-.hero-flex {
-  text-align: center;
-  padding: 40px 20px;
 }
