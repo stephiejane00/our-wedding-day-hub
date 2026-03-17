@@ -1,6 +1,7 @@
 /* =================================
 GLOBAL STYLES
 ================================= */
+
 body {
   font-family: Georgia, serif;
   background-color: #ffffff;
@@ -11,7 +12,7 @@ body {
 
 h1, h2, h3 {
   font-family: Georgia, serif;
-  color: #000000; /* black headers */
+  color: #000000; /* changed headings to black */
   margin-bottom: 10px;
 }
 
@@ -24,32 +25,32 @@ p { line-height: 1.6; }
 /* =================================
 HEADER / HERO
 ================================= */
+
 .hero {
   text-align: center;
-  padding: 20px 20px 10px 20px; /* slightly tighter top/bottom */
+  padding: 30px 20px;
 }
 
 .header-image {
-  width: 300px;  /* bigger than before but not full screen */
-  max-width: 90%;
-  height: auto;
+  width: 100%;
+  max-width: 1500px;
   border-radius: 10px;
-  margin-bottom: 20px;
-  display: inline-block;
+  margin-bottom: 25px;
 }
 
 /* =================================
 SEARCH BAR
 ================================= */
+
 .search {
   display: flex;
-  justify-content: center; /* center under header */
-  margin: 20px 0 30px 0;   /* balanced spacing */
+  justify-content: center;
+  margin-bottom: 40px;
 }
 
 .search input {
   padding: 14px 20px;
-  width: 320px;
+  width: 350px;
   border: 2px solid #000000; /* black border */
   border-radius: 10px;
   font-size: 1rem;
@@ -58,20 +59,14 @@ SEARCH BAR
 }
 
 .search input:focus {
-  border-color: #222222;
-  box-shadow: 0 0 10px rgba(0,0,0,0.25);
+  border-color: #000000;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
 }
 
 /* =================================
-CATEGORY BUTTONS (hidden for now) 
+VENDOR GRID
 ================================= */
-.category-buttons {
-  display: none;
-}
 
-/* =================================
-VENDOR GRID (HOMEPAGE)
-================================= */
 .vendors {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
@@ -115,53 +110,16 @@ VENDOR GRID (HOMEPAGE)
 }
 
 /* =================================
-VENDOR PAGE
-================================= */
-.vendor-info {
-  max-width: 850px;
-  margin: auto;
-  padding: 30px 20px;
-  text-align: center;
-}
-
-.vendor-info p {
-  margin: 6px 0;
-}
-
-/* =================================
-GALLERY (VENDOR PAGES)
-================================= */
-.vendor-info .gallery {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-  margin-top: 25px;
-  align-items: center;
-}
-
-.vendor-info .gallery img {
-  width: 90%;
-  max-width: 800px;
-  border-radius: 10px;
-  border: 2px solid #000000; /* black border */
-  cursor: pointer;
-  transition: transform 0.3s;
-}
-
-.vendor-info .gallery img:hover {
-  transform: scale(1.03);
-}
-
-/* =================================
 JOIN / APPLY SECTION
 ================================= */
+
 .join {
   text-align: center;
   padding: 40px 20px;
 }
 
 .join button {
-  background-color: #000000; /* black */
+  background-color: #000000; /* black button */
   color: white;
   border: none;
   padding: 12px 24px;
@@ -173,46 +131,27 @@ JOIN / APPLY SECTION
 }
 
 .join button:hover {
-  background-color: #222222;
+  background-color: #444444; /* darker grey hover */
   transform: scale(1.05);
-}
-
-/* =================================
-PRICING TIERS
-================================= */
-.pricing-tiers {
-  max-width: 700px;
-  margin: 30px auto;
-}
-
-.pricing-tier {
-  border: 2px solid #000000;
-  border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 20px;
-  background: #fff;
-  transition: 0.3s;
-}
-
-.pricing-tier:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-}
-
-.pricing-tier h3 {
-  text-align: center;
-}
-
-.pricing-tier p {
-  text-align: center;
 }
 
 /* =================================
 FOOTER
 ================================= */
+
 footer {
   text-align: center;
   padding: 25px;
   margin-top: 40px;
   border-top: 1px solid #eee;
+}
+
+.footer-link {
+  color: #000000;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.footer-link:hover {
+  text-decoration: underline;
 }
