@@ -23,58 +23,42 @@ h3 { font-size: 1.3rem; }
 p { line-height: 1.6; }
 
 /* =================================
-HEADER / HERO
+HEADER / HERO (FULL WIDTH)
 ================================= */
 
-.hero-flex {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 40px;
-  padding: 40px 20px;
-  flex-wrap: wrap;
+.hero {
+  text-align: center;
+  padding: 0;
 }
 
-/* LEFT SIDE (LOGO) */
-.header-left {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-}
-
-/* LOGO IMAGE */
-.logo {
-  width: 300px;      /* bigger header image */
+.header-image {
+  width: 100%;
+  max-width: 2000px;
   height: auto;
-  object-fit: contain;
+  display: block;
+  margin: 0 auto;
 }
 
-/* RIGHT SIDE */
-.header-right {
-  flex: 2;
-  max-width: 600px;
-  text-align: left;
+.tagline {
+  font-size: 1.2rem;
+  margin: 20px 0;
+  color: #444;
 }
 
-/* spacing */
-.header-right h1 {
-  margin-bottom: 10px;
-}
+/* =================================
+SEARCH BAR
+================================= */
 
-.header-right .tagline {
-  margin-bottom: 15px; /* less gap under tagline */
-}
-
-/* SEARCH BAR */
 .search {
   display: flex;
-  justify-content: flex-start;  /* left aligned */
-  margin-bottom: 0;  /* remove extra gap below search bar */
+  justify-content: center;
+  margin: 20px 0 40px 0;
 }
 
 .search input {
   padding: 14px 20px;
-  width: 320px;
+  width: 350px;
+  max-width: 90%;
   border: 2px solid #2F4F2F;
   border-radius: 10px;
   font-size: 1rem;
@@ -255,7 +239,7 @@ footer {
 }
 
 /* =================================
-CONTACT FORM STYLES
+CONTACT FORM
 ================================= */
 
 #contact-form {
