@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Our Wedding Day Hub</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Wedding Day Hub</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
+<!-- HEADER -->
 <header class="hero hero-flex">
 
   <!-- LEFT: LOGO -->
@@ -19,6 +20,7 @@
   <!-- RIGHT: CONTENT -->
   <div class="header-right">
 
+    <h1>Find Your Dream Wedding Vendors</h1>
     <p class="tagline">Discover trusted wedding vendors in your location</p>
 
     <!-- SEARCH -->
@@ -39,20 +41,9 @@
 
 </header>
 
-  <!-- CATEGORY BUTTONS -->
-  <div class="category-buttons">
-    <button onclick="filterVendors('all')">All Vendors</button>
-    <button onclick="filterVendors('flowers')">Florists</button>
-    <button onclick="filterVendors('cakes')">Cakes</button>
-    <button onclick="filterVendors('photography')">Photography</button>
-    <button onclick="filterVendors('beauty')">Hair & Beauty</button>
-  </div>
-
-</header>
-
 <!-- VENDORS GRID -->
 <section class="vendors" id="vendors-container">
-  <!-- Vendors will load automatically from vendors.json -->
+  <!-- Vendors load from vendors.json -->
 </section>
 
 <!-- JOIN SECTION -->
@@ -72,5 +63,6 @@
 </footer>
 
 <script src="script.js"></script>
+
 </body>
 </html>
