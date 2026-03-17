@@ -1,52 +1,50 @@
 [
   {
-    "name": "Kaity Kissed Nails & Design",
+    "name": "Kaity Kissed Nails & Designs",
     "category": "beauty",
-    "location": "North Brisbane",
-    "description": "Professional nail art and design for your wedding day elegance.",
+    "location": "North Brisbane - Sunshine Coast",
+    "featured": true,
     "image": "images/nails1.jpg",
-    "images": ["images/nails1.jpg","images/nails2.jpg","images/nails3.jpg","images/nails4.jpg"],
-    "email": "info@kaitykissed.com.au",
-    "featured": true
+    "page": "vendors/kaity-kissed-nails.html"
   },
   {
     "name": "Moments with Koarlie Studios",
     "category": "photography",
-    "location": "North Brisbane",
-    "description": "Romantic, candid wedding photography capturing timeless moments.",
+    "location": "North Brisbane - Sunshine Coast",
+    "featured": true,
     "image": "images/koarlie1.jpg",
-    "images": ["images/koarlie1.jpg","images/koarlie2.jpg","images/koarlie3.jpg","images/koarlie4.jpg","images/koarlie5.jpg","images/koarlie6.jpg"],
-    "email": "hello@koarlie.com",
-    "featured": true
+    "page": "vendors/moments-with-koarlie.html"
   },
   {
     "name": "The Roamed Collective",
     "category": "photography",
-    "location": "Sunshine Coast",
-    "description": "Creative photography capturing unique wedding stories.",
+    "location": "North Brisbane - Sunshine Coast",
+    "featured": true,
     "image": "images/trc1.jpg",
-    "images": ["images/trc1.jpg","images/trc2.jpg","images/trc3.jpg","images/trc4.jpg"],
-    "email": "hello@theroamedcollective.com",
-    "featured": true
+    "page": "vendors/the-roamed-collective.html"
   },
   {
     "name": "Rosita Flowers",
     "category": "flowers",
     "location": "North Brisbane",
-    "description": "Elegant floral arrangements for every wedding style.",
+    "featured": false,
     "image": "images/rosita2.jpg",
-    "images": ["images/rosita2.jpg","images/rosita3.jpg","images/rosita4.jpg"],
-    "email": "hello@rositaflowers.com",
-    "featured": false
+    "page": "vendors/rosita-flowers.html"
   },
   {
-    "name": "Passion for Cakes",
+    "name": "Passion For Cakes",
     "category": "cakes",
     "location": "Cairns",
-    "description": "Delicious wedding cakes made to perfection.",
+    "featured": false,
     "image": "images/cake2.jpg",
-    "images": ["images/cake2.jpg","images/cake3.jpg","images/cake4.jpg"],
-    "email": "hello@passionforcakes.com",
-    "featured": false
+    "page": "vendors/passion-for-cakes.html"
+  },
+  {
+    "name": "Feather & Flower",
+    "category": "flowers",
+    "location": "North Brisbane",
+    "featured": false,
+    "image": "images/beauty3.jpg",
+    "page": "vendors/feather-and-flower.html"
   }
 ]
