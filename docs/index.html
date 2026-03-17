@@ -18,19 +18,26 @@
 
   <!-- RIGHT: CONTENT -->
   <div class="header-right">
-    <p class="tagline">Discover trusted wedding vendors in your location</p>
+
+    <p class="tagline">Discover trusted wedding vendors in your area</p>
 
     <!-- SEARCH -->
     <div class="search">
       <input type="text" id="search" placeholder="Search vendors..." onkeyup="searchVendors()">
     </div>
+
   </div>
 
 </header>
 
-<!-- VENDORS GRID -->
+<!-- FEATURED VENDORS -->
+<section class="featured-vendors" id="featured-container">
+  <!-- Featured vendors will load here from vendors.json -->
+</section>
+
+<!-- ALL VENDORS (SEARCHABLE) -->
 <section class="vendors" id="vendors-container">
-  <!-- Vendors will load automatically from vendors.json -->
+  <!-- Vendors will load here from vendors.json -->
 </section>
 
 <!-- JOIN SECTION -->
@@ -49,6 +56,51 @@
   <p>© 2026 Our Wedding Day Hub</p>
 </footer>
 
-<script src="script.js"></script>
+<script>
+// Load vendors from vendors.json
+fetch('vendors.json')
+  .then(res => res.json())
+  .then(vendors => {
+    const featuredContainer = document.getElementById('featured-container');
+    const vendorsContainer = document.getElementById('vendors-container');
+
+    // FEATURED VENDORS
+    const featuredVendors = vendors.filter(v => v.featured);
+    featuredContainer.innerHTML = `
+      <h2 style="text-align:center; margin-bottom:20px;">Featured Vendors</h2>
+      <div class="vendors">
+        ${featuredVendors.map(v => `
+          <div class="vendor-card">
+            <a href="${v.page}">
+              <img src="${v.image}" alt="${v.name}">
+              <h3>${v.name}</h3>
+              <p>${v.description}</p>
+            </a>
+          </div>
+        `).join('')}
+      </div>
+    `;
+
+    // ALL VENDORS (SEARCHABLE)
+    vendorsContainer.innerHTML = vendors.map(v => `
+      <div class="vendor-card" data-name="${v.name.toLowerCase()}">
+        <a href="${v.page}">
+          <img src="${v.image}" alt="${v.name}">
+          <h3>${v.name}</h3>
+          <p>${v.description}</p>
+        </a>
+      </div>
+    `).join('');
+  });
+
+// SEARCH FUNCTION
+function searchVendors() {
+  const input = document.getElementById('search').value.toLowerCase();
+  document.querySelectorAll('#vendors-container .vendor-card').forEach(card => {
+    card.style.display = card.dataset.name.includes(input) ? 'block' : 'none';
+  });
+}
+</script>
+
 </body>
 </html>
