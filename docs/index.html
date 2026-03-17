@@ -17,11 +17,11 @@
   <input type="text" id="search" placeholder="Search by vendor, location, category..." onkeyup="searchVendors()">
 </div>
 
-<!-- FEATURED VENDORS SLIDER -->
-<div class="featured-slider">
+<!-- FEATURED SLIDER -->
+<div class="featured-slider-wrapper">
   <div class="slider-arrow left" onclick="prevSlide()">&#10094;</div>
-  <div class="slider-track" id="sliderTrack">
-    <!-- Vendor slides will go here dynamically from JSON -->
+  <div class="featured-slider" id="sliderTrack">
+    <!-- Vendor slides dynamically injected here -->
   </div>
   <div class="slider-arrow right" onclick="nextSlide()">&#10095;</div>
 </div>
