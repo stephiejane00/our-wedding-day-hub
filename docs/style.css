@@ -8,7 +8,17 @@ body {
   color: #333;
   margin: 0;
   padding: 0;
-  animation: fadeIn 0.8s ease forwards;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 h1, h2, h3 {
@@ -21,31 +31,142 @@ h1 { font-size: 2.6rem; }
 h2 { font-size: 1.9rem; }
 h3 { font-size: 1.3rem; }
 
-p { 
+p {
   line-height: 1.6;
-  font-family: Georgia, serif; /* subtext stays Georgia */
+  font-family: Georgia, serif;
   color: #444;
+  margin: 0 0 15px 0;
 }
 
 /* =================================
-PAGE HEADER
+HEADER / HERO
 ================================= */
+
+.hero-flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  padding: 40px 20px;
+  flex-wrap: wrap;
+}
+
+.header-left {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.logo {
+  width: 180px;
+  height: auto;
+  object-fit: contain;
+}
+
+.header-right {
+  flex: 2;
+  max-width: 600px;
+  text-align: left;
+}
+
+.header-right h1 {
+  margin-bottom: 10px;
+}
+
+.header-right .tagline {
+  margin-bottom: 20px;
+}
+
+/* =================================
+SEARCH BAR
+================================= */
+
+.search {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.search input {
+  padding: 14px 20px;
+  width: 100%;
+  max-width: 400px;
+  border: 2px solid #000;
+  border-radius: 10px;
+  font-size: 1rem;
+  outline: none;
+  transition: 0.3s;
+}
+
+.search input:focus {
+  border-color: #333;
+  box-shadow: 0 0 10px rgba(0,0,0,0.25);
+}
+
+/* =================================
+VENDOR GRID / FEATURED SLIDER
+================================= */
+
+.vendors {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+  max-width: 1200px;
+  margin: 30px auto;
+}
+
+.vendor-card {
+  position: relative;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  text-align: center;
+  box-shadow: 0 5px 12px rgba(0,0,0,0.06);
+  transition: 0.3s;
+  cursor: pointer;
+  width: 250px;
+}
+
+.vendor-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+}
+
+.vendor-card img {
+  width: 100%;
+  display: block;
+}
+
+.vendor-card h3 {
+  margin: 12px 0 5px 0;
+}
+
+.vendor-card p {
+  font-size: 0.95rem;
+  margin-bottom: 15px;
+}
+
+.vendor-card a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Vendor slider luxury glow */
+.vendor-card.featured {
+  box-shadow: 0 0 35px rgba(0,0,0,0.15), 0 0 50px rgba(0,0,0,0.05);
+}
+
+/* =================================
+APPLY / JOIN PAGE
+================================= */
+
 .page-header {
   text-align: center;
   padding: 50px 20px;
 }
 
-.page-header h1 {
-  margin-bottom: 15px;
-}
-
-.page-header p {
-  margin-bottom: 40px;
-}
-
-/* =================================
-VENDOR INFO / PRICING
-================================= */
 .vendor-info {
   max-width: 1200px;
   margin: 0 auto 50px;
@@ -75,23 +196,16 @@ VENDOR INFO / PRICING
   box-shadow: 0 10px 25px rgba(0,0,0,0.12);
 }
 
-/* Premium Showcase Glow */
 .pricing-tier.premium {
   border-color: #000;
   background: #fdfaf6;
-  box-shadow: 0 0 35px rgba(0,0,0,0.25), 0 0 50px rgba(255, 215, 0, 0.15); /* subtle gold glow */
+  box-shadow: 0 0 35px rgba(0,0,0,0.25), 0 0 50px rgba(255, 215, 0, 0.15);
   z-index: 2;
 }
 
-/* Tier Text */
 .pricing-tier h3 {
   font-size: 1.3rem;
   margin-bottom: 12px;
-}
-
-.pricing-tier p {
-  margin-bottom: 10px;
-  font-size: 1rem;
 }
 
 .pricing-price {
@@ -100,7 +214,6 @@ VENDOR INFO / PRICING
   margin-bottom: 10px;
 }
 
-/* Apply Button */
 .apply-button {
   background-color: #000;
   color: white;
@@ -116,17 +229,10 @@ VENDOR INFO / PRICING
   text-decoration: none;
   display: inline-block;
 }
+
 .apply-button:hover {
   background-color: #333;
   transform: scale(1.05);
-}
-
-/* Mobile responsiveness */
-@media (max-width: 900px) {
-  .pricing-tiers {
-    flex-direction: column;
-    gap: 15px;
-  }
 }
 
 /* =================================
@@ -137,26 +243,41 @@ footer {
   padding: 25px;
   margin-top: 40px;
   border-top: 1px solid #eee;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+footer p {
+  margin: 0;
 }
 
 /* =================================
-PAGE ANIMATION
+ANIMATIONS
 ================================= */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(15px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
 /* =================================
-FOOTER
+RESPONSIVE
 ================================= */
-footer {
-  text-align: center;           /* ensures text is centered */
-  padding: 25px;
-  margin-top: 40px;
-  border-top: 1px solid #eee;
-  width: 100%;                  /* ensures the footer spans full width */
-  box-sizing: border-box;       /* includes padding in width calculation */
-}
-footer p {
-  margin: 0;                     /* remove any default margin that might offset it */
+@media (max-width: 900px) {
+  .pricing-tiers {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .hero-flex {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .header-right {
+    text-align: center;
+  }
+
+  .search {
+    justify-content: center;
+  }
 }
