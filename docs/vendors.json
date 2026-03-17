@@ -1,50 +1,50 @@
 [
   {
-    "name": "Kaity Kissed Nails & Designs",
-    "category": "beauty",
-    "location": "North Brisbane - Sunshine Coast",
-    "featured": true,
-    "image": "images/nails1.jpg",
-    "page": "vendors/kaity-kissed-nails.html"
-  },
-  {
+    "id": "koarlie",
     "name": "Moments with Koarlie Studios",
-    "category": "photography",
-    "location": "North Brisbane - Sunshine Coast",
-    "featured": true,
-    "image": "images/koarlie1.jpg",
-    "page": "vendors/moments-with-koarlie.html"
+    "category": "Photography",
+    "location": "North Brisbane",
+    "image": "koarlie1.jpg",
+    "featured": true
   },
   {
+    "id": "trc",
     "name": "The Roamed Collective",
-    "category": "photography",
-    "location": "North Brisbane - Sunshine Coast",
-    "featured": true,
-    "image": "images/trc1.jpg",
-    "page": "vendors/the-roamed-collective.html"
+    "category": "Photography",
+    "location": "Sunshine Coast",
+    "image": "trc1.jpg",
+    "featured": true
   },
   {
+    "id": "nails",
+    "name": "Kaity Kissed Nails & Design",
+    "category": "Beauty",
+    "location": "North Brisbane",
+    "image": "nails1.jpg",
+    "featured": true
+  },
+  {
+    "id": "rosita",
     "name": "Rosita Flowers",
-    "category": "flowers",
+    "category": "Florist",
     "location": "North Brisbane",
-    "featured": false,
-    "image": "images/rosita2.jpg",
-    "page": "vendors/rosita-flowers.html"
+    "image": "rosita2.jpg",
+    "featured": true
   },
   {
+    "id": "cakes",
     "name": "Passion For Cakes",
-    "category": "cakes",
+    "category": "Cakes",
     "location": "Cairns",
-    "featured": false,
-    "image": "images/cake2.jpg",
-    "page": "vendors/passion-for-cakes.html"
+    "image": "cake2.jpg",
+    "featured": true
   },
   {
-    "name": "Feather & Flower",
-    "category": "flowers",
-    "location": "North Brisbane",
-    "featured": false,
-    "image": "images/beauty3.jpg",
-    "page": "vendors/feather-and-flower.html"
+    "id": "beauty",
+    "name": "Bridal Beauty Collective",
+    "category": "Hair & Makeup",
+    "location": "Sunshine Coast",
+    "image": "beauty2.jpg",
+    "featured": true
   }
 ]
