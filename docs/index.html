@@ -6,24 +6,27 @@
 <title>Our Wedding Day Hub</title>
 <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <header class="hero">
   <img src="images/header4.png" alt="Our Wedding Day Hub" class="header-image">
-  <div class="search">
-    <input type="text" id="search" placeholder="Search by vendor, location, category...">
-  </div>
 </header>
+
+<!-- SEARCH -->
+<div class="search">
+  <input type="text" id="search" placeholder="Search by vendor, location, category..." onkeyup="searchVendors()">
+</div>
 
 <!-- VENDORS GRID -->
 <section class="vendors" id="vendors-container">
-  <!-- Featured vendors will load automatically from vendors.json -->
+  <!-- Featured vendors shown first, clickable -->
 </section>
 
 <!-- JOIN SECTION -->
 <section class="join">
-  <h2>Showcase Your Business</h2>
-  <p>Connect with couples actively planning their wedding and let them discover you!</p>
+  <h2>Join Our Wedding Day Hub</h2>
+  <p>Showcase your business to couples actively planning their wedding.</p>
   <button onclick="window.location.href='apply.html'">Apply To Join</button>
 </section>
 
@@ -35,6 +38,7 @@
   <p>© 2026 Our Wedding Day Hub</p>
 </footer>
 
+<script src="vendors.json"></script>
 <script src="script.js"></script>
 </body>
 </html>
