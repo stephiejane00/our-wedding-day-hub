@@ -1,58 +1,54 @@
 const vendorsContainer = document.getElementById('vendors-container');
-const searchInput = document.getElementById('search');
+let vendors = [];
 
-// Load vendors from JSON
+// Fetch vendors
 fetch('vendors.json')
-  .then(response => response.json())
+  .then(res => res.json())
   .then(data => {
-    window.vendorsData = data; // store globally
-    displayFeaturedVendors(data);
-  })
-  .catch(error => console.error('Error loading vendors:', error));
+    vendors = data;
+    displayVendors();
+  });
 
-// Display only featured vendors initially
-function displayFeaturedVendors(vendors) {
+function displayVendors() {
   vendorsContainer.innerHTML = '';
-  vendors
-    .filter(vendor => vendor.featured)
-    .forEach(vendor => {
-      vendorsContainer.innerHTML += createVendorCard(vendor);
-    });
-}
-
-// Create vendor card HTML
-function createVendorCard(vendor) {
-  return `
-    <div class="vendor-card ${vendor.category}">
-      <a href="${vendor.page}">
+  const featuredVendors = vendors.filter(v => v.featured);
+  
+  featuredVendors.forEach(vendor => {
+    const card = document.createElement('div');
+    card.className = 'vendor-card ' + vendor.category;
+    card.innerHTML = `
+      <a href="vendors/${vendor.name.toLowerCase().replace(/ /g,'-')}.html">
         <img src="${vendor.image}" alt="${vendor.name}">
         <h3>${vendor.name}</h3>
         <p>${vendor.description}</p>
+        <p><small>${vendor.location}</small></p>
       </a>
-      <p style="font-size:0.85rem; color:#555;">${vendor.location}</p>
-    </div>
-  `;
+    `;
+    vendorsContainer.appendChild(card);
+  });
 }
 
-// Search function (by name, category, or location)
+// SEARCH
 function searchVendors() {
-  const query = searchInput.value.toLowerCase();
-  const filtered = window.vendorsData.filter(vendor => {
-    return (
-      vendor.name.toLowerCase().includes(query) ||
-      vendor.category.toLowerCase().includes(query) ||
-      vendor.location.toLowerCase().includes(query)
-    );
-  });
-
+  const query = document.getElementById('search').value.toLowerCase();
   vendorsContainer.innerHTML = '';
+  const filtered = vendors.filter(v => 
+    v.name.toLowerCase().includes(query) ||
+    v.category.toLowerCase().includes(query) ||
+    v.location.toLowerCase().includes(query)
+  );
+
   filtered.forEach(vendor => {
-    vendorsContainer.innerHTML += createVendorCard(vendor);
+    const card = document.createElement('div');
+    card.className = 'vendor-card ' + vendor.category;
+    card.innerHTML = `
+      <a href="vendors/${vendor.name.toLowerCase().replace(/ /g,'-')}.html">
+        <img src="${vendor.image}" alt="${vendor.name}">
+        <h3>${vendor.name}</h3>
+        <p>${vendor.description}</p>
+        <p><small>${vendor.location}</small></p>
+      </a>
+    `;
+    vendorsContainer.appendChild(card);
   });
-
-  // If search is empty, go back to featured
-  if (!query) displayFeaturedVendors(window.vendorsData);
 }
-
-// Update search placeholder
-searchInput.placeholder = "Search by vendor, location, category";
