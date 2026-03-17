@@ -6,32 +6,27 @@
 <title>Our Wedding Day Hub</title>
 <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
 <header class="hero">
   <img src="images/header4.png" alt="Our Wedding Day Hub" class="header-image">
-  <p class="tagline">Discover trusted wedding vendors in your location</p>
-
-  <!-- SEARCH -->
+  
   <div class="search">
-    <input type="text" id="search" placeholder="Search by vendor, location, or category..." onkeyup="searchVendors()">
+    <input type="text" id="search" placeholder="Search by vendor, location, category..." onkeyup="searchVendors()">
   </div>
 </header>
 
 <!-- FEATURED VENDORS -->
 <section class="vendors" id="vendors-container">
-  <!-- Only the featured vendors will show on load; the rest are searchable -->
+  <!-- Featured vendors will load automatically via script.js -->
 </section>
 
-<!-- JOIN SECTION -->
 <section class="join">
   <h2>Join Our Wedding Day Hub</h2>
   <p>Showcase your business to couples actively planning their wedding.</p>
   <button onclick="window.location.href='apply.html'">Apply To Join</button>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <p>
     <a href="about.html" class="footer-link">About Us</a> | 
