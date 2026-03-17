@@ -1,42 +1,52 @@
 [
   {
-    "name": "Kaity Kissed Nails and Designs",
+    "name": "Kaity Kissed Nails & Design",
     "category": "beauty",
-    "image": "images/nails1.jpg",
-    "description": "Bridal nails & custom designs",
     "location": "North Brisbane",
+    "description": "Professional nail art and design for your wedding day elegance.",
+    "image": "images/nails1.jpg",
+    "images": ["images/nails1.jpg","images/nails2.jpg","images/nails3.jpg","images/nails4.jpg"],
+    "email": "info@kaitykissed.com.au",
     "featured": true
   },
   {
     "name": "Moments with Koarlie Studios",
     "category": "photography",
+    "location": "North Brisbane",
+    "description": "Romantic, candid wedding photography capturing timeless moments.",
     "image": "images/koarlie1.jpg",
-    "description": "Capturing timeless wedding moments",
-    "location": "Sunshine Coast",
+    "images": ["images/koarlie1.jpg","images/koarlie2.jpg","images/koarlie3.jpg","images/koarlie4.jpg","images/koarlie5.jpg","images/koarlie6.jpg"],
+    "email": "hello@koarlie.com",
     "featured": true
   },
   {
     "name": "The Roamed Collective",
     "category": "photography",
+    "location": "Sunshine Coast",
+    "description": "Creative photography capturing unique wedding stories.",
     "image": "images/trc1.jpg",
-    "description": "Natural, storytelling photography",
-    "location": "North Brisbane",
+    "images": ["images/trc1.jpg","images/trc2.jpg","images/trc3.jpg","images/trc4.jpg"],
+    "email": "hello@theroamedcollective.com",
     "featured": true
   },
   {
     "name": "Rosita Flowers",
     "category": "flowers",
-    "image": "images/rosita2.jpg",
-    "description": "Elegant floral styling",
     "location": "North Brisbane",
+    "description": "Elegant floral arrangements for every wedding style.",
+    "image": "images/rosita2.jpg",
+    "images": ["images/rosita2.jpg","images/rosita3.jpg","images/rosita4.jpg"],
+    "email": "hello@rositaflowers.com",
     "featured": false
   },
   {
-    "name": "Passion For Cakes",
+    "name": "Passion for Cakes",
     "category": "cakes",
-    "image": "images/cake2.jpg",
-    "description": "Custom wedding cakes",
     "location": "Cairns",
+    "description": "Delicious wedding cakes made to perfection.",
+    "image": "images/cake2.jpg",
+    "images": ["images/cake2.jpg","images/cake3.jpg","images/cake4.jpg"],
+    "email": "hello@passionforcakes.com",
     "featured": false
   }
 ]
