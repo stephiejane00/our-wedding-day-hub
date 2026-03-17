@@ -1,34 +1,34 @@
 let vendors = [];
 let currentSlide = 0;
 
-/* LOAD VENDORS */
-fetch('vendors.json')
+/* LOAD DATA */
+fetch('./vendors.json')
   .then(res => res.json())
   .then(data => {
     vendors = data;
     loadFeatured();
   });
 
-/* LOAD FEATURED SLIDER */
+/* FEATURED SLIDER */
 function loadFeatured() {
   const track = document.getElementById("slider-track");
   track.innerHTML = "";
 
-  const featured = vendors.filter(v => v.featured);
+  const featured = vendors.filter(v => v.featured === true);
 
   featured.forEach(v => {
     track.innerHTML += `
       <div class="slide">
-        <div class="vendor-card featured" onclick="openVendor('${v.id}')">
-          <img src="images/${v.image}" alt="${v.name}">
+        <div class="vendor-card" onclick="openVendor('${v.id}')">
+          <img src="./images/${v.image}" alt="${v.name}">
           <h3>${v.name}</h3>
           <p>${v.category} • ${v.location}</p>
-          <div class="overlay">View Profile →</div>
         </div>
       </div>
     `;
   });
 
+  updateSlider();
   autoSlide();
 }
 
@@ -73,16 +73,15 @@ function searchVendors() {
   results.forEach(v => {
     container.innerHTML += `
       <div class="vendor-card" onclick="openVendor('${v.id}')">
-        <img src="images/${v.image}" alt="${v.name}">
+        <img src="./images/${v.image}" alt="${v.name}">
         <h3>${v.name}</h3>
         <p>${v.category} • ${v.location}</p>
-        <div class="overlay">View Profile →</div>
       </div>
     `;
   });
 }
 
-/* OPEN VENDOR PAGE */
+/* OPEN PAGE */
 function openVendor(id) {
   window.location.href = `vendor.html?id=${id}`;
 }
