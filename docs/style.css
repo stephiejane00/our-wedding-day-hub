@@ -16,26 +16,22 @@ h1, h2, h3 {
   margin-bottom: 10px;
 }
 
-h1 { font-size: 2.2rem; } /* slightly smaller for layout */
+h1 { font-size: 2.6rem; }
 h2 { font-size: 1.9rem; }
 h3 { font-size: 1.3rem; }
 
 p { line-height: 1.6; }
 
 /* =================================
-HEADER / HERO
+HEADER / HERO FLEX
 ================================= */
 
-.hero {
-  padding: 40px 20px;
-}
-
-/* FLEX HEADER */
 .hero-flex {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 40px;
+  justify-content: flex-start;
+  gap: 30px;
+  padding: 30px 20px;
   max-width: 1100px;
   margin: auto;
   flex-wrap: wrap;
@@ -46,62 +42,41 @@ HEADER / HERO
   flex: 0 0 auto;
 }
 
-/* LOGO IMAGE (FIXED SIZE) */
+/* LOGO IMAGE */
 .logo {
-  width: 120px !important;
-  height: auto !important;
+  width: 180px;      /* slightly bigger */
+  height: auto;
   display: block;
 }
 
 /* RIGHT SIDE */
 .header-right {
   flex: 1;
-  max-width: 600px;
+  max-width: 650px;
   text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* smaller gap between tagline, search, buttons */
 }
 
 /* TAGLINE */
-.tagline {
-  font-size: 1.1rem;
-  margin-bottom: 20px;
+.header-right .tagline {
+  font-size: 1.15rem;
+  margin-bottom: 10px;
   color: #444;
 }
 
-/* =================================
-PAGE HEADER & BACK LINK
-================================= */
-
-.page-header {
-  text-align: center;
-  padding: 40px 20px;
-}
-
-.back-link {
-  display: inline-block;
-  margin-bottom: 20px;
-  font-weight: bold;
-  color: #2F4F2F;
-}
-
-.back-link:hover {
-  text-decoration: underline;
-}
-
-/* =================================
-SEARCH BAR
-================================= */
-
-.search {
-  display: flex;
+/* SEARCH BAR */
+.header-right .search {
   justify-content: flex-start;
-  margin: 20px 0;
+  margin-bottom: 10px;
 }
 
 .search input {
   padding: 14px 20px;
-  width: 280px;
+  width: 320px;
   border: 2px solid #2F4F2F;
-  border-radius: 12px;
+  border-radius: 10px;
   font-size: 1rem;
   outline: none;
   transition: 0.3s;
@@ -112,13 +87,11 @@ SEARCH BAR
   box-shadow: 0 0 10px rgba(47,79,47,0.25);
 }
 
-/* =================================
-CATEGORY BUTTONS
-================================= */
-
-.category-buttons {
-  display: flex;
+/* CATEGORY BUTTONS */
+.header-right .category-buttons {
   justify-content: flex-start;
+  gap: 10px;
+  display: flex;
   flex-wrap: wrap;
 }
 
@@ -126,12 +99,11 @@ CATEGORY BUTTONS
   background-color: #2F4F2F;
   color: white;
   border: none;
-  padding: 10px 16px;
-  margin: 5px;
-  border-radius: 10px;
+  padding: 12px 18px;
+  border-radius: 8px;
   cursor: pointer;
   font-family: Georgia, serif;
-  font-size: 0.95rem;
+  font-size: 1rem;
   transition: 0.25s;
 }
 
@@ -202,7 +174,7 @@ VENDOR PAGE
 }
 
 /* =================================
-GALLERY (STACKED BIG IMAGES)
+GALLERY (VENDOR PAGES)
 ================================= */
 
 .vendor-info .gallery {
@@ -214,9 +186,9 @@ GALLERY (STACKED BIG IMAGES)
 }
 
 .vendor-info .gallery img {
-  width: 95%;
+  width: 90%;
   max-width: 800px;
-  border-radius: 12px;
+  border-radius: 10px;
   border: 2px solid #2F4F2F;
   cursor: pointer;
   transition: transform 0.3s;
@@ -242,7 +214,7 @@ JOIN / APPLY SECTION
   padding: 12px 24px;
   font-family: Georgia, serif;
   font-size: 1rem;
-  border-radius: 8px;
+  border-radius: 6px;
   cursor: pointer;
   transition: 0.25s;
 }
@@ -275,11 +247,13 @@ PRICING TIERS
   box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }
 
-/* fine print */
-.fine-print {
-  font-size: 0.8rem;
-  color: #777;
-  font-style: italic;
+.pricing-tier h3 {
+  text-align: center;
+}
+
+.pricing-tier p {
+  text-align: center;
+  font-size: 0.95rem;
 }
 
 /* =================================
@@ -306,8 +280,18 @@ footer {
   border-top: 1px solid #eee;
 }
 
+footer .footer-link {
+  color: #2F4F2F;
+  text-decoration: none;
+  margin: 0 5px;
+}
+
+footer .footer-link:hover {
+  text-decoration: underline;
+}
+
 /* =================================
-CONTACT FORM
+CONTACT FORM STYLES
 ================================= */
 
 #contact-form {
@@ -335,20 +319,71 @@ CONTACT FORM
   margin-bottom: 15px;
   border: 2px solid #2F4F2F;
   border-radius: 12px;
+  font-family: Georgia, serif;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s;
 }
 
+#contact-form input:focus,
+#contact-form textarea:focus {
+  border-color: #24412D;
+  box-shadow: 0 0 10px rgba(47,79,47,0.25);
+  transform: scale(1.02);
+}
+
+/* Cute Send Button */
 .send-btn {
   background-color: #2F4F2F;
   color: white;
+  font-family: Georgia, serif;
   font-size: 1.1rem;
+  font-weight: bold;
   padding: 14px 28px;
+  border: none;
   border-radius: 12px;
   cursor: pointer;
+  transition: 0.3s;
 }
 
+.send-btn:hover {
+  background-color: #24412D;
+  transform: scale(1.08);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+/* Success Message */
 .success-msg {
   display: none;
   margin-top: 15px;
   font-weight: bold;
   color: #2F4F2F;
+  font-size: 1rem;
+  animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* =================================
+RESPONSIVE MOBILE
+================================= */
+
+@media (max-width: 900px) {
+  .hero-flex {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .header-left, .header-right {
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .header-right .search,
+  .header-right .category-buttons {
+    justify-content: center;
+  }
 }
