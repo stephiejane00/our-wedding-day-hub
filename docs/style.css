@@ -384,9 +384,9 @@ NEW HEADER LAYOUT
 
 /* LOGO IMAGE */
 .logo {
-  width: 100%;
-  max-width: 220px;
+  width: 150px;      /* 👈 controls size */
   height: auto;
+  object-fit: contain;
 }
 
 /* RIGHT SIDE */
