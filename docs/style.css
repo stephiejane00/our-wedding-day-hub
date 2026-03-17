@@ -175,3 +175,29 @@ button {
 button:hover {
   background: #222;
 }
+/* =================================
+GLOBAL PAGE CENTERING FIX
+================================= */
+
+body {
+  margin: 0;
+  text-align: center;
+}
+
+/* Make all main sections centered */
+section, header, footer {
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Footer specifically */
+footer {
+  text-align: center;
+  padding: 30px 20px;
+}
+
+/* Fix any weird inner alignment */
+footer p {
+  margin: 5px 0;
+}
