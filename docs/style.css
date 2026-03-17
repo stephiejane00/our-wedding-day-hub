@@ -12,7 +12,7 @@ body {
 
 h1, h2, h3 {
   font-family: Georgia, serif;
-  color: #2F4F2F;
+  color: #42512c; /* updated green */
   margin-bottom: 10px;
 }
 
@@ -23,44 +23,61 @@ h3 { font-size: 1.3rem; }
 p { line-height: 1.6; }
 
 /* =================================
-HEADER / HERO (OLD LAYOUT, CENTERED)
+HEADER / HERO
 ================================= */
 
 .hero {
   text-align: center;
-  padding: 0;
+  padding: 40px 20px;
 }
 
 .header-image {
-  display: block;
-  margin: 0 auto;   /* centers the image */
   width: 100%;
-  max-width: 2000px;
-  height: auto;
+  max-width: 1500px;
+  border-radius: 10px;
+  margin-bottom: 20px;
 }
 
 .tagline {
   font-size: 1.2rem;
-  margin: 20px 0;
+  margin-bottom: 25px;
   color: #444;
-  text-align: center;
 }
 
 /* =================================
-SEARCH BAR CENTERED UNDER HEADER
+PAGE HEADER & BACK LINK
+================================= */
+
+.page-header {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 20px;
+  font-weight: bold;
+  color: #42512c; /* updated green */
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+/* =================================
+SEARCH BAR
 ================================= */
 
 .search {
   display: flex;
-  justify-content: center; /* centers the search bar */
-  margin: 20px 0 40px 0;
+  justify-content: center;
+  margin: 25px 0;
 }
 
 .search input {
   padding: 14px 20px;
-  width: 350px;
-  max-width: 90%;
-  border: 2px solid #2F4F2F;
+  width: 320px;
+  border: 2px solid #42512c; /* updated green */
   border-radius: 10px;
   font-size: 1rem;
   outline: none;
@@ -68,8 +85,37 @@ SEARCH BAR CENTERED UNDER HEADER
 }
 
 .search input:focus {
-  border-color: #24412D;
-  box-shadow: 0 0 10px rgba(47,79,47,0.25);
+  border-color: #344122; /* darker for focus */
+  box-shadow: 0 0 10px rgba(66,81,44,0.25);
+}
+
+/* =================================
+CATEGORY BUTTONS
+================================= */
+
+.category-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+.category-buttons button {
+  background-color: #42512c; /* updated green */
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  margin: 5px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: Georgia, serif;
+  font-size: 1rem;
+  transition: 0.25s;
+}
+
+.category-buttons button:hover {
+  background-color: #344122; /* slightly darker for hover */
+  transform: scale(1.05);
 }
 
 /* =================================
@@ -137,7 +183,6 @@ VENDOR PAGE
 GALLERY (VENDOR PAGES)
 ================================= */
 
-/* Stacked, larger images */
 .vendor-info .gallery {
   display: flex;
   flex-direction: column;
@@ -150,7 +195,7 @@ GALLERY (VENDOR PAGES)
   width: 90%;
   max-width: 800px;
   border-radius: 10px;
-  border: 2px solid #2F4F2F;
+  border: 2px solid #42512c; /* updated green */
   cursor: pointer;
   transition: transform 0.3s;
 }
@@ -169,7 +214,7 @@ JOIN / APPLY SECTION
 }
 
 .join button {
-  background-color: #2F4F2F;
+  background-color: #42512c; /* updated green */
   color: white;
   border: none;
   padding: 12px 24px;
@@ -181,7 +226,7 @@ JOIN / APPLY SECTION
 }
 
 .join button:hover {
-  background-color: #24412D;
+  background-color: #344122;
   transform: scale(1.05);
 }
 
@@ -195,7 +240,7 @@ PRICING TIERS
 }
 
 .pricing-tier {
-  border: 2px solid #2F4F2F;
+  border: 2px solid #42512c; /* updated green */
   border-radius: 12px;
   padding: 20px;
   margin-bottom: 20px;
@@ -258,7 +303,7 @@ CONTACT FORM STYLES
   display: block;
   margin-bottom: 6px;
   font-weight: bold;
-  color: #2F4F2F;
+  color: #42512c; /* updated green */
   text-align: left;
 }
 
@@ -267,7 +312,7 @@ CONTACT FORM STYLES
   width: 100%;
   padding: 14px 18px;
   margin-bottom: 15px;
-  border: 2px solid #2F4F2F;
+  border: 2px solid #42512c; /* updated green */
   border-radius: 12px;
   font-family: Georgia, serif;
   font-size: 1rem;
@@ -277,14 +322,14 @@ CONTACT FORM STYLES
 
 #contact-form input:focus,
 #contact-form textarea:focus {
-  border-color: #24412D;
-  box-shadow: 0 0 10px rgba(47,79,47,0.25);
+  border-color: #344122;
+  box-shadow: 0 0 10px rgba(66,81,44,0.25);
   transform: scale(1.02);
 }
 
 /* Cute Send Button */
 .send-btn {
-  background-color: #2F4F2F;
+  background-color: #42512c; /* updated green */
   color: white;
   font-family: Georgia, serif;
   font-size: 1.1rem;
@@ -297,7 +342,7 @@ CONTACT FORM STYLES
 }
 
 .send-btn:hover {
-  background-color: #24412D;
+  background-color: #344122; /* hover darker */
   transform: scale(1.08);
   box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
@@ -307,13 +352,21 @@ CONTACT FORM STYLES
   display: none;
   margin-top: 15px;
   font-weight: bold;
-  color: #2F4F2F;
+  color: #42512c; /* updated green */
   font-size: 1rem;
   animation: fadeIn 0.5s ease forwards;
 }
 
-/* Fade-in animation for success message */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
+}
+
+/* =================================
+HEADER LAYOUT
+================================= */
+
+.hero-flex {
+  text-align: center;
+  padding: 40px 20px;
 }
