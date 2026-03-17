@@ -4,16 +4,15 @@ GLOBAL STYLES
 
 body {
   font-family: Georgia, serif;
-  background-color: #ffffff;
+  background-color: #f8f6f2; /* soft beige luxury vibe */
   color: #333;
   margin: 0;
   padding: 0;
 }
 
-/* HEADINGS */
 h1, h2, h3 {
-  font-family: "Times New Roman", serif;
-  color: #000;
+  font-family: "Times New Roman", serif; /* new header font */
+  color: #000; /* black headers for elegance */
   margin-bottom: 10px;
 }
 
@@ -21,31 +20,16 @@ h1 { font-size: 2.6rem; }
 h2 { font-size: 1.9rem; }
 h3 { font-size: 1.3rem; }
 
-/* TEXT */
-p {
-  line-height: 1.6;
-}
+p { line-height: 1.6; font-family: Georgia, serif; } /* keep subtext in Georgia */
 
 /* =================================
-FADE IN (WHOLE PAGE)
-================================= */
-
-body {
-  opacity: 0;
-  animation: fadeIn 1s ease forwards;
-}
-
-@keyframes fadeIn {
-  to { opacity: 1; }
-}
-
-/* =================================
-HEADER
+HEADER / HERO
 ================================= */
 
 .hero {
   text-align: center;
   padding: 40px 20px;
+  position: relative;
 }
 
 .header-image {
@@ -53,11 +37,19 @@ HEADER
   max-width: 1500px;
   border-radius: 10px;
   margin-bottom: 20px;
+  animation: floatLogo 6s ease-in-out infinite; /* subtle floating */
+}
+
+@keyframes floatLogo {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0px); }
 }
 
 .tagline {
   font-size: 1.2rem;
   margin-bottom: 25px;
+  color: #444;
 }
 
 /* =================================
@@ -72,19 +64,21 @@ SEARCH BAR
 
 .search input {
   padding: 14px 20px;
-  width: 360px;
-  border: 2px solid #000;
-  border-radius: 12px;
+  width: 320px;
+  border: 2px solid #000; /* black outline */
+  border-radius: 10px;
   font-size: 1rem;
+  outline: none;
   transition: 0.3s;
 }
 
 .search input:focus {
-  box-shadow: 0 0 12px rgba(0,0,0,0.25);
+  border-color: #333;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
 }
 
 /* =================================
-VENDOR GRID
+VENDOR GRID (HOMEPAGE)
 ================================= */
 
 .vendors {
@@ -97,113 +91,38 @@ VENDOR GRID
 }
 
 .vendor-card {
-  position: relative;
   background: #fff;
-  border-radius: 14px;
+  border-radius: 12px;
   overflow: hidden;
   text-align: center;
-  box-shadow: 0 6px 14px rgba(0,0,0,0.06);
-  transition: all 0.3s ease;
-}
-
-/* CLICKABLE */
-.vendor-card a {
-  display: block;
-  text-decoration: none;
-  color: inherit;
-}
-
-/* IMAGE */
-.vendor-card img {
-  width: 100%;
-  display: block;
-  transition: transform 0.5s ease, opacity 0.5s ease;
-}
-
-/* HOVER EFFECT */
-.vendor-card:hover img {
-  transform: scale(1.08);
-  opacity: 0.9;
+  box-shadow: 0 5px 12px rgba(0,0,0,0.06);
+  transition: 0.3s;
+  cursor: pointer;
 }
 
 .vendor-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 22px 45px rgba(0,0,0,0.18);
+  transform: translateY(-6px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.12);
 }
 
-/* =================================
-✨ VIEW PROFILE OVERLAY
-================================= */
-
-.vendor-card::after {
-  content: "View Profile →";
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%) translateY(20px);
-  background: rgba(0,0,0,0.75);
-  color: #fff;
-  padding: 8px 18px;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  opacity: 0;
-  transition: all 0.3s ease;
+.vendor-card img {
+  width: 100%;
+  display: block;
+  border-radius: 8px;
 }
 
-.vendor-card:hover::after {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
-
-/* TEXT */
 .vendor-card h3 {
   margin: 12px 0 5px 0;
 }
 
 .vendor-card p {
   font-size: 0.95rem;
-  margin-bottom: 10px;
-}
-
-/* =================================
-✨ GOLD FEATURED BADGE
-================================= */
-
-.featured-badge {
-  position: absolute;
-  top: 12px;
-  left: -45px;
-  background: linear-gradient(45deg, #d4af37, #f7e7a1);
-  color: #000;
-  padding: 6px 55px;
-  font-size: 0.7rem;
-  font-family: "Times New Roman", serif;
-  transform: rotate(-45deg);
-  letter-spacing: 1px;
-  font-weight: bold;
-}
-
-/* =================================
-APPLY PAGE FIX
-================================= */
-
-.page-header {
-  text-align: center !important;
-  padding: 40px 20px;
-}
-
-.page-header h1,
-.page-header p {
-  text-align: center !important;
-}
-
-.back-link {
-  display: block;
-  text-align: center;
   margin-bottom: 15px;
-  font-weight: bold;
-  color: #000;
+}
+
+.vendor-card a {
   text-decoration: none;
+  color: inherit;
 }
 
 /* =================================
@@ -217,24 +136,58 @@ VENDOR PAGE
   text-align: center;
 }
 
-/* GALLERY */
-
-.gallery {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-  align-items: center;
-}
-
-.gallery img {
-  width: 90%;
-  max-width: 800px;
-  border-radius: 10px;
-  border: 2px solid #000;
+.vendor-info p {
+  margin: 6px 0;
 }
 
 /* =================================
-JOIN SECTION
+GALLERY (VENDOR PAGES)
+================================= */
+
+.vendor-info .gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  margin-top: 25px;
+  align-items: center;
+}
+
+.vendor-info .gallery img {
+  width: 90%;
+  max-width: 800px;
+  border-radius: 10px;
+  border: 2px solid #000; /* black border */
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.vendor-info .gallery img:hover {
+  transform: scale(1.03);
+}
+
+/* =================================
+ENQUIRE BUTTON
+================================= */
+
+.enquire-btn {
+  display: inline-block;
+  margin-top: 25px;
+  padding: 12px 26px;
+  background: #000;
+  color: #fff;
+  border-radius: 30px;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: 0.3s;
+}
+
+.enquire-btn:hover {
+  background: #333;
+  transform: scale(1.05);
+}
+
+/* =================================
+JOIN / APPLY SECTION
 ================================= */
 
 .join {
@@ -243,44 +196,64 @@ JOIN SECTION
 }
 
 .join button {
-  background: #000;
-  color: #fff;
+  background-color: #000;
+  color: white;
   border: none;
   padding: 12px 24px;
+  font-family: "Times New Roman", serif;
+  font-size: 1rem;
   border-radius: 6px;
   cursor: pointer;
-  transition: 0.3s;
+  transition: 0.25s;
 }
 
 .join button:hover {
-  transform: scale(1.08);
-  background: #222;
+  background-color: #333;
+  transform: scale(1.05);
 }
 
 /* =================================
-PRICING
+PRICING TIERS
 ================================= */
+
+.pricing-tiers {
+  max-width: 700px;
+  margin: 30px auto;
+}
 
 .pricing-tier {
   border: 2px solid #000;
   border-radius: 12px;
   padding: 20px;
   margin-bottom: 20px;
+  background: #fff;
   transition: 0.3s;
 }
 
 .pricing-tier:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.pricing-tier h3 {
+  text-align: center;
+}
+
+.pricing-tier p {
+  text-align: center;
 }
 
 /* =================================
-REMOVE BULLETS
+LISTS
 ================================= */
 
 .requirements {
-  list-style: none;
+  list-style: none; /* remove bullets */
   padding: 0;
+}
+
+.requirements li {
+  margin: 8px 0;
 }
 
 /* =================================
@@ -292,4 +265,79 @@ footer {
   padding: 25px;
   margin-top: 40px;
   border-top: 1px solid #eee;
+}
+
+/* =================================
+CONTACT FORM STYLES
+================================= */
+
+#contact-form {
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 20px;
+  text-align: center;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+}
+
+#contact-form label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+  color: #000;
+  text-align: left;
+}
+
+#contact-form input,
+#contact-form textarea {
+  width: 100%;
+  padding: 14px 18px;
+  margin-bottom: 15px;
+  border: 2px solid #000;
+  border-radius: 12px;
+  font-family: Georgia, serif;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s;
+}
+
+#contact-form input:focus,
+#contact-form textarea:focus {
+  border-color: #333;
+  box-shadow: 0 0 10px rgba(0,0,0,0.25);
+  transform: scale(1.02);
+}
+
+.send-btn {
+  background-color: #000;
+  color: white;
+  font-family: Georgia, serif;
+  font-size: 1.1rem;
+  font-weight: bold;
+  padding: 14px 28px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.send-btn:hover {
+  background-color: #333;
+  transform: scale(1.08);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.success-msg {
+  display: none;
+  margin-top: 15px;
+  font-weight: bold;
+  color: #000;
+  font-size: 1rem;
+  animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
