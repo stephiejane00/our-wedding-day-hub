@@ -23,49 +23,58 @@ h3 { font-size: 1.3rem; }
 p { line-height: 1.6; }
 
 /* =================================
-HEADER / HERO FLEX
+HEADER / HERO
 ================================= */
 
 .hero-flex {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  gap: 30px;
-  padding: 30px 20px;
+  justify-content: center;
+  gap: 40px;
+  padding: 40px 20px;
   flex-wrap: wrap;
 }
 
 /* LEFT SIDE (LOGO) */
 .header-left {
-  flex: 0 0 auto;
+  flex: 1;
+  display: flex;
+  justify-content: center;
 }
 
+/* LOGO IMAGE */
 .logo {
-  width: 220px;      /* slightly bigger */
+  width: 300px;      /* bigger header image */
   height: auto;
   object-fit: contain;
 }
 
 /* RIGHT SIDE */
 .header-right {
-  flex: 1;
+  flex: 2;
+  max-width: 600px;
   text-align: left;
 }
 
-.header-right .tagline {
-  font-size: 1.2rem;
-  margin-bottom: 15px;
-  color: #444;
+/* spacing */
+.header-right h1 {
+  margin-bottom: 10px;
 }
 
-.header-right .search {
-  justify-content: flex-start;
-  margin-bottom: 0;  /* reduced gap below search */
+.header-right .tagline {
+  margin-bottom: 15px; /* less gap under tagline */
+}
+
+/* SEARCH BAR */
+.search {
+  display: flex;
+  justify-content: flex-start;  /* left aligned */
+  margin-bottom: 0;  /* remove extra gap below search bar */
 }
 
 .search input {
   padding: 14px 20px;
-  width: 300px;
+  width: 320px;
   border: 2px solid #2F4F2F;
   border-radius: 10px;
   font-size: 1rem;
@@ -143,7 +152,6 @@ VENDOR PAGE
 GALLERY (VENDOR PAGES)
 ================================= */
 
-/* Stacked, larger images */
 .vendor-info .gallery {
   display: flex;
   flex-direction: column;
@@ -246,16 +254,6 @@ footer {
   border-top: 1px solid #eee;
 }
 
-.footer-link {
-  color: #2F4F2F;
-  text-decoration: none;
-  margin: 0 5px;
-}
-
-.footer-link:hover {
-  text-decoration: underline;
-}
-
 /* =================================
 CONTACT FORM STYLES
 ================================= */
@@ -298,7 +296,6 @@ CONTACT FORM STYLES
   transform: scale(1.02);
 }
 
-/* Cute Send Button */
 .send-btn {
   background-color: #2F4F2F;
   color: white;
@@ -318,7 +315,6 @@ CONTACT FORM STYLES
   box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
 
-/* Success Message */
 .success-msg {
   display: none;
   margin-top: 15px;
