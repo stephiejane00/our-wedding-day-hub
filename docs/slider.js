@@ -22,14 +22,13 @@ featuredVendors.forEach(vendor => {
 });
 
 // Show 3 slides at a time
-const slideWidth = 270; // 250px card + 20px gap
+const slideWidth = 320 + 30; // card + gap
 function nextSlide() {
   if (currentSlide < featuredVendors.length - 3) {
     currentSlide++;
     sliderTrack.scrollBy({ left: slideWidth, behavior: 'smooth' });
   }
 }
-
 function prevSlide() {
   if (currentSlide > 0) {
     currentSlide--;
