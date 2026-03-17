@@ -16,7 +16,7 @@ h1, h2, h3 {
   margin-bottom: 10px;
 }
 
-h1 { font-size: 2.6rem; }
+h1 { font-size: 2.2rem; } /* slightly smaller for layout */
 h2 { font-size: 1.9rem; }
 h3 { font-size: 1.3rem; }
 
@@ -27,20 +27,43 @@ HEADER / HERO
 ================================= */
 
 .hero {
-  text-align: center;
   padding: 40px 20px;
 }
 
-.header-image {
-  width: 100%;
-  max-width: 1500px;
-  border-radius: 10px;
-  margin-bottom: 20px;
+/* FLEX HEADER */
+.hero-flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  max-width: 1100px;
+  margin: auto;
+  flex-wrap: wrap;
 }
 
+/* LEFT SIDE (LOGO) */
+.header-left {
+  flex: 0 0 auto;
+}
+
+/* LOGO IMAGE (FIXED SIZE) */
+.logo {
+  width: 120px !important;
+  height: auto !important;
+  display: block;
+}
+
+/* RIGHT SIDE */
+.header-right {
+  flex: 1;
+  max-width: 600px;
+  text-align: left;
+}
+
+/* TAGLINE */
 .tagline {
-  font-size: 1.2rem;
-  margin-bottom: 25px;
+  font-size: 1.1rem;
+  margin-bottom: 20px;
   color: #444;
 }
 
@@ -70,15 +93,15 @@ SEARCH BAR
 
 .search {
   display: flex;
-  justify-content: center;
-  margin: 25px 0;
+  justify-content: flex-start;
+  margin: 20px 0;
 }
 
 .search input {
   padding: 14px 20px;
-  width: 320px;
+  width: 280px;
   border: 2px solid #2F4F2F;
-  border-radius: 10px;
+  border-radius: 12px;
   font-size: 1rem;
   outline: none;
   transition: 0.3s;
@@ -95,21 +118,20 @@ CATEGORY BUTTONS
 
 .category-buttons {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   flex-wrap: wrap;
-  margin-bottom: 30px;
 }
 
 .category-buttons button {
   background-color: #2F4F2F;
   color: white;
   border: none;
-  padding: 12px 18px;
+  padding: 10px 16px;
   margin: 5px;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
   font-family: Georgia, serif;
-  font-size: 1rem;
+  font-size: 0.95rem;
   transition: 0.25s;
 }
 
@@ -180,10 +202,9 @@ VENDOR PAGE
 }
 
 /* =================================
-GALLERY (VENDOR PAGES)
+GALLERY (STACKED BIG IMAGES)
 ================================= */
 
-/* Stacked, larger images */
 .vendor-info .gallery {
   display: flex;
   flex-direction: column;
@@ -193,9 +214,9 @@ GALLERY (VENDOR PAGES)
 }
 
 .vendor-info .gallery img {
-  width: 90%;
+  width: 95%;
   max-width: 800px;
-  border-radius: 10px;
+  border-radius: 12px;
   border: 2px solid #2F4F2F;
   cursor: pointer;
   transition: transform 0.3s;
@@ -221,7 +242,7 @@ JOIN / APPLY SECTION
   padding: 12px 24px;
   font-family: Georgia, serif;
   font-size: 1rem;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
   transition: 0.25s;
 }
@@ -254,12 +275,11 @@ PRICING TIERS
   box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }
 
-.pricing-tier h3 {
-  text-align: center;
-}
-
-.pricing-tier p {
-  text-align: center;
+/* fine print */
+.fine-print {
+  font-size: 0.8rem;
+  color: #777;
+  font-style: italic;
 }
 
 /* =================================
@@ -285,8 +305,9 @@ footer {
   margin-top: 40px;
   border-top: 1px solid #eee;
 }
+
 /* =================================
-CONTACT FORM STYLES
+CONTACT FORM
 ================================= */
 
 #contact-form {
@@ -314,102 +335,20 @@ CONTACT FORM STYLES
   margin-bottom: 15px;
   border: 2px solid #2F4F2F;
   border-radius: 12px;
-  font-family: Georgia, serif;
-  font-size: 1rem;
-  outline: none;
-  transition: all 0.3s;
 }
 
-#contact-form input:focus,
-#contact-form textarea:focus {
-  border-color: #24412D;
-  box-shadow: 0 0 10px rgba(47,79,47,0.25);
-  transform: scale(1.02);
-}
-
-/* Cute Send Button */
 .send-btn {
   background-color: #2F4F2F;
   color: white;
-  font-family: Georgia, serif;
   font-size: 1.1rem;
-  font-weight: bold;
   padding: 14px 28px;
-  border: none;
   border-radius: 12px;
   cursor: pointer;
-  transition: 0.3s;
 }
 
-.send-btn:hover {
-  background-color: #24412D;
-  transform: scale(1.08);
-  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-}
-
-/* Success Message */
 .success-msg {
   display: none;
   margin-top: 15px;
   font-weight: bold;
   color: #2F4F2F;
-  font-size: 1rem;
-  animation: fadeIn 0.5s ease forwards;
-}
-
-/* Fade-in animation for success message */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-/* =================================
-NEW HEADER LAYOUT
-================================= */
-
-.hero-flex {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 40px;
-  padding: 40px 20px;
-  flex-wrap: wrap;
-}
-
-/* LEFT SIDE (LOGO) */
-.header-left {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-}
-
-/* LOGO IMAGE */
-.logo {
-  width: 150px;      /* 👈 controls size */
-  height: auto;
-  object-fit: contain;
-}
-
-/* RIGHT SIDE */
-.header-right {
-  flex: 2;
-  max-width: 600px;
-  text-align: left;
-}
-
-/* spacing */
-.header-right h1 {
-  margin-bottom: 10px;
-}
-
-.header-right .tagline {
-  margin-bottom: 20px;
-}
-
-/* align search + buttons left */
-.header-right .search {
-  justify-content: flex-start;
-}
-
-.header-right .category-buttons {
-  justify-content: flex-start;
 }
