@@ -9,6 +9,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: 100vh;
 }
 
 h1, h2, h3 {
@@ -69,12 +70,12 @@ header.hero {
 ========================= */
 .featured-slider-wrapper {
   width: 100%;
-  max-width: 1200px;
-  position: relative;
-  margin-bottom: 50px;
+  max-width: 1200px; /* matches footer width */
+  margin: 0 auto 50px auto;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
 .featured-slider {
@@ -86,25 +87,25 @@ header.hero {
 }
 
 .vendor-card {
-  min-width: 320px; /* bigger cards */
-  border-radius: 12px;
+  min-width: 320px;
+  border-radius: 20px; /* fully rounded corners */
   overflow: hidden;
   background: #fff;
   text-align: center;
-  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1), 0 0 25px rgba(0,0,0,0.05) inset; /* soft glow */
   transition: transform 0.3s, box-shadow 0.3s;
   cursor: pointer;
 }
 
 .vendor-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 12px 35px rgba(0,0,0,0.25);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.25), 0 0 30px rgba(0,0,0,0.08) inset;
 }
 
 .vendor-card img {
   width: 100%;
   display: block;
-  border-radius: 8px;
+  border-radius: 20px 20px 0 0; /* rounded top corners */
 }
 
 .vendor-card h3 {
@@ -231,10 +232,12 @@ header.hero {
 ========================= */
 footer {
   width: 100%;
+  max-width: 1200px;
   text-align: center;
   padding: 30px;
   border-top: 1px solid #eee;
   box-sizing: border-box;
+  margin-top: auto;
 }
 
 /* =========================
@@ -246,23 +249,4 @@ footer {
   .pricing-tiers { flex-direction: column; }
   .vendor-card { min-width: 90%; }
   .search input { width: 90%; }
-}
-/* =========================
-   FOOTER FIX
-========================= */
-body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  align-items: center; /* ensures all page content, including footer, is centred */
-}
-
-footer {
-  width: 100%;
-  max-width: 1200px; /* matches page content width */
-  text-align: center;
-  padding: 30px;
-  border-top: 1px solid #eee;
-  box-sizing: border-box;
-  margin-top: auto; /* pushes footer to bottom if page is short */
 }
