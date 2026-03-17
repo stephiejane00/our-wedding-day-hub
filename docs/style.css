@@ -23,7 +23,7 @@ h3 { font-size: 1.3rem; }
 p { line-height: 1.6; }
 
 /* =================================
-HEADER / HERO (FULL WIDTH)
+HEADER / HERO (OLD LAYOUT, CENTERED)
 ================================= */
 
 .hero {
@@ -32,26 +32,27 @@ HEADER / HERO (FULL WIDTH)
 }
 
 .header-image {
+  display: block;
+  margin: 0 auto;   /* centers the image */
   width: 100%;
   max-width: 2000px;
   height: auto;
-  display: block;
-  margin: 0 auto;
 }
 
 .tagline {
   font-size: 1.2rem;
   margin: 20px 0;
   color: #444;
+  text-align: center;
 }
 
 /* =================================
-SEARCH BAR
+SEARCH BAR CENTERED UNDER HEADER
 ================================= */
 
 .search {
   display: flex;
-  justify-content: center;
+  justify-content: center; /* centers the search bar */
   margin: 20px 0 40px 0;
 }
 
@@ -136,6 +137,7 @@ VENDOR PAGE
 GALLERY (VENDOR PAGES)
 ================================= */
 
+/* Stacked, larger images */
 .vendor-info .gallery {
   display: flex;
   flex-direction: column;
@@ -239,7 +241,7 @@ footer {
 }
 
 /* =================================
-CONTACT FORM
+CONTACT FORM STYLES
 ================================= */
 
 #contact-form {
@@ -280,6 +282,7 @@ CONTACT FORM
   transform: scale(1.02);
 }
 
+/* Cute Send Button */
 .send-btn {
   background-color: #2F4F2F;
   color: white;
@@ -299,6 +302,7 @@ CONTACT FORM
   box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
 
+/* Success Message */
 .success-msg {
   display: none;
   margin-top: 15px;
@@ -308,6 +312,7 @@ CONTACT FORM
   animation: fadeIn 0.5s ease forwards;
 }
 
+/* Fade-in animation for success message */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
