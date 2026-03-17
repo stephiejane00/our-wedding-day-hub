@@ -49,47 +49,41 @@ SEARCH
 }
 
 /* =================================
-FEATURED SLIDER (3 PER SLIDE)
+FEATURED SLIDER (FIXED ALIGNMENT)
 ================================= */
 
 .slider {
   position: relative;
-  max-width: 1000px;
-  margin: auto;
+  max-width: 1100px;
+  margin: 40px auto;
   overflow: hidden;
+  display: flex;
+  align-items: center;
 }
 
 .slider-track {
   display: flex;
   transition: transform 0.5s ease;
+  width: 100%;
 }
 
 .slide {
   min-width: 100%;
   display: flex;
   justify-content: center;
-  gap: 20px;
-  padding: 10px;
+  align-items: stretch;
+  gap: 25px;
+  padding: 20px 60px; /* space for arrows */
+  box-sizing: border-box;
 }
 
-/* Make cards fit 3 across */
+/* Cards */
 .slide .vendor-card {
   width: 30%;
+  max-width: 300px;
 }
 
-/* Responsive (mobile = 1 per slide) */
-@media (max-width: 768px) {
-  .slide {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .slide .vendor-card {
-    width: 90%;
-  }
-}
-
-/* ARROWS */
+/* ARROWS (perfect vertical centre) */
 
 .slider-btn {
   position: absolute;
@@ -99,13 +93,41 @@ FEATURED SLIDER (3 PER SLIDE)
   color: #fff;
   border: none;
   font-size: 1.5rem;
-  padding: 10px 14px;
+  padding: 12px 16px;
   cursor: pointer;
   border-radius: 50%;
+  z-index: 20;
 }
 
-.prev { left: 10px; }
-.next { right: 10px; }
+.slider-btn:hover {
+  background: #222;
+}
+
+.prev {
+  left: 10px;
+}
+
+.next {
+  right: 10px;
+}
+
+/* MOBILE FIX */
+
+@media (max-width: 768px) {
+  .slide {
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .slide .vendor-card {
+    width: 90%;
+  }
+
+  .slider-btn {
+    display: none;
+  }
+}
 
 /* =================================
 VENDOR CARDS
