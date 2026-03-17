@@ -1,40 +1,51 @@
-const vendorsContainer = document.getElementById('vendors-container');
+// script.js
+
 let vendors = [];
 
-// Load vendors.json
+// Fetch vendors from vendors.json
 fetch('vendors.json')
-  .then(res => res.json())
+  .then(response => response.json())
   .then(data => {
     vendors = data;
-
-    // Show only featured vendors on homepage
-    const featuredVendors = vendors.filter(v => v.featured);
-    displayVendors(featuredVendors);
+    displayVendors();
   });
 
-function displayVendors(vendorList) {
-  vendorsContainer.innerHTML = '';
-  vendorList.forEach(vendor => {
+// Display vendors
+function displayVendors(searchTerm = '') {
+  const container = document.getElementById('vendors-container');
+  container.innerHTML = '';
+
+  let filtered = vendors;
+
+  if (searchTerm.trim() !== '') {
+    const term = searchTerm.toLowerCase();
+    filtered = vendors.filter(v => 
+      v.name.toLowerCase().includes(term) ||
+      v.category.toLowerCase().includes(term) ||
+      v.location.toLowerCase().includes(term)
+    );
+  } else {
+    // Show only featured vendors when search is empty
+    filtered = vendors.filter(v => v.featured);
+  }
+
+  filtered.forEach(vendor => {
     const card = document.createElement('div');
-    card.className = 'vendor-card';
+    card.classList.add('vendor-card');
 
     card.innerHTML = `
-      <img src="${vendor.image}" alt="${vendor.name}">
-      <h3>${vendor.name}</h3>
-      <p>${vendor.description}</p>
-      <a href="vendor.html?name=${encodeURIComponent(vendor.name)}">View Profile</a>
+      <a href="${vendor.page}">
+        <img src="${vendor.image}" alt="${vendor.name}">
+        <h3>${vendor.name}</h3>
+        <p>${vendor.category} - ${vendor.location}</p>
+      </a>
     `;
-    vendorsContainer.appendChild(card);
+
+    container.appendChild(card);
   });
 }
 
-// Enquiry Button Logic (on vendor page)
-const enquireBtn = document.getElementById('enquireBtn');
-if (enquireBtn) {
-  const urlParams = new URLSearchParams(window.location.search);
-  const vendorName = urlParams.get('name');
-  const vendor = vendors.find(v => v.name === vendorName);
-  if (vendor && vendor.email) {
-    enquireBtn.href = `mailto:${vendor.email}?subject=Wedding Enquiry - ${vendor.name}`;
-  }
-}
+// Search input event
+document.getElementById('search').addEventListener('keyup', e => {
+  displayVendors(e.target.value);
+});
