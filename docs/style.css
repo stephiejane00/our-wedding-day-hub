@@ -1,102 +1,43 @@
-/* =================================
-GLOBAL STYLES
-================================= */
-
+/* GLOBAL */
 body {
   font-family: Georgia, serif;
-  background-color: #fefbf7; /* soft beige */
-  color: #333;
+  background-color: #fefbf7;
   margin: 0;
-  padding: 0;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-}
-
-h1, h2, h3 {
-  font-family: "Times New Roman", serif; /* headers luxury font */
   color: #000;
-  margin-bottom: 10px;
-}
-
-h1 { font-size: 2.6rem; }
-h2 { font-size: 1.9rem; }
-h3 { font-size: 1.3rem; }
-
-p {
-  line-height: 1.6;
-  font-family: Georgia, serif;
-  color: #444;
-  margin: 0 0 15px 0;
-}
-
-/* =================================
-HEADER / HERO
-================================= */
-
-.hero-flex {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 40px;
-  padding: 40px 20px;
-  flex-wrap: wrap;
 }
 
-.header-left {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-}
-
-.logo {
-  width: 180px;
-  height: auto;
-  object-fit: contain;
-}
-
-.header-right {
-  flex: 2;
-  max-width: 600px;
-  text-align: left;
-}
-
-.header-right h1 {
-  margin-bottom: 10px;
-}
-
-.header-right .tagline {
-  margin-bottom: 20px;
-}
-
-/* =================================
-SEARCH BAR
-================================= */
-
-.search {
-  display: flex;
-  justify-content: flex-start;
-  margin-bottom: 20px;
+header.hero {
   width: 100%;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.header-image {
+  width: 100%;
+  max-width: 1200px;
+  height: auto;
+  border-radius: 10px;
+}
+
+/* SEARCH BAR */
+.search {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
 }
 
 .search input {
   padding: 14px 20px;
-  width: 100%;
+  width: 90%;
   max-width: 400px;
-  border: 2px solid #000;
-  border-radius: 10px;
   font-size: 1rem;
+  border-radius: 10px;
+  border: 2px solid #000;
   outline: none;
-  transition: 0.3s;
 }
 
 .search input:focus {
@@ -104,34 +45,32 @@ SEARCH BAR
   box-shadow: 0 0 10px rgba(0,0,0,0.25);
 }
 
-/* =================================
-VENDOR GRID / FEATURED SLIDER
-================================= */
-
-.vendors {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 25px;
+/* FEATURED SLIDER */
+.featured-slider {
+  width: 100%;
   max-width: 1200px;
-  margin: 30px auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+
+.slider-track {
+  display: flex;
+  gap: 20px;
+  overflow: hidden;
+  scroll-behavior: smooth;
 }
 
 .vendor-card {
-  position: relative;
-  background: #fff;
+  min-width: 250px;
   border-radius: 12px;
   overflow: hidden;
+  background: #fff;
   text-align: center;
-  box-shadow: 0 5px 12px rgba(0,0,0,0.06);
-  transition: 0.3s;
-  cursor: pointer;
-  width: 250px;
-}
-
-.vendor-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+  box-shadow: 0 0 35px rgba(0,0,0,0.15), 0 0 50px rgba(0,0,0,0.05);
+  transition: transform 0.3s;
 }
 
 .vendor-card img {
@@ -140,144 +79,74 @@ VENDOR GRID / FEATURED SLIDER
 }
 
 .vendor-card h3 {
-  margin: 12px 0 5px 0;
+  margin: 10px 0;
+  font-family: "Times New Roman", serif;
 }
 
 .vendor-card p {
-  font-size: 0.95rem;
-  margin-bottom: 15px;
-}
-
-.vendor-card a {
-  text-decoration: none;
-  color: inherit;
-}
-
-/* Vendor slider luxury glow */
-.vendor-card.featured {
-  box-shadow: 0 0 35px rgba(0,0,0,0.15), 0 0 50px rgba(0,0,0,0.05);
-}
-
-/* =================================
-APPLY / JOIN PAGE
-================================= */
-
-.page-header {
-  text-align: center;
-  padding: 50px 20px;
-}
-
-.vendor-info {
-  max-width: 1200px;
-  margin: 0 auto 50px;
-  text-align: center;
-}
-
-.pricing-tiers {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-  margin-top: 30px;
-}
-
-.pricing-tier {
-  flex: 1 1 250px;
-  border: 2px solid #000;
-  border-radius: 12px;
-  padding: 25px 20px;
-  background: #fff;
-  transition: 0.3s;
-  position: relative;
-}
-
-.pricing-tier:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
-}
-
-.pricing-tier.premium {
-  border-color: #000;
-  background: #fdfaf6;
-  box-shadow: 0 0 35px rgba(0,0,0,0.25), 0 0 50px rgba(255, 215, 0, 0.15);
-  z-index: 2;
-}
-
-.pricing-tier h3 {
-  font-size: 1.3rem;
-  margin-bottom: 12px;
-}
-
-.pricing-price {
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.apply-button {
-  background-color: #000;
-  color: white;
   font-family: Georgia, serif;
-  font-size: 1.2rem;
-  font-weight: bold;
-  padding: 16px 32px;
-  border: none;
-  border-radius: 12px;
+  font-size: 0.95rem;
+  margin: 0 0 12px 0;
+}
+
+/* SLIDER ARROWS */
+.slider-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2rem;
+  color: #000;
+  background: rgba(255,255,255,0.7);
+  padding: 10px;
+  border-radius: 50%;
   cursor: pointer;
-  transition: 0.3s;
-  margin-top: 30px;
-  text-decoration: none;
+  z-index: 10;
+  user-select: none;
+}
+
+.slider-arrow.left { left: 10px; }
+.slider-arrow.right { right: 10px; }
+
+/* JOIN BUTTON */
+.apply-button {
   display: inline-block;
+  background: #000;
+  color: #fff;
+  padding: 16px 32px;
+  border-radius: 12px;
+  font-size: 1.2rem;
+  text-decoration: none;
+  margin-top: 25px;
+  transition: 0.3s;
 }
 
 .apply-button:hover {
-  background-color: #333;
+  background: #333;
   transform: scale(1.05);
 }
 
-/* =================================
-FOOTER
-================================= */
+/* JOIN SECTION */
+.join {
+  text-align: center;
+  max-width: 900px;
+  margin-bottom: 50px;
+}
+
+/* FOOTER */
 footer {
+  width: 100%;
   text-align: center;
   padding: 25px;
-  margin-top: 40px;
   border-top: 1px solid #eee;
-  width: 100%;
   box-sizing: border-box;
 }
 
-footer p {
-  margin: 0;
-}
-
-/* =================================
-ANIMATIONS
-================================= */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(15px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* =================================
-RESPONSIVE
-================================= */
+/* RESPONSIVE */
 @media (max-width: 900px) {
-  .pricing-tiers {
-    flex-direction: column;
-    gap: 15px;
+  .featured-slider {
+    overflow-x: scroll;
+    padding: 0 20px;
   }
 
-  .hero-flex {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .header-right {
-    text-align: center;
-  }
-
-  .search {
-    justify-content: center;
-  }
+  .slider-arrow { display: none; }
 }
