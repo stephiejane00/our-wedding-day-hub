@@ -1,341 +1,53 @@
 /* =================================
-GLOBAL STYLES
+GLOBAL
 ================================= */
 
 body {
   font-family: Georgia, serif;
-  background-color: #fdf8f2; /* soft beige */
-  color: #333;
+  background-color: #fdf8f2;
   margin: 0;
-  padding: 0;
-  animation: fadeIn 0.5s ease;
+  color: #333;
 }
 
 h1, h2, h3 {
-  font-family: "Times New Roman", serif; /* headers in Times New Roman */
+  font-family: "Times New Roman", serif;
   color: #000;
-  margin-bottom: 10px;
-}
-
-h1 { font-size: 2.6rem; }
-h2 { font-size: 1.9rem; }
-h3 { font-size: 1.3rem; }
-
-p { 
-  font-family: Georgia, serif; /* subtext stays Georgia */
-  line-height: 1.6;
+  text-align: center;
 }
 
 /* =================================
-HEADER / HERO
+HEADER
 ================================= */
 
 .hero {
   text-align: center;
-  padding: 40px 20px;
+  padding: 30px 20px;
 }
 
 .header-image {
+  max-width: 1200px;
   width: 100%;
-  max-width: 1500px;
   border-radius: 10px;
-  margin-bottom: 20px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.tagline {
-  font-size: 1.2rem;
-  margin-bottom: 25px;
-  color: #444;
 }
 
 /* =================================
-SEARCH BAR
+SEARCH
 ================================= */
 
 .search {
   display: flex;
   justify-content: center;
-  margin: 25px 0;
+  margin: 20px;
 }
 
 .search input {
-  padding: 14px 20px;
   width: 320px;
+  padding: 14px;
   border: 2px solid #000;
   border-radius: 10px;
   font-size: 1rem;
-  outline: none;
-  transition: 0.3s;
 }
 
-.search input:focus {
-  border-color: #222;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
-  transform: scale(1.02);
-}
-
-/* =================================
-VENDOR GRID (HOMEPAGE)
-================================= */
-
-.vendors {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: 25px;
-  padding: 30px;
-  max-width: 1200px;
-  margin: auto;
-}
-
-.vendor-card {
-  position: relative;
-  background: #fff;
-  border-radius: 12px;
-  overflow: hidden;
-  text-align: center;
-  box-shadow: 0 5px 12px rgba(0,0,0,0.06);
-  transition: 0.3s;
-}
-
-.vendor-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 25px rgba(0,0,0,0.12);
-}
-
-.vendor-card img {
-  width: 100%;
-  display: block;
-}
-
-.vendor-card h3 {
-  margin: 12px 0 5px 0;
-}
-
-.vendor-card p {
-  font-size: 0.95rem;
-  margin-bottom: 15px;
-}
-
-.vendor-card a {
-  text-decoration: none;
-  color: inherit;
-}
-
-/* =================================
-FEATURED RIBBON
-================================= */
-
-.vendor-card.featured::before {
-  content: "Featured";
-  position: absolute;
-  top: 10px;
-  left: -30px;
-  transform: rotate(-45deg);
-  background-color: gold;
-  color: #000;
-  padding: 5px 45px;
-  font-weight: bold;
-  font-size: 0.9rem;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
-}
-
-/* =================================
-VENDOR PAGE
-================================= */
-
-.vendor-info {
-  max-width: 850px;
-  margin: auto;
-  padding: 30px 20px;
-  text-align: center;
-}
-
-.vendor-info p {
-  margin: 6px 0;
-}
-
-/* =================================
-GALLERY (VENDOR PAGES)
-================================= */
-
-.vendor-info .gallery {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-  margin-top: 25px;
-  align-items: center;
-}
-
-.vendor-info .gallery img {
-  width: 90%;
-  max-width: 800px;
-  border-radius: 10px;
-  border: 2px solid #000;
-  cursor: pointer;
-  transition: transform 0.3s;
-}
-
-.vendor-info .gallery img:hover {
-  transform: scale(1.03);
-}
-
-/* =================================
-JOIN / APPLY SECTION
-================================= */
-
-.join {
-  text-align: center;
-  padding: 40px 20px;
-}
-
-.join button,
-.send-btn {
-  background-color: #000; /* black buttons */
-  color: #fff;
-  font-family: "Times New Roman", serif;
-  font-size: 1rem;
-  font-weight: bold;
-  padding: 14px 28px;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.join button:hover,
-.send-btn:hover {
-  background-color: #222;
-  transform: scale(1.08);
-  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-}
-
-/* =================================
-PRICING TIERS
-================================= */
-
-.pricing-tiers {
-  max-width: 700px;
-  margin: 30px auto;
-}
-
-.pricing-tier {
-  border: 2px solid #000;
-  border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 20px;
-  background: #fff;
-  transition: 0.3s;
-}
-
-.pricing-tier:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-}
-
-.pricing-tier h3 {
-  text-align: center;
-}
-
-.pricing-tier p {
-  text-align: center;
-}
-
-/* =================================
-LISTS
-================================= */
-
-.requirements {
-  list-style: none; /* removes bullet points */
-  padding: 0;
-}
-
-.requirements li {
-  margin: 8px 0;
-}
-
-/* =================================
-FOOTER
-================================= */
-
-footer {
-  text-align: center;
-  padding: 25px;
-  margin-top: 40px;
-  border-top: 1px solid #eee;
-}
-
-.footer-link {
-  color: #000;
-  text-decoration: none;
-}
-
-.footer-link:hover {
-  text-decoration: underline;
-}
-
-/* =================================
-CONTACT FORM STYLES
-================================= */
-
-#contact-form {
-  max-width: 600px;
-  margin: 30px auto;
-  padding: 20px;
-  text-align: center;
-  background: #fdf8f2;
-  border-radius: 12px;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.05);
-}
-
-#contact-form label {
-  display: block;
-  margin-bottom: 6px;
-  font-weight: bold;
-  color: #000;
-  text-align: left;
-}
-
-#contact-form input,
-#contact-form textarea {
-  width: 100%;
-  padding: 14px 18px;
-  margin-bottom: 15px;
-  border: 2px solid #000;
-  border-radius: 12px;
-  font-family: Georgia, serif;
-  font-size: 1rem;
-  outline: none;
-  transition: all 0.3s;
-}
-
-#contact-form input:focus,
-#contact-form textarea:focus {
-  border-color: #222;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
-  transform: scale(1.02);
-}
-
-/* Success Message */
-.success-msg {
-  display: none;
-  margin-top: 15px;
-  font-weight: bold;
-  color: #000;
-  font-size: 1rem;
-  animation: fadeIn 0.5s ease forwards;
-}
-
-/* =================================
-PAGE LOAD ANIMATION
-================================= */
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
 /* =================================
 FEATURED SLIDER
 ================================= */
@@ -347,7 +59,7 @@ FEATURED SLIDER
 
 .slider {
   position: relative;
-  max-width: 900px;
+  max-width: 700px;
   margin: auto;
   overflow: hidden;
 }
@@ -363,6 +75,8 @@ FEATURED SLIDER
   justify-content: center;
 }
 
+/* ARROWS */
+
 .slider-btn {
   position: absolute;
   top: 50%;
@@ -374,12 +88,76 @@ FEATURED SLIDER
   padding: 10px 14px;
   cursor: pointer;
   border-radius: 50%;
-  z-index: 10;
-}
-
-.slider-btn:hover {
-  background: #222;
 }
 
 .prev { left: 10px; }
 .next { right: 10px; }
+
+/* =================================
+VENDOR CARDS
+================================= */
+
+.vendor-card {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  width: 260px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+  transition: 0.3s;
+}
+
+.vendor-card:hover {
+  transform: translateY(-5px);
+}
+
+.vendor-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+.vendor-card h3 {
+  margin: 10px 0 5px;
+}
+
+.vendor-card p {
+  margin-bottom: 15px;
+  font-size: 0.9rem;
+}
+
+/* REMOVE FEATURED RIBBON */
+.vendor-card.featured::before {
+  display: none;
+}
+
+/* =================================
+SEARCH RESULTS GRID
+================================= */
+
+.vendors {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  padding: 30px;
+  max-width: 1000px;
+  margin: auto;
+}
+
+/* =================================
+BUTTONS
+================================= */
+
+button {
+  background: #000;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #222;
+}
