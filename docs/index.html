@@ -8,30 +8,20 @@
 </head>
 <body>
 
-<header class="hero hero-flex">
+<!-- OLD STYLE FULL-WIDTH HEADER -->
+<header class="hero">
+  <img src="images/header4.png" alt="Our Wedding Day Hub" class="header-image">
+  <p class="tagline">Discover trusted wedding vendors across Australia</p>
 
-  <!-- LEFT: LOGO -->
-  <div class="header-left">
-    <img src="images/header3.png" alt="Our Wedding Day Hub" class="logo">
+  <!-- SEARCH BAR CENTERED -->
+  <div class="search">
+    <input type="text" id="search" placeholder="Search by vendor, location, or category..." onkeyup="searchVendors()">
   </div>
-
-  <!-- RIGHT: CONTENT -->
-  <div class="header-right">
-
-    <p class="tagline">Discover trusted wedding vendors across Australia</p>
-
-    <!-- SEARCH -->
-    <div class="search">
-      <input type="text" id="search" placeholder="Search by vendor, location, or category..." onkeyup="searchVendors()">
-    </div>
-
-  </div>
-
 </header>
 
 <!-- FEATURED VENDORS -->
 <section class="vendors" id="vendors-container">
-  <!-- Featured vendors will load here automatically from vendors.json -->
+  <!-- Featured vendors will load automatically from vendors.json -->
 </section>
 
 <!-- JOIN SECTION -->
