@@ -10,7 +10,7 @@ body {
   padding: 0;
 }
 
-/* HEADINGS (Times New Roman) */
+/* HEADINGS */
 h1, h2, h3 {
   font-family: "Times New Roman", serif;
   color: #000;
@@ -87,32 +87,41 @@ VENDOR GRID
 }
 
 .vendor-card {
+  position: relative;
   background: #fff;
   border-radius: 12px;
   overflow: hidden;
   text-align: center;
   box-shadow: 0 5px 12px rgba(0,0,0,0.06);
-  transition: 0.3s;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* CLICKABLE CARD FIX */
+/* CLICKABLE CARD */
 .vendor-card a {
   display: block;
   text-decoration: none;
   color: inherit;
 }
 
-/* HOVER EFFECT */
-.vendor-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 25px rgba(0,0,0,0.12);
-}
-
+/* IMAGE */
 .vendor-card img {
   width: 100%;
   display: block;
+  transition: transform 0.4s ease, opacity 0.4s ease;
 }
 
+/* HOVER EFFECT */
+.vendor-card:hover img {
+  transform: scale(1.05);
+  opacity: 0.92;
+}
+
+.vendor-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 18px 35px rgba(0,0,0,0.15);
+}
+
+/* TEXT */
 .vendor-card h3 {
   margin: 12px 0 5px 0;
 }
@@ -123,18 +132,35 @@ VENDOR GRID
 }
 
 /* =================================
+FEATURED BADGE
+================================= */
+
+.featured-badge {
+  position: absolute;
+  top: 12px;
+  left: -45px;
+  background: #000;
+  color: #fff;
+  padding: 6px 55px;
+  font-size: 0.7rem;
+  font-family: "Times New Roman", serif;
+  transform: rotate(-45deg);
+  letter-spacing: 1px;
+}
+
+/* =================================
 PAGE HEADER (APPLY PAGE FIX)
 ================================= */
 
 .page-header {
-  text-align: center;
+  text-align: center !important;
   padding: 40px 20px;
   width: 100%;
 }
 
 .page-header h1,
 .page-header p {
-  text-align: center;
+  text-align: center !important;
   margin-left: auto;
   margin-right: auto;
 }
@@ -162,10 +188,6 @@ VENDOR PAGE
   margin: auto;
   padding: 30px 20px;
   text-align: center;
-}
-
-.vendor-info p {
-  margin: 6px 0;
 }
 
 /* =================================
@@ -247,7 +269,7 @@ PRICING
 }
 
 /* =================================
-REMOVE BULLET POINTS
+REMOVE BULLETS
 ================================= */
 
 .requirements {
