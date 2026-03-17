@@ -1,35 +1,31 @@
 /* =================================
 GLOBAL STYLES
 ================================= */
-
 body {
   font-family: Georgia, serif;
-  background-color: #f8f6f2; /* soft beige luxury vibe */
+  background-color: #fff;
   color: #333;
   margin: 0;
   padding: 0;
 }
 
 h1, h2, h3 {
-  font-family: "Times New Roman", serif; /* new header font */
-  color: #000; /* black headers for elegance */
+  color: #000; /* black headers */
   margin-bottom: 10px;
 }
 
-h1 { font-size: 2.6rem; }
+h1 { font-family: "Times New Roman", serif; font-size: 2.6rem; }
 h2 { font-size: 1.9rem; }
 h3 { font-size: 1.3rem; }
 
-p { line-height: 1.6; font-family: Georgia, serif; } /* keep subtext in Georgia */
+p { line-height: 1.6; }
 
 /* =================================
 HEADER / HERO
 ================================= */
-
 .hero {
   text-align: center;
-  padding: 40px 20px;
-  position: relative;
+  padding: 20px;
 }
 
 .header-image {
@@ -37,35 +33,21 @@ HEADER / HERO
   max-width: 1500px;
   border-radius: 10px;
   margin-bottom: 20px;
-  animation: floatLogo 6s ease-in-out infinite; /* subtle floating */
-}
-
-@keyframes floatLogo {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-6px); }
-  100% { transform: translateY(0px); }
-}
-
-.tagline {
-  font-size: 1.2rem;
-  margin-bottom: 25px;
-  color: #444;
 }
 
 /* =================================
 SEARCH BAR
 ================================= */
-
 .search {
   display: flex;
   justify-content: center;
-  margin: 25px 0;
+  margin: 20px 0;
 }
 
 .search input {
   padding: 14px 20px;
   width: 320px;
-  border: 2px solid #000; /* black outline */
+  border: 2px solid #000;
   border-radius: 10px;
   font-size: 1rem;
   outline: none;
@@ -73,14 +55,13 @@ SEARCH BAR
 }
 
 .search input:focus {
-  border-color: #333;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  border-color: #000;
+  box-shadow: 0 0 10px rgba(0,0,0,0.25);
 }
 
 /* =================================
 VENDOR GRID (HOMEPAGE)
 ================================= */
-
 .vendors {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
@@ -97,7 +78,6 @@ VENDOR GRID (HOMEPAGE)
   text-align: center;
   box-shadow: 0 5px 12px rgba(0,0,0,0.06);
   transition: 0.3s;
-  cursor: pointer;
 }
 
 .vendor-card:hover {
@@ -108,7 +88,6 @@ VENDOR GRID (HOMEPAGE)
 .vendor-card img {
   width: 100%;
   display: block;
-  border-radius: 8px;
 }
 
 .vendor-card h3 {
@@ -128,7 +107,6 @@ VENDOR GRID (HOMEPAGE)
 /* =================================
 VENDOR PAGE
 ================================= */
-
 .vendor-info {
   max-width: 850px;
   margin: auto;
@@ -143,7 +121,6 @@ VENDOR PAGE
 /* =================================
 GALLERY (VENDOR PAGES)
 ================================= */
-
 .vendor-info .gallery {
   display: flex;
   flex-direction: column;
@@ -156,7 +133,7 @@ GALLERY (VENDOR PAGES)
   width: 90%;
   max-width: 800px;
   border-radius: 10px;
-  border: 2px solid #000; /* black border */
+  border: 2px solid #000;
   cursor: pointer;
   transition: transform 0.3s;
 }
@@ -166,30 +143,8 @@ GALLERY (VENDOR PAGES)
 }
 
 /* =================================
-ENQUIRE BUTTON
-================================= */
-
-.enquire-btn {
-  display: inline-block;
-  margin-top: 25px;
-  padding: 12px 26px;
-  background: #000;
-  color: #fff;
-  border-radius: 30px;
-  text-decoration: none;
-  font-size: 0.95rem;
-  transition: 0.3s;
-}
-
-.enquire-btn:hover {
-  background: #333;
-  transform: scale(1.05);
-}
-
-/* =================================
 JOIN / APPLY SECTION
 ================================= */
-
 .join {
   text-align: center;
   padding: 40px 20px;
@@ -208,136 +163,16 @@ JOIN / APPLY SECTION
 }
 
 .join button:hover {
-  background-color: #333;
+  background-color: #222;
   transform: scale(1.05);
-}
-
-/* =================================
-PRICING TIERS
-================================= */
-
-.pricing-tiers {
-  max-width: 700px;
-  margin: 30px auto;
-}
-
-.pricing-tier {
-  border: 2px solid #000;
-  border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 20px;
-  background: #fff;
-  transition: 0.3s;
-}
-
-.pricing-tier:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-}
-
-.pricing-tier h3 {
-  text-align: center;
-}
-
-.pricing-tier p {
-  text-align: center;
-}
-
-/* =================================
-LISTS
-================================= */
-
-.requirements {
-  list-style: none; /* remove bullets */
-  padding: 0;
-}
-
-.requirements li {
-  margin: 8px 0;
 }
 
 /* =================================
 FOOTER
 ================================= */
-
 footer {
   text-align: center;
   padding: 25px;
   margin-top: 40px;
   border-top: 1px solid #eee;
-}
-
-/* =================================
-CONTACT FORM STYLES
-================================= */
-
-#contact-form {
-  max-width: 600px;
-  margin: 30px auto;
-  padding: 20px;
-  text-align: center;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.05);
-}
-
-#contact-form label {
-  display: block;
-  margin-bottom: 6px;
-  font-weight: bold;
-  color: #000;
-  text-align: left;
-}
-
-#contact-form input,
-#contact-form textarea {
-  width: 100%;
-  padding: 14px 18px;
-  margin-bottom: 15px;
-  border: 2px solid #000;
-  border-radius: 12px;
-  font-family: Georgia, serif;
-  font-size: 1rem;
-  outline: none;
-  transition: all 0.3s;
-}
-
-#contact-form input:focus,
-#contact-form textarea:focus {
-  border-color: #333;
-  box-shadow: 0 0 10px rgba(0,0,0,0.25);
-  transform: scale(1.02);
-}
-
-.send-btn {
-  background-color: #000;
-  color: white;
-  font-family: Georgia, serif;
-  font-size: 1.1rem;
-  font-weight: bold;
-  padding: 14px 28px;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.send-btn:hover {
-  background-color: #333;
-  transform: scale(1.08);
-  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-}
-
-.success-msg {
-  display: none;
-  margin-top: 15px;
-  font-weight: bold;
-  color: #000;
-  font-size: 1rem;
-  animation: fadeIn 0.5s ease forwards;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
 }
