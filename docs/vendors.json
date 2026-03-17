@@ -1,47 +1,42 @@
 [
   {
-    "name": "Kaity Kissed Nails & Designs",
+    "name": "Kaity Kissed Nails and Designs",
     "category": "beauty",
+    "image": "images/nails1.jpg",
+    "description": "Bridal nails & designs",
     "location": "North Brisbane",
-    "phone": "0432 129 525",
-    "instagram": "https://www.instagram.com/kaitykissed.nailsanddesigns",
-    "images": ["nails1.jpg", "nails2.jpg", "nails3.jpg", "nails4.jpg"],
     "featured": true
   },
   {
     "name": "Moments with Koarlie Studios",
     "category": "photography",
+    "image": "images/koarlie1.jpg",
+    "description": "Wedding photography & memories",
     "location": "Sunshine Coast",
-    "phone": "0423 949 366",
-    "instagram": "https://www.instagram.com/momentswithkoarlie",
-    "images": ["koarlie1.jpg", "koarlie2.jpg", "koarlie3.jpg", "koarlie4.jpg", "koarlie5.jpg", "koarlie6.jpg"],
     "featured": true
   },
   {
     "name": "The Roamed Collective",
     "category": "photography",
+    "image": "images/trc1.jpg",
+    "description": "Photography & lifestyle",
     "location": "North Brisbane",
-    "phone": "0428 953 023",
-    "instagram": "https://www.instagram.com/theroamedcollective",
-    "images": ["trc1.jpg", "trc2.jpg", "trc3.jpg", "trc4.jpg"],
     "featured": true
   },
   {
     "name": "Rosita Flowers",
     "category": "flowers",
+    "image": "images/rosita2.jpg",
+    "description": "Luxury wedding florals",
     "location": "North Brisbane",
-    "phone": "0412 345 678",
-    "instagram": "https://www.instagram.com/rositaflowers",
-    "images": ["rosita1.jpg", "rosita2.jpg"],
     "featured": false
   },
   {
     "name": "Passion For Cakes",
     "category": "cakes",
+    "image": "images/cake2.jpg",
+    "description": "Custom wedding cakes",
     "location": "Cairns",
-    "phone": "0400 123 456",
-    "instagram": "https://www.instagram.com/passionforcakes",
-    "images": ["cakes1.jpg", "cakes2.jpg"],
     "featured": false
   }
 ]
