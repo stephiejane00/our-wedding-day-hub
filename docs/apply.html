@@ -6,99 +6,105 @@
 <title>Apply | Our Wedding Day Hub</title>
 <link rel="stylesheet" href="style.css">
 <style>
-  /* Center header and subheader */
-  .page-header {
-    text-align: center;
-    padding: 40px 20px;
-  }
+/* Page header */
+.page-header {
+  text-align: center;
+  padding: 50px 20px;
+}
+.page-header h1 {
+  font-family: "Times New Roman", serif;
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+.page-header p {
+  font-family: Georgia, serif;
+  font-size: 1.2rem;
+  color: #444;
+  margin-bottom: 40px;
+}
 
-  .page-header h1 {
-    font-family: "Times New Roman", serif;
-    font-size: 2.2rem;
-    margin-bottom: 15px;
-    color: #000;
-  }
+/* Vendor info / pricing */
+.vendor-info {
+  max-width: 1200px;
+  margin: 0 auto 50px;
+  text-align: center;
+}
 
-  .page-header p {
-    font-family: Georgia, serif;
-    font-size: 1.1rem;
-    color: #444;
-    margin-bottom: 25px;
-  }
+.pricing-tiers {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 30px;
+}
 
-  .vendor-info {
-    max-width: 850px;
-    margin: 0 auto 50px;
-    text-align: center;
-  }
+.pricing-tier {
+  flex: 1 1 250px;
+  border: 2px solid #000;
+  border-radius: 12px;
+  padding: 25px 20px;
+  background: #fff;
+  transition: 0.3s;
+  position: relative;
+}
 
+.pricing-tier:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+}
+
+/* Premium tier standout */
+.pricing-tier.premium {
+  border-color: #000;
+  box-shadow: 0 0 35px rgba(0,0,0,0.25);
+  background: #f9f9f9;
+}
+
+.pricing-tier h3 {
+  font-size: 1.3rem;
+  margin-bottom: 12px;
+}
+
+.pricing-tier p {
+  margin-bottom: 10px;
+  font-size: 1rem;
+  color: #444;
+}
+
+.pricing-price {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Apply button */
+.apply-button {
+  background-color: #000;
+  color: white;
+  font-family: Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 16px 32px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-top: 30px;
+  text-decoration: none;
+  display: inline-block;
+}
+.apply-button:hover {
+  background-color: #333;
+  transform: scale(1.05);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 900px) {
   .pricing-tiers {
-    margin-top: 30px;
+    flex-direction: column;
+    gap: 15px;
   }
-
-  .pricing-tier {
-    border: 2px solid #000;
-    border-radius: 12px;
-    padding: 25px 20px;
-    margin-bottom: 20px;
-    background: #fff;
-    transition: 0.3s;
-    position: relative;
-  }
-
-  .pricing-tier:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-  }
-
-  /* Premium Showcase Glow */
-  .pricing-tier.premium {
-    box-shadow: 0 0 30px rgba(0,0,0,0.25);
-    border-color: #000;
-  }
-
-  .pricing-tier h3 {
-    margin-bottom: 12px;
-  }
-
-  .pricing-tier p {
-    margin-bottom: 10px;
-  }
-
-  .apply-button {
-    background-color: #000;
-    color: white;
-    font-family: Georgia, serif;
-    font-size: 1rem;
-    font-weight: bold;
-    padding: 14px 28px;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: 0.3s;
-    margin-top: 20px;
-    text-decoration: none;
-    display: inline-block;
-  }
-
-  .apply-button:hover {
-    background-color: #333;
-    transform: scale(1.05);
-  }
-
-  .funnel-link {
-    margin-top: 20px;
-    display: block;
-    font-family: Georgia, serif;
-    color: #000;
-    font-weight: bold;
-    text-decoration: underline;
-    transition: 0.3s;
-  }
-
-  .funnel-link:hover {
-    color: #444;
-  }
+}
 </style>
 </head>
 <body>
@@ -106,39 +112,44 @@
 <header class="page-header">
   <h1>Showcase Your Business to Engaged Couples</h1>
   <p>Connect with couples actively planning their wedding and elevate your online presence within a curated directory of trusted suppliers.</p>
+</header>
 
 <section class="vendor-info">
-
-  <a href="https://join.ourweddingday.com.au/funnel/aah/join/" class="apply-button">Start Showcasing Your Business</a>
 
   <h2>Pricing Tiers</h2>
   <div class="pricing-tiers">
 
     <div class="pricing-tier">
-      <h3>Classic Listing – $4.75 / month</h3>
+      <div class="pricing-price">$4.75 / month</div>
+      <h3>Classic Listing</h3>
       <p>Get your name, logo, and contact details listed for couples to find you easily.</p>
-      <p style="font-size:0.85rem; color:#555;">+ $50 joining fee grants full control of your page to make it shine.</p>
+      <p style="font-size:0.85rem; color:#555;">+ $50 joining fee grants full control of your page.</p>
     </div>
 
     <div class="pricing-tier">
-      <h3>Signature Spotlight – $5.95 / month</h3>
+      <div class="pricing-price">$5.95 / month</div>
+      <h3>Signature Spotlight</h3>
       <p>Stand out with a featured description and priority placement in searches.</p>
       <p style="font-size:0.85rem; color:#555;">+ $50 joining fee gives full access to edit and personalize your listing.</p>
     </div>
 
     <div class="pricing-tier">
-      <h3>Elite Feature – $7.25 / month</h3>
+      <div class="pricing-price">$7.25 / month</div>
+      <h3>Elite Feature</h3>
       <p>Showcase a full gallery, extended description, and enhanced visibility.</p>
       <p style="font-size:0.85rem; color:#555;">+ $50 joining fee allows complete customization of your page.</p>
     </div>
 
     <div class="pricing-tier premium">
-      <h3>Premium Showcase – $9.95 / month</h3>
+      <div class="pricing-price">$9.95 / month</div>
+      <h3>Premium Showcase</h3>
       <p>Top-of-the-line exposure: full gallery, homepage feature, priority search results, and VIP placement.</p>
       <p style="font-size:0.85rem; color:#555;">+ $50 joining fee unlocks total control of your page — make it truly yours and dazzle couples immediately!</p>
     </div>
 
   </div>
+
+  <a href="https://join.ourweddingday.com.au/funnel/aah/join/" class="apply-button">Start Showcasing Your Business</a>
 
 </section>
 
