@@ -10,9 +10,10 @@ body {
   padding: 0;
 }
 
-h1, h2, h3, .vendor-card h3, .pricing-tier h3 {
-  font-family: "Times New Roman", serif; /* NEW HEADER FONT */
-  color: #000; /* black headers */
+/* HEADINGS (Times New Roman) */
+h1, h2, h3 {
+  font-family: "Times New Roman", serif;
+  color: #000;
   margin-bottom: 10px;
 }
 
@@ -20,9 +21,9 @@ h1 { font-size: 2.6rem; }
 h2 { font-size: 1.9rem; }
 h3 { font-size: 1.3rem; }
 
-p, .vendor-card p, .pricing-tier p {
-  font-family: Georgia, serif; /* subtext stays Georgia */
-  color: #333;
+/* TEXT */
+p {
+  font-family: Georgia, serif;
   line-height: 1.6;
 }
 
@@ -60,8 +61,8 @@ SEARCH BAR
 
 .search input {
   padding: 14px 20px;
-  width: 320px;
-  border: 2px solid #000; /* updated black */
+  width: 340px;
+  border: 2px solid #000;
   border-radius: 10px;
   font-size: 1rem;
   outline: none;
@@ -69,12 +70,11 @@ SEARCH BAR
 }
 
 .search input:focus {
-  border-color: #000;
-  box-shadow: 0 0 10px rgba(0,0,0,0.25);
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
 }
 
 /* =================================
-VENDOR GRID (HOMEPAGE)
+VENDOR GRID
 ================================= */
 
 .vendors {
@@ -95,6 +95,14 @@ VENDOR GRID (HOMEPAGE)
   transition: 0.3s;
 }
 
+/* CLICKABLE CARD FIX */
+.vendor-card a {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* HOVER EFFECT */
 .vendor-card:hover {
   transform: translateY(-6px);
   box-shadow: 0 12px 25px rgba(0,0,0,0.12);
@@ -111,12 +119,38 @@ VENDOR GRID (HOMEPAGE)
 
 .vendor-card p {
   font-size: 0.95rem;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
-.vendor-card a {
+/* =================================
+PAGE HEADER (APPLY PAGE FIX)
+================================= */
+
+.page-header {
+  text-align: center;
+  padding: 40px 20px;
+  width: 100%;
+}
+
+.page-header h1,
+.page-header p {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* BACK LINK */
+.back-link {
+  display: block;
+  text-align: center;
+  margin-bottom: 15px;
+  font-weight: bold;
+  color: #000;
   text-decoration: none;
-  color: inherit;
+}
+
+.back-link:hover {
+  text-decoration: underline;
 }
 
 /* =================================
@@ -135,7 +169,7 @@ VENDOR PAGE
 }
 
 /* =================================
-GALLERY (VENDOR PAGES)
+GALLERY
 ================================= */
 
 .vendor-info .gallery {
@@ -151,7 +185,6 @@ GALLERY (VENDOR PAGES)
   max-width: 800px;
   border-radius: 10px;
   border: 2px solid #000;
-  cursor: pointer;
   transition: transform 0.3s;
 }
 
@@ -160,7 +193,7 @@ GALLERY (VENDOR PAGES)
 }
 
 /* =================================
-JOIN / APPLY SECTION
+JOIN SECTION
 ================================= */
 
 .join {
@@ -186,7 +219,7 @@ JOIN / APPLY SECTION
 }
 
 /* =================================
-PRICING TIERS
+PRICING
 ================================= */
 
 .pricing-tiers {
@@ -208,12 +241,18 @@ PRICING TIERS
   box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }
 
-.pricing-tier h3 {
+.pricing-tier h3,
+.pricing-tier p {
   text-align: center;
 }
 
-.pricing-tier p {
-  text-align: center;
+/* =================================
+REMOVE BULLET POINTS
+================================= */
+
+.requirements {
+  list-style: none;
+  padding: 0;
 }
 
 /* =================================
