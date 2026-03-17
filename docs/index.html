@@ -9,16 +9,36 @@
 
 <body>
 
-<header class="hero">
+<header class="hero hero-flex">
 
-  <img src="images/header2.png" alt="Our Wedding Day Hub" class="header-image">
-
-    <p class="tagline">Discover trusted wedding vendors in your location</p>
-
-  <!-- SEARCH BAR -->
-  <div class="search">
-    <input type="text" id="search" placeholder="Search vendors..." onkeyup="searchVendors()">
+  <!-- LEFT: LOGO -->
+  <div class="header-left">
+    <img src="images/header3.png" alt="Our Wedding Day Hub" class="logo">
   </div>
+
+  <!-- RIGHT: CONTENT -->
+  <div class="header-right">
+
+    <h1>Find Your Dream Wedding Vendors</h1>
+    <p class="tagline">Discover trusted wedding vendors across Australia</p>
+
+    <!-- SEARCH -->
+    <div class="search">
+      <input type="text" id="search" placeholder="Search vendors..." onkeyup="searchVendors()">
+    </div>
+
+    <!-- CATEGORY BUTTONS -->
+    <div class="category-buttons">
+      <button onclick="filterVendors('all')">All Vendors</button>
+      <button onclick="filterVendors('flowers')">Florists</button>
+      <button onclick="filterVendors('cakes')">Cakes</button>
+      <button onclick="filterVendors('photography')">Photography</button>
+      <button onclick="filterVendors('beauty')">Hair & Beauty</button>
+    </div>
+
+  </div>
+
+</header>
 
   <!-- CATEGORY BUTTONS -->
   <div class="category-buttons">
