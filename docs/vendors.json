@@ -3,7 +3,7 @@
     "name": "Kaity Kissed Nails and Designs",
     "category": "beauty",
     "image": "images/nails1.jpg",
-    "description": "Bridal nails & designs",
+    "description": "Bridal nails & custom designs",
     "location": "North Brisbane",
     "featured": true
   },
@@ -11,7 +11,7 @@
     "name": "Moments with Koarlie Studios",
     "category": "photography",
     "image": "images/koarlie1.jpg",
-    "description": "Wedding photography & memories",
+    "description": "Capturing timeless wedding moments",
     "location": "Sunshine Coast",
     "featured": true
   },
@@ -19,7 +19,7 @@
     "name": "The Roamed Collective",
     "category": "photography",
     "image": "images/trc1.jpg",
-    "description": "Photography & lifestyle",
+    "description": "Natural, storytelling photography",
     "location": "North Brisbane",
     "featured": true
   },
@@ -27,7 +27,7 @@
     "name": "Rosita Flowers",
     "category": "flowers",
     "image": "images/rosita2.jpg",
-    "description": "Luxury wedding florals",
+    "description": "Elegant floral styling",
     "location": "North Brisbane",
     "featured": false
   },
