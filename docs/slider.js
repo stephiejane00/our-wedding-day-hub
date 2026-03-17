@@ -1,7 +1,6 @@
 const sliderTrack = document.getElementById("sliderTrack");
 let currentSlide = 0;
 
-// Replace these with your vendors JSON data
 const featuredVendors = [
   { name: "Kaity Kissed Nails & Design", img: "images/nails1.jpg", desc: "Luxury nails and beauty services." },
   { name: "Moments with Koarlie Studios", img: "images/koarlie1.jpg", desc: "Capturing your wedding memories beautifully." },
@@ -22,13 +21,18 @@ featuredVendors.forEach(vendor => {
   sliderTrack.appendChild(card);
 });
 
-// Slider functionality
+// Show 3 slides at a time
+const slideWidth = 270; // 250px card + 20px gap
 function nextSlide() {
-  currentSlide = (currentSlide + 1) % featuredVendors.length;
-  sliderTrack.scrollBy({ left: 270, behavior: 'smooth' });
+  if (currentSlide < featuredVendors.length - 3) {
+    currentSlide++;
+    sliderTrack.scrollBy({ left: slideWidth, behavior: 'smooth' });
+  }
 }
 
 function prevSlide() {
-  currentSlide = (currentSlide - 1 + featuredVendors.length) % featuredVendors.length;
-  sliderTrack.scrollBy({ left: -270, behavior: 'smooth' });
+  if (currentSlide > 0) {
+    currentSlide--;
+    sliderTrack.scrollBy({ left: -slideWidth, behavior: 'smooth' });
+  }
 }
