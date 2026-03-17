@@ -336,3 +336,50 @@ PAGE LOAD ANIMATION
   from { opacity: 0; }
   to { opacity: 1; }
 }
+/* =================================
+FEATURED SLIDER
+================================= */
+
+.featured-section {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.slider {
+  position: relative;
+  max-width: 900px;
+  margin: auto;
+  overflow: hidden;
+}
+
+.slider-track {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.slide {
+  min-width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #000;
+  color: #fff;
+  border: none;
+  font-size: 1.5rem;
+  padding: 10px 14px;
+  cursor: pointer;
+  border-radius: 50%;
+  z-index: 10;
+}
+
+.slider-btn:hover {
+  background: #222;
+}
+
+.prev { left: 10px; }
+.next { right: 10px; }
