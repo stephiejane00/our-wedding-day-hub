@@ -3,64 +3,41 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contact Us - Our Wedding Day Hub</title>
+<title>Contact Us | Our Wedding Day Hub</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header class="hero">
-  <a href="index.html" class="back-link">← Back to Home</a>
-  <h1>Contact Us</h1>
-  <p class="tagline">We’d love to hear from you 🕊️</p>
+<header class="page-header" style="text-align:center;">
+  <h1>Contact Our Wedding Day Hub</h1>
+  <p>Have questions or need help? We're here for you!</p>
 </header>
 
-<main class="vendor-info">
+<section class="vendor-info">
+<form id="contact-form">
+  <label for="name">Your Name</label>
+  <input type="text" id="name" placeholder="Enter your name">
 
-<form id="contact-form" action="https://formspree.io/f/xwvrrkwg" method="POST">
+  <label for="email">Email</label>
+  <input type="email" id="email" placeholder="Enter your email">
 
-  <label>Name</label>
-  <input type="text" name="name" required placeholder="Your name">
+  <label for="message">Message</label>
+  <textarea id="message" rows="6" placeholder="Write your message here"></textarea>
 
-  <label>Email</label>
-  <input type="email" name="email" required placeholder="you@example.com">
-
-  <label>Message</label>
-  <textarea name="message" rows="5" required placeholder="Write your message..."></textarea>
-
-  <button type="submit" class="send-btn">Send Message 🕊️</button>
-
-  <p class="success-msg">Your message has been sent 🕊️</p>
-
+  <button type="submit" class="send-btn">Send Message 🤍</button>
+  <p class="success-msg">Message sent! Thank you 💌</p>
 </form>
-
-</main>
+</section>
 
 <footer>
-  <p>
-    <a href="index.html">Home</a> | 
-    <a href="about.html">About Us</a>
-  </p>
-  <p>© 2026 Our Wedding Day Hub</p>
+<p>© 2026 Our Wedding Day Hub</p>
 </footer>
 
 <script>
-const form = document.getElementById('contact-form');
-const successMsg = document.querySelector('.success-msg');
-
-form.addEventListener('submit', function(e) {
+document.getElementById('contact-form').addEventListener('submit', function(e){
   e.preventDefault();
-
-  fetch(form.action, {
-    method: 'POST',
-    body: new FormData(form),
-    headers: { 'Accept': 'application/json' }
-  }).then(response => {
-    if (response.ok) {
-      successMsg.style.display = 'block';
-      form.reset();
-      setTimeout(() => successMsg.style.display = 'none', 4000);
-    }
-  });
+  this.reset();
+  document.querySelector('.success-msg').style.display = 'block';
 });
 </script>
 
