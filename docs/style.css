@@ -46,21 +46,21 @@ header.hero {
 }
 
 /* FEATURED SLIDER */
-.featured-slider {
+.featured-slider-wrapper {
   width: 100%;
   max-width: 1200px;
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   margin-bottom: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.slider-track {
+.featured-slider {
   display: flex;
   gap: 20px;
   overflow: hidden;
-  scroll-behavior: smooth;
+  width: 780px; /* 3 slides visible at a time (3 x 250 + gaps) */
 }
 
 .vendor-card {
@@ -104,8 +104,8 @@ header.hero {
   user-select: none;
 }
 
-.slider-arrow.left { left: 10px; }
-.slider-arrow.right { right: 10px; }
+.slider-arrow.left { left: -15px; }
+.slider-arrow.right { right: -15px; }
 
 /* JOIN BUTTON */
 .apply-button {
@@ -116,7 +116,7 @@ header.hero {
   border-radius: 12px;
   font-size: 1.2rem;
   text-decoration: none;
-  margin-top: 25px;
+  margin-top: 30px;
   transition: 0.3s;
 }
 
@@ -132,6 +132,53 @@ header.hero {
   margin-bottom: 50px;
 }
 
+/* PRICING */
+.pricing {
+  max-width: 1000px;
+  margin: 0 auto 60px auto;
+  text-align: center;
+}
+
+.pricing-tiers {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+  margin-top: 30px;
+}
+
+.pricing-tier {
+  flex: 1 1 280px;
+  border: 2px solid #000;
+  border-radius: 12px;
+  padding: 25px 20px;
+  background: #fff;
+  transition: 0.3s;
+}
+
+.pricing-tier:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+}
+
+.pricing-tier h3 {
+  font-family: "Times New Roman", serif;
+  font-size: 1.4rem;
+  margin-bottom: 12px;
+}
+
+.pricing-price {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.pricing-tier.premium {
+  border-color: #000;
+  background: #fdfaf6;
+  box-shadow: 0 0 40px rgba(0,0,0,0.25), 0 0 50px rgba(0,0,0,0.1);
+}
+
 /* FOOTER */
 footer {
   width: 100%;
@@ -144,9 +191,8 @@ footer {
 /* RESPONSIVE */
 @media (max-width: 900px) {
   .featured-slider {
-    overflow-x: scroll;
-    padding: 0 20px;
+    width: 90%;
   }
-
   .slider-arrow { display: none; }
+  .pricing-tiers { flex-direction: column; }
 }
