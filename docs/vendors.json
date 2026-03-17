@@ -5,7 +5,8 @@
     "image": "images/nails1.jpg",
     "description": "Bridal nails & designs",
     "page": "vendors/kaity-anderson.html",
-    "featured": true
+    "featured": true,
+    "location": "North Brisbane - Sunshine Coast"
   },
   {
     "name": "Moments with Koarlie Studios",
@@ -13,7 +14,8 @@
     "image": "images/koarlie1.jpg",
     "description": "Capturing magical wedding moments",
     "page": "vendors/moments-with-koarlie.html",
-    "featured": true
+    "featured": true,
+    "location": "North Brisbane - Sunshine Coast"
   },
   {
     "name": "The Roamed Collective",
@@ -21,7 +23,8 @@
     "image": "images/trc1.jpg",
     "description": "Photography & lifestyle",
     "page": "vendors/roamed-collective.html",
-    "featured": true
+    "featured": true,
+    "location": "North Brisbane - Sunshine Coast"
   },
   {
     "name": "Rosita Flowers",
@@ -29,7 +32,8 @@
     "image": "images/rosita2.jpg",
     "description": "Luxury wedding florals",
     "page": "vendors/rosita-flowers.html",
-    "featured": false
+    "featured": false,
+    "location": "North Brisbane"
   },
   {
     "name": "Passion For Cakes",
@@ -37,7 +41,8 @@
     "image": "images/cake2.jpg",
     "description": "Custom wedding cakes",
     "page": "vendors/passion-cakes.html",
-    "featured": false
+    "featured": false,
+    "location": "Cairns"
   },
   {
     "name": "Brazilian Beauty",
@@ -45,6 +50,7 @@
     "image": "images/beauty2.jpg",
     "description": "Bridal hair & makeup specialists",
     "page": "vendors/brazilian-beauty.html",
-    "featured": false
+    "featured": false,
+    "location": "North Brisbane"
   }
 ]
