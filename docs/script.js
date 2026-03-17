@@ -1,71 +1,58 @@
-let vendorsData = [];
-let currentCategory = "all";
+const vendorsContainer = document.getElementById('vendors-container');
+const searchInput = document.getElementById('search');
 
-// load vendors from vendors.json
-fetch("vendors.json")
+// Load vendors from JSON
+fetch('vendors.json')
   .then(response => response.json())
   .then(data => {
-    vendorsData = data;
-    displayVendors(data);
-  });
+    window.vendorsData = data; // store globally
+    displayFeaturedVendors(data);
+  })
+  .catch(error => console.error('Error loading vendors:', error));
 
-function displayVendors(vendors) {
+// Display only featured vendors initially
+function displayFeaturedVendors(vendors) {
+  vendorsContainer.innerHTML = '';
+  vendors
+    .filter(vendor => vendor.featured)
+    .forEach(vendor => {
+      vendorsContainer.innerHTML += createVendorCard(vendor);
+    });
+}
 
-  const container = document.getElementById("vendors-container");
-
-  container.innerHTML = "";
-
-  vendors.forEach(vendor => {
-
-    const card = document.createElement("div");
-    card.classList.add("vendor-card", vendor.category);
-
-    card.innerHTML = `
+// Create vendor card HTML
+function createVendorCard(vendor) {
+  return `
+    <div class="vendor-card ${vendor.category}">
       <a href="${vendor.page}">
         <img src="${vendor.image}" alt="${vendor.name}">
         <h3>${vendor.name}</h3>
         <p>${vendor.description}</p>
       </a>
-    `;
+      <p style="font-size:0.85rem; color:#555;">${vendor.location}</p>
+    </div>
+  `;
+}
 
-    container.appendChild(card);
-
+// Search function (by name, category, or location)
+function searchVendors() {
+  const query = searchInput.value.toLowerCase();
+  const filtered = window.vendorsData.filter(vendor => {
+    return (
+      vendor.name.toLowerCase().includes(query) ||
+      vendor.category.toLowerCase().includes(query) ||
+      vendor.location.toLowerCase().includes(query)
+    );
   });
 
+  vendorsContainer.innerHTML = '';
+  filtered.forEach(vendor => {
+    vendorsContainer.innerHTML += createVendorCard(vendor);
+  });
+
+  // If search is empty, go back to featured
+  if (!query) displayFeaturedVendors(window.vendorsData);
 }
 
-// search
-function searchVendors() {
-
-  const search = document
-    .getElementById("search")
-    .value
-    .toLowerCase();
-
-  const filtered = vendorsData.filter(vendor =>
-    vendor.name.toLowerCase().includes(search) &&
-    (currentCategory === "all" || vendor.category === currentCategory)
-  );
-
-  displayVendors(filtered);
-
-}
-
-// category filter
-function filterVendors(category) {
-
-  currentCategory = category;
-
-  const search = document
-    .getElementById("search")
-    .value
-    .toLowerCase();
-
-  const filtered = vendorsData.filter(vendor =>
-    vendor.name.toLowerCase().includes(search) &&
-    (category === "all" || vendor.category === category)
-  );
-
-  displayVendors(filtered);
-
-}
+// Update search placeholder
+searchInput.placeholder = "Search by vendor, location, category";
