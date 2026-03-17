@@ -18,9 +18,23 @@
   <input type="text" id="search" placeholder="Search by vendor, location, category..." onkeyup="searchVendors()">
 </div>
 
-<!-- VENDORS GRID -->
+<!-- FEATURED SLIDER -->
+<section class="featured-section">
+  <h2>Featured Vendors</h2>
+
+  <div class="slider">
+    <button class="slider-btn prev" onclick="prevSlide()">❮</button>
+
+    <div class="slider-track" id="slider-track">
+      <!-- JS will inject featured vendors here -->
+    </div>
+
+    <button class="slider-btn next" onclick="nextSlide()">❯</button>
+  </div>
+</section>
+
+<!-- SEARCH RESULTS -->
 <section class="vendors" id="vendors-container">
-  <!-- Featured vendors shown first, clickable -->
 </section>
 
 <!-- JOIN SECTION -->
