@@ -6,53 +6,38 @@
 <title>Our Wedding Day Hub</title>
 <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
 <header class="hero">
   <img src="images/header4.png" alt="Our Wedding Day Hub" class="header-image">
 </header>
 
-<!-- SEARCH -->
+<!-- SEARCH BAR -->
 <div class="search">
   <input type="text" id="search" placeholder="Search by vendor, location, category..." onkeyup="searchVendors()">
 </div>
 
-<!-- FEATURED SLIDER -->
-<section class="featured-section">
-  <h2>Featured Vendors</h2>
-
-  <div class="slider">
-    <button class="slider-btn prev" onclick="prevSlide()">❮</button>
-
-    <div class="slider-track" id="slider-track">
-      <!-- JS will inject featured vendors here -->
-    </div>
-
-    <button class="slider-btn next" onclick="nextSlide()">❯</button>
+<!-- FEATURED VENDORS SLIDER -->
+<div class="featured-slider">
+  <div class="slider-arrow left" onclick="prevSlide()">&#10094;</div>
+  <div class="slider-track" id="sliderTrack">
+    <!-- Vendor slides will go here dynamically from JSON -->
   </div>
-</section>
-
-<!-- SEARCH RESULTS -->
-<section class="vendors" id="vendors-container">
-</section>
+  <div class="slider-arrow right" onclick="nextSlide()">&#10095;</div>
+</div>
 
 <!-- JOIN SECTION -->
 <section class="join">
-  <h2>Join Our Wedding Day Hub</h2>
-  <p>Showcase your business to couples actively planning their wedding.</p>
-  <button onclick="window.location.href='apply.html'">Apply To Join</button>
+  <h2>Showcase Your Business to Engaged Couples</h2>
+  <p>Connect with couples actively planning their wedding and elevate your online presence within a curated directory of trusted suppliers.</p>
+  <a href="apply.html" class="apply-button">Start Showcasing Your Business</a>
 </section>
 
 <footer>
-  <p>
-    <a href="about.html" class="footer-link">About Us</a> | 
-    <a href="contact.html" class="footer-link">Contact Us</a>
-  </p>
   <p>© 2026 Our Wedding Day Hub</p>
 </footer>
 
-<script src="vendors.json"></script>
-<script src="script.js"></script>
+<script src="vendors.js"></script>
+<script src="slider.js"></script>
 </body>
 </html>
