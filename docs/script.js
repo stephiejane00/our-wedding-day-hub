@@ -9,24 +9,32 @@ fetch('./vendors.json')
     loadFeatured();
   });
 
-/* FEATURED SLIDER */
+/* FEATURED SLIDER (GROUPED) */
 function loadFeatured() {
   const track = document.getElementById("slider-track");
   track.innerHTML = "";
 
   const featured = vendors.filter(v => v.featured === true);
 
-  featured.forEach(v => {
-    track.innerHTML += `
-      <div class="slide">
+  // GROUP INTO SETS OF 3
+  for (let i = 0; i < featured.length; i += 3) {
+    const group = featured.slice(i, i + 3);
+
+    let slideHTML = `<div class="slide">`;
+
+    group.forEach(v => {
+      slideHTML += `
         <div class="vendor-card" onclick="openVendor('${v.id}')">
-          <img src="./images/${v.image}" alt="${v.name}">
+          <img src="images/${v.image}" alt="${v.name}">
           <h3>${v.name}</h3>
           <p>${v.category} • ${v.location}</p>
         </div>
-      </div>
-    `;
-  });
+      `;
+    });
+
+    slideHTML += `</div>`;
+    track.innerHTML += slideHTML;
+  }
 
   updateSlider();
   autoSlide();
@@ -73,7 +81,7 @@ function searchVendors() {
   results.forEach(v => {
     container.innerHTML += `
       <div class="vendor-card" onclick="openVendor('${v.id}')">
-        <img src="./images/${v.image}" alt="${v.name}">
+        <img src="images/${v.image}" alt="${v.name}">
         <h3>${v.name}</h3>
         <p>${v.category} • ${v.location}</p>
       </div>
