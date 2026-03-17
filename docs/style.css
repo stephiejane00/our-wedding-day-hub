@@ -10,9 +10,9 @@ body {
   padding: 0;
 }
 
-h1, h2, h3 {
-  font-family: Georgia, serif;
-  color: #000000; /* changed headings to black */
+h1, h2, h3, .vendor-card h3, .pricing-tier h3 {
+  font-family: "Times New Roman", serif; /* NEW HEADER FONT */
+  color: #000; /* black headers */
   margin-bottom: 10px;
 }
 
@@ -20,7 +20,11 @@ h1 { font-size: 2.6rem; }
 h2 { font-size: 1.9rem; }
 h3 { font-size: 1.3rem; }
 
-p { line-height: 1.6; }
+p, .vendor-card p, .pricing-tier p {
+  font-family: Georgia, serif; /* subtext stays Georgia */
+  color: #333;
+  line-height: 1.6;
+}
 
 /* =================================
 HEADER / HERO
@@ -28,14 +32,20 @@ HEADER / HERO
 
 .hero {
   text-align: center;
-  padding: 30px 20px;
+  padding: 40px 20px;
 }
 
 .header-image {
   width: 100%;
   max-width: 1500px;
   border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.tagline {
+  font-size: 1.2rem;
   margin-bottom: 25px;
+  color: #444;
 }
 
 /* =================================
@@ -45,13 +55,13 @@ SEARCH BAR
 .search {
   display: flex;
   justify-content: center;
-  margin-bottom: 40px;
+  margin: 25px 0;
 }
 
 .search input {
   padding: 14px 20px;
-  width: 350px;
-  border: 2px solid #000000; /* black border */
+  width: 320px;
+  border: 2px solid #000; /* updated black */
   border-radius: 10px;
   font-size: 1rem;
   outline: none;
@@ -59,12 +69,12 @@ SEARCH BAR
 }
 
 .search input:focus {
-  border-color: #000000;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  border-color: #000;
+  box-shadow: 0 0 10px rgba(0,0,0,0.25);
 }
 
 /* =================================
-VENDOR GRID
+VENDOR GRID (HOMEPAGE)
 ================================= */
 
 .vendors {
@@ -110,6 +120,46 @@ VENDOR GRID
 }
 
 /* =================================
+VENDOR PAGE
+================================= */
+
+.vendor-info {
+  max-width: 850px;
+  margin: auto;
+  padding: 30px 20px;
+  text-align: center;
+}
+
+.vendor-info p {
+  margin: 6px 0;
+}
+
+/* =================================
+GALLERY (VENDOR PAGES)
+================================= */
+
+.vendor-info .gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  margin-top: 25px;
+  align-items: center;
+}
+
+.vendor-info .gallery img {
+  width: 90%;
+  max-width: 800px;
+  border-radius: 10px;
+  border: 2px solid #000;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.vendor-info .gallery img:hover {
+  transform: scale(1.03);
+}
+
+/* =================================
 JOIN / APPLY SECTION
 ================================= */
 
@@ -119,7 +169,7 @@ JOIN / APPLY SECTION
 }
 
 .join button {
-  background-color: #000000; /* black button */
+  background-color: #000;
   color: white;
   border: none;
   padding: 12px 24px;
@@ -131,8 +181,39 @@ JOIN / APPLY SECTION
 }
 
 .join button:hover {
-  background-color: #444444; /* darker grey hover */
+  background-color: #222;
   transform: scale(1.05);
+}
+
+/* =================================
+PRICING TIERS
+================================= */
+
+.pricing-tiers {
+  max-width: 700px;
+  margin: 30px auto;
+}
+
+.pricing-tier {
+  border: 2px solid #000;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  background: #fff;
+  transition: 0.3s;
+}
+
+.pricing-tier:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.pricing-tier h3 {
+  text-align: center;
+}
+
+.pricing-tier p {
+  text-align: center;
 }
 
 /* =================================
@@ -146,12 +227,7 @@ footer {
   border-top: 1px solid #eee;
 }
 
-.footer-link {
-  color: #000000;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.footer-link:hover {
+footer a {
+  color: #000;
   text-decoration: underline;
 }
