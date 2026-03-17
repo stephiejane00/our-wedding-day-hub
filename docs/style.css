@@ -1,289 +1,162 @@
 /* =================================
-GLOBAL
+GLOBAL STYLES
 ================================= */
 
 body {
   font-family: Georgia, serif;
-  background-color: #fdf8f2;
-  margin: 0;
+  background-color: #fefbf7; /* soft beige */
   color: #333;
+  margin: 0;
+  padding: 0;
+  animation: fadeIn 0.8s ease forwards;
 }
 
 h1, h2, h3 {
-  font-family: "Times New Roman", serif;
+  font-family: "Times New Roman", serif; /* headers luxury font */
   color: #000;
-  text-align: center;
+  margin-bottom: 10px;
+}
+
+h1 { font-size: 2.6rem; }
+h2 { font-size: 1.9rem; }
+h3 { font-size: 1.3rem; }
+
+p { 
+  line-height: 1.6;
+  font-family: Georgia, serif; /* subtext stays Georgia */
+  color: #444;
 }
 
 /* =================================
-HEADER
+PAGE HEADER
 ================================= */
-
-.hero {
+.page-header {
   text-align: center;
-  padding: 30px 20px;
+  padding: 50px 20px;
 }
 
-.header-image {
+.page-header h1 {
+  margin-bottom: 15px;
+}
+
+.page-header p {
+  margin-bottom: 40px;
+}
+
+/* =================================
+VENDOR INFO / PRICING
+================================= */
+.vendor-info {
   max-width: 1200px;
-  width: 100%;
-  border-radius: 10px;
+  margin: 0 auto 50px;
+  text-align: center;
 }
 
-/* =================================
-SEARCH
-================================= */
-
-.search {
+.pricing-tiers {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  margin: 20px;
+  gap: 20px;
+  margin-top: 30px;
 }
 
-.search input {
-  width: 320px;
-  padding: 14px;
+.pricing-tier {
+  flex: 1 1 250px;
   border: 2px solid #000;
-  border-radius: 10px;
+  border-radius: 12px;
+  padding: 25px 20px;
+  background: #fff;
+  transition: 0.3s;
+  position: relative;
+}
+
+.pricing-tier:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+}
+
+/* Premium Showcase Glow */
+.pricing-tier.premium {
+  border-color: #000;
+  background: #fdfaf6;
+  box-shadow: 0 0 35px rgba(0,0,0,0.25), 0 0 50px rgba(255, 215, 0, 0.15); /* subtle gold glow */
+  z-index: 2;
+}
+
+/* Tier Text */
+.pricing-tier h3 {
+  font-size: 1.3rem;
+  margin-bottom: 12px;
+}
+
+.pricing-tier p {
+  margin-bottom: 10px;
   font-size: 1rem;
 }
 
-/* =================================
-FEATURED SLIDER (FIXED ALIGNMENT)
-================================= */
-
-.slider {
-  position: relative;
-  max-width: 1100px;
-  margin: 40px auto;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
+.pricing-price {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
-.slider-track {
-  display: flex;
-  transition: transform 0.5s ease;
-  width: 100%;
-}
-
-.slide {
-  min-width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: stretch;
-  gap: 25px;
-  padding: 20px 60px; /* space for arrows */
-  box-sizing: border-box;
-}
-
-/* Cards */
-.slide .vendor-card {
-  width: 30%;
-  max-width: 300px;
-}
-/* =================================
-LUXURY CARD GLOW
-================================= */
-
-.vendor-card {
-  background: #fff;
-  border-radius: 14px;
-  overflow: hidden;
-  width: 260px;
-  text-align: center;
+/* Apply Button */
+.apply-button {
+  background-color: #000;
+  color: white;
+  font-family: Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 16px 32px;
+  border: none;
+  border-radius: 12px;
   cursor: pointer;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-  transition: all 0.4s ease;
-  position: relative;
+  transition: 0.3s;
+  margin-top: 30px;
+  text-decoration: none;
+  display: inline-block;
 }
-
-/* Soft glow behind EACH card */
-.vendor-card::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 14px;
-  box-shadow: 0 0 40px rgba(0,0,0,0.08);
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  z-index: -1;
-}
-
-/* Hover = glow appears + lift */
-.vendor-card:hover::after {
-  opacity: 1;
-}
-
-.vendor-card:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 18px 40px rgba(0,0,0,0.12);
-}
-
-/* Image subtle zoom */
-.vendor-card img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  transition: transform 0.6s ease;
-}
-
-.vendor-card:hover img {
+.apply-button:hover {
+  background-color: #333;
   transform: scale(1.05);
 }
-/* Smooth page fade-in */
 
-body {
-  animation: fadeIn 0.8s ease;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-/* ARROWS (perfect vertical centre) */
-
-.slider-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: #000;
-  color: #fff;
-  border: none;
-  font-size: 1.5rem;
-  padding: 12px 16px;
-  cursor: pointer;
-  border-radius: 50%;
-  z-index: 20;
-}
-
-.slider-btn:hover {
-  background: #222;
-}
-
-.prev {
-  left: 10px;
-}
-
-.next {
-  right: 10px;
-}
-
-/* MOBILE FIX */
-
-@media (max-width: 768px) {
-  .slide {
+/* Mobile responsiveness */
+@media (max-width: 900px) {
+  .pricing-tiers {
     flex-direction: column;
-    align-items: center;
-    padding: 20px;
-  }
-
-  .slide .vendor-card {
-    width: 90%;
-  }
-
-  .slider-btn {
-    display: none;
+    gap: 15px;
   }
 }
 
 /* =================================
-VENDOR CARDS
+FOOTER
 ================================= */
-
-.vendor-card {
-  background: #fff;
-  border-radius: 12px;
-  overflow: hidden;
-  width: 260px;
-  text-align: center;
-  cursor: pointer;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
-  transition: 0.3s;
-}
-
-.vendor-card:hover {
-  transform: translateY(-5px);
-}
-
-.vendor-card img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-}
-
-.vendor-card h3 {
-  margin: 10px 0 5px;
-}
-
-.vendor-card p {
-  margin-bottom: 15px;
-  font-size: 0.9rem;
-}
-
-/* REMOVE FEATURED RIBBON */
-.vendor-card.featured::before {
-  display: none;
-}
-
-/* =================================
-SEARCH RESULTS GRID
-================================= */
-
-.vendors {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
-  padding: 30px;
-  max-width: 1000px;
-  margin: auto;
-}
-
-/* =================================
-BUTTONS
-================================= */
-
-button {
-  background: #000;
-  color: #fff;
-  padding: 12px 20px;
-  border-radius: 10px;
-  border: none;
-  cursor: pointer;
-}
-
-button:hover {
-  background: #222;
-}
-/* =================================
-GLOBAL PAGE CENTERING FIX
-================================= */
-
-body {
-  margin: 0;
-  text-align: center;
-}
-
-/* Make all main sections centered */
-section, header, footer {
-  width: 100%;
-  margin: 0 auto;
-  text-align: center;
-}
-
-/* Footer specifically */
 footer {
   text-align: center;
-  padding: 30px 20px;
+  padding: 25px;
+  margin-top: 40px;
+  border-top: 1px solid #eee;
 }
 
-/* Fix any weird inner alignment */
+/* =================================
+PAGE ANIMATION
+================================= */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+/* =================================
+FOOTER
+================================= */
+footer {
+  text-align: center;           /* ensures text is centered */
+  padding: 25px;
+  margin-top: 40px;
+  border-top: 1px solid #eee;
+  width: 100%;                  /* ensures the footer spans full width */
+  box-sizing: border-box;       /* includes padding in width calculation */
+}
 footer p {
-  margin: 5px 0;
+  margin: 0;                     /* remove any default margin that might offset it */
 }
