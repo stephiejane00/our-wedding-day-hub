@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Apply | Our Wedding Day Hub</title>
 <link rel="stylesheet" href="style.css">
+
 <style>
 .page-header {
   text-align: center;
@@ -28,69 +29,35 @@
   transform: scale(1.05);
 }
 
-/* PRICING SECTION */
+/* PRICING */
 .pricing {
   max-width: 1200px;
   margin: 0 auto 60px auto;
   text-align: center;
 }
 
-<div class="pricing-tiers">
+.pricing-tiers {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-top: 40px;
+}
 
-  <div class="pricing-tier tier-1">
-    <h3>Classic Listing</h3>
-    <div class="pricing-price">$4.75</div>
-    <p>/ month</p>
-    <p>3 images</p>
-    <p>500 character bio</p>
-  </div>
-
-  <div class="pricing-tier tier-2">
-    <h3>Signature Spotlight</h3>
-    <div class="pricing-price">$5.95</div>
-    <p>/ month</p>
-    <p>5 images</p>
-    <p>1,000 character bio</p>
-  </div>
-
-  <div class="pricing-tier tier-3">
-    <h3>Elite Feature</h3>
-    <div class="pricing-price">$7.25</div>
-    <p>/ month</p>
-    <p>8 images</p>
-    <p>1,500 character bio</p>
-  </div>
-
-  <div class="pricing-tier tier-4">
-    <div class="badge">MOST POPULAR</div>
-    <h3>Platinum Prestige</h3>
-    <div class="pricing-price">$9.95</div>
-    <p>/ month</p>
-    <p>Unlimited images</p>
-    <p>Unlimited bio</p>
-    <p>Priority placement</p>
-  </div>
-
-</div>
-
-/* BASE CARD */
+/* CARDS */
 .pricing-tier {
   padding: 25px 15px;
-  text-align: center;
   transition: 0.3s;
 }
 
-/* HOVER */
 .pricing-tier:hover {
   transform: translateY(-6px);
 }
 
-/* COLOUR PROGRESSION */
+/* COLOURS */
 .tier-1 { background: #f4eee8; }
 .tier-2 { background: #f0e4d6; }
 .tier-3 { background: #ead8c2; }
 
-/* GOLD PREMIUM */
 .tier-4 {
   background: #D4AF37;
   color: white;
@@ -99,7 +66,7 @@
   position: relative;
 }
 
-/* MOST POPULAR BADGE */
+/* BADGE */
 .badge {
   position: absolute;
   top: -12px;
@@ -118,64 +85,57 @@
   font-weight: bold;
   margin-bottom: 10px;
 }
-
-/* TEXT */
-.pricing-tier h3 {
-  margin-bottom: 10px;
-}
 </style>
 </head>
+
 <body>
 
 <header class="page-header">
   <h1>Showcase Your Business to Engaged Couples</h1>
   <p>Connect with couples actively planning their wedding and elevate your online presence within a curated directory of trusted suppliers.</p>
-  <a href="https://join.ourweddingday.com.au/funnel/aah/join/" class="apply-button">Start Showcasing Your Business</a>
+
+  <a href="https://join.ourweddingday.com.au/funnel/aah/join/" class="apply-button">
+    Start Showcasing Your Business
+  </a>
 </header>
 
 <section class="pricing">
   <h2>Pricing Tiers</h2>
+
   <div class="pricing-tiers">
-    
-    <div class="pricing-tier">
+
+    <div class="pricing-tier tier-1">
       <h3>Classic Listing</h3>
-      <div class="pricing-price">$4.75 / month</div>
-      <p>Vendor info sidebar on your page</p>
-      <p>Inquiry / Contact / Book button</p>
-      <p>Showcase 3 images</p>
-      <p>Bio limit: 500 characters</p>
-      <p><em>Includes $50 one-off setup fee</em></p>
+      <div class="pricing-price">$4.75</div>
+      <p>/ month</p>
+      <p>3 images</p>
+      <p>500 character bio</p>
     </div>
 
-    <div class="pricing-tier">
+    <div class="pricing-tier tier-2">
       <h3>Signature Spotlight</h3>
-      <div class="pricing-price">$5.95 / month</div>
-      <p>Everything in Classic Listing, plus:</p>
-      <p>Showcase 5 images</p>
-      <p>Bio limit: 1,000 characters</p>
-      <p>Ideal for expanding your profile</p>
-      <p><em>Includes $50 one-off setup fee</em></p>
+      <div class="pricing-price">$5.95</div>
+      <p>/ month</p>
+      <p>5 images</p>
+      <p>1,000 character bio</p>
     </div>
 
-    <div class="pricing-tier">
+    <div class="pricing-tier tier-3">
       <h3>Elite Feature</h3>
-      <div class="pricing-price">$7.25 / month</div>
-      <p>Everything in Signature Spotlight, plus:</p>
-      <p>Showcase 8 images</p>
-      <p>Bio limit: 1,500 characters</p>
-      <p>Highlighted placement in search results</p>
-      <p><em>Includes $50 one-off setup fee</em></p>
+      <div class="pricing-price">$7.25</div>
+      <p>/ month</p>
+      <p>8 images</p>
+      <p>1,500 character bio</p>
     </div>
 
-    <div class="pricing-tier premium">
+    <div class="pricing-tier tier-4">
+      <div class="badge">MOST POPULAR</div>
       <h3>Platinum Prestige</h3>
-      <div class="pricing-price">$9.95 / month</div>
-      <p>Everything in Elite Feature, plus:</p>
+      <div class="pricing-price">$9.95</div>
+      <p>/ month</p>
       <p>Unlimited images</p>
-      <p>Unlimited bio characters</p>
-      <p>Priority placement in search results</p>
-      <p>Featured vendor spotlights and promotions</p>
-      <p><em>Includes $50 one-off setup fee</em></p>
+      <p>Unlimited bio</p>
+      <p>Priority placement</p>
     </div>
 
   </div>
