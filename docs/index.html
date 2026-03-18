@@ -12,6 +12,12 @@
   <img src="images/header4.png" alt="Our Wedding Day Hub" class="header-image">
 </header>
 
+<!-- TOP NAV -->
+<nav class="top-nav">
+  <a href="about.html">About Us</a> | 
+  <a href="contact.html">Contact Us</a>
+</nav>
+
 <!-- SEARCH BAR -->
 <div class="search">
   <input type="text" id="search" placeholder="Search by vendor, location, category..." onkeyup="searchVendors()">
@@ -26,12 +32,17 @@
   <div class="slider-arrow right" onclick="nextSlide()">&#10095;</div>
 </div>
 
-<!-- JOIN SECTION -->
+<!-- SHOWCASE YOUR BUSINESS -->
 <section class="join">
   <h2>Showcase Your Business to Engaged Couples</h2>
   <p>Connect with couples actively planning their wedding and elevate your online presence within a curated directory of trusted suppliers.</p>
   <a href="apply.html" class="apply-button">Start Showcasing Your Business</a>
 </section>
+
+<!-- VENDORS CONTAINER (Search Results) -->
+<div id="vendors-container" class="vendors-container">
+  <!-- Vendor cards dynamically injected here -->
+</div>
 
 <footer>
   <p>© 2026 Our Wedding Day Hub</p>
@@ -39,5 +50,6 @@
 
 <script src="vendors.js"></script>
 <script src="slider.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
