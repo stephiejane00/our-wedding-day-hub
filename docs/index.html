@@ -29,29 +29,29 @@
 /* FEATURED SLIDER */
 .featured-slider-wrapper {
   position: relative;
-  margin: 40px auto;
   max-width: 1200px;
+  margin: 40px auto;
   overflow: hidden;
-  padding: 0 20px;
 }
 
 .featured-slider {
   display: flex;
   gap: 30px;
+  overflow-x: auto;
   scroll-behavior: smooth;
+  padding-bottom: 10px;
 }
 
-/* SLIDER ARROWS */
 .slider-arrow {
   position: absolute;
   top: 50%;
+  transform: translateY(-50%);
   font-size: 2rem;
   font-weight: bold;
-  color: #000;
   cursor: pointer;
-  user-select: none;
-  transform: translateY(-50%);
   z-index: 10;
+  color: #2F4F2F;
+  user-select: none;
 }
 
 .slider-arrow.left { left: 0; }
@@ -84,6 +84,13 @@
 .apply-button:hover {
   transform: scale(1.05);
 }
+
+/* SHOWCASE YOUR BUSINESS SECTION */
+.join {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 60px auto;
+}
 </style>
 </head>
 <body>
@@ -103,11 +110,11 @@
   <input type="text" id="search" placeholder="Search by vendor, location, category..." onkeyup="searchVendors()">
 </div>
 
-<!-- FEATURED SLIDER -->
+<!-- FEATURED VENDOR SLIDER -->
 <div class="featured-slider-wrapper">
   <div class="slider-arrow left" onclick="prevSlide()">&#10094;</div>
   <div class="featured-slider" id="sliderTrack">
-    <!-- Vendor slides dynamically injected here -->
+    <!-- Vendor cards injected via script -->
   </div>
   <div class="slider-arrow right" onclick="nextSlide()">&#10095;</div>
 </div>
@@ -124,32 +131,38 @@
 </footer>
 
 <script>
-// Featured vendors for the slider
+// Featured vendors with correct file paths
 const sliderTrack = document.getElementById("sliderTrack");
 let currentSlide = 0;
 
 const featuredVendors = [
-  { id: "nails", name: "Kaity Kissed Nails & Design", img: "images/nails1.jpg", desc: "Luxury nails and beauty services." },
-  { id: "koarlie", name: "Moments with Koarlie Studios", img: "images/koarlie1.jpg", desc: "Capturing your wedding memories beautifully." },
-  { id: "trc", name: "The Roamed Collective", img: "images/trc1.jpg", desc: "Creative photography & videography." },
-  { id: "rosita", name: "Rosita Flowers", img: "images/rosita2.jpg", desc: "Beautiful floral arrangements." },
-  { id: "cakes", name: "Passion For Cakes", img: "images/cake2.jpg", desc: "Delicious wedding cakes." },
-  { id: "beauty", name: "Bridal Beauty Collective", img: "images/beauty2.jpg", desc: "Bridal hair & makeup services." }
+  { name: "Kaity Kissed Nails & Design", img: "images/nails1.jpg", desc: "Luxury nails and beauty services.", page: "vendors/kaity-kissed-nails-and-designs.html" },
+  { name: "Moments with Koarlie Studios", img: "images/koarlie1.jpg", desc: "Capturing your wedding memories beautifully.", page: "vendors/moments-with-koarlie-studios.html" },
+  { name: "The Roamed Collective", img: "images/trc1.jpg", desc: "Creative photography & videography.", page: "vendors/the-roamed-collective.html" },
+  { name: "Rosita Flowers", img: "images/rosita2.jpg", desc: "Beautiful floral arrangements.", page: "vendors/rosita-flowers.html" },
+  { name: "Passion For Cakes", img: "images/cake2.jpg", desc: "Delicious wedding cakes.", page: "vendors/passion-for-cakes.html" },
+  { name: "Brazilian Beauty", img: "images/beauty2.jpg", desc: "Bridal hair & makeup services.", page: "vendors/brazilian-beauty.html" }
 ];
 
-// Inject vendor cards into slider
+// Clear slider
 sliderTrack.innerHTML = "";
+
+// Add vendor cards
 featuredVendors.forEach(vendor => {
   const card = document.createElement("div");
   card.classList.add("vendor-card");
+
   card.innerHTML = `
     <img src="${vendor.img}" alt="${vendor.name}">
     <h3>${vendor.name}</h3>
     <p>${vendor.desc}</p>
   `;
+
+  // Make the card clickable
   card.addEventListener("click", () => {
-    window.location.href = `vendors/${vendor.id}.html`;
+    window.location.href = vendor.page;
   });
+
   sliderTrack.appendChild(card);
 });
 
@@ -171,5 +184,6 @@ function prevSlide() {
 }
 </script>
 
+<script src="script.js"></script>
 </body>
 </html>
