@@ -5,6 +5,70 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Our Wedding Day Hub</title>
 <link rel="stylesheet" href="style.css">
+<style>
+/* VENDOR CARDS */
+.vendor-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.vendor-card {
+  border-radius: 0; /* straight corners */
+  box-shadow: 0 6px 20px rgba(212,175,55,0.3); /* gold glow */
+  padding: 15px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.vendor-card img {
+  width: 100%;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.vendor-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(212,175,55,0.5);
+}
+
+/* VENDORS CONTAINER GRID */
+.vendors-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+  margin: 40px auto;
+  max-width: 1200px;
+  padding: 0 20px;
+}
+
+/* SEARCH BAR */
+.search input {
+  width: 90%;
+  max-width: 600px;
+  padding: 12px 15px;
+  font-size: 1rem;
+  margin: 20px auto;
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* APPLY BUTTON */
+.apply-button {
+  display: inline-block;
+  background: #000;
+  color: #fff;
+  padding: 18px 36px;
+  font-size: 1.3rem;
+  text-decoration: none;
+  margin: 20px auto 50px auto;
+  transition: 0.3s;
+}
+
+.apply-button:hover {
+  transform: scale(1.05);
+}
+</style>
 </head>
 <body>
 
@@ -48,7 +112,37 @@
   <p>© 2026 Our Wedding Day Hub</p>
 </footer>
 
-<script src="vendors.js"></script>
+<script>
+// Example vendor data
+const vendors = [
+  {name: "Rosita Flowers", description: "Beautiful floral designs for unforgettable weddings.", image: "images/rosita2.jpg", page: "vendors/rosita-flowers.html"},
+  {name: "Passion For Cakes", description: "Elegant cakes designed for your perfect wedding day.", image: "images/cake2.jpg", page: "vendors/passion-cakes.html"},
+  {name: "Moments with Koarlie Studios", description: "Capturing magical moments of your wedding day.", image: "images/koarlie1.jpg", page: "vendors/moments-with-koarlie-studios.html"},
+  {name: "Kaity Kissed Nails and Designs", description: "Elegant wedding nails for brides and bridal parties.", image: "images/nails1.jpg", page: "vendors/kaity-kissed-nails-and-designs.html"},
+  {name: "Brazilian Beauty", description: "Professional bridal beauty services for your special day.", image: "images/beauty2.jpg", page: "vendors/brazilian-beauty.html"}
+];
+
+// Inject vendor cards
+const vendorsContainer = document.getElementById('vendors-container');
+
+vendors.forEach(vendor => {
+  const link = document.createElement('a');
+  link.href = vendor.page;
+  link.classList.add('vendor-link');
+
+  const card = document.createElement('div');
+  card.classList.add('vendor-card');
+  card.innerHTML = `
+    <img src="${vendor.image}" alt="${vendor.name}">
+    <h3>${vendor.name}</h3>
+    <p>${vendor.description}</p>
+  `;
+
+  link.appendChild(card);
+  vendorsContainer.appendChild(link);
+});
+</script>
+
 <script src="slider.js"></script>
 <script src="script.js"></script>
 </body>
