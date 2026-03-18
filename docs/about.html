@@ -5,14 +5,62 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>About Us - Our Wedding Day Hub</title>
 <link rel="stylesheet" href="style.css">
+<style>
+  /* Centre header content and style hero banner */
+  .hero {
+    text-align: center;
+    position: relative;
+    color: #fff;
+  }
+
+  .hero img {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .hero-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background: rgba(0, 0, 0, 0.4); /* subtle overlay for readability */
+    padding: 20px;
+    border-radius: 10px;
+  }
+
+  .vendor-info {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+    line-height: 1.6;
+    text-align: center;
+  }
+
+  .back-link {
+    display: inline-block;
+    margin-bottom: 10px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .back-link:hover {
+    text-decoration: underline;
+  }
+</style>
 </head>
 <body>
 
 <header class="hero">
-  <img src="header4.png" alt="Our Wedding Day Hub" class="hero-image">
-  <a href="index.html" class="back-link">← Back to Home</a>
-  <h1>About Us</h1>
-  <p class="tagline">A little bit about what we do 🤍</p>
+  <img src="images/header4.png" alt="Our Wedding Day Hub">
+  <div class="hero-content">
+    <a href="index.html" class="back-link">← Back to Home</a>
+    <h1>About Us</h1>
+    <p class="tagline">A little bit about what we do 🤍</p>
+  </div>
 </header>
 
 <main class="vendor-info">
