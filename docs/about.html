@@ -6,43 +6,23 @@
 <title>About Us - Our Wedding Day Hub</title>
 <link rel="stylesheet" href="style.css">
 <style>
-  /* Centre header content and style hero banner */
+  /* Header and hero image */
   .hero {
     text-align: center;
-    position: relative;
-    color: #fff;
+    padding: 20px;
   }
 
   .hero img {
     width: 100%;
-    max-height: 400px;
-    object-fit: cover;
+    height: auto;
     display: block;
-  }
-
-  .hero-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    background: rgba(0, 0, 0, 0.4); /* subtle overlay for readability */
-    padding: 20px;
-    border-radius: 10px;
-  }
-
-  .vendor-info {
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 0 20px;
-    line-height: 1.6;
-    text-align: center;
+    margin: 0 auto 20px auto;
   }
 
   .back-link {
     display: inline-block;
     margin-bottom: 10px;
-    color: #fff;
+    color: #000; /* change text color if needed */
     text-decoration: none;
     font-weight: 500;
   }
@@ -50,17 +30,24 @@
   .back-link:hover {
     text-decoration: underline;
   }
+
+  /* Main content */
+  .vendor-info {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+    line-height: 1.6;
+    text-align: center;
+  }
 </style>
 </head>
 <body>
 
 <header class="hero">
   <img src="images/header4.png" alt="Our Wedding Day Hub">
-  <div class="hero-content">
-    <a href="index.html" class="back-link">← Back to Home</a>
-    <h1>About Us</h1>
-    <p class="tagline">A little bit about what we do 🤍</p>
-  </div>
+  <a href="index.html" class="back-link">← Back to Home</a>
+  <h1>About Us</h1>
+  <p class="tagline">A little bit about what we do 🤍</p>
 </header>
 
 <main class="vendor-info">
