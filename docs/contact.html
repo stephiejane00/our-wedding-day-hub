@@ -42,42 +42,82 @@
 
   /* Contact form */
   .vendor-info {
-    max-width: 600px;
+    max-width: 700px;
     margin: 40px auto;
     padding: 0 20px;
-    text-align: center;
   }
 
   form {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 20px;
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+  }
+
+  .form-group {
+    flex: 1 1 100%;
+    position: relative;
+  }
+
+  /* Two-column for name/email on larger screens */
+  @media(min-width: 600px) {
+    .form-group.half {
+      flex: 1 1 calc(50% - 10px);
+    }
   }
 
   label {
-    margin-top: 15px;
-    margin-bottom: 5px;
-    font-weight: 500;
-    text-align: left;
+    position: absolute;
+    top: 12px;
+    left: 14px;
+    color: #888;
+    font-size: 1rem;
+    pointer-events: none;
+    transition: 0.2s all;
+    background: #fffafc;
+    padding: 0 4px;
   }
 
   input, textarea {
-    padding: 12px;
+    width: 100%;
+    padding: 14px;
+    padding-left: 14px;
     border: 1px solid #ccc;
     border-radius: 8px;
     font-size: 1rem;
-    width: 100%;
     box-sizing: border-box;
+  }
+
+  input:focus, textarea:focus {
+    outline: none;
+    border-color: #a6787f;
+  }
+
+  /* Floating label effect */
+  input:focus + label,
+  input:not(:placeholder-shown) + label,
+  textarea:focus + label,
+  textarea:not(:placeholder-shown) + label {
+    top: -10px;
+    left: 10px;
+    font-size: 0.85rem;
+    color: #5c3d4a;
   }
 
   button.send-btn {
     margin-top: 20px;
-    padding: 14px;
+    padding: 16px;
     background-color: #a6787f;
     color: #fff;
     font-size: 1rem;
     border: none;
     border-radius: 8px;
     cursor: pointer;
+    width: 100%;
+    transition: 0.3s;
   }
 
   button.send-btn:hover {
@@ -89,9 +129,9 @@
     margin-top: 20px;
     color: #5c3d4a;
     font-weight: 500;
+    text-align: center;
   }
 
-  /* Footer */
   footer {
     text-align: center;
     padding: 40px 20px;
@@ -110,14 +150,20 @@
 
 <section class="vendor-info">
 <form id="contact-form">
-  <label for="name">Your Name</label>
-  <input type="text" id="name" placeholder="Enter your name" required>
+  <div class="form-group half">
+    <input type="text" id="name" placeholder=" " required>
+    <label for="name">Your Name</label>
+  </div>
 
-  <label for="email">Email</label>
-  <input type="email" id="email" placeholder="Enter your email" required>
+  <div class="form-group half">
+    <input type="email" id="email" placeholder=" " required>
+    <label for="email">Email</label>
+  </div>
 
-  <label for="message">Message</label>
-  <textarea id="message" rows="6" placeholder="Write your message here" required></textarea>
+  <div class="form-group">
+    <textarea id="message" rows="6" placeholder=" " required></textarea>
+    <label for="message">Message</label>
+  </div>
 
   <button type="submit" class="send-btn">Send Message 🤍</button>
   <p class="success-msg">Message sent! Thank you 💌</p>
