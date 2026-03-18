@@ -6,79 +6,80 @@
 <title>Moments with Koarlie Studios | Our Wedding Day Hub</title>
 <link rel="stylesheet" href="../style.css">
 <style>
-body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f9f9f9; }
-header.hero { text-align:center; padding:40px 20px; background:#fff; }
-header.hero h1 { margin:0; font-size:2.5rem; color:#2F4F2F; }
-
-.vendor-main { display:flex; flex-wrap:wrap; max-width:1200px; margin:40px auto; gap:20px; padding:0 20px; }
-.vendor-gallery { flex:3 1 60%; display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:15px; }
-.vendor-gallery img { width:100%; border-radius:8px; border:2px solid #2F4F2F; cursor:pointer; transition:transform 0.3s; }
-.vendor-gallery img:hover { transform:scale(1.05); }
-.vendor-info-card { flex:1 1 35%; background:#fff; padding:25px; box-shadow:0 6px 20px rgba(0,0,0,0.1); border-radius:8px; }
-.vendor-info-card h2 { margin-top:0; color:#2F4F2F; }
-.vendor-info-card p { margin:8px 0; }
-.vendor-info-card a.button { display:inline-block; background:#D4AF37; color:#fff; padding:12px 20px; margin-top:10px; text-decoration:none; font-weight:bold; transition:0.3s; }
-.vendor-info-card a.button:hover { transform:scale(1.05); }
-.vendor-description { background:#fff; padding:30px; max-width:900px; margin:40px auto; box-shadow:0 6px 20px rgba(0,0,0,0.1); border-radius:8px; text-align:center; }
-.lightbox { display:none; position:fixed; z-index:1000; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.85); justify-content:center; align-items:center; }
-.lightbox-img { max-width:90%; max-height:90%; border-radius:10px; box-shadow:0 8px 25px rgba(0,0,0,0.5); }
-#lightbox-close { position:absolute; top:20px; right:30px; color:white; font-size:2rem; font-weight:bold; cursor:pointer; }
+body { font-family: Arial, sans-serif; margin:0; padding:0; background:#fdfdfd; }
+.page-header{text-align:center; padding:30px 20px;}
+.page-header h1{margin-bottom:10px;}
+.page-header p{color:#555; font-size:1rem;}
+.vendor-main{display:flex; flex-wrap:wrap; max-width:1200px; margin:30px auto; gap:20px;}
+.gallery-container{flex:3; position:relative; overflow:hidden;}
+.gallery-slide{display:none; width:100%;}
+.gallery-slide img{width:100%; display:block;}
+.vendor-info{flex:1; background:#fff; padding:20px; box-shadow:0 6px 20px rgba(212,175,55,0.2);}
+.vendor-info h2{margin-top:0;}
+.vendor-info p{margin:8px 0;}
+.vendor-info a{display:inline-block; margin-top:10px; padding:12px 20px; background:#000; color:#fff; text-decoration:none; transition:0.3s;}
+.vendor-info a:hover{transform:scale(1.05);}
+.vendor-bio{max-width:900px; margin:40px auto; background:#fff; padding:25px 30px; box-shadow:0 6px 20px rgba(212,175,55,0.2); line-height:1.6; font-size:1rem; color:#333; border-radius:5px; text-align:left;}
+.prev, .next{cursor:pointer; position:absolute; top:50%; width:auto; margin-top:-22px; padding:12px; color:#fff; font-weight:bold; font-size:18px; background-color:rgba(0,0,0,0.5); border-radius:50%; user-select:none; transition:0.3s;}
+.prev:hover, .next:hover{background-color:rgba(0,0,0,0.7);}
+.prev{left:10px;}
+.next{right:10px;}
 </style>
 </head>
 <body>
 
-<header class="hero">
+<header class="page-header">
   <h1>Moments with Koarlie Studios</h1>
+  <p>Brisbane</p>
 </header>
 
-<main class="vendor-main">
-
-  <!-- Gallery -->
-  <div class="vendor-gallery" id="vendorGallery">
-    <img src="../images/koarlie1.jpg" alt="Koarlie Studio 1">
-    <img src="../images/koarlie2.jpg" alt="Koarlie Studio 2">
-    <img src="../images/koarlie3.jpg" alt="Koarlie Studio 3">
-    <img src="../images/koarlie4.jpg" alt="Koarlie Studio 4">
+<div class="vendor-main">
+  <!-- GALLERY -->
+  <div class="gallery-container">
+    <div class="gallery-slide"><img src="../images/koarlie1.png" alt="Koarlie 1"></div>
+    <div class="gallery-slide"><img src="../images/koarlie2.png" alt="Koarlie 2"></div>
+    <div class="gallery-slide"><img src="../images/koarlie3.png" alt="Koarlie 3"></div>
+    <div class="gallery-slide"><img src="../images/koarlie4.png" alt="Koarlie 4"></div>
+    <div class="gallery-slide"><img src="../images/koarlie5.png" alt="Koarlie 5"></div>
+    <div class="gallery-slide"><img src="../images/koarlie6.png" alt="Koarlie 6"></div>
+    <div class="gallery-slide"><img src="../images/koarlie7.png" alt="Koarlie 7"></div>
+    <div class="gallery-slide"><img src="../images/koarlie8.png" alt="Koarlie 8"></div>
+    <div class="gallery-slide"><img src="../images/koarlie9.png" alt="Koarlie 9"></div>
+    <div class="gallery-slide"><img src="../images/koarlie10.png" alt="Koarlie 10"></div>
+    <div class="gallery-slide"><img src="../images/koarlie11.png" alt="Koarlie 11"></div>
+    <a class="prev" onclick="changeSlide(-1)">&#10094;</a>
+    <a class="next" onclick="changeSlide(1)">&#10095;</a>
   </div>
 
-  <!-- Info Card -->
-  <div class="vendor-info-card">
+  <!-- INFO CARD -->
+  <div class="vendor-info">
     <h2>Moments with Koarlie Studios</h2>
-    <p><strong>Location:</strong> Brisbane, QLD</p>
-    <p><strong>Instagram:</strong> <a href="https://www.instagram.com/koarlie_studios" target="_blank">@koarlie_studios</a></p>
-    <a href="mailto:info@koarlie.com" class="button">Inquire Now</a>
+    <p>📞 0412345678</p>
+    <p>📧 hello@koarlie.com</p>
+    <p>📍 Brisbane</p>
+    <a href="https://www.instagram.com/koarlie_studios/" target="_blank">Instagram</a>
+    <a href="mailto:hello@koarlie.com">Inquiry</a>
   </div>
-
-</main>
-
-<!-- Description Card -->
-<div class="vendor-description">
-  <p>Moments with Koarlie Studios captures your wedding day beautifully, preserving every magical moment in timeless photos and videos. We focus on storytelling and creativity, ensuring your memories are cherished forever.</p>
 </div>
 
-<!-- Lightbox -->
-<div id="lightbox" class="lightbox">
-  <span id="lightbox-close">&times;</span>
-  <img class="lightbox-img" src="" alt="Vendor Image">
+<!-- BUSINESS DESCRIPTION -->
+<div class="vendor-bio">
+<p>Moments with Koarlie Studios is all about capturing the true essence of your wedding day. Every smile, every glance, every tear of joy is preserved with care and creativity.</p>
+
+<p>We work closely with couples to craft a visual story that reflects their personalities and the love they share. From candid ceremony moments to styled couple portraits, we ensure every frame tells a meaningful part of your journey.</p>
+
+<p>Our approach is relaxed and unobtrusive, letting the day unfold naturally. With an eye for detail and a passion for storytelling, Moments with Koarlie Studios delivers photos that feel genuine, timeless, and unforgettable.</p>
 </div>
 
 <script>
-const galleryImages = document.querySelectorAll('.vendor-gallery img');
-const lightbox = document.getElementById('lightbox');
-const lightboxImg = document.querySelector('.lightbox-img');
-const closeBtn = document.getElementById('lightbox-close');
-
-galleryImages.forEach(img => {
-  img.addEventListener('click', () => {
-    lightbox.style.display = 'flex';
-    lightboxImg.src = img.src;
-    lightboxImg.alt = img.alt;
-  });
-});
-
-closeBtn.addEventListener('click', () => { lightbox.style.display='none'; });
-lightbox.addEventListener('click', e => { if(e.target===lightbox) lightbox.style.display='none'; });
+let slideIndex = 0; showSlide(slideIndex);
+function changeSlide(n){ showSlide(slideIndex += n); }
+function showSlide(n){
+  const slides=document.getElementsByClassName("gallery-slide");
+  if(n>=slides.length){slideIndex=0;} if(n<0){slideIndex=slides.length-1;}
+  for(let i=0;i<slides.length;i++){slides[i].style.display="none";}
+  slides[slideIndex].style.display="block";
+}
 </script>
-
 </body>
 </html>
