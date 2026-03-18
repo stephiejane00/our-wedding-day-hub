@@ -5,6 +5,63 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Apply | Our Wedding Day Hub</title>
 <link rel="stylesheet" href="style.css">
+<style>
+/* =========================
+   PRICING GRID STYLES
+========================= */
+.pricing-tiers {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  max-width: 1000px;
+  margin: 40px auto 60px auto;
+}
+
+.pricing-tier {
+  border: 2px solid #000;
+  border-radius: 12px;
+  padding: 25px 20px;
+  background: #fff;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.pricing-tier:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+}
+
+.pricing-tier.best {
+  background: #fdfaf6;
+  border-color: #000;
+  box-shadow: 0 0 50px rgba(0,0,0,0.3);
+}
+
+.pricing-tier h3 {
+  font-family: "Times New Roman", serif;
+  font-size: 1.4rem;
+  margin-bottom: 12px;
+}
+
+.pricing-price {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.pricing-details {
+  text-align: left;
+  margin-top: 15px;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 900px) {
+  .pricing-tiers {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
 </head>
 <body>
 
@@ -16,32 +73,67 @@
 
 <section class="pricing">
   <h2>Pricing Tiers</h2>
+  <p>One-Off Setup Fee: $50 (Covers account creation and full profile access)</p>
+
   <div class="pricing-tiers">
     <div class="pricing-tier">
-      <h3>Classic Listing</h3>
+      <h3>Tier 1 – Classic</h3>
       <div class="pricing-price">$4.75 / month</div>
-      <p>Basic listing with name, logo, and contact details.</p>
-      <p><em>Includes $50 joining fee</em></p>
+      <div class="pricing-details">
+        <ul>
+          <li>Vendor info sidebar</li>
+          <li>Inquiry / Contact / Book button</li>
+          <li>Showcase 3 images</li>
+          <li>Bio limit: 500 characters</li>
+          <li>Perfect for getting started</li>
+        </ul>
+      </div>
     </div>
 
     <div class="pricing-tier">
-      <h3>Signature Spotlight</h3>
+      <h3>Tier 2 – Signature</h3>
       <div class="pricing-price">$5.95 / month</div>
-      <p>Highlighted listing with description and priority placement.</p>
-      <p><em>Includes $50 joining fee</em></p>
+      <div class="pricing-details">
+        <ul>
+          <li>Everything in Tier 1</li>
+          <li>Showcase 5 images</li>
+          <li>Bio limit: 1,000 characters</li>
+          <li>Ideal for expanding your profile</li>
+        </ul>
+      </div>
     </div>
 
-    <div class="pricing-tier premium">
-      <h3>Premium Showcase</h3>
+    <div class="pricing-tier">
+      <h3>Tier 3 – Premium</h3>
+      <div class="pricing-price">$7.25 / month</div>
+      <div class="pricing-details">
+        <ul>
+          <li>Everything in Tier 2</li>
+          <li>Showcase 8 images</li>
+          <li>Bio limit: 1,500 characters</li>
+          <li>Highlighted placement in search results</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pricing-tier best">
+      <h3>Tier 4 – Ultimate</h3>
       <div class="pricing-price">$9.95 / month</div>
-      <p>Full gallery, homepage feature, top search placement, and maximum visibility.</p>
-      <p><em>Includes $50 joining fee</em></p>
+      <div class="pricing-details">
+        <ul>
+          <li>Everything in Tier 3</li>
+          <li>Unlimited images</li>
+          <li>Unlimited bio characters</li>
+          <li>Priority placement in search results</li>
+          <li>Featured vendor spotlights and promotions</li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
 
 <footer>
-  <p>© 2026 Our Wedding Day Hub</p>
+  <p style="text-align:center;">© 2026 Our Wedding Day Hub</p>
 </footer>
 
 </body>
