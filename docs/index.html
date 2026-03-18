@@ -7,17 +7,12 @@
 <link rel="stylesheet" href="style.css">
 <style>
 /* VENDOR CARDS */
-.vendor-link {
-  display: block;
-  text-decoration: none;
-  color: inherit;
-}
-
 .vendor-card {
   border-radius: 0; /* straight corners */
   box-shadow: 0 6px 20px rgba(212,175,55,0.3); /* gold glow */
   padding: 15px;
   transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
 }
 
 .vendor-card img {
@@ -31,15 +26,36 @@
   box-shadow: 0 8px 25px rgba(212,175,55,0.5);
 }
 
-/* VENDORS CONTAINER GRID */
-.vendors-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 25px;
+/* FEATURED SLIDER */
+.featured-slider-wrapper {
+  position: relative;
   margin: 40px auto;
   max-width: 1200px;
+  overflow: hidden;
   padding: 0 20px;
 }
+
+.featured-slider {
+  display: flex;
+  gap: 30px;
+  scroll-behavior: smooth;
+}
+
+/* SLIDER ARROWS */
+.slider-arrow {
+  position: absolute;
+  top: 50%;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #000;
+  cursor: pointer;
+  user-select: none;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+.slider-arrow.left { left: 0; }
+.slider-arrow.right { right: 0; }
 
 /* SEARCH BAR */
 .search input {
@@ -103,7 +119,57 @@
   <a href="apply.html" class="apply-button">Start Showcasing Your Business</a>
 </section>
 
-
 <footer>
   <p>© 2026 Our Wedding Day Hub</p>
 </footer>
+
+<script>
+// Featured vendors for the slider
+const sliderTrack = document.getElementById("sliderTrack");
+let currentSlide = 0;
+
+const featuredVendors = [
+  { id: "nails", name: "Kaity Kissed Nails & Design", img: "images/nails1.jpg", desc: "Luxury nails and beauty services." },
+  { id: "koarlie", name: "Moments with Koarlie Studios", img: "images/koarlie1.jpg", desc: "Capturing your wedding memories beautifully." },
+  { id: "trc", name: "The Roamed Collective", img: "images/trc1.jpg", desc: "Creative photography & videography." },
+  { id: "rosita", name: "Rosita Flowers", img: "images/rosita2.jpg", desc: "Beautiful floral arrangements." },
+  { id: "cakes", name: "Passion For Cakes", img: "images/cake2.jpg", desc: "Delicious wedding cakes." },
+  { id: "beauty", name: "Bridal Beauty Collective", img: "images/beauty2.jpg", desc: "Bridal hair & makeup services." }
+];
+
+// Inject vendor cards into slider
+sliderTrack.innerHTML = "";
+featuredVendors.forEach(vendor => {
+  const card = document.createElement("div");
+  card.classList.add("vendor-card");
+  card.innerHTML = `
+    <img src="${vendor.img}" alt="${vendor.name}">
+    <h3>${vendor.name}</h3>
+    <p>${vendor.desc}</p>
+  `;
+  card.addEventListener("click", () => {
+    window.location.href = `vendors/${vendor.id}.html`;
+  });
+  sliderTrack.appendChild(card);
+});
+
+// Slider controls
+const slideWidth = 320 + 30; // card width + gap
+
+function nextSlide() {
+  if (currentSlide < featuredVendors.length - 3) {
+    currentSlide++;
+    sliderTrack.scrollBy({ left: slideWidth, behavior: 'smooth' });
+  }
+}
+
+function prevSlide() {
+  if (currentSlide > 0) {
+    currentSlide--;
+    sliderTrack.scrollBy({ left: -slideWidth, behavior: 'smooth' });
+  }
+}
+</script>
+
+</body>
+</html>
