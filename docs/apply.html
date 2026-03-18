@@ -6,88 +6,78 @@
 <title>Apply | Our Wedding Day Hub</title>
 <link rel="stylesheet" href="style.css">
 <style>
-  .apply-header {
-    text-align: center;
-    padding: 60px 20px 20px 20px;
-  }
+/* APPLY BUTTON UNDER HEADER */
+.apply-button {
+  display: inline-block;
+  background: #000;
+  color: #fff;
+  padding: 18px 36px;
+  border-radius: 12px;
+  font-size: 1.3rem;
+  text-decoration: none;
+  margin: 20px auto 50px auto;
+  transition: 0.3s;
+  text-align: center;
+}
 
-  .apply-header h1 {
-    font-size: 2.8rem;
-    margin-bottom: 15px;
-  }
+.apply-button:hover {
+  background: #333;
+  transform: scale(1.05);
+}
 
-  .apply-header p {
-    font-size: 1.2rem;
-    margin-bottom: 20px;
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
-  }
+/* PRICING TIERS */
+.pricing {
+  max-width: 1000px;
+  margin: 0 auto 60px auto;
+  text-align: center;
+}
 
-  .apply-button {
-    display: inline-block;
-    background: #FF6F61; /* pop of colour */
-    color: #fff;
-    padding: 18px 36px;
-    border-radius: 12px;
-    font-size: 1.3rem;
-    text-decoration: none;
-    margin-bottom: 50px;
-    transition: 0.3s;
-  }
+.pricing-tiers {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  margin-top: 40px;
+}
 
-  .apply-button:hover {
-    background: #e55a4a;
-    transform: scale(1.05);
-  }
+.pricing-tier {
+  border: 2px solid #000;
+  border-radius: 12px;
+  padding: 30px 25px;
+  background: #fff;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
 
-  .pricing-tiers {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 30px;
-    margin-top: 40px;
-  }
+.pricing-tier:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+}
 
-  .pricing-tier {
-    flex: 1 1 220px;
-    border: 2px solid #FF6F61;
-    border-radius: 12px;
-    padding: 30px 25px;
-    background: #fffaf7;
-    text-align: center;
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
+.pricing-tier h3 {
+  font-family: "Times New Roman", serif;
+  font-size: 1.4rem;
+  margin-bottom: 12px;
+}
 
-  .pricing-tier:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(255,111,97,0.3);
-  }
+.pricing-price {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
 
-  .pricing-tier h3 {
-    font-family: "Times New Roman", serif;
-    font-size: 1.4rem;
-    margin-bottom: 10px;
-    color: #FF6F61;
-  }
+/* GOLD HIGHLIGHT FOR PLATINUM PRESTIGE */
+.pricing-tier.premium {
+  border-color: #D4AF37;
+  box-shadow: 0 0 40px rgba(212,175,55,0.5);
+}
 
-  .pricing-price {
-    font-size: 2.2rem;
-    font-weight: bold;
-    margin-bottom: 15px;
-    color: #FF3F2F;
-  }
-
-  .premium {
-    border-color: #FF3F2F;
-    background: #fff2f0;
-    box-shadow: 0 0 25px rgba(255,63,47,0.4);
-  }
+.pricing-tier.premium h3 {
+  color: #D4AF37;
+}
 </style>
 </head>
 <body>
 
-<header class="apply-header">
+<header class="page-header">
   <h1>Showcase Your Business to Engaged Couples</h1>
   <p>Connect with couples actively planning their wedding and elevate your online presence within a curated directory of trusted suppliers.</p>
   <a href="https://join.ourweddingday.com.au/funnel/aah/join/" class="apply-button">Start Showcasing Your Business</a>
@@ -96,33 +86,46 @@
 <section class="pricing">
   <h2>Pricing Tiers</h2>
   <div class="pricing-tiers">
-
+    
     <div class="pricing-tier">
       <h3>Classic Listing</h3>
       <div class="pricing-price">$4.75 / month</div>
-      <p>Vendor info sidebar, inquiry/contact button, 3 images, bio limit: 500 characters.</p>
-      <p><em>Includes $50 joining fee</em></p>
+      <p>Vendor info sidebar on your page</p>
+      <p>Inquiry / Contact / Book button</p>
+      <p>Showcase 3 images</p>
+      <p>Bio limit: 500 characters</p>
+      <p><em>Includes $50 one-off setup fee</em></p>
     </div>
 
     <div class="pricing-tier">
       <h3>Signature Spotlight</h3>
       <div class="pricing-price">$5.95 / month</div>
-      <p>Everything in Classic Listing, plus 5 images, bio limit: 1,000 characters.</p>
-      <p><em>Includes $50 joining fee</em></p>
+      <p>Everything in Classic Listing, plus:</p>
+      <p>Showcase 5 images</p>
+      <p>Bio limit: 1,000 characters</p>
+      <p>Ideal for expanding your profile</p>
+      <p><em>Includes $50 one-off setup fee</em></p>
     </div>
 
     <div class="pricing-tier">
       <h3>Elite Feature</h3>
       <div class="pricing-price">$7.25 / month</div>
-      <p>Everything in Signature Spotlight, plus 8 images, bio limit: 1,500 characters, highlighted placement in search.</p>
-      <p><em>Includes $50 joining fee</em></p>
+      <p>Everything in Signature Spotlight, plus:</p>
+      <p>Showcase 8 images</p>
+      <p>Bio limit: 1,500 characters</p>
+      <p>Highlighted placement in search results</p>
+      <p><em>Includes $50 one-off setup fee</em></p>
     </div>
 
     <div class="pricing-tier premium">
       <h3>Platinum Prestige</h3>
       <div class="pricing-price">$9.95 / month</div>
-      <p>Everything in Elite Feature, plus unlimited images & bio, priority search placement, featured vendor spots & promotions.</p>
-      <p><em>Includes $50 joining fee</em></p>
+      <p>Everything in Elite Feature, plus:</p>
+      <p>Unlimited images</p>
+      <p>Unlimited bio characters</p>
+      <p>Priority placement in search results</p>
+      <p>Featured vendor spotlights and promotions</p>
+      <p><em>Includes $50 one-off setup fee</em></p>
     </div>
 
   </div>
