@@ -10,142 +10,115 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background: #fdfaf6;
+  background: #fdfdfd;
   color: #333;
 }
 
+/* HEADER */
 header.hero {
   text-align: center;
-  padding: 30px 20px;
+  padding: 40px 20px 20px 20px;
 }
-
 header.hero h1 {
   margin: 0;
   font-size: 2.5rem;
-  font-weight: bold;
 }
 
+/* MAIN CONTAINER */
 .main-container {
   display: flex;
-  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
   max-width: 1200px;
   margin: 40px auto;
-  gap: 20px;
   padding: 0 20px;
 }
 
-/* Gallery Slider */
+/* GALLERY SLIDER */
 .gallery-slider {
   flex: 3;
   position: relative;
   overflow: hidden;
-  border-radius: 8px;
+  height: 500px;
 }
 
 .gallery-track {
   display: flex;
-  transition: transform 0.4s ease;
+  transition: transform 0.5s ease-in-out;
+  height: 100%;
 }
 
 .gallery-track img {
   width: 100%;
+  object-fit: cover;
   flex-shrink: 0;
-  cursor: pointer;
-  border-radius: 8px;
+  border-radius: 0;
 }
 
+/* SLIDER ARROWS */
 .slider-arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   font-size: 2rem;
-  color: rgba(0,0,0,0.7);
+  color: #D4AF37;
   background: rgba(255,255,255,0.8);
-  padding: 5px 12px;
+  padding: 10px;
   cursor: pointer;
-  border-radius: 5px;
+  z-index: 10;
   user-select: none;
 }
+.slider-arrow.left { left: 10px; }
+.slider-arrow.right { right: 10px; }
 
-.slider-arrow.left {
-  left: 10px;
-}
-
-.slider-arrow.right {
-  right: 10px;
-}
-
-/* Info Card */
+/* INFO CARD */
 .info-card {
   flex: 1;
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  background: #fff;
+  padding: 25px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
 }
 
 .info-card h2 {
   margin-top: 0;
 }
-
+.info-card p {
+  margin: 10px 0;
+}
 .info-card a.button {
-  text-align: center;
   display: inline-block;
-  padding: 12px 20px;
-  background: #D4AF37;
-  color: white;
+  margin-top: 15px;
+  background: #000;
+  color: #fff;
   text-decoration: none;
-  border-radius: 5px;
-  margin-top: 10px;
+  padding: 12px 20px;
   transition: 0.3s;
 }
-
 .info-card a.button:hover {
   transform: scale(1.05);
 }
 
-/* Bio Card */
+/* BIO CARD */
 .bio-card {
-  background: white;
+  background: #fff;
+  padding: 30px;
   max-width: 900px;
   margin: 40px auto;
-  padding: 25px 20px;
-  border-radius: 8px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-  line-height: 1.6;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
 }
 
-/* Lightbox */
-.lightbox {
-  display: none;
-  position: fixed;
-  z-index: 1000;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.85);
-  justify-content: center;
-  align-items: center;
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .main-container { flex-direction: column; gap: 30px; }
+  .gallery-slider, .info-card { flex: 1 1 100%; height: 300px; }
+  .gallery-track img { height: 100%; object-fit: cover; }
+  .slider-arrow { font-size: 1.5rem; padding: 5px 10px; }
 }
-
-.lightbox-img {
-  max-width: 90%;
-  max-height: 90%;
-  border-radius: 10px;
-}
-
-#lightbox-close {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  color: white;
-  font-size: 2rem;
-  font-weight: bold;
-  cursor: pointer;
+@media (max-width: 500px) {
+  header.hero h1 { font-size: 1.8rem; }
+  .info-card h2 { font-size: 1.5rem; }
+  .info-card a.button { font-size: 0.9rem; padding: 10px 15px; }
+  .gallery-slider { height: 200px; }
 }
 </style>
 </head>
@@ -153,90 +126,66 @@ header.hero h1 {
 
 <header class="hero">
   <h1>The Roamed Collective</h1>
-  <p>Capturing your story with authenticity, warmth, and soul.</p>
 </header>
 
-<main class="main-container">
-  <!-- Gallery Slider -->
+<div class="main-container">
+
+  <!-- GALLERY -->
   <div class="gallery-slider">
-    <div class="gallery-track" id="galleryTrack">
-      <img src="../images/trc1.jpg" alt="The Roamed Collective 1">
-      <img src="../images/trc2.jpg" alt="The Roamed Collective 2">
-      <img src="../images/trc3.jpg" alt="The Roamed Collective 3">
-      <img src="../images/trc4.jpg" alt="The Roamed Collective 4">
-    </div>
     <div class="slider-arrow left" onclick="prevSlide()">&#10094;</div>
+    <div class="gallery-track" id="galleryTrack">
+      <img src="trc1.jpg" alt="The Roamed Collective 1">
+      <img src="trc2.jpg" alt="The Roamed Collective 2">
+      <img src="trc3.jpg" alt="The Roamed Collective 3">
+      <img src="trc4.jpg" alt="The Roamed Collective 4">
+    </div>
     <div class="slider-arrow right" onclick="nextSlide()">&#10095;</div>
   </div>
 
-  <!-- Info Card -->
+  <!-- INFO CARD -->
   <div class="info-card">
     <h2>Kimberley Hearn</h2>
     <p><strong>Location:</strong> Bribie Island</p>
     <p><strong>Phone:</strong> 0428953023</p>
-    <p><strong>Email:</strong> <a href="mailto:kimberleyhearn1@bigpond.com">kimberleyhearn1@bigpond.com</a></p>
+    <p><strong>Email:</strong> kimberleyhearn1@bigpond.com</p>
     <p><strong>Instagram:</strong> <a href="https://www.instagram.com/theroamedcollective/" target="_blank">@theroamedcollective</a></p>
-    <a href="mailto:kimberleyhearn1@bigpond.com" class="button">Inquiry</a>
+    <a href="mailto:kimberleyhearn1@bigpond.com" class="button">Send Inquiry</a>
   </div>
-</main>
 
-<!-- Bio Card -->
-<div class="bio-card">
-<p>I’m Kimberley, the heart behind The Roamed Collective. With the support of my team, I’ve created a space where stories are honoured and memories are preserved with genuine connection. Photography, to me, is more than an image; it’s a moment held still, a chapter you can return to long after time has passed.</p>
-
-<p>Every part of your journey, whether grand or beautifully ordinary, deserves to be captured with authenticity, warmth, and soul. Your story is unique, and it deserves care and intention.</p>
-
-<p>From radiant maternity sessions and unforgettable proposals to heartfelt family portraits and the joyful chaos of pets, my approach is simple: be present, be patient, be real. I let your story unfold naturally, capturing the raw, unposed moments that reveal who you truly are.</p>
-
-<p>Whether you’re celebrating love, welcoming new life, or pausing a fleeting season, it’s an honour to create imagery that feels meaningful, honest, and timeless. At The Roamed Collective, we don’t just take photos; we tell stories that last.</p>
-
-<p>Let’s capture the magic, the emotion, and the beautifully imperfect moments you’ll treasure forever. Let’s create something unforgettable together.</p>
 </div>
 
-<!-- Lightbox -->
-<div id="lightbox" class="lightbox">
-  <span id="lightbox-close">&times;</span>
-  <img class="lightbox-img" src="" alt="Vendor Image">
+<!-- BIO CARD -->
+<div class="bio-card">
+  <p>I’m Kimberley, the heart behind The Roamed Collective. With the support of my team, I’ve created a space where stories are honoured and memories are preserved with genuine connection. Photography, to me, is more than an image; it’s a moment held still, a chapter you can return to long after time has passed.</p>
+  <p>Every part of your journey, whether grand or beautifully ordinary, deserves to be captured with authenticity, warmth, and soul. Your story is unique, and it deserves care and intention.</p>
+  <p>From radiant maternity sessions and unforgettable proposals to heartfelt family portraits and the joyful chaos of pets, my approach is simple: be present, be patient, be real. I let your story unfold naturally, capturing the raw, unposed moments that reveal who you truly are.</p>
+  <p>Whether you’re celebrating love, welcoming new life, or pausing a fleeting season, it’s an honour to create imagery that feels meaningful, honest, and timeless. At The Roamed Collective, we don’t just take photos; we tell stories that last.</p>
+  <p>Let’s capture the magic, the emotion, and the beautifully imperfect moments you’ll treasure forever. Let’s create something unforgettable together.</p>
 </div>
 
 <script>
-const galleryTrack = document.getElementById('galleryTrack');
-const slides = Array.from(galleryTrack.children);
+const galleryTrack = document.getElementById("galleryTrack");
 let currentIndex = 0;
 
 function showSlide(index) {
-  const slideWidth = galleryTrack.clientWidth;
+  const slideWidth = galleryTrack.offsetWidth;
   galleryTrack.style.transform = `translateX(-${index * slideWidth}px)`;
 }
 
 function nextSlide() {
-  if (currentIndex < slides.length - 1) currentIndex++;
+  if (currentIndex < galleryTrack.children.length - 1) currentIndex++;
+  else currentIndex = 0;
   showSlide(currentIndex);
 }
 
 function prevSlide() {
   if (currentIndex > 0) currentIndex--;
+  else currentIndex = galleryTrack.children.length - 1;
   showSlide(currentIndex);
 }
 
-// Lightbox
-const galleryImages = document.querySelectorAll('.gallery-track img');
-const lightbox = document.getElementById('lightbox');
-const lightboxImg = document.querySelector('.lightbox-img');
-const closeBtn = document.getElementById('lightbox-close');
-
-galleryImages.forEach((img) => {
-  img.addEventListener('click', () => {
-    lightbox.style.display = 'flex';
-    lightboxImg.src = img.src;
-    lightboxImg.alt = img.alt;
-  });
-});
-
-closeBtn.addEventListener('click', () => lightbox.style.display = 'none');
-lightbox.addEventListener('click', e => {
-  if (e.target === lightbox) lightbox.style.display = 'none';
-});
+// Initialize
+showSlide(0);
 </script>
 
 </body>
