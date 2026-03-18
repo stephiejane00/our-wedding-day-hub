@@ -1,5 +1,4 @@
 const sliderTrack = document.getElementById("sliderTrack");
-let currentSlide = 0;
 
 // Featured vendors
 const featuredVendors = [
@@ -35,19 +34,33 @@ featuredVendors.forEach(vendor => {
   sliderTrack.appendChild(link);
 });
 
-// Slider controls
-const slideWidth = 320 + 30; // card width + gap
+// Slider settings
+let currentIndex = 0;
+const cardWidth = 320; // width of card
+const cardGap = 30; // gap between cards
+const visibleCards = 3; // number of fully visible cards
+
+// Smooth scroll function with snap
+function scrollToIndex(index) {
+  const scrollPos = index * (cardWidth + cardGap);
+  sliderTrack.scrollTo({ left: scrollPos, behavior: 'smooth' });
+}
 
 function nextSlide() {
-  if (currentSlide < featuredVendors.length - 3) {
-    currentSlide++;
-    sliderTrack.scrollBy({ left: slideWidth, behavior: 'smooth' });
+  if (currentIndex < featuredVendors.length - visibleCards) {
+    currentIndex++;
+    scrollToIndex(currentIndex);
   }
 }
 
 function prevSlide() {
-  if (currentSlide > 0) {
-    currentSlide--;
-    sliderTrack.scrollBy({ left: -slideWidth, behavior: 'smooth' });
+  if (currentIndex > 0) {
+    currentIndex--;
+    scrollToIndex(currentIndex);
   }
 }
+
+// Optional: make slider responsive
+window.addEventListener('resize', () => {
+  scrollToIndex(currentIndex);
+});
