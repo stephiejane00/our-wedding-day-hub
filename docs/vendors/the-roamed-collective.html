@@ -14,7 +14,6 @@ body {
   color: #333;
 }
 
-/* Header */
 header.hero {
   text-align: center;
   padding: 30px 20px;
@@ -26,7 +25,6 @@ header.hero h1 {
   font-weight: bold;
 }
 
-/* Main layout */
 .main-container {
   display: flex;
   flex-wrap: wrap;
@@ -36,24 +34,45 @@ header.hero h1 {
   padding: 0 20px;
 }
 
-/* Gallery */
-.gallery {
+/* Gallery Slider */
+.gallery-slider {
   flex: 3;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 15px;
-}
-
-.gallery img {
-  width: 100%;
+  position: relative;
+  overflow: hidden;
   border-radius: 8px;
-  cursor: pointer;
-  transition: transform 0.3s;
 }
 
-.gallery img:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+.gallery-track {
+  display: flex;
+  transition: transform 0.4s ease;
+}
+
+.gallery-track img {
+  width: 100%;
+  flex-shrink: 0;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.slider-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2rem;
+  color: rgba(0,0,0,0.7);
+  background: rgba(255,255,255,0.8);
+  padding: 5px 12px;
+  cursor: pointer;
+  border-radius: 5px;
+  user-select: none;
+}
+
+.slider-arrow.left {
+  left: 10px;
+}
+
+.slider-arrow.right {
+  right: 10px;
 }
 
 /* Info Card */
@@ -138,17 +157,22 @@ header.hero h1 {
 </header>
 
 <main class="main-container">
-  <!-- Gallery -->
-  <div class="gallery">
-    <img src="../images/trc1.jpg" alt="The Roamed Collective 1">
-    <img src="../images/trc2.jpg" alt="The Roamed Collective 2">
-    <img src="../images/trc3.jpg" alt="The Roamed Collective 3">
-    <img src="../images/trc4.jpg" alt="The Roamed Collective 4">
+  <!-- Gallery Slider -->
+  <div class="gallery-slider">
+    <div class="gallery-track" id="galleryTrack">
+      <img src="../images/trc1.jpg" alt="The Roamed Collective 1">
+      <img src="../images/trc2.jpg" alt="The Roamed Collective 2">
+      <img src="../images/trc3.jpg" alt="The Roamed Collective 3">
+      <img src="../images/trc4.jpg" alt="The Roamed Collective 4">
+    </div>
+    <div class="slider-arrow left" onclick="prevSlide()">&#10094;</div>
+    <div class="slider-arrow right" onclick="nextSlide()">&#10095;</div>
   </div>
 
   <!-- Info Card -->
   <div class="info-card">
     <h2>Kimberley Hearn</h2>
+    <p><strong>Location:</strong> Bribie Island</p>
     <p><strong>Phone:</strong> 0428953023</p>
     <p><strong>Email:</strong> <a href="mailto:kimberleyhearn1@bigpond.com">kimberleyhearn1@bigpond.com</a></p>
     <p><strong>Instagram:</strong> <a href="https://www.instagram.com/theroamedcollective/" target="_blank">@theroamedcollective</a></p>
@@ -176,7 +200,27 @@ header.hero h1 {
 </div>
 
 <script>
-const galleryImages = document.querySelectorAll('.gallery img');
+const galleryTrack = document.getElementById('galleryTrack');
+const slides = Array.from(galleryTrack.children);
+let currentIndex = 0;
+
+function showSlide(index) {
+  const slideWidth = galleryTrack.clientWidth;
+  galleryTrack.style.transform = `translateX(-${index * slideWidth}px)`;
+}
+
+function nextSlide() {
+  if (currentIndex < slides.length - 1) currentIndex++;
+  showSlide(currentIndex);
+}
+
+function prevSlide() {
+  if (currentIndex > 0) currentIndex--;
+  showSlide(currentIndex);
+}
+
+// Lightbox
+const galleryImages = document.querySelectorAll('.gallery-track img');
 const lightbox = document.getElementById('lightbox');
 const lightboxImg = document.querySelector('.lightbox-img');
 const closeBtn = document.getElementById('lightbox-close');
