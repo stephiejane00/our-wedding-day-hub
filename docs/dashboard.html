@@ -4,93 +4,25 @@
   <meta charset="UTF-8">
   <title>Dashboard - Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css">
-  <style>
-    .dashboard-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-      padding: 20px;
-    }
-
-    .card {
-      background-color: #fff8f0;
-      padding: 20px;
-      border-radius: 12px;
-      width: 100%;
-      max-width: 700px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      text-align: left;
-    }
-
-    .card h2 {
-      margin-top: 0;
-    }
-
-    input, select, textarea, button {
-      display: block;
-      width: 100%;
-      margin-bottom: 15px;
-      padding: 10px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      box-sizing: border-box;
-      font-family: inherit;
-    }
-
-    button {
-      background-color: #e0c9a6;
-      font-weight: bold;
-      cursor: pointer;
-      border: none;
-    }
-
-    button:hover {
-      background-color: #d4b892;
-    }
-
-    #logoutButton {
-      max-width: 300px;
-      margin: 0 auto 30px;
-      display: block;
-    }
-
-    .vendor-results {
-      display: grid;
-      gap: 15px;
-      margin-top: 20px;
-    }
-
-    .vendor-card {
-      background: #ffffff;
-      border: 1px solid #eadfce;
-      border-radius: 12px;
-      padding: 15px;
-    }
-
-    .vendor-card h3 {
-      margin-top: 0;
-      margin-bottom: 8px;
-    }
-
-    .small-text {
-      font-size: 0.95rem;
-      color: #555;
-    }
-  </style>
 </head>
 <body>
   <header>
     <img src="images/header4.png" alt="Our Wedding Day Hub Header">
   </header>
 
-  <h1>Your Dashboard</h1>
+  <main class="dashboard-wrap">
+    <h1 class="page-title">Your Dashboard</h1>
 
-  <div class="dashboard-container" id="dashboardContainer">
-    <p id="welcomeMessage">Loading your info...</p>
-  </div>
+    <section class="welcome-banner">
+      <p id="welcomeMessage">Loading your info...</p>
+    </section>
 
-  <button id="logoutButton">Logout</button>
+    <div id="dashboardContainer" class="dashboard-grid"></div>
+
+    <div class="logout-wrap">
+      <button id="logoutButton" class="pretty-button secondary">Logout</button>
+    </div>
+  </main>
 
   <script type="module">
     import {
@@ -109,84 +41,411 @@
     const welcomeMessage = document.getElementById('welcomeMessage');
     const logoutButton = document.getElementById('logoutButton');
 
-    function splitCommaList(value) {
-      return value
-        .split(',')
-        .map(item => item.trim())
-        .filter(item => item !== '');
+    const regionsByState = {
+      "Queensland": [
+        "Brisbane",
+        "Moreton Bay",
+        "Sunshine Coast",
+        "Gold Coast",
+        "Ipswich",
+        "Redland City",
+        "Scenic Rim",
+        "Lockyer Valley",
+        "Toowoomba",
+        "Noosa",
+        "Fraser Coast",
+        "Whitsundays",
+        "Cairns",
+        "Townsville"
+      ],
+      "New South Wales": [
+        "Sydney",
+        "Blue Mountains",
+        "Central Coast",
+        "Hunter",
+        "Illawarra",
+        "Northern Rivers",
+        "Mid North Coast",
+        "Byron Bay",
+        "Southern Highlands",
+        "Canberra Surrounds"
+      ],
+      "Victoria": [
+        "Melbourne",
+        "Geelong",
+        "Mornington Peninsula",
+        "Yarra Valley",
+        "Ballarat",
+        "Bendigo",
+        "Daylesford",
+        "Great Ocean Road"
+      ],
+      "South Australia": [
+        "Adelaide",
+        "Barossa",
+        "Fleurieu Peninsula",
+        "Adelaide Hills",
+        "McLaren Vale"
+      ],
+      "Western Australia": [
+        "Perth",
+        "South West",
+        "Peel",
+        "Great Southern",
+        "Margaret River"
+      ],
+      "Tasmania": [
+        "Hobart",
+        "Launceston",
+        "North West",
+        "East Coast"
+      ],
+      "Australian Capital Territory": [
+        "Canberra"
+      ],
+      "Northern Territory": [
+        "Darwin",
+        "Alice Springs"
+      ]
+    };
+
+    const categoryGroups = [
+      {
+        title: "Photo & Video",
+        items: [
+          ["photographer", "Photographer"],
+          ["videographer", "Videographer"],
+          ["content_creator", "Content Creator"]
+        ]
+      },
+      {
+        title: "Hair & Beauty",
+        items: [
+          ["makeup_artist", "Makeup Artist"],
+          ["hair_stylist", "Hair Stylist"],
+          ["beauty_salon", "Beauty Salon"],
+          ["spray_tan", "Spray Tanning"],
+          ["skin_aesthetics", "Skin & Aesthetics"]
+        ]
+      },
+      {
+        title: "Entertainment",
+        items: [
+          ["singer", "Singer"],
+          ["band", "Band"],
+          ["dj", "DJ"],
+          ["acoustic", "Acoustic Musician"],
+          ["violinist", "Violinist"],
+          ["saxophonist", "Saxophonist"],
+          ["harpist", "Harpist"],
+          ["mc", "MC"]
+        ]
+      },
+      {
+        title: "Styling & Florals",
+        items: [
+          ["florist", "Florist"],
+          ["stylist", "Wedding Stylist"],
+          ["event_designer", "Event Designer"],
+          ["balloon", "Balloon Stylist"],
+          ["backdrops", "Backdrops & Arches"]
+        ]
+      },
+      {
+        title: "Food & Drink",
+        items: [
+          ["caterer", "Caterer"],
+          ["cake", "Wedding Cake Designer"],
+          ["dessert", "Dessert Bar"],
+          ["bar", "Mobile Bar"],
+          ["coffee", "Coffee Cart"],
+          ["food_truck", "Food Truck"]
+        ]
+      },
+      {
+        title: "Venues",
+        items: [
+          ["venue", "Wedding Venue"],
+          ["ceremony_venue", "Ceremony Venue"],
+          ["reception_venue", "Reception Venue"],
+          ["elopement", "Elopement Location"],
+          ["outdoor", "Outdoor Venue"]
+        ]
+      },
+      {
+        title: "Stationery & Signage",
+        items: [
+          ["invitations", "Invitations"],
+          ["stationery", "Wedding Stationery"],
+          ["signage", "Signage"],
+          ["calligraphy", "Calligraphy"]
+        ]
+      },
+      {
+        title: "Fashion",
+        items: [
+          ["bridal", "Bridal Boutique"],
+          ["bridesmaid", "Bridesmaid Dresses"],
+          ["formal", "Formal Wear"],
+          ["suits", "Suit Hire"],
+          ["designer", "Custom Designer"]
+        ]
+      },
+      {
+        title: "Jewellery",
+        items: [
+          ["rings", "Wedding Rings"],
+          ["engagement", "Engagement Rings"],
+          ["custom_jewellery", "Custom Jewellery"]
+        ]
+      },
+      {
+        title: "Transport",
+        items: [
+          ["cars", "Wedding Cars"],
+          ["luxury_cars", "Luxury Cars"],
+          ["vintage_cars", "Vintage Cars"],
+          ["limo", "Limousine"],
+          ["bus", "Guest Transport"]
+        ]
+      },
+      {
+        title: "Experiences & Unique Services",
+        items: [
+          ["live_painter", "Live Wedding Painter"],
+          ["photo_booth", "Photo Booth"],
+          ["audio_guestbook", "Audio Guestbook"],
+          ["wedding_content_creator", "Wedding Content Creator"]
+        ]
+      },
+      {
+        title: "Planning & Support",
+        items: [
+          ["planner", "Wedding Planner"],
+          ["coordinator", "Wedding Coordinator"],
+          ["on_day_coordinator", "On-the-day Coordinator"],
+          ["honeymoon", "Honeymoon Planner"]
+        ]
+      },
+      {
+        title: "Care Services",
+        items: [
+          ["pet_attendant", "Pet Attendant"],
+          ["child_minder", "Child Minder / Wedding Nanny"]
+        ]
+      },
+      {
+        title: "Hire & Rentals",
+        items: [
+          ["furniture", "Furniture Hire"],
+          ["decor", "Decor Hire"],
+          ["tableware", "Tableware Hire"],
+          ["lighting", "Lighting Hire"],
+          ["marquee", "Marquee Hire"]
+        ]
+      },
+      {
+        title: "Gifts & Favours",
+        items: [
+          ["favours", "Wedding Favours"],
+          ["gifts", "Personalised Gifts"],
+          ["hampers", "Hampers"]
+        ]
+      }
+    ];
+
+    const allStates = [
+      "Queensland",
+      "New South Wales",
+      "Victoria",
+      "South Australia",
+      "Western Australia",
+      "Tasmania",
+      "Australian Capital Territory",
+      "Northern Territory"
+    ];
+
+    function formatCategory(value) {
+      const map = {};
+      categoryGroups.forEach(group => {
+        group.items.forEach(([key, label]) => {
+          map[key] = label;
+        });
+      });
+      return map[value] || value;
     }
 
-    function matchesFilter(vendorValue, filterValue) {
-      if (!filterValue) return true;
-      if (!vendorValue) return false;
-
-      const vendorList = splitCommaList(vendorValue.toLowerCase());
-      return vendorList.includes(filterValue.toLowerCase());
+    function createCategoryOptionsHTML(selectedCategories = []) {
+      return categoryGroups.map(group => `
+        <strong>${group.title}</strong><br>
+        ${group.items.map(([value, label]) => `
+          <label style="display:block; margin-bottom:8px; font-weight:normal;">
+            <input type="checkbox" value="${value}" ${selectedCategories.includes(value) ? 'checked' : ''} style="width:auto; margin-right:8px;">
+            ${label}
+          </label>
+        `).join('')}
+        <br>
+      `).join('');
     }
 
-    async function loadCoupleVendorSearch(card) {
-      const vendorsSnapshot = await getDocs(collection(db, "vendors"));
+    function createStateOptionsHTML(selectedStates = []) {
+      return allStates.map(state => `
+        <label style="display:block; margin-bottom:8px; font-weight:normal;">
+          <input type="checkbox" value="${state}" ${selectedStates.includes(state) ? 'checked' : ''} style="width:auto; margin-right:8px;">
+          ${state}
+        </label>
+      `).join('');
+    }
+
+    function renderRegionOptions(container, selectedStates = [], selectedRegions = []) {
+      container.innerHTML = '';
+
+      if (!selectedStates.length) {
+        container.innerHTML = '<p class="small-text">Select states above first.</p>';
+        return;
+      }
+
+      selectedStates.forEach(state => {
+        const regions = regionsByState[state] || [];
+        if (!regions.length) return;
+
+        const heading = document.createElement('p');
+        heading.style.fontWeight = 'bold';
+        heading.style.margin = '12px 0 8px';
+        heading.textContent = state;
+        container.appendChild(heading);
+
+        regions.forEach(region => {
+          const label = document.createElement('label');
+          label.style.display = 'block';
+          label.style.marginBottom = '8px';
+          label.style.fontWeight = 'normal';
+          label.innerHTML = `
+            <input type="checkbox" name="regions" value="${region}" ${selectedRegions.includes(region) ? 'checked' : ''} style="width:auto; margin-right:8px;">
+            ${region}
+          `;
+          container.appendChild(label);
+        });
+      });
+    }
+
+    function getCheckedValues(containerSelector) {
+      return Array.from(
+        document.querySelectorAll(`${containerSelector} input:checked`)
+      ).map(input => input.value);
+    }
+
+    async function loadCoupleVendorSearch() {
+      const filterCard = document.createElement('section');
+      filterCard.className = 'filter-card';
+      dashboardContainer.appendChild(filterCard);
+
+      const vendorsSnapshot = await getDocs(collection(db, 'vendors'));
       const vendors = vendorsSnapshot.docs.map(docItem => docItem.data());
 
-      card.innerHTML += `
-        <hr style="margin: 25px 0;">
+      const categoryOptions = categoryGroups
+        .flatMap(group => group.items)
+        .map(([value, label]) => `<option value="${value}">${label}</option>`)
+        .join('');
+
+      const stateOptions = allStates
+        .map(state => `<option value="${state}">${state}</option>`)
+        .join('');
+
+      filterCard.innerHTML = `
         <h2>Find Vendors</h2>
 
-        <label>Category:</label>
-        <select id="filterCategory">
-          <option value="">All categories</option>
-          <option value="photographer">Photographer</option>
-          <option value="videographer">Videographer</option>
-          <option value="makeup">Makeup Artist</option>
-          <option value="hair">Hair Stylist</option>
-          <option value="celebrant">Celebrant</option>
-          <option value="music">Music / Band</option>
-        </select>
+        <form class="pretty-form">
+          <label for="filterCategory">Category:</label>
+          <select id="filterCategory">
+            <option value="">All categories</option>
+            ${categoryOptions}
+          </select>
 
-        <label>Suburb:</label>
-        <input type="text" id="filterSuburb" placeholder="e.g. Brisbane">
+          <label for="filterState">State:</label>
+          <select id="filterState">
+            <option value="">All states</option>
+            ${stateOptions}
+          </select>
 
-        <label>Postcode:</label>
-        <input type="text" id="filterPostcode" placeholder="e.g. 4000">
+          <label for="filterRegion">Region:</label>
+          <select id="filterRegion">
+            <option value="">All regions</option>
+          </select>
 
-        <button id="filterButton">Search Vendors</button>
+          <button type="button" id="filterButton" class="pretty-button">Search Vendors</button>
+        </form>
 
         <div id="vendorResults" class="vendor-results"></div>
       `;
 
-      const filterButton = card.querySelector('#filterButton');
-      const vendorResults = card.querySelector('#vendorResults');
+      const filterState = filterCard.querySelector('#filterState');
+      const filterRegion = filterCard.querySelector('#filterRegion');
+      const filterButton = filterCard.querySelector('#filterButton');
+      const vendorResults = filterCard.querySelector('#vendorResults');
+
+      function updateRegionFilterOptions() {
+        const selectedState = filterState.value;
+        filterRegion.innerHTML = '<option value="">All regions</option>';
+
+        if (!selectedState || !regionsByState[selectedState]) return;
+
+        regionsByState[selectedState].forEach(region => {
+          const option = document.createElement('option');
+          option.value = region;
+          option.textContent = region;
+          filterRegion.appendChild(option);
+        });
+      }
 
       function renderVendors(filteredVendors) {
         if (filteredVendors.length === 0) {
-          vendorResults.innerHTML = `<p>No vendors found matching your filters.</p>`;
+          vendorResults.innerHTML = '<p>No vendors found matching your filters.</p>';
           return;
         }
 
         vendorResults.innerHTML = filteredVendors.map(vendor => `
-          <div class="vendor-card">
+          <div class="vendor-result-card">
             <h3>${vendor.name || 'Unnamed Vendor'}</h3>
-            <p><strong>Category:</strong> ${vendor.category || 'Not set'}</p>
+            <p><strong>Categories:</strong> ${
+              Array.isArray(vendor.categories) && vendor.categories.length
+                ? vendor.categories.map(formatCategory).join(', ')
+                : 'Not set'
+            }</p>
             <p><strong>Email:</strong> ${vendor.email || 'Not provided'}</p>
-            <p><strong>Suburbs:</strong> ${vendor.suburbs || 'Not set'}</p>
-            <p><strong>Postcodes:</strong> ${vendor.postcodes || 'Not set'}</p>
+            <p><strong>States:</strong> ${
+              Array.isArray(vendor.states) && vendor.states.length
+                ? vendor.states.join(', ')
+                : 'Not set'
+            }</p>
+            <p><strong>Regions:</strong> ${
+              Array.isArray(vendor.regions) && vendor.regions.length
+                ? vendor.regions.join(', ')
+                : 'Not set'
+            }</p>
           </div>
         `).join('');
       }
 
       renderVendors(vendors);
 
+      filterState.addEventListener('change', updateRegionFilterOptions);
+
       filterButton.addEventListener('click', () => {
-        const category = card.querySelector('#filterCategory').value.trim().toLowerCase();
-        const suburb = card.querySelector('#filterSuburb').value.trim().toLowerCase();
-        const postcode = card.querySelector('#filterPostcode').value.trim().toLowerCase();
+        const category = filterCard.querySelector('#filterCategory').value;
+        const state = filterState.value;
+        const region = filterRegion.value;
 
         const filteredVendors = vendors.filter(vendor => {
-          const categoryMatch = !category || (vendor.category || '').toLowerCase() === category;
-          const suburbMatch = matchesFilter(vendor.suburbs || '', suburb);
-          const postcodeMatch = matchesFilter(vendor.postcodes || '', postcode);
+          const categories = Array.isArray(vendor.categories) ? vendor.categories : [];
+          const states = Array.isArray(vendor.states) ? vendor.states : [];
+          const regions = Array.isArray(vendor.regions) ? vendor.regions : [];
 
-          return categoryMatch && suburbMatch && postcodeMatch;
+          const categoryMatch = !category || categories.includes(category);
+          const stateMatch = !state || states.includes(state);
+          const regionMatch = !region || regions.includes(region);
+
+          return categoryMatch && stateMatch && regionMatch;
         });
 
         renderVendors(filteredVendors);
@@ -195,121 +454,158 @@
 
     onAuthStateChanged(auth, async (user) => {
       if (!user) {
-        welcomeMessage.textContent = "You are not logged in. Redirecting...";
+        welcomeMessage.textContent = 'You are not logged in. Redirecting...';
         setTimeout(() => {
-          window.location.href = "login.html";
+          window.location.href = 'login.html';
         }, 1500);
         return;
       }
 
-      let userDoc = await getDoc(doc(db, "vendors", user.uid));
-      let type = "Vendor";
-      let collectionName = "vendors";
+      let userDoc = await getDoc(doc(db, 'vendors', user.uid));
+      let type = 'Vendor';
+      let collectionName = 'vendors';
 
       if (!userDoc.exists()) {
-        userDoc = await getDoc(doc(db, "couples", user.uid));
-        type = "Couple";
-        collectionName = "couples";
+        userDoc = await getDoc(doc(db, 'couples', user.uid));
+        type = 'Couple';
+        collectionName = 'couples';
       }
 
       if (!userDoc.exists()) {
-        welcomeMessage.textContent = "User data not found.";
+        welcomeMessage.textContent = 'User data not found.';
         return;
       }
 
       const data = userDoc.data();
       welcomeMessage.textContent = `Hello ${data.name || 'there'}! You are logged in as a ${type}.`;
 
-      const card = document.createElement('div');
-      card.className = 'card';
-      dashboardContainer.appendChild(card);
+      const infoCard = document.createElement('section');
+      infoCard.className = 'dashboard-card';
+      dashboardContainer.appendChild(infoCard);
 
-      if (type === "Vendor") {
-        card.innerHTML = `
-          <h2>Vendor Info</h2>
+      if (type === 'Vendor') {
+        const selectedCategories = Array.isArray(data.categories) ? data.categories : [];
+        const selectedStates = Array.isArray(data.states) ? data.states : [];
+        const selectedRegions = Array.isArray(data.regions) ? data.regions : [];
 
-          <label>Business Name:</label>
-          <input type="text" id="name" value="${data.name || ''}">
+        infoCard.innerHTML = `
+          <h2>Vendor Profile</h2>
 
-          <label>Email:</label>
-          <input type="email" id="email" value="${data.email || ''}">
+          <form class="pretty-form">
+            <label for="name">Business Name:</label>
+            <input type="text" id="name" value="${data.name || ''}">
 
-          <label>Category:</label>
-          <select id="category">
-            <option value="">Select category</option>
-            <option value="photographer" ${data.category === "photographer" ? "selected" : ""}>Photographer</option>
-            <option value="videographer" ${data.category === "videographer" ? "selected" : ""}>Videographer</option>
-            <option value="makeup" ${data.category === "makeup" ? "selected" : ""}>Makeup Artist</option>
-            <option value="hair" ${data.category === "hair" ? "selected" : ""}>Hair Stylist</option>
-            <option value="celebrant" ${data.category === "celebrant" ? "selected" : ""}>Celebrant</option>
-            <option value="music" ${data.category === "music" ? "selected" : ""}>Music / Band</option>
-          </select>
+            <label for="email">Email:</label>
+            <input type="email" id="email" value="${data.email || ''}">
 
-          <label>Suburbs you service (comma separated):</label>
-          <input type="text" id="suburbs" value="${data.suburbs || ''}" placeholder="e.g. Brisbane, Redcliffe, Ipswich">
+            <label>Categories:</label>
+            <div id="categoryOptions" class="field-soft">
+              ${createCategoryOptionsHTML(selectedCategories)}
+            </div>
 
-          <label>Postcodes you service (comma separated):</label>
-          <input type="text" id="postcodes" value="${data.postcodes || ''}" placeholder="e.g. 4000, 4020, 4305">
+            <label>States you service:</label>
+            <div id="stateOptions" class="field-soft">
+              ${createStateOptionsHTML(selectedStates)}
+            </div>
 
-          <button id="saveButton">Save Changes</button>
-          <p id="saveMessage" class="small-text"></p>
+            <label>Regions you service:</label>
+            <div id="regionOptions" class="field-soft"></div>
+
+            <button type="button" id="saveButton" class="pretty-button">Save Changes</button>
+            <p id="saveMessage" class="small-text"></p>
+          </form>
         `;
 
-        const saveButton = card.querySelector('#saveButton');
-        const saveMessage = card.querySelector('#saveMessage');
+        const regionOptions = infoCard.querySelector('#regionOptions');
+        const stateInputs = infoCard.querySelectorAll('#stateOptions input');
+        const saveButton = infoCard.querySelector('#saveButton');
+        const saveMessage = infoCard.querySelector('#saveMessage');
+
+        function getSelectedStatesFromCard() {
+          return Array.from(
+            infoCard.querySelectorAll('#stateOptions input:checked')
+          ).map(input => input.value);
+        }
+
+        function getSelectedRegionsFromCard() {
+          return Array.from(
+            infoCard.querySelectorAll('#regionOptions input:checked')
+          ).map(input => input.value);
+        }
+
+        function renderRegionsForVendorCard(keepSelections = true) {
+          const currentStates = getSelectedStatesFromCard();
+          const currentRegions = keepSelections ? getSelectedRegionsFromCard() : [];
+          renderRegionOptions(regionOptions, currentStates, currentRegions.length ? currentRegions : selectedRegions);
+        }
+
+        renderRegionOptions(regionOptions, selectedStates, selectedRegions);
+
+        stateInputs.forEach(input => {
+          input.addEventListener('change', () => {
+            const currentSelectedRegions = getSelectedRegionsFromCard();
+            renderRegionOptions(regionOptions, getSelectedStatesFromCard(), currentSelectedRegions);
+          });
+        });
 
         saveButton.addEventListener('click', async () => {
-          const name = card.querySelector('#name').value.trim();
-          const email = card.querySelector('#email').value.trim();
-          const category = card.querySelector('#category').value.trim();
-          const suburbs = card.querySelector('#suburbs').value.trim();
-          const postcodes = card.querySelector('#postcodes').value.trim();
+          const name = infoCard.querySelector('#name').value.trim();
+          const email = infoCard.querySelector('#email').value.trim();
+
+          const categories = Array.from(
+            infoCard.querySelectorAll('#categoryOptions input:checked')
+          ).map(input => input.value);
+
+          const states = getSelectedStatesFromCard();
+          const regions = getSelectedRegionsFromCard();
 
           try {
             await setDoc(doc(db, collectionName, user.uid), {
               ...data,
               name,
               email,
-              category,
-              suburbs,
-              postcodes
+              categories,
+              states,
+              regions
             });
 
-            saveMessage.textContent = "Info saved successfully!";
+            saveMessage.textContent = 'Info saved successfully!';
           } catch (err) {
-            saveMessage.textContent = "Error saving info: " + err.message;
+            saveMessage.textContent = 'Error saving info: ' + err.message;
           }
         });
       }
 
-      if (type === "Couple") {
-        card.innerHTML = `
-          <h2>Couple Info</h2>
+      if (type === 'Couple') {
+        infoCard.innerHTML = `
+          <h2>Couple Profile</h2>
 
-          <label>Names:</label>
-          <input type="text" id="name" value="${data.name || ''}">
+          <form class="pretty-form">
+            <label for="name">Names:</label>
+            <input type="text" id="name" value="${data.name || ''}">
 
-          <label>Email:</label>
-          <input type="email" id="email" value="${data.email || ''}">
+            <label for="email">Email:</label>
+            <input type="email" id="email" value="${data.email || ''}">
 
-          <label>Wedding Date:</label>
-          <input type="date" id="weddingDate" value="${data.weddingDate || ''}">
+            <label for="weddingDate">Wedding Date:</label>
+            <input type="date" id="weddingDate" value="${data.weddingDate || ''}">
 
-          <label>Notes:</label>
-          <textarea id="notes" rows="4">${data.notes || ''}</textarea>
+            <label for="notes">Notes:</label>
+            <textarea id="notes" rows="4">${data.notes || ''}</textarea>
 
-          <button id="saveButton">Save Changes</button>
-          <p id="saveMessage" class="small-text"></p>
+            <button type="button" id="saveButton" class="pretty-button">Save Changes</button>
+            <p id="saveMessage" class="small-text"></p>
+          </form>
         `;
 
-        const saveButton = card.querySelector('#saveButton');
-        const saveMessage = card.querySelector('#saveMessage');
+        const saveButton = infoCard.querySelector('#saveButton');
+        const saveMessage = infoCard.querySelector('#saveMessage');
 
         saveButton.addEventListener('click', async () => {
-          const name = card.querySelector('#name').value.trim();
-          const email = card.querySelector('#email').value.trim();
-          const weddingDate = card.querySelector('#weddingDate').value;
-          const notes = card.querySelector('#notes').value.trim();
+          const name = infoCard.querySelector('#name').value.trim();
+          const email = infoCard.querySelector('#email').value.trim();
+          const weddingDate = infoCard.querySelector('#weddingDate').value;
+          const notes = infoCard.querySelector('#notes').value.trim();
 
           try {
             await setDoc(doc(db, collectionName, user.uid), {
@@ -320,19 +616,19 @@
               notes
             });
 
-            saveMessage.textContent = "Info saved successfully!";
+            saveMessage.textContent = 'Info saved successfully!';
           } catch (err) {
-            saveMessage.textContent = "Error saving info: " + err.message;
+            saveMessage.textContent = 'Error saving info: ' + err.message;
           }
         });
 
-        await loadCoupleVendorSearch(card);
+        await loadCoupleVendorSearch();
       }
     });
 
     logoutButton.addEventListener('click', async () => {
       await signOut(auth);
-      window.location.href = "login.html";
+      window.location.href = 'login.html';
     });
   </script>
 </body>
