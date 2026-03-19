@@ -5,7 +5,7 @@
   <title>Dashboard - Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    /* Card layout overrides for dashboard */
+    /* Dashboard card layout */
     .dashboard-container {
       display: flex;
       flex-direction: column;
@@ -28,31 +28,23 @@
       margin-top: 0;
     }
 
-    .images-section {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 10px;
-    }
-
-    .images-section img {
-      width: 100px;
-      height: 100px;
-      object-fit: cover;
-      border-radius: 8px;
-    }
-
-    #logoutButton {
-      margin-top: 20px;
-      padding: 10px 20px;
-      font-weight: bold;
-      background-color: #e0c9a6;
-      border: none;
+    input, select, textarea, button {
+      display: block;
+      width: 100%;
+      margin-bottom: 15px;
+      padding: 10px;
       border-radius: 5px;
-      cursor: pointer;
+      border: 1px solid #ccc;
     }
 
-    #logoutButton:hover {
+    button {
+      background-color: #e0c9a6;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+    }
+
+    button:hover {
       background-color: #d4b892;
     }
   </style>
@@ -72,7 +64,7 @@
 
   <script type="module">
     import { auth, db } from './firebase.js';
-    import { doc, getDoc, collection, getDocs } from 'firebase/firestore';
+    import { doc, getDoc, setDoc } from 'firebase/firestore';
     import { onAuthStateChanged, signOut } from 'firebase/auth';
 
     const dashboardContainer = document.getElementById('dashboardContainer');
@@ -80,61 +72,112 @@
     const logoutButton = document.getElementById('logoutButton');
 
     onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        let userDoc = await getDoc(doc(db, "vendors", user.uid));
-        let type = "Vendor";
-
-        if (!userDoc.exists()) {
-          userDoc = await getDoc(doc(db, "couples", user.uid));
-          type = "Couple";
-        }
-
-        if (userDoc.exists()) {
-          const data = userDoc.data();
-          welcomeMessage.textContent = `Hello ${data.name}! You are logged in as a ${type}.`;
-
-          // Create user info card
-          const card = document.createElement('div');
-          card.className = 'card';
-          card.innerHTML = `
-            <h2>${data.name}</h2>
-            <p><strong>Email:</strong> ${data.email}</p>
-            <p><strong>User Type:</strong> ${type}</p>
-            <p><strong>Joined:</strong> ${data.createdAt.toDate ? data.createdAt.toDate().toLocaleDateString() : new Date(data.createdAt).toLocaleDateString()}</p>
-          `;
-          dashboardContainer.appendChild(card);
-
-          // Display some sample images (first 3 from categories/images)
-          const imagesCol = collection(db, 'categories/images'); // Placeholder for later dynamic images
-          const imagesSection = document.createElement('div');
-          imagesSection.className = 'images-section';
-
-          // Sample static images for now from your docs/categories/images folder
-          const sampleImages = [
-            'categories/images/sample1.jpg',
-            'categories/images/sample2.jpg',
-            'categories/images/sample3.jpg'
-          ];
-          sampleImages.forEach(src => {
-            const img = document.createElement('img');
-            img.src = src;
-            imagesSection.appendChild(img);
-          });
-
-          card.appendChild(imagesSection);
-
-        } else {
-          welcomeMessage.textContent = "User data not found in the database.";
-        }
-
-      } else {
+      if (!user) {
         welcomeMessage.textContent = "You are not logged in. Redirecting...";
-        setTimeout(() => {
-          window.location.href = "login.html";
-        }, 2000);
+        setTimeout(() => window.location.href = "login.html", 2000);
+        return;
+      }
+
+      // Determine if user is vendor or couple
+      let userDoc = await getDoc(doc(db, "vendors", user.uid));
+      let type = "Vendor";
+
+      if (!userDoc.exists()) {
+        userDoc = await getDoc(doc(db, "couples", user.uid));
+        type = "Couple";
+      }
+
+      if (!userDoc.exists()) {
+        welcomeMessage.textContent = "User data not found.";
+        return;
+      }
+
+      const data = userDoc.data();
+      welcomeMessage.textContent = `Hello ${data.name}! You are logged in as a ${type}.`;
+
+      // Create card
+      const card = document.createElement('div');
+      card.className = 'card';
+      dashboardContainer.appendChild(card);
+
+      // Vendor form
+      if (type === "Vendor") {
+        card.innerHTML = `
+          <h2>Vendor Info</h2>
+          <label>Name / Business Name:</label>
+          <input type="text" id="name" value="${data.name}">
+          <label>Email:</label>
+          <input type="email" id="email" value="${data.email}">
+          <label>Locations you service (comma separated):</label>
+          <input type="text" id="locations" value="${data.locations || ''}">
+          <button id="saveButton">Save Changes</button>
+          <p id="saveMessage"></p>
+        `;
+
+        const saveButton = card.querySelector('#saveButton');
+        const saveMessage = card.querySelector('#saveMessage');
+
+        saveButton.addEventListener('click', async () => {
+          const name = card.querySelector('#name').value;
+          const email = card.querySelector('#email').value;
+          const locations = card.querySelector('#locations').value;
+
+          try {
+            await setDoc(doc(db, "vendors", user.uid), {
+              ...data,
+              name,
+              email,
+              locations
+            });
+            saveMessage.textContent = "Info saved successfully!";
+          } catch (err) {
+            saveMessage.textContent = "Error saving info: " + err.message;
+          }
+        });
+      }
+
+      // Couple form
+      if (type === "Couple") {
+        card.innerHTML = `
+          <h2>Couple Info</h2>
+          <label>Names:</label>
+          <input type="text" id="name" value="${data.name}">
+          <label>Email:</label>
+          <input type="email" id="email" value="${data.email}">
+          <label>Wedding Date:</label>
+          <input type="date" id="weddingDate" value="${data.weddingDate || ''}">
+          <label>Notes:</label>
+          <textarea id="notes">${data.notes || ''}</textarea>
+          <button id="saveButton">Save Changes</button>
+          <p id="saveMessage"></p>
+        `;
+
+        const saveButton = card.querySelector('#saveButton');
+        const saveMessage = card.querySelector('#saveMessage');
+
+        saveButton.addEventListener('click', async () => {
+          const name = card.querySelector('#name').value;
+          const email = card.querySelector('#email').value;
+          const weddingDate = card.querySelector('#weddingDate').value;
+          const notes = card.querySelector('#notes').value;
+
+          try {
+            await setDoc(doc(db, "couples", user.uid), {
+              ...data,
+              name,
+              email,
+              weddingDate,
+              notes
+            });
+            saveMessage.textContent = "Info saved successfully!";
+          } catch (err) {
+            saveMessage.textContent = "Error saving info: " + err.message;
+          }
+        });
       }
     });
 
+    // Logout
     logoutButton.addEventListener('click', async () => {
       await signOut(auth);
       window.location.href = "login.html";
