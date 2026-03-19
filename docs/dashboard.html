@@ -5,7 +5,6 @@
   <title>Dashboard - Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    /* Dashboard card layout */
     .dashboard-container {
       display: flex;
       flex-direction: column;
@@ -19,7 +18,7 @@
       padding: 20px;
       border-radius: 12px;
       width: 100%;
-      max-width: 600px;
+      max-width: 700px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       text-align: left;
     }
@@ -35,6 +34,8 @@
       padding: 10px;
       border-radius: 5px;
       border: 1px solid #ccc;
+      box-sizing: border-box;
+      font-family: inherit;
     }
 
     button {
@@ -46,6 +47,35 @@
 
     button:hover {
       background-color: #d4b892;
+    }
+
+    #logoutButton {
+      max-width: 300px;
+      margin: 0 auto 30px;
+      display: block;
+    }
+
+    .vendor-results {
+      display: grid;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .vendor-card {
+      background: #ffffff;
+      border: 1px solid #eadfce;
+      border-radius: 12px;
+      padding: 15px;
+    }
+
+    .vendor-card h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+    }
+
+    .small-text {
+      font-size: 0.95rem;
+      color: #555;
     }
   </style>
 </head>
@@ -63,28 +93,123 @@
   <button id="logoutButton">Logout</button>
 
   <script type="module">
-    import { auth, db } from './firebase.js';
-    import { doc, getDoc, setDoc } from 'firebase/firestore';
-    import { onAuthStateChanged, signOut } from 'firebase/auth';
+    import {
+      auth,
+      db,
+      doc,
+      getDoc,
+      setDoc,
+      collection,
+      getDocs,
+      onAuthStateChanged,
+      signOut
+    } from './firebase.js';
 
     const dashboardContainer = document.getElementById('dashboardContainer');
     const welcomeMessage = document.getElementById('welcomeMessage');
     const logoutButton = document.getElementById('logoutButton');
 
+    function splitCommaList(value) {
+      return value
+        .split(',')
+        .map(item => item.trim())
+        .filter(item => item !== '');
+    }
+
+    function matchesFilter(vendorValue, filterValue) {
+      if (!filterValue) return true;
+      if (!vendorValue) return false;
+
+      const vendorList = splitCommaList(vendorValue.toLowerCase());
+      return vendorList.includes(filterValue.toLowerCase());
+    }
+
+    async function loadCoupleVendorSearch(card) {
+      const vendorsSnapshot = await getDocs(collection(db, "vendors"));
+      const vendors = vendorsSnapshot.docs.map(docItem => docItem.data());
+
+      card.innerHTML += `
+        <hr style="margin: 25px 0;">
+        <h2>Find Vendors</h2>
+
+        <label>Category:</label>
+        <select id="filterCategory">
+          <option value="">All categories</option>
+          <option value="photographer">Photographer</option>
+          <option value="videographer">Videographer</option>
+          <option value="makeup">Makeup Artist</option>
+          <option value="hair">Hair Stylist</option>
+          <option value="celebrant">Celebrant</option>
+          <option value="music">Music / Band</option>
+        </select>
+
+        <label>Suburb:</label>
+        <input type="text" id="filterSuburb" placeholder="e.g. Brisbane">
+
+        <label>Postcode:</label>
+        <input type="text" id="filterPostcode" placeholder="e.g. 4000">
+
+        <button id="filterButton">Search Vendors</button>
+
+        <div id="vendorResults" class="vendor-results"></div>
+      `;
+
+      const filterButton = card.querySelector('#filterButton');
+      const vendorResults = card.querySelector('#vendorResults');
+
+      function renderVendors(filteredVendors) {
+        if (filteredVendors.length === 0) {
+          vendorResults.innerHTML = `<p>No vendors found matching your filters.</p>`;
+          return;
+        }
+
+        vendorResults.innerHTML = filteredVendors.map(vendor => `
+          <div class="vendor-card">
+            <h3>${vendor.name || 'Unnamed Vendor'}</h3>
+            <p><strong>Category:</strong> ${vendor.category || 'Not set'}</p>
+            <p><strong>Email:</strong> ${vendor.email || 'Not provided'}</p>
+            <p><strong>Suburbs:</strong> ${vendor.suburbs || 'Not set'}</p>
+            <p><strong>Postcodes:</strong> ${vendor.postcodes || 'Not set'}</p>
+          </div>
+        `).join('');
+      }
+
+      renderVendors(vendors);
+
+      filterButton.addEventListener('click', () => {
+        const category = card.querySelector('#filterCategory').value.trim().toLowerCase();
+        const suburb = card.querySelector('#filterSuburb').value.trim().toLowerCase();
+        const postcode = card.querySelector('#filterPostcode').value.trim().toLowerCase();
+
+        const filteredVendors = vendors.filter(vendor => {
+          const categoryMatch = !category || (vendor.category || '').toLowerCase() === category;
+          const suburbMatch = matchesFilter(vendor.suburbs || '', suburb);
+          const postcodeMatch = matchesFilter(vendor.postcodes || '', postcode);
+
+          return categoryMatch && suburbMatch && postcodeMatch;
+        });
+
+        renderVendors(filteredVendors);
+      });
+    }
+
     onAuthStateChanged(auth, async (user) => {
       if (!user) {
         welcomeMessage.textContent = "You are not logged in. Redirecting...";
-        setTimeout(() => window.location.href = "login.html", 2000);
+        setTimeout(() => {
+          window.location.href = "login.html";
+        }, 1500);
         return;
       }
 
-      // Determine if user is vendor or couple
       let userDoc = await getDoc(doc(db, "vendors", user.uid));
       let type = "Vendor";
+      let collectionName = "vendors";
 
       if (!userDoc.exists()) {
         userDoc = await getDoc(doc(db, "couples", user.uid));
         type = "Couple";
+        collectionName = "couples";
       }
 
       if (!userDoc.exists()) {
@@ -93,42 +218,63 @@
       }
 
       const data = userDoc.data();
-      welcomeMessage.textContent = `Hello ${data.name}! You are logged in as a ${type}.`;
+      welcomeMessage.textContent = `Hello ${data.name || 'there'}! You are logged in as a ${type}.`;
 
-      // Create card
       const card = document.createElement('div');
       card.className = 'card';
       dashboardContainer.appendChild(card);
 
-      // Vendor form
       if (type === "Vendor") {
         card.innerHTML = `
           <h2>Vendor Info</h2>
-          <label>Name / Business Name:</label>
-          <input type="text" id="name" value="${data.name}">
+
+          <label>Business Name:</label>
+          <input type="text" id="name" value="${data.name || ''}">
+
           <label>Email:</label>
-          <input type="email" id="email" value="${data.email}">
-          <label>Locations you service (comma separated):</label>
-          <input type="text" id="locations" value="${data.locations || ''}">
+          <input type="email" id="email" value="${data.email || ''}">
+
+          <label>Category:</label>
+          <select id="category">
+            <option value="">Select category</option>
+            <option value="photographer" ${data.category === "photographer" ? "selected" : ""}>Photographer</option>
+            <option value="videographer" ${data.category === "videographer" ? "selected" : ""}>Videographer</option>
+            <option value="makeup" ${data.category === "makeup" ? "selected" : ""}>Makeup Artist</option>
+            <option value="hair" ${data.category === "hair" ? "selected" : ""}>Hair Stylist</option>
+            <option value="celebrant" ${data.category === "celebrant" ? "selected" : ""}>Celebrant</option>
+            <option value="music" ${data.category === "music" ? "selected" : ""}>Music / Band</option>
+          </select>
+
+          <label>Suburbs you service (comma separated):</label>
+          <input type="text" id="suburbs" value="${data.suburbs || ''}" placeholder="e.g. Brisbane, Redcliffe, Ipswich">
+
+          <label>Postcodes you service (comma separated):</label>
+          <input type="text" id="postcodes" value="${data.postcodes || ''}" placeholder="e.g. 4000, 4020, 4305">
+
           <button id="saveButton">Save Changes</button>
-          <p id="saveMessage"></p>
+          <p id="saveMessage" class="small-text"></p>
         `;
 
         const saveButton = card.querySelector('#saveButton');
         const saveMessage = card.querySelector('#saveMessage');
 
         saveButton.addEventListener('click', async () => {
-          const name = card.querySelector('#name').value;
-          const email = card.querySelector('#email').value;
-          const locations = card.querySelector('#locations').value;
+          const name = card.querySelector('#name').value.trim();
+          const email = card.querySelector('#email').value.trim();
+          const category = card.querySelector('#category').value.trim();
+          const suburbs = card.querySelector('#suburbs').value.trim();
+          const postcodes = card.querySelector('#postcodes').value.trim();
 
           try {
-            await setDoc(doc(db, "vendors", user.uid), {
+            await setDoc(doc(db, collectionName, user.uid), {
               ...data,
               name,
               email,
-              locations
+              category,
+              suburbs,
+              postcodes
             });
+
             saveMessage.textContent = "Info saved successfully!";
           } catch (err) {
             saveMessage.textContent = "Error saving info: " + err.message;
@@ -136,48 +282,54 @@
         });
       }
 
-      // Couple form
       if (type === "Couple") {
         card.innerHTML = `
           <h2>Couple Info</h2>
+
           <label>Names:</label>
-          <input type="text" id="name" value="${data.name}">
+          <input type="text" id="name" value="${data.name || ''}">
+
           <label>Email:</label>
-          <input type="email" id="email" value="${data.email}">
+          <input type="email" id="email" value="${data.email || ''}">
+
           <label>Wedding Date:</label>
           <input type="date" id="weddingDate" value="${data.weddingDate || ''}">
+
           <label>Notes:</label>
-          <textarea id="notes">${data.notes || ''}</textarea>
+          <textarea id="notes" rows="4">${data.notes || ''}</textarea>
+
           <button id="saveButton">Save Changes</button>
-          <p id="saveMessage"></p>
+          <p id="saveMessage" class="small-text"></p>
         `;
 
         const saveButton = card.querySelector('#saveButton');
         const saveMessage = card.querySelector('#saveMessage');
 
         saveButton.addEventListener('click', async () => {
-          const name = card.querySelector('#name').value;
-          const email = card.querySelector('#email').value;
+          const name = card.querySelector('#name').value.trim();
+          const email = card.querySelector('#email').value.trim();
           const weddingDate = card.querySelector('#weddingDate').value;
-          const notes = card.querySelector('#notes').value;
+          const notes = card.querySelector('#notes').value.trim();
 
           try {
-            await setDoc(doc(db, "couples", user.uid), {
+            await setDoc(doc(db, collectionName, user.uid), {
               ...data,
               name,
               email,
               weddingDate,
               notes
             });
+
             saveMessage.textContent = "Info saved successfully!";
           } catch (err) {
             saveMessage.textContent = "Error saving info: " + err.message;
           }
         });
+
+        await loadCoupleVendorSearch(card);
       }
     });
 
-    // Logout
     logoutButton.addEventListener('click', async () => {
       await signOut(auth);
       window.location.href = "login.html";
