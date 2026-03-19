@@ -109,16 +109,15 @@ header.hero {
 /* VENDOR CARDS */
 .vendor-card {
   min-width: 320px;
-  border-radius: 0; /* straight corners */
+  border-radius: 0;
   overflow: hidden;
   background: #fff;
   text-align: center;
-  box-shadow: 0 10px 25px rgba(210,180,140,0.2), 0 0 25px rgba(210,180,140,0.1) inset; /* beige glow */
+  box-shadow: 0 10px 25px rgba(210,180,140,0.2), 0 0 25px rgba(210,180,140,0.1) inset;
   transition: transform 0.3s, box-shadow 0.3s;
   cursor: pointer;
 }
 
-/* Shadow on hover */
 .vendor-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 12px 35px rgba(210,180,140,0.3), 0 0 30px rgba(210,180,140,0.15) inset;
@@ -157,8 +156,13 @@ header.hero {
   user-select: none;
 }
 
-.slider-arrow.left { left: -20px; }
-.slider-arrow.right { right: -20px; }
+.slider-arrow.left {
+  left: -20px;
+}
+
+.slider-arrow.right {
+  right: -20px;
+}
 
 /* =========================
    SHOWCASE SECTION
@@ -202,20 +206,9 @@ footer {
 }
 
 /* =========================
-   RESPONSIVE
-========================= */
-@media (max-width: 900px) {
-  .featured-slider { width: 90%; }
-  .slider-arrow { display: none; }
-  .vendor-card { min-width: 90%; }
-  .search input { width: 90%; }
-  .join { padding: 0 10px; }
-}
-/* =========================
-   AUTH + DASHBOARD POLISH
+   AUTH + DASHBOARD STYLES
 ========================= */
 
-/* Make regular headers work nicely too */
 header {
   width: 100%;
   text-align: center;
@@ -231,9 +224,10 @@ header img {
   border-radius: 10px;
 }
 
-/* Page layout wrappers */
+/* Shared layout wrappers */
 .page-shell,
-.dashboard-wrap {
+.dashboard-wrap,
+.auth-layout {
   width: 100%;
   max-width: 1100px;
   margin: 0 auto;
@@ -255,7 +249,66 @@ header img {
   line-height: 1.7;
 }
 
-/* Cards */
+/* =========================
+   AUTH PAGE SPICE
+========================= */
+.auth-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+.auth-intro {
+  width: 100%;
+  background: linear-gradient(180deg, #fffdf9 0%, #f8f1e8 100%);
+  border-radius: 18px;
+  box-shadow: 0 10px 25px rgba(210,180,140,0.18), 0 0 20px rgba(210,180,140,0.08) inset;
+  padding: 30px 28px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.auth-kicker {
+  display: inline-block;
+  margin-bottom: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.82rem;
+  color: #7a5c43;
+  font-weight: bold;
+}
+
+.auth-intro h1 {
+  font-size: 2.6rem;
+  margin: 0 0 12px;
+}
+
+.auth-intro p {
+  max-width: 680px;
+  margin: 0 auto 10px;
+  color: #444;
+}
+
+.auth-points {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-top: 22px;
+  text-align: left;
+}
+
+.auth-point {
+  background: rgba(255,255,255,0.8);
+  border: 1px solid #efe3d4;
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+
+.auth-point strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
 .auth-card,
 .dashboard-card,
 .filter-card,
@@ -274,6 +327,43 @@ header img {
   padding: 30px 28px;
 }
 
+.auth-card.spiced {
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-card.spiced::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, #d8b48a 0%, #f0dfca 50%, #d8b48a 100%);
+}
+
+.auth-card.spiced h2 {
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.auth-mini-text {
+  text-align: center;
+  color: #555;
+  margin-bottom: 22px;
+}
+
+.auth-switch-note {
+  text-align: center;
+  font-size: 0.95rem;
+  color: #666;
+  margin-top: -6px;
+  margin-bottom: 18px;
+}
+
+/* =========================
+   DASHBOARD
+========================= */
 .welcome-banner {
   max-width: 900px;
   margin: 0 auto 25px;
@@ -293,7 +383,9 @@ header img {
   padding: 24px;
 }
 
-/* Forms */
+/* =========================
+   FORMS
+========================= */
 .pretty-form label {
   display: block;
   margin-bottom: 8px;
@@ -325,7 +417,23 @@ header img {
   box-shadow: 0 0 10px rgba(210,180,140,0.22);
 }
 
-/* Buttons */
+.pretty-form .field-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+.pretty-form .field-soft {
+  background: #fff;
+  border-radius: 14px;
+  padding: 14px;
+  border: 1px solid #efe3d4;
+  margin-bottom: 16px;
+}
+
+/* =========================
+   BUTTONS + TEXT
+========================= */
 .pretty-button {
   display: inline-block;
   width: 100%;
@@ -357,7 +465,14 @@ header img {
   background: #dcc9b2;
 }
 
-/* Messages / little helper text */
+.pretty-button.wide-glow {
+  box-shadow: 0 12px 25px rgba(210,180,140,0.22);
+}
+
+.pretty-button.wide-glow:hover {
+  box-shadow: 0 16px 28px rgba(210,180,140,0.28);
+}
+
 .form-message,
 .auth-footer-text,
 .inline-note {
@@ -394,7 +509,9 @@ header img {
   color: #444;
 }
 
-/* Vendor results for couple dashboard */
+/* =========================
+   VENDOR RESULTS
+========================= */
 .vendor-results {
   display: grid;
   grid-template-columns: 1fr;
@@ -416,14 +533,15 @@ header img {
   margin-bottom: 8px;
 }
 
-/* Logout button wrapper */
 .logout-wrap {
   width: 100%;
   max-width: 320px;
   margin: 20px auto 0;
 }
 
-/* Responsive */
+/* =========================
+   RESPONSIVE
+========================= */
 @media (min-width: 860px) {
   .dashboard-grid {
     grid-template-columns: 1fr 1fr;
@@ -431,7 +549,42 @@ header img {
   }
 }
 
+@media (min-width: 900px) {
+  .auth-layout {
+    grid-template-columns: 1.05fr 0.95fr;
+    align-items: start;
+  }
+
+  .auth-points {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .pretty-form .field-row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
 @media (max-width: 900px) {
+  .featured-slider {
+    width: 90%;
+  }
+
+  .slider-arrow {
+    display: none;
+  }
+
+  .vendor-card {
+    min-width: 90%;
+  }
+
+  .search input {
+    width: 90%;
+  }
+
+  .join {
+    padding: 0 10px;
+  }
+
   .page-title {
     font-size: 2rem;
   }
@@ -440,7 +593,14 @@ header img {
   .dashboard-card,
   .filter-card,
   .welcome-banner,
-  .vendor-result-card {
+  .vendor-result-card,
+  .auth-intro {
     border-radius: 14px;
+  }
+}
+
+@media (max-width: 700px) {
+  .auth-intro h1 {
+    font-size: 2.1rem;
   }
 }
