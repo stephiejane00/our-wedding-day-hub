@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard - Our Wedding Day Hub</title>
+  <link rel="stylesheet" href="style.css"> <!-- CSS in docs/ -->
+</head>
+<body>
+  <!-- Header image -->
+  <header>
+    <img src="images/header4.png" alt="Our Wedding Day Hub Header">
+  </header>
+
+  <h1>Your Dashboard</h1>
+
+  <p id="welcomeMessage">Loading your info...</p>
+
+  <button id="logoutButton">Logout</button>
+
+  <script type="module">
+    import { auth, db } from './firebase.js';
+    import { doc, getDoc } from 'firebase/firestore';
+    import { onAuthStateChanged, signOut } from 'firebase/auth';
+
+    const welcomeMessage = document.getElementById('welcomeMessage');
+    const logoutButton = document.getElementById('logoutButton');
+
+    // Check if user is logged in
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        // Try to find the user in vendors first
+        let userDoc = await getDoc(doc(db, "vendors", user.uid));
+        let type = "Vendor";
+
+        if (!userDoc.exists()) {
+          // If not a vendor, check couples
+          userDoc = await getDoc(doc(db, "couples", user.uid));
+          type = "Couple";
+        }
+
+        if (userDoc.exists()) {
+          const data = userDoc.data();
+          welcomeMessage.textContent = `Hello ${data.name}! You are logged in as a ${type}.`;
+        } else {
+          welcomeMessage.textContent = "User data not found in the database.";
+        }
+      } else {
+        welcomeMessage.textContent = "You are not logged in. Redirecting...";
+        setTimeout(() => {
+          window.location.href = "login.html"; // Redirect if not logged in
+        }, 2000);
+      }
+    });
+
+    // Logout button
+    logoutButton.addEventListener('click', async () => {
+      await signOut(auth);
+      window.location.href = "login.html";
+    });
+  </script>
+</body>
+</html>
