@@ -170,22 +170,21 @@
             <label><input type="checkbox" value="hampers"> Hampers</label>
           </div>
 
-          <label for="state">State:</label>
-          <select id="state">
-            <option value="">Select state</option>
-            <option value="Queensland">Queensland</option>
-            <option value="New South Wales">New South Wales</option>
-            <option value="Victoria">Victoria</option>
-            <option value="South Australia">South Australia</option>
-            <option value="Western Australia">Western Australia</option>
-            <option value="Tasmania">Tasmania</option>
-            <option value="Australian Capital Territory">Australian Capital Territory</option>
-            <option value="Northern Territory">Northern Territory</option>
-          </select>
+          <label>States you service:</label>
+          <div id="stateOptions" class="field-soft">
+            <label><input type="checkbox" value="Queensland"> Queensland</label>
+            <label><input type="checkbox" value="New South Wales"> New South Wales</label>
+            <label><input type="checkbox" value="Victoria"> Victoria</label>
+            <label><input type="checkbox" value="South Australia"> South Australia</label>
+            <label><input type="checkbox" value="Western Australia"> Western Australia</label>
+            <label><input type="checkbox" value="Tasmania"> Tasmania</label>
+            <label><input type="checkbox" value="Australian Capital Territory"> Australian Capital Territory</label>
+            <label><input type="checkbox" value="Northern Territory"> Northern Territory</label>
+          </div>
 
           <label>Regions you service:</label>
           <div id="regionOptions" class="field-soft">
-            <p class="small-text">Please choose a state first.</p>
+            <p class="small-text">Select states above first.</p>
           </div>
         </div>
 
@@ -213,7 +212,6 @@
     const message = document.getElementById('message');
     const typeSelect = document.getElementById('type');
     const vendorFields = document.getElementById('vendorFields');
-    const stateSelect = document.getElementById('state');
     const regionOptions = document.getElementById('regionOptions');
 
     const urlParams = new URLSearchParams(window.location.search);
@@ -288,26 +286,49 @@
       ]
     };
 
-    function renderRegions(selectedState) {
+    function getSelectedStates() {
+      return Array.from(
+        document.querySelectorAll('#stateOptions input:checked')
+      ).map(input => input.value);
+    }
+
+    function renderRegions() {
+      const selectedStates = getSelectedStates();
+      const previouslyChecked = Array.from(
+        document.querySelectorAll('#regionOptions input:checked')
+      ).map(input => input.value);
+
       regionOptions.innerHTML = '';
 
-      if (!selectedState || !regionsByState[selectedState]) {
-        regionOptions.innerHTML = '<p class="small-text">Please choose a state first.</p>';
+      if (selectedStates.length === 0) {
+        regionOptions.innerHTML = '<p class="small-text">Select states above first.</p>';
         return;
       }
 
-      regionsByState[selectedState].forEach((region) => {
-        const wrapper = document.createElement('label');
-        wrapper.style.display = 'block';
-        wrapper.style.marginBottom = '10px';
-        wrapper.style.fontWeight = 'normal';
+      selectedStates.forEach(state => {
+        if (!regionsByState[state]) return;
 
-        wrapper.innerHTML = `
-          <input type="checkbox" name="regions" value="${region}" style="width:auto; margin-right:8px;">
-          ${region}
-        `;
+        const heading = document.createElement('p');
+        heading.style.fontWeight = 'bold';
+        heading.style.margin = '12px 0 8px';
+        heading.textContent = state;
+        regionOptions.appendChild(heading);
 
-        regionOptions.appendChild(wrapper);
+        regionsByState[state].forEach(region => {
+          const wrapper = document.createElement('label');
+          wrapper.style.display = 'block';
+          wrapper.style.marginBottom = '10px';
+          wrapper.style.fontWeight = 'normal';
+
+          const checked = previouslyChecked.includes(region) ? 'checked' : '';
+
+          wrapper.innerHTML = `
+            <input type="checkbox" name="regions" value="${region}" ${checked} style="width:auto; margin-right:8px;">
+            ${region}
+          `;
+
+          regionOptions.appendChild(wrapper);
+        });
       });
     }
 
@@ -327,8 +348,8 @@
       vendorFields.style.display = typeSelect.value === 'vendor' ? 'block' : 'none';
     });
 
-    stateSelect.addEventListener('change', () => {
-      renderRegions(stateSelect.value);
+    document.querySelectorAll('#stateOptions input').forEach(input => {
+      input.addEventListener('change', renderRegions);
     });
 
     signupForm.addEventListener('submit', async (e) => {
@@ -365,7 +386,7 @@
             document.querySelectorAll('#categoryOptions input:checked')
           ).map(input => input.value);
 
-          const state = stateSelect.value;
+          const selectedStates = getSelectedStates();
 
           const selectedRegions = Array.from(
             document.querySelectorAll('input[name="regions"]:checked')
@@ -374,7 +395,7 @@
           userData = {
             ...userData,
             categories: selectedCategories,
-            state,
+            states: selectedStates,
             regions: selectedRegions
           };
         }
