@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <title>Sign Up - Our Wedding Day Hub</title>
-  <link rel="stylesheet" href="style.css"> <!-- CSS in docs/ -->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Header image -->
+
   <header>
     <img src="images/header4.png" alt="Our Wedding Day Hub Header">
   </header>
@@ -14,6 +14,7 @@
   <h1>Sign Up</h1>
 
   <form id="signupForm">
+
     <label for="type">I am a:</label>
     <select id="type" required>
       <option value="">Select</option>
@@ -21,14 +22,36 @@
       <option value="couple">Couple</option>
     </select>
 
-    <label for="name">Name / Business Name:</label>
+    <label>Name / Business Name:</label>
     <input type="text" id="name" required>
 
-    <label for="email">Email:</label>
+    <label>Email:</label>
     <input type="email" id="email" required>
 
-    <label for="password">Password:</label>
+    <label>Password:</label>
     <input type="password" id="password" required>
+
+    <!-- 👇 VENDOR ONLY FIELDS -->
+    <div id="vendorFields" style="display:none;">
+
+      <label>Category:</label>
+      <select id="category">
+        <option value="">Select category</option>
+        <option value="photographer">Photographer</option>
+        <option value="videographer">Videographer</option>
+        <option value="makeup">Makeup Artist</option>
+        <option value="hair">Hair Stylist</option>
+        <option value="celebrant">Celebrant</option>
+        <option value="music">Music / Band</option>
+      </select>
+
+      <label>Suburbs you service (comma separated):</label>
+      <input type="text" id="suburbs" placeholder="e.g. Brisbane, Gold Coast">
+
+      <label>Postcodes you service (comma separated):</label>
+      <input type="text" id="postcodes" placeholder="e.g. 4000, 4217">
+
+    </div>
 
     <button type="submit">Sign Up</button>
   </form>
@@ -36,40 +59,82 @@
   <p id="message"></p>
 
   <script type="module">
-    import { auth, db, createUserWithEmailAndPassword, doc, setDoc } from './firebase.js';
+    import {
+      auth,
+      db,
+      createUserWithEmailAndPassword,
+      doc,
+      setDoc
+    } from './firebase.js';
 
     const signupForm = document.getElementById('signupForm');
     const message = document.getElementById('message');
+    const typeSelect = document.getElementById('type');
+    const vendorFields = document.getElementById('vendorFields');
+
+    // Show/hide vendor fields
+    typeSelect.addEventListener('change', () => {
+      if (typeSelect.value === "vendor") {
+        vendorFields.style.display = "block";
+      } else {
+        vendorFields.style.display = "none";
+      }
+    });
 
     signupForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
       const type = document.getElementById('type').value;
-      const name = document.getElementById('name').value;
-      const email = document.getElementById('email').value;
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
       const password = document.getElementById('password').value;
 
-      if (!type) return alert("Please select Vendor or Couple.");
+      if (!type) {
+        alert("Please select Vendor or Couple.");
+        return;
+      }
 
       try {
-        // Create Firebase Authentication account
+        // Create account
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
 
-        // Save info to Firestore
-        await setDoc(doc(db, type + "s", user.uid), {
-          name: name,
-          email: email,
+        let userData = {
+          name,
+          email,
           createdAt: new Date()
-        });
+        };
 
-        message.textContent = "Account created successfully!";
-        signupForm.reset();
+        // If vendor, add extra fields
+        if (type === "vendor") {
+          const category = document.getElementById('category').value;
+          const suburbs = document.getElementById('suburbs').value;
+          const postcodes = document.getElementById('postcodes').value;
+
+          userData = {
+            ...userData,
+            category,
+            suburbs,
+            postcodes
+          };
+        }
+
+        // Save to Firestore
+        await setDoc(doc(db, type + "s", user.uid), userData);
+
+        message.textContent = "Account created! Redirecting...";
+
+        // Redirect to dashboard
+        setTimeout(() => {
+          window.location.href = "dashboard.html";
+        }, 1000);
+
       } catch (error) {
         console.error(error);
         message.textContent = "Error: " + error.message;
       }
     });
   </script>
+
 </body>
 </html>
