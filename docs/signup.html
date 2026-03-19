@@ -38,19 +38,137 @@
           <label for="category">Category:</label>
           <select id="category">
             <option value="">Select category</option>
-            <option value="photographer">Photographer</option>
-            <option value="videographer">Videographer</option>
-            <option value="makeup">Makeup Artist</option>
-            <option value="hair">Hair Stylist</option>
-            <option value="celebrant">Celebrant</option>
-            <option value="music">Music / Band</option>
+
+            <optgroup label="Photo & Video">
+              <option value="photographer">Photographer</option>
+              <option value="videographer">Videographer</option>
+              <option value="content_creator">Content Creator</option>
+            </optgroup>
+
+            <optgroup label="Hair & Beauty">
+              <option value="makeup_artist">Makeup Artist</option>
+              <option value="hair_stylist">Hair Stylist</option>
+              <option value="beauty_salon">Beauty Salon</option>
+              <option value="spray_tan">Spray Tanning</option>
+              <option value="skin_aesthetics">Skin & Aesthetics</option>
+            </optgroup>
+
+            <optgroup label="Entertainment">
+              <option value="singer">Singer</option>
+              <option value="band">Band</option>
+              <option value="dj">DJ</option>
+              <option value="acoustic">Acoustic Musician</option>
+              <option value="violinist">Violinist</option>
+              <option value="saxophonist">Saxophonist</option>
+              <option value="harpist">Harpist</option>
+              <option value="mc">MC</option>
+            </optgroup>
+
+            <optgroup label="Styling & Florals">
+              <option value="florist">Florist</option>
+              <option value="stylist">Wedding Stylist</option>
+              <option value="event_designer">Event Designer</option>
+              <option value="balloon">Balloon Stylist</option>
+              <option value="backdrops">Backdrops & Arches</option>
+            </optgroup>
+
+            <optgroup label="Food & Drink">
+              <option value="caterer">Caterer</option>
+              <option value="cake">Wedding Cake Designer</option>
+              <option value="dessert">Dessert Bar</option>
+              <option value="bar">Mobile Bar</option>
+              <option value="coffee">Coffee Cart</option>
+              <option value="food_truck">Food Truck</option>
+            </optgroup>
+
+            <optgroup label="Venues">
+              <option value="venue">Wedding Venue</option>
+              <option value="ceremony_venue">Ceremony Venue</option>
+              <option value="reception_venue">Reception Venue</option>
+              <option value="elopement">Elopement Location</option>
+              <option value="outdoor">Outdoor Venue</option>
+            </optgroup>
+
+            <optgroup label="Stationery & Signage">
+              <option value="invitations">Invitations</option>
+              <option value="stationery">Wedding Stationery</option>
+              <option value="signage">Signage</option>
+              <option value="calligraphy">Calligraphy</option>
+            </optgroup>
+
+            <optgroup label="Fashion">
+              <option value="bridal">Bridal Boutique</option>
+              <option value="bridesmaid">Bridesmaid Dresses</option>
+              <option value="formal">Formal Wear</option>
+              <option value="suits">Suit Hire</option>
+              <option value="designer">Custom Designer</option>
+            </optgroup>
+
+            <optgroup label="Jewellery">
+              <option value="rings">Wedding Rings</option>
+              <option value="engagement">Engagement Rings</option>
+              <option value="custom_jewellery">Custom Jewellery</option>
+            </optgroup>
+
+            <optgroup label="Transport">
+              <option value="cars">Wedding Cars</option>
+              <option value="luxury_cars">Luxury Cars</option>
+              <option value="vintage_cars">Vintage Cars</option>
+              <option value="limo">Limousine</option>
+              <option value="bus">Guest Transport</option>
+            </optgroup>
+
+            <optgroup label="Experiences & Unique Services">
+              <option value="live_painter">Live Wedding Painter</option>
+              <option value="photo_booth">Photo Booth</option>
+              <option value="audio_guestbook">Audio Guestbook</option>
+              <option value="wedding_content_creator">Wedding Content Creator</option>
+            </optgroup>
+
+            <optgroup label="Planning & Support">
+              <option value="planner">Wedding Planner</option>
+              <option value="coordinator">Wedding Coordinator</option>
+              <option value="on_day_coordinator">On-the-day Coordinator</option>
+              <option value="honeymoon">Honeymoon Planner</option>
+            </optgroup>
+
+            <optgroup label="Care Services">
+              <option value="pet_attendant">Pet Attendant</option>
+              <option value="child_minder">Child Minder / Wedding Nanny</option>
+            </optgroup>
+
+            <optgroup label="Hire & Rentals">
+              <option value="furniture">Furniture Hire</option>
+              <option value="decor">Decor Hire</option>
+              <option value="tableware">Tableware Hire</option>
+              <option value="lighting">Lighting Hire</option>
+              <option value="marquee">Marquee Hire</option>
+            </optgroup>
+
+            <optgroup label="Gifts & Favours">
+              <option value="favours">Wedding Favours</option>
+              <option value="gifts">Personalised Gifts</option>
+              <option value="hampers">Hampers</option>
+            </optgroup>
           </select>
 
-          <label for="suburbs">Suburbs you service:</label>
-          <input type="text" id="suburbs" placeholder="e.g. Brisbane, Gold Coast">
+          <label for="state">State:</label>
+          <select id="state">
+            <option value="">Select state</option>
+            <option value="Queensland">Queensland</option>
+            <option value="New South Wales">New South Wales</option>
+            <option value="Victoria">Victoria</option>
+            <option value="South Australia">South Australia</option>
+            <option value="Western Australia">Western Australia</option>
+            <option value="Tasmania">Tasmania</option>
+            <option value="Australian Capital Territory">Australian Capital Territory</option>
+            <option value="Northern Territory">Northern Territory</option>
+          </select>
 
-          <label for="postcodes">Postcodes you service:</label>
-          <input type="text" id="postcodes" placeholder="e.g. 4000, 4217">
+          <label>Regions you service:</label>
+          <div id="regionOptions" class="field-soft">
+            <p class="small-text">Please choose a state first.</p>
+          </div>
         </div>
 
         <button type="submit" class="pretty-button">Sign Up</button>
@@ -77,9 +195,106 @@
     const message = document.getElementById('message');
     const typeSelect = document.getElementById('type');
     const vendorFields = document.getElementById('vendorFields');
+    const stateSelect = document.getElementById('state');
+    const regionOptions = document.getElementById('regionOptions');
+
+    const regionsByState = {
+      "Queensland": [
+        "Brisbane",
+        "Moreton Bay",
+        "Sunshine Coast",
+        "Gold Coast",
+        "Ipswich",
+        "Redland City",
+        "Scenic Rim",
+        "Lockyer Valley",
+        "Toowoomba",
+        "Noosa",
+        "Fraser Coast",
+        "Whitsundays",
+        "Cairns",
+        "Townsville"
+      ],
+      "New South Wales": [
+        "Sydney",
+        "Blue Mountains",
+        "Central Coast",
+        "Hunter",
+        "Illawarra",
+        "Northern Rivers",
+        "Mid North Coast",
+        "Byron Bay",
+        "Southern Highlands",
+        "Canberra Surrounds"
+      ],
+      "Victoria": [
+        "Melbourne",
+        "Geelong",
+        "Mornington Peninsula",
+        "Yarra Valley",
+        "Ballarat",
+        "Bendigo",
+        "Daylesford",
+        "Great Ocean Road"
+      ],
+      "South Australia": [
+        "Adelaide",
+        "Barossa",
+        "Fleurieu Peninsula",
+        "Adelaide Hills",
+        "McLaren Vale"
+      ],
+      "Western Australia": [
+        "Perth",
+        "South West",
+        "Peel",
+        "Great Southern",
+        "Margaret River"
+      ],
+      "Tasmania": [
+        "Hobart",
+        "Launceston",
+        "North West",
+        "East Coast"
+      ],
+      "Australian Capital Territory": [
+        "Canberra"
+      ],
+      "Northern Territory": [
+        "Darwin",
+        "Alice Springs"
+      ]
+    };
+
+    function renderRegions(selectedState) {
+      regionOptions.innerHTML = '';
+
+      if (!selectedState || !regionsByState[selectedState]) {
+        regionOptions.innerHTML = '<p class="small-text">Please choose a state first.</p>';
+        return;
+      }
+
+      regionsByState[selectedState].forEach((region, index) => {
+        const wrapper = document.createElement('label');
+        wrapper.style.display = 'block';
+        wrapper.style.marginBottom = '10px';
+        wrapper.style.fontWeight = 'normal';
+
+        wrapper.innerHTML = `
+          <input type="checkbox" name="regions" value="${region}" style="width:auto; margin-right:8px;">
+          ${region}
+        `;
+
+        regionOptions.appendChild(wrapper);
+      });
+    }
 
     typeSelect.addEventListener('change', () => {
       vendorFields.style.display = typeSelect.value === 'vendor' ? 'block' : 'none';
+    });
+
+    stateSelect.addEventListener('change', () => {
+      renderRegions(stateSelect.value);
     });
 
     signupForm.addEventListener('submit', async (e) => {
@@ -107,14 +322,16 @@
 
         if (type === 'vendor') {
           const category = document.getElementById('category').value;
-          const suburbs = document.getElementById('suburbs').value.trim();
-          const postcodes = document.getElementById('postcodes').value.trim();
+          const state = document.getElementById('state').value;
+          const selectedRegions = Array.from(
+            document.querySelectorAll('input[name="regions"]:checked')
+          ).map(input => input.value);
 
           userData = {
             ...userData,
             category,
-            suburbs,
-            postcodes
+            state,
+            regions: selectedRegions
           };
         }
 
