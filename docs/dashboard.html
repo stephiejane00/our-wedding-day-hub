@@ -3,37 +3,88 @@
 <head>
   <meta charset="UTF-8">
   <title>Dashboard - Our Wedding Day Hub</title>
-  <link rel="stylesheet" href="style.css"> <!-- CSS in docs/ -->
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Card layout overrides for dashboard */
+    .dashboard-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .card {
+      background-color: #fff8f0;
+      padding: 20px;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 600px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      text-align: left;
+    }
+
+    .card h2 {
+      margin-top: 0;
+    }
+
+    .images-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .images-section img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    #logoutButton {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-weight: bold;
+      background-color: #e0c9a6;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #logoutButton:hover {
+      background-color: #d4b892;
+    }
+  </style>
 </head>
 <body>
-  <!-- Header image -->
   <header>
     <img src="images/header4.png" alt="Our Wedding Day Hub Header">
   </header>
 
   <h1>Your Dashboard</h1>
 
-  <p id="welcomeMessage">Loading your info...</p>
+  <div class="dashboard-container" id="dashboardContainer">
+    <p id="welcomeMessage">Loading your info...</p>
+  </div>
 
   <button id="logoutButton">Logout</button>
 
   <script type="module">
     import { auth, db } from './firebase.js';
-    import { doc, getDoc } from 'firebase/firestore';
+    import { doc, getDoc, collection, getDocs } from 'firebase/firestore';
     import { onAuthStateChanged, signOut } from 'firebase/auth';
 
+    const dashboardContainer = document.getElementById('dashboardContainer');
     const welcomeMessage = document.getElementById('welcomeMessage');
     const logoutButton = document.getElementById('logoutButton');
 
-    // Check if user is logged in
     onAuthStateChanged(auth, async (user) => {
       if (user) {
-        // Try to find the user in vendors first
         let userDoc = await getDoc(doc(db, "vendors", user.uid));
         let type = "Vendor";
 
         if (!userDoc.exists()) {
-          // If not a vendor, check couples
           userDoc = await getDoc(doc(db, "couples", user.uid));
           type = "Couple";
         }
@@ -41,18 +92,49 @@
         if (userDoc.exists()) {
           const data = userDoc.data();
           welcomeMessage.textContent = `Hello ${data.name}! You are logged in as a ${type}.`;
+
+          // Create user info card
+          const card = document.createElement('div');
+          card.className = 'card';
+          card.innerHTML = `
+            <h2>${data.name}</h2>
+            <p><strong>Email:</strong> ${data.email}</p>
+            <p><strong>User Type:</strong> ${type}</p>
+            <p><strong>Joined:</strong> ${data.createdAt.toDate ? data.createdAt.toDate().toLocaleDateString() : new Date(data.createdAt).toLocaleDateString()}</p>
+          `;
+          dashboardContainer.appendChild(card);
+
+          // Display some sample images (first 3 from categories/images)
+          const imagesCol = collection(db, 'categories/images'); // Placeholder for later dynamic images
+          const imagesSection = document.createElement('div');
+          imagesSection.className = 'images-section';
+
+          // Sample static images for now from your docs/categories/images folder
+          const sampleImages = [
+            'categories/images/sample1.jpg',
+            'categories/images/sample2.jpg',
+            'categories/images/sample3.jpg'
+          ];
+          sampleImages.forEach(src => {
+            const img = document.createElement('img');
+            img.src = src;
+            imagesSection.appendChild(img);
+          });
+
+          card.appendChild(imagesSection);
+
         } else {
           welcomeMessage.textContent = "User data not found in the database.";
         }
+
       } else {
         welcomeMessage.textContent = "You are not logged in. Redirecting...";
         setTimeout(() => {
-          window.location.href = "login.html"; // Redirect if not logged in
+          window.location.href = "login.html";
         }, 2000);
       }
     });
 
-    // Logout button
     logoutButton.addEventListener('click', async () => {
       await signOut(auth);
       window.location.href = "login.html";
