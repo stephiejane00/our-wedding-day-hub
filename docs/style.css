@@ -211,3 +211,236 @@ footer {
   .search input { width: 90%; }
   .join { padding: 0 10px; }
 }
+/* =========================
+   AUTH + DASHBOARD POLISH
+========================= */
+
+/* Make regular headers work nicely too */
+header {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+header img {
+  width: 100%;
+  max-width: 1200px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: 10px;
+}
+
+/* Page layout wrappers */
+.page-shell,
+.dashboard-wrap {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 10px 20px 50px;
+  box-sizing: border-box;
+}
+
+.page-title {
+  text-align: center;
+  font-size: 2.4rem;
+  margin: 10px 0 10px;
+}
+
+.page-subtitle {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 30px;
+  color: #444;
+  line-height: 1.7;
+}
+
+/* Cards */
+.auth-card,
+.dashboard-card,
+.filter-card,
+.welcome-banner,
+.vendor-result-card {
+  width: 100%;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 10px 25px rgba(210,180,140,0.18), 0 0 20px rgba(210,180,140,0.08) inset;
+  box-sizing: border-box;
+}
+
+.auth-card {
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 30px 28px;
+}
+
+.welcome-banner {
+  max-width: 900px;
+  margin: 0 auto 25px;
+  padding: 20px 24px;
+  text-align: center;
+}
+
+.dashboard-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.dashboard-card,
+.filter-card {
+  padding: 24px;
+}
+
+/* Forms */
+.pretty-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  font-family: Georgia, serif;
+}
+
+.pretty-form input,
+.pretty-form select,
+.pretty-form textarea {
+  width: 100%;
+  padding: 14px 16px;
+  margin-bottom: 18px;
+  border-radius: 12px;
+  border: 1.5px solid #d8c7b3;
+  background: #fefbf7;
+  font-family: Georgia, serif;
+  font-size: 1rem;
+  color: #000;
+  box-sizing: border-box;
+  outline: none;
+  transition: 0.25s ease;
+}
+
+.pretty-form input:focus,
+.pretty-form select:focus,
+.pretty-form textarea:focus {
+  border-color: #b99973;
+  box-shadow: 0 0 10px rgba(210,180,140,0.22);
+}
+
+/* Buttons */
+.pretty-button {
+  display: inline-block;
+  width: 100%;
+  background: #000;
+  color: #fff;
+  padding: 16px 20px;
+  border-radius: 12px;
+  font-size: 1.05rem;
+  font-family: Georgia, serif;
+  font-weight: bold;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s ease;
+  box-sizing: border-box;
+}
+
+.pretty-button:hover {
+  background: #333;
+  transform: translateY(-2px);
+}
+
+.pretty-button.secondary {
+  background: #e9dccd;
+  color: #000;
+}
+
+.pretty-button.secondary:hover {
+  background: #dcc9b2;
+}
+
+/* Messages / little helper text */
+.form-message,
+.auth-footer-text,
+.inline-note {
+  text-align: center;
+  color: #444;
+}
+
+.form-message {
+  margin-top: 12px;
+  min-height: 24px;
+}
+
+.auth-footer-text {
+  margin-top: 18px;
+}
+
+.auth-footer-text a {
+  color: #000;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.auth-footer-text a:hover {
+  color: #555;
+}
+
+.inline-note {
+  margin-top: 10px;
+  text-align: left;
+}
+
+.small-text {
+  font-size: 0.95rem;
+  color: #444;
+}
+
+/* Vendor results for couple dashboard */
+.vendor-results {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  margin-top: 20px;
+}
+
+.vendor-result-card {
+  padding: 20px;
+  text-align: left;
+}
+
+.vendor-result-card h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.vendor-result-card p {
+  margin-bottom: 8px;
+}
+
+/* Logout button wrapper */
+.logout-wrap {
+  width: 100%;
+  max-width: 320px;
+  margin: 20px auto 0;
+}
+
+/* Responsive */
+@media (min-width: 860px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}
+
+@media (max-width: 900px) {
+  .page-title {
+    font-size: 2rem;
+  }
+
+  .auth-card,
+  .dashboard-card,
+  .filter-card,
+  .welcome-banner,
+  .vendor-result-card {
+    border-radius: 14px;
+  }
+}
