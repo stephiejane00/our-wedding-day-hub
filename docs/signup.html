@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sign Up - Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -26,7 +27,7 @@
         </div>
         <div class="auth-point">
           <strong>For couples</strong>
-          Browse, filter, and find vendors that suit your style and location.
+          Save favourite vendors and create your own inspiration space.
         </div>
         <div class="auth-point">
           <strong>Simple setup</strong>
@@ -65,7 +66,7 @@
           </div>
           <div>
             <label for="password">Password:</label>
-            <input type="password" id="password" required>
+            <input type="password" id="password" minlength="6" required>
           </div>
         </div>
 
@@ -204,8 +205,10 @@
       auth,
       db,
       createUserWithEmailAndPassword,
+      sendEmailVerification,
       doc,
-      setDoc
+      setDoc,
+      serverTimestamp
     } from './firebase.js';
 
     const signupForm = document.getElementById('signupForm');
@@ -219,77 +222,18 @@
     const preselectedType = urlParams.get('type');
 
     const regionsByState = {
-      "Queensland": [
-        "Brisbane",
-        "Moreton Bay",
-        "Sunshine Coast",
-        "Gold Coast",
-        "Ipswich",
-        "Redland City",
-        "Scenic Rim",
-        "Lockyer Valley",
-        "Toowoomba",
-        "Noosa",
-        "Fraser Coast",
-        "Whitsundays",
-        "Cairns",
-        "Townsville"
-      ],
-      "New South Wales": [
-        "Sydney",
-        "Blue Mountains",
-        "Central Coast",
-        "Hunter",
-        "Illawarra",
-        "Northern Rivers",
-        "Mid North Coast",
-        "Byron Bay",
-        "Southern Highlands",
-        "Canberra Surrounds"
-      ],
-      "Victoria": [
-        "Melbourne",
-        "Geelong",
-        "Mornington Peninsula",
-        "Yarra Valley",
-        "Ballarat",
-        "Bendigo",
-        "Daylesford",
-        "Great Ocean Road"
-      ],
-      "South Australia": [
-        "Adelaide",
-        "Barossa",
-        "Fleurieu Peninsula",
-        "Adelaide Hills",
-        "McLaren Vale"
-      ],
-      "Western Australia": [
-        "Perth",
-        "South West",
-        "Peel",
-        "Great Southern",
-        "Margaret River"
-      ],
-      "Tasmania": [
-        "Hobart",
-        "Launceston",
-        "North West",
-        "East Coast"
-      ],
-      "Australian Capital Territory": [
-        "Canberra"
-      ],
-      "Northern Territory": [
-        "Darwin",
-        "Alice Springs"
-      ]
+      "Queensland": ["Brisbane", "Moreton Bay", "Sunshine Coast", "Gold Coast", "Ipswich", "Redland City", "Scenic Rim", "Lockyer Valley", "Toowoomba", "Noosa", "Fraser Coast", "Whitsundays", "Cairns", "Townsville"],
+      "New South Wales": ["Sydney", "Blue Mountains", "Central Coast", "Hunter", "Illawarra", "Northern Rivers", "Mid North Coast", "Byron Bay", "Southern Highlands", "Canberra Surrounds"],
+      "Victoria": ["Melbourne", "Geelong", "Mornington Peninsula", "Yarra Valley", "Ballarat", "Bendigo", "Daylesford", "Great Ocean Road"],
+      "South Australia": ["Adelaide", "Barossa", "Fleurieu Peninsula", "Adelaide Hills", "McLaren Vale"],
+      "Western Australia": ["Perth", "South West", "Peel", "Great Southern", "Margaret River"],
+      "Tasmania": ["Hobart", "Launceston", "North West", "East Coast"],
+      "Australian Capital Territory": ["Canberra"],
+      "Northern Territory": ["Darwin", "Alice Springs"]
     };
 
     function getSelectedStates() {
-      return Array.from(
-        document.querySelectorAll('#stateOptions input:checked')
-      ).map(input => input.value);
+      return Array.from(document.querySelectorAll('#stateOptions input:checked')).map(input => input.value);
     }
 
     function renderRegions() {
@@ -320,13 +264,19 @@
           wrapper.style.marginBottom = '10px';
           wrapper.style.fontWeight = 'normal';
 
-          const checked = previouslyChecked.includes(region) ? 'checked' : '';
+          const checkbox = document.createElement('input');
+          checkbox.type = 'checkbox';
+          checkbox.name = 'regions';
+          checkbox.value = region;
+          checkbox.style.width = 'auto';
+          checkbox.style.marginRight = '8px';
 
-          wrapper.innerHTML = `
-            <input type="checkbox" name="regions" value="${region}" ${checked} style="width:auto; margin-right:8px;">
-            ${region}
-          `;
+          if (previouslyChecked.includes(region)) {
+            checkbox.checked = true;
+          }
 
+          wrapper.appendChild(checkbox);
+          wrapper.append(` ${region}`);
           regionOptions.appendChild(wrapper);
         });
       });
@@ -334,8 +284,9 @@
 
     if (preselectedType) {
       typeSelect.value = preselectedType;
+      vendorFields.style.display = preselectedType === 'vendor' ? 'block' : 'none';
       if (preselectedType === 'vendor') {
-        vendorFields.style.display = 'block';
+        renderRegions();
       }
     }
 
@@ -346,6 +297,12 @@
       }
 
       vendorFields.style.display = typeSelect.value === 'vendor' ? 'block' : 'none';
+
+      if (typeSelect.value === 'vendor') {
+        renderRegions();
+      } else {
+        regionOptions.innerHTML = '<p class="small-text">Select states above first.</p>';
+      }
     });
 
     document.querySelectorAll('#stateOptions input').forEach(input => {
@@ -354,20 +311,23 @@
 
     signupForm.addEventListener('submit', async (e) => {
       e.preventDefault();
+      message.textContent = '';
 
       const type = typeSelect.value;
       const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
+      const email = document.getElementById('email').value.trim().toLowerCase();
       const password = document.getElementById('password').value;
 
       if (!type) {
-        alert('Please select Vendor or Couple.');
+        message.textContent = 'Please select Vendor or Couple.';
         return;
       }
 
       if (type === 'vendor' && isPaid !== 'true') {
-        alert('Vendors must complete payment before signing up.');
-        window.location.href = 'vendor-payment.html';
+        message.textContent = 'Vendors must complete payment before signing up.';
+        setTimeout(() => {
+          window.location.href = 'vendor-payment.html';
+        }, 1200);
         return;
       }
 
@@ -375,11 +335,17 @@
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
 
-        let userData = {
-          name,
+        await sendEmailVerification(user);
+
+        await setDoc(doc(db, 'users', user.uid), {
+          uid: user.uid,
           email,
-          createdAt: new Date()
-        };
+          name,
+          role: type,
+          emailVerified: false,
+          paid: type === 'vendor',
+          createdAt: serverTimestamp()
+        });
 
         if (type === 'vendor') {
           const selectedCategories = Array.from(
@@ -392,21 +358,38 @@
             document.querySelectorAll('input[name="regions"]:checked')
           ).map(input => input.value);
 
-          userData = {
-            ...userData,
+          await setDoc(doc(db, 'vendors', user.uid), {
+            uid: user.uid,
+            businessName: name,
+            email,
             categories: selectedCategories,
             states: selectedStates,
-            regions: selectedRegions
-          };
+            regions: selectedRegions,
+            paid: true,
+            published: false,
+            createdAt: serverTimestamp()
+          });
         }
 
-        await setDoc(doc(db, type + 's', user.uid), userData);
+        if (type === 'couple') {
+          await setDoc(doc(db, 'couples', user.uid), {
+            uid: user.uid,
+            name,
+            email,
+            favouriteVendorIds: [],
+            visionBoard: [],
+            createdAt: serverTimestamp()
+          });
+        }
 
-        message.textContent = 'Account created! Redirecting...';
+        message.textContent = 'Account created! Please verify your email, then log in.';
+        signupForm.reset();
+        vendorFields.style.display = 'none';
+        regionOptions.innerHTML = '<p class="small-text">Select states above first.</p>';
 
         setTimeout(() => {
-          window.location.href = 'dashboard.html';
-        }, 1000);
+          window.location.href = 'login.html';
+        }, 2200);
       } catch (error) {
         console.error(error);
         message.textContent = 'Error: ' + error.message;
