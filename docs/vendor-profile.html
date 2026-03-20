@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vendor Profile - Our Wedding Day Hub</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <img src="images/header4.png" alt="Our Wedding Day Hub Header">
+  </header>
+
+  <main class="profile-page">
+    <section id="profileCard" class="profile-card">
+      <p>Loading vendor profile...</p>
+    </section>
+  </main>
+
+  <script type="module">
+    import {
+      db,
+      doc,
+      getDoc
+    } from './firebase.js';
+
+    const profileCard = document.getElementById('profileCard');
+
+    const params = new URLSearchParams(window.location.search);
+    const vendorId = params.get('id');
+
+    function prettify(text) {
+      return text
+        .replaceAll('_', ' ')
+        .replace(/\b\w/g, l => l.toUpperCase());
+    }
+
+    async function loadVendor() {
+      if (!vendorId) {
+        profileCard.innerHTML = "<p>Invalid vendor.</p>";
+        return;
+      }
+
+      try {
+        const vendorRef = doc(db, 'vendors', vendorId);
+        const snap = await getDoc(vendorRef);
+
+        if (!snap.exists()) {
+          profileCard.innerHTML = "<p>Vendor not found.</p>";
+          return;
+        }
+
+        const vendor = snap.data();
+
+        // 🔒 ONLY show if active + published
+        if (!vendor.published || !vendor.profileVisible) {
+          profileCard.innerHTML = "<p>This vendor profile is not available.</p>";
+          return;
+        }
+
+        const categories = (vendor.categories || []).map(prettify);
+        const states = vendor.states || [];
+        const regions = vendor.regions || [];
+
+        profileCard.innerHTML = `
+          <div class="profile-header">
+            <h1>${vendor.businessName || 'Vendor'}</h1>
+            <p class="profile-location">
+              ${regions.join(', ') || states.join(', ') || 'Australia'}
+            </p>
+          </div>
+
+          <div class="profile-section">
+            <h3>About</h3>
+            <p>${vendor.bio || 'This vendor has not added a bio yet.'}</p>
+          </div>
+
+          <div class="profile-section">
+            <h3>Services</h3>
+            <div class="profile-tags">
+              ${categories.map(c => `<span>${c}</span>`).join('')}
+            </div>
+          </div>
+
+          <div class="profile-section">
+            <h3>Contact</h3>
+            <div class="profile-links">
+              ${vendor.phone ? `<a href="tel:${vendor.phone}" class="pretty-button small-button">Call</a>` : ''}
+              ${vendor.website ? `<a href="${vendor.website}" target="_blank" class="pretty-button small-button">Website</a>` : ''}
+              ${vendor.instagram ? `<a href="${vendor.instagram}" target="_blank" class="pretty-button small-button">Instagram</a>` : ''}
+            </div>
+          </div>
+        `;
+      } catch (error) {
+        console.error(error);
+        profileCard.innerHTML = "<p>Something went wrong loading this vendor.</p>";
+      }
+    }
+
+    loadVendor();
+  </script>
+
+</body>
+</html>
