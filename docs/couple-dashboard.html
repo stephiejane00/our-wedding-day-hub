@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Couple Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Couple Dashboard - Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -10,9 +11,169 @@
     <img src="images/header4.png" alt="Our Wedding Day Hub Header">
   </header>
 
-  <main style="max-width: 900px; margin: 40px auto; padding: 20px;">
-    <h1>Couple Dashboard</h1>
-    <p>You are logged in as a couple. This is where favourites and vision board will go.</p>
+  <main class="dashboard-wrap">
+    <section class="dashboard-card">
+      <div class="dashboard-top">
+        <div>
+          <span class="auth-kicker">Couple dashboard</span>
+          <h1 id="welcomeMessage">Loading your dashboard...</h1>
+          <p class="auth-mini-text">Your saved vendors and wedding inspiration will live here.</p>
+        </div>
+        <button id="logoutBtn" class="pretty-button logout-button" type="button">Log Out</button>
+      </div>
+    </section>
+
+    <section class="dashboard-card">
+      <h2>Your Favourite Vendors</h2>
+      <p class="auth-mini-text">The vendors you save will appear here.</p>
+      <div id="favouritesGrid" class="vendors-grid"></div>
+      <p id="emptyFavourites" class="empty-message" style="display:none;">
+        You have not saved any vendors yet.
+      </p>
+    </section>
+
+    <section class="dashboard-card">
+      <h2>Your Vision Board</h2>
+      <p class="auth-mini-text">We can build this next.</p>
+    </section>
   </main>
+
+  <script type="module">
+    import {
+      auth,
+      db,
+      signOut,
+      onAuthStateChanged,
+      doc,
+      getDoc
+    } from './firebase.js';
+
+    const welcomeMessage = document.getElementById('welcomeMessage');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const favouritesGrid = document.getElementById('favouritesGrid');
+    const emptyFavourites = document.getElementById('emptyFavourites');
+
+    function prettifyCategory(category) {
+      return category
+        .replaceAll('_', ' ')
+        .replace(/\b\w/g, letter => letter.toUpperCase());
+    }
+
+    function createVendorCard(vendor) {
+      const card = document.createElement('article');
+      card.className = 'vendor-card-public';
+
+      const categories = Array.isArray(vendor.categories) ? vendor.categories : [];
+      const states = Array.isArray(vendor.states) ? vendor.states : [];
+      const regions = Array.isArray(vendor.regions) ? vendor.regions : [];
+
+      const shortBio = vendor.bio
+        ? vendor.bio.length > 180
+          ? vendor.bio.slice(0, 180) + '...'
+          : vendor.bio
+        : 'This vendor has not added their bio yet.';
+
+      card.innerHTML = `
+        <div class="vendor-card-public-inner">
+          <div class="vendor-card-top">
+            <h3>${vendor.businessName || 'Vendor'}</h3>
+            <p class="vendor-card-location">
+              ${regions.slice(0, 2).join(', ') || states.slice(0, 2).join(', ') || 'Australia'}
+            </p>
+          </div>
+
+          <p class="vendor-card-bio">${shortBio}</p>
+
+          <div class="vendor-card-tags">
+            ${categories.slice(0, 4).map(category => `
+              <span class="vendor-tag">${prettifyCategory(category)}</span>
+            `).join('')}
+          </div>
+
+          <div class="vendor-card-links">
+            <a class="pretty-button small-button" href="vendor-profile.html?id=${vendor.uid}">
+              View Profile
+            </a>
+          </div>
+        </div>
+      `;
+
+      return card;
+    }
+
+    async function loadCoupleDashboard(user) {
+      try {
+        const userSnap = await getDoc(doc(db, 'users', user.uid));
+
+        if (!userSnap.exists()) {
+          welcomeMessage.textContent = 'We could not find your account details.';
+          return;
+        }
+
+        const userData = userSnap.data();
+
+        if (userData.role !== 'couple') {
+          window.location.href = 'vendor-dashboard.html';
+          return;
+        }
+
+        welcomeMessage.textContent = `Welcome, ${userData.name || 'Lovely'}!`;
+
+        const coupleSnap = await getDoc(doc(db, 'couples', user.uid));
+
+        if (!coupleSnap.exists()) {
+          emptyFavourites.style.display = 'block';
+          return;
+        }
+
+        const coupleData = coupleSnap.data();
+        const favouriteVendorIds = Array.isArray(coupleData.favouriteVendorIds)
+          ? coupleData.favouriteVendorIds
+          : [];
+
+        if (favouriteVendorIds.length === 0) {
+          emptyFavourites.style.display = 'block';
+          return;
+        }
+
+        const vendorPromises = favouriteVendorIds.map(id => getDoc(doc(db, 'vendors', id)));
+        const vendorSnapshots = await Promise.all(vendorPromises);
+
+        const favouriteVendors = vendorSnapshots
+          .filter(snap => snap.exists())
+          .map(snap => snap.data())
+          .filter(vendor => vendor.published === true && vendor.profileVisible === true);
+
+        if (favouriteVendors.length === 0) {
+          emptyFavourites.style.display = 'block';
+          return;
+        }
+
+        emptyFavourites.style.display = 'none';
+        favouritesGrid.innerHTML = '';
+
+        favouriteVendors.forEach(vendor => {
+          favouritesGrid.appendChild(createVendorCard(vendor));
+        });
+      } catch (error) {
+        console.error(error);
+        welcomeMessage.textContent = 'There was a problem loading your dashboard.';
+      }
+    }
+
+    logoutBtn.addEventListener('click', async () => {
+      await signOut(auth);
+      window.location.href = 'login.html';
+    });
+
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        window.location.href = 'login.html';
+        return;
+      }
+
+      await loadCoupleDashboard(user);
+    });
+  </script>
 </body>
 </html>
