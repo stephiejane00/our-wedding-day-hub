@@ -24,7 +24,8 @@
       onAuthStateChanged,
       doc,
       getDoc,
-      setDoc
+      setDoc,
+      serverTimestamp
     } from './firebase.js';
 
     const profileCard = document.getElementById('profileCard');
@@ -118,7 +119,7 @@
         await setDoc(coupleRef, {
           ...coupleData,
           favouriteVendorIds: updatedFavourites,
-          updatedAt: new Date()
+          updatedAt: serverTimestamp()
         });
 
         currentFavouriteIds = updatedFavourites;
