@@ -196,7 +196,8 @@
       onAuthStateChanged,
       doc,
       getDoc,
-      setDoc
+      setDoc,
+      serverTimestamp
     } from './firebase.js';
 
     const welcomeMessage = document.getElementById('welcomeMessage');
@@ -294,9 +295,7 @@
 
     function disableForm(disabled) {
       vendorForm.querySelectorAll('input, textarea, button').forEach(el => {
-        if (el.id !== 'logoutBtn') {
-          el.disabled = disabled;
-        }
+        el.disabled = disabled;
       });
     }
 
@@ -391,6 +390,8 @@
       const regions = getSelectedRegions();
       const published = publishedInput.checked;
 
+      const updatedProfileVisible = currentVendorData.subscriptionActive === true ? published : false;
+
       try {
         await setDoc(doc(db, 'vendors', currentUser.uid), {
           ...currentVendorData,
@@ -404,8 +405,8 @@
           states,
           regions,
           published,
-          profileVisible: currentVendorData.subscriptionActive === true ? published : false,
-          updatedAt: new Date()
+          profileVisible: updatedProfileVisible,
+          updatedAt: serverTimestamp()
         });
 
         currentVendorData = {
@@ -419,8 +420,7 @@
           states,
           regions,
           published,
-          profileVisible: currentVendorData.subscriptionActive === true ? published : false,
-          updatedAt: new Date()
+          profileVisible: updatedProfileVisible
         };
 
         welcomeMessage.textContent = `Welcome, ${businessName || 'Vendor'}!`;
