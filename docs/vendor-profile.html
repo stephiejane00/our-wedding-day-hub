@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
   <header>
     <img src="images/header4.png" alt="Our Wedding Day Hub Header">
   </header>
@@ -20,20 +19,118 @@
 
   <script type="module">
     import {
+      auth,
       db,
+      onAuthStateChanged,
       doc,
-      getDoc
+      getDoc,
+      setDoc
     } from './firebase.js';
 
     const profileCard = document.getElementById('profileCard');
-
     const params = new URLSearchParams(window.location.search);
     const vendorId = params.get('id');
+
+    let currentUser = null;
+    let currentUserRole = null;
+    let currentFavouriteIds = [];
 
     function prettify(text) {
       return text
         .replaceAll('_', ' ')
         .replace(/\b\w/g, l => l.toUpperCase());
+    }
+
+    async function loadViewerState() {
+      return new Promise((resolve) => {
+        onAuthStateChanged(auth, async (user) => {
+          currentUser = user;
+
+          if (!user) {
+            currentUserRole = null;
+            currentFavouriteIds = [];
+            resolve();
+            return;
+          }
+
+          try {
+            const userSnap = await getDoc(doc(db, 'users', user.uid));
+
+            if (userSnap.exists()) {
+              const userData = userSnap.data();
+              currentUserRole = userData.role || null;
+
+              if (currentUserRole === 'couple') {
+                const coupleSnap = await getDoc(doc(db, 'couples', user.uid));
+                if (coupleSnap.exists()) {
+                  const coupleData = coupleSnap.data();
+                  currentFavouriteIds = Array.isArray(coupleData.favouriteVendorIds)
+                    ? coupleData.favouriteVendorIds
+                    : [];
+                }
+              }
+            }
+          } catch (error) {
+            console.error(error);
+          }
+
+          resolve();
+        });
+      });
+    }
+
+    async function saveVendorToFavourites() {
+      if (!currentUser) {
+        alert('Please log in as a couple to save vendors.');
+        window.location.href = 'login.html';
+        return;
+      }
+
+      if (currentUserRole !== 'couple') {
+        alert('Only couple accounts can save favourite vendors.');
+        return;
+      }
+
+      try {
+        const coupleRef = doc(db, 'couples', currentUser.uid);
+        const coupleSnap = await getDoc(coupleRef);
+
+        if (!coupleSnap.exists()) {
+          alert('We could not find your couple account.');
+          return;
+        }
+
+        const coupleData = coupleSnap.data();
+        const favouriteVendorIds = Array.isArray(coupleData.favouriteVendorIds)
+          ? [...coupleData.favouriteVendorIds]
+          : [];
+
+        const alreadySaved = favouriteVendorIds.includes(vendorId);
+
+        let updatedFavourites;
+
+        if (alreadySaved) {
+          updatedFavourites = favouriteVendorIds.filter(id => id !== vendorId);
+        } else {
+          updatedFavourites = [...favouriteVendorIds, vendorId];
+        }
+
+        await setDoc(coupleRef, {
+          ...coupleData,
+          favouriteVendorIds: updatedFavourites,
+          updatedAt: new Date()
+        });
+
+        currentFavouriteIds = updatedFavourites;
+
+        const saveBtn = document.getElementById('saveVendorBtn');
+        if (saveBtn) {
+          saveBtn.textContent = alreadySaved ? 'Save Vendor' : 'Saved ♥';
+        }
+      } catch (error) {
+        console.error(error);
+        alert('There was a problem saving this vendor.');
+      }
     }
 
     async function loadVendor() {
@@ -43,6 +140,8 @@
       }
 
       try {
+        await loadViewerState();
+
         const vendorRef = doc(db, 'vendors', vendorId);
         const snap = await getDoc(vendorRef);
 
@@ -53,7 +152,6 @@
 
         const vendor = snap.data();
 
-        // 🔒 ONLY show if active + published
         if (!vendor.published || !vendor.profileVisible) {
           profileCard.innerHTML = "<p>This vendor profile is not available.</p>";
           return;
@@ -62,6 +160,11 @@
         const categories = (vendor.categories || []).map(prettify);
         const states = vendor.states || [];
         const regions = vendor.regions || [];
+        const isSaved = currentFavouriteIds.includes(vendorId);
+
+        const saveButtonHtml = currentUserRole === 'couple'
+          ? `<button id="saveVendorBtn" class="pretty-button small-button" type="button">${isSaved ? 'Saved ♥' : 'Save Vendor'}</button>`
+          : '';
 
         profileCard.innerHTML = `
           <div class="profile-header">
@@ -87,11 +190,17 @@
             <h3>Contact</h3>
             <div class="profile-links">
               ${vendor.phone ? `<a href="tel:${vendor.phone}" class="pretty-button small-button">Call</a>` : ''}
-              ${vendor.website ? `<a href="${vendor.website}" target="_blank" class="pretty-button small-button">Website</a>` : ''}
-              ${vendor.instagram ? `<a href="${vendor.instagram}" target="_blank" class="pretty-button small-button">Instagram</a>` : ''}
+              ${vendor.website ? `<a href="${vendor.website}" target="_blank" rel="noopener noreferrer" class="pretty-button small-button">Website</a>` : ''}
+              ${vendor.instagram ? `<a href="${vendor.instagram}" target="_blank" rel="noopener noreferrer" class="pretty-button small-button">Instagram</a>` : ''}
+              ${saveButtonHtml}
             </div>
           </div>
         `;
+
+        const saveBtn = document.getElementById('saveVendorBtn');
+        if (saveBtn) {
+          saveBtn.addEventListener('click', saveVendorToFavourites);
+        }
       } catch (error) {
         console.error(error);
         profileCard.innerHTML = "<p>Something went wrong loading this vendor.</p>";
@@ -100,6 +209,5 @@
 
     loadVendor();
   </script>
-
 </body>
 </html>
