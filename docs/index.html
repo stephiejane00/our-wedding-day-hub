@@ -6,27 +6,6 @@
 <title>Our Wedding Day Hub</title>
 <link rel="stylesheet" href="style.css">
 <style>
-/* VENDOR CARDS */
-.vendor-card {
-  border-radius: 0;
-  box-shadow: 0 6px 20px rgba(212,175,55,0.3);
-  padding: 15px;
-  transition: transform 0.3s, box-shadow 0.3s;
-  cursor: pointer;
-  background: #fff;
-}
-
-.vendor-card img {
-  width: 100%;
-  display: block;
-  margin-bottom: 10px;
-}
-
-.vendor-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(212,175,55,0.5);
-}
-
 /* HEADER */
 .hero {
   text-align: center;
@@ -53,19 +32,27 @@
 .top-nav-right {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
   flex-wrap: wrap;
 }
 
 .top-nav a {
   text-decoration: none;
-  color: #2F4F2F;
+  color: #000;
   font-size: 0.95rem;
-  transition: opacity 0.3s ease;
+  transition: all 0.3s ease;
 }
 
-.top-nav a:hover {
-  opacity: 0.7;
+.top-nav-left a {
+  padding: 8px 14px;
+  border: 1px solid #000;
+  background: #fff;
+}
+
+.top-nav-left a:hover {
+  background: #000;
+  color: #fff;
+  opacity: 1;
 }
 
 .nav-button {
@@ -75,7 +62,8 @@
   padding: 10px 18px;
   text-decoration: none;
   font-size: 0.9rem;
-  transition: 0.3s;
+  border: 1px solid #000;
+  transition: all 0.3s ease;
 }
 
 .nav-button:hover {
@@ -84,9 +72,30 @@
 }
 
 .nav-button.outline {
-  background: transparent;
+  background: #fff;
   color: #000 !important;
   border: 1px solid #000;
+}
+
+.nav-button.outline:hover {
+  background: #000;
+  color: #fff !important;
+}
+
+/* INTRO TEXT */
+.home-intro {
+  text-align: center;
+  max-width: 850px;
+  margin: 40px auto 10px auto;
+  padding: 0 20px;
+}
+
+.home-intro h1 {
+  margin-bottom: 14px;
+}
+
+.home-intro p {
+  line-height: 1.7;
 }
 
 /* SEARCH BAR */
@@ -123,10 +132,28 @@
   display: none;
 }
 
-.featured-slider .vendor-card {
+/* VENDOR CARDS */
+.vendor-card {
   min-width: 320px;
   max-width: 320px;
   flex: 0 0 320px;
+  border-radius: 0;
+  box-shadow: 0 6px 20px rgba(212,175,55,0.3);
+  padding: 15px;
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+  background: #fff;
+}
+
+.vendor-card img {
+  width: 100%;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.vendor-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(212,175,55,0.5);
 }
 
 .slider-arrow {
@@ -137,49 +164,24 @@
   font-weight: bold;
   cursor: pointer;
   z-index: 10;
-  color: #2F4F2F;
+  color: #000;
   user-select: none;
-  background: rgba(255,255,255,0.85);
+  background: rgba(255,255,255,0.9);
   width: 40px;
   height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
+  border: 1px solid #000;
 }
 
 .slider-arrow.left { left: 0; }
 .slider-arrow.right { right: 0; }
 
-/* INTRO TEXT */
-.home-intro {
-  text-align: center;
-  max-width: 850px;
-  margin: 40px auto 10px auto;
-  padding: 0 20px;
-}
-
-.home-intro h1 {
-  margin-bottom: 14px;
-}
-
-.home-intro p {
-  line-height: 1.7;
-}
-
 /* FOOTER */
 footer {
   text-align: center;
   padding: 30px 20px;
-}
-
-.footer-links {
-  margin-bottom: 10px;
-}
-
-.footer-links a {
-  text-decoration: none;
-  color: #2F4F2F;
-  margin: 0 8px;
 }
 
 /* MOBILE */
@@ -198,7 +200,7 @@ footer {
     padding: 0 20px;
   }
 
-  .featured-slider .vendor-card {
+  .vendor-card {
     min-width: 260px;
     max-width: 260px;
     flex: 0 0 260px;
@@ -243,17 +245,11 @@ footer {
 
 <div class="featured-slider-wrapper">
   <div class="slider-arrow left" onclick="prevSlide()">&#10094;</div>
-  <div class="featured-slider" id="sliderTrack">
-  </div>
+  <div class="featured-slider" id="sliderTrack"></div>
   <div class="slider-arrow right" onclick="nextSlide()">&#10095;</div>
 </div>
 
 <footer>
-  <div class="footer-links">
-    <a href="terms.html">Terms &amp; Conditions</a> |
-    <a href="privacy.html">Privacy Policy</a> |
-    <a href="refund-policy.html">Refund Policy</a>
-  </div>
   <p>© 2026 Our Wedding Day Hub</p>
 </footer>
 
