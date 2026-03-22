@@ -1,173 +1,529 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Apply | Our Wedding Day Hub</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up | Our Wedding Day Hub</title>
+  <link rel="stylesheet" href="style.css">
 
-<style>
-.page-header {
-  text-align: center;
-  max-width: 800px;
-  margin: 0 auto;
-}
+  <style>
+    .top-nav {
+      max-width: 1200px;
+      margin: 22px auto 10px auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
 
-/* APPLY BUTTON */
-.apply-button {
-  display: inline-block;
-  background: #000;
-  color: #fff;
-  padding: 18px 36px;
-  font-size: 1.3rem;
-  text-decoration: none;
-  margin: 20px auto 50px auto;
-  transition: 0.3s;
-}
+    .top-nav-left,
+    .top-nav-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
 
-.apply-button:hover {
-  transform: scale(1.05);
-}
+    .top-nav a {
+      text-decoration: none;
+      color: #2F4F2F;
+      font-size: 0.95rem;
+      transition: opacity 0.3s ease;
+    }
 
-/* PRICING */
-.pricing {
-  max-width: 1200px;
-  margin: 0 auto 60px auto;
-  text-align: center;
-}
+    .top-nav a:hover {
+      opacity: 0.7;
+    }
 
-.pricing-tiers {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-  margin-top: 40px;
-}
+    .nav-button {
+      display: inline-block;
+      background: #000;
+      color: #fff !important;
+      padding: 10px 18px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: 0.3s;
+    }
 
-/* CARDS */
-.pricing-tier {
-  padding: 25px 15px;
-  transition: 0.3s;
-}
+    .nav-button:hover {
+      transform: scale(1.05);
+      opacity: 1 !important;
+    }
 
-.pricing-tier:hover {
-  transform: translateY(-6px);
-}
+    .nav-button.outline {
+      background: transparent;
+      color: #000 !important;
+      border: 1px solid #000;
+    }
 
-/* COLOURS */
-.tier-1 { background: #f4eee8; }
-.tier-2 { background: #f0e4d6; }
-.tier-3 { background: #ead8c2; }
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+    }
 
-.tier-4 {
-  background: #D4AF37;
-  color: white;
-  box-shadow: 0 0 35px rgba(212,175,55,0.6);
-  transform: scale(1.05);
-  position: relative;
-}
+    .footer-links {
+      margin-bottom: 10px;
+    }
 
-/* BADGE */
-.badge {
-  position: absolute;
-  top: -12px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #000;
-  color: #fff;
-  font-size: 0.7rem;
-  padding: 5px 12px;
-  letter-spacing: 1px;
-}
+    .footer-links a {
+      text-decoration: none;
+      color: #2F4F2F;
+      margin: 0 8px;
+    }
 
-/* PRICE */
-.pricing-price {
-  font-size: 2.2rem;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-</style>
+    @media (max-width: 768px) {
+      .top-nav {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .top-nav-left,
+      .top-nav-right {
+        justify-content: center;
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <header>
+    <img src="images/header4.png" alt="Our Wedding Day Hub Header" style="width:100%; display:block;">
+  </header>
 
-<header class="page-header">
-  <h1>Showcase Your Business to Engaged Couples</h1>
-  <p>
-    Create your vendor profile, choose the regions you service, and share your business with couples
-    actively planning their wedding through Our Wedding Day Hub.
-  </p>
-
-  <a href="signup.html?type=vendor" class="apply-button">
-    View Plans & Create Your Vendor Account
-  </a>
-</header>
-
-<section class="pricing">
-  <h2>Vendor Pricing</h2>
-
-  <p style="margin-top:10px;">
-    <strong>One-off setup fee: $50</strong><br>
-    Includes account setup, vendor profile creation, and access to the hub.
-  </p>
-
-  <p style="margin-top:16px; max-width: 760px; margin-left: auto; margin-right: auto;">
-    Choose the monthly plan that suits your business best. As your subscription grows, you unlock
-    more space to showcase your work and expand your profile.
-  </p>
-
-  <div class="pricing-tiers">
-
-    <div class="pricing-tier tier-1">
-      <h3>Classic Listing</h3>
-      <div class="pricing-price">$4.75</div>
-      <p>/ month</p>
-      <p>Vendor info sidebar on your profile</p>
-      <p>Inquiry / Contact / Book button</p>
-      <p>Showcase 3 images</p>
-      <p>Bio limit: 500 characters</p>
-      <p><em>A lovely starting point for new vendors</em></p>
+  <nav class="top-nav">
+    <div class="top-nav-left">
+      <a href="about.html">About Us</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="contact.html">Contact Us</a>
+      <a href="terms.html">Terms &amp; Conditions</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="refund-policy.html">Refund Policy</a>
     </div>
 
-    <div class="pricing-tier tier-2">
-      <h3>Signature Spotlight</h3>
-      <div class="pricing-price">$5.95</div>
-      <p>/ month</p>
-      <p><strong>Everything in Classic Listing, plus:</strong></p>
-      <p>Showcase 5 images</p>
-      <p>Bio limit: 1,000 characters</p>
-      <p><em>Perfect for growing your presence</em></p>
+    <div class="top-nav-right">
+      <a href="signup.html" class="nav-button">Sign Up</a>
+      <a href="login.html" class="nav-button outline">Log In</a>
     </div>
+  </nav>
 
-    <div class="pricing-tier tier-3">
-      <h3>Elite Feature</h3>
-      <div class="pricing-price">$7.25</div>
-      <p>/ month</p>
-      <p><strong>Everything in Signature Spotlight, plus:</strong></p>
-      <p>Showcase 8 images</p>
-      <p>Bio limit: 1,500 characters</p>
-      <p>Highlighted placement in search results</p>
-      <p><em>Designed for vendors wanting extra visibility</em></p>
+  <main class="auth-layout">
+    <section class="auth-intro">
+      <span class="auth-kicker">Join the hub</span>
+      <h1>Create Your Account</h1>
+      <p>
+        Welcome to Our Wedding Day Hub — a beautiful space where couples can explore inspiration
+        and discover trusted wedding vendors, and where vendors can create their own profile and
+        grow their presence online.
+      </p>
+
+      <div class="auth-points">
+        <div class="auth-point">
+          <strong>For vendors</strong>
+          Create your business profile, select your categories, add the locations you service,
+          and build your presence on the hub.
+        </div>
+        <div class="auth-point">
+          <strong>For couples</strong>
+          Sign up free to save favourite vendors and start building your inspiration space.
+        </div>
+        <div class="auth-point">
+          <strong>Simple setup</strong>
+          Get started in just a few steps with a soft, easy-to-use experience designed especially for weddings.
+        </div>
+        <div class="auth-point">
+          <strong>Clear vendor access</strong>
+          Vendor accounts include a one-off setup fee and subscription options that unlock profile features.
+        </div>
+      </div>
+    </section>
+
+    <section class="auth-card spiced">
+      <h2>Sign Up</h2>
+      <p class="auth-mini-text">Choose your account type below to get started.</p>
+
+      <div class="auth-point" style="margin-bottom: 18px;">
+        <strong>Vendors</strong>
+        View pricing and plan options before continuing to payment and account setup.
+      </div>
+
+      <a href="pricing.html" class="pretty-button wide-glow" style="text-align:center; display:block; margin-bottom:16px;">
+        View Vendor Pricing
+      </a>
+
+      <form id="signupForm" class="pretty-form">
+        <label for="type">I am a:</label>
+        <select id="type" required>
+          <option value="">Select</option>
+          <option value="vendor">Vendor</option>
+          <option value="couple">Couple</option>
+        </select>
+
+        <p class="auth-switch-note">
+          Couples can create an account free. Vendors view pricing first, then continue to secure payment before account setup.
+        </p>
+
+        <label for="name">Name / Business Name:</label>
+        <input type="text" id="name" required>
+
+        <div class="field-row">
+          <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" required>
+          </div>
+          <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" minlength="6" required>
+          </div>
+        </div>
+
+        <div id="vendorFields" class="field-soft" style="display:none;">
+          <p class="small-text" style="margin-bottom: 14px;">
+            Once payment is completed, you’ll return here to finish creating your vendor account.
+          </p>
+
+          <label>Categories:</label>
+          <div id="categoryOptions" class="field-soft">
+            <strong>Photo &amp; Video</strong><br>
+            <label><input type="checkbox" value="photographer"> Photographer</label>
+            <label><input type="checkbox" value="videographer"> Videographer</label>
+            <label><input type="checkbox" value="content_creator"> Content Creator</label>
+
+            <br><br><strong>Hair &amp; Beauty</strong><br>
+            <label><input type="checkbox" value="makeup_artist"> Makeup Artist</label>
+            <label><input type="checkbox" value="hair_stylist"> Hair Stylist</label>
+            <label><input type="checkbox" value="beauty_salon"> Beauty Salon</label>
+            <label><input type="checkbox" value="spray_tan"> Spray Tanning</label>
+            <label><input type="checkbox" value="skin_aesthetics"> Skin &amp; Aesthetics</label>
+
+            <br><br><strong>Entertainment</strong><br>
+            <label><input type="checkbox" value="singer"> Singer</label>
+            <label><input type="checkbox" value="band"> Band</label>
+            <label><input type="checkbox" value="dj"> DJ</label>
+            <label><input type="checkbox" value="acoustic"> Acoustic Musician</label>
+            <label><input type="checkbox" value="violinist"> Violinist</label>
+            <label><input type="checkbox" value="saxophonist"> Saxophonist</label>
+            <label><input type="checkbox" value="harpist"> Harpist</label>
+            <label><input type="checkbox" value="mc"> MC</label>
+
+            <br><br><strong>Styling &amp; Florals</strong><br>
+            <label><input type="checkbox" value="florist"> Florist</label>
+            <label><input type="checkbox" value="stylist"> Wedding Stylist</label>
+            <label><input type="checkbox" value="event_designer"> Event Designer</label>
+            <label><input type="checkbox" value="balloon"> Balloon Stylist</label>
+            <label><input type="checkbox" value="backdrops"> Backdrops &amp; Arches</label>
+
+            <br><br><strong>Food &amp; Drink</strong><br>
+            <label><input type="checkbox" value="caterer"> Caterer</label>
+            <label><input type="checkbox" value="cake"> Wedding Cake Designer</label>
+            <label><input type="checkbox" value="dessert"> Dessert Bar</label>
+            <label><input type="checkbox" value="bar"> Mobile Bar</label>
+            <label><input type="checkbox" value="coffee"> Coffee Cart</label>
+            <label><input type="checkbox" value="food_truck"> Food Truck</label>
+
+            <br><br><strong>Venues</strong><br>
+            <label><input type="checkbox" value="venue"> Wedding Venue</label>
+            <label><input type="checkbox" value="ceremony_venue"> Ceremony Venue</label>
+            <label><input type="checkbox" value="reception_venue"> Reception Venue</label>
+            <label><input type="checkbox" value="elopement"> Elopement Location</label>
+            <label><input type="checkbox" value="outdoor"> Outdoor Venue</label>
+
+            <br><br><strong>Stationery &amp; Signage</strong><br>
+            <label><input type="checkbox" value="invitations"> Invitations</label>
+            <label><input type="checkbox" value="stationery"> Wedding Stationery</label>
+            <label><input type="checkbox" value="signage"> Signage</label>
+            <label><input type="checkbox" value="calligraphy"> Calligraphy</label>
+
+            <br><br><strong>Fashion</strong><br>
+            <label><input type="checkbox" value="bridal"> Bridal Boutique</label>
+            <label><input type="checkbox" value="bridesmaid"> Bridesmaid Dresses</label>
+            <label><input type="checkbox" value="formal"> Formal Wear</label>
+            <label><input type="checkbox" value="suits"> Suit Hire</label>
+            <label><input type="checkbox" value="designer"> Custom Designer</label>
+
+            <br><br><strong>Jewellery</strong><br>
+            <label><input type="checkbox" value="rings"> Wedding Rings</label>
+            <label><input type="checkbox" value="engagement"> Engagement Rings</label>
+            <label><input type="checkbox" value="custom_jewellery"> Custom Jewellery</label>
+
+            <br><br><strong>Transport</strong><br>
+            <label><input type="checkbox" value="cars"> Wedding Cars</label>
+            <label><input type="checkbox" value="luxury_cars"> Luxury Cars</label>
+            <label><input type="checkbox" value="vintage_cars"> Vintage Cars</label>
+            <label><input type="checkbox" value="limo"> Limousine</label>
+            <label><input type="checkbox" value="bus"> Guest Transport</label>
+
+            <br><br><strong>Experiences &amp; Unique Services</strong><br>
+            <label><input type="checkbox" value="live_painter"> Live Wedding Painter</label>
+            <label><input type="checkbox" value="photo_booth"> Photo Booth</label>
+            <label><input type="checkbox" value="audio_guestbook"> Audio Guestbook</label>
+            <label><input type="checkbox" value="wedding_content_creator"> Wedding Content Creator</label>
+
+            <br><br><strong>Planning &amp; Support</strong><br>
+            <label><input type="checkbox" value="planner"> Wedding Planner</label>
+            <label><input type="checkbox" value="coordinator"> Wedding Coordinator</label>
+            <label><input type="checkbox" value="on_day_coordinator"> On-the-day Coordinator</label>
+            <label><input type="checkbox" value="honeymoon"> Honeymoon Planner</label>
+
+            <br><br><strong>Care Services</strong><br>
+            <label><input type="checkbox" value="pet_attendant"> Pet Attendant</label>
+            <label><input type="checkbox" value="child_minder"> Child Minder / Wedding Nanny</label>
+
+            <br><br><strong>Hire &amp; Rentals</strong><br>
+            <label><input type="checkbox" value="furniture"> Furniture Hire</label>
+            <label><input type="checkbox" value="decor"> Decor Hire</label>
+            <label><input type="checkbox" value="tableware"> Tableware Hire</label>
+            <label><input type="checkbox" value="lighting"> Lighting Hire</label>
+            <label><input type="checkbox" value="marquee"> Marquee Hire</label>
+
+            <br><br><strong>Gifts &amp; Favours</strong><br>
+            <label><input type="checkbox" value="favours"> Wedding Favours</label>
+            <label><input type="checkbox" value="gifts"> Personalised Gifts</label>
+            <label><input type="checkbox" value="hampers"> Hampers</label>
+          </div>
+
+          <label>States you service:</label>
+          <div id="stateOptions" class="field-soft">
+            <label><input type="checkbox" value="Queensland"> Queensland</label>
+            <label><input type="checkbox" value="New South Wales"> New South Wales</label>
+            <label><input type="checkbox" value="Victoria"> Victoria</label>
+            <label><input type="checkbox" value="South Australia"> South Australia</label>
+            <label><input type="checkbox" value="Western Australia"> Western Australia</label>
+            <label><input type="checkbox" value="Tasmania"> Tasmania</label>
+            <label><input type="checkbox" value="Australian Capital Territory"> Australian Capital Territory</label>
+            <label><input type="checkbox" value="Northern Territory"> Northern Territory</label>
+          </div>
+
+          <label>Regions you service:</label>
+          <div id="regionOptions" class="field-soft">
+            <p class="small-text">Select states above first.</p>
+          </div>
+        </div>
+
+        <button type="submit" class="pretty-button wide-glow">Create Account</button>
+      </form>
+
+      <p id="message" class="form-message"></p>
+
+      <p class="auth-footer-text">
+        Already have an account? <a href="login.html">Log in here</a>
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-links">
+      <a href="terms.html">Terms &amp; Conditions</a> |
+      <a href="privacy.html">Privacy Policy</a> |
+      <a href="refund-policy.html">Refund Policy</a>
     </div>
+    <p>© 2026 Our Wedding Day Hub</p>
+  </footer>
 
-    <div class="pricing-tier tier-4">
-      <div class="badge">MOST POPULAR</div>
-      <h3>Platinum Prestige</h3>
-      <div class="pricing-price">$9.95</div>
-      <p>/ month</p>
-      <p><strong>Everything in Elite Feature, plus:</strong></p>
-      <p>Unlimited images</p>
-      <p>Unlimited bio characters</p>
-      <p>Priority placement in search results</p>
-      <p>Featured vendor spotlights and promotions</p>
-      <p><em>Our most complete profile experience</em></p>
-    </div>
+  <script type="module">
+    import {
+      auth,
+      db,
+      createUserWithEmailAndPassword,
+      sendEmailVerification,
+      doc,
+      setDoc,
+      serverTimestamp
+    } from './firebase.js';
 
-  </div>
-</section>
+    const signupForm = document.getElementById('signupForm');
+    const message = document.getElementById('message');
+    const typeSelect = document.getElementById('type');
+    const vendorFields = document.getElementById('vendorFields');
+    const regionOptions = document.getElementById('regionOptions');
 
-<footer>
-  <p>© 2026 Our Wedding Day Hub</p>
-</footer>
+    const urlParams = new URLSearchParams(window.location.search);
+    const isPaid = urlParams.get('paid');
+    const preselectedType = urlParams.get('type');
 
+    const vendorJoinUrl = 'https://join.ourweddingday.com.au/funnel/aah/join/';
+
+    const regionsByState = {
+      "Queensland": ["Brisbane", "Moreton Bay", "Sunshine Coast", "Gold Coast", "Ipswich", "Redland City", "Scenic Rim", "Lockyer Valley", "Toowoomba", "Noosa", "Fraser Coast", "Whitsundays", "Cairns", "Townsville"],
+      "New South Wales": ["Sydney", "Blue Mountains", "Central Coast", "Hunter", "Illawarra", "Northern Rivers", "Mid North Coast", "Byron Bay", "Southern Highlands", "Canberra Surrounds"],
+      "Victoria": ["Melbourne", "Geelong", "Mornington Peninsula", "Yarra Valley", "Ballarat", "Bendigo", "Daylesford", "Great Ocean Road"],
+      "South Australia": ["Adelaide", "Barossa", "Fleurieu Peninsula", "Adelaide Hills", "McLaren Vale"],
+      "Western Australia": ["Perth", "South West", "Peel", "Great Southern", "Margaret River"],
+      "Tasmania": ["Hobart", "Launceston", "North West", "East Coast"],
+      "Australian Capital Territory": ["Canberra"],
+      "Northern Territory": ["Darwin", "Alice Springs"]
+    };
+
+    function getSelectedStates() {
+      return Array.from(document.querySelectorAll('#stateOptions input:checked')).map(input => input.value);
+    }
+
+    function renderRegions() {
+      const selectedStates = getSelectedStates();
+      const previouslyChecked = Array.from(
+        document.querySelectorAll('#regionOptions input:checked')
+      ).map(input => input.value);
+
+      regionOptions.innerHTML = '';
+
+      if (selectedStates.length === 0) {
+        regionOptions.innerHTML = '<p class="small-text">Select states above first.</p>';
+        return;
+      }
+
+      selectedStates.forEach(state => {
+        if (!regionsByState[state]) return;
+
+        const heading = document.createElement('p');
+        heading.style.fontWeight = 'bold';
+        heading.style.margin = '12px 0 8px';
+        heading.textContent = state;
+        regionOptions.appendChild(heading);
+
+        regionsByState[state].forEach(region => {
+          const wrapper = document.createElement('label');
+          wrapper.style.display = 'block';
+          wrapper.style.marginBottom = '10px';
+          wrapper.style.fontWeight = 'normal';
+
+          const checkbox = document.createElement('input');
+          checkbox.type = 'checkbox';
+          checkbox.name = 'regions';
+          checkbox.value = region;
+          checkbox.style.width = 'auto';
+          checkbox.style.marginRight = '8px';
+
+          if (previouslyChecked.includes(region)) {
+            checkbox.checked = true;
+          }
+
+          wrapper.appendChild(checkbox);
+          wrapper.append(` ${region}`);
+          regionOptions.appendChild(wrapper);
+        });
+      });
+    }
+
+    if (preselectedType) {
+      typeSelect.value = preselectedType;
+      vendorFields.style.display = preselectedType === 'vendor' ? 'block' : 'none';
+      if (preselectedType === 'vendor') {
+        renderRegions();
+      }
+    }
+
+    typeSelect.addEventListener('change', () => {
+      if (typeSelect.value === 'vendor' && isPaid !== 'true') {
+        window.location.href = vendorJoinUrl;
+        return;
+      }
+
+      vendorFields.style.display = typeSelect.value === 'vendor' ? 'block' : 'none';
+
+      if (typeSelect.value === 'vendor') {
+        renderRegions();
+      } else {
+        regionOptions.innerHTML = '<p class="small-text">Select states above first.</p>';
+      }
+    });
+
+    document.querySelectorAll('#stateOptions input').forEach(input => {
+      input.addEventListener('change', renderRegions);
+    });
+
+    signupForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      message.textContent = '';
+
+      const type = typeSelect.value;
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim().toLowerCase();
+      const password = document.getElementById('password').value;
+
+      if (!type) {
+        message.textContent = 'Please select Vendor or Couple.';
+        return;
+      }
+
+      if (type === 'vendor' && isPaid !== 'true') {
+        message.textContent = 'Vendors are taken to pricing and payment before account setup.';
+        setTimeout(() => {
+          window.location.href = vendorJoinUrl;
+        }, 1200);
+        return;
+      }
+
+      try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        await sendEmailVerification(user);
+
+        await setDoc(doc(db, 'users', user.uid), {
+          uid: user.uid,
+          email,
+          name,
+          role: type,
+          emailVerified: false,
+          paid: type === 'vendor',
+          createdAt: serverTimestamp()
+        });
+
+        if (type === 'vendor') {
+          const selectedCategories = Array.from(
+            document.querySelectorAll('#categoryOptions input:checked')
+          ).map(input => input.value);
+
+          const selectedStates = getSelectedStates();
+
+          const selectedRegions = Array.from(
+            document.querySelectorAll('input[name="regions"]:checked')
+          ).map(input => input.value);
+
+          await setDoc(doc(db, 'vendors', user.uid), {
+            uid: user.uid,
+            businessName: name,
+            email,
+            categories: selectedCategories,
+            states: selectedStates,
+            regions: selectedRegions,
+            bio: '',
+            phone: '',
+            website: '',
+            instagram: '',
+            paidSetupFee: true,
+            subscriptionActive: true,
+            profileVisible: false,
+            accountStatus: 'active',
+            published: false,
+            createdAt: serverTimestamp()
+          });
+        }
+
+        if (type === 'couple') {
+          await setDoc(doc(db, 'couples', user.uid), {
+            uid: user.uid,
+            name,
+            email,
+            favouriteVendorIds: [],
+            visionBoard: [],
+            createdAt: serverTimestamp()
+          });
+        }
+
+        message.textContent = 'Account created! Please verify your email, then log in.';
+        signupForm.reset();
+        vendorFields.style.display = 'none';
+        regionOptions.innerHTML = '<p class="small-text">Select states above first.</p>';
+
+        setTimeout(() => {
+          window.location.href = 'login.html';
+        }, 2200);
+      } catch (error) {
+        console.error(error);
+        message.textContent = 'Error: ' + error.message;
+      }
+    });
+  </script>
 </body>
 </html>
