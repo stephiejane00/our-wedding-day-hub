@@ -413,11 +413,6 @@
     }
 
     typeSelect.addEventListener('change', () => {
-      if (typeSelect.value === 'vendor' && isPaid !== 'true') {
-        window.location.href = vendorJoinUrl;
-        return;
-      }
-
       vendorFields.style.display = typeSelect.value === 'vendor' ? 'block' : 'none';
 
       if (typeSelect.value === 'vendor') {
