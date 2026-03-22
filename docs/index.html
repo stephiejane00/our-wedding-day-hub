@@ -32,27 +32,37 @@
 .top-nav-right {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 18px;
   flex-wrap: wrap;
 }
 
 .top-nav a {
   text-decoration: none;
-  color: #000;
   font-size: 0.95rem;
   transition: all 0.3s ease;
 }
 
 .top-nav-left a {
-  padding: 8px 14px;
-  border: 1px solid #000;
-  background: #fff;
+  color: #000;
+  padding: 4px 0;
+  border: none;
+  background: transparent;
+  position: relative;
 }
 
-.top-nav-left a:hover {
+.top-nav-left a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 0;
+  height: 1px;
   background: #000;
-  color: #fff;
-  opacity: 1;
+  transition: width 0.3s ease;
+}
+
+.top-nav-left a:hover::after {
+  width: 100%;
 }
 
 .nav-button {
@@ -67,8 +77,7 @@
 }
 
 .nav-button:hover {
-  transform: scale(1.05);
-  opacity: 1 !important;
+  transform: translateY(-1px);
 }
 
 .nav-button.outline {
