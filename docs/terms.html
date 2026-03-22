@@ -2,27 +2,162 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Terms of Service - Our Wedding Day Hub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms & Conditions | Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    .top-nav {
+      max-width: 1200px;
+      margin: 22px auto 10px auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .top-nav-left,
+    .top-nav-right {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .top-nav a {
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+    }
+
+    .top-nav-left a {
+      color: #000;
+      padding: 4px 0;
+      border: none;
+      background: transparent;
+      position: relative;
+    }
+
+    .top-nav-left a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      width: 0;
+      height: 1px;
+      background: #000;
+      transition: width 0.3s ease;
+    }
+
+    .top-nav-left a:hover::after {
+      width: 100%;
+    }
+
+    .nav-button {
+      display: inline-block;
+      background: #000;
+      color: #fff !important;
+      padding: 10px 18px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      border: 1px solid #000;
+      transition: all 0.3s ease;
+    }
+
+    .nav-button:hover {
+      transform: translateY(-1px);
+    }
+
+    .nav-button.outline {
+      background: #fff;
+      color: #000 !important;
+      border: 1px solid #000;
+    }
+
+    .nav-button.outline:hover {
+      background: #000;
+      color: #fff !important;
+    }
+
+    header img {
+      width: 100%;
+      display: block;
+    }
+
+    .page-shell {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 30px 20px 60px 20px;
+    }
+
+    .page-title,
+    .page-subtitle {
+      text-align: center;
+    }
+
+    .page-title {
+      margin-bottom: 10px;
+    }
+
+    .page-subtitle {
+      max-width: 800px;
+      margin: 0 auto 30px auto;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+    }
+
+    @media (max-width: 768px) {
+      .top-nav {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .top-nav-left,
+      .top-nav-right {
+        justify-content: center;
+      }
+    }
+  </style>
 </head>
 <body>
   <header>
     <img src="images/header4.png" alt="Our Wedding Day Hub Header">
   </header>
 
+  <nav class="top-nav">
+    <div class="top-nav-left">
+      <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="contact.html">Contact Us</a>
+      <a href="terms.html">Terms &amp; Conditions</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="refund-policy.html">Refund Policy</a>
+    </div>
+
+    <div class="top-nav-right">
+      <a href="signup.html" class="nav-button">Sign Up</a>
+      <a href="login.html" class="nav-button outline">Log In</a>
+    </div>
+  </nav>
+
   <main class="page-shell">
-    <h1 class="page-title">Terms of Service</h1>
+    <h1 class="page-title">Terms &amp; Conditions</h1>
     <p class="page-subtitle">
-      Please read these Terms of Service carefully before using Our Wedding Day Hub.
+      Please read these Terms &amp; Conditions carefully before using Our Wedding Day Hub.
     </p>
 
-    <section class="auth-card" style="max-width: 900px; text-align: left;">
+    <section class="auth-card" style="max-width: 900px; text-align: left; margin: 0 auto;">
       <p><strong>Effective Date:</strong> 20 March 2026</p>
 
       <h2>1. Overview</h2>
       <p>
         Our Wedding Day Hub is an online platform designed to connect couples with wedding-related vendors and services.
-        By accessing or using this website, you agree to be bound by these Terms of Service. If you do not agree,
+        By accessing or using this website, you agree to be bound by these Terms &amp; Conditions. If you do not agree,
         please do not use the website.
       </p>
 
@@ -140,7 +275,7 @@
 
       <h2>15. Changes to These Terms</h2>
       <p>
-        We may update these Terms of Service from time to time. Updated terms will take effect once published on this page.
+        We may update these Terms &amp; Conditions from time to time. Updated terms will take effect once published on this page.
         Continued use of the website after changes are published means you accept the updated terms.
       </p>
 
@@ -152,9 +287,13 @@
 
       <h2>17. Contact</h2>
       <p>
-        If you have questions about these Terms of Service, please contact us through the contact page on the website.
+        If you have questions about these Terms &amp; Conditions, please contact us through the contact page on the website.
       </p>
     </section>
   </main>
+
+  <footer>
+    <p>© 2026 Our Wedding Day Hub</p>
+  </footer>
 </body>
 </html>
