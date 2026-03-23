@@ -6,16 +6,6 @@
   <title>Vendor Dashboard - Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    body {
-      background: #fffaf6;
-      margin: 0;
-    }
-
-    header img {
-      width: 100%;
-      display: block;
-    }
-
     .dashboard-wrap {
       max-width: 1100px;
       margin: 0 auto;
@@ -23,9 +13,6 @@
     }
 
     .dashboard-card {
-      background: #fff;
-      border: 1px solid #eee3d7;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.04);
       padding: 28px;
       margin-bottom: 24px;
     }
@@ -50,21 +37,23 @@
     }
 
     .plan-box {
-      background: #fffaf6;
-      border: 1px solid #e8ddd2;
+      background: #fffdf9;
+      border: 1px solid #ead9cf;
+      border-radius: 18px;
       padding: 16px;
       text-align: center;
+      color: #6f5f58;
     }
 
     .plan-box strong {
       display: block;
       margin-bottom: 6px;
+      color: #5e463b;
+      font-family: Garamond, serif;
+      font-size: 1.1rem;
     }
 
     .field-soft {
-      background: #fffaf6;
-      border: 1px solid #e8ddd2;
-      padding: 18px;
       margin-bottom: 18px;
     }
 
@@ -98,11 +87,13 @@
     }
 
     .dashboard-note {
-      background: #fffaf6;
-      border: 1px solid #e8ddd2;
+      background: #fffdf9;
+      border: 1px solid #ead9cf;
+      border-radius: 18px;
       padding: 16px;
       margin-top: 18px;
       line-height: 1.6;
+      color: #6f5f58;
     }
 
     @media (max-width: 900px) {
@@ -119,15 +110,15 @@
   </style>
 </head>
 <body>
-  <header>
-    <img src="images/header4.png" alt="Our Wedding Day Hub Header">
+  <header class="hero">
+    <img src="images/header4.png" alt="Our Wedding Day Hub Header" class="header-image">
   </header>
 
   <main class="dashboard-wrap">
     <section class="dashboard-card">
       <div class="dashboard-top">
         <div>
-          <span class="auth-kicker">Vendor dashboard</span>
+          <span class="auth-kicker">Vendor Dashboard</span>
           <h1 id="welcomeMessage">Loading your dashboard...</h1>
           <p id="statusText" class="auth-mini-text">Please wait while we load your account.</p>
         </div>
@@ -155,7 +146,7 @@
     </section>
 
     <section id="inactiveNotice" class="dashboard-card" style="display:none;">
-      <h2>Your subscription is inactive</h2>
+      <h2>Your Subscription Is Inactive</h2>
       <p>
         Your profile is currently hidden from couples because your monthly subscription is not active.
         You do not need to pay the $50 setup fee again. Simply renew your subscription to reactivate your account.
@@ -193,17 +184,17 @@
 
         <label>Categories:</label>
         <div id="categoryOptions" class="field-soft">
-          <strong>Photo & Video</strong><br>
+          <strong>Photo &amp; Video</strong><br>
           <label><input type="checkbox" value="photographer"> Photographer</label>
           <label><input type="checkbox" value="videographer"> Videographer</label>
           <label><input type="checkbox" value="content_creator"> Content Creator</label>
 
-          <br><br><strong>Hair & Beauty</strong><br>
+          <br><br><strong>Hair &amp; Beauty</strong><br>
           <label><input type="checkbox" value="makeup_artist"> Makeup Artist</label>
           <label><input type="checkbox" value="hair_stylist"> Hair Stylist</label>
           <label><input type="checkbox" value="beauty_salon"> Beauty Salon</label>
           <label><input type="checkbox" value="spray_tan"> Spray Tanning</label>
-          <label><input type="checkbox" value="skin_aesthetics"> Skin & Aesthetics</label>
+          <label><input type="checkbox" value="skin_aesthetics"> Skin &amp; Aesthetics</label>
 
           <br><br><strong>Entertainment</strong><br>
           <label><input type="checkbox" value="singer"> Singer</label>
@@ -215,14 +206,14 @@
           <label><input type="checkbox" value="harpist"> Harpist</label>
           <label><input type="checkbox" value="mc"> MC</label>
 
-          <br><br><strong>Styling & Florals</strong><br>
+          <br><br><strong>Styling &amp; Florals</strong><br>
           <label><input type="checkbox" value="florist"> Florist</label>
           <label><input type="checkbox" value="stylist"> Wedding Stylist</label>
           <label><input type="checkbox" value="event_designer"> Event Designer</label>
           <label><input type="checkbox" value="balloon"> Balloon Stylist</label>
-          <label><input type="checkbox" value="backdrops"> Backdrops & Arches</label>
+          <label><input type="checkbox" value="backdrops"> Backdrops &amp; Arches</label>
 
-          <br><br><strong>Food & Drink</strong><br>
+          <br><br><strong>Food &amp; Drink</strong><br>
           <label><input type="checkbox" value="caterer"> Caterer</label>
           <label><input type="checkbox" value="cake"> Wedding Cake Designer</label>
           <label><input type="checkbox" value="dessert"> Dessert Bar</label>
@@ -237,7 +228,7 @@
           <label><input type="checkbox" value="elopement"> Elopement Location</label>
           <label><input type="checkbox" value="outdoor"> Outdoor Venue</label>
 
-          <br><br><strong>Stationery & Signage</strong><br>
+          <br><br><strong>Stationery &amp; Signage</strong><br>
           <label><input type="checkbox" value="invitations"> Invitations</label>
           <label><input type="checkbox" value="stationery"> Wedding Stationery</label>
           <label><input type="checkbox" value="signage"> Signage</label>
@@ -262,13 +253,13 @@
           <label><input type="checkbox" value="limo"> Limousine</label>
           <label><input type="checkbox" value="bus"> Guest Transport</label>
 
-          <br><br><strong>Experiences & Unique Services</strong><br>
+          <br><br><strong>Experiences &amp; Unique Services</strong><br>
           <label><input type="checkbox" value="live_painter"> Live Wedding Painter</label>
           <label><input type="checkbox" value="photo_booth"> Photo Booth</label>
           <label><input type="checkbox" value="audio_guestbook"> Audio Guestbook</label>
           <label><input type="checkbox" value="wedding_content_creator"> Wedding Content Creator</label>
 
-          <br><br><strong>Planning & Support</strong><br>
+          <br><br><strong>Planning &amp; Support</strong><br>
           <label><input type="checkbox" value="planner"> Wedding Planner</label>
           <label><input type="checkbox" value="coordinator"> Wedding Coordinator</label>
           <label><input type="checkbox" value="on_day_coordinator"> On-the-day Coordinator</label>
@@ -278,20 +269,20 @@
           <label><input type="checkbox" value="pet_attendant"> Pet Attendant</label>
           <label><input type="checkbox" value="child_minder"> Child Minder / Wedding Nanny</label>
 
-          <br><br><strong>Hire & Rentals</strong><br>
+          <br><br><strong>Hire &amp; Rentals</strong><br>
           <label><input type="checkbox" value="furniture"> Furniture Hire</label>
           <label><input type="checkbox" value="decor"> Decor Hire</label>
           <label><input type="checkbox" value="tableware"> Tableware Hire</label>
           <label><input type="checkbox" value="lighting"> Lighting Hire</label>
           <label><input type="checkbox" value="marquee"> Marquee Hire</label>
 
-          <br><br><strong>Gifts & Favours</strong><br>
+          <br><br><strong>Gifts &amp; Favours</strong><br>
           <label><input type="checkbox" value="favours"> Wedding Favours</label>
           <label><input type="checkbox" value="gifts"> Personalised Gifts</label>
           <label><input type="checkbox" value="hampers"> Hampers</label>
         </div>
 
-        <label>States you service:</label>
+        <label>States You Service:</label>
         <div id="stateOptions" class="field-soft">
           <label><input type="checkbox" value="Queensland"> Queensland</label>
           <label><input type="checkbox" value="New South Wales"> New South Wales</label>
@@ -303,7 +294,7 @@
           <label><input type="checkbox" value="Northern Territory"> Northern Territory</label>
         </div>
 
-        <label>Regions you service:</label>
+        <label>Regions You Service:</label>
         <div id="regionOptions" class="field-soft">
           <p class="small-text">Select states above first.</p>
         </div>
@@ -324,6 +315,11 @@
       <p id="formMessage" class="form-message"></p>
     </section>
   </main>
+
+  <footer class="site-footer">
+    <p>© 2026 Our Wedding Day Hub</p>
+    <p>ABN 76 688 637 041 • Australia</p>
+  </footer>
 
   <script type="module">
     import {
@@ -649,9 +645,5 @@
       }
     });
   </script>
-  <footer class="site-footer">
-  <p>© 2026 Our Wedding Day Hub</p>
-  <p>ABN 76 688 637 041 • Australia</p>
-</footer>
 </body>
 </html>
