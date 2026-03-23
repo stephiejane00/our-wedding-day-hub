@@ -1499,3 +1499,32 @@ header img {
     padding: 24px;
   }
 }
+/* FIX CHECKBOX ALIGNMENT */
+.field-soft label,
+.dropdown-content-form label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-weight: normal;
+  cursor: pointer;
+}
+
+/* NORMALISE CHECKBOX SIZE */
+input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  cursor: pointer;
+}
+
+/* BLACK + WHITE CHECKBOX STYLE */
+input[type="checkbox"] {
+  accent-color: #000;
+}
+
+/* OPTIONAL: make hover feel nicer */
+.field-soft label:hover,
+.dropdown-content-form label:hover {
+  opacity: 0.75;
+}
