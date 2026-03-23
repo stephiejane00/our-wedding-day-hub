@@ -1535,3 +1535,19 @@ input[type="checkbox"] {
 #regionOptions label:hover {
   opacity: 0.8;
 }
+/* =========================
+   FOOTER
+========================= */
+.site-footer {
+  margin-top: auto;
+  width: 100%;
+  text-align: center;
+  padding: 20px 10px;
+  font-family: "Trebuchet MS", sans-serif;
+  font-size: 14px;
+  color: #444;
+}
+
+.site-footer p {
+  margin: 4px 0;
+}
