@@ -212,7 +212,6 @@ footer {
 <header class="hero">
   <img src="images/header4.png" alt="Our Wedding Day Hub" class="header-image">
 </header>
-
 <nav class="top-nav">
   <a href="index.html">Home</a>
   <a href="about.html">Our Story</a>
@@ -228,8 +227,19 @@ footer {
     </div>
   </div>
 
-  <a href="signup.html" class="nav-cta">Join</a>
-  <a href="login.html">Log In</a>
+  <div id="guestNav">
+    <a href="signup.html" class="nav-cta">Join</a>
+    <a href="login.html">Log In</a>
+  </div>
+
+  <div id="accountNav" class="dropdown" style="display:none;">
+    <a href="#" id="accountLabel">My Account ▾</a>
+    <div class="dropdown-content">
+      <a id="dashboardLink" href="vendor-dashboard.html">Dashboard</a>
+      <a id="profileLink" href="vendor-dashboard.html">Edit Profile</a>
+      <a href="#" id="logoutNavBtn">Log Out</a>
+    </div>
+  </div>
 </nav>
 
 <section class="home-intro">
