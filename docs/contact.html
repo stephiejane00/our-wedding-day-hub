@@ -5,264 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Enquiries | Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css">
-  <style>
-    body {
-      background-color: #fefbf7;
-      color: #000;
-      margin: 0;
-      font-family: "Trebuchet MS", sans-serif;
-    }
-
-    .top-nav {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 28px;
-      padding: 18px 20px;
-      background: #fefbf7;
-      border-bottom: 1px solid #e8ddd2;
-      flex-wrap: wrap;
-    }
-
-    .top-nav a {
-      text-decoration: none;
-      color: #111;
-      font-size: 0.95rem;
-      letter-spacing: 0.5px;
-      transition: 0.25s;
-      position: relative;
-      font-family: "Trebuchet MS", sans-serif;
-    }
-
-    .top-nav a::after {
-      content: "";
-      position: absolute;
-      width: 0;
-      height: 1px;
-      bottom: -4px;
-      left: 0;
-      background: #000;
-      transition: width 0.25s;
-    }
-
-    .top-nav a:hover::after {
-      width: 100%;
-    }
-
-    .nav-cta {
-      background: #000;
-      color: #fff !important;
-      padding: 8px 16px;
-      border-radius: 3px;
-    }
-
-    .nav-cta:hover {
-      background: #333;
-    }
-
-    .dropdown {
-      position: relative;
-    }
-
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      top: 28px;
-      left: 0;
-      background: #fefbf7;
-      min-width: 220px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-      padding: 10px 0;
-      z-index: 100;
-      border: 1px solid #e8ddd2;
-    }
-
-    .dropdown-content a {
-      display: block;
-      padding: 10px 16px;
-      font-size: 0.9rem;
-      white-space: nowrap;
-    }
-
-    .dropdown-content a:hover {
-      background: #f4eee8;
-    }
-
-    .dropdown:hover .dropdown-content {
-      display: block;
-    }
-
-    .hero {
-      width: 100%;
-      text-align: center;
-      margin-bottom: 0;
-    }
-
-    .hero img {
-      width: 100%;
-      max-width: 1200px;
-      height: auto;
-      display: block;
-      margin: 0 auto;
-    }
-
-    .page-header {
-      text-align: center;
-      padding: 40px 20px 10px;
-    }
-
-    .page-header h1 {
-      font-family: Garamond, serif;
-      font-size: 2.8rem;
-      font-weight: 500;
-      color: #111;
-      margin: 0 0 10px;
-      letter-spacing: 0.5px;
-    }
-
-    .page-header p {
-      font-family: "Trebuchet MS", sans-serif;
-      font-size: 1rem;
-      color: #666;
-      margin: 0;
-      line-height: 1.6;
-    }
-
-    .vendor-info {
-      width: 100%;
-      max-width: 760px;
-      margin: 35px auto 60px;
-      padding: 0 20px;
-      box-sizing: border-box;
-    }
-
-    form {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      background: #fffaf6;
-      padding: 32px;
-      border-radius: 14px;
-      border: 1px solid #eadfd4;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
-      box-sizing: border-box;
-    }
-
-    .form-group {
-      flex: 1 1 100%;
-      position: relative;
-    }
-
-    @media (min-width: 600px) {
-      .form-group.half {
-        flex: 1 1 calc(50% - 10px);
-      }
-    }
-
-    label {
-      position: absolute;
-      top: 12px;
-      left: 14px;
-      color: #888;
-      font-size: 0.92rem;
-      pointer-events: none;
-      transition: 0.2s all;
-      background: #fffaf6;
-      padding: 0 4px;
-      font-family: "Trebuchet MS", sans-serif;
-    }
-
-    input,
-    textarea {
-      width: 100%;
-      padding: 14px;
-      border: 1px solid #d8ccc0;
-      border-radius: 8px;
-      font-size: 0.95rem;
-      box-sizing: border-box;
-      background: #fff;
-      color: #111;
-      font-family: "Trebuchet MS", sans-serif;
-    }
-
-    input:focus,
-    textarea:focus {
-      outline: none;
-      border-color: #b9a18b;
-    }
-
-    input:focus + label,
-    input:not(:placeholder-shown) + label,
-    textarea:focus + label,
-    textarea:not(:placeholder-shown) + label {
-      top: -10px;
-      left: 10px;
-      font-size: 0.8rem;
-      color: #111;
-    }
-
-    button.send-btn {
-      margin-top: 10px;
-      padding: 15px;
-      background-color: #000;
-      color: #fff;
-      font-size: 0.95rem;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      width: 100%;
-      transition: 0.3s;
-      font-family: "Trebuchet MS", sans-serif;
-    }
-
-    button.send-btn:hover {
-      opacity: 0.9;
-    }
-
-    .success-msg {
-      display: none;
-      margin-top: 10px;
-      color: #111;
-      font-weight: 500;
-      text-align: center;
-      width: 100%;
-      font-family: "Trebuchet MS", sans-serif;
-    }
-
-    .site-footer {
-      margin-top: auto;
-      width: 100%;
-      text-align: center;
-      padding: 20px 10px 30px;
-      font-family: "Trebuchet MS", sans-serif;
-      font-size: 14px;
-      color: #444;
-      box-sizing: border-box;
-    }
-
-    .site-footer p {
-      margin: 4px 0;
-    }
-
-    @media (max-width: 768px) {
-      .top-nav {
-        gap: 16px;
-      }
-
-      .page-header h1 {
-        font-size: 2.2rem;
-      }
-
-      form {
-        padding: 22px;
-      }
-    }
-  </style>
 </head>
 <body>
 
   <header class="hero">
-    <img src="images/header4.png" alt="Our Wedding Day Hub">
+    <img src="images/header4.png" alt="Our Wedding Day Hub" class="header-image">
   </header>
 
   <nav class="top-nav">
@@ -284,31 +31,33 @@
     <a href="login.html">Log In</a>
   </nav>
 
-  <section class="page-header">
-    <h1>Enquiries</h1>
-    <p>Have questions or need help? We’d love to hear from you.</p>
-  </section>
+  <section class="contact-page">
+    <div class="contact-header">
+      <h1>Enquiries</h1>
+      <p>Have questions or need help? We’d love to hear from you.</p>
+    </div>
 
-  <section class="vendor-info">
-    <form id="contact-form">
-      <div class="form-group half">
-        <input type="text" id="name" placeholder=" " required>
-        <label for="name">Your Name</label>
-      </div>
+    <div class="contact-form-wrap">
+      <form id="contact-form" class="contact-form">
+        <div class="form-group half">
+          <input type="text" id="name" placeholder=" " required>
+          <label for="name">Your Name</label>
+        </div>
 
-      <div class="form-group half">
-        <input type="email" id="email" placeholder=" " required>
-        <label for="email">Email</label>
-      </div>
+        <div class="form-group half">
+          <input type="email" id="email" placeholder=" " required>
+          <label for="email">Email</label>
+        </div>
 
-      <div class="form-group">
-        <textarea id="message" rows="6" placeholder=" " required></textarea>
-        <label for="message">Message</label>
-      </div>
+        <div class="form-group">
+          <textarea id="message" placeholder=" " required></textarea>
+          <label for="message">Message</label>
+        </div>
 
-      <button type="submit" class="send-btn">Send Message</button>
-      <p class="success-msg">Message sent. Thank you.</p>
-    </form>
+        <button type="submit" class="contact-submit">Send Message</button>
+        <p class="contact-success">Message sent. Thank you.</p>
+      </form>
+    </div>
   </section>
 
   <footer class="site-footer">
@@ -320,7 +69,7 @@
     document.getElementById('contact-form').addEventListener('submit', function(e) {
       e.preventDefault();
       this.reset();
-      document.querySelector('.success-msg').style.display = 'block';
+      document.querySelector('.contact-success').style.display = 'block';
     });
   </script>
 
