@@ -3,82 +3,85 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sign Up | Our Wedding Day Hub</title>
+  <title>Join | Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css">
 
   <style>
     .top-nav {
-      max-width: 1200px;
-      margin: 22px auto 10px auto;
-      padding: 0 20px;
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    .top-nav-left,
-    .top-nav-right {
-      display: flex;
-      align-items: center;
-      gap: 18px;
+      gap: 28px;
+      padding: 18px 20px;
+      background: #fff;
+      border-bottom: 1px solid #eee;
       flex-wrap: wrap;
     }
 
     .top-nav a {
       text-decoration: none;
+      color: #111;
       font-size: 0.95rem;
-      transition: all 0.3s ease;
-    }
-
-    .top-nav-left a {
-      color: #000;
-      padding: 4px 0;
-      border: none;
-      background: transparent;
+      letter-spacing: 0.5px;
+      transition: 0.25s;
       position: relative;
     }
 
-    .top-nav-left a::after {
+    .top-nav a::after {
       content: "";
       position: absolute;
-      left: 0;
-      bottom: -3px;
       width: 0;
       height: 1px;
+      bottom: -4px;
+      left: 0;
       background: #000;
-      transition: width 0.3s ease;
+      transition: width 0.25s;
     }
 
-    .top-nav-left a:hover::after {
+    .top-nav a:hover::after {
       width: 100%;
     }
 
-    .nav-button {
-      display: inline-block;
+    .nav-cta {
       background: #000;
       color: #fff !important;
-      padding: 10px 18px;
-      text-decoration: none;
-      font-size: 0.9rem;
-      border: 1px solid #000;
-      transition: all 0.3s ease;
+      padding: 8px 16px;
+      border-radius: 3px;
     }
 
-    .nav-button:hover {
-      transform: translateY(-1px);
+    .nav-cta:hover {
+      background: #333;
     }
 
-    .nav-button.outline {
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 28px;
+      left: 0;
       background: #fff;
-      color: #000 !important;
-      border: 1px solid #000;
+      min-width: 220px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+      padding: 10px 0;
+      z-index: 100;
     }
 
-    .nav-button.outline:hover {
-      background: #000;
-      color: #fff !important;
+    .dropdown-content a {
+      display: block;
+      padding: 10px 16px;
+      font-size: 0.9rem;
+      white-space: nowrap;
+    }
+
+    .dropdown-content a:hover {
+      background: #f7f7f7;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
     }
 
     .signup-dropdown {
@@ -113,12 +116,12 @@
       content: '–';
     }
 
-    .dropdown-content {
+    .dropdown-content-form {
       padding: 0 16px 16px 16px;
       border-top: 1px solid #e8dfd4;
     }
 
-    .dropdown-content label {
+    .dropdown-content-form label {
       display: block;
       margin-bottom: 10px;
     }
@@ -140,13 +143,7 @@
 
     @media (max-width: 768px) {
       .top-nav {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .top-nav-left,
-      .top-nav-right {
-        justify-content: center;
+        gap: 16px;
       }
     }
   </style>
@@ -157,20 +154,22 @@
   </header>
 
   <nav class="top-nav">
-    <div class="top-nav-left">
-      <a href="index.html">Home</a>
-      <a href="about.html">About Us</a>
-      <a href="pricing.html">Pricing</a>
-      <a href="contact.html">Contact Us</a>
-      <a href="terms.html">Terms &amp; Conditions</a>
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="refund-policy.html">Refund Policy</a>
+    <a href="index.html">Home</a>
+    <a href="about.html">Our Story</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="contact.html">Enquiries</a>
+
+    <div class="dropdown">
+      <a href="#">Legal ▾</a>
+      <div class="dropdown-content">
+        <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="refund-policy.html">Refund Policy</a>
+      </div>
     </div>
 
-    <div class="top-nav-right">
-      <a href="signup.html" class="nav-button">Sign Up</a>
-      <a href="login.html" class="nav-button outline">Log In</a>
-    </div>
+    <a href="signup.html" class="nav-cta">Join</a>
+    <a href="login.html">Log In</a>
   </nav>
 
   <main class="auth-layout">
@@ -178,7 +177,7 @@
       <span class="auth-kicker">Join the hub</span>
       <h1>Create Your Account</h1>
       <p>
-        Welcome to Our Wedding Day Hub — a beautiful space where couples can explore inspiration
+        Welcome to Our Wedding Day Hub, a beautiful space where couples can explore inspiration
         and discover trusted wedding vendors, and where vendors can create their own profile and
         grow their presence online.
       </p>
@@ -205,7 +204,7 @@
     </section>
 
     <section class="auth-card spiced">
-      <h2>Sign Up</h2>
+      <h2>Join</h2>
       <p class="auth-mini-text">Choose your account type below to get started.</p>
 
       <div class="auth-point" style="margin-bottom: 18px;">
@@ -250,7 +249,7 @@
 
           <details class="signup-dropdown">
             <summary>Categories</summary>
-            <div id="categoryOptions" class="dropdown-content">
+            <div id="categoryOptions" class="dropdown-content-form">
               <div class="category-group-title">Photo &amp; Video</div>
               <label><input type="checkbox" value="photographer"> Photographer</label>
               <label><input type="checkbox" value="videographer"> Videographer</label>
@@ -352,7 +351,7 @@
 
           <details class="signup-dropdown">
             <summary>States You Service</summary>
-            <div id="stateOptions" class="dropdown-content">
+            <div id="stateOptions" class="dropdown-content-form">
               <label><input type="checkbox" value="Queensland"> Queensland</label>
               <label><input type="checkbox" value="New South Wales"> New South Wales</label>
               <label><input type="checkbox" value="Victoria"> Victoria</label>
@@ -366,7 +365,7 @@
 
           <details class="signup-dropdown">
             <summary>Regions You Service</summary>
-            <div id="regionOptions" class="dropdown-content">
+            <div id="regionOptions" class="dropdown-content-form">
               <p class="small-text">Select states above first.</p>
             </div>
           </details>
