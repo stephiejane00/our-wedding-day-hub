@@ -1,31 +1,26 @@
 import { auth, onAuthStateChanged, signOut } from './firebase.js';
 
-function updateNavForUser(user) {
-  const authArea = document.getElementById('navAuthArea');
-  if (!authArea) return;
+onAuthStateChanged(auth, (user) => {
+  const navAuthArea = document.getElementById('navAuthArea');
+  if (!navAuthArea) return;
 
   if (user) {
-    authArea.innerHTML = `
+    navAuthArea.innerHTML = `
       <a href="vendor-dashboard.html">Dashboard</a>
-      <a href="#" id="logoutLink" class="nav-cta">Log Out</a>
+      <a href="#" id="logoutBtn" class="nav-cta">Log Out</a>
     `;
 
-    const logoutLink = document.getElementById('logoutLink');
-    if (logoutLink) {
-      logoutLink.addEventListener('click', async (e) => {
-        e.preventDefault();
-        await signOut(auth);
-        window.location.href = 'index.html';
-      });
-    }
+    const logoutBtn = document.getElementById('logoutBtn');
+    logoutBtn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      await signOut(auth);
+      window.location.href = 'index.html';
+    });
+
   } else {
-    authArea.innerHTML = `
+    navAuthArea.innerHTML = `
       <a href="signup.html" class="nav-cta">Join</a>
       <a href="login.html">Log In</a>
     `;
   }
-}
-
-onAuthStateChanged(auth, (user) => {
-  updateNavForUser(user);
 });
