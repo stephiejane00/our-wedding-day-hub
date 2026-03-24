@@ -96,6 +96,59 @@
       color: #6f5f58;
     }
 
+    .image-upload-box {
+      background: #fffdf9;
+      border: 1px solid #ead9cf;
+      border-radius: 18px;
+      padding: 16px;
+      margin-bottom: 18px;
+    }
+
+    .image-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .image-card {
+      background: #fff;
+      border: 1px solid #ead9cf;
+      border-radius: 16px;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .image-card img {
+      width: 100%;
+      height: 130px;
+      object-fit: cover;
+      border-radius: 12px;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .remove-image-btn {
+      width: 100%;
+      border: none;
+      border-radius: 999px;
+      padding: 8px 12px;
+      cursor: pointer;
+      background: #ead9cf;
+      color: #5e463b;
+      font-family: inherit;
+    }
+
+    .remove-image-btn:hover {
+      opacity: 0.92;
+    }
+
+    .upload-note {
+      margin-top: 10px;
+      font-size: 0.9rem;
+      color: #777;
+    }
+
     @media (max-width: 900px) {
       .plan-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -299,6 +352,13 @@
           <p class="small-text">Select states above first.</p>
         </div>
 
+        <label for="vendorImages">Business Images:</label>
+        <div class="image-upload-box">
+          <input type="file" id="vendorImages" accept="image/png, image/jpeg, image/jpg, image/webp" multiple>
+          <p id="imageLimitNote" class="upload-note">Image limit loading...</p>
+          <div id="imagePreview" class="image-grid"></div>
+        </div>
+
         <label class="publish-toggle">
           <input type="checkbox" id="published">
           Make my profile live on the hub
@@ -328,6 +388,16 @@
       serverTimestamp
     } from './firebase.js';
 
+    import {
+      getStorage,
+      ref,
+      uploadBytes,
+      getDownloadURL,
+      deleteObject
+    } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js';
+
+    const storage = getStorage();
+
     const welcomeMessage = document.getElementById('welcomeMessage');
     const statusText = document.getElementById('statusText');
     const inactiveNotice = document.getElementById('inactiveNotice');
@@ -344,6 +414,10 @@
     const instagramInput = document.getElementById('instagram');
     const publishedInput = document.getElementById('published');
 
+    const imageInput = document.getElementById('vendorImages');
+    const imagePreview = document.getElementById('imagePreview');
+    const imageLimitNote = document.getElementById('imageLimitNote');
+
     const planGrid = document.getElementById('planGrid');
     const planNameDisplay = document.getElementById('planNameDisplay');
     const imageLimitDisplay = document.getElementById('imageLimitDisplay');
@@ -354,6 +428,10 @@
     let currentUser = null;
     let currentVendorData = null;
     let currentBioLimit = 1200;
+    let currentImageLimit = 3;
+
+    let existingImageUrls = [];
+    let newImageFiles = [];
 
     const planDefaults = {
       "Classic Listing": {
@@ -489,6 +567,95 @@
       }
     }
 
+    function updateImageLimitDisplay() {
+      const totalImages = existingImageUrls.length + newImageFiles.length;
+      imageLimitNote.textContent = currentImageLimit >= 9999
+        ? `${totalImages} image(s) selected`
+        : `${totalImages} / ${currentImageLimit} images selected`;
+    }
+
+    function renderImagePreview() {
+      imagePreview.innerHTML = '';
+
+      existingImageUrls.forEach((url, index) => {
+        const card = document.createElement('div');
+        card.className = 'image-card';
+
+        const img = document.createElement('img');
+        img.src = url;
+        img.alt = 'Saved vendor image';
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'remove-image-btn';
+        btn.textContent = 'Remove';
+        btn.addEventListener('click', () => {
+          existingImageUrls.splice(index, 1);
+          renderImagePreview();
+        });
+
+        card.appendChild(img);
+        card.appendChild(btn);
+        imagePreview.appendChild(card);
+      });
+
+      newImageFiles.forEach((file, index) => {
+        const card = document.createElement('div');
+        card.className = 'image-card';
+
+        const img = document.createElement('img');
+        img.src = URL.createObjectURL(file);
+        img.alt = file.name;
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'remove-image-btn';
+        btn.textContent = 'Remove';
+        btn.addEventListener('click', () => {
+          newImageFiles.splice(index, 1);
+          renderImagePreview();
+        });
+
+        card.appendChild(img);
+        card.appendChild(btn);
+        imagePreview.appendChild(card);
+      });
+
+      updateImageLimitDisplay();
+    }
+
+    function getSafeFileName(fileName) {
+      return fileName.replace(/[^a-zA-Z0-9.-]/g, '_');
+    }
+
+    async function uploadNewImages() {
+      const uploadedUrls = [];
+
+      for (const file of newImageFiles) {
+        const timestamp = Date.now();
+        const safeName = getSafeFileName(file.name);
+        const storageRef = ref(storage, `vendors/${currentUser.uid}/${timestamp}-${safeName}`);
+        await uploadBytes(storageRef, file);
+        const downloadURL = await getDownloadURL(storageRef);
+        uploadedUrls.push(downloadURL);
+      }
+
+      return uploadedUrls;
+    }
+
+    async function deleteRemovedImages(oldUrls, newUrls) {
+      const removedUrls = oldUrls.filter(url => !newUrls.includes(url));
+
+      for (const url of removedUrls) {
+        try {
+          const imageRef = ref(storage, url);
+          await deleteObject(imageRef);
+        } catch (error) {
+          console.warn('Could not delete old image from storage:', error);
+        }
+      }
+    }
+
     logoutBtn.addEventListener('click', async () => {
       await signOut(auth);
       window.location.href = 'login.html';
@@ -499,6 +666,35 @@
     });
 
     bioInput.addEventListener('input', updateBioLimitDisplay);
+
+    imageInput.addEventListener('change', () => {
+      const selectedFiles = Array.from(imageInput.files || []);
+      const validFiles = selectedFiles.filter(file =>
+        ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'].includes(file.type)
+      );
+
+      const maxAllowed = currentImageLimit >= 9999
+        ? 999999
+        : currentImageLimit - existingImageUrls.length - newImageFiles.length;
+
+      if (maxAllowed <= 0) {
+        formMessage.textContent = `You have reached your image limit for this plan.`;
+        imageInput.value = '';
+        return;
+      }
+
+      const filesToAdd = validFiles.slice(0, maxAllowed);
+
+      if (filesToAdd.length < validFiles.length) {
+        formMessage.textContent = `Only ${maxAllowed} more image(s) can be added on your current plan.`;
+      } else {
+        formMessage.textContent = '';
+      }
+
+      newImageFiles.push(...filesToAdd);
+      imageInput.value = '';
+      renderImagePreview();
+    });
 
     onAuthStateChanged(auth, async (user) => {
       if (!user) {
@@ -529,6 +725,7 @@
 
         const planSettings = getVendorPlanSettings(vendorData);
         currentBioLimit = planSettings.bioCharacterLimit;
+        currentImageLimit = planSettings.imageLimit;
         bioInput.maxLength = currentBioLimit;
 
         planNameDisplay.textContent = planSettings.planName;
@@ -558,10 +755,14 @@
         instagramInput.value = vendorData.instagram || '';
         publishedInput.checked = vendorData.published === true;
 
+        existingImageUrls = Array.isArray(vendorData.images) ? vendorData.images : [];
+        newImageFiles = [];
+
         setCheckedValues('#categoryOptions', vendorData.categories || []);
         setCheckedValues('#stateOptions', vendorData.states || []);
         renderRegions(vendorData.regions || []);
         updateBioLimitDisplay();
+        renderImagePreview();
       } catch (error) {
         console.error(error);
         welcomeMessage.textContent = 'There was a problem loading your dashboard.';
@@ -598,9 +799,21 @@
         return;
       }
 
+      const totalImages = existingImageUrls.length + newImageFiles.length;
+      if (currentImageLimit < 9999 && totalImages > currentImageLimit) {
+        formMessage.textContent = `Your plan allows up to ${currentImageLimit} images.`;
+        return;
+      }
+
+      const oldSavedImages = Array.isArray(currentVendorData.images) ? currentVendorData.images : [];
       const updatedProfileVisible = currentVendorData.subscriptionActive === true ? published : false;
 
       try {
+        formMessage.textContent = 'Saving your changes...';
+
+        const uploadedUrls = await uploadNewImages();
+        const finalImages = [...existingImageUrls, ...uploadedUrls];
+
         await setDoc(doc(db, 'vendors', currentUser.uid), {
           ...currentVendorData,
           uid: currentUser.uid,
@@ -612,10 +825,13 @@
           categories,
           states,
           regions,
+          images: finalImages,
           published,
           profileVisible: updatedProfileVisible,
           updatedAt: serverTimestamp()
         });
+
+        await deleteRemovedImages(oldSavedImages, finalImages);
 
         currentVendorData = {
           ...currentVendorData,
@@ -627,12 +843,17 @@
           categories,
           states,
           regions,
+          images: finalImages,
           published,
           profileVisible: updatedProfileVisible
         };
 
+        existingImageUrls = finalImages;
+        newImageFiles = [];
+
         welcomeMessage.textContent = `Welcome, ${businessName || 'Vendor'}!`;
         updateBioLimitDisplay();
+        renderImagePreview();
         formMessage.textContent = 'Your changes have been saved.';
       } catch (error) {
         console.error(error);
