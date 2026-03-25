@@ -378,6 +378,7 @@
 
   <script type="module">
     import {
+      app,
       auth,
       db,
       signOut,
@@ -394,9 +395,9 @@
       uploadBytes,
       getDownloadURL,
       deleteObject
-    } from 'https://www.gstatic.com/firebasejs/10.12.1/firebase-storage.js';
+    } from 'https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js';
 
-    const storage = getStorage();
+    const storage = getStorage(app);
 
     const welcomeMessage = document.getElementById('welcomeMessage');
     const statusText = document.getElementById('statusText');
