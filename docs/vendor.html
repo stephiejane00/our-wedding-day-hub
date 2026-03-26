@@ -93,12 +93,6 @@
       display: block;
     }
 
-    .vendor-page {
-      max-width: 1180px;
-      margin: 36px auto 70px;
-      padding: 0 20px;
-    }
-
     .status-message {
       max-width: 700px;
       margin: 50px auto;
@@ -107,9 +101,28 @@
       color: #6f5f58;
     }
 
+    .vendor-page {
+      max-width: 1180px;
+      margin: 36px auto 70px;
+      padding: 0 20px;
+    }
+
     .vendor-top {
       text-align: center;
       margin-bottom: 28px;
+    }
+
+    .vendor-logo {
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+      display: none;
+      margin: 0 auto 18px;
+      border-radius: 18px;
+      background: #fff;
+      padding: 10px;
+      border: 1px solid #eadfd5;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.06);
     }
 
     .vendor-top h1 {
@@ -122,22 +135,10 @@
       margin-bottom: 18px;
     }
 
-    .vendor-logo {
-      width: 120px;
-      height: 120px;
-      object-fit: contain;
-      display: none;
-      margin: 0 auto 18px;
-      border-radius: 16px;
-      background: #fff;
-      padding: 10px;
-      border: 1px solid #eadfd5;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.06);
-    }
-
     .top-gallery-wrap {
       position: relative;
       margin-bottom: 34px;
+      display: none;
     }
 
     .top-gallery-main {
@@ -206,13 +207,13 @@
 
     .vendor-grid {
       display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
+      grid-template-columns: 1.1fr 0.9fr;
       gap: 26px;
       margin-bottom: 28px;
     }
 
     .pretty-panel {
-      background: #fffcf7;
+      background: #fffcf8;
       border: 1px solid #efe3d6;
       border-radius: 18px;
       padding: 26px;
@@ -230,13 +231,9 @@
     }
 
     .pretty-panel p,
-    .pretty-panel li {
+    .pretty-panel li,
+    .pretty-panel div {
       line-height: 1.75;
-    }
-
-    .pretty-panel ul {
-      margin: 0;
-      padding-left: 18px;
     }
 
     .detail-line {
@@ -259,28 +256,9 @@
       font-size: 0.92rem;
     }
 
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 18px;
-    }
-
-    .gallery-grid img {
-      width: 100%;
-      height: 240px;
-      object-fit: cover;
-      border-radius: 12px;
-      display: block;
-      background: #f6efe8;
-    }
-
     .vendor-link {
       color: #111;
       word-break: break-word;
-    }
-
-    .muted {
-      color: #7b6a61;
     }
 
     @media (max-width: 900px) {
@@ -354,7 +332,7 @@
     <div id="vendorMeta" class="vendor-meta"></div>
   </div>
 
-  <section id="topGalleryWrap" class="top-gallery-wrap" style="display:none;">
+  <section id="topGalleryWrap" class="top-gallery-wrap">
     <button class="gallery-arrow left" id="galleryPrevBtn" type="button">&#10094;</button>
     <img id="vendorMainImage" class="top-gallery-main" src="" alt="Vendor image">
     <button class="gallery-arrow right" id="galleryNextBtn" type="button">&#10095;</button>
@@ -362,56 +340,62 @@
   </section>
 
   <section class="vendor-grid">
-    <div class="pretty-panel">
+    <div id="aboutSection" class="pretty-panel" style="display:none;">
       <h2>About</h2>
-      <p id="vendorBio"></p>
 
-      <h3>What makes this business unique</h3>
-      <p id="vendorUnique"></p>
+      <div id="bioRow">
+        <p id="vendorBio"></p>
+      </div>
 
-      <h3>Why couples choose them</h3>
-      <p id="vendorWhyChoose"></p>
+      <div id="uniqueRow" style="display:none;">
+        <h3>What makes this business unique</h3>
+        <p id="vendorUnique"></p>
+      </div>
 
-      <h3>What’s included</h3>
-      <p id="vendorIncluded"></p>
+      <div id="whyChooseRow" style="display:none;">
+        <h3>Why couples choose them</h3>
+        <p id="vendorWhyChoose"></p>
+      </div>
+
+      <div id="includedRow" style="display:none;">
+        <h3>What’s included</h3>
+        <p id="vendorIncluded"></p>
+      </div>
     </div>
 
-    <div class="pretty-panel">
+    <div id="detailsSection" class="pretty-panel" style="display:none;">
       <h2>Details</h2>
 
-      <div class="detail-line"><strong>Business Name:</strong> <span id="detailBusinessName"></span></div>
-      <div class="detail-line"><strong>ABN:</strong> <span id="vendorAbn"></span></div>
-      <div class="detail-line"><strong>Contact Name:</strong> <span id="vendorContactName"></span></div>
-      <div class="detail-line"><strong>Phone:</strong> <span id="vendorPhone"></span></div>
-      <div class="detail-line"><strong>Email:</strong> <span id="vendorEmail"></span></div>
-      <div class="detail-line"><strong>Website:</strong> <span id="vendorWebsite"></span></div>
-      <div class="detail-line"><strong>Instagram / Social:</strong> <span id="vendorInstagram"></span></div>
-      <div class="detail-line"><strong>Address:</strong> <span id="vendorAddress"></span></div>
-      <div class="detail-line"><strong>Service Areas:</strong> <span id="vendorServiceAreas"></span></div>
-      <div class="detail-line"><strong>Venue Type:</strong> <span id="vendorVenueType"></span></div>
-      <div class="detail-line"><strong>Venue Capacity:</strong> <span id="vendorCapacity"></span></div>
-      <div class="detail-line"><strong>Ceremony Options:</strong> <span id="vendorCeremonyOptions"></span></div>
-      <div class="detail-line"><strong>Reception Options:</strong> <span id="vendorReceptionOptions"></span></div>
-      <div class="detail-line"><strong>Elopements Available:</strong> <span id="vendorElopements"></span></div>
-      <div class="detail-line"><strong>Accommodation Onsite:</strong> <span id="vendorAccommodation"></span></div>
-      <div class="detail-line"><strong>Starting Price:</strong> <span id="vendorStartingPrice"></span></div>
-      <div class="detail-line"><strong>Price Range:</strong> <span id="vendorPriceRange"></span></div>
-      <div class="detail-line"><strong>Packages Available:</strong> <span id="vendorPackagesAvailable"></span></div>
-      <div class="detail-line"><strong>Booking Lead Time:</strong> <span id="vendorLeadTime"></span></div>
-      <div class="detail-line"><strong>Peak Season:</strong> <span id="vendorPeakSeason"></span></div>
-      <div class="detail-line"><strong>Last-Minute Bookings:</strong> <span id="vendorLastMinute"></span></div>
-      <div class="detail-line"><strong>Direct Email Enquiries:</strong> <span id="vendorDirectEmailEnquiries"></span></div>
-      <div class="detail-line"><strong>Leads via Dashboard:</strong> <span id="vendorDashboardLeads"></span></div>
-      <div class="detail-line"><strong>Auto-response Enabled:</strong> <span id="vendorAutoResponse"></span></div>
+      <div id="businessNameRow" class="detail-line"><strong>Business Name:</strong> <span id="detailBusinessName"></span></div>
+      <div id="abnRow" class="detail-line"><strong>ABN:</strong> <span id="vendorAbn"></span></div>
+      <div id="contactNameRow" class="detail-line"><strong>Contact Name:</strong> <span id="vendorContactName"></span></div>
+      <div id="phoneRow" class="detail-line"><strong>Phone:</strong> <span id="vendorPhone"></span></div>
+      <div id="emailRow" class="detail-line"><strong>Email:</strong> <span id="vendorEmail"></span></div>
+      <div id="websiteRow" class="detail-line"><strong>Website:</strong> <span id="vendorWebsite"></span></div>
+      <div id="instagramRow" class="detail-line"><strong>Instagram / Social:</strong> <span id="vendorInstagram"></span></div>
+      <div id="addressRow" class="detail-line"><strong>Address:</strong> <span id="vendorAddress"></span></div>
+      <div id="serviceAreasRow" class="detail-line"><strong>Service Areas:</strong> <span id="vendorServiceAreas"></span></div>
+      <div id="venueTypeRow" class="detail-line"><strong>Venue Type:</strong> <span id="vendorVenueType"></span></div>
+      <div id="capacityRow" class="detail-line"><strong>Venue Capacity:</strong> <span id="vendorCapacity"></span></div>
+      <div id="ceremonyRow" class="detail-line"><strong>Ceremony Options:</strong> <span id="vendorCeremonyOptions"></span></div>
+      <div id="receptionRow" class="detail-line"><strong>Reception Options:</strong> <span id="vendorReceptionOptions"></span></div>
+      <div id="elopementsRow" class="detail-line"><strong>Elopements Available:</strong> <span id="vendorElopements"></span></div>
+      <div id="accommodationRow" class="detail-line"><strong>Accommodation Onsite:</strong> <span id="vendorAccommodation"></span></div>
+      <div id="startingPriceRow" class="detail-line"><strong>Starting Price:</strong> <span id="vendorStartingPrice"></span></div>
+      <div id="priceRangeRow" class="detail-line"><strong>Price Range:</strong> <span id="vendorPriceRange"></span></div>
+      <div id="packagesAvailableRow" class="detail-line"><strong>Packages Available:</strong> <span id="vendorPackagesAvailable"></span></div>
+      <div id="leadTimeRow" class="detail-line"><strong>Booking Lead Time:</strong> <span id="vendorLeadTime"></span></div>
+      <div id="peakSeasonRow" class="detail-line"><strong>Peak Season:</strong> <span id="vendorPeakSeason"></span></div>
+      <div id="lastMinuteRow" class="detail-line"><strong>Last-Minute Bookings:</strong> <span id="vendorLastMinute"></span></div>
+      <div id="directEmailRow" class="detail-line"><strong>Direct Email Enquiries:</strong> <span id="vendorDirectEmailEnquiries"></span></div>
+      <div id="dashboardLeadsRow" class="detail-line"><strong>Leads via Dashboard:</strong> <span id="vendorDashboardLeads"></span></div>
+      <div id="autoResponseRow" class="detail-line"><strong>Auto-response Enabled:</strong> <span id="vendorAutoResponse"></span></div>
 
-      <h3>Style Tags</h3>
-      <div id="vendorStyleTags" class="style-tag-wrap"></div>
+      <div id="styleTagsSection" style="display:none;">
+        <h3>Style Tags</h3>
+        <div id="vendorStyleTags" class="style-tag-wrap"></div>
+      </div>
     </div>
-  </section>
-
-  <section class="pretty-panel">
-    <h2>Gallery</h2>
-    <div id="vendorGallery" class="gallery-grid"></div>
   </section>
 </main>
 
@@ -434,6 +418,9 @@
   const thumbRow = document.getElementById('thumbRow');
   const galleryPrevBtn = document.getElementById('galleryPrevBtn');
   const galleryNextBtn = document.getElementById('galleryNextBtn');
+
+  const aboutSection = document.getElementById('aboutSection');
+  const detailsSection = document.getElementById('detailsSection');
 
   const vendorBio = document.getElementById('vendorBio');
   const vendorUnique = document.getElementById('vendorUnique');
@@ -465,7 +452,6 @@
   const vendorDashboardLeads = document.getElementById('vendorDashboardLeads');
   const vendorAutoResponse = document.getElementById('vendorAutoResponse');
   const vendorStyleTags = document.getElementById('vendorStyleTags');
-  const vendorGallery = document.getElementById('vendorGallery');
 
   let galleryImages = [];
   let currentGalleryIndex = 0;
@@ -481,46 +467,69 @@
       .replace(/\b\w/g, char => char.toUpperCase());
   }
 
-  function yesNoText(value) {
-    return value ? 'Yes' : 'No';
+  function hasValue(value) {
+    if (value === undefined || value === null) return false;
+    if (typeof value === 'string') return value.trim() !== '';
+    if (Array.isArray(value)) return value.length > 0;
+    return true;
   }
 
-  function textOrDefault(value, fallback = 'Not provided') {
-    if (value === undefined || value === null) return fallback;
-    if (typeof value === 'string' && value.trim() === '') return fallback;
-    return value;
+  function setTextRow(rowId, element, value) {
+    const row = document.getElementById(rowId);
+    if (!hasValue(value)) {
+      row.style.display = 'none';
+      return false;
+    }
+    element.textContent = value;
+    row.style.display = '';
+    return true;
   }
 
-  function setLinkOrText(element, value) {
-    if (!value || !String(value).trim()) {
-      element.textContent = 'Not provided';
-      return;
+  function setLinkRow(rowId, element, value, type = 'url') {
+    const row = document.getElementById(rowId);
+    if (!hasValue(value)) {
+      row.style.display = 'none';
+      return false;
     }
 
     const link = document.createElement('a');
-    link.href = value;
-    link.textContent = value;
-    link.target = '_blank';
-    link.rel = 'noopener noreferrer';
     link.className = 'vendor-link';
+    link.textContent = value;
 
-    element.innerHTML = '';
-    element.appendChild(link);
-  }
-
-  function setEmailLinkOrText(element, value) {
-    if (!value || !String(value).trim()) {
-      element.textContent = 'Not provided';
-      return;
+    if (type === 'email') {
+      link.href = `mailto:${value}`;
+    } else {
+      link.href = value;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
     }
 
-    const link = document.createElement('a');
-    link.href = `mailto:${value}`;
-    link.textContent = value;
-    link.className = 'vendor-link';
-
     element.innerHTML = '';
     element.appendChild(link);
+    row.style.display = '';
+    return true;
+  }
+
+  function setBooleanRow(rowId, element, value) {
+    const row = document.getElementById(rowId);
+    if (value !== true && value !== false) {
+      row.style.display = 'none';
+      return false;
+    }
+    element.textContent = value ? 'Yes' : 'No';
+    row.style.display = '';
+    return true;
+  }
+
+  function showAboutBlock(rowId, element, value) {
+    const row = document.getElementById(rowId);
+    if (!hasValue(value)) {
+      row.style.display = 'none';
+      return false;
+    }
+    element.textContent = value;
+    row.style.display = '';
+    return true;
   }
 
   function renderTopGallery() {
@@ -539,6 +548,7 @@
       const thumb = document.createElement('img');
       thumb.src = imageUrl;
       thumb.alt = `Vendor thumbnail ${index + 1}`;
+
       if (index === currentGalleryIndex) {
         thumb.classList.add('active-thumb');
       }
@@ -553,13 +563,13 @@
   }
 
   galleryPrevBtn.addEventListener('click', () => {
-    if (galleryImages.length === 0) return;
+    if (!galleryImages.length) return;
     currentGalleryIndex = (currentGalleryIndex - 1 + galleryImages.length) % galleryImages.length;
     renderTopGallery();
   });
 
   galleryNextBtn.addEventListener('click', () => {
-    if (galleryImages.length === 0) return;
+    if (!galleryImages.length) return;
     currentGalleryIndex = (currentGalleryIndex + 1) % galleryImages.length;
     renderTopGallery();
   });
@@ -599,73 +609,76 @@
       const states = cleanArray(vendor.states);
       const regions = cleanArray(vendor.regions);
 
-      if (vendor.logoUrl) {
+      if (hasValue(vendor.logoUrl)) {
         vendorLogo.src = vendor.logoUrl;
         vendorLogo.style.display = 'block';
       }
 
-      vendorName.textContent = textOrDefault(vendor.businessName, 'Vendor');
-      detailBusinessName.textContent = textOrDefault(vendor.businessName);
+      vendorName.textContent = vendor.businessName || 'Vendor';
 
       const metaBits = [];
       if (categories.length) metaBits.push(categories.join(' • '));
       if (states.length) metaBits.push(states.join(', '));
       vendorMeta.textContent = metaBits.join(' | ');
 
-      vendorBio.textContent = textOrDefault(vendor.bio, 'No bio provided yet.');
-      vendorUnique.textContent = textOrDefault(vendor.uniqueSellingPoints, 'Not provided');
-      vendorWhyChoose.textContent = textOrDefault(vendor.whyChooseUs, 'Not provided');
-      vendorIncluded.textContent = textOrDefault(vendor.whatsIncluded, 'Not provided');
+      renderTopGallery();
 
-      vendorAbn.textContent = textOrDefault(vendor.abn);
-      vendorContactName.textContent = textOrDefault(vendor.contactName);
-      vendorPhone.textContent = textOrDefault(vendor.phone);
-      setEmailLinkOrText(vendorEmail, vendor.email || '');
-      setLinkOrText(vendorWebsite, vendor.website || '');
-      setLinkOrText(vendorInstagram, vendor.instagram || '');
-      vendorAddress.textContent = textOrDefault(vendor.address);
-      vendorServiceAreas.textContent = textOrDefault(vendor.serviceAreas || regions.join(', ') || states.join(', '));
-      vendorVenueType.textContent = textOrDefault(vendor.venueType);
-      vendorCapacity.textContent = textOrDefault(vendor.venueCapacity);
-      vendorCeremonyOptions.textContent = textOrDefault(vendor.ceremonyOptions);
-      vendorReceptionOptions.textContent = textOrDefault(vendor.receptionOptions);
-      vendorElopements.textContent = yesNoText(vendor.elopementsAvailable === true);
-      vendorAccommodation.textContent = yesNoText(vendor.accommodationOnsite === true);
-      vendorStartingPrice.textContent = textOrDefault(vendor.startingPrice);
-      vendorPriceRange.textContent = textOrDefault(vendor.priceRange);
-      vendorPackagesAvailable.textContent = yesNoText(vendor.packagesAvailable === true);
-      vendorLeadTime.textContent = textOrDefault(vendor.bookingLeadTime);
-      vendorPeakSeason.textContent = textOrDefault(vendor.peakSeason);
-      vendorLastMinute.textContent = yesNoText(vendor.lastMinuteBookingsAccepted === true);
-      vendorDirectEmailEnquiries.textContent = yesNoText(vendor.receiveDirectEmailEnquiries === true);
-      vendorDashboardLeads.textContent = yesNoText(vendor.receiveDashboardLeads === true);
-      vendorAutoResponse.textContent = yesNoText(vendor.autoResponseEnabled === true);
+      let hasAboutContent = false;
+      hasAboutContent = showAboutBlock('bioRow', vendorBio, vendor.bio) || hasAboutContent;
+      hasAboutContent = showAboutBlock('uniqueRow', vendorUnique, vendor.uniqueSellingPoints) || hasAboutContent;
+      hasAboutContent = showAboutBlock('whyChooseRow', vendorWhyChoose, vendor.whyChooseUs) || hasAboutContent;
+      hasAboutContent = showAboutBlock('includedRow', vendorIncluded, vendor.whatsIncluded) || hasAboutContent;
+      aboutSection.style.display = hasAboutContent ? 'block' : 'none';
 
-      vendorStyleTags.innerHTML = '';
+      let hasDetailsContent = false;
+      hasDetailsContent = setTextRow('businessNameRow', detailBusinessName, vendor.businessName) || hasDetailsContent;
+      hasDetailsContent = setTextRow('abnRow', vendorAbn, vendor.abn) || hasDetailsContent;
+      hasDetailsContent = setTextRow('contactNameRow', vendorContactName, vendor.contactName) || hasDetailsContent;
+      hasDetailsContent = setTextRow('phoneRow', vendorPhone, vendor.phone) || hasDetailsContent;
+      hasDetailsContent = setLinkRow('emailRow', vendorEmail, vendor.email, 'email') || hasDetailsContent;
+      hasDetailsContent = setLinkRow('websiteRow', vendorWebsite, vendor.website) || hasDetailsContent;
+      hasDetailsContent = setLinkRow('instagramRow', vendorInstagram, vendor.instagram) || hasDetailsContent;
+      hasDetailsContent = setTextRow('addressRow', vendorAddress, vendor.address) || hasDetailsContent;
+
+      const serviceAreasValue = vendor.serviceAreas || cleanArray(vendor.regions).join(', ') || cleanArray(vendor.states).join(', ');
+      hasDetailsContent = setTextRow('serviceAreasRow', vendorServiceAreas, serviceAreasValue) || hasDetailsContent;
+
+      hasDetailsContent = setTextRow('venueTypeRow', vendorVenueType, vendor.venueType) || hasDetailsContent;
+      hasDetailsContent = setTextRow('capacityRow', vendorCapacity, vendor.venueCapacity) || hasDetailsContent;
+      hasDetailsContent = setTextRow('ceremonyRow', vendorCeremonyOptions, vendor.ceremonyOptions) || hasDetailsContent;
+      hasDetailsContent = setTextRow('receptionRow', vendorReceptionOptions, vendor.receptionOptions) || hasDetailsContent;
+
+      hasDetailsContent = setBooleanRow('elopementsRow', vendorElopements, vendor.elopementsAvailable) || hasDetailsContent;
+      hasDetailsContent = setBooleanRow('accommodationRow', vendorAccommodation, vendor.accommodationOnsite) || hasDetailsContent;
+
+      hasDetailsContent = setTextRow('startingPriceRow', vendorStartingPrice, vendor.startingPrice) || hasDetailsContent;
+      hasDetailsContent = setTextRow('priceRangeRow', vendorPriceRange, vendor.priceRange) || hasDetailsContent;
+      hasDetailsContent = setBooleanRow('packagesAvailableRow', vendorPackagesAvailable, vendor.packagesAvailable) || hasDetailsContent;
+
+      hasDetailsContent = setTextRow('leadTimeRow', vendorLeadTime, vendor.bookingLeadTime) || hasDetailsContent;
+      hasDetailsContent = setTextRow('peakSeasonRow', vendorPeakSeason, vendor.peakSeason) || hasDetailsContent;
+      hasDetailsContent = setBooleanRow('lastMinuteRow', vendorLastMinute, vendor.lastMinuteBookingsAccepted) || hasDetailsContent;
+
+      hasDetailsContent = setBooleanRow('directEmailRow', vendorDirectEmailEnquiries, vendor.receiveDirectEmailEnquiries) || hasDetailsContent;
+      hasDetailsContent = setBooleanRow('dashboardLeadsRow', vendorDashboardLeads, vendor.receiveDashboardLeads) || hasDetailsContent;
+      hasDetailsContent = setBooleanRow('autoResponseRow', vendorAutoResponse, vendor.autoResponseEnabled) || hasDetailsContent;
+
+      const styleTagsSection = document.getElementById('styleTagsSection');
       if (styleTags.length) {
+        vendorStyleTags.innerHTML = '';
         styleTags.forEach(tag => {
           const el = document.createElement('span');
           el.className = 'style-tag';
           el.textContent = tag;
           vendorStyleTags.appendChild(el);
         });
+        styleTagsSection.style.display = 'block';
+        hasDetailsContent = true;
       } else {
-        vendorStyleTags.innerHTML = '<span class="muted">No style tags added yet.</span>';
+        styleTagsSection.style.display = 'none';
       }
 
-      renderTopGallery();
-
-      vendorGallery.innerHTML = '';
-      if (galleryImages.length) {
-        galleryImages.forEach((imageUrl, index) => {
-          const img = document.createElement('img');
-          img.src = imageUrl;
-          img.alt = `${vendor.businessName || 'Vendor'} image ${index + 1}`;
-          vendorGallery.appendChild(img);
-        });
-      } else {
-        vendorGallery.innerHTML = '<p class="muted">No gallery images uploaded yet.</p>';
-      }
+      detailsSection.style.display = hasDetailsContent ? 'block' : 'none';
 
       document.title = `${vendor.businessName || 'Vendor'} - Our Wedding Day Hub`;
       statusMessage.style.display = 'none';
