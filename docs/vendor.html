@@ -141,14 +141,29 @@
       display: none;
     }
 
-    .top-gallery-main {
+    .top-gallery-stage {
       width: 100%;
-      height: 560px;
-      object-fit: cover;
-      display: block;
-      border-radius: 14px;
+      min-height: 560px;
+      background: #f8f1ea;
+      border: 1px solid #eadfd5;
+      border-radius: 18px;
       box-shadow: 0 8px 28px rgba(0,0,0,0.08);
-      background: #f6efe8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .top-gallery-main-image,
+    .top-gallery-main-video {
+      width: 100%;
+      max-width: 100%;
+      max-height: 520px;
+      object-fit: contain;
+      display: block;
+      border-radius: 12px;
+      background: #f8f1ea;
     }
 
     .gallery-arrow {
@@ -190,19 +205,31 @@
       display: none;
     }
 
-    .thumb-row img {
+    .thumb-item {
       width: 120px;
       height: 90px;
-      object-fit: cover;
-      border-radius: 10px;
-      cursor: pointer;
-      border: 2px solid transparent;
       flex: 0 0 auto;
-      background: #f6efe8;
+      border-radius: 10px;
+      border: 2px solid transparent;
+      background: #f8f1ea;
+      overflow: hidden;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .thumb-row img.active-thumb {
+    .thumb-item.active-thumb {
       border-color: #ccb39d;
+    }
+
+    .thumb-item img,
+    .thumb-item video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: #f8f1ea;
+      display: block;
     }
 
     .vendor-grid {
@@ -266,8 +293,13 @@
         grid-template-columns: 1fr;
       }
 
-      .top-gallery-main {
-        height: 360px;
+      .top-gallery-stage {
+        min-height: 360px;
+      }
+
+      .top-gallery-main-image,
+      .top-gallery-main-video {
+        max-height: 320px;
       }
 
       .top-nav {
@@ -276,11 +308,17 @@
     }
 
     @media (max-width: 640px) {
-      .top-gallery-main {
-        height: 280px;
+      .top-gallery-stage {
+        min-height: 280px;
+        padding: 14px;
       }
 
-      .thumb-row img {
+      .top-gallery-main-image,
+      .top-gallery-main-video {
+        max-height: 250px;
+      }
+
+      .thumb-item {
         width: 90px;
         height: 72px;
       }
@@ -334,7 +372,12 @@
 
   <section id="topGalleryWrap" class="top-gallery-wrap">
     <button class="gallery-arrow left" id="galleryPrevBtn" type="button">&#10094;</button>
-    <img id="vendorMainImage" class="top-gallery-main" src="" alt="Vendor image">
+
+    <div class="top-gallery-stage" id="topGalleryStage">
+      <img id="vendorMainImage" class="top-gallery-main-image" src="" alt="Vendor media" style="display:none;">
+      <video id="vendorMainVideo" class="top-gallery-main-video" controls playsinline style="display:none;"></video>
+    </div>
+
     <button class="gallery-arrow right" id="galleryNextBtn" type="button">&#10095;</button>
     <div id="thumbRow" class="thumb-row"></div>
   </section>
@@ -415,6 +458,7 @@
 
   const topGalleryWrap = document.getElementById('topGalleryWrap');
   const vendorMainImage = document.getElementById('vendorMainImage');
+  const vendorMainVideo = document.getElementById('vendorMainVideo');
   const thumbRow = document.getElementById('thumbRow');
   const galleryPrevBtn = document.getElementById('galleryPrevBtn');
   const galleryNextBtn = document.getElementById('galleryNextBtn');
@@ -453,7 +497,7 @@
   const vendorAutoResponse = document.getElementById('vendorAutoResponse');
   const vendorStyleTags = document.getElementById('vendorStyleTags');
 
-  let galleryImages = [];
+  let galleryItems = [];
   let currentGalleryIndex = 0;
 
   function cleanArray(arr) {
@@ -532,25 +576,64 @@
     return true;
   }
 
+  function getMediaType(url) {
+    const lower = url.toLowerCase();
+    if (
+      lower.includes('.mp4') ||
+      lower.includes('.webm') ||
+      lower.includes('.mov') ||
+      lower.includes('/video/')
+    ) {
+      return 'video';
+    }
+    return 'image';
+  }
+
   function renderTopGallery() {
-    if (galleryImages.length === 0) {
+    if (galleryItems.length === 0) {
       topGalleryWrap.style.display = 'none';
       return;
     }
 
     topGalleryWrap.style.display = 'block';
-    vendorMainImage.src = galleryImages[currentGalleryIndex];
-    vendorMainImage.alt = `Vendor image ${currentGalleryIndex + 1}`;
+
+    const currentItem = galleryItems[currentGalleryIndex];
+
+    vendorMainImage.style.display = 'none';
+    vendorMainVideo.style.display = 'none';
+    vendorMainVideo.pause();
+    vendorMainVideo.removeAttribute('src');
+    vendorMainVideo.load();
+
+    if (currentItem.type === 'video') {
+      vendorMainVideo.src = currentItem.url;
+      vendorMainVideo.style.display = 'block';
+    } else {
+      vendorMainImage.src = currentItem.url;
+      vendorMainImage.alt = `Vendor media ${currentGalleryIndex + 1}`;
+      vendorMainImage.style.display = 'block';
+    }
 
     thumbRow.innerHTML = '';
 
-    galleryImages.forEach((imageUrl, index) => {
-      const thumb = document.createElement('img');
-      thumb.src = imageUrl;
-      thumb.alt = `Vendor thumbnail ${index + 1}`;
-
+    galleryItems.forEach((item, index) => {
+      const thumb = document.createElement('div');
+      thumb.className = 'thumb-item';
       if (index === currentGalleryIndex) {
         thumb.classList.add('active-thumb');
+      }
+
+      if (item.type === 'video') {
+        const video = document.createElement('video');
+        video.src = item.url;
+        video.muted = true;
+        video.playsInline = true;
+        thumb.appendChild(video);
+      } else {
+        const img = document.createElement('img');
+        img.src = item.url;
+        img.alt = `Vendor thumbnail ${index + 1}`;
+        thumb.appendChild(img);
       }
 
       thumb.addEventListener('click', () => {
@@ -563,14 +646,14 @@
   }
 
   galleryPrevBtn.addEventListener('click', () => {
-    if (!galleryImages.length) return;
-    currentGalleryIndex = (currentGalleryIndex - 1 + galleryImages.length) % galleryImages.length;
+    if (!galleryItems.length) return;
+    currentGalleryIndex = (currentGalleryIndex - 1 + galleryItems.length) % galleryItems.length;
     renderTopGallery();
   });
 
   galleryNextBtn.addEventListener('click', () => {
-    if (!galleryImages.length) return;
-    currentGalleryIndex = (currentGalleryIndex + 1) % galleryImages.length;
+    if (!galleryItems.length) return;
+    currentGalleryIndex = (currentGalleryIndex + 1) % galleryItems.length;
     renderTopGallery();
   });
 
@@ -603,11 +686,23 @@
         return;
       }
 
-      galleryImages = cleanArray(vendor.images);
+      const imageUrls = cleanArray(vendor.images);
+      const videoUrls = [];
+
+      if (hasValue(vendor.videoFileUrl)) {
+        videoUrls.push(vendor.videoFileUrl);
+      } else if (hasValue(vendor.videoUrl)) {
+        videoUrls.push(vendor.videoUrl);
+      }
+
+      galleryItems = [
+        ...imageUrls.map(url => ({ type: getMediaType(url), url })),
+        ...videoUrls.map(url => ({ type: 'video', url }))
+      ];
+
       const styleTags = cleanArray(vendor.styleTags);
       const categories = cleanArray(vendor.categories).map(formatCategory);
       const states = cleanArray(vendor.states);
-      const regions = cleanArray(vendor.regions);
 
       if (hasValue(vendor.logoUrl)) {
         vendorLogo.src = vendor.logoUrl;
