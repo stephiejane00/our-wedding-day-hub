@@ -153,6 +153,7 @@
       justify-content: center;
       padding: 20px;
       box-sizing: border-box;
+      cursor: zoom-in;
     }
 
     .top-gallery-main-image,
@@ -288,6 +289,88 @@
       word-break: break-word;
     }
 
+    .lightbox-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(20, 14, 10, 0.9);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 30px;
+      box-sizing: border-box;
+    }
+
+    .lightbox-overlay.open {
+      display: flex;
+    }
+
+    .lightbox-inner {
+      position: relative;
+      width: 100%;
+      max-width: 1200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox-stage {
+      width: 100%;
+      min-height: 70vh;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .lightbox-image,
+    .lightbox-video {
+      max-width: 100%;
+      max-height: 75vh;
+      object-fit: contain;
+      border-radius: 12px;
+      display: none;
+    }
+
+    .lightbox-arrow,
+    .lightbox-close {
+      position: absolute;
+      width: 48px;
+      height: 48px;
+      border: none;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+      font-size: 1.7rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(4px);
+    }
+
+    .lightbox-arrow.left {
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .lightbox-arrow.right {
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .lightbox-close {
+      top: 16px;
+      right: 16px;
+      font-size: 1.4rem;
+    }
+
     @media (max-width: 900px) {
       .vendor-grid {
         grid-template-columns: 1fr;
@@ -304,6 +387,18 @@
 
       .top-nav {
         gap: 16px;
+      }
+
+      .lightbox-overlay {
+        padding: 16px;
+      }
+
+      .lightbox-arrow.left {
+        left: 8px;
+      }
+
+      .lightbox-arrow.right {
+        right: 8px;
       }
     }
 
@@ -442,6 +537,20 @@
   </section>
 </main>
 
+<div id="lightboxOverlay" class="lightbox-overlay">
+  <button id="lightboxClose" class="lightbox-close" type="button">×</button>
+  <button id="lightboxPrev" class="lightbox-arrow left" type="button">&#10094;</button>
+
+  <div class="lightbox-inner">
+    <div class="lightbox-stage">
+      <img id="lightboxImage" class="lightbox-image" src="" alt="Expanded media">
+      <video id="lightboxVideo" class="lightbox-video" controls playsinline></video>
+    </div>
+  </div>
+
+  <button id="lightboxNext" class="lightbox-arrow right" type="button">&#10095;</button>
+</div>
+
 <script type="module">
   import {
     db,
@@ -457,11 +566,19 @@
   const vendorMeta = document.getElementById('vendorMeta');
 
   const topGalleryWrap = document.getElementById('topGalleryWrap');
+  const topGalleryStage = document.getElementById('topGalleryStage');
   const vendorMainImage = document.getElementById('vendorMainImage');
   const vendorMainVideo = document.getElementById('vendorMainVideo');
   const thumbRow = document.getElementById('thumbRow');
   const galleryPrevBtn = document.getElementById('galleryPrevBtn');
   const galleryNextBtn = document.getElementById('galleryNextBtn');
+
+  const lightboxOverlay = document.getElementById('lightboxOverlay');
+  const lightboxImage = document.getElementById('lightboxImage');
+  const lightboxVideo = document.getElementById('lightboxVideo');
+  const lightboxClose = document.getElementById('lightboxClose');
+  const lightboxPrev = document.getElementById('lightboxPrev');
+  const lightboxNext = document.getElementById('lightboxNext');
 
   const aboutSection = document.getElementById('aboutSection');
   const detailsSection = document.getElementById('detailsSection');
@@ -589,6 +706,40 @@
     return 'image';
   }
 
+  function showMainMedia(item) {
+    vendorMainImage.style.display = 'none';
+    vendorMainVideo.style.display = 'none';
+    vendorMainVideo.pause();
+    vendorMainVideo.removeAttribute('src');
+    vendorMainVideo.load();
+
+    if (item.type === 'video') {
+      vendorMainVideo.src = item.url;
+      vendorMainVideo.style.display = 'block';
+    } else {
+      vendorMainImage.src = item.url;
+      vendorMainImage.alt = `Vendor media ${currentGalleryIndex + 1}`;
+      vendorMainImage.style.display = 'block';
+    }
+  }
+
+  function showLightboxMedia(item) {
+    lightboxImage.style.display = 'none';
+    lightboxVideo.style.display = 'none';
+    lightboxVideo.pause();
+    lightboxVideo.removeAttribute('src');
+    lightboxVideo.load();
+
+    if (item.type === 'video') {
+      lightboxVideo.src = item.url;
+      lightboxVideo.style.display = 'block';
+    } else {
+      lightboxImage.src = item.url;
+      lightboxImage.alt = `Expanded media ${currentGalleryIndex + 1}`;
+      lightboxImage.style.display = 'block';
+    }
+  }
+
   function renderTopGallery() {
     if (galleryItems.length === 0) {
       topGalleryWrap.style.display = 'none';
@@ -598,21 +749,7 @@
     topGalleryWrap.style.display = 'block';
 
     const currentItem = galleryItems[currentGalleryIndex];
-
-    vendorMainImage.style.display = 'none';
-    vendorMainVideo.style.display = 'none';
-    vendorMainVideo.pause();
-    vendorMainVideo.removeAttribute('src');
-    vendorMainVideo.load();
-
-    if (currentItem.type === 'video') {
-      vendorMainVideo.src = currentItem.url;
-      vendorMainVideo.style.display = 'block';
-    } else {
-      vendorMainImage.src = currentItem.url;
-      vendorMainImage.alt = `Vendor media ${currentGalleryIndex + 1}`;
-      vendorMainImage.style.display = 'block';
-    }
+    showMainMedia(currentItem);
 
     thumbRow.innerHTML = '';
 
@@ -645,16 +782,62 @@
     });
   }
 
-  galleryPrevBtn.addEventListener('click', () => {
+  function openLightbox() {
     if (!galleryItems.length) return;
-    currentGalleryIndex = (currentGalleryIndex - 1 + galleryItems.length) % galleryItems.length;
-    renderTopGallery();
-  });
+    showLightboxMedia(galleryItems[currentGalleryIndex]);
+    lightboxOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
 
-  galleryNextBtn.addEventListener('click', () => {
+  function closeLightbox() {
+    lightboxOverlay.classList.remove('open');
+    lightboxVideo.pause();
+    document.body.style.overflow = '';
+  }
+
+  function nextGalleryItem() {
     if (!galleryItems.length) return;
     currentGalleryIndex = (currentGalleryIndex + 1) % galleryItems.length;
     renderTopGallery();
+    if (lightboxOverlay.classList.contains('open')) {
+      showLightboxMedia(galleryItems[currentGalleryIndex]);
+    }
+  }
+
+  function prevGalleryItem() {
+    if (!galleryItems.length) return;
+    currentGalleryIndex = (currentGalleryIndex - 1 + galleryItems.length) % galleryItems.length;
+    renderTopGallery();
+    if (lightboxOverlay.classList.contains('open')) {
+      showLightboxMedia(galleryItems[currentGalleryIndex]);
+    }
+  }
+
+  galleryPrevBtn.addEventListener('click', prevGalleryItem);
+  galleryNextBtn.addEventListener('click', nextGalleryItem);
+  lightboxPrev.addEventListener('click', prevGalleryItem);
+  lightboxNext.addEventListener('click', nextGalleryItem);
+  lightboxClose.addEventListener('click', closeLightbox);
+
+  topGalleryStage.addEventListener('click', () => {
+    const currentItem = galleryItems[currentGalleryIndex];
+    if (currentItem && currentItem.type === 'image') {
+      openLightbox();
+    }
+  });
+
+  lightboxOverlay.addEventListener('click', (event) => {
+    if (event.target === lightboxOverlay) {
+      closeLightbox();
+    }
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (lightboxOverlay.classList.contains('open')) {
+      if (event.key === 'Escape') closeLightbox();
+      if (event.key === 'ArrowRight') nextGalleryItem();
+      if (event.key === 'ArrowLeft') prevGalleryItem();
+    }
   });
 
   async function loadVendorProfile() {
