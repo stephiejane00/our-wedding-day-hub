@@ -153,15 +153,23 @@
       justify-content: center;
       padding: 20px;
       box-sizing: border-box;
+    }
+
+    .top-gallery-stage.image-mode {
       cursor: zoom-in;
     }
 
-    .top-gallery-main-image {
+    .top-gallery-stage.video-mode {
+      cursor: default;
+    }
+
+    .top-gallery-main-image,
+    .top-gallery-main-video {
       width: 100%;
       max-width: 100%;
       max-height: 520px;
       object-fit: contain;
-      display: block;
+      display: none;
       border-radius: 12px;
       background: #f8f1ea;
     }
@@ -223,7 +231,8 @@
       border-color: #ccb39d;
     }
 
-    .thumb-item img {
+    .thumb-item img,
+    .thumb-item video {
       width: 100%;
       height: 100%;
       object-fit: contain;
@@ -376,7 +385,8 @@
         min-height: 360px;
       }
 
-      .top-gallery-main-image {
+      .top-gallery-main-image,
+      .top-gallery-main-video {
         max-height: 320px;
       }
 
@@ -391,7 +401,8 @@
         padding: 14px;
       }
 
-      .top-gallery-main-image {
+      .top-gallery-main-image,
+      .top-gallery-main-video {
         max-height: 250px;
       }
 
@@ -452,6 +463,7 @@
 
     <div class="top-gallery-stage" id="topGalleryStage">
       <img id="vendorMainImage" class="top-gallery-main-image" src="" alt="Vendor media">
+      <video id="vendorMainVideo" class="top-gallery-main-video" controls playsinline></video>
     </div>
 
     <button class="gallery-arrow right" id="galleryNextBtn" type="button">&#10095;</button>
@@ -546,6 +558,7 @@
   const topGalleryWrap = document.getElementById('topGalleryWrap');
   const topGalleryStage = document.getElementById('topGalleryStage');
   const vendorMainImage = document.getElementById('vendorMainImage');
+  const vendorMainVideo = document.getElementById('vendorMainVideo');
   const thumbRow = document.getElementById('thumbRow');
   const galleryPrevBtn = document.getElementById('galleryPrevBtn');
   const galleryNextBtn = document.getElementById('galleryNextBtn');
@@ -669,6 +682,38 @@
     return true;
   }
 
+  function getMediaType(url) {
+    const lower = url.toLowerCase();
+    if (
+      lower.includes('.mp4') ||
+      lower.includes('.webm') ||
+      lower.includes('.mov') ||
+      lower.includes('/video/')
+    ) {
+      return 'video';
+    }
+    return 'image';
+  }
+
+  function showMainMedia(item) {
+    vendorMainImage.style.display = 'none';
+    vendorMainVideo.style.display = 'none';
+    vendorMainVideo.pause();
+
+    if (item.type === 'video') {
+      topGalleryStage.classList.remove('image-mode');
+      topGalleryStage.classList.add('video-mode');
+      vendorMainVideo.src = item.url;
+      vendorMainVideo.style.display = 'block';
+    } else {
+      topGalleryStage.classList.remove('video-mode');
+      topGalleryStage.classList.add('image-mode');
+      vendorMainImage.src = item.url;
+      vendorMainImage.alt = `Vendor media ${currentGalleryIndex + 1}`;
+      vendorMainImage.style.display = 'block';
+    }
+  }
+
   function renderTopGallery() {
     if (galleryItems.length === 0) {
       topGalleryWrap.style.display = 'none';
@@ -676,22 +721,30 @@
     }
 
     topGalleryWrap.style.display = 'block';
-    vendorMainImage.src = galleryItems[currentGalleryIndex];
-    vendorMainImage.alt = `Vendor image ${currentGalleryIndex + 1}`;
+    const currentItem = galleryItems[currentGalleryIndex];
+    showMainMedia(currentItem);
 
     thumbRow.innerHTML = '';
 
-    galleryItems.forEach((url, index) => {
+    galleryItems.forEach((item, index) => {
       const thumb = document.createElement('div');
       thumb.className = 'thumb-item';
       if (index === currentGalleryIndex) {
         thumb.classList.add('active-thumb');
       }
 
-      const img = document.createElement('img');
-      img.src = url;
-      img.alt = `Vendor thumbnail ${index + 1}`;
-      thumb.appendChild(img);
+      if (item.type === 'video') {
+        const video = document.createElement('video');
+        video.src = item.url;
+        video.muted = true;
+        video.playsInline = true;
+        thumb.appendChild(video);
+      } else {
+        const img = document.createElement('img');
+        img.src = item.url;
+        img.alt = `Vendor thumbnail ${index + 1}`;
+        thumb.appendChild(img);
+      }
 
       thumb.addEventListener('click', () => {
         currentGalleryIndex = index;
@@ -703,8 +756,9 @@
   }
 
   function openLightbox() {
-    if (!galleryItems.length) return;
-    lightboxImage.src = galleryItems[currentGalleryIndex];
+    const currentItem = galleryItems[currentGalleryIndex];
+    if (!currentItem || currentItem.type !== 'image') return;
+    lightboxImage.src = currentItem.url;
     lightboxOverlay.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
@@ -718,8 +772,14 @@
     if (!galleryItems.length) return;
     currentGalleryIndex = (currentGalleryIndex + 1) % galleryItems.length;
     renderTopGallery();
+
+    const currentItem = galleryItems[currentGalleryIndex];
     if (lightboxOverlay.classList.contains('open')) {
-      lightboxImage.src = galleryItems[currentGalleryIndex];
+      if (currentItem.type === 'image') {
+        lightboxImage.src = currentItem.url;
+      } else {
+        closeLightbox();
+      }
     }
   }
 
@@ -727,8 +787,14 @@
     if (!galleryItems.length) return;
     currentGalleryIndex = (currentGalleryIndex - 1 + galleryItems.length) % galleryItems.length;
     renderTopGallery();
+
+    const currentItem = galleryItems[currentGalleryIndex];
     if (lightboxOverlay.classList.contains('open')) {
-      lightboxImage.src = galleryItems[currentGalleryIndex];
+      if (currentItem.type === 'image') {
+        lightboxImage.src = currentItem.url;
+      } else {
+        closeLightbox();
+      }
     }
   }
 
@@ -738,7 +804,12 @@
   lightboxNext.addEventListener('click', nextGalleryItem);
   lightboxClose.addEventListener('click', closeLightbox);
 
-  topGalleryStage.addEventListener('click', openLightbox);
+  topGalleryStage.addEventListener('click', () => {
+    const currentItem = galleryItems[currentGalleryIndex];
+    if (currentItem && currentItem.type === 'image') {
+      openLightbox();
+    }
+  });
 
   lightboxOverlay.addEventListener('click', (event) => {
     if (event.target === lightboxOverlay) {
@@ -783,7 +854,19 @@
         return;
       }
 
-      galleryItems = cleanArray(vendor.images);
+      const imageUrls = cleanArray(vendor.images);
+      const videoUrls = [];
+
+      if (hasValue(vendor.videoFileUrl)) {
+        videoUrls.push(vendor.videoFileUrl);
+      } else if (hasValue(vendor.videoUrl)) {
+        videoUrls.push(vendor.videoUrl);
+      }
+
+      galleryItems = [
+        ...imageUrls.map(url => ({ type: 'image', url })),
+        ...videoUrls.map(url => ({ type: 'video', url }))
+      ];
 
       const styleTags = cleanArray(vendor.styleTags);
       const categories = cleanArray(vendor.categories).map(formatCategory);
