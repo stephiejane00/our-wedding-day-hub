@@ -249,7 +249,19 @@ header img,
   margin: 0 16px 18px;
   color: #444;
 }
+.vendor-category-line {
+  font-size: 0.88rem;
+  color: #8a7466;
+  margin: -2px 0 10px;
+  line-height: 1.5;
+}
 
+.vendor-location-line {
+  font-size: 0.86rem;
+  color: #a08878;
+  margin: -4px 0 10px;
+  line-height: 1.5;
+}
 /* =========================
    SLIDER ARROWS
 ========================= */
