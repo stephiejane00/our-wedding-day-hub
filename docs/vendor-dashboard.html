@@ -122,7 +122,8 @@
       text-align: center;
     }
 
-    .image-card img {
+    .image-card img,
+    .image-card video {
       width: 100%;
       height: 130px;
       object-fit: cover;
@@ -157,6 +158,52 @@
     .tag-grid label {
       display: block;
       font-weight: normal;
+    }
+
+    .category-groups {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .category-dropdown {
+      background: #fff;
+      border: 1px solid #ead9cf;
+      border-radius: 14px;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .category-dropdown summary {
+      cursor: pointer;
+      list-style: none;
+      padding: 14px 16px;
+      font-family: Garamond, serif;
+      font-size: 1.05rem;
+      color: #5e463b;
+      background: #fffaf6;
+      border-bottom: 1px solid #f1e5da;
+    }
+
+    .category-dropdown summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .category-dropdown[open] summary {
+      background: #fdf6ef;
+    }
+
+    .category-dropdown label {
+      display: block;
+      padding: 10px 16px;
+      margin: 0;
+      font-weight: normal;
+      border-top: 1px solid #f7eee6;
+    }
+
+    .category-dropdown label input {
+      width: auto;
+      margin-right: 8px;
     }
 
     @media (max-width: 900px) {
@@ -231,6 +278,7 @@
       <form id="vendorForm" class="pretty-form">
         <div class="section-box">
           <h3>Basic Business Info</h3>
+
           <label for="businessName">Business Name:</label>
           <input type="text" id="businessName" required>
 
@@ -260,6 +308,7 @@
 
         <div class="section-box">
           <h3>Location Details</h3>
+
           <label for="address">Address:</label>
           <input type="text" id="address">
 
@@ -277,6 +326,7 @@
 
         <div class="section-box">
           <h3>Wedding Details</h3>
+
           <label for="venueCapacity">Venue Capacity (min/max guests):</label>
           <input type="text" id="venueCapacity" placeholder="e.g. 20–120 guests">
 
@@ -298,24 +348,95 @@
 
         <div class="section-box">
           <h3>Categories</h3>
-          <div id="categoryOptions" class="field-soft">
-            <label><input type="checkbox" value="photographer"> Photographer</label>
-            <label><input type="checkbox" value="videographer"> Videographer</label>
-            <label><input type="checkbox" value="florist"> Florist</label>
-            <label><input type="checkbox" value="venue"> Wedding Venue</label>
-            <label><input type="checkbox" value="makeup_artist"> Makeup Artist</label>
-            <label><input type="checkbox" value="hair_stylist"> Hair Stylist</label>
-            <label><input type="checkbox" value="nail_artist"> Nail Artist</label>
-            <label><input type="checkbox" value="brow_artist"> Brow Artist</label>
-            <label><input type="checkbox" value="lash_artist"> Lash Artist</label>
-            <label><input type="checkbox" value="spray_tan"> Spray Tan</label>
-            <label><input type="checkbox" value="beauty_therapist"> Beauty Therapist</label>
-            <label><input type="checkbox" value="skin_aesthetics"> Skin &amp; Aesthetics</label>
-            <label><input type="checkbox" value="planner"> Wedding Planner</label>
-            <label><input type="checkbox" value="dj"> DJ</label>
-            <label><input type="checkbox" value="content_creator"> Content Creator</label>
-            <label><input type="checkbox" value="bridal"> Bridal Boutique</label>
-            <label><input type="checkbox" value="decor"> Decor Hire</label>
+
+          <div id="categoryOptions" class="field-soft category-groups">
+            <details class="category-dropdown">
+              <summary>Photo &amp; Video</summary>
+              <label><input type="checkbox" value="photographer"> Photographer</label>
+              <label><input type="checkbox" value="videographer"> Videographer</label>
+              <label><input type="checkbox" value="content_creator"> Content Creator</label>
+            </details>
+
+            <details class="category-dropdown">
+              <summary>Hair &amp; Beauty</summary>
+              <label><input type="checkbox" value="makeup_artist"> Bridal Makeup Artist</label>
+              <label><input type="checkbox" value="hair_stylist"> Bridal Hair Stylist</label>
+              <label><input type="checkbox" value="nail_artist"> Nail Artist</label>
+              <label><input type="checkbox" value="brow_artist"> Brow Artist</label>
+              <label><input type="checkbox" value="lash_artist"> Lash Artist</label>
+              <label><input type="checkbox" value="spray_tan"> Spray Tan Artist</label>
+              <label><input type="checkbox" value="beauty_therapist"> Beauty Therapist</label>
+              <label><input type="checkbox" value="skin_aesthetics"> Skin &amp; Aesthetics</label>
+            </details>
+
+            <details class="category-dropdown">
+              <summary>Styling &amp; Florals</summary>
+              <label><input type="checkbox" value="florist"> Florist</label>
+              <label><input type="checkbox" value="stylist"> Wedding Stylist</label>
+              <label><input type="checkbox" value="event_designer"> Event Designer</label>
+              <label><input type="checkbox" value="balloon"> Balloon Stylist</label>
+              <label><input type="checkbox" value="backdrops"> Backdrops &amp; Arches</label>
+              <label><input type="checkbox" value="decor"> Decor Hire</label>
+            </details>
+
+            <details class="category-dropdown">
+              <summary>Venues</summary>
+              <label><input type="checkbox" value="venue"> Wedding Venue</label>
+              <label><input type="checkbox" value="ceremony_venue"> Ceremony Venue</label>
+              <label><input type="checkbox" value="reception_venue"> Reception Venue</label>
+              <label><input type="checkbox" value="elopement"> Elopement Location</label>
+              <label><input type="checkbox" value="outdoor"> Outdoor Venue</label>
+            </details>
+
+            <details class="category-dropdown">
+              <summary>Food &amp; Drink</summary>
+              <label><input type="checkbox" value="caterer"> Caterer</label>
+              <label><input type="checkbox" value="cake"> Wedding Cake Designer</label>
+              <label><input type="checkbox" value="dessert"> Dessert Bar</label>
+              <label><input type="checkbox" value="bar"> Mobile Bar</label>
+              <label><input type="checkbox" value="coffee"> Coffee Cart</label>
+              <label><input type="checkbox" value="food_truck"> Food Truck</label>
+            </details>
+
+            <details class="category-dropdown">
+              <summary>Entertainment</summary>
+              <label><input type="checkbox" value="singer"> Singer</label>
+              <label><input type="checkbox" value="band"> Band</label>
+              <label><input type="checkbox" value="dj"> DJ</label>
+              <label><input type="checkbox" value="acoustic"> Acoustic Musician</label>
+              <label><input type="checkbox" value="violinist"> Violinist</label>
+              <label><input type="checkbox" value="saxophonist"> Saxophonist</label>
+              <label><input type="checkbox" value="harpist"> Harpist</label>
+              <label><input type="checkbox" value="mc"> MC</label>
+            </details>
+
+            <details class="category-dropdown">
+              <summary>Planning &amp; Support</summary>
+              <label><input type="checkbox" value="planner"> Wedding Planner</label>
+              <label><input type="checkbox" value="coordinator"> Wedding Coordinator</label>
+              <label><input type="checkbox" value="on_day_coordinator"> On-the-day Coordinator</label>
+              <label><input type="checkbox" value="honeymoon"> Honeymoon Planner</label>
+            </details>
+
+            <details class="category-dropdown">
+              <summary>Fashion</summary>
+              <label><input type="checkbox" value="bridal"> Bridal Boutique</label>
+              <label><input type="checkbox" value="bridesmaid"> Bridesmaid Dresses</label>
+              <label><input type="checkbox" value="formal"> Formal Wear</label>
+              <label><input type="checkbox" value="suits"> Suit Hire</label>
+              <label><input type="checkbox" value="designer"> Custom Designer</label>
+            </details>
+
+            <details class="category-dropdown">
+              <summary>Hire &amp; Extras</summary>
+              <label><input type="checkbox" value="furniture"> Furniture Hire</label>
+              <label><input type="checkbox" value="tableware"> Tableware Hire</label>
+              <label><input type="checkbox" value="lighting"> Lighting Hire</label>
+              <label><input type="checkbox" value="marquee"> Marquee Hire</label>
+              <label><input type="checkbox" value="photo_booth"> Photo Booth</label>
+              <label><input type="checkbox" value="audio_guestbook"> Audio Guestbook</label>
+              <label><input type="checkbox" value="live_painter"> Live Wedding Painter</label>
+            </details>
           </div>
         </div>
 
@@ -338,6 +459,7 @@
 
         <div class="section-box">
           <h3>Pricing Snapshot</h3>
+
           <label for="startingPrice">Starting Price:</label>
           <input type="text" id="startingPrice">
 
@@ -361,17 +483,22 @@
           <input type="file" id="coverFile" accept="image/png, image/jpeg, image/jpg, image/webp">
           <div id="coverPreview" class="image-grid"></div>
 
-          <label for="vendorImages" style="margin-top:16px;">Gallery (5–15 images):</label>
+          <label for="vendorImages" style="margin-top:16px;">Gallery Images:</label>
           <input type="file" id="vendorImages" accept="image/png, image/jpeg, image/jpg, image/webp" multiple>
           <p id="imageLimitNote" class="upload-note">Image limit loading...</p>
           <div id="imagePreview" class="image-grid"></div>
 
-          <label for="videoUrl" style="margin-top:16px;">Video (optional URL):</label>
+          <label for="videoFile" style="margin-top:16px;">Video Upload (optional):</label>
+          <input type="file" id="videoFile" accept="video/mp4,video/webm,video/quicktime">
+          <div id="videoPreview" class="image-grid"></div>
+
+          <label for="videoUrl" style="margin-top:16px;">Video URL (optional):</label>
           <input type="url" id="videoUrl" placeholder="https://...">
         </div>
 
         <div class="section-box">
           <h3>Unique Selling Points</h3>
+
           <label for="uniqueSellingPoints">What makes your business unique?</label>
           <textarea id="uniqueSellingPoints" rows="4"></textarea>
 
@@ -381,6 +508,7 @@
 
         <div class="section-box">
           <h3>Availability &amp; Booking</h3>
+
           <label for="bookingLeadTime">Booking Lead Time:</label>
           <input type="text" id="bookingLeadTime">
 
@@ -501,10 +629,12 @@
     const logoFileInput = document.getElementById('logoFile');
     const coverFileInput = document.getElementById('coverFile');
     const imageInput = document.getElementById('vendorImages');
+    const videoFileInput = document.getElementById('videoFile');
 
     const logoPreview = document.getElementById('logoPreview');
     const coverPreview = document.getElementById('coverPreview');
     const imagePreview = document.getElementById('imagePreview');
+    const videoPreview = document.getElementById('videoPreview');
     const imageLimitNote = document.getElementById('imageLimitNote');
 
     const planGrid = document.getElementById('planGrid');
@@ -517,7 +647,7 @@
     let currentUser = null;
     let currentVendorData = null;
     let currentBioLimit = 1200;
-    let currentImageLimit = 15;
+    let currentImageLimit = 9999;
 
     let existingImageUrls = [];
     let newImageFiles = [];
@@ -527,6 +657,9 @@
 
     let existingCoverUrl = '';
     let newCoverFile = null;
+
+    let existingVideoUrl = '';
+    let newVideoFile = null;
 
     const planDefaults = {
       "Classic Listing": {
@@ -548,7 +681,7 @@
         priorityPlacement: false
       },
       "Platinum Prestige": {
-        imageLimit: 15,
+        imageLimit: 9999,
         bioCharacterLimit: 99999,
         featuredPlacement: true,
         priorityPlacement: true
@@ -668,7 +801,12 @@
 
     function updateImageLimitDisplay() {
       const totalImages = existingImageUrls.length + newImageFiles.length;
-      imageLimitNote.textContent = `${totalImages} / ${currentImageLimit} gallery images selected`;
+
+      if (currentImageLimit >= 9999) {
+        imageLimitNote.textContent = `${totalImages} gallery image(s) selected`;
+      } else {
+        imageLimitNote.textContent = `${totalImages} / ${currentImageLimit} gallery images selected`;
+      }
     }
 
     function createPreviewCard(src, onRemove) {
@@ -685,6 +823,25 @@
       btn.addEventListener('click', onRemove);
 
       card.appendChild(img);
+      card.appendChild(btn);
+      return card;
+    }
+
+    function createVideoPreviewCard(src, onRemove) {
+      const card = document.createElement('div');
+      card.className = 'image-card';
+
+      const video = document.createElement('video');
+      video.src = src;
+      video.controls = true;
+
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'remove-image-btn';
+      btn.textContent = 'Remove';
+      btn.addEventListener('click', onRemove);
+
+      card.appendChild(video);
       card.appendChild(btn);
       return card;
     }
@@ -738,6 +895,24 @@
         () => { existingCoverUrl = ''; renderAllMediaPreviews(); },
         () => { newCoverFile = null; renderAllMediaPreviews(); }
       );
+
+      videoPreview.innerHTML = '';
+
+      if (newVideoFile) {
+        videoPreview.appendChild(
+          createVideoPreviewCard(URL.createObjectURL(newVideoFile), () => {
+            newVideoFile = null;
+            renderAllMediaPreviews();
+          })
+        );
+      } else if (existingVideoUrl) {
+        videoPreview.appendChild(
+          createVideoPreviewCard(existingVideoUrl, () => {
+            existingVideoUrl = '';
+            renderAllMediaPreviews();
+          })
+        );
+      }
 
       renderImagePreview();
     }
@@ -805,13 +980,23 @@
       renderAllMediaPreviews();
     });
 
+    videoFileInput.addEventListener('change', () => {
+      const file = videoFileInput.files?.[0];
+      if (!file) return;
+      newVideoFile = file;
+      videoFileInput.value = '';
+      renderAllMediaPreviews();
+    });
+
     imageInput.addEventListener('change', () => {
       const selectedFiles = Array.from(imageInput.files || []);
       const validFiles = selectedFiles.filter(file =>
         ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'].includes(file.type)
       );
 
-      const maxAllowed = currentImageLimit - existingImageUrls.length - newImageFiles.length;
+      const maxAllowed = currentImageLimit >= 9999
+        ? 999999
+        : currentImageLimit - existingImageUrls.length - newImageFiles.length;
 
       if (maxAllowed <= 0) {
         formMessage.textContent = `You have reached your gallery image limit.`;
@@ -861,11 +1046,11 @@
 
         const planSettings = getVendorPlanSettings(vendorData);
         currentBioLimit = planSettings.bioCharacterLimit;
-        currentImageLimit = Math.min(planSettings.imageLimit || 15, 15);
+        currentImageLimit = planSettings.imageLimit || 9999;
         bioInput.maxLength = currentBioLimit;
 
         planNameDisplay.textContent = planSettings.planName;
-        imageLimitDisplay.textContent = formatLimit(currentImageLimit);
+        imageLimitDisplay.textContent = formatLimit(planSettings.imageLimit);
         bioLimitDisplay.textContent = formatLimit(planSettings.bioCharacterLimit);
         accountTypeDisplay.textContent = planSettings.complimentaryPlan ? 'Complimentary' : 'Paid';
         planGrid.style.display = 'grid';
@@ -917,9 +1102,11 @@
 
         existingLogoUrl = vendorData.logoUrl || '';
         existingCoverUrl = vendorData.coverImageUrl || '';
+        existingVideoUrl = vendorData.videoFileUrl || vendorData.videoUrl || '';
         existingImageUrls = Array.isArray(vendorData.images) ? vendorData.images.filter(Boolean) : [];
         newLogoFile = null;
         newCoverFile = null;
+        newVideoFile = null;
         newImageFiles = [];
 
         setCheckedValues('#categoryOptions', vendorData.categories || []);
@@ -990,7 +1177,7 @@
       }
 
       const totalImages = existingImageUrls.length + newImageFiles.length;
-      if (totalImages > currentImageLimit) {
+      if (currentImageLimit < 9999 && totalImages > currentImageLimit) {
         formMessage.textContent = `Your plan allows up to ${currentImageLimit} gallery images.`;
         return;
       }
@@ -1003,6 +1190,7 @@
 
         let finalLogoUrl = existingLogoUrl;
         let finalCoverImageUrl = existingCoverUrl;
+        let finalVideoFileUrl = existingVideoUrl;
 
         if (newLogoFile) {
           finalLogoUrl = await uploadOneFile(newLogoFile, 'logo');
@@ -1010,6 +1198,10 @@
 
         if (newCoverFile) {
           finalCoverImageUrl = await uploadOneFile(newCoverFile, 'cover');
+        }
+
+        if (newVideoFile) {
+          finalVideoFileUrl = await uploadOneFile(newVideoFile, 'video');
         }
 
         const uploadedUrls = await uploadNewImages();
@@ -1047,6 +1239,7 @@
           packagesAvailable,
           whatsIncluded,
           videoUrl,
+          videoFileUrl: finalVideoFileUrl,
           uniqueSellingPoints,
           whyChooseUs,
           bookingLeadTime,
@@ -1092,6 +1285,7 @@
           packagesAvailable,
           whatsIncluded,
           videoUrl,
+          videoFileUrl: finalVideoFileUrl,
           uniqueSellingPoints,
           whyChooseUs,
           bookingLeadTime,
@@ -1109,9 +1303,11 @@
 
         existingLogoUrl = finalLogoUrl;
         existingCoverUrl = finalCoverImageUrl;
+        existingVideoUrl = finalVideoFileUrl;
         existingImageUrls = finalImages.filter(Boolean);
         newLogoFile = null;
         newCoverFile = null;
+        newVideoFile = null;
         newImageFiles = [];
 
         welcomeMessage.textContent = `Welcome, ${businessName || 'Vendor'}!`;
