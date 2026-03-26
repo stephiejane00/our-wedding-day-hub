@@ -144,20 +144,41 @@
       min-width: 320px;
       max-width: 320px;
       flex: 0 0 320px;
-      border-radius: 0;
-      box-shadow: 0 6px 20px rgba(212,175,55,0.3);
+      border-radius: 14px;
+      box-shadow: 0 6px 20px rgba(212,175,55,0.18);
       padding: 15px;
       transition: transform 0.3s, box-shadow 0.3s;
       cursor: pointer;
       background: #fff;
+      border: 1px solid #eee2d6;
     }
 
-    .vendor-card img {
+    .vendor-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 28px rgba(212,175,55,0.22);
+    }
+
+    .vendor-media-frame {
       width: 100%;
       height: 250px;
-      object-fit: cover;
+      border-radius: 12px;
+      background: #f8f1ea;
+      border: 1px solid #eadfd5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      margin-bottom: 12px;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+
+    .vendor-media-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
       display: block;
-      margin-bottom: 10px;
+      background: #f8f1ea;
     }
 
     .vendor-card h3 {
@@ -167,11 +188,6 @@
     .vendor-card p {
       line-height: 1.6;
       margin: 0;
-    }
-
-    .vendor-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 25px rgba(212,175,55,0.5);
     }
 
     .slider-arrow {
@@ -191,6 +207,7 @@
       align-items: center;
       justify-content: center;
       border: 1px solid #e8ddd2;
+      border-radius: 50%;
     }
 
     .slider-arrow.left {
@@ -230,7 +247,7 @@
         flex: 0 0 260px;
       }
 
-      .vendor-card img {
+      .vendor-media-frame {
         height: 210px;
       }
     }
@@ -323,6 +340,7 @@
     const categories = cleanArray(vendor.categories).join(' ');
     const states = cleanArray(vendor.states).join(' ');
     const regions = cleanArray(vendor.regions).join(' ');
+    const styleTags = cleanArray(vendor.styleTags).join(' ');
 
     return `
       ${vendor.businessName || ''}
@@ -332,13 +350,15 @@
       ${categories}
       ${states}
       ${regions}
+      ${styleTags}
+      ${vendor.serviceAreas || ''}
     `.toLowerCase();
   }
 
   function getCardImage(vendor) {
-    if (Array.isArray(vendor.images) && vendor.images.length > 0) {
-      return vendor.images[0];
-    }
+    if (vendor.coverImageUrl) return vendor.coverImageUrl;
+    if (Array.isArray(vendor.images) && vendor.images.length > 0) return vendor.images[0];
+    if (vendor.logoUrl) return vendor.logoUrl;
     return 'images/header4.png';
   }
 
@@ -385,13 +405,15 @@
       const desc = getShortBio(vendor);
 
       card.innerHTML = `
-        <img src="${image}" alt="${name}">
+        <div class="vendor-media-frame">
+          <img src="${image}" alt="${name}">
+        </div>
         <h3>${name}</h3>
         <p>${desc}</p>
       `;
 
       card.addEventListener("click", () => {
-        window.location.href = `vendor.html?id=${vendor.uid}`;
+        window.location.href = \`vendor.html?id=\${vendor.uid}\`;
       });
 
       sliderTrack.appendChild(card);
@@ -470,7 +492,6 @@
     }
   };
 
-  window.searchVendors = runSearch;
   searchInput.addEventListener('input', runSearch);
 
   loadLiveVendors();
