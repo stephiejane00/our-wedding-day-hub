@@ -185,6 +185,20 @@
       margin: 10px 0 8px;
     }
 
+    .vendor-category-line {
+      font-size: 0.88rem;
+      color: #8a7466;
+      margin: -2px 0 6px;
+      line-height: 1.5;
+    }
+
+    .vendor-location-line {
+      font-size: 0.86rem;
+      color: #a08878;
+      margin: 0 0 10px;
+      line-height: 1.5;
+    }
+
     .vendor-card p {
       line-height: 1.6;
       margin: 0;
@@ -356,9 +370,9 @@
   }
 
   function getCardImage(vendor) {
-    if (vendor.coverImageUrl) return vendor.coverImageUrl;
+    if (vendor.coverImageUrl && String(vendor.coverImageUrl).trim()) return vendor.coverImageUrl;
     if (Array.isArray(vendor.images) && vendor.images.length > 0) return vendor.images[0];
-    if (vendor.logoUrl) return vendor.logoUrl;
+    if (vendor.logoUrl && String(vendor.logoUrl).trim()) return vendor.logoUrl;
     return 'images/header4.png';
   }
 
@@ -367,6 +381,36 @@
     if (!bio) return 'Beautiful wedding vendor profile coming soon.';
     if (bio.length <= 120) return bio;
     return bio.slice(0, 120).trim() + '...';
+  }
+
+  function formatCategoryName(category) {
+    return String(category)
+      .replace(/_/g, ' ')
+      .replace(/\b\w/g, char => char.toUpperCase());
+  }
+
+  function getCategoryLine(vendor) {
+    const categories = cleanArray(vendor.categories);
+    if (!categories.length) return '';
+    return categories.slice(0, 3).map(formatCategoryName).join(' • ');
+  }
+
+  function getLocationLine(vendor) {
+    if (vendor.serviceAreas && vendor.serviceAreas.trim()) {
+      return vendor.serviceAreas.trim();
+    }
+
+    const regions = cleanArray(vendor.regions);
+    if (regions.length) {
+      return regions.slice(0, 3).join(' • ');
+    }
+
+    const states = cleanArray(vendor.states);
+    if (states.length) {
+      return states.join(' • ');
+    }
+
+    return '';
   }
 
   function sortVendors(vendors) {
@@ -402,6 +446,8 @@
 
       const image = getCardImage(vendor);
       const name = vendor.businessName || 'Vendor';
+      const categoryLine = getCategoryLine(vendor);
+      const locationLine = getLocationLine(vendor);
       const desc = getShortBio(vendor);
 
       card.innerHTML = `
@@ -409,11 +455,13 @@
           <img src="${image}" alt="${name}">
         </div>
         <h3>${name}</h3>
+        ${categoryLine ? `<p class="vendor-category-line">${categoryLine}</p>` : ''}
+        ${locationLine ? `<p class="vendor-location-line">${locationLine}</p>` : ''}
         <p>${desc}</p>
       `;
 
       card.addEventListener("click", () => {
-        window.location.href = \`vendor.html?id=\${vendor.uid}\`;
+        window.location.href = `vendor.html?id=${vendor.uid}`;
       });
 
       sliderTrack.appendChild(card);
@@ -423,6 +471,7 @@
   async function loadLiveVendors() {
     loadingMessage.style.display = 'block';
     emptyMessage.style.display = 'none';
+    sliderTrack.innerHTML = '';
 
     try {
       const snapshot = await getDocs(collection(db, 'vendors'));
@@ -448,7 +497,7 @@
       loadingMessage.style.display = 'none';
       renderVendors(filteredVendors);
     } catch (error) {
-      console.error(error);
+      console.error('Homepage vendor load error:', error);
       loadingMessage.textContent = 'There was a problem loading vendors.';
     }
   }
@@ -493,7 +542,6 @@
   };
 
   searchInput.addEventListener('input', runSearch);
-
   loadLiveVendors();
 </script>
 
