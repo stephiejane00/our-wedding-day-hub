@@ -472,7 +472,7 @@
 
   <section class="vendor-grid">
     <div id="aboutSection" class="pretty-panel" style="display:none;">
-      <h2>About</h2>
+      <h2>The Heart Behind It</h2>
 
       <div id="bioRow">
         <p id="vendorBio"></p>
@@ -519,8 +519,6 @@
       <div id="peakSeasonRow" class="detail-line"><strong>Peak Season:</strong> <span id="vendorPeakSeason"></span></div>
       <div id="lastMinuteRow" class="detail-line"><strong>Last-Minute Bookings:</strong> <span id="vendorLastMinute"></span></div>
       <div id="directEmailRow" class="detail-line"><strong>Direct Email Enquiries:</strong> <span id="vendorDirectEmailEnquiries"></span></div>
-      <div id="dashboardLeadsRow" class="detail-line"><strong>Leads via Dashboard:</strong> <span id="vendorDashboardLeads"></span></div>
-      <div id="autoResponseRow" class="detail-line"><strong>Auto-response Enabled:</strong> <span id="vendorAutoResponse"></span></div>
 
       <div id="styleTagsSection" style="display:none;">
         <h3>Style Tags</h3>
@@ -599,8 +597,6 @@
   const vendorPeakSeason = document.getElementById('vendorPeakSeason');
   const vendorLastMinute = document.getElementById('vendorLastMinute');
   const vendorDirectEmailEnquiries = document.getElementById('vendorDirectEmailEnquiries');
-  const vendorDashboardLeads = document.getElementById('vendorDashboardLeads');
-  const vendorAutoResponse = document.getElementById('vendorAutoResponse');
   const vendorStyleTags = document.getElementById('vendorStyleTags');
 
   let galleryItems = [];
@@ -660,13 +656,13 @@
     return true;
   }
 
-  function setBooleanRow(rowId, element, value) {
+  function setBooleanYesOnlyRow(rowId, element, value) {
     const row = document.getElementById(rowId);
-    if (value !== true && value !== false) {
+    if (value !== true) {
       row.style.display = 'none';
       return false;
     }
-    element.textContent = value ? 'Yes' : 'No';
+    element.textContent = 'Yes';
     row.style.display = '';
     return true;
   }
@@ -680,19 +676,6 @@
     element.textContent = value;
     row.style.display = '';
     return true;
-  }
-
-  function getMediaType(url) {
-    const lower = url.toLowerCase();
-    if (
-      lower.includes('.mp4') ||
-      lower.includes('.webm') ||
-      lower.includes('.mov') ||
-      lower.includes('/video/')
-    ) {
-      return 'video';
-    }
-    return 'image';
   }
 
   function showMainMedia(item) {
@@ -911,20 +894,17 @@
       hasDetailsContent = setTextRow('ceremonyRow', vendorCeremonyOptions, vendor.ceremonyOptions) || hasDetailsContent;
       hasDetailsContent = setTextRow('receptionRow', vendorReceptionOptions, vendor.receptionOptions) || hasDetailsContent;
 
-      hasDetailsContent = setBooleanRow('elopementsRow', vendorElopements, vendor.elopementsAvailable) || hasDetailsContent;
-      hasDetailsContent = setBooleanRow('accommodationRow', vendorAccommodation, vendor.accommodationOnsite) || hasDetailsContent;
+      hasDetailsContent = setBooleanYesOnlyRow('elopementsRow', vendorElopements, vendor.elopementsAvailable) || hasDetailsContent;
+      hasDetailsContent = setBooleanYesOnlyRow('accommodationRow', vendorAccommodation, vendor.accommodationOnsite) || hasDetailsContent;
 
       hasDetailsContent = setTextRow('startingPriceRow', vendorStartingPrice, vendor.startingPrice) || hasDetailsContent;
       hasDetailsContent = setTextRow('priceRangeRow', vendorPriceRange, vendor.priceRange) || hasDetailsContent;
-      hasDetailsContent = setBooleanRow('packagesAvailableRow', vendorPackagesAvailable, vendor.packagesAvailable) || hasDetailsContent;
+      hasDetailsContent = setBooleanYesOnlyRow('packagesAvailableRow', vendorPackagesAvailable, vendor.packagesAvailable) || hasDetailsContent;
 
       hasDetailsContent = setTextRow('leadTimeRow', vendorLeadTime, vendor.bookingLeadTime) || hasDetailsContent;
       hasDetailsContent = setTextRow('peakSeasonRow', vendorPeakSeason, vendor.peakSeason) || hasDetailsContent;
-      hasDetailsContent = setBooleanRow('lastMinuteRow', vendorLastMinute, vendor.lastMinuteBookingsAccepted) || hasDetailsContent;
-
-      hasDetailsContent = setBooleanRow('directEmailRow', vendorDirectEmailEnquiries, vendor.receiveDirectEmailEnquiries) || hasDetailsContent;
-      hasDetailsContent = setBooleanRow('dashboardLeadsRow', vendorDashboardLeads, vendor.receiveDashboardLeads) || hasDetailsContent;
-      hasDetailsContent = setBooleanRow('autoResponseRow', vendorAutoResponse, vendor.autoResponseEnabled) || hasDetailsContent;
+      hasDetailsContent = setBooleanYesOnlyRow('lastMinuteRow', vendorLastMinute, vendor.lastMinuteBookingsAccepted) || hasDetailsContent;
+      hasDetailsContent = setBooleanYesOnlyRow('directEmailRow', vendorDirectEmailEnquiries, vendor.receiveDirectEmailEnquiries) || hasDetailsContent;
 
       const styleTagsSection = document.getElementById('styleTagsSection');
       if (styleTags.length) {
