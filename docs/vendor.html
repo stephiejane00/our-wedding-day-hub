@@ -94,82 +94,9 @@
     }
 
     .vendor-page {
-      max-width: 1100px;
-      margin: 40px auto 60px;
+      max-width: 1180px;
+      margin: 36px auto 70px;
       padding: 0 20px;
-    }
-
-    .vendor-top {
-      text-align: center;
-      margin-bottom: 35px;
-    }
-
-    .vendor-top h1 {
-      margin-bottom: 10px;
-    }
-
-    .vendor-meta {
-      color: #6f5f58;
-      line-height: 1.7;
-    }
-
-    .vendor-main-image {
-      width: 100%;
-      max-width: 900px;
-      max-height: 560px;
-      object-fit: cover;
-      display: block;
-      margin: 0 auto 30px;
-      border-radius: 8px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-    }
-
-    .vendor-details {
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 30px;
-      margin-bottom: 35px;
-    }
-
-    .vendor-card {
-      background: #fffaf6;
-      border: 1px solid #e8ddd2;
-      padding: 24px;
-      border-radius: 10px;
-    }
-
-    .vendor-card h2 {
-      margin-top: 0;
-      margin-bottom: 14px;
-    }
-
-    .vendor-card p,
-    .vendor-card li {
-      line-height: 1.7;
-    }
-
-    .vendor-card ul {
-      margin: 0;
-      padding-left: 18px;
-    }
-
-    .vendor-gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 18px;
-    }
-
-    .vendor-gallery img {
-      width: 100%;
-      height: 240px;
-      object-fit: cover;
-      border-radius: 8px;
-      display: block;
-    }
-
-    .vendor-link {
-      color: #111;
-      word-break: break-word;
     }
 
     .status-message {
@@ -180,18 +107,204 @@
       color: #6f5f58;
     }
 
-    footer {
+    .vendor-top {
       text-align: center;
-      padding: 30px 20px;
+      margin-bottom: 28px;
     }
 
-    @media (max-width: 800px) {
+    .vendor-top h1 {
+      margin-bottom: 10px;
+    }
+
+    .vendor-meta {
+      color: #6f5f58;
+      line-height: 1.7;
+      margin-bottom: 18px;
+    }
+
+    .vendor-logo {
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+      display: none;
+      margin: 0 auto 18px;
+      border-radius: 16px;
+      background: #fff;
+      padding: 10px;
+      border: 1px solid #eadfd5;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    }
+
+    .top-gallery-wrap {
+      position: relative;
+      margin-bottom: 34px;
+    }
+
+    .top-gallery-main {
+      width: 100%;
+      height: 560px;
+      object-fit: cover;
+      display: block;
+      border-radius: 14px;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+      background: #f6efe8;
+    }
+
+    .gallery-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      border: 1px solid #e3d5c8;
+      background: rgba(255,250,246,0.95);
+      font-size: 1.6rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+      z-index: 5;
+    }
+
+    .gallery-arrow.left {
+      left: 14px;
+    }
+
+    .gallery-arrow.right {
+      right: 14px;
+    }
+
+    .thumb-row {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      margin-top: 14px;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+    }
+
+    .thumb-row::-webkit-scrollbar {
+      display: none;
+    }
+
+    .thumb-row img {
+      width: 120px;
+      height: 90px;
+      object-fit: cover;
+      border-radius: 10px;
+      cursor: pointer;
+      border: 2px solid transparent;
+      flex: 0 0 auto;
+      background: #f6efe8;
+    }
+
+    .thumb-row img.active-thumb {
+      border-color: #ccb39d;
+    }
+
+    .vendor-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 26px;
+      margin-bottom: 28px;
+    }
+
+    .pretty-panel {
+      background: #fffcf7;
+      border: 1px solid #efe3d6;
+      border-radius: 18px;
+      padding: 26px;
+      box-shadow: 0 6px 22px rgba(0,0,0,0.04);
+    }
+
+    .pretty-panel h2 {
+      margin-top: 0;
+      margin-bottom: 14px;
+    }
+
+    .pretty-panel h3 {
+      margin-top: 24px;
+      margin-bottom: 10px;
+    }
+
+    .pretty-panel p,
+    .pretty-panel li {
+      line-height: 1.75;
+    }
+
+    .pretty-panel ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .detail-line {
+      margin-bottom: 10px;
+      line-height: 1.7;
+    }
+
+    .style-tag-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .style-tag {
+      background: #f6efe8;
+      border: 1px solid #eadfd5;
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-size: 0.92rem;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+    }
+
+    .gallery-grid img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      border-radius: 12px;
+      display: block;
+      background: #f6efe8;
+    }
+
+    .vendor-link {
+      color: #111;
+      word-break: break-word;
+    }
+
+    .muted {
+      color: #7b6a61;
+    }
+
+    @media (max-width: 900px) {
+      .vendor-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .top-gallery-main {
+        height: 360px;
+      }
+
       .top-nav {
         gap: 16px;
       }
+    }
 
-      .vendor-details {
-        grid-template-columns: 1fr;
+    @media (max-width: 640px) {
+      .top-gallery-main {
+        height: 280px;
+      }
+
+      .thumb-row img {
+        width: 90px;
+        height: 72px;
       }
     }
   </style>
@@ -236,32 +349,69 @@
 
 <main id="vendorPage" class="vendor-page" style="display:none;">
   <div class="vendor-top">
+    <img id="vendorLogo" class="vendor-logo" src="" alt="Vendor logo">
     <h1 id="vendorName">Vendor Name</h1>
     <div id="vendorMeta" class="vendor-meta"></div>
   </div>
 
-  <img id="vendorMainImage" class="vendor-main-image" src="" alt="Vendor image">
+  <section id="topGalleryWrap" class="top-gallery-wrap" style="display:none;">
+    <button class="gallery-arrow left" id="galleryPrevBtn" type="button">&#10094;</button>
+    <img id="vendorMainImage" class="top-gallery-main" src="" alt="Vendor image">
+    <button class="gallery-arrow right" id="galleryNextBtn" type="button">&#10095;</button>
+    <div id="thumbRow" class="thumb-row"></div>
+  </section>
 
-  <section class="vendor-details">
-    <div class="vendor-card">
+  <section class="vendor-grid">
+    <div class="pretty-panel">
       <h2>About</h2>
       <p id="vendorBio"></p>
+
+      <h3>What makes this business unique</h3>
+      <p id="vendorUnique"></p>
+
+      <h3>Why couples choose them</h3>
+      <p id="vendorWhyChoose"></p>
+
+      <h3>What’s included</h3>
+      <p id="vendorIncluded"></p>
     </div>
 
-    <div class="vendor-card">
+    <div class="pretty-panel">
       <h2>Details</h2>
-      <p><strong>Phone:</strong> <span id="vendorPhone"></span></p>
-      <p><strong>Website:</strong> <span id="vendorWebsite"></span></p>
-      <p><strong>Instagram:</strong> <span id="vendorInstagram"></span></p>
-      <p><strong>Categories:</strong> <span id="vendorCategories"></span></p>
-      <p><strong>States:</strong> <span id="vendorStates"></span></p>
-      <p><strong>Regions:</strong> <span id="vendorRegions"></span></p>
+
+      <div class="detail-line"><strong>Business Name:</strong> <span id="detailBusinessName"></span></div>
+      <div class="detail-line"><strong>ABN:</strong> <span id="vendorAbn"></span></div>
+      <div class="detail-line"><strong>Contact Name:</strong> <span id="vendorContactName"></span></div>
+      <div class="detail-line"><strong>Phone:</strong> <span id="vendorPhone"></span></div>
+      <div class="detail-line"><strong>Email:</strong> <span id="vendorEmail"></span></div>
+      <div class="detail-line"><strong>Website:</strong> <span id="vendorWebsite"></span></div>
+      <div class="detail-line"><strong>Instagram / Social:</strong> <span id="vendorInstagram"></span></div>
+      <div class="detail-line"><strong>Address:</strong> <span id="vendorAddress"></span></div>
+      <div class="detail-line"><strong>Service Areas:</strong> <span id="vendorServiceAreas"></span></div>
+      <div class="detail-line"><strong>Venue Type:</strong> <span id="vendorVenueType"></span></div>
+      <div class="detail-line"><strong>Venue Capacity:</strong> <span id="vendorCapacity"></span></div>
+      <div class="detail-line"><strong>Ceremony Options:</strong> <span id="vendorCeremonyOptions"></span></div>
+      <div class="detail-line"><strong>Reception Options:</strong> <span id="vendorReceptionOptions"></span></div>
+      <div class="detail-line"><strong>Elopements Available:</strong> <span id="vendorElopements"></span></div>
+      <div class="detail-line"><strong>Accommodation Onsite:</strong> <span id="vendorAccommodation"></span></div>
+      <div class="detail-line"><strong>Starting Price:</strong> <span id="vendorStartingPrice"></span></div>
+      <div class="detail-line"><strong>Price Range:</strong> <span id="vendorPriceRange"></span></div>
+      <div class="detail-line"><strong>Packages Available:</strong> <span id="vendorPackagesAvailable"></span></div>
+      <div class="detail-line"><strong>Booking Lead Time:</strong> <span id="vendorLeadTime"></span></div>
+      <div class="detail-line"><strong>Peak Season:</strong> <span id="vendorPeakSeason"></span></div>
+      <div class="detail-line"><strong>Last-Minute Bookings:</strong> <span id="vendorLastMinute"></span></div>
+      <div class="detail-line"><strong>Direct Email Enquiries:</strong> <span id="vendorDirectEmailEnquiries"></span></div>
+      <div class="detail-line"><strong>Leads via Dashboard:</strong> <span id="vendorDashboardLeads"></span></div>
+      <div class="detail-line"><strong>Auto-response Enabled:</strong> <span id="vendorAutoResponse"></span></div>
+
+      <h3>Style Tags</h3>
+      <div id="vendorStyleTags" class="style-tag-wrap"></div>
     </div>
   </section>
 
-  <section class="vendor-card">
+  <section class="pretty-panel">
     <h2>Gallery</h2>
-    <div id="vendorGallery" class="vendor-gallery"></div>
+    <div id="vendorGallery" class="gallery-grid"></div>
   </section>
 </main>
 
@@ -275,17 +425,50 @@
   const statusMessage = document.getElementById('statusMessage');
   const vendorPage = document.getElementById('vendorPage');
 
+  const vendorLogo = document.getElementById('vendorLogo');
   const vendorName = document.getElementById('vendorName');
   const vendorMeta = document.getElementById('vendorMeta');
+
+  const topGalleryWrap = document.getElementById('topGalleryWrap');
   const vendorMainImage = document.getElementById('vendorMainImage');
+  const thumbRow = document.getElementById('thumbRow');
+  const galleryPrevBtn = document.getElementById('galleryPrevBtn');
+  const galleryNextBtn = document.getElementById('galleryNextBtn');
+
   const vendorBio = document.getElementById('vendorBio');
+  const vendorUnique = document.getElementById('vendorUnique');
+  const vendorWhyChoose = document.getElementById('vendorWhyChoose');
+  const vendorIncluded = document.getElementById('vendorIncluded');
+
+  const detailBusinessName = document.getElementById('detailBusinessName');
+  const vendorAbn = document.getElementById('vendorAbn');
+  const vendorContactName = document.getElementById('vendorContactName');
   const vendorPhone = document.getElementById('vendorPhone');
+  const vendorEmail = document.getElementById('vendorEmail');
   const vendorWebsite = document.getElementById('vendorWebsite');
   const vendorInstagram = document.getElementById('vendorInstagram');
-  const vendorCategories = document.getElementById('vendorCategories');
-  const vendorStates = document.getElementById('vendorStates');
-  const vendorRegions = document.getElementById('vendorRegions');
+  const vendorAddress = document.getElementById('vendorAddress');
+  const vendorServiceAreas = document.getElementById('vendorServiceAreas');
+  const vendorVenueType = document.getElementById('vendorVenueType');
+  const vendorCapacity = document.getElementById('vendorCapacity');
+  const vendorCeremonyOptions = document.getElementById('vendorCeremonyOptions');
+  const vendorReceptionOptions = document.getElementById('vendorReceptionOptions');
+  const vendorElopements = document.getElementById('vendorElopements');
+  const vendorAccommodation = document.getElementById('vendorAccommodation');
+  const vendorStartingPrice = document.getElementById('vendorStartingPrice');
+  const vendorPriceRange = document.getElementById('vendorPriceRange');
+  const vendorPackagesAvailable = document.getElementById('vendorPackagesAvailable');
+  const vendorLeadTime = document.getElementById('vendorLeadTime');
+  const vendorPeakSeason = document.getElementById('vendorPeakSeason');
+  const vendorLastMinute = document.getElementById('vendorLastMinute');
+  const vendorDirectEmailEnquiries = document.getElementById('vendorDirectEmailEnquiries');
+  const vendorDashboardLeads = document.getElementById('vendorDashboardLeads');
+  const vendorAutoResponse = document.getElementById('vendorAutoResponse');
+  const vendorStyleTags = document.getElementById('vendorStyleTags');
   const vendorGallery = document.getElementById('vendorGallery');
+
+  let galleryImages = [];
+  let currentGalleryIndex = 0;
 
   function cleanArray(arr) {
     if (!Array.isArray(arr)) return [];
@@ -298,8 +481,18 @@
       .replace(/\b\w/g, char => char.toUpperCase());
   }
 
+  function yesNoText(value) {
+    return value ? 'Yes' : 'No';
+  }
+
+  function textOrDefault(value, fallback = 'Not provided') {
+    if (value === undefined || value === null) return fallback;
+    if (typeof value === 'string' && value.trim() === '') return fallback;
+    return value;
+  }
+
   function setLinkOrText(element, value) {
-    if (!value || !value.trim()) {
+    if (!value || !String(value).trim()) {
       element.textContent = 'Not provided';
       return;
     }
@@ -314,6 +507,62 @@
     element.innerHTML = '';
     element.appendChild(link);
   }
+
+  function setEmailLinkOrText(element, value) {
+    if (!value || !String(value).trim()) {
+      element.textContent = 'Not provided';
+      return;
+    }
+
+    const link = document.createElement('a');
+    link.href = `mailto:${value}`;
+    link.textContent = value;
+    link.className = 'vendor-link';
+
+    element.innerHTML = '';
+    element.appendChild(link);
+  }
+
+  function renderTopGallery() {
+    if (galleryImages.length === 0) {
+      topGalleryWrap.style.display = 'none';
+      return;
+    }
+
+    topGalleryWrap.style.display = 'block';
+    vendorMainImage.src = galleryImages[currentGalleryIndex];
+    vendorMainImage.alt = `Vendor image ${currentGalleryIndex + 1}`;
+
+    thumbRow.innerHTML = '';
+
+    galleryImages.forEach((imageUrl, index) => {
+      const thumb = document.createElement('img');
+      thumb.src = imageUrl;
+      thumb.alt = `Vendor thumbnail ${index + 1}`;
+      if (index === currentGalleryIndex) {
+        thumb.classList.add('active-thumb');
+      }
+
+      thumb.addEventListener('click', () => {
+        currentGalleryIndex = index;
+        renderTopGallery();
+      });
+
+      thumbRow.appendChild(thumb);
+    });
+  }
+
+  galleryPrevBtn.addEventListener('click', () => {
+    if (galleryImages.length === 0) return;
+    currentGalleryIndex = (currentGalleryIndex - 1 + galleryImages.length) % galleryImages.length;
+    renderTopGallery();
+  });
+
+  galleryNextBtn.addEventListener('click', () => {
+    if (galleryImages.length === 0) return;
+    currentGalleryIndex = (currentGalleryIndex + 1) % galleryImages.length;
+    renderTopGallery();
+  });
 
   async function loadVendorProfile() {
     const params = new URLSearchParams(window.location.search);
@@ -344,58 +593,78 @@
         return;
       }
 
-      const images = cleanArray(vendor.images);
+      galleryImages = cleanArray(vendor.images);
+      const styleTags = cleanArray(vendor.styleTags);
       const categories = cleanArray(vendor.categories).map(formatCategory);
       const states = cleanArray(vendor.states);
       const regions = cleanArray(vendor.regions);
 
-      vendorName.textContent = vendor.businessName || 'Vendor';
+      if (vendor.logoUrl) {
+        vendorLogo.src = vendor.logoUrl;
+        vendorLogo.style.display = 'block';
+      }
+
+      vendorName.textContent = textOrDefault(vendor.businessName, 'Vendor');
+      detailBusinessName.textContent = textOrDefault(vendor.businessName);
 
       const metaBits = [];
       if (categories.length) metaBits.push(categories.join(' • '));
       if (states.length) metaBits.push(states.join(', '));
       vendorMeta.textContent = metaBits.join(' | ');
 
-      vendorBio.textContent = vendor.bio || 'No bio provided yet.';
-      vendorPhone.textContent = vendor.phone || 'Not provided';
+      vendorBio.textContent = textOrDefault(vendor.bio, 'No bio provided yet.');
+      vendorUnique.textContent = textOrDefault(vendor.uniqueSellingPoints, 'Not provided');
+      vendorWhyChoose.textContent = textOrDefault(vendor.whyChooseUs, 'Not provided');
+      vendorIncluded.textContent = textOrDefault(vendor.whatsIncluded, 'Not provided');
 
+      vendorAbn.textContent = textOrDefault(vendor.abn);
+      vendorContactName.textContent = textOrDefault(vendor.contactName);
+      vendorPhone.textContent = textOrDefault(vendor.phone);
+      setEmailLinkOrText(vendorEmail, vendor.email || '');
       setLinkOrText(vendorWebsite, vendor.website || '');
+      setLinkOrText(vendorInstagram, vendor.instagram || '');
+      vendorAddress.textContent = textOrDefault(vendor.address);
+      vendorServiceAreas.textContent = textOrDefault(vendor.serviceAreas || regions.join(', ') || states.join(', '));
+      vendorVenueType.textContent = textOrDefault(vendor.venueType);
+      vendorCapacity.textContent = textOrDefault(vendor.venueCapacity);
+      vendorCeremonyOptions.textContent = textOrDefault(vendor.ceremonyOptions);
+      vendorReceptionOptions.textContent = textOrDefault(vendor.receptionOptions);
+      vendorElopements.textContent = yesNoText(vendor.elopementsAvailable === true);
+      vendorAccommodation.textContent = yesNoText(vendor.accommodationOnsite === true);
+      vendorStartingPrice.textContent = textOrDefault(vendor.startingPrice);
+      vendorPriceRange.textContent = textOrDefault(vendor.priceRange);
+      vendorPackagesAvailable.textContent = yesNoText(vendor.packagesAvailable === true);
+      vendorLeadTime.textContent = textOrDefault(vendor.bookingLeadTime);
+      vendorPeakSeason.textContent = textOrDefault(vendor.peakSeason);
+      vendorLastMinute.textContent = yesNoText(vendor.lastMinuteBookingsAccepted === true);
+      vendorDirectEmailEnquiries.textContent = yesNoText(vendor.receiveDirectEmailEnquiries === true);
+      vendorDashboardLeads.textContent = yesNoText(vendor.receiveDashboardLeads === true);
+      vendorAutoResponse.textContent = yesNoText(vendor.autoResponseEnabled === true);
 
-      if (vendor.instagram && vendor.instagram.trim()) {
-        const instaLink = document.createElement('a');
-        instaLink.href = vendor.instagram;
-        instaLink.textContent = vendor.instagram;
-        instaLink.target = '_blank';
-        instaLink.rel = 'noopener noreferrer';
-        instaLink.className = 'vendor-link';
-        vendorInstagram.innerHTML = '';
-        vendorInstagram.appendChild(instaLink);
+      vendorStyleTags.innerHTML = '';
+      if (styleTags.length) {
+        styleTags.forEach(tag => {
+          const el = document.createElement('span');
+          el.className = 'style-tag';
+          el.textContent = tag;
+          vendorStyleTags.appendChild(el);
+        });
       } else {
-        vendorInstagram.textContent = 'Not provided';
+        vendorStyleTags.innerHTML = '<span class="muted">No style tags added yet.</span>';
       }
 
-      vendorCategories.textContent = categories.length ? categories.join(', ') : 'Not provided';
-      vendorStates.textContent = states.length ? states.join(', ') : 'Not provided';
-      vendorRegions.textContent = regions.length ? regions.join(', ') : 'Not provided';
-
-      if (images.length > 0) {
-        vendorMainImage.src = images[0];
-        vendorMainImage.alt = vendor.businessName || 'Vendor image';
-      } else {
-        vendorMainImage.style.display = 'none';
-      }
+      renderTopGallery();
 
       vendorGallery.innerHTML = '';
-
-      if (images.length > 0) {
-        images.forEach((imageUrl, index) => {
+      if (galleryImages.length) {
+        galleryImages.forEach((imageUrl, index) => {
           const img = document.createElement('img');
           img.src = imageUrl;
           img.alt = `${vendor.businessName || 'Vendor'} image ${index + 1}`;
           vendorGallery.appendChild(img);
         });
       } else {
-        vendorGallery.innerHTML = '<p>No gallery images uploaded yet.</p>';
+        vendorGallery.innerHTML = '<p class="muted">No gallery images uploaded yet.</p>';
       }
 
       document.title = `${vendor.businessName || 'Vendor'} - Our Wedding Day Hub`;
