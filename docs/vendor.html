@@ -156,8 +156,7 @@
       cursor: zoom-in;
     }
 
-    .top-gallery-main-image,
-    .top-gallery-main-video {
+    .top-gallery-main-image {
       width: 100%;
       max-width: 100%;
       max-height: 520px;
@@ -224,8 +223,7 @@
       border-color: #ccb39d;
     }
 
-    .thumb-item img,
-    .thumb-item video {
+    .thumb-item img {
       width: 100%;
       height: 100%;
       object-fit: contain;
@@ -259,7 +257,6 @@
     }
 
     .pretty-panel p,
-    .pretty-panel li,
     .pretty-panel div {
       line-height: 1.75;
     }
@@ -327,13 +324,12 @@
       box-sizing: border-box;
     }
 
-    .lightbox-image,
-    .lightbox-video {
+    .lightbox-image {
       max-width: 100%;
       max-height: 75vh;
       object-fit: contain;
       border-radius: 12px;
-      display: none;
+      display: block;
     }
 
     .lightbox-arrow,
@@ -380,25 +376,12 @@
         min-height: 360px;
       }
 
-      .top-gallery-main-image,
-      .top-gallery-main-video {
+      .top-gallery-main-image {
         max-height: 320px;
       }
 
       .top-nav {
         gap: 16px;
-      }
-
-      .lightbox-overlay {
-        padding: 16px;
-      }
-
-      .lightbox-arrow.left {
-        left: 8px;
-      }
-
-      .lightbox-arrow.right {
-        right: 8px;
       }
     }
 
@@ -408,8 +391,7 @@
         padding: 14px;
       }
 
-      .top-gallery-main-image,
-      .top-gallery-main-video {
+      .top-gallery-main-image {
         max-height: 250px;
       }
 
@@ -469,8 +451,7 @@
     <button class="gallery-arrow left" id="galleryPrevBtn" type="button">&#10094;</button>
 
     <div class="top-gallery-stage" id="topGalleryStage">
-      <img id="vendorMainImage" class="top-gallery-main-image" src="" alt="Vendor media" style="display:none;">
-      <video id="vendorMainVideo" class="top-gallery-main-video" controls playsinline style="display:none;"></video>
+      <img id="vendorMainImage" class="top-gallery-main-image" src="" alt="Vendor media">
     </div>
 
     <button class="gallery-arrow right" id="galleryNextBtn" type="button">&#10095;</button>
@@ -540,14 +521,11 @@
 <div id="lightboxOverlay" class="lightbox-overlay">
   <button id="lightboxClose" class="lightbox-close" type="button">×</button>
   <button id="lightboxPrev" class="lightbox-arrow left" type="button">&#10094;</button>
-
   <div class="lightbox-inner">
     <div class="lightbox-stage">
       <img id="lightboxImage" class="lightbox-image" src="" alt="Expanded media">
-      <video id="lightboxVideo" class="lightbox-video" controls playsinline></video>
     </div>
   </div>
-
   <button id="lightboxNext" class="lightbox-arrow right" type="button">&#10095;</button>
 </div>
 
@@ -568,14 +546,12 @@
   const topGalleryWrap = document.getElementById('topGalleryWrap');
   const topGalleryStage = document.getElementById('topGalleryStage');
   const vendorMainImage = document.getElementById('vendorMainImage');
-  const vendorMainVideo = document.getElementById('vendorMainVideo');
   const thumbRow = document.getElementById('thumbRow');
   const galleryPrevBtn = document.getElementById('galleryPrevBtn');
   const galleryNextBtn = document.getElementById('galleryNextBtn');
 
   const lightboxOverlay = document.getElementById('lightboxOverlay');
   const lightboxImage = document.getElementById('lightboxImage');
-  const lightboxVideo = document.getElementById('lightboxVideo');
   const lightboxClose = document.getElementById('lightboxClose');
   const lightboxPrev = document.getElementById('lightboxPrev');
   const lightboxNext = document.getElementById('lightboxNext');
@@ -693,53 +669,6 @@
     return true;
   }
 
-  function getMediaType(url) {
-    const lower = url.toLowerCase();
-    if (
-      lower.includes('.mp4') ||
-      lower.includes('.webm') ||
-      lower.includes('.mov') ||
-      lower.includes('/video/')
-    ) {
-      return 'video';
-    }
-    return 'image';
-  }
-
-  function showMainMedia(item) {
-    vendorMainImage.style.display = 'none';
-    vendorMainVideo.style.display = 'none';
-    vendorMainVideo.pause();
-    vendorMainVideo.removeAttribute('src');
-    vendorMainVideo.load();
-
-    if (item.type === 'video') {
-      vendorMainVideo.src = item.url;
-      vendorMainVideo.style.display = 'block';
-    } else {
-      vendorMainImage.src = item.url;
-      vendorMainImage.alt = `Vendor media ${currentGalleryIndex + 1}`;
-      vendorMainImage.style.display = 'block';
-    }
-  }
-
-  function showLightboxMedia(item) {
-    lightboxImage.style.display = 'none';
-    lightboxVideo.style.display = 'none';
-    lightboxVideo.pause();
-    lightboxVideo.removeAttribute('src');
-    lightboxVideo.load();
-
-    if (item.type === 'video') {
-      lightboxVideo.src = item.url;
-      lightboxVideo.style.display = 'block';
-    } else {
-      lightboxImage.src = item.url;
-      lightboxImage.alt = `Expanded media ${currentGalleryIndex + 1}`;
-      lightboxImage.style.display = 'block';
-    }
-  }
-
   function renderTopGallery() {
     if (galleryItems.length === 0) {
       topGalleryWrap.style.display = 'none';
@@ -747,31 +676,22 @@
     }
 
     topGalleryWrap.style.display = 'block';
-
-    const currentItem = galleryItems[currentGalleryIndex];
-    showMainMedia(currentItem);
+    vendorMainImage.src = galleryItems[currentGalleryIndex];
+    vendorMainImage.alt = `Vendor image ${currentGalleryIndex + 1}`;
 
     thumbRow.innerHTML = '';
 
-    galleryItems.forEach((item, index) => {
+    galleryItems.forEach((url, index) => {
       const thumb = document.createElement('div');
       thumb.className = 'thumb-item';
       if (index === currentGalleryIndex) {
         thumb.classList.add('active-thumb');
       }
 
-      if (item.type === 'video') {
-        const video = document.createElement('video');
-        video.src = item.url;
-        video.muted = true;
-        video.playsInline = true;
-        thumb.appendChild(video);
-      } else {
-        const img = document.createElement('img');
-        img.src = item.url;
-        img.alt = `Vendor thumbnail ${index + 1}`;
-        thumb.appendChild(img);
-      }
+      const img = document.createElement('img');
+      img.src = url;
+      img.alt = `Vendor thumbnail ${index + 1}`;
+      thumb.appendChild(img);
 
       thumb.addEventListener('click', () => {
         currentGalleryIndex = index;
@@ -784,14 +704,13 @@
 
   function openLightbox() {
     if (!galleryItems.length) return;
-    showLightboxMedia(galleryItems[currentGalleryIndex]);
+    lightboxImage.src = galleryItems[currentGalleryIndex];
     lightboxOverlay.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
 
   function closeLightbox() {
     lightboxOverlay.classList.remove('open');
-    lightboxVideo.pause();
     document.body.style.overflow = '';
   }
 
@@ -800,7 +719,7 @@
     currentGalleryIndex = (currentGalleryIndex + 1) % galleryItems.length;
     renderTopGallery();
     if (lightboxOverlay.classList.contains('open')) {
-      showLightboxMedia(galleryItems[currentGalleryIndex]);
+      lightboxImage.src = galleryItems[currentGalleryIndex];
     }
   }
 
@@ -809,7 +728,7 @@
     currentGalleryIndex = (currentGalleryIndex - 1 + galleryItems.length) % galleryItems.length;
     renderTopGallery();
     if (lightboxOverlay.classList.contains('open')) {
-      showLightboxMedia(galleryItems[currentGalleryIndex]);
+      lightboxImage.src = galleryItems[currentGalleryIndex];
     }
   }
 
@@ -819,12 +738,7 @@
   lightboxNext.addEventListener('click', nextGalleryItem);
   lightboxClose.addEventListener('click', closeLightbox);
 
-  topGalleryStage.addEventListener('click', () => {
-    const currentItem = galleryItems[currentGalleryIndex];
-    if (currentItem && currentItem.type === 'image') {
-      openLightbox();
-    }
-  });
+  topGalleryStage.addEventListener('click', openLightbox);
 
   lightboxOverlay.addEventListener('click', (event) => {
     if (event.target === lightboxOverlay) {
@@ -869,19 +783,7 @@
         return;
       }
 
-      const imageUrls = cleanArray(vendor.images);
-      const videoUrls = [];
-
-      if (hasValue(vendor.videoFileUrl)) {
-        videoUrls.push(vendor.videoFileUrl);
-      } else if (hasValue(vendor.videoUrl)) {
-        videoUrls.push(vendor.videoUrl);
-      }
-
-      galleryItems = [
-        ...imageUrls.map(url => ({ type: getMediaType(url), url })),
-        ...videoUrls.map(url => ({ type: 'video', url }))
-      ];
+      galleryItems = cleanArray(vendor.images);
 
       const styleTags = cleanArray(vendor.styleTags);
       const categories = cleanArray(vendor.categories).map(formatCategory);
