@@ -6,6 +6,102 @@
   <title>Vendor Dashboard - Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css">
   <style>
+    .hero {
+      text-align: center;
+    }
+
+    .header-image {
+      width: 100%;
+      display: block;
+    }
+
+    .top-nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 28px;
+      padding: 18px 20px;
+      background: #fffaf6;
+      border-bottom: 1px solid #e8ddd2;
+      flex-wrap: wrap;
+    }
+
+    .top-nav a {
+      text-decoration: none;
+      color: #111;
+      font-size: 0.95rem;
+      letter-spacing: 0.5px;
+      transition: 0.25s;
+      position: relative;
+    }
+
+    .top-nav a::after {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 1px;
+      bottom: -4px;
+      left: 0;
+      background: #000;
+      transition: width 0.25s;
+    }
+
+    .top-nav a:hover::after {
+      width: 100%;
+    }
+
+    .nav-cta {
+      background: #000;
+      color: #fff !important;
+      padding: 8px 16px;
+      border-radius: 3px;
+    }
+
+    .nav-cta:hover {
+      background: #333;
+    }
+
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 28px;
+      left: 0;
+      background: #fffaf6;
+      min-width: 240px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+      padding: 10px 0;
+      z-index: 100;
+      border: 1px solid #e8ddd2;
+    }
+
+    .dropdown-content a,
+    .dropdown-content button {
+      display: block;
+      width: 100%;
+      padding: 10px 16px;
+      font-size: 0.9rem;
+      white-space: nowrap;
+      background: none;
+      border: none;
+      text-align: left;
+      font-family: inherit;
+      cursor: pointer;
+      color: #111;
+    }
+
+    .dropdown-content a:hover,
+    .dropdown-content button:hover {
+      background: #f4eee8;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
     .dashboard-wrap {
       max-width: 1100px;
       margin: 0 auto;
@@ -99,14 +195,6 @@
       margin-bottom: 14px;
     }
 
-    .image-upload-box {
-      background: #fffdf9;
-      border: 1px solid #ead9cf;
-      border-radius: 18px;
-      padding: 16px;
-      margin-bottom: 18px;
-    }
-
     .image-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -130,6 +218,7 @@
       border-radius: 12px;
       display: block;
       margin-bottom: 10px;
+      background: #f8f1ea;
     }
 
     .remove-image-btn {
@@ -206,6 +295,23 @@
       margin-right: 8px;
     }
 
+    .quick-links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    .quick-links a {
+      display: inline-block;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: #fffaf6;
+      border: 1px solid #ead9cf;
+      color: #5e463b;
+      text-decoration: none;
+    }
+
     @media (max-width: 900px) {
       .plan-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -229,6 +335,37 @@
     <img src="images/header4.png" alt="Our Wedding Day Hub Header" class="header-image">
   </header>
 
+  <nav class="top-nav">
+    <a href="index.html">Home</a>
+    <a href="about.html">Our Story</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="contact.html">Enquiries</a>
+
+    <div class="dropdown">
+      <a href="#">Legal ▾</a>
+      <div class="dropdown-content">
+        <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="refund-policy.html">Refund Policy</a>
+      </div>
+    </div>
+
+    <div id="guestNav">
+      <a href="signup.html" class="nav-cta">Join</a>
+      <a href="login.html">Log In</a>
+    </div>
+
+    <div id="accountNav" class="dropdown" style="display:none;">
+      <a href="#" id="accountLabel">My Account ▾</a>
+      <div class="dropdown-content">
+        <a id="dashboardLink" href="vendor-dashboard.html">Dashboard</a>
+        <a id="editProfileLink" href="vendor-dashboard.html">Edit Profile</a>
+        <a id="viewProfileLink" href="#">View My Vendor Page</a>
+        <button id="logoutNavBtn" type="button">Log Out</button>
+      </div>
+    </div>
+  </nav>
+
   <main class="dashboard-wrap">
     <section class="dashboard-card">
       <div class="dashboard-top">
@@ -236,6 +373,11 @@
           <span class="auth-kicker">Vendor Dashboard</span>
           <h1 id="welcomeMessage">Loading your dashboard...</h1>
           <p id="statusText" class="auth-mini-text">Please wait while we load your account.</p>
+
+          <div class="quick-links">
+            <a href="vendor-dashboard.html" id="dashboardQuickLink">View Dashboard</a>
+            <a href="#" id="profileQuickLink">View My Vendor Page</a>
+          </div>
         </div>
         <button id="logoutBtn" class="pretty-button logout-button" type="button">Log Out</button>
       </div>
@@ -256,6 +398,16 @@
         <div class="plan-box">
           <strong>Account Type</strong>
           <span id="accountTypeDisplay">-</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="dashboard-card" id="performanceCard" style="display:none;">
+      <h2>Profile Performance</h2>
+      <div class="plan-grid">
+        <div class="plan-box">
+          <strong>Page Views</strong>
+          <span id="pageViewsDisplay">0</span>
         </div>
       </div>
     </section>
@@ -346,117 +498,118 @@
           <p id="bioLimitNote" class="char-note">Bio limit loading...</p>
         </div>
 
-       <div class="section-box">
-  <h3>Categories</h3>
+        <div class="section-box">
+          <h3>Categories</h3>
 
-  <div id="categoryOptions" class="field-soft category-groups">
-    <details class="category-dropdown">
-      <summary>Photo &amp; Video</summary>
-      <label><input type="checkbox" value="photographer"> Photographer</label>
-      <label><input type="checkbox" value="videographer"> Videographer</label>
-      <label><input type="checkbox" value="content_creator"> Content Creator</label>
-      <label><input type="checkbox" value="wedding_content_creator"> Wedding Content Creator</label>
-    </details>
+          <div id="categoryOptions" class="field-soft category-groups">
+            <details class="category-dropdown">
+              <summary>Photo &amp; Video</summary>
+              <label><input type="checkbox" value="photographer"> Photographer</label>
+              <label><input type="checkbox" value="videographer"> Videographer</label>
+              <label><input type="checkbox" value="content_creator"> Content Creator</label>
+              <label><input type="checkbox" value="wedding_content_creator"> Wedding Content Creator</label>
+            </details>
 
-    <details class="category-dropdown">
-      <summary>Hair &amp; Beauty</summary>
-      <label><input type="checkbox" value="makeup_artist"> Bridal Makeup Artist</label>
-      <label><input type="checkbox" value="hair_stylist"> Bridal Hair Stylist</label>
-      <label><input type="checkbox" value="nail_artist"> Nail Artist</label>
-      <label><input type="checkbox" value="brow_artist"> Brow Artist</label>
-      <label><input type="checkbox" value="lash_artist"> Lash Artist</label>
-      <label><input type="checkbox" value="spray_tan"> Spray Tan Artist</label>
-      <label><input type="checkbox" value="beauty_therapist"> Beauty Therapist</label>
-      <label><input type="checkbox" value="skin_aesthetics"> Skin &amp; Aesthetics</label>
-      <label><input type="checkbox" value="beauty_salon"> Beauty Salon</label>
-    </details>
+            <details class="category-dropdown">
+              <summary>Hair &amp; Beauty</summary>
+              <label><input type="checkbox" value="makeup_artist"> Bridal Makeup Artist</label>
+              <label><input type="checkbox" value="hair_stylist"> Bridal Hair Stylist</label>
+              <label><input type="checkbox" value="nail_artist"> Nail Artist</label>
+              <label><input type="checkbox" value="brow_artist"> Brow Artist</label>
+              <label><input type="checkbox" value="lash_artist"> Lash Artist</label>
+              <label><input type="checkbox" value="spray_tan"> Spray Tan Artist</label>
+              <label><input type="checkbox" value="beauty_therapist"> Beauty Therapist</label>
+              <label><input type="checkbox" value="skin_aesthetics"> Skin &amp; Aesthetics</label>
+              <label><input type="checkbox" value="beauty_salon"> Beauty Salon</label>
+            </details>
 
-    <details class="category-dropdown">
-      <summary>Styling &amp; Florals</summary>
-      <label><input type="checkbox" value="florist"> Florist</label>
-      <label><input type="checkbox" value="stylist"> Wedding Stylist</label>
-      <label><input type="checkbox" value="event_designer"> Event Designer</label>
-      <label><input type="checkbox" value="balloon"> Balloon Stylist</label>
-      <label><input type="checkbox" value="backdrops"> Backdrops &amp; Arches</label>
-      <label><input type="checkbox" value="decor"> Decor Hire</label>
-    </details>
+            <details class="category-dropdown">
+              <summary>Styling &amp; Florals</summary>
+              <label><input type="checkbox" value="florist"> Florist</label>
+              <label><input type="checkbox" value="stylist"> Wedding Stylist</label>
+              <label><input type="checkbox" value="event_designer"> Event Designer</label>
+              <label><input type="checkbox" value="balloon"> Balloon Stylist</label>
+              <label><input type="checkbox" value="backdrops"> Backdrops &amp; Arches</label>
+              <label><input type="checkbox" value="decor"> Decor Hire</label>
+            </details>
 
-    <details class="category-dropdown">
-      <summary>Venues</summary>
-      <label><input type="checkbox" value="venue"> Wedding Venue</label>
-      <label><input type="checkbox" value="ceremony_venue"> Ceremony Venue</label>
-      <label><input type="checkbox" value="reception_venue"> Reception Venue</label>
-      <label><input type="checkbox" value="elopement"> Elopement Location</label>
-      <label><input type="checkbox" value="outdoor"> Outdoor Venue</label>
-    </details>
+            <details class="category-dropdown">
+              <summary>Venues</summary>
+              <label><input type="checkbox" value="venue"> Wedding Venue</label>
+              <label><input type="checkbox" value="ceremony_venue"> Ceremony Venue</label>
+              <label><input type="checkbox" value="reception_venue"> Reception Venue</label>
+              <label><input type="checkbox" value="elopement"> Elopement Location</label>
+              <label><input type="checkbox" value="outdoor"> Outdoor Venue</label>
+            </details>
 
-    <details class="category-dropdown">
-      <summary>Food &amp; Drink</summary>
-      <label><input type="checkbox" value="caterer"> Caterer</label>
-      <label><input type="checkbox" value="cake"> Wedding Cake Designer</label>
-      <label><input type="checkbox" value="dessert"> Dessert Bar</label>
-      <label><input type="checkbox" value="bar"> Mobile Bar</label>
-      <label><input type="checkbox" value="coffee"> Coffee Cart</label>
-      <label><input type="checkbox" value="food_truck"> Food Truck</label>
-    </details>
+            <details class="category-dropdown">
+              <summary>Food &amp; Drink</summary>
+              <label><input type="checkbox" value="caterer"> Caterer</label>
+              <label><input type="checkbox" value="cake"> Wedding Cake Designer</label>
+              <label><input type="checkbox" value="dessert"> Dessert Bar</label>
+              <label><input type="checkbox" value="bar"> Mobile Bar</label>
+              <label><input type="checkbox" value="coffee"> Coffee Cart</label>
+              <label><input type="checkbox" value="food_truck"> Food Truck</label>
+            </details>
 
-    <details class="category-dropdown">
-      <summary>Entertainment &amp; Performances</summary>
-      <label><input type="checkbox" value="singer"> Singer</label>
-      <label><input type="checkbox" value="band"> Band</label>
-      <label><input type="checkbox" value="dj"> DJ</label>
-      <label><input type="checkbox" value="acoustic"> Acoustic Musician</label>
-      <label><input type="checkbox" value="violinist"> Violinist</label>
-      <label><input type="checkbox" value="saxophonist"> Saxophonist</label>
-      <label><input type="checkbox" value="harpist"> Harpist</label>
-      <label><input type="checkbox" value="mc"> MC</label>
-      <label><input type="checkbox" value="live_painter"> Live Wedding Painter</label>
-      <label><input type="checkbox" value="live_performer"> Live Performer</label>
-      <label><input type="checkbox" value="fire_performer"> Fire Performer</label>
-      <label><input type="checkbox" value="dancer"> Dancer</label>
-    </details>
+            <details class="category-dropdown">
+              <summary>Entertainment &amp; Performances</summary>
+              <label><input type="checkbox" value="singer"> Singer</label>
+              <label><input type="checkbox" value="band"> Band</label>
+              <label><input type="checkbox" value="dj"> DJ</label>
+              <label><input type="checkbox" value="acoustic"> Acoustic Musician</label>
+              <label><input type="checkbox" value="violinist"> Violinist</label>
+              <label><input type="checkbox" value="saxophonist"> Saxophonist</label>
+              <label><input type="checkbox" value="harpist"> Harpist</label>
+              <label><input type="checkbox" value="mc"> MC</label>
+              <label><input type="checkbox" value="live_painter"> Live Wedding Painter</label>
+              <label><input type="checkbox" value="live_performer"> Live Performer</label>
+              <label><input type="checkbox" value="fire_performer"> Fire Performer</label>
+              <label><input type="checkbox" value="dancer"> Dancer</label>
+            </details>
 
-    <details class="category-dropdown">
-      <summary>Planning &amp; Support</summary>
-      <label><input type="checkbox" value="planner"> Wedding Planner</label>
-      <label><input type="checkbox" value="coordinator"> Wedding Coordinator</label>
-      <label><input type="checkbox" value="on_day_coordinator"> On-the-day Coordinator</label>
-      <label><input type="checkbox" value="honeymoon"> Honeymoon Planner</label>
-    </details>
+            <details class="category-dropdown">
+              <summary>Planning &amp; Support</summary>
+              <label><input type="checkbox" value="planner"> Wedding Planner</label>
+              <label><input type="checkbox" value="coordinator"> Wedding Coordinator</label>
+              <label><input type="checkbox" value="on_day_coordinator"> On-the-day Coordinator</label>
+              <label><input type="checkbox" value="honeymoon"> Honeymoon Planner</label>
+            </details>
 
-    <details class="category-dropdown">
-      <summary>Care Services</summary>
-      <label><input type="checkbox" value="pet_attendant"> Pet Attendant</label>
-      <label><input type="checkbox" value="pet_minding"> Pet Minding</label>
-      <label><input type="checkbox" value="child_minder"> Child Minding</label>
-      <label><input type="checkbox" value="child_entertainment"> Child Entertainment</label>
-      <label><input type="checkbox" value="wedding_nanny"> Wedding Nanny</label>
-    </details>
+            <details class="category-dropdown">
+              <summary>Care Services</summary>
+              <label><input type="checkbox" value="pet_attendant"> Pet Attendant</label>
+              <label><input type="checkbox" value="pet_minding"> Pet Minding</label>
+              <label><input type="checkbox" value="child_minder"> Child Minding</label>
+              <label><input type="checkbox" value="child_entertainment"> Child Entertainment</label>
+              <label><input type="checkbox" value="wedding_nanny"> Wedding Nanny</label>
+            </details>
 
-    <details class="category-dropdown">
-      <summary>Fashion</summary>
-      <label><input type="checkbox" value="bridal"> Bridal Boutique</label>
-      <label><input type="checkbox" value="bridesmaid"> Bridesmaid Dresses</label>
-      <label><input type="checkbox" value="formal"> Formal Wear</label>
-      <label><input type="checkbox" value="suits"> Suit Hire</label>
-      <label><input type="checkbox" value="designer"> Custom Designer</label>
-    </details>
+            <details class="category-dropdown">
+              <summary>Fashion</summary>
+              <label><input type="checkbox" value="bridal"> Bridal Boutique</label>
+              <label><input type="checkbox" value="bridesmaid"> Bridesmaid Dresses</label>
+              <label><input type="checkbox" value="formal"> Formal Wear</label>
+              <label><input type="checkbox" value="suits"> Suit Hire</label>
+              <label><input type="checkbox" value="designer"> Custom Designer</label>
+            </details>
 
-    <details class="category-dropdown">
-      <summary>Hire &amp; Extras</summary>
-      <label><input type="checkbox" value="furniture"> Furniture Hire</label>
-      <label><input type="checkbox" value="tableware"> Tableware Hire</label>
-      <label><input type="checkbox" value="lighting"> Lighting Hire</label>
-      <label><input type="checkbox" value="marquee"> Marquee Hire</label>
-      <label><input type="checkbox" value="photo_booth"> Photo Booth</label>
-      <label><input type="checkbox" value="audio_guestbook"> Audio Guestbook</label>
-      <label><input type="checkbox" value="signage"> Signage</label>
-      <label><input type="checkbox" value="stationery"> Wedding Stationery</label>
-      <label><input type="checkbox" value="calligraphy"> Calligraphy</label>
-      <label><input type="checkbox" value="invitations"> Invitations</label>
-    </details>
-  </div>
-</div>
+            <details class="category-dropdown">
+              <summary>Hire &amp; Extras</summary>
+              <label><input type="checkbox" value="furniture"> Furniture Hire</label>
+              <label><input type="checkbox" value="tableware"> Tableware Hire</label>
+              <label><input type="checkbox" value="lighting"> Lighting Hire</label>
+              <label><input type="checkbox" value="marquee"> Marquee Hire</label>
+              <label><input type="checkbox" value="photo_booth"> Photo Booth</label>
+              <label><input type="checkbox" value="audio_guestbook"> Audio Guestbook</label>
+              <label><input type="checkbox" value="signage"> Signage</label>
+              <label><input type="checkbox" value="stationery"> Wedding Stationery</label>
+              <label><input type="checkbox" value="calligraphy"> Calligraphy</label>
+              <label><input type="checkbox" value="invitations"> Invitations</label>
+            </details>
+          </div>
+        </div>
+
         <div class="section-box">
           <h3>Style Tags</h3>
           <div id="styleTagOptions" class="tag-grid">
@@ -492,7 +645,11 @@
         <div class="section-box">
           <h3>Media Upload</h3>
 
-          <label for="logoFile">Logo:</label>
+          <label for="profilePhotoFile">Profile Picture:</label>
+          <input type="file" id="profilePhotoFile" accept="image/png, image/jpeg, image/jpg, image/webp">
+          <div id="profilePhotoPreview" class="image-grid"></div>
+
+          <label for="logoFile" style="margin-top:16px;">Logo:</label>
           <input type="file" id="logoFile" accept="image/png, image/jpeg, image/jpg, image/webp">
           <div id="logoPreview" class="image-grid"></div>
 
@@ -536,13 +693,6 @@
         </div>
 
         <div class="section-box">
-          <h3>Enquiry Settings</h3>
-          <label class="publish-toggle"><input type="checkbox" id="receiveDirectEmailEnquiries"> Receive direct email enquiries</label>
-          <label class="publish-toggle"><input type="checkbox" id="receiveDashboardLeads"> Receive leads via platform dashboard</label>
-          <label class="publish-toggle"><input type="checkbox" id="autoResponseEnabled"> Auto-response enabled</label>
-        </div>
-
-        <div class="section-box">
           <h3>States &amp; Regions</h3>
 
           <label>States You Service:</label>
@@ -575,11 +725,6 @@
     </section>
   </main>
 
-  <footer class="site-footer">
-    <p>© 2026 Our Wedding Day Hub</p>
-    <p>ABN 76 688 637 041 • Australia</p>
-  </footer>
-
   <script type="module">
     import {
       app,
@@ -610,7 +755,16 @@
     const vendorForm = document.getElementById('vendorForm');
     const formMessage = document.getElementById('formMessage');
     const logoutBtn = document.getElementById('logoutBtn');
+    const logoutNavBtn = document.getElementById('logoutNavBtn');
     const regionOptions = document.getElementById('regionOptions');
+
+    const guestNav = document.getElementById('guestNav');
+    const accountNav = document.getElementById('accountNav');
+    const viewProfileLink = document.getElementById('viewProfileLink');
+    const profileQuickLink = document.getElementById('profileQuickLink');
+
+    const performanceCard = document.getElementById('performanceCard');
+    const pageViewsDisplay = document.getElementById('pageViewsDisplay');
 
     const businessNameInput = document.getElementById('businessName');
     const abnInput = document.getElementById('abn');
@@ -638,16 +792,15 @@
     const bookingLeadTimeInput = document.getElementById('bookingLeadTime');
     const peakSeasonInput = document.getElementById('peakSeason');
     const lastMinuteBookingsAcceptedInput = document.getElementById('lastMinuteBookingsAccepted');
-    const receiveDirectEmailEnquiriesInput = document.getElementById('receiveDirectEmailEnquiries');
-    const receiveDashboardLeadsInput = document.getElementById('receiveDashboardLeads');
-    const autoResponseEnabledInput = document.getElementById('autoResponseEnabled');
     const publishedInput = document.getElementById('published');
 
+    const profilePhotoFileInput = document.getElementById('profilePhotoFile');
     const logoFileInput = document.getElementById('logoFile');
     const coverFileInput = document.getElementById('coverFile');
     const imageInput = document.getElementById('vendorImages');
     const videoFileInput = document.getElementById('videoFile');
 
+    const profilePhotoPreview = document.getElementById('profilePhotoPreview');
     const logoPreview = document.getElementById('logoPreview');
     const coverPreview = document.getElementById('coverPreview');
     const imagePreview = document.getElementById('imagePreview');
@@ -668,6 +821,9 @@
 
     let existingImageUrls = [];
     let newImageFiles = [];
+
+    let existingProfilePhotoUrl = '';
+    let newProfilePhotoFile = null;
 
     let existingLogoUrl = '';
     let newLogoFile = null;
@@ -898,6 +1054,14 @@
 
     function renderAllMediaPreviews() {
       renderSinglePreview(
+        profilePhotoPreview,
+        existingProfilePhotoUrl,
+        newProfilePhotoFile,
+        () => { existingProfilePhotoUrl = ''; renderAllMediaPreviews(); },
+        () => { newProfilePhotoFile = null; renderAllMediaPreviews(); }
+      );
+
+      renderSinglePreview(
         logoPreview,
         existingLogoUrl,
         newLogoFile,
@@ -970,16 +1134,27 @@
       }
     }
 
-    logoutBtn.addEventListener('click', async () => {
+    async function doLogout() {
       await signOut(auth);
       window.location.href = 'login.html';
-    });
+    }
+
+    logoutBtn.addEventListener('click', doLogout);
+    logoutNavBtn.addEventListener('click', doLogout);
 
     document.querySelectorAll('#stateOptions input').forEach(input => {
       input.addEventListener('change', () => renderRegions());
     });
 
     bioInput.addEventListener('input', updateBioLimitDisplay);
+
+    profilePhotoFileInput.addEventListener('change', () => {
+      const file = profilePhotoFileInput.files?.[0];
+      if (!file) return;
+      newProfilePhotoFile = file;
+      profilePhotoFileInput.value = '';
+      renderAllMediaPreviews();
+    });
 
     logoFileInput.addEventListener('change', () => {
       const file = logoFileInput.files?.[0];
@@ -1016,7 +1191,7 @@
         : currentImageLimit - existingImageUrls.length - newImageFiles.length;
 
       if (maxAllowed <= 0) {
-        formMessage.textContent = `You have reached your gallery image limit.`;
+        formMessage.textContent = 'You have reached your gallery image limit.';
         imageInput.value = '';
         return;
       }
@@ -1041,6 +1216,11 @@
       }
 
       currentUser = user;
+      const publicProfileUrl = `vendor.html?id=${user.uid}`;
+      viewProfileLink.href = publicProfileUrl;
+      profileQuickLink.href = publicProfileUrl;
+      guestNav.style.display = 'none';
+      accountNav.style.display = 'block';
 
       try {
         const userSnap = await getDoc(doc(db, 'users', user.uid));
@@ -1071,6 +1251,9 @@
         bioLimitDisplay.textContent = formatLimit(planSettings.bioCharacterLimit);
         accountTypeDisplay.textContent = planSettings.complimentaryPlan ? 'Complimentary' : 'Paid';
         planGrid.style.display = 'grid';
+
+        pageViewsDisplay.textContent = String(vendorData.pageViews || 0);
+        performanceCard.style.display = 'block';
 
         welcomeMessage.textContent = `Welcome, ${vendorData.businessName || userData.name || 'Vendor'}!`;
 
@@ -1112,15 +1295,15 @@
         bookingLeadTimeInput.value = vendorData.bookingLeadTime || '';
         peakSeasonInput.value = vendorData.peakSeason || '';
         lastMinuteBookingsAcceptedInput.checked = vendorData.lastMinuteBookingsAccepted === true;
-        receiveDirectEmailEnquiriesInput.checked = vendorData.receiveDirectEmailEnquiries === true;
-        receiveDashboardLeadsInput.checked = vendorData.receiveDashboardLeads === true;
-        autoResponseEnabledInput.checked = vendorData.autoResponseEnabled === true;
         publishedInput.checked = vendorData.published === true;
 
+        existingProfilePhotoUrl = vendorData.profilePhotoUrl || '';
         existingLogoUrl = vendorData.logoUrl || '';
         existingCoverUrl = vendorData.coverImageUrl || '';
         existingVideoUrl = vendorData.videoFileUrl || vendorData.videoUrl || '';
         existingImageUrls = Array.isArray(vendorData.images) ? vendorData.images.filter(Boolean) : [];
+
+        newProfilePhotoFile = null;
         newLogoFile = null;
         newCoverFile = null;
         newVideoFile = null;
@@ -1183,9 +1366,6 @@
       const bookingLeadTime = bookingLeadTimeInput.value.trim();
       const peakSeason = peakSeasonInput.value.trim();
       const lastMinuteBookingsAccepted = lastMinuteBookingsAcceptedInput.checked;
-      const receiveDirectEmailEnquiries = receiveDirectEmailEnquiriesInput.checked;
-      const receiveDashboardLeads = receiveDashboardLeadsInput.checked;
-      const autoResponseEnabled = autoResponseEnabledInput.checked;
       const published = publishedInput.checked;
 
       if (bio.length > currentBioLimit) {
@@ -1205,9 +1385,14 @@
       try {
         formMessage.textContent = 'Saving your changes...';
 
+        let finalProfilePhotoUrl = existingProfilePhotoUrl;
         let finalLogoUrl = existingLogoUrl;
         let finalCoverImageUrl = existingCoverUrl;
         let finalVideoFileUrl = existingVideoUrl;
+
+        if (newProfilePhotoFile) {
+          finalProfilePhotoUrl = await uploadOneFile(newProfilePhotoFile, 'profile-photo');
+        }
 
         if (newLogoFile) {
           finalLogoUrl = await uploadOneFile(newLogoFile, 'logo');
@@ -1262,9 +1447,7 @@
           bookingLeadTime,
           peakSeason,
           lastMinuteBookingsAccepted,
-          receiveDirectEmailEnquiries,
-          receiveDashboardLeads,
-          autoResponseEnabled,
+          profilePhotoUrl: finalProfilePhotoUrl,
           logoUrl: finalLogoUrl,
           coverImageUrl: finalCoverImageUrl,
           images: finalImages,
@@ -1308,9 +1491,7 @@
           bookingLeadTime,
           peakSeason,
           lastMinuteBookingsAccepted,
-          receiveDirectEmailEnquiries,
-          receiveDashboardLeads,
-          autoResponseEnabled,
+          profilePhotoUrl: finalProfilePhotoUrl,
           logoUrl: finalLogoUrl,
           coverImageUrl: finalCoverImageUrl,
           images: finalImages,
@@ -1318,10 +1499,13 @@
           profileVisible: updatedProfileVisible
         };
 
+        existingProfilePhotoUrl = finalProfilePhotoUrl;
         existingLogoUrl = finalLogoUrl;
         existingCoverUrl = finalCoverImageUrl;
         existingVideoUrl = finalVideoFileUrl;
         existingImageUrls = finalImages.filter(Boolean);
+
+        newProfilePhotoFile = null;
         newLogoFile = null;
         newCoverFile = null;
         newVideoFile = null;
@@ -1330,7 +1514,7 @@
         welcomeMessage.textContent = `Welcome, ${businessName || 'Vendor'}!`;
         updateBioLimitDisplay();
         renderAllMediaPreviews();
-        formMessage.textContent = 'Your changes have been saved beautifully.';
+        formMessage.textContent = 'Your profile has been updated successfully.';
       } catch (error) {
         console.error(error);
         formMessage.textContent = 'There was a problem saving your changes.';
