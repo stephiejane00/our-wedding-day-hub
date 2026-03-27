@@ -442,9 +442,8 @@
   <div id="accountNav" class="dropdown" style="display:none;">
     <a href="#" id="accountLabel">My Account ▾</a>
     <div class="dropdown-content">
-      <a id="dashboardLink" href="vendor-dashboard.html">Dashboard</a>
-      <a id="profileLink" href="vendor-dashboard.html">Edit Profile</a>
-      <a href="#" id="logoutNavBtn">Log Out</a>
+      <a href="vendor-dashboard.html">Dashboard</a>
+      <a id="loggedInViewProfileLink" href="#">View My Vendor Page</a>
     </div>
   </div>
 </nav>
@@ -497,6 +496,10 @@
     <div id="detailsSection" class="pretty-panel" style="display:none;">
       <h2>Details</h2>
 
+      <div id="profilePhotoRow" style="display:none; margin-bottom:18px; text-align:center;">
+        <img id="vendorProfilePhoto" src="" alt="Profile picture" style="width:120px; height:120px; object-fit:cover; border-radius:50%; border:1px solid #eadfd5; box-shadow:0 6px 18px rgba(0,0,0,0.06);">
+      </div>
+
       <div id="businessNameRow" class="detail-line"><strong>Business Name:</strong> <span id="detailBusinessName"></span></div>
       <div id="abnRow" class="detail-line"><strong>ABN:</strong> <span id="vendorAbn"></span></div>
       <div id="contactNameRow" class="detail-line"><strong>Contact Name:</strong> <span id="vendorContactName"></span></div>
@@ -541,10 +544,26 @@
 
 <script type="module">
   import {
+    auth,
+    onAuthStateChanged,
     db,
     doc,
-    getDoc
+    getDoc,
+    updateDoc,
+    increment
   } from './firebase.js';
+
+  const guestNav = document.getElementById('guestNav');
+  const accountNav = document.getElementById('accountNav');
+  const loggedInViewProfileLink = document.getElementById('loggedInViewProfileLink');
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      guestNav.style.display = 'none';
+      accountNav.style.display = 'block';
+      loggedInViewProfileLink.href = `vendor.html?id=${user.uid}`;
+    }
+  });
 
   const statusMessage = document.getElementById('statusMessage');
   const vendorPage = document.getElementById('vendorPage');
@@ -574,6 +593,9 @@
   const vendorUnique = document.getElementById('vendorUnique');
   const vendorWhyChoose = document.getElementById('vendorWhyChoose');
   const vendorIncluded = document.getElementById('vendorIncluded');
+
+  const profilePhotoRow = document.getElementById('profilePhotoRow');
+  const vendorProfilePhoto = document.getElementById('vendorProfilePhoto');
 
   const detailBusinessName = document.getElementById('detailBusinessName');
   const vendorAbn = document.getElementById('vendorAbn');
@@ -837,6 +859,14 @@
         return;
       }
 
+      try {
+        await updateDoc(vendorRef, {
+          pageViews: increment(1)
+        });
+      } catch (viewError) {
+        console.warn('Could not update page views:', viewError);
+      }
+
       const imageUrls = cleanArray(vendor.images);
       const videoUrls = [];
 
@@ -860,6 +890,13 @@
         vendorLogo.style.display = 'block';
       }
 
+      if (hasValue(vendor.profilePhotoUrl)) {
+        vendorProfilePhoto.src = vendor.profilePhotoUrl;
+        profilePhotoRow.style.display = 'block';
+      } else {
+        profilePhotoRow.style.display = 'none';
+      }
+
       vendorName.textContent = vendor.businessName || 'Vendor';
 
       const metaBits = [];
@@ -877,6 +914,7 @@
       aboutSection.style.display = hasAboutContent ? 'block' : 'none';
 
       let hasDetailsContent = false;
+      hasDetailsContent = hasValue(vendor.profilePhotoUrl) || hasDetailsContent;
       hasDetailsContent = setTextRow('businessNameRow', detailBusinessName, vendor.businessName) || hasDetailsContent;
       hasDetailsContent = setTextRow('abnRow', vendorAbn, vendor.abn) || hasDetailsContent;
       hasDetailsContent = setTextRow('contactNameRow', vendorContactName, vendor.contactName) || hasDetailsContent;
