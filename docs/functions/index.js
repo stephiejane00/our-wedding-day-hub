@@ -1,13 +1,14 @@
-const functions = require("firebase-functions");
+const { onRequest } = require("firebase-functions/v2/https");
+const { defineSecret } = require("firebase-functions/params");
 const express = require("express");
 const cors = require("cors");
 const Stripe = require("stripe");
 
+const stripeSecret = defineSecret("STRIPE_SECRET_KEY");
+
 const app = express();
 app.use(cors({ origin: true }));
 app.use(express.json());
-
-const stripe = new Stripe(functions.config().stripe.secret);
 
 const PRICE_IDS = {
   setup: "price_1TGpBgIfhRO5Mn4BGzLRUsB9",
@@ -24,6 +25,8 @@ app.post("/create-checkout-session", async (req, res) => {
     if (!plan || !PRICE_IDS[plan]) {
       return res.status(400).json({ error: "Invalid plan selected." });
     }
+
+    const stripe = new Stripe(stripeSecret.value());
 
     const session = await stripe.checkout.sessions.create({
       mode: "subscription",
@@ -42,11 +45,11 @@ app.post("/create-checkout-session", async (req, res) => {
       allow_promotion_codes: true
     });
 
-    res.json({ id: session.id });
+    res.json({ url: session.url });
   } catch (error) {
     console.error("Stripe session error:", error);
     res.status(500).json({ error: "Unable to create checkout session." });
   }
 });
 
-exports.api = functions.https.onRequest(app);
+exports.api = onRequest({ secrets: [stripeSecret] }, app);
