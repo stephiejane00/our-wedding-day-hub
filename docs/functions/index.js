@@ -31,14 +31,8 @@ app.post("/create-checkout-session", async (req, res) => {
     const session = await stripe.checkout.sessions.create({
       mode: "subscription",
       line_items: [
-        {
-          price: PRICE_IDS.setup,
-          quantity: 1
-        },
-        {
-          price: PRICE_IDS[plan],
-          quantity: 1
-        }
+        { price: PRICE_IDS.setup, quantity: 1 },
+        { price: PRICE_IDS[plan], quantity: 1 }
       ],
       success_url: "https://ourweddingdayhub.com/signup-success.html?paid=true&session_id={CHECKOUT_SESSION_ID}",
       cancel_url: "https://ourweddingdayhub.com/signup.html",
