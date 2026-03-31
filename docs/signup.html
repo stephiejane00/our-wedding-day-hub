@@ -226,8 +226,34 @@
         </select>
 
         <p class="auth-switch-note">
-          Couples can create an account free. Vendors view pricing first, then continue to secure payment before account setup. Vendors may cancel at any time and receive a refund of up to 60 days (2 months) of subscription fees. The one-off $50 account setup fee is non-refundable.
+          Couples can create an account free. Vendors continue to secure checkout before account setup. Vendors may cancel at any time and receive a refund of up to 60 days (2 months) of subscription fees. The one-off $50 account setup fee is non-refundable.
         </p>
+
+        <div id="vendorPlanBox" style="display:none; margin: 18px 0 22px;">
+          <div class="auth-point" style="margin-bottom: 14px;">
+            <strong>Vendor Launch Experience</strong><br>
+            $50 one-time setup fee, charged together with your selected monthly plan at checkout.
+          </div>
+
+          <div class="auth-point" style="margin-bottom: 10px;">
+            <strong>Choose your monthly plan</strong>
+          </div>
+
+          <div style="display:grid; gap:10px;">
+            <button type="button" class="pretty-button wide-glow" onclick="startVendorCheckout('classic')">
+              Classic Listing · $4.75/month
+            </button>
+            <button type="button" class="pretty-button wide-glow" onclick="startVendorCheckout('signature')">
+              Signature Spotlight · $5.95/month
+            </button>
+            <button type="button" class="pretty-button wide-glow" onclick="startVendorCheckout('elite')">
+              Elite Feature · $7.25/month
+            </button>
+            <button type="button" class="pretty-button wide-glow" onclick="startVendorCheckout('platinum')">
+              Platinum Prestige · $9.95/month
+            </button>
+          </div>
+        </div>
 
         <label for="name">Name / Business Name:</label>
         <input type="text" id="name" required>
@@ -399,12 +425,39 @@
     const typeSelect = document.getElementById('type');
     const vendorFields = document.getElementById('vendorFields');
     const regionOptions = document.getElementById('regionOptions');
+    const vendorPlanBox = document.getElementById('vendorPlanBox');
 
     const urlParams = new URLSearchParams(window.location.search);
     const isPaid = urlParams.get('paid');
     const preselectedType = urlParams.get('type');
 
-    const vendorJoinUrl = 'https://join.ourweddingday.com.au/funnel/aah/join/';
+    const checkoutBaseUrl = "PASTE_YOUR_FUNCTION_URL_HERE";
+
+    window.startVendorCheckout = async function(plan) {
+      try {
+        message.textContent = '';
+
+        const response = await fetch(`${checkoutBaseUrl}/create-checkout-session`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ plan })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok || !data.url) {
+          message.textContent = data.error || "Unable to start checkout.";
+          return;
+        }
+
+        window.location.href = data.url;
+      } catch (error) {
+        console.error(error);
+        message.textContent = "Something went wrong starting checkout.";
+      }
+    };
 
     const regionsByState = {
       "Queensland": ["Brisbane", "Moreton Bay", "Sunshine Coast", "Gold Coast", "Ipswich", "Redland City", "Scenic Rim", "Lockyer Valley", "Toowoomba", "Noosa", "Fraser Coast", "Whitsundays", "Cairns", "Townsville"],
@@ -452,7 +505,6 @@
           checkbox.type = 'checkbox';
           checkbox.name = 'regions';
           checkbox.value = region;
-      
 
           if (previouslyChecked.includes(region)) {
             checkbox.checked = true;
@@ -468,6 +520,8 @@
     if (preselectedType) {
       typeSelect.value = preselectedType;
       vendorFields.style.display = preselectedType === 'vendor' ? 'block' : 'none';
+      vendorPlanBox.style.display = preselectedType === 'vendor' && isPaid !== 'true' ? 'block' : 'none';
+
       if (preselectedType === 'vendor') {
         renderRegions();
       }
@@ -475,6 +529,7 @@
 
     typeSelect.addEventListener('change', () => {
       vendorFields.style.display = typeSelect.value === 'vendor' ? 'block' : 'none';
+      vendorPlanBox.style.display = typeSelect.value === 'vendor' && isPaid !== 'true' ? 'block' : 'none';
 
       if (typeSelect.value === 'vendor') {
         renderRegions();
@@ -502,10 +557,7 @@
       }
 
       if (type === 'vendor' && isPaid !== 'true') {
-        message.textContent = 'Vendors are taken to pricing and payment before account setup.';
-        setTimeout(() => {
-          window.location.href = vendorJoinUrl;
-        }, 1200);
+        message.textContent = 'Please choose your vendor plan above to continue to secure checkout.';
         return;
       }
 
@@ -570,6 +622,7 @@
         message.textContent = 'Account created! Please verify your email, then log in.';
         signupForm.reset();
         vendorFields.style.display = 'none';
+        vendorPlanBox.style.display = 'none';
         regionOptions.innerHTML = '<p class="small-text">Select states above first.</p>';
 
         setTimeout(() => {
@@ -581,9 +634,10 @@
       }
     });
   </script>
+
   <footer class="site-footer">
-  <p>© 2026 Our Wedding Day Hub</p>
-  <p>ABN 76 688 637 041 • Australia</p>
-</footer>
+    <p>© 2026 Our Wedding Day Hub</p>
+    <p>ABN 76 688 637 041 • Australia</p>
+  </footer>
 </body>
 </html>
