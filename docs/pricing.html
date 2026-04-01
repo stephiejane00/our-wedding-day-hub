@@ -1,306 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vendor Pricing | Our Wedding Day Hub</title>
-<link rel="stylesheet" href="style.css">
-
-<style>
-.top-nav {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 28px;
-  padding: 18px 20px;
-  background: #fffaf6;
-  border-bottom: 1px solid #e8ddd2;
-  flex-wrap: wrap;
-}
-
-.top-nav a {
-  text-decoration: none;
-  color: #111;
-  font-size: 0.95rem;
-  letter-spacing: 0.5px;
-  transition: 0.25s;
-  position: relative;
-}
-
-.top-nav a::after {
-  content: "";
-  position: absolute;
-  width: 0;
-  height: 1px;
-  bottom: -4px;
-  left: 0;
-  background: #000;
-  transition: width 0.25s;
-}
-
-.top-nav a:hover::after {
-  width: 100%;
-}
-
-.nav-cta {
-  background: #000;
-  color: #fff !important;
-  padding: 8px 16px;
-  border-radius: 3px;
-}
-
-.nav-cta:hover {
-  background: #333;
-}
-
-.dropdown {
-  position: relative;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  top: 28px;
-  left: 0;
-  background: #fffaf6;
-  min-width: 220px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-  padding: 10px 0;
-  z-index: 100;
-  border: 1px solid #e8ddd2;
-}
-
-.dropdown-content a {
-  display: block;
-  padding: 10px 16px;
-  font-size: 0.9rem;
-  white-space: nowrap;
-}
-
-.dropdown-content a:hover {
-  background: #f4eee8;
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-.page-header {
-  text-align: center;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-.apply-button {
-  display: inline-block;
-  background: #000;
-  color: #fff;
-  padding: 18px 36px;
-  font-size: 1.1rem;
-  text-decoration: none;
-  margin: 20px auto 50px auto;
-  transition: 0.3s;
-  border: 1px solid #000;
-}
-
-.apply-button:hover {
-  transform: scale(1.05);
-}
-
-.pricing {
-  max-width: 1200px;
-  margin: 0 auto 60px auto;
-  text-align: center;
-  padding: 0 20px;
-}
-
-.pricing-tiers {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-  margin-top: 40px;
-}
-
-.pricing-tier {
-  padding: 25px 15px;
-  transition: 0.3s;
-}
-
-.pricing-tier:hover {
-  transform: translateY(-6px);
-}
-
-.tier-1 { background: #f4eee8; }
-.tier-2 { background: #f0e4d6; }
-.tier-3 { background: #ead8c2; }
-
-.tier-4 {
-  background: #D4AF37;
-  color: white;
-  box-shadow: 0 0 35px rgba(212,175,55,0.6);
-  transform: scale(1.05);
-  position: relative;
-}
-
-.badge {
-  position: absolute;
-  top: -12px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #000;
-  color: #fff;
-  font-size: 0.7rem;
-  padding: 5px 12px;
-  letter-spacing: 1px;
-}
-
-.pricing-price {
-  font-size: 2.2rem;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-footer {
-  text-align: center;
-  padding: 30px 20px;
-}
-
-@media (max-width: 980px) {
-  .pricing-tiers {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
-  .top-nav {
-    gap: 16px;
-  }
-}
-
-@media (max-width: 680px) {
-  .pricing-tiers {
-    grid-template-columns: 1fr;
-  }
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vendor Pricing | Our Wedding Day Hub</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<header>
-  <img src="images/header4.png" alt="Our Wedding Day Hub Header" style="width:100%; display:block;">
-</header>
-
-<nav class="top-nav">
-  <a href="index.html">Home</a>
-  <a href="about.html">Our Story</a>
-  <a href="pricing.html">Pricing</a>
-  <a href="contact.html">Enquiries</a>
-
-  <div class="dropdown">
-    <a href="#">Legal ▾</a>
-    <div class="dropdown-content">
-      <a href="terms.html">Terms &amp; Conditions</a>
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="refund-policy.html">Refund Policy</a>
-    </div>
+  <div class="page-auth">
+    <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
+    <a href="login.html" id="loginLink" class="auth-link">Log In</a>
+    <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
   </div>
 
-  <a href="signup.html" class="nav-cta">Join</a>
-  <a href="login.html" id="loginLink">Log In</a>
-  <a href="dashboard.html" id="dashboardLink" style="display:none;">Dashboard</a>
-  <a href="#" id="logoutLink" style="display:none;">Logout</a>
-</nav>
+  <header class="hero">
+    <img src="images/header4.png" alt="Our Wedding Day Hub" class="header-image">
+  </header>
 
-<header class="page-header">
-  <h1>Vendor Pricing</h1>
-  <p>
-    Choose the plan that suits your business and create your vendor profile on
-    Our Wedding Day Hub, a space designed to help couples discover and connect with you.
-  </p>
+  <main class="page-shell">
+    <section class="card hero-card">
+      <p class="eyebrow">vendor pricing</p>
+      <h1>Choose the plan that suits your business.</h1>
+      <p class="intro-text">
+        Create your profile on Our Wedding Day Hub and showcase your business in a beautiful, thoughtful space designed for discovery.
+      </p>
+      <a href="signup.html?type=vendor" class="apply-button">Continue to Sign Up</a>
+    </section>
 
-  <a href="signup.html?type=vendor" class="apply-button">
-    Continue to Sign Up
-  </a>
-</header>
-
-<section class="pricing">
-  <h2>Choose Your Plan</h2>
-
-  <p style="margin-top:10px;">
-    <strong>One-off setup fee: $50</strong><br>
-    Includes account creation, vendor profile setup, and access to the platform.
-  </p>
-
-  <p style="margin-top:16px; max-width:760px; margin-left:auto; margin-right:auto;">
-    All plans include your vendor listing and enquiry functionality. Higher tiers unlock
-    additional space to showcase your work and increased visibility across the hub.
-  </p>
-
-  <p style="margin-top:16px; max-width:760px; margin-left:auto; margin-right:auto;">
-    Vendors are welcome to cancel their subscription at any time. If they do, we offer a refund of up to 60 days (2 months) of subscription fees. The one-off $50 account setup fee is non-refundable.
-  </p>
-
-  <div class="pricing-tiers">
-    <div class="pricing-tier tier-1">
-      <h3>Classic Listing</h3>
-      <div class="pricing-price">$4.75</div>
-      <p>/ month</p>
+    <section class="card">
+      <h2>Classic Listing</h2>
+      <p>$4.75 / month</p>
       <p>Vendor info sidebar on your profile</p>
       <p>Inquiry / Contact / Book button</p>
       <p>Showcase 3 images</p>
       <p>Bio limit: 500 characters</p>
-      <p><em>A beautiful starting point</em></p>
-    </div>
+    </section>
 
-    <div class="pricing-tier tier-2">
-      <h3>Signature Spotlight</h3>
-      <div class="pricing-price">$5.95</div>
-      <p>/ month</p>
-      <p><strong>Everything in Classic Listing, plus:</strong></p>
+    <section class="card">
+      <h2>Signature Spotlight</h2>
+      <p>$5.95 / month</p>
+      <p>Everything in Classic Listing, plus:</p>
       <p>Showcase 5 images</p>
       <p>Bio limit: 1,000 characters</p>
-      <p><em>Perfect for growing your presence</em></p>
-    </div>
+    </section>
 
-    <div class="pricing-tier tier-3">
-      <h3>Elite Feature</h3>
-      <div class="pricing-price">$7.25</div>
-      <p>/ month</p>
-      <p><strong>Everything in Signature Spotlight, plus:</strong></p>
+    <section class="card">
+      <h2>Elite Feature</h2>
+      <p>$7.25 / month</p>
+      <p>Everything in Signature Spotlight, plus:</p>
       <p>Showcase 8 images</p>
       <p>Bio limit: 1,500 characters</p>
       <p>Highlighted placement in search results</p>
-      <p><em>Designed for extra visibility</em></p>
-    </div>
+    </section>
 
-    <div class="pricing-tier tier-4">
-      <div class="badge">MOST POPULAR</div>
-      <h3>Platinum Prestige</h3>
-      <div class="pricing-price">$9.95</div>
-      <p>/ month</p>
-      <p><strong>Everything in Elite Feature, plus:</strong></p>
+    <section class="card">
+      <h2>Platinum Prestige</h2>
+      <p>$9.95 / month</p>
+      <p>Everything in Elite Feature, plus:</p>
       <p>Unlimited images</p>
       <p>Unlimited bio characters</p>
       <p>Priority placement in search results</p>
       <p>Featured vendor spotlights and promotions</p>
-      <p><em>The full experience</em></p>
+    </section>
+
+    <section class="card">
+      <p><strong>One-off setup fee: $50</strong></p>
+      <p>Includes account creation, vendor profile setup, and access to the platform.</p>
+      <p>The one-off $50 setup fee is non-refundable.</p>
+      <p>Vendors may cancel at any time. We offer a refund of up to 60 days of subscription fees only.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p class="footer-eyebrow">wedding vendor directory</p>
+      <h2 class="footer-title">Find beautiful wedding vendors in one lovely place.</h2>
+      <p class="footer-text">
+        Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.
+      </p>
+
+      <div class="footer-links">
+        <a href="about.html">About Us</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="refund-policy.html">Refund Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="contact.html">Enquiries</a>
+      </div>
+
+      <p class="footer-abn">ABN: 76688637041</p>
     </div>
-  </div>
+  </footer>
 
-  <div style="margin-top:50px;">
-    <a href="signup.html?type=vendor" class="apply-button">
-      Continue to Sign Up
-    </a>
-  </div>
-</section>
-
-<footer class="site-footer">
-  <p>© 2026 Our Wedding Day Hub</p>
-  <p>ABN 76 688 637 041 • Australia</p>
-</footer>
-
-<script type="module" src="nav.js"></script>
+  <script type="module" src="nav.js"></script>
 </body>
 </html>
