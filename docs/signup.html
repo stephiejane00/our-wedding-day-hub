@@ -5,409 +5,283 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Join | Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css">
-
-  <style>
-    .top-nav {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 28px;
-      padding: 18px 20px;
-      background: #fffaf6;
-      border-bottom: 1px solid #e8ddd2;
-      flex-wrap: wrap;
-    }
-
-    .top-nav a {
-      text-decoration: none;
-      color: #111;
-      font-size: 0.95rem;
-      letter-spacing: 0.5px;
-      transition: 0.25s;
-      position: relative;
-    }
-
-    .top-nav a::after {
-      content: "";
-      position: absolute;
-      width: 0;
-      height: 1px;
-      bottom: -4px;
-      left: 0;
-      background: #000;
-      transition: width 0.25s;
-    }
-
-    .top-nav a:hover::after {
-      width: 100%;
-    }
-
-    .nav-cta {
-      background: #000;
-      color: #fff !important;
-      padding: 8px 16px;
-      border-radius: 3px;
-    }
-
-    .nav-cta:hover {
-      background: #333;
-    }
-
-    .dropdown {
-      position: relative;
-    }
-
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      top: 28px;
-      left: 0;
-      background: #fffaf6;
-      min-width: 220px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-      padding: 10px 0;
-      z-index: 100;
-      border: 1px solid #e8ddd2;
-    }
-
-    .dropdown-content a {
-      display: block;
-      padding: 10px 16px;
-      font-size: 0.9rem;
-      white-space: nowrap;
-    }
-
-    .dropdown-content a:hover {
-      background: #f4eee8;
-    }
-
-    .dropdown:hover .dropdown-content {
-      display: block;
-    }
-
-    .signup-dropdown {
-      margin-bottom: 16px;
-      border: 1px solid #d9d1c7;
-      background: #fffaf6;
-    }
-
-    .signup-dropdown summary {
-      list-style: none;
-      cursor: pointer;
-      padding: 14px 16px;
-      font-weight: 600;
-      position: relative;
-    }
-
-    .signup-dropdown summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .signup-dropdown summary::after {
-      content: '+';
-      position: absolute;
-      right: 16px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 1.2rem;
-      font-weight: 400;
-    }
-
-    .signup-dropdown[open] summary::after {
-      content: '–';
-    }
-
-    .dropdown-content-form {
-      padding: 0 16px 16px 16px;
-      border-top: 1px solid #e8dfd4;
-    }
-
-    .dropdown-content-form label {
-      display: block;
-      margin-bottom: 10px;
-    }
-
-    .category-group-title {
-      font-weight: bold;
-      margin: 16px 0 8px;
-    }
-
-    .region-heading {
-      font-weight: bold;
-      margin: 12px 0 8px;
-    }
-
-    footer {
-      text-align: center;
-      padding: 30px 20px;
-    }
-
-    @media (max-width: 768px) {
-      .top-nav {
-        gap: 16px;
-      }
-    }
-  </style>
 </head>
 <body>
-  <header>
-    <img src="images/header4.png" alt="Our Wedding Day Hub Header" style="width:100%; display:block;">
+
+  <div class="page-auth">
+    <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
+    <a href="login.html" id="loginLink" class="auth-link">Log In</a>
+    <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
+  </div>
+
+  <header class="hero">
+    <img src="images/header4.png" alt="Our Wedding Day Hub" class="header-image">
   </header>
 
-  <nav class="top-nav">
-    <a href="index.html">Home</a>
-    <a href="about.html">Our Story</a>
-    <a href="pricing.html">Pricing</a>
-    <a href="contact.html">Enquiries</a>
-
-    <div class="dropdown">
-      <a href="#">Legal ▾</a>
-      <div class="dropdown-content">
-        <a href="terms.html">Terms &amp; Conditions</a>
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="refund-policy.html">Refund Policy</a>
-      </div>
-    </div>
-
-    <a href="signup.html" class="nav-cta">Join</a>
-    <a href="login.html">Log In</a>
-  </nav>
-
-  <main class="auth-layout">
-    <section class="auth-intro">
-      <span class="auth-kicker">Join the hub</span>
-      <h1>Create Your Account</h1>
-      <p>
-        Welcome to Our Wedding Day Hub, a beautiful space where couples can explore inspiration
-        and discover trusted wedding vendors, and where vendors can create their own profile and
-        grow their presence online.
+  <main class="page-shell">
+    <section class="card hero-card">
+      <p class="eyebrow">join the hub</p>
+      <h1 class="page-title">Create Your Account</h1>
+      <p class="page-subtitle">
+        Welcome to Our Wedding Day Hub, a beautiful space where couples can explore inspiration and trusted vendors,
+        and where vendors can create their own profile and grow their presence online.
       </p>
-
-      <div class="auth-points">
-        <div class="auth-point">
-          <strong>For vendors</strong>
-          Create your business profile, select your categories, add the locations you service,
-          and build your presence on the hub.
-        </div>
-        <div class="auth-point">
-          <strong>For couples</strong>
-          Sign up free to save favourite vendors and start building your inspiration space.
-        </div>
-        <div class="auth-point">
-          <strong>Simple setup</strong>
-          Get started in just a few steps with a soft, easy-to-use experience designed especially for weddings.
-        </div>
-        <div class="auth-point">
-          <strong>Clear vendor access</strong>
-          Vendor accounts include a one-off setup fee and subscription options that unlock profile features.
-        </div>
-      </div>
     </section>
 
-    <section class="auth-card spiced">
-      <h2>Join</h2>
-      <p class="auth-mini-text">Choose your account type below to get started.</p>
-
-      <div class="auth-point" style="margin-bottom: 18px;">
-        <strong>Vendors</strong>
-        View pricing and plan options before continuing to payment and account setup.
-      </div>
-
-      <a href="pricing.html" class="pretty-button wide-glow" style="text-align:center; display:block; margin-bottom:16px;">
-        View Vendor Pricing
-      </a>
-
-      <form id="signupForm" class="pretty-form">
-        <label for="type">I am a:</label>
-        <select id="type" required>
-          <option value="">Select</option>
-          <option value="vendor">Vendor</option>
-          <option value="couple">Couple</option>
-        </select>
-
-        <p class="auth-switch-note">
-          Couples can create an account free. Vendors continue to secure checkout before account setup. Vendors may cancel at any time and receive a refund of up to 60 days (2 months) of subscription fees. The one-off $50 account setup fee is non-refundable.
-        </p>
-
-        <div id="vendorPlanBox" style="display:none; margin: 18px 0 22px;">
-          <div class="auth-point" style="margin-bottom: 14px;">
-            <strong>Vendor Launch Experience</strong><br>
-            $50 one-time setup fee, charged together with your selected monthly plan at checkout.
+    <section class="auth-layout">
+      <section class="auth-intro">
+        <div class="auth-points">
+          <div class="auth-point">
+            <strong>For vendors</strong><br>
+            Create your business profile, select your categories, add the locations you service,
+            and build your presence on the hub.
           </div>
 
-          <div class="auth-point" style="margin-bottom: 10px;">
-            <strong>Choose your monthly plan</strong>
+          <div class="auth-point">
+            <strong>For couples</strong><br>
+            Sign up free to save favourite vendors and start building your inspiration space.
           </div>
 
-          <div style="display:grid; gap:10px;">
-            <button type="button" class="pretty-button wide-glow" onclick="startVendorCheckout('classic')">
-              Classic Listing · $4.75/month
-            </button>
-            <button type="button" class="pretty-button wide-glow" onclick="startVendorCheckout('signature')">
-              Signature Spotlight · $5.95/month
-            </button>
-            <button type="button" class="pretty-button wide-glow" onclick="startVendorCheckout('elite')">
-              Elite Feature · $7.25/month
-            </button>
-            <button type="button" class="pretty-button wide-glow" onclick="startVendorCheckout('platinum')">
-              Platinum Prestige · $9.95/month
-            </button>
+          <div class="auth-point">
+            <strong>Simple setup</strong><br>
+            Get started in just a few steps with a soft, easy-to-use experience designed especially for weddings.
+          </div>
+
+          <div class="auth-point">
+            <strong>Clear vendor access</strong><br>
+            Vendor accounts include a one-off setup fee and subscription options that unlock profile features.
           </div>
         </div>
+      </section>
 
-        <label for="name">Name / Business Name:</label>
-        <input type="text" id="name" required>
+      <section class="auth-card spiced">
+        <h2>Join</h2>
+        <p class="auth-mini-text">Choose your account type below to get started.</p>
 
-        <div class="field-row">
-          <div>
-            <label for="email">Email:</label>
-            <input type="email" id="email" required>
-          </div>
-          <div>
-            <label for="password">Password:</label>
-            <input type="password" id="password" minlength="6" required>
-          </div>
+        <div class="auth-point" style="margin-bottom: 18px;">
+          <strong>Vendors</strong><br>
+          View pricing and plan options before continuing to payment and account setup.
         </div>
 
-        <div id="vendorFields" class="field-soft" style="display:none;">
-          <p class="small-text" style="margin-bottom: 14px;">
-            Once payment is completed, you’ll return here to finish creating your vendor account.
+        <a href="pricing.html" class="pretty-button wide-glow" style="display:block; text-align:center; margin-bottom:16px;">
+          View Vendor Pricing
+        </a>
+
+        <form id="signupForm" class="pretty-form">
+          <label for="type">I am a:</label>
+          <select id="type" required>
+            <option value="">Select</option>
+            <option value="vendor">Vendor</option>
+            <option value="couple">Couple</option>
+          </select>
+
+          <p class="auth-switch-note">
+            Couples can create an account free. Vendors continue to secure checkout before account setup.
+            Vendors may cancel at any time and receive a refund of up to 60 days, or 2 months, of subscription fees.
+            The one-off $50 account setup fee is non-refundable.
           </p>
 
-          <details class="signup-dropdown">
-            <summary>Categories</summary>
-            <div id="categoryOptions" class="dropdown-content-form">
-              <div class="category-group-title">Photo &amp; Video</div>
-              <label><input type="checkbox" value="photographer"> Photographer</label>
-              <label><input type="checkbox" value="videographer"> Videographer</label>
-              <label><input type="checkbox" value="content_creator"> Content Creator</label>
-
-              <div class="category-group-title">Hair &amp; Beauty</div>
-              <label><input type="checkbox" value="makeup_artist"> Makeup Artist</label>
-              <label><input type="checkbox" value="hair_stylist"> Hair Stylist</label>
-              <label><input type="checkbox" value="beauty_salon"> Beauty Salon</label>
-              <label><input type="checkbox" value="spray_tan"> Spray Tanning</label>
-              <label><input type="checkbox" value="skin_aesthetics"> Skin &amp; Aesthetics</label>
-
-              <div class="category-group-title">Entertainment</div>
-              <label><input type="checkbox" value="singer"> Singer</label>
-              <label><input type="checkbox" value="band"> Band</label>
-              <label><input type="checkbox" value="dj"> DJ</label>
-              <label><input type="checkbox" value="acoustic"> Acoustic Musician</label>
-              <label><input type="checkbox" value="violinist"> Violinist</label>
-              <label><input type="checkbox" value="saxophonist"> Saxophonist</label>
-              <label><input type="checkbox" value="harpist"> Harpist</label>
-              <label><input type="checkbox" value="mc"> MC</label>
-
-              <div class="category-group-title">Styling &amp; Florals</div>
-              <label><input type="checkbox" value="florist"> Florist</label>
-              <label><input type="checkbox" value="stylist"> Wedding Stylist</label>
-              <label><input type="checkbox" value="event_designer"> Event Designer</label>
-              <label><input type="checkbox" value="balloon"> Balloon Stylist</label>
-              <label><input type="checkbox" value="backdrops"> Backdrops &amp; Arches</label>
-
-              <div class="category-group-title">Food &amp; Drink</div>
-              <label><input type="checkbox" value="caterer"> Caterer</label>
-              <label><input type="checkbox" value="cake"> Wedding Cake Designer</label>
-              <label><input type="checkbox" value="dessert"> Dessert Bar</label>
-              <label><input type="checkbox" value="bar"> Mobile Bar</label>
-              <label><input type="checkbox" value="coffee"> Coffee Cart</label>
-              <label><input type="checkbox" value="food_truck"> Food Truck</label>
-
-              <div class="category-group-title">Venues</div>
-              <label><input type="checkbox" value="venue"> Wedding Venue</label>
-              <label><input type="checkbox" value="ceremony_venue"> Ceremony Venue</label>
-              <label><input type="checkbox" value="reception_venue"> Reception Venue</label>
-              <label><input type="checkbox" value="elopement"> Elopement Location</label>
-              <label><input type="checkbox" value="outdoor"> Outdoor Venue</label>
-
-              <div class="category-group-title">Stationery &amp; Signage</div>
-              <label><input type="checkbox" value="invitations"> Invitations</label>
-              <label><input type="checkbox" value="stationery"> Wedding Stationery</label>
-              <label><input type="checkbox" value="signage"> Signage</label>
-              <label><input type="checkbox" value="calligraphy"> Calligraphy</label>
-
-              <div class="category-group-title">Fashion</div>
-              <label><input type="checkbox" value="bridal"> Bridal Boutique</label>
-              <label><input type="checkbox" value="bridesmaid"> Bridesmaid Dresses</label>
-              <label><input type="checkbox" value="formal"> Formal Wear</label>
-              <label><input type="checkbox" value="suits"> Suit Hire</label>
-              <label><input type="checkbox" value="designer"> Custom Designer</label>
-
-              <div class="category-group-title">Jewellery</div>
-              <label><input type="checkbox" value="rings"> Wedding Rings</label>
-              <label><input type="checkbox" value="engagement"> Engagement Rings</label>
-              <label><input type="checkbox" value="custom_jewellery"> Custom Jewellery</label>
-
-              <div class="category-group-title">Transport</div>
-              <label><input type="checkbox" value="cars"> Wedding Cars</label>
-              <label><input type="checkbox" value="luxury_cars"> Luxury Cars</label>
-              <label><input type="checkbox" value="vintage_cars"> Vintage Cars</label>
-              <label><input type="checkbox" value="limo"> Limousine</label>
-              <label><input type="checkbox" value="bus"> Guest Transport</label>
-
-              <div class="category-group-title">Experiences &amp; Unique Services</div>
-              <label><input type="checkbox" value="live_painter"> Live Wedding Painter</label>
-              <label><input type="checkbox" value="photo_booth"> Photo Booth</label>
-              <label><input type="checkbox" value="audio_guestbook"> Audio Guestbook</label>
-              <label><input type="checkbox" value="wedding_content_creator"> Wedding Content Creator</label>
-
-              <div class="category-group-title">Planning &amp; Support</div>
-              <label><input type="checkbox" value="planner"> Wedding Planner</label>
-              <label><input type="checkbox" value="coordinator"> Wedding Coordinator</label>
-              <label><input type="checkbox" value="on_day_coordinator"> On-the-day Coordinator</label>
-              <label><input type="checkbox" value="honeymoon"> Honeymoon Planner</label>
-
-              <div class="category-group-title">Care Services</div>
-              <label><input type="checkbox" value="pet_attendant"> Pet Attendant</label>
-              <label><input type="checkbox" value="child_minder"> Child Minder / Wedding Nanny</label>
-
-              <div class="category-group-title">Hire &amp; Rentals</div>
-              <label><input type="checkbox" value="furniture"> Furniture Hire</label>
-              <label><input type="checkbox" value="decor"> Decor Hire</label>
-              <label><input type="checkbox" value="tableware"> Tableware Hire</label>
-              <label><input type="checkbox" value="lighting"> Lighting Hire</label>
-              <label><input type="checkbox" value="marquee"> Marquee Hire</label>
-
-              <div class="category-group-title">Gifts &amp; Favours</div>
-              <label><input type="checkbox" value="favours"> Wedding Favours</label>
-              <label><input type="checkbox" value="gifts"> Personalised Gifts</label>
-              <label><input type="checkbox" value="hampers"> Hampers</label>
+          <div id="vendorPlanBox" style="display:none; margin: 18px 0 22px;">
+            <div class="auth-point" style="margin-bottom: 14px;">
+              <strong>Vendor Launch Experience</strong><br>
+              $50 one-time setup fee, charged together with your selected monthly plan at checkout.
             </div>
-          </details>
 
-          <details class="signup-dropdown">
-            <summary>States You Service</summary>
-            <div id="stateOptions" class="dropdown-content-form">
-              <label><input type="checkbox" value="Queensland"> Queensland</label>
-              <label><input type="checkbox" value="New South Wales"> New South Wales</label>
-              <label><input type="checkbox" value="Victoria"> Victoria</label>
-              <label><input type="checkbox" value="South Australia"> South Australia</label>
-              <label><input type="checkbox" value="Western Australia"> Western Australia</label>
-              <label><input type="checkbox" value="Tasmania"> Tasmania</label>
-              <label><input type="checkbox" value="Australian Capital Territory"> Australian Capital Territory</label>
-              <label><input type="checkbox" value="Northern Territory"> Northern Territory</label>
+            <div class="auth-point" style="margin-bottom: 10px;">
+              <strong>Choose your monthly plan</strong>
             </div>
-          </details>
 
-          <details class="signup-dropdown">
-            <summary>Regions You Service</summary>
-            <div id="regionOptions" class="dropdown-content-form">
-              <p class="small-text">Select states above first.</p>
+            <div style="display:grid; gap:10px;">
+              <button type="button" class="pretty-button wide-glow" onclick="startVendorCheckout('classic')">
+                Classic Listing · $4.75/month
+              </button>
+              <button type="button" class="pretty-button wide-glow" onclick="startVendorCheckout('signature')">
+                Signature Spotlight · $5.95/month
+              </button>
+              <button type="button" class="pretty-button wide-glow" onclick="startVendorCheckout('elite')">
+                Elite Feature · $7.25/month
+              </button>
+              <button type="button" class="pretty-button wide-glow" onclick="startVendorCheckout('platinum')">
+                Platinum Prestige · $9.95/month
+              </button>
             </div>
-          </details>
-        </div>
+          </div>
 
-        <button type="submit" class="pretty-button wide-glow">Create Account</button>
-      </form>
+          <label for="name">Name / Business Name:</label>
+          <input type="text" id="name" required>
 
-      <p id="message" class="form-message"></p>
+          <div class="field-row">
+            <div>
+              <label for="email">Email:</label>
+              <input type="email" id="email" required>
+            </div>
+            <div>
+              <label for="password">Password:</label>
+              <input type="password" id="password" minlength="6" required>
+            </div>
+          </div>
 
-      <p class="auth-footer-text">
-        Already have an account? <a href="login.html">Log in here</a>
-      </p>
+          <div id="vendorFields" class="field-soft" style="display:none;">
+            <p class="small-text" style="margin-bottom: 14px;">
+              Once payment is completed, you’ll return here to finish creating your vendor account.
+            </p>
+
+            <details class="signup-dropdown">
+              <summary>Categories</summary>
+              <div id="categoryOptions" class="dropdown-content-form">
+                <div class="category-group-title">Photo &amp; Video</div>
+                <label><input type="checkbox" value="photographer"> Photographer</label>
+                <label><input type="checkbox" value="videographer"> Videographer</label>
+                <label><input type="checkbox" value="content_creator"> Content Creator</label>
+
+                <div class="category-group-title">Hair &amp; Beauty</div>
+                <label><input type="checkbox" value="makeup_artist"> Makeup Artist</label>
+                <label><input type="checkbox" value="hair_stylist"> Hair Stylist</label>
+                <label><input type="checkbox" value="beauty_salon"> Beauty Salon</label>
+                <label><input type="checkbox" value="spray_tan"> Spray Tanning</label>
+                <label><input type="checkbox" value="skin_aesthetics"> Skin &amp; Aesthetics</label>
+
+                <div class="category-group-title">Entertainment</div>
+                <label><input type="checkbox" value="singer"> Singer</label>
+                <label><input type="checkbox" value="band"> Band</label>
+                <label><input type="checkbox" value="dj"> DJ</label>
+                <label><input type="checkbox" value="acoustic"> Acoustic Musician</label>
+                <label><input type="checkbox" value="violinist"> Violinist</label>
+                <label><input type="checkbox" value="saxophonist"> Saxophonist</label>
+                <label><input type="checkbox" value="harpist"> Harpist</label>
+                <label><input type="checkbox" value="mc"> MC</label>
+
+                <div class="category-group-title">Styling &amp; Florals</div>
+                <label><input type="checkbox" value="florist"> Florist</label>
+                <label><input type="checkbox" value="stylist"> Wedding Stylist</label>
+                <label><input type="checkbox" value="event_designer"> Event Designer</label>
+                <label><input type="checkbox" value="balloon"> Balloon Stylist</label>
+                <label><input type="checkbox" value="backdrops"> Backdrops &amp; Arches</label>
+
+                <div class="category-group-title">Food &amp; Drink</div>
+                <label><input type="checkbox" value="caterer"> Caterer</label>
+                <label><input type="checkbox" value="cake"> Wedding Cake Designer</label>
+                <label><input type="checkbox" value="dessert"> Dessert Bar</label>
+                <label><input type="checkbox" value="bar"> Mobile Bar</label>
+                <label><input type="checkbox" value="coffee"> Coffee Cart</label>
+                <label><input type="checkbox" value="food_truck"> Food Truck</label>
+
+                <div class="category-group-title">Venues</div>
+                <label><input type="checkbox" value="venue"> Wedding Venue</label>
+                <label><input type="checkbox" value="ceremony_venue"> Ceremony Venue</label>
+                <label><input type="checkbox" value="reception_venue"> Reception Venue</label>
+                <label><input type="checkbox" value="elopement"> Elopement Location</label>
+                <label><input type="checkbox" value="outdoor"> Outdoor Venue</label>
+
+                <div class="category-group-title">Stationery &amp; Signage</div>
+                <label><input type="checkbox" value="invitations"> Invitations</label>
+                <label><input type="checkbox" value="stationery"> Wedding Stationery</label>
+                <label><input type="checkbox" value="signage"> Signage</label>
+                <label><input type="checkbox" value="calligraphy"> Calligraphy</label>
+
+                <div class="category-group-title">Fashion</div>
+                <label><input type="checkbox" value="bridal"> Bridal Boutique</label>
+                <label><input type="checkbox" value="bridesmaid"> Bridesmaid Dresses</label>
+                <label><input type="checkbox" value="formal"> Formal Wear</label>
+                <label><input type="checkbox" value="suits"> Suit Hire</label>
+                <label><input type="checkbox" value="designer"> Custom Designer</label>
+
+                <div class="category-group-title">Jewellery</div>
+                <label><input type="checkbox" value="rings"> Wedding Rings</label>
+                <label><input type="checkbox" value="engagement"> Engagement Rings</label>
+                <label><input type="checkbox" value="custom_jewellery"> Custom Jewellery</label>
+
+                <div class="category-group-title">Transport</div>
+                <label><input type="checkbox" value="cars"> Wedding Cars</label>
+                <label><input type="checkbox" value="luxury_cars"> Luxury Cars</label>
+                <label><input type="checkbox" value="vintage_cars"> Vintage Cars</label>
+                <label><input type="checkbox" value="limo"> Limousine</label>
+                <label><input type="checkbox" value="bus"> Guest Transport</label>
+
+                <div class="category-group-title">Experiences &amp; Unique Services</div>
+                <label><input type="checkbox" value="live_painter"> Live Wedding Painter</label>
+                <label><input type="checkbox" value="photo_booth"> Photo Booth</label>
+                <label><input type="checkbox" value="audio_guestbook"> Audio Guestbook</label>
+                <label><input type="checkbox" value="wedding_content_creator"> Wedding Content Creator</label>
+
+                <div class="category-group-title">Planning &amp; Support</div>
+                <label><input type="checkbox" value="planner"> Wedding Planner</label>
+                <label><input type="checkbox" value="coordinator"> Wedding Coordinator</label>
+                <label><input type="checkbox" value="on_day_coordinator"> On-the-day Coordinator</label>
+                <label><input type="checkbox" value="honeymoon"> Honeymoon Planner</label>
+
+                <div class="category-group-title">Care Services</div>
+                <label><input type="checkbox" value="pet_attendant"> Pet Attendant</label>
+                <label><input type="checkbox" value="child_minder"> Child Minder / Wedding Nanny</label>
+
+                <div class="category-group-title">Hire &amp; Rentals</div>
+                <label><input type="checkbox" value="furniture"> Furniture Hire</label>
+                <label><input type="checkbox" value="decor"> Decor Hire</label>
+                <label><input type="checkbox" value="tableware"> Tableware Hire</label>
+                <label><input type="checkbox" value="lighting"> Lighting Hire</label>
+                <label><input type="checkbox" value="marquee"> Marquee Hire</label>
+
+                <div class="category-group-title">Gifts &amp; Favours</div>
+                <label><input type="checkbox" value="favours"> Wedding Favours</label>
+                <label><input type="checkbox" value="gifts"> Personalised Gifts</label>
+                <label><input type="checkbox" value="hampers"> Hampers</label>
+              </div>
+            </details>
+
+            <details class="signup-dropdown">
+              <summary>States You Service</summary>
+              <div id="stateOptions" class="dropdown-content-form">
+                <label><input type="checkbox" value="Queensland"> Queensland</label>
+                <label><input type="checkbox" value="New South Wales"> New South Wales</label>
+                <label><input type="checkbox" value="Victoria"> Victoria</label>
+                <label><input type="checkbox" value="South Australia"> South Australia</label>
+                <label><input type="checkbox" value="Western Australia"> Western Australia</label>
+                <label><input type="checkbox" value="Tasmania"> Tasmania</label>
+                <label><input type="checkbox" value="Australian Capital Territory"> Australian Capital Territory</label>
+                <label><input type="checkbox" value="Northern Territory"> Northern Territory</label>
+              </div>
+            </details>
+
+            <details class="signup-dropdown">
+              <summary>Regions You Service</summary>
+              <div id="regionOptions" class="dropdown-content-form">
+                <p class="small-text">Select states above first.</p>
+              </div>
+            </details>
+          </div>
+
+          <button type="submit" class="pretty-button wide-glow">Create Account</button>
+        </form>
+
+        <p id="message" class="form-message"></p>
+
+        <p class="auth-footer-text">
+          Already have an account? <a href="login.html">Log in here</a>
+        </p>
+      </section>
     </section>
   </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p class="footer-eyebrow">wedding vendor directory</p>
+      <h2 class="footer-title">Find beautiful wedding vendors in one lovely place.</h2>
+      <p class="footer-text">
+        Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.
+      </p>
+
+      <div class="footer-links">
+        <a href="about.html">About Us</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="refund-policy.html">Refund Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="contact.html">Enquiries</a>
+      </div>
+
+      <p class="footer-abn">ABN: 76688637041</p>
+    </div>
+  </footer>
 
   <script type="module">
     import {
@@ -497,9 +371,6 @@
 
         regionsByState[state].forEach(region => {
           const wrapper = document.createElement('label');
-          wrapper.style.display = 'block';
-          wrapper.style.marginBottom = '10px';
-          wrapper.style.fontWeight = 'normal';
 
           const checkbox = document.createElement('input');
           checkbox.type = 'checkbox';
@@ -635,9 +506,6 @@
     });
   </script>
 
-  <footer class="site-footer">
-    <p>© 2026 Our Wedding Day Hub</p>
-    <p>ABN 76 688 637 041 • Australia</p>
-  </footer>
+  <script type="module" src="nav.js"></script>
 </body>
 </html>
