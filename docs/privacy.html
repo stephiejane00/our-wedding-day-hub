@@ -5,155 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Privacy Policy | Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css">
-  <style>
-    .top-nav {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 28px;
-      padding: 18px 20px;
-      background: #fffaf6;
-      border-bottom: 1px solid #e8ddd2;
-      flex-wrap: wrap;
-    }
-
-    .top-nav a {
-      text-decoration: none;
-      color: #111;
-      font-size: 0.95rem;
-      letter-spacing: 0.5px;
-      transition: 0.25s;
-      position: relative;
-    }
-
-    .top-nav a::after {
-      content: "";
-      position: absolute;
-      width: 0;
-      height: 1px;
-      bottom: -4px;
-      left: 0;
-      background: #000;
-      transition: width 0.25s ease;
-    }
-
-    .top-nav a:hover::after {
-      width: 100%;
-    }
-
-    .nav-cta {
-      background: #000;
-      color: #fff !important;
-      padding: 8px 16px;
-      border-radius: 3px;
-    }
-
-    .nav-cta:hover {
-      background: #333;
-    }
-
-    .dropdown {
-      position: relative;
-    }
-
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      top: 28px;
-      left: 0;
-      background: #fffaf6;
-      min-width: 220px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-      padding: 10px 0;
-      z-index: 100;
-      border: 1px solid #e8ddd2;
-    }
-
-    .dropdown-content a {
-      display: block;
-      padding: 10px 16px;
-      font-size: 0.9rem;
-      white-space: nowrap;
-    }
-
-    .dropdown-content a:hover {
-      background: #f4eee8;
-    }
-
-    .dropdown:hover .dropdown-content {
-      display: block;
-    }
-
-    header img {
-      width: 100%;
-      display: block;
-    }
-
-    .page-shell {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 30px 20px 60px 20px;
-    }
-
-    .page-title,
-    .page-subtitle {
-      text-align: center;
-    }
-
-    .page-title {
-      margin-bottom: 10px;
-    }
-
-    .page-subtitle {
-      max-width: 800px;
-      margin: 0 auto 30px auto;
-    }
-
-    footer {
-      text-align: center;
-      padding: 30px 20px;
-    }
-
-    @media (max-width: 768px) {
-      .top-nav {
-        gap: 16px;
-      }
-    }
-  </style>
 </head>
 <body>
-  <header>
-    <img src="images/header4.png" alt="Our Wedding Day Hub Header">
+
+  <div class="page-auth">
+    <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
+    <a href="login.html" id="loginLink" class="auth-link">Log In</a>
+    <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
+  </div>
+
+  <header class="hero">
+    <img src="images/header4.png" alt="Our Wedding Day Hub" class="header-image">
   </header>
 
-  <nav class="top-nav">
-    <a href="index.html">Home</a>
-    <a href="about.html">Our Story</a>
-    <a href="pricing.html">Pricing</a>
-    <a href="contact.html">Enquiries</a>
-
-    <div class="dropdown">
-      <a href="#">Legal ▾</a>
-      <div class="dropdown-content">
-        <a href="terms.html">Terms &amp; Conditions</a>
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="refund-policy.html">Refund Policy</a>
-      </div>
-    </div>
-
-    <a href="signup.html" class="nav-cta">Join</a>
-    <a href="login.html" id="loginLink">Log In</a>
-    <a href="dashboard.html" id="dashboardLink" style="display:none;">Dashboard</a>
-    <a href="#" id="logoutLink" style="display:none;">Logout</a>
-  </nav>
-
   <main class="page-shell">
-    <h1 class="page-title">Privacy Policy</h1>
-    <p class="page-subtitle">
-      Your privacy matters to us. This policy explains how we collect, use, and protect your information.
-    </p>
+    <section class="card">
+      <p class="eyebrow">privacy policy</p>
+      <h1 class="page-title">Privacy Policy</h1>
+      <p class="page-subtitle">
+        Your privacy matters to us. This policy explains how we collect, use, and protect your information.
+      </p>
+    </section>
 
-    <section class="auth-card" style="max-width: 900px; text-align: left; margin: 0 auto;">
+    <section class="card" style="text-align:left;">
       <p><strong>Effective Date:</strong> 20 March 2026</p>
 
       <h2>1. Overview</h2>
@@ -166,16 +40,16 @@
       <p>We may collect the following types of information:</p>
 
       <p><strong>Account Information:</strong><br>
-      Name, email address, password (secured via Firebase), and account type (vendor or couple).</p>
+      Name, email address, password secured through Firebase, and account type such as vendor or couple.</p>
 
       <p><strong>Vendor Information:</strong><br>
-      Business name, service categories, service locations (states and regions), contact details, and any content you upload.</p>
+      Business name, service categories, service locations, contact details, and any content you upload.</p>
 
       <p><strong>Couple Information:</strong><br>
       Names, wedding date, notes, and preferences entered into your dashboard.</p>
 
       <p><strong>Usage Information:</strong><br>
-      Basic data about how you interact with the website (such as pages visited), which helps us improve the platform.</p>
+      Basic data about how you interact with the website, such as pages visited, which helps us improve the platform.</p>
 
       <h2>3. How We Use Your Information</h2>
       <p>Your information is used to:</p>
@@ -184,19 +58,19 @@
         display vendor listings publicly on the platform;<br>
         allow couples to find and contact vendors;<br>
         provide dashboard functionality;<br>
-        improve the website and user experience;<br>
+        improve the website and user experience; and<br>
         communicate with you about your account or services.
       </p>
 
       <h2>4. Vendor Listings Are Public</h2>
       <p>
-        If you sign up as a vendor, your business information (such as name, category, service areas, and contact details)
+        If you sign up as a vendor, your business information, such as name, category, service areas, and contact details,
         may be displayed publicly on Our Wedding Day Hub.
       </p>
 
       <h2>5. Payments</h2>
       <p>
-        Vendor payments are processed through third-party providers (such as Paddle or other payment platforms).
+        Vendor payments may be processed through third-party providers such as Stripe or other payment platforms.
         We do not store your full payment details.
       </p>
 
@@ -205,11 +79,10 @@
         We use trusted third-party services to operate the platform, including:
       </p>
       <p>
-        Firebase (authentication and database)<br>
-        Hosting providers (such as GitHub Pages or AWS)<br>
-        Payment providers (for vendor subscriptions)
+        Firebase for authentication and database services;<br>
+        hosting providers such as GitHub Pages or AWS; and<br>
+        payment providers for vendor subscriptions.
       </p>
-
       <p>
         These services may store or process your data in accordance with their own privacy policies.
       </p>
@@ -221,12 +94,10 @@
       </p>
 
       <h2>8. Your Responsibilities</h2>
-      <p>
-        You are responsible for:
-      </p>
+      <p>You are responsible for:</p>
       <p>
         keeping your login details secure;<br>
-        ensuring any information you provide is accurate;<br>
+        ensuring any information you provide is accurate; and<br>
         only uploading content you have permission to use.
       </p>
 
@@ -244,8 +115,7 @@
 
       <h2>11. Australian Privacy Law</h2>
       <p>
-        We aim to comply with applicable Australian privacy laws, including the Privacy Act 1988 (Cth),
-        where applicable.
+        We aim to comply with applicable Australian privacy laws, including the Privacy Act 1988, where applicable.
       </p>
 
       <h2>12. Changes to This Policy</h2>
@@ -262,8 +132,24 @@
   </main>
 
   <footer class="site-footer">
-    <p>© 2026 Our Wedding Day Hub</p>
-    <p>ABN 76 688 637 041 • Australia</p>
+    <div class="footer-content">
+      <p class="footer-eyebrow">wedding vendor directory</p>
+      <h2 class="footer-title">Find beautiful wedding vendors in one lovely place.</h2>
+      <p class="footer-text">
+        Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.
+      </p>
+
+      <div class="footer-links">
+        <a href="about.html">About Us</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="refund-policy.html">Refund Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="contact.html">Enquiries</a>
+      </div>
+
+      <p class="footer-abn">ABN: 76688637041</p>
+    </div>
   </footer>
 
   <script type="module" src="nav.js"></script>
