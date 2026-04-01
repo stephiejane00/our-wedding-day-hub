@@ -5,176 +5,46 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Terms & Conditions | Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css">
-  <style>
-    .top-nav {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 28px;
-      padding: 18px 20px;
-      background: #fffaf6;
-      border-bottom: 1px solid #e8ddd2;
-      flex-wrap: wrap;
-    }
-
-    .top-nav a {
-      text-decoration: none;
-      color: #111;
-      font-size: 0.95rem;
-      letter-spacing: 0.5px;
-      transition: 0.25s;
-      position: relative;
-    }
-
-    .top-nav a::after {
-      content: "";
-      position: absolute;
-      width: 0;
-      height: 1px;
-      bottom: -4px;
-      left: 0;
-      background: #000;
-      transition: width 0.25s ease;
-    }
-
-    .top-nav a:hover::after {
-      width: 100%;
-    }
-
-    .nav-cta {
-      background: #000;
-      color: #fff !important;
-      padding: 8px 16px;
-      border-radius: 3px;
-    }
-
-    .nav-cta:hover {
-      background: #333;
-    }
-
-    .dropdown {
-      position: relative;
-    }
-
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      top: 28px;
-      left: 0;
-      background: #fffaf6;
-      min-width: 220px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-      padding: 10px 0;
-      z-index: 100;
-      border: 1px solid #e8ddd2;
-    }
-
-    .dropdown-content a {
-      display: block;
-      padding: 10px 16px;
-      font-size: 0.9rem;
-      white-space: nowrap;
-    }
-
-    .dropdown-content a:hover {
-      background: #f4eee8;
-    }
-
-    .dropdown:hover .dropdown-content {
-      display: block;
-    }
-
-    header img {
-      width: 100%;
-      display: block;
-    }
-
-    .page-shell {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 30px 20px 60px 20px;
-    }
-
-    .page-title,
-    .page-subtitle {
-      text-align: center;
-    }
-
-    .page-title {
-      margin-bottom: 10px;
-    }
-
-    .page-subtitle {
-      max-width: 800px;
-      margin: 0 auto 30px auto;
-    }
-
-    footer {
-      text-align: center;
-      padding: 30px 20px;
-    }
-
-    @media (max-width: 768px) {
-      .top-nav {
-        gap: 16px;
-      }
-    }
-  </style>
 </head>
 <body>
-  <header>
-    <img src="images/header4.png" alt="Our Wedding Day Hub Header">
+
+  <div class="page-auth">
+    <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
+    <a href="login.html" id="loginLink" class="auth-link">Log In</a>
+    <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
+  </div>
+
+  <header class="hero">
+    <img src="images/header4.png" alt="Our Wedding Day Hub" class="header-image">
   </header>
 
-  <nav class="top-nav">
-    <a href="index.html">Home</a>
-    <a href="about.html">Our Story</a>
-    <a href="pricing.html">Pricing</a>
-    <a href="contact.html">Enquiries</a>
-
-    <div class="dropdown">
-      <a href="#">Legal ▾</a>
-      <div class="dropdown-content">
-        <a href="terms.html">Terms &amp; Conditions</a>
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="refund-policy.html">Refund Policy</a>
-      </div>
-    </div>
-
-    <a href="signup.html" class="nav-cta">Join</a>
-    <a href="login.html" id="loginLink">Log In</a>
-    <a href="dashboard.html" id="dashboardLink" style="display:none;">Dashboard</a>
-    <a href="#" id="logoutLink" style="display:none;">Logout</a>
-  </nav>
-
   <main class="page-shell">
-    <h1 class="page-title">Terms &amp; Conditions</h1>
-    <p class="page-subtitle">
-      Please read these Terms &amp; Conditions carefully before using Our Wedding Day Hub.
-    </p>
+    <section class="card">
+      <p class="eyebrow">terms and conditions</p>
+      <h1 class="page-title">Terms &amp; Conditions</h1>
+      <p class="page-subtitle">
+        Please read these Terms &amp; Conditions carefully before using Our Wedding Day Hub.
+      </p>
+    </section>
 
-    <section class="auth-card" style="max-width: 900px; text-align: left; margin: 0 auto;">
+    <section class="card" style="text-align:left;">
       <p><strong>Effective Date:</strong> 20 March 2026</p>
 
       <h2>1. Overview</h2>
       <p>
         Our Wedding Day Hub is an online platform designed to connect couples with wedding-related vendors and services.
-        By accessing or using this website, you agree to be bound by these Terms &amp; Conditions. If you do not agree,
-        please do not use the website.
+        By accessing or using this website, you agree to be bound by these Terms &amp; Conditions.
+        If you do not agree, please do not use the website.
       </p>
 
       <h2>2. Who Can Use This Website</h2>
       <p>
-        This website may be used by:
-      </p>
-      <p>
-        <strong>Couples</strong> seeking wedding vendors and services, and
-        <strong>Vendors</strong> who wish to promote their business and services through a paid or approved listing.
+        This website may be used by couples seeking wedding vendors and services, and vendors who wish to promote their business and services through a paid or approved listing.
       </p>
 
       <h2>3. Vendor Accounts and Listings</h2>
       <p>
-        Vendors may be required to pay a setup fee and/or subscription fee to access certain features of the platform.
+        Vendors may be required to pay a setup fee and or subscription fee to access certain features of the platform.
         By signing up as a vendor, you agree that all information you provide is accurate, current, and not misleading.
       </p>
       <p>
@@ -194,7 +64,7 @@
         The one-off vendor account setup fee is non-refundable once paid.
       </p>
       <p>
-        Vendors may cancel their subscription at any time. Upon cancellation, we may refund up to 60 days (2 months) of subscription fees.
+        Vendors may cancel their subscription at any time. Upon cancellation, we may refund up to 60 days, or 2 months, of subscription fees.
       </p>
       <p>
         If a vendor subscription applies, the vendor is responsible for managing their subscription and ensuring payment details remain current.
@@ -229,9 +99,7 @@
       </p>
 
       <h2>8. Acceptable Use</h2>
-      <p>
-        You agree not to:
-      </p>
+      <p>You agree not to:</p>
       <p>
         use the website for unlawful purposes;<br>
         submit false, misleading, or deceptive information;<br>
@@ -249,7 +117,7 @@
 
       <h2>10. Third-Party Services and Links</h2>
       <p>
-        Our Wedding Day Hub may contain links to third-party websites, payment services, social media pages, or external booking/contact methods.
+        Our Wedding Day Hub may contain links to third-party websites, payment services, social media pages, or external booking or contact methods.
         We are not responsible for the content, policies, availability, or practices of third-party services.
       </p>
 
@@ -266,7 +134,7 @@
         bookings, profits, reputation, or opportunities.
       </p>
       <p>
-        We provide the website on an “as is” and “as available” basis, without warranties of any kind except where required by law.
+        We provide the website on an as is and as available basis, without warranties of any kind except where required by law.
       </p>
 
       <h2>13. Consumer Law</h2>
@@ -300,8 +168,24 @@
   </main>
 
   <footer class="site-footer">
-    <p>© 2026 Our Wedding Day Hub</p>
-    <p>ABN 76 688 637 041 • Australia</p>
+    <div class="footer-content">
+      <p class="footer-eyebrow">wedding vendor directory</p>
+      <h2 class="footer-title">Find beautiful wedding vendors in one lovely place.</h2>
+      <p class="footer-text">
+        Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.
+      </p>
+
+      <div class="footer-links">
+        <a href="about.html">About Us</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="refund-policy.html">Refund Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="contact.html">Enquiries</a>
+      </div>
+
+      <p class="footer-abn">ABN: 76688637041</p>
+    </div>
   </footer>
 
   <script type="module" src="nav.js"></script>
