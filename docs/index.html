@@ -288,19 +288,10 @@
     </div>
   </div>
 
-  <div id="guestNav">
-    <a href="signup.html" class="nav-cta">Join</a>
-    <a href="login.html">Log In</a>
-  </div>
-
-  <div id="accountNav" class="dropdown" style="display:none;">
-    <a href="#" id="accountLabel">My Account ▾</a>
-    <div class="dropdown-content">
-      <a id="dashboardLink" href="vendor-dashboard.html">Dashboard</a>
-      <a id="profileLink" href="vendor-dashboard.html">Edit Profile</a>
-      <a href="#" id="logoutNavBtn">Log Out</a>
-    </div>
-  </div>
+  <a href="signup.html" class="nav-cta">Join</a>
+  <a href="login.html" id="loginLink">Log In</a>
+  <a href="dashboard.html" id="dashboardLink" style="display:none;">Dashboard</a>
+  <a href="#" id="logoutLink" style="display:none;">Logout</a>
 </nav>
 
 <section class="home-intro">
@@ -328,6 +319,11 @@
   <div class="featured-slider" id="sliderTrack"></div>
   <div class="slider-arrow right" onclick="nextSlide()">&#10095;</div>
 </div>
+
+<footer class="site-footer">
+  <p>© 2026 Our Wedding Day Hub</p>
+  <p>ABN 76 688 637 041 • Australia</p>
+</footer>
 
 <script type="module">
   import {
@@ -546,12 +542,6 @@
 </script>
 
 <script type="module" src="nav.js"></script>
-<script src="script.js"></script>
-
-<footer class="site-footer">
-  <p>© 2026 Our Wedding Day Hub</p>
-  <p>ABN 76 688 637 041 • Australia</p>
-</footer>
 
 </body>
 </html>
