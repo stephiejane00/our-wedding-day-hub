@@ -3,35 +3,55 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Signup Successful | Our Wedding Day Hub</title>
+  <title>Payment Successful | Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <img src="images/header4.png" alt="Our Wedding Day Hub Header" style="width:100%; display:block;">
+  <header class="hero">
+    <img src="images/header4.png" alt="Our Wedding Day Hub" class="header-image">
   </header>
 
-  <main class="auth-layout">
+  <main class="page-shell">
     <section class="auth-card spiced" style="max-width: 720px; margin: 40px auto;">
       <h1>Payment Successful</h1>
       <p class="auth-mini-text">
-        Your Vendor Launch Experience and selected monthly plan have been set up successfully.
+        Your vendor setup payment has been received successfully.
       </p>
 
       <div class="auth-point" style="margin: 20px 0;">
         <strong>Next step</strong><br>
-        Please finish creating your vendor account to complete your setup.
+        Please finish creating your vendor account to complete your setup and access your dashboard.
       </div>
 
-      <a href="signup.html?paid=true&type=vendor" class="pretty-button wide-glow" style="display:inline-block; text-decoration:none;">
+      <a
+        href="signup.html?paid=true&type=vendor"
+        class="pretty-button wide-glow"
+        style="display:inline-block; text-decoration:none;"
+      >
         Finish Vendor Account Setup
       </a>
     </section>
   </main>
 
   <footer class="site-footer">
-    <p>© 2026 Our Wedding Day Hub</p>
-    <p>ABN 76 688 637 041 • Australia</p>
+    <div class="footer-content">
+      <p class="footer-eyebrow">wedding vendor directory</p>
+      <h2 class="footer-title">Find beautiful wedding vendors in one lovely place.</h2>
+      <p class="footer-text">
+        Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.
+      </p>
+
+      <div class="footer-links">
+        <a href="about.html">About Us</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="refund-policy.html">Refund Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="contact.html">Enquiries</a>
+      </div>
+
+      <p class="footer-abn">ABN: 76688637041</p>
+    </div>
   </footer>
 </body>
 </html>
