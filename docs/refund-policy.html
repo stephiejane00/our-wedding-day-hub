@@ -5,155 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Refund Policy | Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css">
-  <style>
-    .top-nav {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 28px;
-      padding: 18px 20px;
-      background: #fffaf6;
-      border-bottom: 1px solid #e8ddd2;
-      flex-wrap: wrap;
-    }
-
-    .top-nav a {
-      text-decoration: none;
-      color: #111;
-      font-size: 0.95rem;
-      letter-spacing: 0.5px;
-      transition: 0.25s;
-      position: relative;
-    }
-
-    .top-nav a::after {
-      content: "";
-      position: absolute;
-      width: 0;
-      height: 1px;
-      bottom: -4px;
-      left: 0;
-      background: #000;
-      transition: width 0.25s ease;
-    }
-
-    .top-nav a:hover::after {
-      width: 100%;
-    }
-
-    .nav-cta {
-      background: #000;
-      color: #fff !important;
-      padding: 8px 16px;
-      border-radius: 3px;
-    }
-
-    .nav-cta:hover {
-      background: #333;
-    }
-
-    .dropdown {
-      position: relative;
-    }
-
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      top: 28px;
-      left: 0;
-      background: #fffaf6;
-      min-width: 220px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-      padding: 10px 0;
-      z-index: 100;
-      border: 1px solid #e8ddd2;
-    }
-
-    .dropdown-content a {
-      display: block;
-      padding: 10px 16px;
-      font-size: 0.9rem;
-      white-space: nowrap;
-    }
-
-    .dropdown-content a:hover {
-      background: #f4eee8;
-    }
-
-    .dropdown:hover .dropdown-content {
-      display: block;
-    }
-
-    header img {
-      width: 100%;
-      display: block;
-    }
-
-    .page-shell {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 30px 20px 60px 20px;
-    }
-
-    .page-title,
-    .page-subtitle {
-      text-align: center;
-    }
-
-    .page-title {
-      margin-bottom: 10px;
-    }
-
-    .page-subtitle {
-      max-width: 800px;
-      margin: 0 auto 30px auto;
-    }
-
-    footer {
-      text-align: center;
-      padding: 30px 20px;
-    }
-
-    @media (max-width: 768px) {
-      .top-nav {
-        gap: 16px;
-      }
-    }
-  </style>
 </head>
 <body>
-  <header>
-    <img src="images/header4.png" alt="Our Wedding Day Hub Header">
+
+  <div class="page-auth">
+    <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
+    <a href="login.html" id="loginLink" class="auth-link">Log In</a>
+    <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
+  </div>
+
+  <header class="hero">
+    <img src="images/header4.png" alt="Our Wedding Day Hub" class="header-image">
   </header>
 
-  <nav class="top-nav">
-    <a href="index.html">Home</a>
-    <a href="about.html">Our Story</a>
-    <a href="pricing.html">Pricing</a>
-    <a href="contact.html">Enquiries</a>
-
-    <div class="dropdown">
-      <a href="#">Legal ▾</a>
-      <div class="dropdown-content">
-        <a href="terms.html">Terms &amp; Conditions</a>
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="refund-policy.html">Refund Policy</a>
-      </div>
-    </div>
-
-    <a href="signup.html" class="nav-cta">Join</a>
-    <a href="login.html" id="loginLink">Log In</a>
-    <a href="dashboard.html" id="dashboardLink" style="display:none;">Dashboard</a>
-    <a href="#" id="logoutLink" style="display:none;">Logout</a>
-  </nav>
-
   <main class="page-shell">
-    <h1 class="page-title">Refund Policy</h1>
-    <p class="page-subtitle">
-      This policy outlines how refunds are handled for Our Wedding Day Hub services.
-    </p>
+    <section class="card">
+      <p class="eyebrow">refund policy</p>
+      <h1 class="page-title">Refund Policy</h1>
+      <p class="page-subtitle">
+        This policy outlines how refunds are handled for Our Wedding Day Hub services.
+      </p>
+    </section>
 
-    <section class="auth-card" style="max-width: 900px; text-align: left; margin: 0 auto;">
+    <section class="card" style="text-align:left;">
       <p><strong>Effective Date:</strong> 20 March 2026</p>
 
       <h2>1. Overview</h2>
@@ -164,7 +38,7 @@
 
       <h2>2. Vendor Setup Fee</h2>
       <p>
-        The one-time setup fee (e.g. $50) covers the creation and activation of your vendor account,
+        The one-time setup fee, such as the $50 vendor setup fee, covers the creation and activation of your vendor account,
         access to the platform, and the ability to build and manage your listing.
       </p>
       <p>
@@ -185,10 +59,10 @@
         Vendors may cancel their subscription at any time.
       </p>
       <p>
-        If a vendor chooses to cancel, we offer a refund of up to 60 days (2 months) of subscription fees.
+        If a vendor chooses to cancel, we offer a refund of up to 60 days, or 2 months, of subscription fees.
       </p>
       <p>
-        This refund applies to subscription fees only and does not apply to the one-time $50 account setup fee.
+        This refund applies to subscription fees only and does not apply to the one-time account setup fee.
       </p>
       <p>
         Any refund will be processed back to the original payment method where possible.
@@ -213,12 +87,12 @@
         We do not guarantee enquiries, leads, bookings, or business outcomes.
       </p>
       <p>
-        As such, lack of results does not qualify for a refund.
+        Lack of results does not qualify for a refund.
       </p>
 
       <h2>6. Payment Providers</h2>
       <p>
-        Payments are processed through third-party providers (such as Paddle or similar platforms).
+        Payments may be processed through third-party providers such as Stripe or similar platforms.
         Refunds, if approved, will be issued via the original payment method where possible.
       </p>
 
@@ -230,8 +104,24 @@
   </main>
 
   <footer class="site-footer">
-    <p>© 2026 Our Wedding Day Hub</p>
-    <p>ABN 76 688 637 041 • Australia</p>
+    <div class="footer-content">
+      <p class="footer-eyebrow">wedding vendor directory</p>
+      <h2 class="footer-title">Find beautiful wedding vendors in one lovely place.</h2>
+      <p class="footer-text">
+        Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.
+      </p>
+
+      <div class="footer-links">
+        <a href="about.html">About Us</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="refund-policy.html">Refund Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="contact.html">Enquiries</a>
+      </div>
+
+      <p class="footer-abn">ABN: 76688637041</p>
+    </div>
   </footer>
 
   <script type="module" src="nav.js"></script>
