@@ -14,7 +14,6 @@ onAuthStateChanged(auth, (user) => {
   } else {
     joinLink.style.display = "inline-block";
     loginLink.style.display = "inline-block";
-    logoutLink.style.display = "inline-block";
     logoutLink.style.display = "none";
   }
 });
