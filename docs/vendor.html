@@ -3,983 +3,331 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vendor Profile - Our Wedding Day Hub</title>
+  <title>Vendor Profile | Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css">
-  <style>
-    .hero {
-      text-align: center;
-    }
-
-    .header-image {
-      width: 100%;
-      display: block;
-    }
-
-    .top-nav {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 28px;
-      padding: 18px 20px;
-      background: #fffaf6;
-      border-bottom: 1px solid #e8ddd2;
-      flex-wrap: wrap;
-    }
-
-    .top-nav a {
-      text-decoration: none;
-      color: #111;
-      font-size: 0.95rem;
-      letter-spacing: 0.5px;
-      transition: 0.25s;
-      position: relative;
-    }
-
-    .top-nav a::after {
-      content: "";
-      position: absolute;
-      width: 0;
-      height: 1px;
-      bottom: -4px;
-      left: 0;
-      background: #000;
-      transition: width 0.25s;
-    }
-
-    .top-nav a:hover::after {
-      width: 100%;
-    }
-
-    .nav-cta {
-      background: #000;
-      color: #fff !important;
-      padding: 8px 16px;
-      border-radius: 3px;
-    }
-
-    .nav-cta:hover {
-      background: #333;
-    }
-
-    .dropdown {
-      position: relative;
-    }
-
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      top: 28px;
-      left: 0;
-      background: #fffaf6;
-      min-width: 220px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-      padding: 10px 0;
-      z-index: 100;
-      border: 1px solid #e8ddd2;
-    }
-
-    .dropdown-content a {
-      display: block;
-      padding: 10px 16px;
-      font-size: 0.9rem;
-      white-space: nowrap;
-    }
-
-    .dropdown-content a:hover {
-      background: #f4eee8;
-    }
-
-    .dropdown:hover .dropdown-content {
-      display: block;
-    }
-
-    .status-message {
-      max-width: 700px;
-      margin: 50px auto;
-      padding: 0 20px;
-      text-align: center;
-      color: #6f5f58;
-    }
-
-    .vendor-page {
-      max-width: 1180px;
-      margin: 36px auto 70px;
-      padding: 0 20px;
-    }
-
-    .vendor-top {
-      text-align: center;
-      margin-bottom: 28px;
-    }
-
-    .vendor-logo {
-      width: 120px;
-      height: 120px;
-      object-fit: contain;
-      display: none;
-      margin: 0 auto 18px;
-      border-radius: 18px;
-      background: #fff;
-      padding: 10px;
-      border: 1px solid #eadfd5;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.06);
-    }
-
-    .vendor-top h1 {
-      margin-bottom: 10px;
-    }
-
-    .vendor-meta {
-      color: #6f5f58;
-      line-height: 1.7;
-      margin-bottom: 18px;
-    }
-
-    .top-gallery-wrap {
-      position: relative;
-      margin-bottom: 34px;
-      display: none;
-    }
-
-    .top-gallery-stage {
-      width: 100%;
-      min-height: 560px;
-      background: #f8f1ea;
-      border: 1px solid #eadfd5;
-      border-radius: 18px;
-      box-shadow: 0 8px 28px rgba(0,0,0,0.08);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      box-sizing: border-box;
-    }
-
-    .top-gallery-stage.image-mode {
-      cursor: zoom-in;
-    }
-
-    .top-gallery-stage.video-mode {
-      cursor: default;
-    }
-
-    .top-gallery-main-image,
-    .top-gallery-main-video {
-      width: 100%;
-      max-width: 100%;
-      max-height: 520px;
-      object-fit: contain;
-      display: none;
-      border-radius: 12px;
-      background: #f8f1ea;
-    }
-
-    .gallery-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 46px;
-      height: 46px;
-      border-radius: 50%;
-      border: 1px solid #e3d5c8;
-      background: rgba(255,250,246,0.95);
-      font-size: 1.6rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      user-select: none;
-      z-index: 5;
-    }
-
-    .gallery-arrow.left {
-      left: 14px;
-    }
-
-    .gallery-arrow.right {
-      right: 14px;
-    }
-
-    .thumb-row {
-      display: flex;
-      gap: 12px;
-      overflow-x: auto;
-      margin-top: 14px;
-      padding-bottom: 4px;
-      scrollbar-width: none;
-    }
-
-    .thumb-row::-webkit-scrollbar {
-      display: none;
-    }
-
-    .thumb-item {
-      width: 120px;
-      height: 90px;
-      flex: 0 0 auto;
-      border-radius: 10px;
-      border: 2px solid transparent;
-      background: #f8f1ea;
-      overflow: hidden;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .thumb-item.active-thumb {
-      border-color: #ccb39d;
-    }
-
-    .thumb-item img,
-    .thumb-item video {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      background: #f8f1ea;
-      display: block;
-    }
-
-    .vendor-grid {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 26px;
-      margin-bottom: 28px;
-    }
-
-    .pretty-panel {
-      background: #fffcf8;
-      border: 1px solid #efe3d6;
-      border-radius: 18px;
-      padding: 26px;
-      box-shadow: 0 6px 22px rgba(0,0,0,0.04);
-    }
-
-    .pretty-panel h2 {
-      margin-top: 0;
-      margin-bottom: 14px;
-    }
-
-    .pretty-panel h3 {
-      margin-top: 24px;
-      margin-bottom: 10px;
-    }
-
-    .pretty-panel p,
-    .pretty-panel div {
-      line-height: 1.75;
-    }
-
-    .detail-line {
-      margin-bottom: 10px;
-      line-height: 1.7;
-    }
-
-    .style-tag-wrap {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 10px;
-    }
-
-    .style-tag {
-      background: #f6efe8;
-      border: 1px solid #eadfd5;
-      border-radius: 999px;
-      padding: 7px 12px;
-      font-size: 0.92rem;
-    }
-
-    .vendor-link {
-      color: #111;
-      word-break: break-word;
-    }
-
-    .lightbox-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(20, 14, 10, 0.9);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      padding: 30px;
-      box-sizing: border-box;
-    }
-
-    .lightbox-overlay.open {
-      display: flex;
-    }
-
-    .lightbox-inner {
-      position: relative;
-      width: 100%;
-      max-width: 1200px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .lightbox-stage {
-      width: 100%;
-      min-height: 70vh;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      box-sizing: border-box;
-    }
-
-    .lightbox-image {
-      max-width: 100%;
-      max-height: 75vh;
-      object-fit: contain;
-      border-radius: 12px;
-      display: block;
-    }
-
-    .lightbox-arrow,
-    .lightbox-close {
-      position: absolute;
-      width: 48px;
-      height: 48px;
-      border: none;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.12);
-      color: #fff;
-      font-size: 1.7rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      backdrop-filter: blur(4px);
-    }
-
-    .lightbox-arrow.left {
-      left: 16px;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-
-    .lightbox-arrow.right {
-      right: 16px;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-
-    .lightbox-close {
-      top: 16px;
-      right: 16px;
-      font-size: 1.4rem;
-    }
-
-    @media (max-width: 900px) {
-      .vendor-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .top-gallery-stage {
-        min-height: 360px;
-      }
-
-      .top-gallery-main-image,
-      .top-gallery-main-video {
-        max-height: 320px;
-      }
-
-      .top-nav {
-        gap: 16px;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .top-gallery-stage {
-        min-height: 280px;
-        padding: 14px;
-      }
-
-      .top-gallery-main-image,
-      .top-gallery-main-video {
-        max-height: 250px;
-      }
-
-      .thumb-item {
-        width: 90px;
-        height: 72px;
-      }
-    }
-  </style>
 </head>
 <body>
 
-<header class="hero">
-  <img src="images/header4.png" alt="Our Wedding Day Hub" class="header-image">
-</header>
-
-<nav class="top-nav">
-  <a href="index.html">Home</a>
-  <a href="about.html">Our Story</a>
-  <a href="pricing.html">Pricing</a>
-  <a href="contact.html">Enquiries</a>
-
-  <div class="dropdown">
-    <a href="#">Legal ▾</a>
-    <div class="dropdown-content">
-      <a href="terms.html">Terms &amp; Conditions</a>
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="refund-policy.html">Refund Policy</a>
-    </div>
+  <div class="page-auth">
+    <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
+    <a href="login.html" id="loginLink" class="auth-link">Log In</a>
+    <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
   </div>
 
-  <div id="guestNav">
-    <a href="signup.html" class="nav-cta">Join</a>
-    <a href="login.html">Log In</a>
-  </div>
+  <header class="hero">
+    <img src="images/header4.png" alt="Our Wedding Day Hub" class="header-image">
+  </header>
 
-  <div id="accountNav" class="dropdown" style="display:none;">
-    <a href="#" id="accountLabel">My Account ▾</a>
-    <div class="dropdown-content">
-      <a href="vendor-dashboard.html">Dashboard</a>
-      <a id="loggedInViewProfileLink" href="#">View My Vendor Page</a>
-    </div>
-  </div>
-</nav>
+  <main class="page-shell">
+    <section id="vendorProfileCard" class="profile-card" style="display:none;">
+      <div id="vendorHeroImageWrap" style="margin-bottom: 24px;"></div>
 
-<div id="statusMessage" class="status-message">Loading vendor profile...</div>
+      <div class="profile-header">
+        <p class="eyebrow" id="vendorEyebrow">wedding vendor</p>
+        <h1 id="vendorName">Vendor Name</h1>
+        <p class="profile-location" id="vendorLocation"></p>
+      </div>
 
-<main id="vendorPage" class="vendor-page" style="display:none;">
-  <div class="vendor-top">
-    <img id="vendorLogo" class="vendor-logo" src="" alt="Vendor logo">
-    <h1 id="vendorName">Vendor Name</h1>
-    <div id="vendorMeta" class="vendor-meta"></div>
-  </div>
+      <div class="profile-section" id="vendorCategoriesSection" style="display:none;">
+        <h3>Categories</h3>
+        <div class="profile-tags" id="vendorCategories"></div>
+      </div>
 
-  <section id="topGalleryWrap" class="top-gallery-wrap">
-    <button class="gallery-arrow left" id="galleryPrevBtn" type="button">&#10094;</button>
-
-    <div class="top-gallery-stage" id="topGalleryStage">
-      <img id="vendorMainImage" class="top-gallery-main-image" src="" alt="Vendor media">
-      <video id="vendorMainVideo" class="top-gallery-main-video" controls playsinline></video>
-    </div>
-
-    <button class="gallery-arrow right" id="galleryNextBtn" type="button">&#10095;</button>
-    <div id="thumbRow" class="thumb-row"></div>
-  </section>
-
-  <section class="vendor-grid">
-    <div id="aboutSection" class="pretty-panel" style="display:none;">
-      <h2>The Heart Behind It</h2>
-
-      <div id="bioRow">
+      <div class="profile-section" id="vendorBioSection" style="display:none;">
+        <h3>About</h3>
         <p id="vendorBio"></p>
       </div>
 
-      <div id="uniqueRow" style="display:none;">
-        <h3>What makes this business unique</h3>
-        <p id="vendorUnique"></p>
+      <div class="profile-section" id="vendorGallerySection" style="display:none;">
+        <h3>Gallery</h3>
+        <div id="vendorGallery" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:16px;"></div>
       </div>
 
-      <div id="whyChooseRow" style="display:none;">
-        <h3>Why couples choose them</h3>
-        <p id="vendorWhyChoose"></p>
+      <div class="profile-section" id="vendorServiceAreasSection" style="display:none;">
+        <h3>Service Areas</h3>
+        <p id="vendorServiceAreas"></p>
       </div>
 
-      <div id="includedRow" style="display:none;">
-        <h3>What’s included</h3>
-        <p id="vendorIncluded"></p>
+      <div class="profile-section" id="vendorLinksSection" style="display:none;">
+        <h3>Connect</h3>
+        <div class="profile-links" id="vendorLinks"></div>
       </div>
+    </section>
+
+    <section id="loadingCard" class="card">
+      <p class="eyebrow">loading</p>
+      <h1 class="page-title">Opening vendor profile</h1>
+      <p class="page-subtitle">Please wait while we load the details.</p>
+    </section>
+
+    <section id="errorCard" class="card" style="display:none;">
+      <p class="eyebrow">vendor profile</p>
+      <h1 class="page-title">We couldn’t find that profile</h1>
+      <p class="page-subtitle">
+        The vendor profile may have been removed, is not published yet, or the link is incomplete.
+      </p>
+      <a href="index.html" class="apply-button">Back to Home</a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p class="footer-eyebrow">wedding vendor directory</p>
+      <h2 class="footer-title">Find beautiful wedding vendors in one lovely place.</h2>
+      <p class="footer-text">
+        Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.
+      </p>
+
+      <div class="footer-links">
+        <a href="about.html">About Us</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="refund-policy.html">Refund Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="contact.html">Enquiries</a>
+      </div>
+
+      <p class="footer-abn">ABN: 76688637041</p>
     </div>
+  </footer>
 
-    <div id="detailsSection" class="pretty-panel" style="display:none;">
-      <h2>Details</h2>
+  <script type="module">
+    import { db, doc, getDoc } from "./firebase.js";
 
-      <div id="profilePhotoRow" style="display:none; margin-bottom:18px; text-align:center;">
-        <img id="vendorProfilePhoto" src="" alt="Profile picture" style="width:120px; height:120px; object-fit:cover; border-radius:50%; border:1px solid #eadfd5; box-shadow:0 6px 18px rgba(0,0,0,0.06);">
-      </div>
+    const loadingCard = document.getElementById("loadingCard");
+    const errorCard = document.getElementById("errorCard");
+    const vendorProfileCard = document.getElementById("vendorProfileCard");
 
-      <div id="businessNameRow" class="detail-line"><strong>Business Name:</strong> <span id="detailBusinessName"></span></div>
-      <div id="abnRow" class="detail-line"><strong>ABN:</strong> <span id="vendorAbn"></span></div>
-      <div id="contactNameRow" class="detail-line"><strong>Contact Name:</strong> <span id="vendorContactName"></span></div>
-      <div id="phoneRow" class="detail-line"><strong>Phone:</strong> <span id="vendorPhone"></span></div>
-      <div id="emailRow" class="detail-line"><strong>Email:</strong> <span id="vendorEmail"></span></div>
-      <div id="websiteRow" class="detail-line"><strong>Website:</strong> <span id="vendorWebsite"></span></div>
-      <div id="instagramRow" class="detail-line"><strong>Instagram / Social:</strong> <span id="vendorInstagram"></span></div>
-      <div id="addressRow" class="detail-line"><strong>Address:</strong> <span id="vendorAddress"></span></div>
-      <div id="serviceAreasRow" class="detail-line"><strong>Service Areas:</strong> <span id="vendorServiceAreas"></span></div>
-      <div id="venueTypeRow" class="detail-line"><strong>Venue Type:</strong> <span id="vendorVenueType"></span></div>
-      <div id="capacityRow" class="detail-line"><strong>Venue Capacity:</strong> <span id="vendorCapacity"></span></div>
-      <div id="ceremonyRow" class="detail-line"><strong>Ceremony Options:</strong> <span id="vendorCeremonyOptions"></span></div>
-      <div id="receptionRow" class="detail-line"><strong>Reception Options:</strong> <span id="vendorReceptionOptions"></span></div>
-      <div id="elopementsRow" class="detail-line"><strong>Elopements Available:</strong> <span id="vendorElopements"></span></div>
-      <div id="accommodationRow" class="detail-line"><strong>Accommodation Onsite:</strong> <span id="vendorAccommodation"></span></div>
-      <div id="startingPriceRow" class="detail-line"><strong>Starting Price:</strong> <span id="vendorStartingPrice"></span></div>
-      <div id="priceRangeRow" class="detail-line"><strong>Price Range:</strong> <span id="vendorPriceRange"></span></div>
-      <div id="packagesAvailableRow" class="detail-line"><strong>Packages Available:</strong> <span id="vendorPackagesAvailable"></span></div>
-      <div id="leadTimeRow" class="detail-line"><strong>Booking Lead Time:</strong> <span id="vendorLeadTime"></span></div>
-      <div id="peakSeasonRow" class="detail-line"><strong>Peak Season:</strong> <span id="vendorPeakSeason"></span></div>
-      <div id="lastMinuteRow" class="detail-line"><strong>Last-Minute Bookings:</strong> <span id="vendorLastMinute"></span></div>
-      <div id="directEmailRow" class="detail-line"><strong>Direct Email Enquiries:</strong> <span id="vendorDirectEmailEnquiries"></span></div>
+    const vendorHeroImageWrap = document.getElementById("vendorHeroImageWrap");
+    const vendorName = document.getElementById("vendorName");
+    const vendorEyebrow = document.getElementById("vendorEyebrow");
+    const vendorLocation = document.getElementById("vendorLocation");
+    const vendorBio = document.getElementById("vendorBio");
+    const vendorCategories = document.getElementById("vendorCategories");
+    const vendorGallery = document.getElementById("vendorGallery");
+    const vendorServiceAreas = document.getElementById("vendorServiceAreas");
+    const vendorLinks = document.getElementById("vendorLinks");
 
-      <div id="styleTagsSection" style="display:none;">
-        <h3>Style Tags</h3>
-        <div id="vendorStyleTags" class="style-tag-wrap"></div>
-      </div>
-    </div>
-  </section>
-</main>
+    const vendorCategoriesSection = document.getElementById("vendorCategoriesSection");
+    const vendorBioSection = document.getElementById("vendorBioSection");
+    const vendorGallerySection = document.getElementById("vendorGallerySection");
+    const vendorServiceAreasSection = document.getElementById("vendorServiceAreasSection");
+    const vendorLinksSection = document.getElementById("vendorLinksSection");
 
-<div id="lightboxOverlay" class="lightbox-overlay">
-  <button id="lightboxClose" class="lightbox-close" type="button">×</button>
-  <button id="lightboxPrev" class="lightbox-arrow left" type="button">&#10094;</button>
-  <div class="lightbox-inner">
-    <div class="lightbox-stage">
-      <img id="lightboxImage" class="lightbox-image" src="" alt="Expanded media">
-    </div>
-  </div>
-  <button id="lightboxNext" class="lightbox-arrow right" type="button">&#10095;</button>
-</div>
-
-<script type="module">
-  import {
-    auth,
-    onAuthStateChanged,
-    db,
-    doc,
-    getDoc,
-    updateDoc,
-    increment
-  } from './firebase.js';
-
-  const guestNav = document.getElementById('guestNav');
-  const accountNav = document.getElementById('accountNav');
-  const loggedInViewProfileLink = document.getElementById('loggedInViewProfileLink');
-
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      guestNav.style.display = 'none';
-      accountNav.style.display = 'block';
-      loggedInViewProfileLink.href = `vendor.html?id=${user.uid}`;
-    }
-  });
-
-  const statusMessage = document.getElementById('statusMessage');
-  const vendorPage = document.getElementById('vendorPage');
-
-  const vendorLogo = document.getElementById('vendorLogo');
-  const vendorName = document.getElementById('vendorName');
-  const vendorMeta = document.getElementById('vendorMeta');
-
-  const topGalleryWrap = document.getElementById('topGalleryWrap');
-  const topGalleryStage = document.getElementById('topGalleryStage');
-  const vendorMainImage = document.getElementById('vendorMainImage');
-  const vendorMainVideo = document.getElementById('vendorMainVideo');
-  const thumbRow = document.getElementById('thumbRow');
-  const galleryPrevBtn = document.getElementById('galleryPrevBtn');
-  const galleryNextBtn = document.getElementById('galleryNextBtn');
-
-  const lightboxOverlay = document.getElementById('lightboxOverlay');
-  const lightboxImage = document.getElementById('lightboxImage');
-  const lightboxClose = document.getElementById('lightboxClose');
-  const lightboxPrev = document.getElementById('lightboxPrev');
-  const lightboxNext = document.getElementById('lightboxNext');
-
-  const aboutSection = document.getElementById('aboutSection');
-  const detailsSection = document.getElementById('detailsSection');
-
-  const vendorBio = document.getElementById('vendorBio');
-  const vendorUnique = document.getElementById('vendorUnique');
-  const vendorWhyChoose = document.getElementById('vendorWhyChoose');
-  const vendorIncluded = document.getElementById('vendorIncluded');
-
-  const profilePhotoRow = document.getElementById('profilePhotoRow');
-  const vendorProfilePhoto = document.getElementById('vendorProfilePhoto');
-
-  const detailBusinessName = document.getElementById('detailBusinessName');
-  const vendorAbn = document.getElementById('vendorAbn');
-  const vendorContactName = document.getElementById('vendorContactName');
-  const vendorPhone = document.getElementById('vendorPhone');
-  const vendorEmail = document.getElementById('vendorEmail');
-  const vendorWebsite = document.getElementById('vendorWebsite');
-  const vendorInstagram = document.getElementById('vendorInstagram');
-  const vendorAddress = document.getElementById('vendorAddress');
-  const vendorServiceAreas = document.getElementById('vendorServiceAreas');
-  const vendorVenueType = document.getElementById('vendorVenueType');
-  const vendorCapacity = document.getElementById('vendorCapacity');
-  const vendorCeremonyOptions = document.getElementById('vendorCeremonyOptions');
-  const vendorReceptionOptions = document.getElementById('vendorReceptionOptions');
-  const vendorElopements = document.getElementById('vendorElopements');
-  const vendorAccommodation = document.getElementById('vendorAccommodation');
-  const vendorStartingPrice = document.getElementById('vendorStartingPrice');
-  const vendorPriceRange = document.getElementById('vendorPriceRange');
-  const vendorPackagesAvailable = document.getElementById('vendorPackagesAvailable');
-  const vendorLeadTime = document.getElementById('vendorLeadTime');
-  const vendorPeakSeason = document.getElementById('vendorPeakSeason');
-  const vendorLastMinute = document.getElementById('vendorLastMinute');
-  const vendorDirectEmailEnquiries = document.getElementById('vendorDirectEmailEnquiries');
-  const vendorStyleTags = document.getElementById('vendorStyleTags');
-
-  let galleryItems = [];
-  let currentGalleryIndex = 0;
-
-  function cleanArray(arr) {
-    if (!Array.isArray(arr)) return [];
-    return arr.filter(item => typeof item === 'string' && item.trim() !== '');
-  }
-
-  function formatCategory(category) {
-    return category
-      .replace(/_/g, ' ')
-      .replace(/\b\w/g, char => char.toUpperCase());
-  }
-
-  function hasValue(value) {
-    if (value === undefined || value === null) return false;
-    if (typeof value === 'string') return value.trim() !== '';
-    if (Array.isArray(value)) return value.length > 0;
-    return true;
-  }
-
-  function setTextRow(rowId, element, value) {
-    const row = document.getElementById(rowId);
-    if (!hasValue(value)) {
-      row.style.display = 'none';
-      return false;
-    }
-    element.textContent = value;
-    row.style.display = '';
-    return true;
-  }
-
-  function setLinkRow(rowId, element, value, type = 'url') {
-    const row = document.getElementById(rowId);
-    if (!hasValue(value)) {
-      row.style.display = 'none';
-      return false;
-    }
-
-    const link = document.createElement('a');
-    link.className = 'vendor-link';
-    link.textContent = value;
-
-    if (type === 'email') {
-      link.href = `mailto:${value}`;
-    } else {
-      link.href = value;
-      link.target = '_blank';
-      link.rel = 'noopener noreferrer';
-    }
-
-    element.innerHTML = '';
-    element.appendChild(link);
-    row.style.display = '';
-    return true;
-  }
-
-  function setBooleanYesOnlyRow(rowId, element, value) {
-    const row = document.getElementById(rowId);
-    if (value !== true) {
-      row.style.display = 'none';
-      return false;
-    }
-    element.textContent = 'Yes';
-    row.style.display = '';
-    return true;
-  }
-
-  function showAboutBlock(rowId, element, value) {
-    const row = document.getElementById(rowId);
-    if (!hasValue(value)) {
-      row.style.display = 'none';
-      return false;
-    }
-    element.textContent = value;
-    row.style.display = '';
-    return true;
-  }
-
-  function showMainMedia(item) {
-    vendorMainImage.style.display = 'none';
-    vendorMainVideo.style.display = 'none';
-    vendorMainVideo.pause();
-
-    if (item.type === 'video') {
-      topGalleryStage.classList.remove('image-mode');
-      topGalleryStage.classList.add('video-mode');
-      vendorMainVideo.src = item.url;
-      vendorMainVideo.style.display = 'block';
-    } else {
-      topGalleryStage.classList.remove('video-mode');
-      topGalleryStage.classList.add('image-mode');
-      vendorMainImage.src = item.url;
-      vendorMainImage.alt = `Vendor media ${currentGalleryIndex + 1}`;
-      vendorMainImage.style.display = 'block';
-    }
-  }
-
-  function renderTopGallery() {
-    if (galleryItems.length === 0) {
-      topGalleryWrap.style.display = 'none';
-      return;
-    }
-
-    topGalleryWrap.style.display = 'block';
-    const currentItem = galleryItems[currentGalleryIndex];
-    showMainMedia(currentItem);
-
-    thumbRow.innerHTML = '';
-
-    galleryItems.forEach((item, index) => {
-      const thumb = document.createElement('div');
-      thumb.className = 'thumb-item';
-      if (index === currentGalleryIndex) {
-        thumb.classList.add('active-thumb');
-      }
-
-      if (item.type === 'video') {
-        const video = document.createElement('video');
-        video.src = item.url;
-        video.muted = true;
-        video.playsInline = true;
-        thumb.appendChild(video);
-      } else {
-        const img = document.createElement('img');
-        img.src = item.url;
-        img.alt = `Vendor thumbnail ${index + 1}`;
-        thumb.appendChild(img);
-      }
-
-      thumb.addEventListener('click', () => {
-        currentGalleryIndex = index;
-        renderTopGallery();
-      });
-
-      thumbRow.appendChild(thumb);
-    });
-  }
-
-  function openLightbox() {
-    const currentItem = galleryItems[currentGalleryIndex];
-    if (!currentItem || currentItem.type !== 'image') return;
-    lightboxImage.src = currentItem.url;
-    lightboxOverlay.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeLightbox() {
-    lightboxOverlay.classList.remove('open');
-    document.body.style.overflow = '';
-  }
-
-  function nextGalleryItem() {
-    if (!galleryItems.length) return;
-    currentGalleryIndex = (currentGalleryIndex + 1) % galleryItems.length;
-    renderTopGallery();
-
-    const currentItem = galleryItems[currentGalleryIndex];
-    if (lightboxOverlay.classList.contains('open')) {
-      if (currentItem.type === 'image') {
-        lightboxImage.src = currentItem.url;
-      } else {
-        closeLightbox();
-      }
-    }
-  }
-
-  function prevGalleryItem() {
-    if (!galleryItems.length) return;
-    currentGalleryIndex = (currentGalleryIndex - 1 + galleryItems.length) % galleryItems.length;
-    renderTopGallery();
-
-    const currentItem = galleryItems[currentGalleryIndex];
-    if (lightboxOverlay.classList.contains('open')) {
-      if (currentItem.type === 'image') {
-        lightboxImage.src = currentItem.url;
-      } else {
-        closeLightbox();
-      }
-    }
-  }
-
-  galleryPrevBtn.addEventListener('click', prevGalleryItem);
-  galleryNextBtn.addEventListener('click', nextGalleryItem);
-  lightboxPrev.addEventListener('click', prevGalleryItem);
-  lightboxNext.addEventListener('click', nextGalleryItem);
-  lightboxClose.addEventListener('click', closeLightbox);
-
-  topGalleryStage.addEventListener('click', () => {
-    const currentItem = galleryItems[currentGalleryIndex];
-    if (currentItem && currentItem.type === 'image') {
-      openLightbox();
-    }
-  });
-
-  lightboxOverlay.addEventListener('click', (event) => {
-    if (event.target === lightboxOverlay) {
-      closeLightbox();
-    }
-  });
-
-  document.addEventListener('keydown', (event) => {
-    if (lightboxOverlay.classList.contains('open')) {
-      if (event.key === 'Escape') closeLightbox();
-      if (event.key === 'ArrowRight') nextGalleryItem();
-      if (event.key === 'ArrowLeft') prevGalleryItem();
-    }
-  });
-
-  async function loadVendorProfile() {
     const params = new URLSearchParams(window.location.search);
-    const vendorId = params.get('id');
+    const vendorId = params.get("id");
 
-    if (!vendorId) {
-      statusMessage.textContent = 'No vendor was selected.';
-      return;
+    function cleanArray(arr) {
+      return Array.isArray(arr) ? arr.filter(item => typeof item === "string" && item.trim() !== "") : [];
     }
 
-    try {
-      const vendorRef = doc(db, 'vendors', vendorId);
-      const vendorSnap = await getDoc(vendorRef);
+    function formatCategoryName(category) {
+      return String(category)
+        .replace(/_/g, " ")
+        .replace(/\b\w/g, char => char.toUpperCase());
+    }
 
-      if (!vendorSnap.exists()) {
-        statusMessage.textContent = 'This vendor profile could not be found.';
-        return;
+    function getMainImage(vendor) {
+      if (vendor.coverImageUrl && String(vendor.coverImageUrl).trim()) return vendor.coverImageUrl;
+      if (Array.isArray(vendor.images) && vendor.images.length > 0) return vendor.images[0];
+      if (vendor.logoUrl && String(vendor.logoUrl).trim()) return vendor.logoUrl;
+      return "images/header4.png";
+    }
+
+    function getAllImages(vendor) {
+      const images = [];
+
+      if (vendor.coverImageUrl && String(vendor.coverImageUrl).trim()) {
+        images.push(vendor.coverImageUrl);
       }
 
-      const vendor = vendorSnap.data();
+      if (Array.isArray(vendor.images)) {
+        vendor.images.forEach(img => {
+          if (img && String(img).trim() && !images.includes(img)) {
+            images.push(img);
+          }
+        });
+      }
 
-      if (
-        vendor.published !== true ||
-        vendor.profileVisible !== true ||
-        vendor.subscriptionActive !== true
-      ) {
-        statusMessage.textContent = 'This vendor profile is not currently live.';
+      if (images.length === 0 && vendor.logoUrl && String(vendor.logoUrl).trim()) {
+        images.push(vendor.logoUrl);
+      }
+
+      return images;
+    }
+
+    function getLocationText(vendor) {
+      if (vendor.serviceAreas && String(vendor.serviceAreas).trim()) {
+        return vendor.serviceAreas.trim();
+      }
+
+      const regions = cleanArray(vendor.regions);
+      if (regions.length) {
+        return regions.join(" • ");
+      }
+
+      const states = cleanArray(vendor.states);
+      if (states.length) {
+        return states.join(" • ");
+      }
+
+      return "";
+    }
+
+    function makeLinkButton(label, href) {
+      const link = document.createElement("a");
+      link.href = href;
+      link.textContent = label;
+      link.className = "pretty-button small-button";
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      return link;
+    }
+
+    function renderVendor(vendor) {
+      document.title = `${vendor.businessName || "Vendor Profile"} | Our Wedding Day Hub`;
+
+      vendorName.textContent = vendor.businessName || "Vendor";
+      vendorEyebrow.textContent = "wedding vendor";
+
+      const locationText = getLocationText(vendor);
+      vendorLocation.textContent = locationText || "";
+
+      const mainImage = getMainImage(vendor);
+      vendorHeroImageWrap.innerHTML = `
+        <img
+          src="${mainImage}"
+          alt="${vendor.businessName || "Vendor"}"
+          style="width:100%; border-radius:20px; display:block;"
+        >
+      `;
+
+      const categories = cleanArray(vendor.categories);
+      if (categories.length) {
+        vendorCategoriesSection.style.display = "block";
+        vendorCategories.innerHTML = "";
+        categories.forEach(category => {
+          const tag = document.createElement("span");
+          tag.textContent = formatCategoryName(category);
+          vendorCategories.appendChild(tag);
+        });
+      }
+
+      if (vendor.bio && String(vendor.bio).trim()) {
+        vendorBioSection.style.display = "block";
+        vendorBio.textContent = vendor.bio.trim();
+      }
+
+      const allImages = getAllImages(vendor);
+      if (allImages.length > 1) {
+        vendorGallerySection.style.display = "block";
+        vendorGallery.innerHTML = "";
+        allImages.forEach(image => {
+          const img = document.createElement("img");
+          img.src = image;
+          img.alt = vendor.businessName || "Vendor";
+          img.style.width = "100%";
+          img.style.borderRadius = "16px";
+          img.style.display = "block";
+          vendorGallery.appendChild(img);
+        });
+      }
+
+      const serviceAreasText = vendor.serviceAreas && String(vendor.serviceAreas).trim()
+        ? vendor.serviceAreas.trim()
+        : getLocationText(vendor);
+
+      if (serviceAreasText) {
+        vendorServiceAreasSection.style.display = "block";
+        vendorServiceAreas.textContent = serviceAreasText;
+      }
+
+      vendorLinks.innerHTML = "";
+
+      let hasLinks = false;
+
+      if (vendor.website && String(vendor.website).trim()) {
+        let website = vendor.website.trim();
+        if (!/^https?:\/\//i.test(website)) {
+          website = `https://${website}`;
+        }
+        vendorLinks.appendChild(makeLinkButton("Website", website));
+        hasLinks = true;
+      }
+
+      if (vendor.instagram && String(vendor.instagram).trim()) {
+        let instagram = vendor.instagram.trim();
+
+        if (instagram.startsWith("@")) {
+          instagram = instagram.slice(1);
+        }
+
+        if (!instagram.includes("instagram.com")) {
+          instagram = `https://instagram.com/${instagram}`;
+        } else if (!/^https?:\/\//i.test(instagram)) {
+          instagram = `https://${instagram}`;
+        }
+
+        vendorLinks.appendChild(makeLinkButton("Instagram", instagram));
+        hasLinks = true;
+      }
+
+      if (vendor.email && String(vendor.email).trim()) {
+        vendorLinks.appendChild(makeLinkButton("Email", `mailto:${vendor.email.trim()}`));
+        hasLinks = true;
+      }
+
+      if (vendor.phone && String(vendor.phone).trim()) {
+        const cleanPhone = vendor.phone.replace(/\s+/g, "");
+        vendorLinks.appendChild(makeLinkButton("Call", `tel:${cleanPhone}`));
+        hasLinks = true;
+      }
+
+      if (hasLinks) {
+        vendorLinksSection.style.display = "block";
+      }
+
+      loadingCard.style.display = "none";
+      errorCard.style.display = "none";
+      vendorProfileCard.style.display = "block";
+    }
+
+    async function loadVendor() {
+      if (!vendorId) {
+        loadingCard.style.display = "none";
+        errorCard.style.display = "block";
         return;
       }
 
       try {
-        await updateDoc(vendorRef, {
-          pageViews: increment(1)
-        });
-      } catch (viewError) {
-        console.warn('Could not update page views:', viewError);
+        const vendorRef = doc(db, "vendors", vendorId);
+        const vendorSnap = await getDoc(vendorRef);
+
+        if (!vendorSnap.exists()) {
+          loadingCard.style.display = "none";
+          errorCard.style.display = "block";
+          return;
+        }
+
+        const vendor = vendorSnap.data();
+
+        if (!vendor || vendor.published !== true || vendor.profileVisible !== true) {
+          loadingCard.style.display = "none";
+          errorCard.style.display = "block";
+          return;
+        }
+
+        renderVendor(vendor);
+      } catch (error) {
+        console.error("Vendor profile load error:", error);
+        loadingCard.style.display = "none";
+        errorCard.style.display = "block";
       }
-
-      const imageUrls = cleanArray(vendor.images);
-      const videoUrls = [];
-
-      if (hasValue(vendor.videoFileUrl)) {
-        videoUrls.push(vendor.videoFileUrl);
-      } else if (hasValue(vendor.videoUrl)) {
-        videoUrls.push(vendor.videoUrl);
-      }
-
-      galleryItems = [
-        ...imageUrls.map(url => ({ type: 'image', url })),
-        ...videoUrls.map(url => ({ type: 'video', url }))
-      ];
-
-      const styleTags = cleanArray(vendor.styleTags);
-      const categories = cleanArray(vendor.categories).map(formatCategory);
-      const states = cleanArray(vendor.states);
-
-      if (hasValue(vendor.logoUrl)) {
-        vendorLogo.src = vendor.logoUrl;
-        vendorLogo.style.display = 'block';
-      }
-
-      if (hasValue(vendor.profilePhotoUrl)) {
-        vendorProfilePhoto.src = vendor.profilePhotoUrl;
-        profilePhotoRow.style.display = 'block';
-      } else {
-        profilePhotoRow.style.display = 'none';
-      }
-
-      vendorName.textContent = vendor.businessName || 'Vendor';
-
-      const metaBits = [];
-      if (categories.length) metaBits.push(categories.join(' • '));
-      if (states.length) metaBits.push(states.join(', '));
-      vendorMeta.textContent = metaBits.join(' | ');
-
-      renderTopGallery();
-
-      let hasAboutContent = false;
-      hasAboutContent = showAboutBlock('bioRow', vendorBio, vendor.bio) || hasAboutContent;
-      hasAboutContent = showAboutBlock('uniqueRow', vendorUnique, vendor.uniqueSellingPoints) || hasAboutContent;
-      hasAboutContent = showAboutBlock('whyChooseRow', vendorWhyChoose, vendor.whyChooseUs) || hasAboutContent;
-      hasAboutContent = showAboutBlock('includedRow', vendorIncluded, vendor.whatsIncluded) || hasAboutContent;
-      aboutSection.style.display = hasAboutContent ? 'block' : 'none';
-
-      let hasDetailsContent = false;
-      hasDetailsContent = hasValue(vendor.profilePhotoUrl) || hasDetailsContent;
-      hasDetailsContent = setTextRow('businessNameRow', detailBusinessName, vendor.businessName) || hasDetailsContent;
-      hasDetailsContent = setTextRow('abnRow', vendorAbn, vendor.abn) || hasDetailsContent;
-      hasDetailsContent = setTextRow('contactNameRow', vendorContactName, vendor.contactName) || hasDetailsContent;
-      hasDetailsContent = setTextRow('phoneRow', vendorPhone, vendor.phone) || hasDetailsContent;
-      hasDetailsContent = setLinkRow('emailRow', vendorEmail, vendor.email, 'email') || hasDetailsContent;
-      hasDetailsContent = setLinkRow('websiteRow', vendorWebsite, vendor.website) || hasDetailsContent;
-      hasDetailsContent = setLinkRow('instagramRow', vendorInstagram, vendor.instagram) || hasDetailsContent;
-      hasDetailsContent = setTextRow('addressRow', vendorAddress, vendor.address) || hasDetailsContent;
-
-      const serviceAreasValue = vendor.serviceAreas || cleanArray(vendor.regions).join(', ') || cleanArray(vendor.states).join(', ');
-      hasDetailsContent = setTextRow('serviceAreasRow', vendorServiceAreas, serviceAreasValue) || hasDetailsContent;
-
-      hasDetailsContent = setTextRow('venueTypeRow', vendorVenueType, vendor.venueType) || hasDetailsContent;
-      hasDetailsContent = setTextRow('capacityRow', vendorCapacity, vendor.venueCapacity) || hasDetailsContent;
-      hasDetailsContent = setTextRow('ceremonyRow', vendorCeremonyOptions, vendor.ceremonyOptions) || hasDetailsContent;
-      hasDetailsContent = setTextRow('receptionRow', vendorReceptionOptions, vendor.receptionOptions) || hasDetailsContent;
-
-      hasDetailsContent = setBooleanYesOnlyRow('elopementsRow', vendorElopements, vendor.elopementsAvailable) || hasDetailsContent;
-      hasDetailsContent = setBooleanYesOnlyRow('accommodationRow', vendorAccommodation, vendor.accommodationOnsite) || hasDetailsContent;
-
-      hasDetailsContent = setTextRow('startingPriceRow', vendorStartingPrice, vendor.startingPrice) || hasDetailsContent;
-      hasDetailsContent = setTextRow('priceRangeRow', vendorPriceRange, vendor.priceRange) || hasDetailsContent;
-      hasDetailsContent = setBooleanYesOnlyRow('packagesAvailableRow', vendorPackagesAvailable, vendor.packagesAvailable) || hasDetailsContent;
-
-      hasDetailsContent = setTextRow('leadTimeRow', vendorLeadTime, vendor.bookingLeadTime) || hasDetailsContent;
-      hasDetailsContent = setTextRow('peakSeasonRow', vendorPeakSeason, vendor.peakSeason) || hasDetailsContent;
-      hasDetailsContent = setBooleanYesOnlyRow('lastMinuteRow', vendorLastMinute, vendor.lastMinuteBookingsAccepted) || hasDetailsContent;
-      hasDetailsContent = setBooleanYesOnlyRow('directEmailRow', vendorDirectEmailEnquiries, vendor.receiveDirectEmailEnquiries) || hasDetailsContent;
-
-      const styleTagsSection = document.getElementById('styleTagsSection');
-      if (styleTags.length) {
-        vendorStyleTags.innerHTML = '';
-        styleTags.forEach(tag => {
-          const el = document.createElement('span');
-          el.className = 'style-tag';
-          el.textContent = tag;
-          vendorStyleTags.appendChild(el);
-        });
-        styleTagsSection.style.display = 'block';
-        hasDetailsContent = true;
-      } else {
-        styleTagsSection.style.display = 'none';
-      }
-
-      detailsSection.style.display = hasDetailsContent ? 'block' : 'none';
-
-      document.title = `${vendor.businessName || 'Vendor'} - Our Wedding Day Hub`;
-      statusMessage.style.display = 'none';
-      vendorPage.style.display = 'block';
-    } catch (error) {
-      console.error(error);
-      statusMessage.textContent = 'There was a problem loading this vendor profile.';
     }
-  }
 
-  loadVendorProfile();
-</script>
+    loadVendor();
+  </script>
 
-<script type="module" src="nav.js"></script>
-<script src="script.js"></script>
-
-<footer class="site-footer">
-  <p>© 2026 Our Wedding Day Hub</p>
-  <p>ABN 76 688 637 041 • Australia</p>
-</footer>
-
+  <script type="module" src="nav.js"></script>
 </body>
 </html>
