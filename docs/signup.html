@@ -310,16 +310,16 @@
     const isCompedInvite = inviteCode === complimentaryInviteCode;
     const vendorHasAccess = isPaid || isCompedInvite;
 
-    const checkoutBaseUrl = "https://api-z64bz3dpda-uc.a.run.app";
+    const checkoutBaseUrl = 'https://api-z64bz3dpda-uc.a.run.app';
 
     window.startVendorCheckout = async function(plan) {
       try {
         message.textContent = '';
 
         const response = await fetch(`${checkoutBaseUrl}/create-checkout-session`, {
-          method: "POST",
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json"
+            'Content-Type': 'application/json'
           },
           body: JSON.stringify({ plan })
         });
@@ -327,26 +327,26 @@
         const data = await response.json();
 
         if (!response.ok || !data.url) {
-          message.textContent = data.error || "Unable to start checkout.";
+          message.textContent = data.error || 'Unable to start checkout.';
           return;
         }
 
         window.location.href = data.url;
       } catch (error) {
         console.error(error);
-        message.textContent = "Something went wrong starting checkout.";
+        message.textContent = 'Something went wrong starting checkout.';
       }
     };
 
     const regionsByState = {
-      "Queensland": ["Brisbane", "Moreton Bay", "Sunshine Coast", "Gold Coast", "Ipswich", "Redland City", "Scenic Rim", "Lockyer Valley", "Toowoomba", "Noosa", "Fraser Coast", "Whitsundays", "Cairns", "Townsville"],
-      "New South Wales": ["Sydney", "Blue Mountains", "Central Coast", "Hunter", "Illawarra", "Northern Rivers", "Mid North Coast", "Byron Bay", "Southern Highlands", "Canberra Surrounds"],
-      "Victoria": ["Melbourne", "Geelong", "Mornington Peninsula", "Yarra Valley", "Ballarat", "Bendigo", "Daylesford", "Great Ocean Road"],
-      "South Australia": ["Adelaide", "Barossa", "Fleurieu Peninsula", "Adelaide Hills", "McLaren Vale"],
-      "Western Australia": ["Perth", "South West", "Peel", "Great Southern", "Margaret River"],
-      "Tasmania": ["Hobart", "Launceston", "North West", "East Coast"],
-      "Australian Capital Territory": ["Canberra"],
-      "Northern Territory": ["Darwin", "Alice Springs"]
+      Queensland: ['Brisbane', 'Moreton Bay', 'Sunshine Coast', 'Gold Coast', 'Ipswich', 'Redland City', 'Scenic Rim', 'Lockyer Valley', 'Toowoomba', 'Noosa', 'Fraser Coast', 'Whitsundays', 'Cairns', 'Townsville'],
+      'New South Wales': ['Sydney', 'Blue Mountains', 'Central Coast', 'Hunter', 'Illawarra', 'Northern Rivers', 'Mid North Coast', 'Byron Bay', 'Southern Highlands', 'Canberra Surrounds'],
+      Victoria: ['Melbourne', 'Geelong', 'Mornington Peninsula', 'Yarra Valley', 'Ballarat', 'Bendigo', 'Daylesford', 'Great Ocean Road'],
+      'South Australia': ['Adelaide', 'Barossa', 'Fleurieu Peninsula', 'Adelaide Hills', 'McLaren Vale'],
+      'Western Australia': ['Perth', 'South West', 'Peel', 'Great Southern', 'Margaret River'],
+      Tasmania: ['Hobart', 'Launceston', 'North West', 'East Coast'],
+      'Australian Capital Territory': ['Canberra'],
+      'Northern Territory': ['Darwin', 'Alice Springs']
     };
 
     function getSelectedStates() {
@@ -366,7 +366,7 @@
         return;
       }
 
-      selectedStates.forEach(state => {
+      selectedStates.forEach((state) => {
         if (!regionsByState[state]) return;
 
         const heading = document.createElement('p');
@@ -374,7 +374,7 @@
         heading.textContent = state;
         regionOptions.appendChild(heading);
 
-        regionsByState[state].forEach(region => {
+        regionsByState[state].forEach((region) => {
           const wrapper = document.createElement('label');
 
           const checkbox = document.createElement('input');
@@ -411,10 +411,9 @@
     }
 
     updateVendorUI();
-
     typeSelect.addEventListener('change', updateVendorUI);
 
-    document.querySelectorAll('#stateOptions input').forEach(input => {
+    document.querySelectorAll('#stateOptions input').forEach((input) => {
       input.addEventListener('change', renderRegions);
     });
 
@@ -479,516 +478,6 @@
             subscriptionActive: vendorHasAccess,
             profileVisible: false,
             accountStatus: vendorHasAccess ? 'active' : 'pending',
-            published: false,
-            createdAt: serverTimestamp()
-          });
-        }
-
-        if (type === 'couple') {
-          await setDoc(doc(db, 'couples', user.uid), {
-            uid: user.uid,
-            name,
-            email,
-            favouriteVendorIds: [],
-            visionBoard: [],
-            createdAt: serverTimestamp()
-          });
-        }
-
-        message.textContent = 'Account created! Please verify your email, then log in.';
-        signupForm.reset();
-        vendorFields.style.display = 'none';
-        vendorPlanBox.style.display = 'none';
-        regionOptions.innerHTML = '<p class="small-text">Select states above first.</p>';
-
-        setTimeout(() => {
-          window.location.href = 'login.html';
-        }, 2200);
-      } catch (error) {
-        console.error(error);
-        message.textContent = 'Error: ' + error.message;
-      }
-    });
-  </script>
-
-  <script type="module" src="nav.js"></script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Join | Our Wedding Day Hub</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
-  <div class="page-auth">
-    <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
-    <a href="login.html" id="loginLink" class="auth-link">Log In</a>
-    <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
-  </div>
-
-  <header class="hero">
-    <img src="images/header4.png" alt="Our Wedding Day Hub" class="header-image">
-  </header>
-
-  <main class="page-shell">
-    <section class="card hero-card">
-      <p class="eyebrow">join the hub</p>
-      <h1 class="page-title">Create Your Account</h1>
-      <p class="page-subtitle">
-        Welcome to Our Wedding Day Hub, a beautiful space where couples can explore inspiration and trusted vendors,
-        and where vendors can create their own profile and grow their presence online.
-      </p>
-    </section>
-
-    <section class="auth-layout">
-      <section class="auth-intro">
-        <div class="auth-points">
-          <div class="auth-point">
-            <strong>For vendors</strong><br>
-            Create your business profile, select your categories, add the locations you service,
-            and build your presence on the hub.
-          </div>
-
-          <div class="auth-point">
-            <strong>For couples</strong><br>
-            Sign up free to save favourite vendors and start building your inspiration space.
-          </div>
-
-          <div class="auth-point">
-            <strong>Simple setup</strong><br>
-            Get started in just a few steps with a soft, easy-to-use experience designed especially for weddings.
-          </div>
-
-          <div class="auth-point">
-            <strong>Clear vendor access</strong><br>
-            Vendor accounts include a one-off setup fee and subscription options that unlock profile features.
-          </div>
-        </div>
-      </section>
-
-      <section class="auth-card spiced">
-        <h2>Join</h2>
-        <p class="auth-mini-text">Choose your account type below to get started.</p>
-
-        <div class="auth-point" style="margin-bottom: 18px;">
-          <strong>Vendors</strong><br>
-          View pricing and plan options before continuing to payment and account setup.
-        </div>
-
-        <a href="pricing.html" class="pretty-button wide-glow" style="display:block; text-align:center; margin-bottom:16px;">
-          View Vendor Pricing
-        </a>
-
-        <form id="signupForm" class="pretty-form">
-          <label for="type">I am a:</label>
-          <select id="type" required>
-            <option value="">Select</option>
-            <option value="vendor">Vendor</option>
-            <option value="couple">Couple</option>
-          </select>
-
-          <p class="auth-switch-note">
-            Couples can create an account free. Vendors continue to secure checkout before account setup.
-            Vendors may cancel at any time and receive a refund of up to 60 days, or 2 months, of subscription fees.
-            The one-off $50 account setup fee is non-refundable.
-          </p>
-
-          <div id="vendorPlanBox" style="display:none; margin: 18px 0 22px;">
-            <div class="auth-point" style="margin-bottom: 14px;">
-              <strong>Vendor Launch Experience</strong><br>
-              $50 one-time setup fee, charged together with your selected monthly plan at checkout.
-            </div>
-
-            <div class="auth-point" style="margin-bottom: 10px;">
-              <strong>Choose your monthly plan</strong>
-            </div>
-
-            <div style="display:grid; gap:10px;">
-              <button type="button" class="pretty-button wide-glow" onclick="startVendorCheckout('classic')">
-                Classic Listing · $4.75/month
-              </button>
-              <button type="button" class="pretty-button wide-glow" onclick="startVendorCheckout('signature')">
-                Signature Spotlight · $5.95/month
-              </button>
-              <button type="button" class="pretty-button wide-glow" onclick="startVendorCheckout('elite')">
-                Elite Feature · $7.25/month
-              </button>
-              <button type="button" class="pretty-button wide-glow" onclick="startVendorCheckout('platinum')">
-                Platinum Prestige · $9.95/month
-              </button>
-            </div>
-          </div>
-
-          <label for="name">Name / Business Name:</label>
-          <input type="text" id="name" required>
-
-          <div class="field-row">
-            <div>
-              <label for="email">Email:</label>
-              <input type="email" id="email" required>
-            </div>
-            <div>
-              <label for="password">Password:</label>
-              <input type="password" id="password" minlength="6" required>
-            </div>
-          </div>
-
-          <div id="vendorFields" class="field-soft" style="display:none;">
-            <p class="small-text" style="margin-bottom: 14px;">
-              Once payment is completed, you’ll return here to finish creating your vendor account.
-            </p>
-
-            <details class="signup-dropdown">
-              <summary>Categories</summary>
-              <div id="categoryOptions" class="dropdown-content-form">
-                <div class="category-group-title">Photo &amp; Video</div>
-                <label><input type="checkbox" value="photographer"> Photographer</label>
-                <label><input type="checkbox" value="videographer"> Videographer</label>
-                <label><input type="checkbox" value="content_creator"> Content Creator</label>
-
-                <div class="category-group-title">Hair &amp; Beauty</div>
-                <label><input type="checkbox" value="makeup_artist"> Makeup Artist</label>
-                <label><input type="checkbox" value="hair_stylist"> Hair Stylist</label>
-                <label><input type="checkbox" value="beauty_salon"> Beauty Salon</label>
-                <label><input type="checkbox" value="spray_tan"> Spray Tanning</label>
-                <label><input type="checkbox" value="skin_aesthetics"> Skin &amp; Aesthetics</label>
-
-                <div class="category-group-title">Entertainment</div>
-                <label><input type="checkbox" value="singer"> Singer</label>
-                <label><input type="checkbox" value="band"> Band</label>
-                <label><input type="checkbox" value="dj"> DJ</label>
-                <label><input type="checkbox" value="acoustic"> Acoustic Musician</label>
-                <label><input type="checkbox" value="violinist"> Violinist</label>
-                <label><input type="checkbox" value="saxophonist"> Saxophonist</label>
-                <label><input type="checkbox" value="harpist"> Harpist</label>
-                <label><input type="checkbox" value="mc"> MC</label>
-
-                <div class="category-group-title">Styling &amp; Florals</div>
-                <label><input type="checkbox" value="florist"> Florist</label>
-                <label><input type="checkbox" value="stylist"> Wedding Stylist</label>
-                <label><input type="checkbox" value="event_designer"> Event Designer</label>
-                <label><input type="checkbox" value="balloon"> Balloon Stylist</label>
-                <label><input type="checkbox" value="backdrops"> Backdrops &amp; Arches</label>
-
-                <div class="category-group-title">Food &amp; Drink</div>
-                <label><input type="checkbox" value="caterer"> Caterer</label>
-                <label><input type="checkbox" value="cake"> Wedding Cake Designer</label>
-                <label><input type="checkbox" value="dessert"> Dessert Bar</label>
-                <label><input type="checkbox" value="bar"> Mobile Bar</label>
-                <label><input type="checkbox" value="coffee"> Coffee Cart</label>
-                <label><input type="checkbox" value="food_truck"> Food Truck</label>
-
-                <div class="category-group-title">Venues</div>
-                <label><input type="checkbox" value="venue"> Wedding Venue</label>
-                <label><input type="checkbox" value="ceremony_venue"> Ceremony Venue</label>
-                <label><input type="checkbox" value="reception_venue"> Reception Venue</label>
-                <label><input type="checkbox" value="elopement"> Elopement Location</label>
-                <label><input type="checkbox" value="outdoor"> Outdoor Venue</label>
-
-                <div class="category-group-title">Stationery &amp; Signage</div>
-                <label><input type="checkbox" value="invitations"> Invitations</label>
-                <label><input type="checkbox" value="stationery"> Wedding Stationery</label>
-                <label><input type="checkbox" value="signage"> Signage</label>
-                <label><input type="checkbox" value="calligraphy"> Calligraphy</label>
-
-                <div class="category-group-title">Fashion</div>
-                <label><input type="checkbox" value="bridal"> Bridal Boutique</label>
-                <label><input type="checkbox" value="bridesmaid"> Bridesmaid Dresses</label>
-                <label><input type="checkbox" value="formal"> Formal Wear</label>
-                <label><input type="checkbox" value="suits"> Suit Hire</label>
-                <label><input type="checkbox" value="designer"> Custom Designer</label>
-
-                <div class="category-group-title">Jewellery</div>
-                <label><input type="checkbox" value="rings"> Wedding Rings</label>
-                <label><input type="checkbox" value="engagement"> Engagement Rings</label>
-                <label><input type="checkbox" value="custom_jewellery"> Custom Jewellery</label>
-
-                <div class="category-group-title">Transport</div>
-                <label><input type="checkbox" value="cars"> Wedding Cars</label>
-                <label><input type="checkbox" value="luxury_cars"> Luxury Cars</label>
-                <label><input type="checkbox" value="vintage_cars"> Vintage Cars</label>
-                <label><input type="checkbox" value="limo"> Limousine</label>
-                <label><input type="checkbox" value="bus"> Guest Transport</label>
-
-                <div class="category-group-title">Experiences &amp; Unique Services</div>
-                <label><input type="checkbox" value="live_painter"> Live Wedding Painter</label>
-                <label><input type="checkbox" value="photo_booth"> Photo Booth</label>
-                <label><input type="checkbox" value="audio_guestbook"> Audio Guestbook</label>
-                <label><input type="checkbox" value="wedding_content_creator"> Wedding Content Creator</label>
-
-                <div class="category-group-title">Planning &amp; Support</div>
-                <label><input type="checkbox" value="planner"> Wedding Planner</label>
-                <label><input type="checkbox" value="coordinator"> Wedding Coordinator</label>
-                <label><input type="checkbox" value="on_day_coordinator"> On-the-day Coordinator</label>
-                <label><input type="checkbox" value="honeymoon"> Honeymoon Planner</label>
-
-                <div class="category-group-title">Care Services</div>
-                <label><input type="checkbox" value="pet_attendant"> Pet Attendant</label>
-                <label><input type="checkbox" value="child_minder"> Child Minder / Wedding Nanny</label>
-
-                <div class="category-group-title">Hire &amp; Rentals</div>
-                <label><input type="checkbox" value="furniture"> Furniture Hire</label>
-                <label><input type="checkbox" value="decor"> Decor Hire</label>
-                <label><input type="checkbox" value="tableware"> Tableware Hire</label>
-                <label><input type="checkbox" value="lighting"> Lighting Hire</label>
-                <label><input type="checkbox" value="marquee"> Marquee Hire</label>
-
-                <div class="category-group-title">Gifts &amp; Favours</div>
-                <label><input type="checkbox" value="favours"> Wedding Favours</label>
-                <label><input type="checkbox" value="gifts"> Personalised Gifts</label>
-                <label><input type="checkbox" value="hampers"> Hampers</label>
-              </div>
-            </details>
-
-            <details class="signup-dropdown">
-              <summary>States You Service</summary>
-              <div id="stateOptions" class="dropdown-content-form">
-                <label><input type="checkbox" value="Queensland"> Queensland</label>
-                <label><input type="checkbox" value="New South Wales"> New South Wales</label>
-                <label><input type="checkbox" value="Victoria"> Victoria</label>
-                <label><input type="checkbox" value="South Australia"> South Australia</label>
-                <label><input type="checkbox" value="Western Australia"> Western Australia</label>
-                <label><input type="checkbox" value="Tasmania"> Tasmania</label>
-                <label><input type="checkbox" value="Australian Capital Territory"> Australian Capital Territory</label>
-                <label><input type="checkbox" value="Northern Territory"> Northern Territory</label>
-              </div>
-            </details>
-
-            <details class="signup-dropdown">
-              <summary>Regions You Service</summary>
-              <div id="regionOptions" class="dropdown-content-form">
-                <p class="small-text">Select states above first.</p>
-              </div>
-            </details>
-          </div>
-
-          <button type="submit" class="pretty-button wide-glow">Create Account</button>
-        </form>
-
-        <p id="message" class="form-message"></p>
-
-        <p class="auth-footer-text">
-          Already have an account? <a href="login.html">Log in here</a>
-        </p>
-      </section>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="footer-content">
-      <p class="footer-eyebrow">wedding vendor directory</p>
-      <h2 class="footer-title">Find beautiful wedding vendors in one lovely place.</h2>
-      <p class="footer-text">
-        Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.
-      </p>
-
-      <div class="footer-links">
-        <a href="about.html">About Us</a>
-        <a href="pricing.html">Pricing</a>
-        <a href="refund-policy.html">Refund Policy</a>
-        <a href="terms.html">Terms &amp; Conditions</a>
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="contact.html">Enquiries</a>
-      </div>
-
-      <p class="footer-abn">ABN: 76688637041</p>
-    </div>
-  </footer>
-
-  <script type="module">
-    import {
-      auth,
-      db,
-      createUserWithEmailAndPassword,
-      sendEmailVerification,
-      doc,
-      setDoc,
-      serverTimestamp
-    } from './firebase.js';
-
-    const signupForm = document.getElementById('signupForm');
-    const message = document.getElementById('message');
-    const typeSelect = document.getElementById('type');
-    const vendorFields = document.getElementById('vendorFields');
-    const regionOptions = document.getElementById('regionOptions');
-    const vendorPlanBox = document.getElementById('vendorPlanBox');
-
-    const urlParams = new URLSearchParams(window.location.search);
-    const isPaid = urlParams.get('paid');
-    const preselectedType = urlParams.get('type');
-
-    const checkoutBaseUrl = "https://api-z64bz3dpda-uc.a.run.app";
-
-    window.startVendorCheckout = async function(plan) {
-      try {
-        message.textContent = '';
-
-        const response = await fetch(`${checkoutBaseUrl}/create-checkout-session`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ plan })
-        });
-
-        const data = await response.json();
-
-        if (!response.ok || !data.url) {
-          message.textContent = data.error || "Unable to start checkout.";
-          return;
-        }
-
-        window.location.href = data.url;
-      } catch (error) {
-        console.error(error);
-        message.textContent = "Something went wrong starting checkout.";
-      }
-    };
-
-    const regionsByState = {
-      "Queensland": ["Brisbane", "Moreton Bay", "Sunshine Coast", "Gold Coast", "Ipswich", "Redland City", "Scenic Rim", "Lockyer Valley", "Toowoomba", "Noosa", "Fraser Coast", "Whitsundays", "Cairns", "Townsville"],
-      "New South Wales": ["Sydney", "Blue Mountains", "Central Coast", "Hunter", "Illawarra", "Northern Rivers", "Mid North Coast", "Byron Bay", "Southern Highlands", "Canberra Surrounds"],
-      "Victoria": ["Melbourne", "Geelong", "Mornington Peninsula", "Yarra Valley", "Ballarat", "Bendigo", "Daylesford", "Great Ocean Road"],
-      "South Australia": ["Adelaide", "Barossa", "Fleurieu Peninsula", "Adelaide Hills", "McLaren Vale"],
-      "Western Australia": ["Perth", "South West", "Peel", "Great Southern", "Margaret River"],
-      "Tasmania": ["Hobart", "Launceston", "North West", "East Coast"],
-      "Australian Capital Territory": ["Canberra"],
-      "Northern Territory": ["Darwin", "Alice Springs"]
-    };
-
-    function getSelectedStates() {
-      return Array.from(document.querySelectorAll('#stateOptions input:checked')).map(input => input.value);
-    }
-
-    function renderRegions() {
-      const selectedStates = getSelectedStates();
-      const previouslyChecked = Array.from(
-        document.querySelectorAll('#regionOptions input:checked')
-      ).map(input => input.value);
-
-      regionOptions.innerHTML = '';
-
-      if (selectedStates.length === 0) {
-        regionOptions.innerHTML = '<p class="small-text">Select states above first.</p>';
-        return;
-      }
-
-      selectedStates.forEach(state => {
-        if (!regionsByState[state]) return;
-
-        const heading = document.createElement('p');
-        heading.className = 'region-heading';
-        heading.textContent = state;
-        regionOptions.appendChild(heading);
-
-        regionsByState[state].forEach(region => {
-          const wrapper = document.createElement('label');
-
-          const checkbox = document.createElement('input');
-          checkbox.type = 'checkbox';
-          checkbox.name = 'regions';
-          checkbox.value = region;
-
-          if (previouslyChecked.includes(region)) {
-            checkbox.checked = true;
-          }
-
-          wrapper.appendChild(checkbox);
-          wrapper.append(` ${region}`);
-          regionOptions.appendChild(wrapper);
-        });
-      });
-    }
-
-    if (preselectedType) {
-      typeSelect.value = preselectedType;
-      vendorFields.style.display = preselectedType === 'vendor' ? 'block' : 'none';
-      vendorPlanBox.style.display = preselectedType === 'vendor' && isPaid !== 'true' ? 'block' : 'none';
-
-      if (preselectedType === 'vendor') {
-        renderRegions();
-      }
-    }
-
-    typeSelect.addEventListener('change', () => {
-      vendorFields.style.display = typeSelect.value === 'vendor' ? 'block' : 'none';
-      vendorPlanBox.style.display = typeSelect.value === 'vendor' && isPaid !== 'true' ? 'block' : 'none';
-
-      if (typeSelect.value === 'vendor') {
-        renderRegions();
-      } else {
-        regionOptions.innerHTML = '<p class="small-text">Select states above first.</p>';
-      }
-    });
-
-    document.querySelectorAll('#stateOptions input').forEach(input => {
-      input.addEventListener('change', renderRegions);
-    });
-
-    signupForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      message.textContent = '';
-
-      const type = typeSelect.value;
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim().toLowerCase();
-      const password = document.getElementById('password').value;
-
-      if (!type) {
-        message.textContent = 'Please select Vendor or Couple.';
-        return;
-      }
-
-      if (type === 'vendor' && isPaid !== 'true') {
-        message.textContent = 'Please choose your vendor plan above to continue to secure checkout.';
-        return;
-      }
-
-      try {
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        const user = userCredential.user;
-
-        await sendEmailVerification(user);
-
-        await setDoc(doc(db, 'users', user.uid), {
-          uid: user.uid,
-          email,
-          name,
-          role: type,
-          emailVerified: false,
-          paid: type === 'vendor',
-          createdAt: serverTimestamp()
-        });
-
-        if (type === 'vendor') {
-          const selectedCategories = Array.from(
-            document.querySelectorAll('#categoryOptions input:checked')
-          ).map(input => input.value);
-
-          const selectedStates = getSelectedStates();
-
-          const selectedRegions = Array.from(
-            document.querySelectorAll('input[name="regions"]:checked')
-          ).map(input => input.value);
-
-          await setDoc(doc(db, 'vendors', user.uid), {
-            uid: user.uid,
-            businessName: name,
-            email,
-            categories: selectedCategories,
-            states: selectedStates,
-            regions: selectedRegions,
-            bio: '',
-            phone: '',
-            website: '',
-            instagram: '',
-            paidSetupFee: true,
-            subscriptionActive: true,
-            profileVisible: false,
-            accountStatus: 'active',
             published: false,
             createdAt: serverTimestamp()
           });
