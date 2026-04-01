@@ -42,7 +42,8 @@ a,
 button,
 input,
 select,
-textarea {
+textarea,
+label {
   font-family: "Manrope", sans-serif;
 }
 
@@ -54,6 +55,9 @@ button {
   cursor: pointer;
 }
 
+/* =========================
+   TOP RIGHT AUTH
+========================= */
 .page-auth {
   width: 100%;
   max-width: 1180px;
@@ -75,7 +79,7 @@ button {
   border: none;
   padding: 8px 12px;
   border-radius: 999px;
-  transition: 0.2s ease;
+  transition: opacity 0.2s ease, background 0.2s ease;
 }
 
 .auth-link:hover,
@@ -88,6 +92,9 @@ button {
   color: var(--text);
 }
 
+/* =========================
+   HEADER
+========================= */
 .hero {
   width: 100%;
   text-align: center;
@@ -102,6 +109,9 @@ button {
   display: block;
 }
 
+/* =========================
+   LAYOUT WRAPPERS
+========================= */
 .page-wrap,
 .page-shell,
 .contact-page,
@@ -124,7 +134,8 @@ button {
 .filter-card,
 .welcome-banner,
 .vendor-result-card,
-.vendors-hero {
+.vendors-hero,
+.auth-intro {
   background: var(--card-bg);
   border-radius: 24px;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
@@ -140,7 +151,12 @@ button {
   max-width: 840px;
 }
 
-.eyebrow {
+/* =========================
+   TYPOGRAPHY HELPERS
+========================= */
+.eyebrow,
+.footer-eyebrow,
+.auth-kicker {
   text-transform: uppercase;
   letter-spacing: 2px;
   font-size: 12px;
@@ -150,7 +166,11 @@ button {
 
 .intro-text,
 .page-subtitle,
-.tagline {
+.tagline,
+.auth-mini-text,
+.auth-switch-note,
+.auth-footer-text,
+.small-text {
   max-width: 700px;
   margin-left: auto;
   margin-right: auto;
@@ -162,6 +182,17 @@ button {
   margin-bottom: 10px;
 }
 
+.form-message {
+  margin-top: 16px;
+  font-weight: 600;
+  color: var(--muted);
+  text-align: center;
+  min-height: 24px;
+}
+
+/* =========================
+   SEARCH BAR
+========================= */
 .search-wrap {
   margin: 20px auto 34px;
   padding: 0 16px;
@@ -203,6 +234,9 @@ button {
   opacity: 0.9;
 }
 
+/* =========================
+   VENDORS GRID
+========================= */
 .vendors-grid {
   max-width: 1100px;
   margin: 30px auto 10px;
@@ -252,6 +286,14 @@ button {
   margin-bottom: 8px;
 }
 
+.empty-message {
+  color: var(--muted);
+  margin-top: 10px;
+}
+
+/* =========================
+   BUTTONS
+========================= */
 .apply-button,
 .pretty-button,
 .contact-submit {
@@ -264,6 +306,8 @@ button {
   font-weight: 600;
   text-decoration: none;
   display: inline-block;
+  text-align: center;
+  transition: opacity 0.2s ease;
 }
 
 .apply-button:hover,
@@ -272,22 +316,107 @@ button {
   opacity: 0.9;
 }
 
-.auth-card,
-.contact-form-wrap,
-.profile-card,
-.dashboard-card,
-.filter-card,
-.vendor-result-card,
-.vendors-hero {
-  padding: 28px;
+.wide-glow {
+  width: 100%;
+  margin-top: 10px;
 }
 
+.small-button {
+  display: inline-block;
+  width: auto;
+  min-width: 140px;
+  text-align: center;
+  text-decoration: none;
+  padding: 12px 18px;
+}
+
+/* =========================
+   AUTH LAYOUT
+========================= */
+.auth-layout {
+  min-height: calc(100vh - 180px);
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 32px;
+  align-items: start;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto 40px;
+  padding: 20px;
+}
+
+.auth-layout.single-card {
+  grid-template-columns: 1fr;
+  max-width: 560px;
+}
+
+.auth-intro {
+  padding: 36px;
+}
+
+.auth-card {
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 32px;
+}
+
+.auth-card.spiced {
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-card.spiced::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, #d8b48a 0%, #f0dfca 50%, #d8b48a 100%);
+}
+
+.auth-points {
+  display: grid;
+  gap: 14px;
+  margin-top: 24px;
+}
+
+.auth-point {
+  background: #fffdf9;
+  border-radius: 18px;
+  padding: 16px;
+  line-height: 1.6;
+  box-shadow: inset 0 0 0 1px rgba(170, 136, 120, 0.12);
+  text-align: left;
+}
+
+.auth-footer-text a {
+  color: var(--text);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.auth-footer-text a:hover {
+  text-decoration: underline;
+}
+
+/* =========================
+   FORMS
+========================= */
 .pretty-form,
 .contact-form {
   display: flex;
   flex-direction: column;
   gap: 14px;
   margin-top: 18px;
+}
+
+.pretty-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--text);
+  text-align: left;
 }
 
 .pretty-form input,
@@ -310,12 +439,125 @@ button {
   resize: vertical;
 }
 
-.contact-form .form-group {
-  position: relative;
-  width: 100%;
+.pretty-form input:focus,
+.pretty-form select:focus,
+.pretty-form textarea:focus,
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(199, 157, 137, 0.14);
 }
 
-.contact-form .form-group.half {
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.field-soft {
+  background: #fffdf9;
+  border: 1px solid #efe1d8;
+  border-radius: 16px;
+  padding: 16px;
+  text-align: left;
+}
+
+/* =========================
+   SIGNUP DROPDOWNS
+========================= */
+.signup-dropdown {
+  margin-bottom: 16px;
+  border: 1px solid #d9d1c7;
+  background: #fffaf6;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.signup-dropdown summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  font-weight: 600;
+  position: relative;
+  text-align: left;
+}
+
+.signup-dropdown summary::-webkit-details-marker {
+  display: none;
+}
+
+.signup-dropdown summary::after {
+  content: '+';
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+.signup-dropdown[open] summary::after {
+  content: '–';
+}
+
+.dropdown-content-form {
+  padding: 0 16px 16px 16px;
+  border-top: 1px solid #e8dfd4;
+  text-align: left;
+}
+
+.dropdown-content-form label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-weight: 400;
+  cursor: pointer;
+  line-height: 1.4;
+}
+
+.category-group-title,
+.region-heading {
+  font-weight: 700;
+  margin: 16px 0 8px;
+  color: var(--text);
+  text-align: left;
+}
+
+input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  flex: 0 0 16px;
+  cursor: pointer;
+  accent-color: var(--text);
+}
+
+/* =========================
+   CONTACT PAGE
+========================= */
+.contact-page {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto 60px;
+  padding: 0 20px;
+}
+
+.contact-header h1 {
+  margin-bottom: 10px;
+}
+
+.contact-header p {
+  color: var(--muted);
+}
+
+.contact-form-wrap {
+  padding: 30px;
+}
+
+.contact-form .form-group {
+  position: relative;
   width: 100%;
 }
 
@@ -329,6 +571,7 @@ button {
   transition: 0.2s ease;
   background: var(--white);
   padding: 0 4px;
+  margin: 0;
 }
 
 .contact-form input:focus + label,
@@ -340,14 +583,18 @@ button {
   font-size: 0.8rem;
 }
 
-.contact-header h1 {
-  margin-bottom: 10px;
-}
-
-.contact-header p {
+.contact-success {
+  display: none;
+  width: 100%;
+  margin-top: 10px;
+  text-align: center;
+  font-weight: 600;
   color: var(--muted);
 }
 
+/* =========================
+   FOOTER
+========================= */
 .site-footer {
   width: 100%;
   margin-top: 50px;
@@ -361,10 +608,6 @@ button {
 
 .footer-eyebrow {
   text-transform: lowercase;
-  letter-spacing: 2px;
-  font-size: 12px;
-  color: var(--muted);
-  margin-bottom: 14px;
 }
 
 .footer-title {
@@ -403,14 +646,20 @@ button {
   color: var(--muted);
 }
 
-.empty-message {
-  color: var(--muted);
-  margin-top: 10px;
-}
-
+/* =========================
+   RESPONSIVE
+========================= */
 @media (max-width: 900px) {
   .vendors-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .auth-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .field-row {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -435,5 +684,12 @@ button {
 
   .page-auth {
     justify-content: center;
+  }
+
+  .auth-intro,
+  .auth-card,
+  .contact-form-wrap,
+  .card {
+    padding: 24px;
   }
 }
