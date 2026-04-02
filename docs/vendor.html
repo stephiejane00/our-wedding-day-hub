@@ -570,6 +570,8 @@
       signOut,
       doc,
       getDoc,
+      updateDoc,
+      increment,
       collection,
       getDocs,
       query,
@@ -818,7 +820,25 @@
       updateArrowButtons();
     }
 
-    function renderVendor(vendor, docId) {
+    async function incrementProfileView(docId) {
+      if (!docId) return;
+
+      const sessionKey = `viewedVendor_${docId}`;
+      const alreadyCounted = sessionStorage.getItem(sessionKey) === "true";
+
+      if (alreadyCounted) return;
+
+      try {
+        await updateDoc(doc(db, "vendors", docId), {
+          profileViews: increment(1)
+        });
+        sessionStorage.setItem(sessionKey, "true");
+      } catch (error) {
+        console.error("Profile view count error:", error);
+      }
+    }
+
+    async function renderVendor(vendor, docId) {
       currentVendorDocId = docId || currentVendorDocId;
 
       if (docId) sessionStorage.setItem("selectedVendorId", docId);
@@ -874,6 +894,7 @@
       const profileImage = getProfileImage(vendor);
       if (profileImage) {
         profilePicEl.src = profileImage;
+        profilePicEl.style.display = "block";
       } else {
         profilePicEl.removeAttribute("src");
       }
@@ -896,6 +917,8 @@
 
       statusMessage.textContent = "";
       updateFavoriteButton();
+
+      await incrementProfileView(currentVendorDocId);
     }
 
     async function loadVendor() {
@@ -903,7 +926,7 @@
         if (currentVendorDocId) {
           const snap = await getDoc(doc(db, "vendors", currentVendorDocId));
           if (snap.exists()) {
-            renderVendor(snap.data(), snap.id);
+            await renderVendor(snap.data(), snap.id);
             return;
           }
         }
@@ -913,7 +936,7 @@
           const results = await getDocs(query(collection(db, "vendors"), where("uid", "==", uidToTry)));
           if (!results.empty) {
             const found = results.docs[0];
-            renderVendor(found.data(), found.id);
+            await renderVendor(found.data(), found.id);
             return;
           }
         }
