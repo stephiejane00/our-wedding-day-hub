@@ -67,6 +67,7 @@ button {
   justify-content: flex-end;
   align-items: center;
   gap: 10px;
+  flex-wrap: wrap;
 }
 
 .auth-link,
@@ -254,6 +255,9 @@ button {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
   transition: transform 0.25s ease;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .vendor-card:hover {
@@ -265,6 +269,8 @@ button {
   border-radius: 12px;
   margin-bottom: 12px;
   display: block;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
 }
 
 .vendor-card h3 {
@@ -284,6 +290,31 @@ button {
   font-size: 13px;
   color: var(--muted);
   margin-bottom: 8px;
+}
+
+.vendor-card-actions {
+  margin-top: auto;
+  padding-top: 16px;
+}
+
+.vendor-profile-btn {
+  border: none;
+  background: var(--accent-soft);
+  color: var(--text);
+  padding: 12px 18px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.vendor-profile-btn:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
 }
 
 .empty-message {
@@ -692,7 +723,12 @@ input[type="checkbox"] {
   .card {
     padding: 24px;
   }
+
+  .vendor-profile-btn {
+    width: 100%;
+  }
 }
+
 /* --- CATEGORY PILLS STYLING --- */
 
 .dropdown-content-form {
@@ -777,6 +813,7 @@ input[type="checkbox"] {
   background: #fffaf8;
   border: 1px solid #efe1d6;
 }
+
 /* --- LOCATION PILLS EXACT MATCH VERSION --- */
 
 #regionOptions,
