@@ -1,37 +1,370 @@
 export const LOCATION_DATA = {
-  "Australia": {
-    "Queensland": ["Brisbane", "Moreton Bay", "Sunshine Coast", "Gold Coast", "Ipswich", "Redland City", "Scenic Rim", "Lockyer Valley", "Toowoomba", "Noosa", "Fraser Coast", "Whitsundays", "Cairns", "Townsville"],
-    "New South Wales": ["Sydney", "Blue Mountains", "Central Coast", "Hunter", "Illawarra", "Northern Rivers", "Mid North Coast", "Byron Bay", "Southern Highlands", "Canberra Surrounds"],
-    "Victoria": ["Melbourne", "Geelong", "Mornington Peninsula", "Yarra Valley", "Ballarat", "Bendigo", "Daylesford", "Great Ocean Road"],
-    "South Australia": ["Adelaide", "Barossa", "Fleurieu Peninsula", "Adelaide Hills", "McLaren Vale"],
-    "Western Australia": ["Perth", "South West", "Peel", "Great Southern", "Margaret River"],
-    "Tasmania": ["Hobart", "Launceston", "North West", "East Coast"],
-    "Australian Capital Territory": ["Canberra"],
-    "Northern Territory": ["Darwin", "Alice Springs"]
+  Australia: {
+    Queensland: [
+      "Brisbane",
+      "Moreton Bay",
+      "Sunshine Coast",
+      "Gold Coast",
+      "Ipswich",
+      "Redland City",
+      "Scenic Rim",
+      "Lockyer Valley",
+      "Toowoomba",
+      "Noosa",
+      "Fraser Coast",
+      "Whitsundays",
+      "Cairns",
+      "Townsville",
+      "Mackay",
+      "Rockhampton",
+      "Gladstone",
+      "Bundaberg",
+      "Gympie",
+      "South Burnett",
+      "Western Downs",
+      "Central Highlands",
+      "Southern Downs",
+      "Cooktown",
+      "Port Douglas",
+      "Atherton Tablelands",
+      "Mount Isa"
+    ],
+    "New South Wales": [
+      "Sydney",
+      "Blue Mountains",
+      "Central Coast",
+      "Hunter",
+      "Newcastle",
+      "Lake Macquarie",
+      "Port Stephens",
+      "Illawarra",
+      "Wollongong",
+      "Southern Highlands",
+      "Shoalhaven",
+      "Jervis Bay",
+      "Canberra Surrounds",
+      "Byron Bay",
+      "Northern Rivers",
+      "Ballina",
+      "Tweed Coast",
+      "Coffs Harbour",
+      "Mid North Coast",
+      "Port Macquarie",
+      "Tamworth",
+      "Orange",
+      "Bathurst",
+      "Dubbo",
+      "South Coast",
+      "Snowy Mountains",
+      "Mudgee",
+      "Riverina"
+    ],
+    Victoria: [
+      "Melbourne",
+      "Geelong",
+      "Bellarine Peninsula",
+      "Mornington Peninsula",
+      "Yarra Valley",
+      "Dandenong Ranges",
+      "Ballarat",
+      "Bendigo",
+      "Daylesford",
+      "Macedon Ranges",
+      "Great Ocean Road",
+      "Torquay",
+      "Phillip Island",
+      "Gippsland",
+      "High Country",
+      "Shepparton",
+      "Warrnambool",
+      "Mildura"
+    ],
+    "South Australia": [
+      "Adelaide",
+      "Adelaide Hills",
+      "Barossa",
+      "Clare Valley",
+      "McLaren Vale",
+      "Fleurieu Peninsula",
+      "Murraylands",
+      "Limestone Coast",
+      "Eyre Peninsula",
+      "Yorke Peninsula",
+      "Riverland",
+      "Kangaroo Island"
+    ],
+    "Western Australia": [
+      "Perth",
+      "Peel",
+      "South West",
+      "Margaret River",
+      "Bunbury",
+      "Great Southern",
+      "Albany",
+      "Wheatbelt",
+      "Mid West",
+      "Geraldton",
+      "Goldfields-Esperance",
+      "Esperance",
+      "Pilbara",
+      "Kimberley",
+      "Broome"
+    ],
+    Tasmania: [
+      "Hobart",
+      "Launceston",
+      "North West",
+      "Devonport",
+      "Burnie",
+      "East Coast",
+      "Freycinet",
+      "Huon Valley",
+      "Derwent Valley",
+      "Tamar Valley",
+      "Cradle Coast"
+    ],
+    "Australian Capital Territory": [
+      "Canberra",
+      "Belconnen",
+      "Gungahlin",
+      "Inner North",
+      "Inner South",
+      "Woden Valley",
+      "Weston Creek",
+      "Tuggeranong",
+      "Molonglo Valley"
+    ],
+    "Northern Territory": [
+      "Darwin",
+      "Palmerston",
+      "Alice Springs",
+      "Katherine",
+      "Arnhem Land",
+      "Barkly",
+      "Tiwi Islands",
+      "Litchfield",
+      "East Arnhem"
+    ]
   },
 
   "New Zealand": {
-    "North Island": ["Auckland", "Wellington", "Hamilton", "Tauranga", "Napier-Hastings", "Rotorua"],
-    "South Island": ["Christchurch", "Queenstown", "Dunedin", "Nelson", "Invercargill"]
+    Northland: [
+      "Whangarei",
+      "Bay of Islands",
+      "Kerikeri",
+      "Paihia"
+    ],
+    Auckland: [
+      "Auckland",
+      "North Shore",
+      "West Auckland",
+      "South Auckland",
+      "Waiheke Island"
+    ],
+    Waikato: [
+      "Hamilton",
+      "Cambridge",
+      "Waikato District",
+      "Coromandel",
+      "Taupo"
+    ],
+    "Bay of Plenty": [
+      "Tauranga",
+      "Mount Maunganui",
+      "Rotorua",
+      "Whakatane"
+    ],
+    Gisborne: [
+      "Gisborne",
+      "East Coast"
+    ],
+    "Hawke's Bay": [
+      "Napier",
+      "Hastings",
+      "Havelock North"
+    ],
+    Taranaki: [
+      "New Plymouth",
+      "Stratford"
+    ],
+    ManawatuWhanganui: [
+      "Palmerston North",
+      "Whanganui",
+      "Feilding"
+    ],
+    Wellington: [
+      "Wellington",
+      "Lower Hutt",
+      "Upper Hutt",
+      "Porirua",
+      "Kapiti Coast",
+      "Wairarapa"
+    ],
+    Tasman: [
+      "Richmond",
+      "Motueka",
+      "Abel Tasman"
+    ],
+    Nelson: [
+      "Nelson"
+    ],
+    Marlborough: [
+      "Blenheim",
+      "Marlborough Sounds"
+    ],
+    "West Coast": [
+      "Greymouth",
+      "Franz Josef",
+      "Hokitika"
+    ],
+    Canterbury: [
+      "Christchurch",
+      "Akaroa",
+      "Ashburton",
+      "Timaru"
+    ],
+    Otago: [
+      "Queenstown",
+      "Wanaka",
+      "Dunedin",
+      "Central Otago"
+    ],
+    Southland: [
+      "Invercargill",
+      "Te Anau",
+      "Fiordland"
+    ]
   },
 
   "United States": {
-    "California": ["Los Angeles", "San Diego", "San Francisco", "Sacramento", "Palm Springs", "Napa Valley"],
-    "New York": ["New York City", "Brooklyn", "Buffalo", "Albany", "Hamptons"],
-    "Texas": ["Austin", "Dallas", "Houston", "San Antonio"],
-    "Florida": ["Miami", "Orlando", "Tampa", "Palm Beach"]
+    Alabama: ["Birmingham", "Montgomery", "Mobile", "Huntsville", "Auburn"],
+    Alaska: ["Anchorage", "Fairbanks", "Juneau", "Kenai Peninsula", "Mat-Su Valley"],
+    Arizona: ["Phoenix", "Scottsdale", "Tucson", "Sedona", "Flagstaff"],
+    Arkansas: ["Little Rock", "Northwest Arkansas", "Fayetteville", "Bentonville", "Hot Springs"],
+    California: ["Los Angeles", "Orange County", "San Diego", "Palm Springs", "Santa Barbara", "Malibu", "Ventura", "San Francisco", "Napa Valley", "Sonoma", "Sacramento", "Lake Tahoe", "Central Coast", "Monterey", "Big Sur", "Yosemite"],
+    Colorado: ["Denver", "Boulder", "Colorado Springs", "Aspen", "Vail", "Breckenridge", "Fort Collins"],
+    Connecticut: ["Hartford", "New Haven", "Fairfield County", "Mystic", "Litchfield Hills"],
+    Delaware: ["Wilmington", "Newark", "Dover", "Lewes", "Rehoboth Beach"],
+    Florida: ["Miami", "Fort Lauderdale", "Palm Beach", "Orlando", "Tampa", "St Petersburg", "Naples", "Jacksonville", "Sarasota", "Destin", "Key West"],
+    Georgia: ["Atlanta", "Savannah", "Athens", "Augusta", "Blue Ridge", "Macon"],
+    Hawaii: ["Honolulu", "Maui", "Kauai", "Big Island", "Oahu", "Lanai"],
+    Idaho: ["Boise", "Sun Valley", "Coeur d'Alene", "Idaho Falls", "Twin Falls"],
+    Illinois: ["Chicago", "Naperville", "Springfield", "Peoria", "Galena"],
+    Indiana: ["Indianapolis", "Fort Wayne", "South Bend", "Bloomington", "Carmel"],
+    Iowa: ["Des Moines", "Cedar Rapids", "Iowa City", "Dubuque", "Ames"],
+    Kansas: ["Wichita", "Overland Park", "Kansas City KS", "Lawrence", "Topeka"],
+    Kentucky: ["Louisville", "Lexington", "Bowling Green", "Northern Kentucky", "Bardstown"],
+    Louisiana: ["New Orleans", "Baton Rouge", "Lafayette", "Shreveport", "Lake Charles"],
+    Maine: ["Portland", "Bar Harbor", "Bangor", "Kennebunkport", "Midcoast Maine"],
+    Maryland: ["Baltimore", "Annapolis", "Bethesda", "Frederick", "Eastern Shore"],
+    Massachusetts: ["Boston", "Cape Cod", "Cambridge", "Worcester", "Berkshires", "Nantucket", "Martha's Vineyard"],
+    Michigan: ["Detroit", "Grand Rapids", "Ann Arbor", "Traverse City", "Lansing", "Mackinac Island"],
+    Minnesota: ["Minneapolis", "Saint Paul", "Duluth", "Rochester", "Stillwater"],
+    Mississippi: ["Jackson", "Gulf Coast", "Oxford", "Hattiesburg", "Biloxi"],
+    Missouri: ["St Louis", "Kansas City", "Springfield", "Columbia", "Branson"],
+    Montana: ["Bozeman", "Missoula", "Whitefish", "Billings", "Big Sky"],
+    Nebraska: ["Omaha", "Lincoln", "Grand Island", "Kearney", "Scottsbluff"],
+    Nevada: ["Las Vegas", "Reno", "Lake Tahoe", "Henderson", "Red Rock"],
+    "New Hampshire": ["Manchester", "Portsmouth", "Concord", "Lakes Region", "White Mountains"],
+    "New Jersey": ["Jersey City", "Newark", "Princeton", "Morristown", "Cape May", "Asbury Park"],
+    "New Mexico": ["Santa Fe", "Albuquerque", "Taos", "Las Cruces", "Ruidoso"],
+    "New York": ["New York City", "Brooklyn", "Hudson Valley", "Hamptons", "Albany", "Buffalo", "Rochester", "Syracuse", "Finger Lakes", "Catskills", "Adirondacks"],
+    "North Carolina": ["Charlotte", "Raleigh", "Durham", "Asheville", "Wilmington", "Outer Banks", "Greensboro"],
+    "North Dakota": ["Fargo", "Bismarck", "Grand Forks", "Minot", "Medora"],
+    Ohio: ["Columbus", "Cleveland", "Cincinnati", "Dayton", "Toledo", "Akron"],
+    Oklahoma: ["Oklahoma City", "Tulsa", "Norman", "Broken Arrow", "Edmond"],
+    Oregon: ["Portland", "Bend", "Eugene", "Willamette Valley", "Ashland", "Oregon Coast"],
+    Pennsylvania: ["Philadelphia", "Pittsburgh", "Harrisburg", "Lancaster", "Lehigh Valley", "Poconos"],
+    "Rhode Island": ["Providence", "Newport", "Warwick", "Narragansett", "Block Island"],
+    "South Carolina": ["Charleston", "Greenville", "Columbia", "Hilton Head", "Myrtle Beach"],
+    "South Dakota": ["Sioux Falls", "Rapid City", "Black Hills", "Aberdeen", "Deadwood"],
+    Tennessee: ["Nashville", "Memphis", "Knoxville", "Chattanooga", "Franklin", "Gatlinburg"],
+    Texas: ["Austin", "Dallas", "Fort Worth", "Houston", "San Antonio", "Hill Country", "Waco", "Corpus Christi", "El Paso"],
+    Utah: ["Salt Lake City", "Park City", "Provo", "St George", "Moab"],
+    Vermont: ["Burlington", "Stowe", "Woodstock", "Manchester", "Killington"],
+    Virginia: ["Richmond", "Charlottesville", "Virginia Beach", "Alexandria", "Northern Virginia", "Shenandoah Valley"],
+    Washington: ["Seattle", "Tacoma", "Spokane", "Bellevue", "Leavenworth", "San Juan Islands", "Olympia"],
+    "West Virginia": ["Charleston", "Morgantown", "Harpers Ferry", "Wheeling", "Snowshoe"],
+    Wisconsin: ["Milwaukee", "Madison", "Green Bay", "Door County", "Lake Geneva"],
+    Wyoming: ["Jackson Hole", "Cheyenne", "Casper", "Laramie", "Yellowstone"],
+    "District of Columbia": ["Washington DC", "Georgetown", "Capitol Hill", "Dupont Circle"]
   },
 
-  "Canada": {
-    "Ontario": ["Toronto", "Ottawa", "Niagara"],
-    "British Columbia": ["Vancouver", "Victoria", "Kelowna"],
-    "Quebec": ["Montreal", "Quebec City"]
+  Canada: {
+    Alberta: ["Calgary", "Edmonton", "Banff", "Canmore", "Jasper", "Red Deer"],
+    "British Columbia": ["Vancouver", "Victoria", "Whistler", "Kelowna", "Vancouver Island", "Surrey", "Abbotsford", "Okanagan"],
+    Manitoba: ["Winnipeg", "Brandon", "Steinbach", "Thompson", "Interlake"],
+    "New Brunswick": ["Fredericton", "Moncton", "Saint John", "Miramichi", "Fundy Coast"],
+    "Newfoundland and Labrador": ["St John's", "Corner Brook", "Gander", "Labrador City", "Avalon Peninsula"],
+    "Northwest Territories": ["Yellowknife", "Hay River", "Inuvik", "Fort Smith"],
+    "Nova Scotia": ["Halifax", "Cape Breton", "Lunenburg", "Annapolis Valley", "Sydney"],
+    Nunavut: ["Iqaluit", "Rankin Inlet", "Cambridge Bay"],
+    Ontario: ["Toronto", "Ottawa", "Niagara", "Hamilton", "London", "Kitchener-Waterloo", "Muskoka", "Prince Edward County", "Kingston"],
+    "Prince Edward Island": ["Charlottetown", "Summerside", "Cavendish", "Prince County"],
+    Quebec: ["Montreal", "Quebec City", "Mont-Tremblant", "Eastern Townships", "Laval", "Gatineau", "Charlevoix"],
+    Saskatchewan: ["Saskatoon", "Regina", "Prince Albert", "Moose Jaw", "Swift Current"],
+    Yukon: ["Whitehorse", "Dawson City", "Watson Lake"]
   },
 
   "United Kingdom": {
-    "England": ["London", "Manchester", "Birmingham", "Bath", "Cornwall"],
-    "Scotland": ["Edinburgh", "Glasgow", "Highlands", "Aberdeen"],
-    "Wales": ["Cardiff", "Swansea", "Snowdonia"],
-    "Northern Ireland": ["Belfast", "Derry"]
+    England: [
+      "London",
+      "Manchester",
+      "Liverpool",
+      "Birmingham",
+      "Leeds",
+      "Sheffield",
+      "Newcastle",
+      "Bristol",
+      "Bath",
+      "Cornwall",
+      "Devon",
+      "Dorset",
+      "Cotswolds",
+      "Lake District",
+      "York",
+      "Yorkshire Dales",
+      "Norfolk",
+      "Brighton",
+      "Kent",
+      "Oxford",
+      "Cambridge",
+      "Cheshire",
+      "Peak District",
+      "Nottingham",
+      "Leicestershire"
+    ],
+    Scotland: [
+      "Edinburgh",
+      "Glasgow",
+      "Aberdeen",
+      "Dundee",
+      "Inverness",
+      "Highlands",
+      "Loch Lomond",
+      "Perthshire",
+      "Isle of Skye",
+      "St Andrews",
+      "Borders"
+    ],
+    Wales: [
+      "Cardiff",
+      "Swansea",
+      "Newport",
+      "Snowdonia",
+      "Pembrokeshire",
+      "Brecon Beacons",
+      "Conwy",
+      "Anglesey"
+    ],
+    "Northern Ireland": [
+      "Belfast",
+      "Derry",
+      "Causeway Coast",
+      "Armagh",
+      "Newry",
+      "Fermanagh",
+      "County Down"
+    ]
   }
 };
