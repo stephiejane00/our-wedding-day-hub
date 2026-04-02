@@ -82,7 +82,7 @@
 
     .header-image {
       width: 100%;
-      max-width: 320px;
+      max-width: 260px;
       height: auto;
       display: block;
       margin: 0 auto;
@@ -424,7 +424,7 @@
       }
 
       .header-image {
-        max-width: 260px;
+        max-width: 220px;
       }
 
       .main-gallery-image {
@@ -532,17 +532,18 @@
   </div>
 
   <script type="module">
-    import { db, auth } from "./firebase.js";
-    import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
     import {
+      db,
+      auth,
+      onAuthStateChanged,
+      signOut,
       doc,
       getDoc,
       collection,
-      query,
-      where,
       getDocs,
-      limit
-    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+      query,
+      where
+    } from "./firebase.js";
 
     const params = new URLSearchParams(window.location.search);
     const vendorIdFromUrl = params.get("id");
@@ -791,9 +792,7 @@
 
         const uidToTry = vendorUidFromUrl || vendorUidFromSession;
         if (uidToTry) {
-          const q = query(collection(db, "vendors"), where("uid", "==", uidToTry), limit(1));
-          const results = await getDocs(q);
-
+          const results = await getDocs(query(collection(db, "vendors"), where("uid", "==", uidToTry)));
           if (!results.empty) {
             const found = results.docs[0];
             renderVendor(found.data(), found.id);
@@ -801,14 +800,12 @@
           }
         }
 
-        statusMessage.textContent =
-          "Vendor not found.\nThis page did not receive a valid vendor ID.";
+        statusMessage.textContent = "Vendor not found.\nThis page did not receive a valid vendor ID.";
         businessNameEl.textContent = "Vendor not found";
         sidebarBusinessNameEl.textContent = "Vendor not found";
       } catch (error) {
         console.error("Vendor load error:", error);
-        statusMessage.textContent =
-          "Could not load this vendor right now.\nCheck the browser console for the exact error.";
+        statusMessage.textContent = "Could not load this vendor right now.\nCheck the browser console for the exact error.";
         businessNameEl.textContent = "Could not load vendor";
         sidebarBusinessNameEl.textContent = "Could not load vendor";
       }
@@ -850,28 +847,22 @@
       updateFavoriteButton();
     });
 
-    function updateAuthUI(user) {
+    onAuthStateChanged(auth, (user) => {
       const loggedIn = !!user;
       joinLink.style.display = loggedIn ? "none" : "inline-flex";
       loginLink.style.display = loggedIn ? "none" : "inline-block";
       dashboardLink.style.display = loggedIn ? "inline-block" : "none";
       logoutLink.style.display = loggedIn ? "inline-block" : "none";
-    }
+    });
 
-    if (auth) {
-      onAuthStateChanged(auth, (user) => {
-        updateAuthUI(user);
-      });
-
-      logoutLink.addEventListener("click", async () => {
-        try {
-          await signOut(auth);
-          window.location.href = "index.html";
-        } catch (error) {
-          console.error("Logout failed:", error);
-        }
-      });
-    }
+    logoutLink.addEventListener("click", async () => {
+      try {
+        await signOut(auth);
+        window.location.href = "index.html";
+      } catch (error) {
+        console.error("Logout failed:", error);
+      }
+    });
 
     mainGalleryImage.addEventListener("click", () => {
       if (!mainGalleryImage.src) return;
