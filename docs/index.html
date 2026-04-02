@@ -8,13 +8,12 @@
 </head>
 <body>
 
- <div class="page-auth">
-  <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
-  <a href="login.html" id="loginLink" class="auth-link">Log In</a>
-
-  <a href="dashboard.html" id="dashboardLink" class="auth-link" style="display:none;">Dashboard</a>
-  <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
-</div>
+  <div class="page-auth">
+    <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
+    <a href="login.html" id="loginLink" class="auth-link">Log In</a>
+    <a href="dashboard.html" id="dashboardLink" class="auth-link" style="display:none;">Dashboard</a>
+    <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
+  </div>
 
   <header class="hero">
     <img src="images/header4.png" alt="Our Wedding Day Hub" class="header-image">
@@ -54,12 +53,24 @@
   </footer>
 
   <script type="module">
-    import { db, collection, getDocs } from "./firebase.js";
+    import {
+      db,
+      auth,
+      collection,
+      getDocs,
+      onAuthStateChanged,
+      signOut
+    } from "./firebase.js";
 
     const vendorsGrid = document.getElementById("vendorsGrid");
     const emptyMessage = document.getElementById("emptyMessage");
     const searchInput = document.getElementById("searchInput");
     const searchBtn = document.getElementById("searchBtn");
+
+    const joinLink = document.getElementById("joinLink");
+    const loginLink = document.getElementById("loginLink");
+    const dashboardLink = document.getElementById("dashboardLink");
+    const logoutLink = document.getElementById("logoutLink");
 
     let allVendors = [];
 
@@ -67,9 +78,20 @@
       return Array.isArray(arr) ? arr.filter(Boolean) : [];
     }
 
+    function formatText(value) {
+      if (!value) return "";
+      return String(value)
+        .replace(/_/g, " ")
+        .replace(/-/g, " ")
+        .replace(/\s+/g, " ")
+        .trim()
+        .replace(/\b\w/g, char => char.toUpperCase());
+    }
+
     function getCardImage(vendor) {
       if (vendor.coverImageUrl && String(vendor.coverImageUrl).trim()) return vendor.coverImageUrl;
       if (Array.isArray(vendor.images) && vendor.images.length > 0) return vendor.images[0];
+      if (vendor.profileImageUrl && String(vendor.profileImageUrl).trim()) return vendor.profileImageUrl;
       if (vendor.logoUrl && String(vendor.logoUrl).trim()) return vendor.logoUrl;
       if (vendor.coverImage && String(vendor.coverImage).trim()) return vendor.coverImage;
       if (vendor.profileImage && String(vendor.profileImage).trim()) return vendor.profileImage;
@@ -77,33 +99,39 @@
     }
 
     function getShortBio(vendor) {
-      const bio = (vendor.bio || "").trim();
-      if (!bio) return "Beautiful vendor profile coming soon.";
-      return bio.length > 120 ? bio.slice(0, 120).trim() + "..." : bio;
-    }
+      const source =
+        (vendor.shortBio || "").trim() ||
+        (vendor.tagline || "").trim() ||
+        (vendor.bio || "").trim() ||
+        (vendor.description || "").trim();
 
-    function formatCategoryName(category) {
-      return String(category)
-        .replace(/_/g, " ")
-        .replace(/\b\w/g, char => char.toUpperCase());
+      if (!source) return "Beautiful vendor profile coming soon.";
+      return source.length > 120 ? source.slice(0, 120).trim() + "..." : source;
     }
 
     function getCategoryLine(vendor) {
-      const categories = cleanArray(vendor.categories);
+      const categories = cleanArray(vendor.categories.length ? vendor.categories : vendor.category ? [vendor.category] : []);
       if (!categories.length) return "";
-      return categories.slice(0, 3).map(formatCategoryName).join(" • ");
+      return categories.slice(0, 3).map(formatText).join(" • ");
     }
 
     function getLocationLine(vendor) {
       if (vendor.serviceAreas && String(vendor.serviceAreas).trim()) {
-        return vendor.serviceAreas.trim();
+        return formatText(vendor.serviceAreas.trim());
       }
 
       const regions = cleanArray(vendor.regions);
-      if (regions.length) return regions.slice(0, 3).join(" • ");
+      if (regions.length) return regions.slice(0, 3).map(formatText).join(" • ");
 
       const states = cleanArray(vendor.states);
-      if (states.length) return states.join(" • ");
+      if (states.length) return states.map(formatText).join(" • ");
+
+      const countries = cleanArray(vendor.countries);
+      if (countries.length) return countries.map(formatText).join(" • ");
+
+      if (vendor.displayLocation && String(vendor.displayLocation).trim()) {
+        return formatText(vendor.displayLocation.trim());
+      }
 
       return "";
     }
@@ -112,12 +140,21 @@
       return `
         ${vendor.businessName || ""}
         ${vendor.bio || ""}
+        ${vendor.shortBio || ""}
         ${vendor.instagram || ""}
+        ${vendor.facebook || ""}
+        ${vendor.tiktok || ""}
+        ${vendor.youtube || ""}
+        ${vendor.pinterest || ""}
+        ${vendor.linkedin || ""}
+        ${vendor.x || ""}
         ${vendor.website || ""}
         ${vendor.serviceAreas || ""}
+        ${vendor.displayLocation || ""}
         ${cleanArray(vendor.categories).join(" ")}
         ${cleanArray(vendor.regions).join(" ")}
         ${cleanArray(vendor.states).join(" ")}
+        ${cleanArray(vendor.countries).join(" ")}
         ${cleanArray(vendor.styleTags).join(" ")}
       `.toLowerCase();
     }
@@ -138,6 +175,14 @@
       });
     }
 
+    function goToVendor(vendor) {
+      sessionStorage.setItem("selectedVendorId", vendor.docId);
+      if (vendor.uid) {
+        sessionStorage.setItem("selectedVendorUid", vendor.uid);
+      }
+      window.location.href = `vendor.html?id=${vendor.docId}`;
+    }
+
     function renderVendors(vendors) {
       vendorsGrid.innerHTML = "";
 
@@ -149,29 +194,34 @@
       emptyMessage.style.display = "none";
 
       vendors.forEach((vendor) => {
-        const card = document.createElement("div");
+        const card = document.createElement("article");
         card.className = "vendor-card";
 
         const image = getCardImage(vendor);
-        const name = vendor.businessName || "Vendor";
+        const name = formatText(vendor.businessName || "Vendor");
         const categoryLine = getCategoryLine(vendor);
         const locationLine = getLocationLine(vendor);
         const bio = getShortBio(vendor);
 
         card.innerHTML = `
-          <img src="${image}" alt="${name}">
+          <img src="${image}" alt="${name}" loading="lazy">
           <h3>${name}</h3>
           ${categoryLine ? `<p class="vendor-category-line">${categoryLine}</p>` : ""}
           ${locationLine ? `<p class="vendor-location-line">${locationLine}</p>` : ""}
           <p>${bio}</p>
+          <div class="vendor-card-actions">
+            <button type="button" class="vendor-profile-btn">View Profile</button>
+          </div>
         `;
 
         card.addEventListener("click", () => {
-          sessionStorage.setItem("selectedVendorId", vendor.docId);
-          if (vendor.uid) {
-            sessionStorage.setItem("selectedVendorUid", vendor.uid);
-          }
-          window.location.href = `vendor.html?id=${vendor.docId}`;
+          goToVendor(vendor);
+        });
+
+        const profileBtn = card.querySelector(".vendor-profile-btn");
+        profileBtn.addEventListener("click", (event) => {
+          event.stopPropagation();
+          goToVendor(vendor);
         });
 
         vendorsGrid.appendChild(card);
@@ -223,6 +273,29 @@
 
       renderVendors(filtered);
     }
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        joinLink.style.display = "none";
+        loginLink.style.display = "none";
+        dashboardLink.style.display = "inline-block";
+        logoutLink.style.display = "inline-block";
+      } else {
+        joinLink.style.display = "inline-flex";
+        loginLink.style.display = "inline-block";
+        dashboardLink.style.display = "none";
+        logoutLink.style.display = "none";
+      }
+    });
+
+    logoutLink.addEventListener("click", async () => {
+      try {
+        await signOut(auth);
+        window.location.href = "index.html";
+      } catch (error) {
+        console.error("Logout failed:", error);
+      }
+    });
 
     searchBtn.addEventListener("click", runSearch);
     searchInput.addEventListener("input", runSearch);
