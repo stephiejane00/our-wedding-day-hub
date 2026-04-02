@@ -77,12 +77,12 @@
 
     .hero {
       text-align: center;
-      padding: 8px 20px 14px;
+      padding: 10px 20px 18px;
     }
 
     .header-image {
       width: 100%;
-      max-width: 320px;
+      max-width: 380px;
       height: auto;
       display: block;
       margin: 0 auto;
@@ -275,14 +275,14 @@
     }
 
     .sidebar-name {
-      margin: 0;
+      margin: 0 0 10px;
       font-size: 1.35rem;
       font-weight: 600;
       line-height: 1.2;
     }
 
     .sidebar-sub {
-      margin: 10px 0 18px;
+      margin: 0 0 20px;
       color: var(--muted);
       font-size: 0.97rem;
       line-height: 1.7;
@@ -299,7 +299,7 @@
       font-weight: 600;
       font-family: inherit;
       cursor: pointer;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
       box-shadow: 0 10px 24px rgba(185, 140, 147, 0.10);
       transition: all 0.22s ease;
       display: flex;
@@ -322,13 +322,33 @@
       box-shadow: 0 12px 26px rgba(176, 97, 118, 0.14);
     }
 
+    .contact-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .stack-btn {
+      width: 100%;
+      display: block;
+      text-decoration: none;
+      color: var(--text);
+      background: #f8f3ef;
+      border: 1px solid #e7dbd1;
+      border-radius: var(--radius-pill);
+      padding: 14px 16px;
+      font-size: 0.98rem;
+      font-weight: 500;
+    }
+
     .sidebar-location {
       text-align: left;
       background: var(--soft-2);
       border: 1px solid #e7dbd1;
       border-radius: 18px;
       padding: 16px;
-      margin-bottom: 16px;
+      margin-top: 4px;
     }
 
     .sidebar-location h3 {
@@ -355,25 +375,6 @@
       border: 1px solid #e7dbd1;
       color: #4a403a;
       font-size: 0.95rem;
-      font-weight: 500;
-    }
-
-    .contact-stack {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .stack-btn {
-      width: 100%;
-      display: block;
-      text-decoration: none;
-      color: var(--text);
-      background: #f8f3ef;
-      border: 1px solid #e7dbd1;
-      border-radius: var(--radius-pill);
-      padding: 14px 16px;
-      font-size: 0.98rem;
       font-weight: 500;
     }
 
@@ -450,7 +451,7 @@
       }
 
       .header-image {
-        max-width: 260px;
+        max-width: 300px;
       }
 
       .main-gallery-image {
@@ -528,15 +529,15 @@
 
         <button id="favoriteBtn" class="favorite-btn" type="button">♡ Save to favourites</button>
 
+        <div class="contact-stack">
+          <a href="#" id="websiteBtn" class="stack-btn" target="_blank" rel="noopener noreferrer">Website</a>
+          <a href="#" id="emailBtn" class="stack-btn">Contact Vendor</a>
+          <a href="#" id="instagramBtn" class="stack-btn" target="_blank" rel="noopener noreferrer">Instagram</a>
+        </div>
+
         <div class="sidebar-location">
           <h3>Locations</h3>
           <div id="sidebarLocationList" class="sidebar-location-list"></div>
-        </div>
-
-        <div class="contact-stack">
-          <a href="#" id="websiteBtn" class="stack-btn" target="_blank" rel="noopener noreferrer">Website</a>
-          <a href="#" id="instagramBtn" class="stack-btn" target="_blank" rel="noopener noreferrer">Instagram</a>
-          <a href="#" id="emailBtn" class="stack-btn">Contact Vendor</a>
         </div>
 
         <div id="statusMessage" class="status-message"></div>
