@@ -1,408 +1,288 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vendor Profile | Our Wedding Day Hub</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vendor Profile | Our Wedding Day Hub</title>
+<link rel="stylesheet" href="style.css">
 
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Georgia', serif;
-      background: #fffaf6;
-      color: #2f2a26;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: 'Georgia', serif;
+  background: #fffaf6;
+  color: #2f2a26;
+}
 
-    .top-nav {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 24px;
-      padding: 16px 20px;
-      background: #ffffff;
-      border-bottom: 1px solid #eadfd6;
-      flex-wrap: wrap;
-    }
+/* TOP RIGHT AUTH AREA */
+.page-auth {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 20px 0;
+  max-width: 1200px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
 
-    .top-nav a,
-    .top-nav button {
-      text-decoration: none;
-      color: #2f2a26;
-      background: none;
-      border: none;
-      font-size: 0.95rem;
-      cursor: pointer;
-      font-family: inherit;
-    }
+/* ALL BUTTON STYLING (JOIN STYLE) */
+.auth-pill,
+.btn-primary,
+.favorite-btn {
+  background: #b07c6d;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  text-decoration: none;
+  font-size: 0.92rem;
+}
 
-    .top-nav a:hover,
-    .top-nav button:hover {
-      color: #b07c6d;
-    }
+.auth-pill:hover,
+.btn-primary:hover,
+.favorite-btn:hover {
+  background: #9b685a;
+}
 
-    .page-auth {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      gap: 14px;
-      padding: 14px 20px 0;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
+/* SECONDARY BUTTONS */
+.btn-secondary {
+  background: #f7efe9;
+  color: #7d5b4f;
+  padding: 10px 18px;
+  border-radius: 999px;
+  text-decoration: none;
+}
 
-    .auth-link,
-    .auth-button {
-      text-decoration: none;
-      color: #2f2a26;
-      font-size: 0.92rem;
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-family: inherit;
-    }
+.btn-secondary:hover {
+  background: #efe2d8;
+}
 
-    .auth-pill {
-      background: #b07c6d;
-      color: white;
-      padding: 10px 18px;
-      border-radius: 999px;
-    }
+/* HEART ACTIVE */
+.favorite-btn.active {
+  background: #d88fa3;
+}
 
-    .auth-pill:hover {
-      background: #9b685a;
-    }
+/* NAV */
+.top-nav {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  padding: 16px;
+  background: #fff;
+  border-bottom: 1px solid #eadfd6;
+}
 
-    .hero {
-      text-align: center;
-      padding: 14px 20px 8px;
-    }
+.top-nav a {
+  text-decoration: none;
+  color: #2f2a26;
+}
 
-    .header-image {
-      max-width: 420px;
-      width: 100%;
-      height: auto;
-      display: inline-block;
-    }
+.hero {
+  text-align: center;
+  padding: 10px;
+}
 
-    .vendor-profile-container {
-      max-width: 1100px;
-      margin: 30px auto 60px;
-      padding: 0 20px;
-    }
+.header-image {
+  max-width: 420px;
+  width: 100%;
+}
 
-    .vendor-card {
-      background: #ffffff;
-      border: 1px solid #eadfd6;
-      border-radius: 22px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-      overflow: hidden;
-    }
+/* CARD */
+.vendor-card {
+  max-width: 1000px;
+  margin: 40px auto;
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid #eadfd6;
+}
 
-    .vendor-cover {
-      width: 100%;
-      height: 320px;
-      object-fit: cover;
-      background: #f5ece6;
-      display: block;
-    }
+.vendor-cover {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
 
-    .vendor-content {
-      padding: 28px;
-    }
+.vendor-content {
+  padding: 30px;
+}
 
-    .vendor-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 20px;
-      flex-wrap: wrap;
-      margin-bottom: 18px;
-    }
+.vendor-header {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
 
-    .vendor-title-wrap h1 {
-      margin: 0 0 8px;
-      font-size: 2rem;
-      line-height: 1.2;
-    }
+.meta-pill {
+  background: #f7efe9;
+  padding: 6px 12px;
+  border-radius: 999px;
+  margin-right: 8px;
+}
 
-    .vendor-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 10px;
-    }
+/* CONTACT */
+.contact-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
 
-    .meta-pill {
-      background: #f7efe9;
-      color: #7d5b4f;
-      padding: 8px 14px;
-      border-radius: 999px;
-      font-size: 0.9rem;
-    }
+/* GALLERY */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+}
 
-    .favorite-btn {
-      background: #fff;
-      border: 1px solid #e6d7cf;
-      border-radius: 999px;
-      padding: 12px 18px;
-      font-size: 0.95rem;
-      cursor: pointer;
-      transition: 0.2s ease;
-      font-family: inherit;
-      white-space: nowrap;
-    }
+.gallery-grid img {
+  width: 100%;
+  border-radius: 12px;
+}
 
-    .favorite-btn:hover {
-      background: #fff4f6;
-      border-color: #d9a6b2;
-    }
-
-    .favorite-btn.active {
-      background: #fff0f4;
-      border-color: #cf8ea0;
-      color: #b04f6b;
-    }
-
-    .vendor-section {
-      margin-top: 28px;
-    }
-
-    .vendor-section h2 {
-      font-size: 1.2rem;
-      margin-bottom: 10px;
-      color: #7d5b4f;
-    }
-
-    .vendor-section p {
-      margin: 0;
-      line-height: 1.7;
-      font-size: 1rem;
-    }
-
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
-      margin-top: 16px;
-    }
-
-    .gallery-grid img {
-      width: 100%;
-      height: 240px;
-      object-fit: cover;
-      border-radius: 16px;
-      border: 1px solid #eadfd6;
-      background: #f5ece6;
-    }
-
-    .contact-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 16px;
-    }
-
-    .contact-buttons a {
-      display: inline-block;
-      text-decoration: none;
-      padding: 12px 18px;
-      border-radius: 999px;
-      font-size: 0.95rem;
-      transition: 0.2s ease;
-    }
-
-    .btn-primary {
-      background: #b07c6d;
-      color: white;
-    }
-
-    .btn-primary:hover {
-      background: #9b685a;
-    }
-
-    .btn-secondary {
-      background: #f7efe9;
-      color: #7d5b4f;
-    }
-
-    .btn-secondary:hover {
-      background: #efe2d8;
-    }
-
-    footer {
-      text-align: center;
-      padding: 30px 20px;
-      border-top: 1px solid #eadfd6;
-      font-size: 0.9rem;
-      color: #6e625b;
-      background: #fffaf6;
-    }
-
-    @media (max-width: 768px) {
-      .vendor-cover {
-        height: 220px;
-      }
-
-      .vendor-content {
-        padding: 22px;
-      }
-
-      .vendor-title-wrap h1 {
-        font-size: 1.6rem;
-      }
-    }
-  </style>
+footer {
+  text-align: center;
+  padding: 20px;
+}
+</style>
 </head>
+
 <body>
 
-  <div class="page-auth">
-    <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
-    <a href="login.html" id="loginLink" class="auth-link">Log In</a>
-    <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
-  </div>
+<!-- AUTH BUTTONS -->
+<div class="page-auth">
+  <a href="index.html" class="auth-pill">Home</a>
+  <a href="dashboard.html" class="auth-pill">Dashboard</a>
 
-  <nav class="top-nav">
-    <a href="index.html">Home</a>
-    <a href="vendors.html">Browse Vendors</a>
-    <a href="pricing.html">Pricing</a>
-    <a href="dashboard.html">My Vendor Profile</a>
-    <a href="contact.html">Contact</a>
-  </nav>
+  <a href="signup.html" class="auth-pill">Join</a>
+  <a href="login.html">Log In</a>
+  <button id="logoutLink" class="auth-pill">Log Out</button>
+</div>
 
-  <header class="hero">
-    <img src="images/header4.png" alt="Our Wedding Day Hub" class="header-image" />
-  </header>
+<!-- NAV -->
+<nav class="top-nav">
+  <a href="vendors.html">Browse Vendors</a>
+  <a href="pricing.html">Pricing</a>
+</nav>
 
-  <main class="vendor-profile-container">
-    <section class="vendor-card">
-      <img
-        id="vendorCover"
-        class="vendor-cover"
-        src="images/default-cover.jpg"
-        alt="Vendor cover image"
-      />
+<header class="hero">
+  <img src="images/header4.png" class="header-image">
+</header>
 
-      <div class="vendor-content">
-        <div class="vendor-header">
-          <div class="vendor-title-wrap">
-            <h1 id="businessName">Vendor Business Name</h1>
+<main>
+  <section class="vendor-card">
 
-            <div class="vendor-meta">
-              <span class="meta-pill" id="vendorCategory">Category</span>
-              <span class="meta-pill" id="vendorLocation">Location</span>
-            </div>
-          </div>
+    <img id="vendorCover" class="vendor-cover" src="images/default-cover.jpg">
 
-          <button id="favoriteBtn" class="favorite-btn" type="button">
-            ♡ Save to Favourites
-          </button>
+    <div class="vendor-content">
+
+      <div class="vendor-header">
+        <div>
+          <h1 id="businessName">Vendor Name</h1>
+          <span class="meta-pill" id="vendorCategory">Category</span>
+          <span class="meta-pill" id="vendorLocation">Location</span>
         </div>
 
-        <section class="vendor-section">
-          <h2>About</h2>
-          <p id="vendorBio">
-            This vendor profile will show the business bio here.
-          </p>
-        </section>
-
-        <section class="vendor-section">
-          <h2>Contact</h2>
-          <div class="contact-buttons">
-            <a href="#" id="emailBtn" class="btn-primary">Email Vendor</a>
-            <a href="#" id="instagramBtn" class="btn-secondary" target="_blank" rel="noopener noreferrer">Instagram</a>
-            <a href="#" id="websiteBtn" class="btn-secondary" target="_blank" rel="noopener noreferrer">Website</a>
-          </div>
-        </section>
-
-        <section class="vendor-section">
-          <h2>Gallery</h2>
-          <div class="gallery-grid">
-            <img id="gallery1" src="images/placeholder1.jpg" alt="Vendor gallery image 1" />
-            <img id="gallery2" src="images/placeholder2.jpg" alt="Vendor gallery image 2" />
-            <img id="gallery3" src="images/placeholder3.jpg" alt="Vendor gallery image 3" />
-          </div>
-        </section>
+        <button id="favoriteBtn" class="favorite-btn">
+          ♡ Save
+        </button>
       </div>
-    </section>
-  </main>
 
-  <footer>
-    © Our Wedding Day Hub | ABN: 76688637041
-  </footer>
+      <h2>About</h2>
+      <p id="vendorBio"></p>
 
-  <script>
-    const params = new URLSearchParams(window.location.search);
-    const vendorId = params.get("id") || "demo-vendor";
+      <h2>Contact</h2>
+      <div class="contact-buttons">
+        <a id="emailBtn" class="btn-primary">Email</a>
+        <a id="instagramBtn" class="btn-primary">Instagram</a>
+        <a id="websiteBtn" class="btn-primary">Website</a>
+      </div>
 
-    const favoriteBtn = document.getElementById("favoriteBtn");
-    const favoritesKey = "favoriteVendors";
+      <h2>Gallery</h2>
+      <div class="gallery-grid">
+        <img id="g1">
+        <img id="g2">
+        <img id="g3">
+      </div>
 
-    function getFavorites() {
-      return JSON.parse(localStorage.getItem(favoritesKey)) || [];
-    }
+    </div>
+  </section>
+</main>
 
-    function saveFavorites(favorites) {
-      localStorage.setItem(favoritesKey, JSON.stringify(favorites));
-    }
+<footer>
+  © Our Wedding Day Hub | ABN: 76688637041
+</footer>
 
-    function updateFavoriteButton() {
-      const favorites = getFavorites();
-      const isFavorited = favorites.includes(vendorId);
+<script>
+const vendorId = "demo";
 
-      if (isFavorited) {
-        favoriteBtn.classList.add("active");
-        favoriteBtn.innerHTML = "♥ Saved to Favourites";
-      } else {
-        favoriteBtn.classList.remove("active");
-        favoriteBtn.innerHTML = "♡ Save to Favourites";
-      }
-    }
+/* FAVORITES */
+const btn = document.getElementById("favoriteBtn");
 
-    favoriteBtn.addEventListener("click", () => {
-      let favorites = getFavorites();
+function getFavs() {
+  return JSON.parse(localStorage.getItem("favs")) || [];
+}
 
-      if (favorites.includes(vendorId)) {
-        favorites = favorites.filter(id => id !== vendorId);
-      } else {
-        favorites.push(vendorId);
-      }
+function setFavs(f) {
+  localStorage.setItem("favs", JSON.stringify(f));
+}
 
-      saveFavorites(favorites);
-      updateFavoriteButton();
-    });
+function updateBtn() {
+  const favs = getFavs();
+  if (favs.includes(vendorId)) {
+    btn.classList.add("active");
+    btn.innerHTML = "♥ Saved";
+  } else {
+    btn.classList.remove("active");
+    btn.innerHTML = "♡ Save";
+  }
+}
 
-    updateFavoriteButton();
+btn.onclick = () => {
+  let favs = getFavs();
+  if (favs.includes(vendorId)) {
+    favs = favs.filter(x => x !== vendorId);
+  } else {
+    favs.push(vendorId);
+  }
+  setFavs(favs);
+  updateBtn();
+};
 
-    const demoVendor = {
-      businessName: "Kaity Kissed Nails & Designs",
-      category: "Beauty",
-      location: "Brisbane, Queensland",
-      bio: "Creating beautiful, polished looks for brides and bridal parties with care, creativity and a calming presence on your special day.",
-      email: "hello@ourweddingdayhub.com",
-      instagram: "https://www.instagram.com/",
-      website: "https://www.ourweddingdayhub.com",
-      cover: "images/default-cover.jpg",
-      gallery: [
-        "images/placeholder1.jpg",
-        "images/placeholder2.jpg",
-        "images/placeholder3.jpg"
-      ]
-    };
+updateBtn();
 
-    document.getElementById("businessName").textContent = demoVendor.businessName;
-    document.getElementById("vendorCategory").textContent = demoVendor.category;
-    document.getElementById("vendorLocation").textContent = demoVendor.location;
-    document.getElementById("vendorBio").textContent = demoVendor.bio;
-    document.getElementById("vendorCover").src = demoVendor.cover;
+/* DEMO DATA */
+const vendor = {
+  name: "Kaity Kissed Nails & Designs",
+  category: "Beauty",
+  location: "Brisbane",
+  bio: "Soft, elegant bridal nails tailored to your day.",
+  email: "hello@email.com",
+  instagram: "#",
+  website: "#",
+  images: [
+    "images/placeholder1.jpg",
+    "images/placeholder2.jpg",
+    "images/placeholder3.jpg"
+  ]
+};
 
-    document.getElementById("emailBtn").href = `mailto:${demoVendor.email}`;
-    document.getElementById("instagramBtn").href = demoVendor.instagram;
-    document.getElementById("websiteBtn").href = demoVendor.website;
+document.getElementById("businessName").innerText = vendor.name;
+document.getElementById("vendorCategory").innerText = vendor.category;
+document.getElementById("vendorLocation").innerText = vendor.location;
+document.getElementById("vendorBio").innerText = vendor.bio;
 
-    document.getElementById("gallery1").src = demoVendor.gallery[0];
-    document.getElementById("gallery2").src = demoVendor.gallery[1];
-    document.getElementById("gallery3").src = demoVendor.gallery[2];
-  </script>
+document.getElementById("emailBtn").href = "mailto:" + vendor.email;
+document.getElementById("instagramBtn").href = vendor.instagram;
+document.getElementById("websiteBtn").href = vendor.website;
+
+document.getElementById("g1").src = vendor.images[0];
+document.getElementById("g2").src = vendor.images[1];
+document.getElementById("g3").src = vendor.images[2];
+</script>
+
 </body>
 </html>
