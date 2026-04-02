@@ -6,173 +6,99 @@
   <title>Vendor Dashboard | Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    .vd-page {
-      max-width: 1180px;
-      margin: 0 auto 48px;
+    .dashboard-page {
+      max-width: 1120px;
+      margin: 0 auto 40px;
       padding: 20px;
     }
 
-    .vd-stack {
+    .dashboard-stack {
       display: grid;
       gap: 24px;
     }
 
-    .vd-card {
-      background: #ffffff;
-      border: 1px solid #eadfd6;
-      border-radius: 28px;
-      box-shadow: 0 10px 28px rgba(62, 44, 34, 0.05);
-      padding: 24px;
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    .vd-hero {
-      text-align: center;
-      background: linear-gradient(180deg, #fffdfb 0%, #fff8f4 100%);
-    }
-
-    .vd-eyebrow {
-      margin: 0 0 8px;
-      font-size: 0.82rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: #9a877b;
-      font-weight: 700;
-    }
-
-    .vd-title {
-      margin: 0;
-      font-size: 2rem;
-      line-height: 1.1;
-      color: #2d211c;
-    }
-
-    .vd-subtitle {
-      max-width: 760px;
-      margin: 14px auto 0;
-      color: #6f625b;
-      line-height: 1.75;
-      font-size: 1rem;
-    }
-
-    .vd-actions {
+    .dashboard-actions {
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
       justify-content: center;
-      margin-top: 20px;
-    }
-
-    .vd-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 48px;
-      padding: 12px 20px;
-      border-radius: 999px;
-      border: 1px solid #111;
-      background: #111;
-      color: #fff;
-      font-weight: 600;
-      text-decoration: none;
-      cursor: pointer;
-      transition: transform 0.18s ease, opacity 0.18s ease, background 0.18s ease;
-    }
-
-    .vd-btn:hover {
-      opacity: 0.94;
-      transform: translateY(-1px);
-    }
-
-    .vd-btn-secondary {
-      background: #f7f1ec;
-      color: #2d211c;
-      border: 1px solid #e8ddd2;
-    }
-
-    .vd-btn-secondary:hover {
-      background: #efe5dc;
-    }
-
-    .vd-section-title {
-      margin: 0 0 14px;
-      font-size: 1.25rem;
-      color: #2f241d;
-      text-align: left;
-    }
-
-    .vd-help {
-      color: #8c7f75;
-      font-size: 14px;
-      margin-top: 8px;
-      text-align: left;
-      line-height: 1.6;
-    }
-
-    .vd-soft {
-      margin-top: 10px;
-      padding: 20px;
-      border-radius: 22px;
-      background: #fffaf8;
-      border: 1px solid #efe1d6;
-    }
-
-    .vd-status-wrap {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: center;
-      margin-top: 12px;
-    }
-
-    .vd-status-pill {
-      display: inline-flex;
-      align-items: center;
-      padding: 9px 15px;
-      border-radius: 999px;
-      background: #f5ebe3;
-      color: #2b211b;
-      font-size: 13px;
-      font-weight: 600;
-    }
-
-    .vd-inline-toggle {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      justify-content: center;
-      flex-wrap: wrap;
       margin-top: 18px;
     }
 
-    .vd-inline-toggle input[type="checkbox"] {
-      width: 18px;
-      height: 18px;
-    }
-
-    .vd-grid-2 {
+    .dashboard-two-col {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 18px;
     }
 
-    .vd-grid-3 {
+    .dashboard-three-col {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
       gap: 18px;
     }
 
-    .vd-field label {
+    .dashboard-section-title {
+      text-align: left;
+      margin-bottom: 12px;
+    }
+
+    .dashboard-help {
+      color: #8c7f75;
+      font-size: 14px;
+      margin-top: 6px;
+      text-align: left;
+    }
+
+    .status-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 12px;
+    }
+
+    .status-pill {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: #f5ebe3;
+      color: #2b211b;
+      font-size: 13px;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .inline-toggle {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .inline-toggle input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+    }
+
+    .dashboard-card-soft {
+      margin-top: 14px;
+      padding: 18px;
+      border-radius: 22px;
+      background: #fffaf8;
+      border: 1px solid #efe1d6;
+    }
+
+    .dashboard-field label {
       display: block;
       margin-bottom: 8px;
       font-weight: 600;
       color: #3b2d25;
     }
 
-    .vd-field input,
-    .vd-field textarea,
-    .vd-field select {
+    .dashboard-field input,
+    .dashboard-field textarea,
+    .dashboard-field select {
       width: 100%;
       border: 1px solid #eadfd6;
       border-radius: 16px;
@@ -182,25 +108,24 @@
       color: #2d221c;
       box-sizing: border-box;
       transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-      font-family: inherit;
     }
 
-    .vd-field input:focus,
-    .vd-field textarea:focus,
-    .vd-field select:focus {
+    .dashboard-field input:focus,
+    .dashboard-field textarea:focus,
+    .dashboard-field select:focus {
       outline: none;
       border-color: #d9c2b2;
       box-shadow: 0 0 0 3px rgba(217, 194, 178, 0.18);
       background: #ffffff;
     }
 
-    .vd-media-grid {
+    .media-uploader-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 18px;
     }
 
-    .vd-upload-box {
+    .upload-box {
       border: 1px dashed #d8c6b8;
       background: #fffaf6;
       border-radius: 20px;
@@ -208,17 +133,17 @@
       text-align: left;
     }
 
-    .vd-upload-box h3 {
-      margin: 0 0 8px;
+    .upload-box h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
       font-size: 1rem;
-      color: #2f241d;
     }
 
-    .vd-upload-input {
+    .pretty-upload-input {
       display: none;
     }
 
-    .vd-upload-label {
+    .pretty-upload-label {
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -233,34 +158,33 @@
       transition: transform 0.18s ease, opacity 0.18s ease;
     }
 
-    .vd-upload-label:hover {
+    .pretty-upload-label:hover {
       opacity: 0.92;
       transform: translateY(-1px);
     }
 
-    .vd-file-note {
+    .selected-file-note {
       margin-top: 10px;
       color: #8c7f75;
       font-size: 0.9rem;
-      line-height: 1.5;
     }
 
-    .vd-media-preview-grid {
+    .media-preview-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
       gap: 16px;
       margin-top: 16px;
     }
 
-    .vd-media-preview-item {
+    .media-preview-item {
       background: #fffaf8;
       border: 1px solid #eadfd6;
       border-radius: 18px;
       padding: 10px;
     }
 
-    .vd-media-preview-item img,
-    .vd-media-preview-item video {
+    .media-preview-item img,
+    .media-preview-item video {
       width: 100%;
       display: block;
       border-radius: 14px;
@@ -269,23 +193,7 @@
       max-height: 220px;
     }
 
-    .vd-remove-btn {
-      margin-top: 10px;
-      width: 100%;
-      border: none;
-      border-radius: 12px;
-      padding: 10px 12px;
-      background: #f1e4db;
-      color: #3a2a22;
-      cursor: pointer;
-      font-weight: 600;
-    }
-
-    .vd-remove-btn:hover {
-      background: #ead7ca;
-    }
-
-    .vd-brand-grid {
+    .brand-assets-grid {
       display: grid;
       grid-template-columns: 220px 220px;
       gap: 20px;
@@ -293,7 +201,7 @@
       justify-content: start;
     }
 
-    .vd-asset-box {
+    .asset-box {
       background: #fffaf8;
       border: 1px solid #eadfd6;
       border-radius: 22px;
@@ -301,7 +209,7 @@
       text-align: center;
     }
 
-    .vd-preview-circle {
+    .asset-preview-circle {
       width: 140px;
       height: 140px;
       margin: 0 auto 12px;
@@ -314,13 +222,13 @@
       justify-content: center;
     }
 
-    .vd-preview-circle img {
+    .asset-preview-circle img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
 
-    .vd-preview-square {
+    .asset-preview-square {
       width: 140px;
       height: 140px;
       margin: 0 auto 12px;
@@ -333,40 +241,38 @@
       justify-content: center;
     }
 
-    .vd-preview-square img {
+    .asset-preview-square img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
 
-    .vd-asset-empty {
+    .asset-empty {
       color: #a18f83;
       font-size: 0.86rem;
       padding: 10px;
-      text-align: center;
     }
 
-    .vd-pill-grid {
+    .mini-pill-grid {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
       padding-top: 8px;
     }
 
-    .vd-pill-grid label {
+    .mini-pill-grid label {
       display: inline-flex;
       align-items: center;
       margin: 0;
-      position: relative;
     }
 
-    .vd-pill-grid input {
+    .mini-pill-grid input {
       position: absolute;
       opacity: 0;
       pointer-events: none;
     }
 
-    .vd-pill-grid span {
+    .mini-pill-grid span {
       display: inline-block;
       padding: 10px 14px;
       border-radius: 999px;
@@ -378,50 +284,39 @@
       transition: all 0.2s ease;
     }
 
-    .vd-pill-grid label:hover span {
+    .mini-pill-grid label:hover span {
       background: #efe6de;
       border-color: #dccabc;
     }
 
-    .vd-pill-grid input:checked + span {
+    .mini-pill-grid input:checked + span {
       background: #111;
       color: #fff;
       border-color: #111;
     }
 
-    .vd-small-text {
-      color: #8c7f75;
-      font-size: 0.92rem;
-      margin: 0;
-      line-height: 1.6;
-    }
-
-    .vd-group-title,
-    .vd-region-heading {
+    .remove-media-btn {
+      margin-top: 10px;
       width: 100%;
-      margin: 10px 0 4px;
-      color: #6e5f56;
-      font-size: 0.9rem;
-      font-weight: 700;
+      border: none;
+      border-radius: 12px;
+      padding: 10px 12px;
+      background: #f1e4db;
+      color: #3a2a22;
+      cursor: pointer;
+      font-weight: 600;
     }
 
-    .vd-message {
-      margin: 14px 0 0;
-      text-align: center;
-      font-weight: 600;
-      color: #6f5c54;
+    .remove-media-btn:hover {
+      background: #ead7ca;
     }
 
     @media (max-width: 980px) {
-      .vd-grid-2,
-      .vd-grid-3,
-      .vd-media-grid,
-      .vd-brand-grid {
+      .dashboard-two-col,
+      .dashboard-three-col,
+      .media-uploader-grid,
+      .brand-assets-grid {
         grid-template-columns: 1fr;
-      }
-
-      .vd-brand-grid {
-        justify-content: stretch;
       }
     }
   </style>
@@ -429,10 +324,8 @@
 <body>
 
   <div class="page-auth">
-    <a href="index.html" class="auth-link">Home</a>
-    <a href="dashboard.html" class="auth-link" id="dashboardLinkTop">Dashboard</a>
-    <a href="signup.html" id="joinLink" class="auth-link auth-pill" style="display:none;">Join</a>
-    <a href="login.html" id="loginLink" class="auth-link" style="display:none;">Log In</a>
+    <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
+    <a href="login.html" id="loginLink" class="auth-link">Log In</a>
     <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
   </div>
 
@@ -440,227 +333,190 @@
     <img src="images/header4.png" alt="Our Wedding Day Hub" class="header-image">
   </header>
 
-  <main class="vd-page">
-    <div class="vd-stack">
+  <main class="dashboard-page">
+    <div class="dashboard-stack">
 
-      <section class="vd-card vd-hero">
-        <p class="vd-eyebrow">vendor dashboard</p>
-        <h1 class="vd-title">Manage Your Vendor Profile</h1>
-        <p class="vd-subtitle">
+      <section class="card hero-card">
+        <p class="eyebrow">vendor dashboard</p>
+        <h1 class="page-title">Manage Your Vendor Profile</h1>
+        <p class="page-subtitle">
           Update your business details, upload your brand assets and media, choose your style tags and service locations, and control when your profile appears.
         </p>
-        <div class="vd-actions">
-          <a href="#" id="viewProfileBtn" class="vd-btn vd-btn-secondary" style="display:none;">View Public Profile</a>
-          <button type="button" id="saveTopBtn" class="vd-btn">Save Changes</button>
+        <div class="dashboard-actions">
+          <a href="#" id="viewProfileBtn" class="apply-button" style="display:none;">View Public Profile</a>
+          <button type="button" id="saveTopBtn" class="pretty-button">Save Changes</button>
         </div>
       </section>
 
-      <section class="vd-card">
-        <h2 class="vd-section-title">Status</h2>
+      <section class="card">
+        <h2>Status</h2>
 
-        <div class="vd-status-wrap">
-          <span class="vd-status-pill" id="accountStatusText">Account status: loading...</span>
-          <span class="vd-status-pill" id="subscriptionStatusText">Subscription: loading...</span>
+        <div class="status-wrap">
+          <span class="status-pill" id="accountStatusText">Account status: loading...</span>
+          <span class="status-pill" id="subscriptionStatusText">Plan access: loading...</span>
+          <span class="status-pill" id="viewsStatusText">Profile views: 0</span>
         </div>
 
-        <div class="vd-inline-toggle">
+        <div class="inline-toggle" style="margin-top: 18px;">
           <input type="checkbox" id="profileLive">
-          <label for="profileLive" style="margin:0;">Make my profile live</label>
+          <label for="profileLive" style="margin:0;">Make my profile live on the hub</label>
         </div>
 
-        <p class="vd-help">
-          When this is turned on and your subscription is active, your profile will be visible to couples on the hub.
+        <p class="dashboard-help" style="text-align:center; margin-top:16px;">
+          Turn this on when you are ready for couples to see your profile. Your listing can appear when your account is active and you have either a paid plan or complimentary vendor access.
         </p>
       </section>
 
-      <section class="vd-card">
-        <h2 class="vd-section-title">Business Details</h2>
+      <section class="card" style="text-align:left;">
+        <h2 class="dashboard-section-title">Business Details</h2>
 
-        <div class="vd-soft">
-          <div class="vd-grid-2">
-            <div class="vd-field">
+        <div class="dashboard-card-soft">
+          <div class="dashboard-two-col">
+            <div class="dashboard-field">
               <label for="businessName">Business Name</label>
               <input type="text" id="businessName">
             </div>
 
-            <div class="vd-field">
+            <div class="dashboard-field">
               <label for="email">Email</label>
               <input type="email" id="email">
             </div>
           </div>
 
-          <div class="vd-grid-3" style="margin-top: 14px;">
-            <div class="vd-field">
+          <div class="dashboard-three-col" style="margin-top: 14px;">
+            <div class="dashboard-field">
               <label for="phone">Phone</label>
               <input type="text" id="phone">
             </div>
 
-            <div class="vd-field">
-              <label for="website">Website</label>
-              <input type="text" id="website" placeholder="https://yourwebsite.com">
-            </div>
-
-            <div class="vd-field">
-              <label for="serviceAreas">Service Areas Summary</label>
-              <input type="text" id="serviceAreas" placeholder="Brisbane, Gold Coast, Sunshine Coast">
-            </div>
-          </div>
-
-          <div class="vd-grid-2" style="margin-top: 14px;">
-            <div class="vd-field">
-              <label for="displayLocation">Display Location</label>
-              <input type="text" id="displayLocation" placeholder="Brisbane, Queensland">
-            </div>
-
-            <div class="vd-field">
+            <div class="dashboard-field">
               <label for="instagram">Instagram</label>
               <input type="text" id="instagram" placeholder="@yourhandle or full link">
             </div>
-          </div>
 
-          <div class="vd-grid-3" style="margin-top: 14px;">
-            <div class="vd-field">
-              <label for="facebook">Facebook</label>
-              <input type="text" id="facebook" placeholder="Facebook link">
-            </div>
-
-            <div class="vd-field">
-              <label for="tiktok">TikTok</label>
-              <input type="text" id="tiktok" placeholder="TikTok link">
-            </div>
-
-            <div class="vd-field">
-              <label for="youtube">YouTube</label>
-              <input type="text" id="youtube" placeholder="YouTube link">
+            <div class="dashboard-field">
+              <label for="website">Website</label>
+              <input type="text" id="website" placeholder="https://yourwebsite.com">
             </div>
           </div>
 
-          <div class="vd-grid-3" style="margin-top: 14px;">
-            <div class="vd-field">
-              <label for="pinterest">Pinterest</label>
-              <input type="text" id="pinterest" placeholder="Pinterest link">
+          <div class="dashboard-two-col" style="margin-top: 14px;">
+            <div class="dashboard-field">
+              <label for="serviceAreas">Service Areas Summary</label>
+              <input type="text" id="serviceAreas" placeholder="Brisbane, Gold Coast, Sunshine Coast">
             </div>
 
-            <div class="vd-field">
-              <label for="linkedin">LinkedIn</label>
-              <input type="text" id="linkedin" placeholder="LinkedIn link">
-            </div>
-
-            <div class="vd-field">
-              <label for="x">X / Twitter</label>
-              <input type="text" id="x" placeholder="X or Twitter link">
+            <div class="dashboard-field">
+              <label for="displayLocation">Display Location</label>
+              <input type="text" id="displayLocation" placeholder="Brisbane, Queensland">
             </div>
           </div>
 
-          <p class="vd-help">
-            Leave any social media field empty and it will be hidden from your public profile.
-          </p>
-
-          <div class="vd-field" style="margin-top: 14px;">
+          <div class="dashboard-field" style="margin-top: 14px;">
             <label for="bio">Bio</label>
             <textarea id="bio" rows="6" placeholder="Tell couples about your business..."></textarea>
           </div>
         </div>
       </section>
 
-      <section class="vd-card">
-        <h2 class="vd-section-title">Profile Picture & Logo</h2>
+      <section class="card" style="text-align:left;">
+        <h2 class="dashboard-section-title">Profile Picture & Logo</h2>
 
-        <div class="vd-soft">
-          <div class="vd-brand-grid">
-            <div class="vd-asset-box">
-              <div class="vd-preview-circle">
-                <div class="vd-asset-empty" id="profileImageEmpty">No profile image yet</div>
+        <div class="dashboard-card-soft">
+          <div class="brand-assets-grid">
+            <div class="asset-box">
+              <div class="asset-preview-circle">
+                <div class="asset-empty" id="profileImageEmpty">No profile image yet</div>
                 <img id="profileImagePreview" style="display:none;" alt="Profile image preview">
               </div>
 
-              <input type="file" id="profileImageFile" class="vd-upload-input" accept="image/*">
-              <label for="profileImageFile" class="vd-upload-label">Upload Profile Picture</label>
-              <div id="profileImageFileName" class="vd-file-note"></div>
+              <input type="file" id="profileImageFile" class="pretty-upload-input" accept="image/*">
+              <label for="profileImageFile" class="pretty-upload-label">Upload Profile Picture</label>
+              <div id="profileImageFileName" class="selected-file-note"></div>
             </div>
 
-            <div class="vd-asset-box">
-              <div class="vd-preview-square">
-                <div class="vd-asset-empty" id="logoEmpty">No logo yet</div>
+            <div class="asset-box">
+              <div class="asset-preview-square">
+                <div class="asset-empty" id="logoEmpty">No logo yet</div>
                 <img id="logoPreview" style="display:none;" alt="Logo preview">
               </div>
 
-              <input type="file" id="logoFile" class="vd-upload-input" accept="image/*">
-              <label for="logoFile" class="vd-upload-label">Upload Logo</label>
-              <div id="logoFileName" class="vd-file-note"></div>
+              <input type="file" id="logoFile" class="pretty-upload-input" accept="image/*">
+              <label for="logoFile" class="pretty-upload-label">Upload Logo</label>
+              <div id="logoFileName" class="selected-file-note"></div>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="vd-card">
-        <h2 class="vd-section-title">Media Uploads</h2>
+      <section class="card" style="text-align:left;">
+        <h2 class="dashboard-section-title">Media Uploads</h2>
 
-        <div class="vd-soft">
-          <div class="vd-media-grid">
-            <div class="vd-upload-box">
+        <div class="dashboard-card-soft">
+          <div class="media-uploader-grid">
+            <div class="upload-box">
               <h3>Upload Photos</h3>
-              <input type="file" id="galleryImageFiles" class="vd-upload-input" accept="image/*" multiple>
-              <label for="galleryImageFiles" class="vd-upload-label">Choose Photos</label>
-              <div id="galleryImageFileName" class="vd-file-note"></div>
+              <input type="file" id="galleryImageFiles" class="pretty-upload-input" accept="image/*" multiple>
+              <label for="galleryImageFiles" class="pretty-upload-label">Choose Photos</label>
+              <div id="galleryImageFileName" class="selected-file-note"></div>
             </div>
 
-            <div class="vd-upload-box">
+            <div class="upload-box">
               <h3>Upload Videos</h3>
-              <input type="file" id="galleryVideoFiles" class="vd-upload-input" accept="video/*" multiple>
-              <label for="galleryVideoFiles" class="vd-upload-label">Choose Videos</label>
-              <div id="galleryVideoFileName" class="vd-file-note"></div>
+              <input type="file" id="galleryVideoFiles" class="pretty-upload-input" accept="video/*" multiple>
+              <label for="galleryVideoFiles" class="pretty-upload-label">Choose Videos</label>
+              <div id="galleryVideoFileName" class="selected-file-note"></div>
             </div>
           </div>
 
-          <div id="imagePreview" class="vd-media-preview-grid"></div>
-          <div id="videoPreview" class="vd-media-preview-grid"></div>
+          <div id="imagePreview" class="media-preview-grid"></div>
+          <div id="videoPreview" class="media-preview-grid"></div>
         </div>
       </section>
 
-      <section class="vd-card">
-        <h2 class="vd-section-title">Style Tags</h2>
+      <section class="card" style="text-align:left;">
+        <h2 class="dashboard-section-title">Style Tags</h2>
 
-        <div class="vd-soft">
-          <div id="styleTagOptions" class="vd-pill-grid"></div>
+        <div class="dashboard-card-soft">
+          <div id="styleTagOptions" class="mini-pill-grid"></div>
         </div>
       </section>
 
-      <section class="vd-card">
-        <h2 class="vd-section-title">Categories</h2>
-        <div class="vd-soft">
-          <div id="categoryOptions" class="vd-pill-grid"></div>
+      <section class="card" style="text-align:left;">
+        <h2 class="dashboard-section-title">Categories</h2>
+        <div class="dashboard-card-soft">
+          <div id="categoryOptions" class="dropdown-content-form"></div>
         </div>
       </section>
 
-      <section class="vd-card">
-        <h2 class="vd-section-title">Countries You Service</h2>
-        <div class="vd-soft">
-          <div id="countryOptions" class="vd-pill-grid"></div>
+      <section class="card" style="text-align:left;">
+        <h2 class="dashboard-section-title">Countries You Service</h2>
+        <div class="dashboard-card-soft">
+          <div id="countryOptions" class="dropdown-content-form"></div>
         </div>
       </section>
 
-      <section class="vd-card">
-        <h2 class="vd-section-title">States / Provinces / Territories</h2>
-        <div class="vd-soft">
-          <div id="stateOptions" class="vd-pill-grid">
-            <p class="vd-small-text">Select countries first.</p>
+      <section class="card" style="text-align:left;">
+        <h2 class="dashboard-section-title">States / Provinces / Territories</h2>
+        <div class="dashboard-card-soft">
+          <div id="stateOptions" class="dropdown-content-form">
+            <p class="small-text">Select countries first.</p>
           </div>
         </div>
       </section>
 
-      <section class="vd-card">
-        <h2 class="vd-section-title">Regions / Cities / Areas</h2>
-        <div class="vd-soft">
-          <div id="regionOptions" class="vd-pill-grid">
-            <p class="vd-small-text">Select states, provinces or territories first.</p>
+      <section class="card" style="text-align:left;">
+        <h2 class="dashboard-section-title">Regions / Cities / Areas</h2>
+        <div class="dashboard-card-soft">
+          <div id="regionOptions" class="dropdown-content-form">
+            <p class="small-text">Select states, provinces or territories first.</p>
           </div>
         </div>
       </section>
 
-      <section class="vd-card">
-        <button type="button" id="saveBtn" class="vd-btn" style="width:100%;">Save Changes</button>
-        <p id="message" class="vd-message"></p>
+      <section class="card">
+        <button type="button" id="saveBtn" class="pretty-button wide-glow">Save Changes</button>
+        <p id="message" class="form-message"></p>
       </section>
 
     </div>
@@ -699,8 +555,7 @@
       serverTimestamp,
       ref,
       uploadBytes,
-      getDownloadURL,
-      signOut
+      getDownloadURL
     } from "./firebase.js";
 
     import { LOCATION_DATA } from "./locations.js";
@@ -715,12 +570,6 @@
     const email = document.getElementById("email");
     const phone = document.getElementById("phone");
     const instagram = document.getElementById("instagram");
-    const facebook = document.getElementById("facebook");
-    const tiktok = document.getElementById("tiktok");
-    const youtube = document.getElementById("youtube");
-    const pinterest = document.getElementById("pinterest");
-    const linkedin = document.getElementById("linkedin");
-    const x = document.getElementById("x");
     const website = document.getElementById("website");
     const serviceAreas = document.getElementById("serviceAreas");
     const displayLocation = document.getElementById("displayLocation");
@@ -750,23 +599,41 @@
 
     const accountStatusText = document.getElementById("accountStatusText");
     const subscriptionStatusText = document.getElementById("subscriptionStatusText");
+    const viewsStatusText = document.getElementById("viewsStatusText");
     const imagePreview = document.getElementById("imagePreview");
     const videoPreview = document.getElementById("videoPreview");
-
-    const joinLink = document.getElementById("joinLink");
-    const loginLink = document.getElementById("loginLink");
-    const logoutLink = document.getElementById("logoutLink");
 
     let currentUser = null;
     let currentProfileImageUrl = "";
     let currentLogoUrl = "";
     let currentGalleryImages = [];
     let currentGalleryVideos = [];
+    let currentVendorAccess = {
+      subscriptionActive: false,
+      paidSetupFee: false,
+      complimentaryPlan: false,
+      accountStatus: "active"
+    };
 
     const STYLE_TAGS = [
-      "Indoor","Outdoor","Luxury","Modern","Romantic","Coastal","Boho","Minimal",
-      "Classic","Editorial","Garden","Rustic","Elegant","Destination","Intimate",
-      "Bold","Timeless","Whimsical"
+      "Indoor",
+      "Outdoor",
+      "Luxury",
+      "Modern",
+      "Romantic",
+      "Coastal",
+      "Boho",
+      "Minimal",
+      "Classic",
+      "Editorial",
+      "Garden",
+      "Rustic",
+      "Elegant",
+      "Destination",
+      "Intimate",
+      "Bold",
+      "Timeless",
+      "Whimsical"
     ];
 
     const CATEGORY_GROUPS = [
@@ -810,9 +677,37 @@
       return label;
     }
 
-    function updateViewProfileVisibility(subscriptionActive) {
-      const isLive = profileLive.checked === true && subscriptionActive === true;
-      viewProfileBtn.style.display = isLive ? "inline-flex" : "none";
+    function hasVendorAccess(vendorData) {
+      const hasPaidAccess =
+        vendorData.subscriptionActive === true || vendorData.paidSetupFee === true;
+
+      const hasComplimentaryAccess =
+        vendorData.complimentaryPlan === true;
+
+      const isApprovedAccount =
+        !vendorData.accountStatus || vendorData.accountStatus === "active";
+
+      return isApprovedAccount && (hasPaidAccess || hasComplimentaryAccess);
+    }
+
+    function getPlanAccessLabel(vendorData) {
+      if (vendorData.complimentaryPlan === true) return "complimentary";
+      if (vendorData.subscriptionActive === true) return "active subscription";
+      if (vendorData.paidSetupFee === true) return "setup paid";
+      return "inactive";
+    }
+
+    function getProfileViews(vendorData) {
+      if (typeof vendorData.profileViews === "number") return vendorData.profileViews;
+      if (typeof vendorData.viewCount === "number") return vendorData.viewCount;
+      if (typeof vendorData.views === "number") return vendorData.views;
+      return 0;
+    }
+
+    function updateViewProfileVisibility(vendorData) {
+      const isLive = profileLive.checked === true;
+      const canBeShown = hasVendorAccess(vendorData);
+      viewProfileBtn.style.display = isLive && canBeShown ? "inline-block" : "none";
     }
 
     function renderStyleTags(selected = []) {
@@ -826,7 +721,7 @@
       categoryOptions.innerHTML = "";
       CATEGORY_GROUPS.forEach(group => {
         const heading = document.createElement("div");
-        heading.className = "vd-group-title";
+        heading.className = "category-group-title";
         heading.textContent = group.title;
         categoryOptions.appendChild(heading);
 
@@ -841,7 +736,7 @@
       const countries = Object.keys(LOCATION_DATA).sort((a, b) => a.localeCompare(b));
 
       if (!countries.length) {
-        countryOptions.innerHTML = '<p class="vd-small-text">No countries found.</p>';
+        countryOptions.innerHTML = '<p class="small-text">No countries found.</p>';
         return;
       }
 
@@ -860,10 +755,10 @@
     function renderStates(selectedStates = []) {
       const selectedCountries = getCheckedValues(countryOptions);
       stateOptions.innerHTML = "";
-      regionOptions.innerHTML = '<p class="vd-small-text">Select countries first.</p>';
+      regionOptions.innerHTML = '<p class="small-text">Select states, provinces or territories first.</p>';
 
       if (!selectedCountries.length) {
-        stateOptions.innerHTML = '<p class="vd-small-text">Select countries first.</p>';
+        stateOptions.innerHTML = '<p class="small-text">Select countries first.</p>';
         return;
       }
 
@@ -874,7 +769,7 @@
         if (!countryData) return;
 
         const heading = document.createElement("div");
-        heading.className = "vd-region-heading";
+        heading.className = "region-heading";
         heading.textContent = country;
         stateOptions.appendChild(heading);
 
@@ -885,7 +780,7 @@
       });
 
       if (!hasStates) {
-        stateOptions.innerHTML = '<p class="vd-small-text">No states, provinces or territories found.</p>';
+        stateOptions.innerHTML = '<p class="small-text">No states, provinces or territories found.</p>';
         return;
       }
 
@@ -903,7 +798,7 @@
       regionOptions.innerHTML = "";
 
       if (!selectedCountries.length || !selectedStates.length) {
-        regionOptions.innerHTML = '<p class="vd-small-text">Select states, provinces or territories first.</p>';
+        regionOptions.innerHTML = '<p class="small-text">Select states, provinces or territories first.</p>';
         return;
       }
 
@@ -920,7 +815,7 @@
           hasRegions = true;
 
           const heading = document.createElement("div");
-          heading.className = "vd-region-heading";
+          heading.className = "region-heading";
           heading.textContent = `${country} — ${state}`;
           regionOptions.appendChild(heading);
 
@@ -931,7 +826,7 @@
       });
 
       if (!hasRegions) {
-        regionOptions.innerHTML = '<p class="vd-small-text">No regions or cities found for the selected areas.</p>';
+        regionOptions.innerHTML = '<p class="small-text">No regions or cities found for the selected areas.</p>';
       }
     }
 
@@ -949,7 +844,7 @@
 
     function buildMediaCard(type, url, onRemove) {
       const wrap = document.createElement("div");
-      wrap.className = "vd-media-preview-item";
+      wrap.className = "media-preview-item";
 
       if (type === "image") {
         const img = document.createElement("img");
@@ -967,7 +862,7 @@
 
       const removeBtn = document.createElement("button");
       removeBtn.type = "button";
-      removeBtn.className = "vd-remove-btn";
+      removeBtn.className = "remove-media-btn";
       removeBtn.textContent = "Remove";
       removeBtn.addEventListener("click", onRemove);
       wrap.appendChild(removeBtn);
@@ -1041,6 +936,10 @@
       showSelectedFileNames(galleryVideoFiles, galleryVideoFileName, true);
     });
 
+    profileLive.addEventListener("change", () => {
+      updateViewProfileVisibility(currentVendorAccess);
+    });
+
     async function uploadFileToStorage(file, folder, uid) {
       const safeName = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9._-]/g, "_")}`;
       const storageRef = ref(storage, `${folder}/${uid}/${safeName}`);
@@ -1060,16 +959,17 @@
       const vendorSnap = await getDoc(vendorRef);
       const vendorData = vendorSnap.exists() ? vendorSnap.data() : {};
 
+      currentVendorAccess = {
+        subscriptionActive: vendorData.subscriptionActive === true,
+        paidSetupFee: vendorData.paidSetupFee === true,
+        complimentaryPlan: vendorData.complimentaryPlan === true,
+        accountStatus: vendorData.accountStatus || "active"
+      };
+
       businessName.value = vendorData.businessName || "";
       email.value = vendorData.email || currentUser.email || "";
       phone.value = vendorData.phone || "";
       instagram.value = vendorData.instagram || "";
-      facebook.value = vendorData.facebook || "";
-      tiktok.value = vendorData.tiktok || "";
-      youtube.value = vendorData.youtube || "";
-      pinterest.value = vendorData.pinterest || "";
-      linkedin.value = vendorData.linkedin || "";
-      x.value = vendorData.x || vendorData.twitter || "";
       website.value = vendorData.website || "";
       serviceAreas.value = vendorData.serviceAreas || "";
       displayLocation.value = vendorData.displayLocation || "";
@@ -1080,10 +980,11 @@
       currentGalleryImages = Array.isArray(vendorData.images) ? [...vendorData.images] : [];
       currentGalleryVideos = Array.isArray(vendorData.videos) ? [...vendorData.videos] : [];
 
-      profileLive.checked = vendorData.profileVisible === true && vendorData.published === true;
+      profileLive.checked = vendorData.profileVisible === true;
 
       accountStatusText.textContent = `Account status: ${vendorData.accountStatus || "active"}`;
-      subscriptionStatusText.textContent = `Subscription: ${vendorData.subscriptionActive === true ? "active" : "inactive"}`;
+      subscriptionStatusText.textContent = `Plan access: ${getPlanAccessLabel(vendorData)}`;
+      viewsStatusText.textContent = `Profile views: ${getProfileViews(vendorData)}`;
 
       renderStyleTags(Array.isArray(vendorData.styleTags) ? vendorData.styleTags : []);
       renderCategoryOptions(Array.isArray(vendorData.categories) ? vendorData.categories : []);
@@ -1105,7 +1006,7 @@
       setSingleImagePreview(currentLogoUrl, logoPreview, logoEmpty);
       setImagePreview();
       setVideoPreview();
-      updateViewProfileVisibility(vendorData.subscriptionActive === true);
+      updateViewProfileVisibility(currentVendorAccess);
     }
 
     async function saveVendorData() {
@@ -1116,7 +1017,13 @@
       try {
         const vendorSnap = await getDoc(doc(db, "vendors", currentUser.uid));
         const existingVendorData = vendorSnap.exists() ? vendorSnap.data() : {};
-        const subscriptionActive = existingVendorData.subscriptionActive === true;
+
+        currentVendorAccess = {
+          subscriptionActive: existingVendorData.subscriptionActive === true,
+          paidSetupFee: existingVendorData.paidSetupFee === true,
+          complimentaryPlan: existingVendorData.complimentaryPlan === true,
+          accountStatus: existingVendorData.accountStatus || "active"
+        };
 
         const selectedStyleTags = getCheckedValues(styleTagOptions);
         const selectedCategories = getCheckedValues(categoryOptions);
@@ -1165,12 +1072,6 @@
           email: email.value.trim().toLowerCase(),
           phone: phone.value.trim(),
           instagram: instagram.value.trim(),
-          facebook: facebook.value.trim(),
-          tiktok: tiktok.value.trim(),
-          youtube: youtube.value.trim(),
-          pinterest: pinterest.value.trim(),
-          linkedin: linkedin.value.trim(),
-          x: x.value.trim(),
           website: website.value.trim(),
           serviceAreas: serviceAreas.value.trim(),
           displayLocation: displayLocation.value.trim(),
@@ -1210,7 +1111,7 @@
         setSingleImagePreview(currentLogoUrl, logoPreview, logoEmpty);
         setImagePreview();
         setVideoPreview();
-        updateViewProfileVisibility(subscriptionActive);
+        updateViewProfileVisibility(currentVendorAccess);
 
         message.textContent = "Your changes have been saved.";
       } catch (error) {
@@ -1222,41 +1123,14 @@
     saveBtn.addEventListener("click", saveVendorData);
     saveTopBtn.addEventListener("click", saveVendorData);
 
-    profileLive.addEventListener("change", async () => {
-      if (!currentUser) return;
-      try {
-        const vendorSnap = await getDoc(doc(db, "vendors", currentUser.uid));
-        const vendorData = vendorSnap.exists() ? vendorSnap.data() : {};
-        updateViewProfileVisibility(vendorData.subscriptionActive === true);
-      } catch (e) {
-        console.error(e);
-      }
-    });
-
     onAuthStateChanged(auth, async (user) => {
       if (!user) {
-        joinLink.style.display = "inline-flex";
-        loginLink.style.display = "inline-block";
-        logoutLink.style.display = "none";
         window.location.href = "login.html";
         return;
       }
 
-      joinLink.style.display = "none";
-      loginLink.style.display = "none";
-      logoutLink.style.display = "inline-block";
-
       currentUser = user;
       await loadVendorData(user.uid);
-    });
-
-    logoutLink.addEventListener("click", async () => {
-      try {
-        await signOut(auth);
-        window.location.href = "index.html";
-      } catch (error) {
-        console.error(error);
-      }
     });
   </script>
 
