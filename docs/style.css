@@ -777,3 +777,70 @@ input[type="checkbox"] {
   background: #fffaf8;
   border: 1px solid #efe1d6;
 }
+/* --- LOCATION PILLS EXACT MATCH VERSION --- */
+
+#regionOptions,
+#stateOptions,
+#countryOptions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-top: 10px;
+}
+
+#regionOptions label,
+#stateOptions label,
+#countryOptions label {
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: #f8f4f1;
+  border: 1px solid #e8ddd2;
+  font-size: 0.88rem;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#regionOptions label:hover,
+#stateOptions label:hover,
+#countryOptions label:hover {
+  background: #efe6de;
+  border-color: #dccabc;
+}
+
+#regionOptions input,
+#stateOptions input,
+#countryOptions input {
+  margin-right: 8px;
+  accent-color: #111;
+}
+
+#regionOptions label:has(input:checked),
+#stateOptions label:has(input:checked),
+#countryOptions label:has(input:checked) {
+  background: #111;
+  color: #fff;
+  border-color: #111;
+}
+
+#regionOptions .small-text,
+#stateOptions .small-text,
+#countryOptions .small-text {
+  width: 100%;
+  margin: 0;
+  padding: 6px 2px 0;
+}
+
+.region-heading {
+  width: 100%;
+  margin-top: 18px;
+  margin-bottom: 2px;
+  font-size: 0.76rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #a89b8f;
+  font-weight: 600;
+}
