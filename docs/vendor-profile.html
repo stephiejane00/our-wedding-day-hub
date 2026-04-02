@@ -5,11 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vendor Profile | Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css" />
-
   <style>
     body {
       margin: 0;
-      font-family: 'Georgia', serif;
+      font-family: Georgia, serif;
       background: #fffaf6;
       color: #2f2a26;
     }
@@ -27,25 +26,24 @@
 
     .auth-pill,
     .btn-primary,
-    .favorite-btn,
-    .btn-secondary {
+    .btn-secondary,
+    .favorite-btn {
       background: #b07c6d;
       color: white;
       padding: 10px 18px;
       border-radius: 999px;
       border: none;
       cursor: pointer;
-      font-family: inherit;
       text-decoration: none;
       font-size: 0.92rem;
+      font-family: inherit;
       display: inline-block;
-      transition: background 0.2s ease;
     }
 
     .auth-pill:hover,
     .btn-primary:hover,
-    .favorite-btn:hover,
-    .btn-secondary:hover {
+    .btn-secondary:hover,
+    .favorite-btn:hover {
       background: #9b685a;
     }
 
@@ -82,10 +80,6 @@
       font-size: 0.95rem;
     }
 
-    .top-nav a:hover {
-      color: #9b685a;
-    }
-
     .hero {
       text-align: center;
       padding: 14px 20px 8px;
@@ -96,6 +90,18 @@
       width: 100%;
       height: auto;
       display: inline-block;
+    }
+
+    .test-banner {
+      max-width: 1100px;
+      margin: 20px auto 0;
+      padding: 14px 20px;
+      background: #ffe7ef;
+      border: 1px solid #e5b9c6;
+      border-radius: 16px;
+      text-align: center;
+      font-weight: bold;
+      color: #8f4d61;
     }
 
     .vendor-profile-container {
@@ -203,6 +209,10 @@
     }
 
     @media (max-width: 768px) {
+      .page-auth {
+        justify-content: center;
+      }
+
       .vendor-cover {
         height: 220px;
       }
@@ -213,10 +223,6 @@
 
       .vendor-title-wrap h1 {
         font-size: 1.6rem;
-      }
-
-      .page-auth {
-        justify-content: center;
       }
     }
   </style>
@@ -243,14 +249,13 @@
     <img src="images/header4.png" alt="Our Wedding Day Hub" class="header-image" />
   </header>
 
+  <div class="test-banner">
+    UPDATED VENDOR PROFILE TEST VERSION
+  </div>
+
   <main class="vendor-profile-container">
     <section class="vendor-card">
-      <img
-        id="vendorCover"
-        class="vendor-cover"
-        src="images/default-cover.jpg"
-        alt="Vendor cover image"
-      />
+      <img id="vendorCover" class="vendor-cover" src="images/default-cover.jpg" alt="Vendor cover image" />
 
       <div class="vendor-content">
         <div class="vendor-header">
@@ -263,16 +268,12 @@
             </div>
           </div>
 
-          <button id="favoriteBtn" class="favorite-btn" type="button">
-            ♡ Save to Favourites
-          </button>
+          <button id="favoriteBtn" class="favorite-btn" type="button">♡ Save to Favourites</button>
         </div>
 
         <section class="vendor-section">
           <h2>About</h2>
-          <p id="vendorBio">
-            This vendor profile will show the business bio here.
-          </p>
+          <p id="vendorBio">This vendor profile will show the business bio here.</p>
         </section>
 
         <section class="vendor-section">
@@ -350,7 +351,6 @@
 
       document.getElementById("joinLink").style.display = loggedIn ? "none" : "inline-block";
       document.getElementById("loginLink").style.display = loggedIn ? "none" : "inline-block";
-
       document.getElementById("dashboardLink").style.display = loggedIn ? "inline-block" : "none";
       document.getElementById("logoutLink").style.display = loggedIn ? "inline-block" : "none";
     }
@@ -385,11 +385,9 @@
     document.getElementById("vendorLocation").textContent = demoVendor.location;
     document.getElementById("vendorBio").textContent = demoVendor.bio;
     document.getElementById("vendorCover").src = demoVendor.cover;
-
     document.getElementById("emailBtn").href = `mailto:${demoVendor.email}`;
     document.getElementById("instagramBtn").href = demoVendor.instagram;
     document.getElementById("websiteBtn").href = demoVendor.website;
-
     document.getElementById("gallery1").src = demoVendor.gallery[0];
     document.getElementById("gallery2").src = demoVendor.gallery[1];
     document.getElementById("gallery3").src = demoVendor.gallery[2];
