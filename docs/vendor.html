@@ -1,351 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vendor Profile | Our Wedding Day Hub</title>
-  <link rel="stylesheet" href="style.css" />
-
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Georgia', serif;
-      background: #fffaf6;
-      color: #2f2a26;
-    }
-
-    .page-auth {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      gap: 10px;
-      padding: 14px 20px 0;
-      max-width: 1200px;
-      margin: 0 auto;
-      flex-wrap: wrap;
-    }
-
-    .auth-pill,
-    .btn-primary,
-    .favorite-btn,
-    .btn-secondary {
-      background: #b07c6d;
-      color: white;
-      padding: 10px 18px;
-      border-radius: 999px;
-      border: none;
-      cursor: pointer;
-      font-family: inherit;
-      text-decoration: none;
-      font-size: 0.92rem;
-      display: inline-block;
-      transition: background 0.2s ease;
-    }
-
-    .auth-pill:hover,
-    .btn-primary:hover,
-    .favorite-btn:hover,
-    .btn-secondary:hover {
-      background: #9b685a;
-    }
-
-    .login-link {
-      text-decoration: none;
-      color: #2f2a26;
-      font-size: 0.92rem;
-      padding: 10px 6px;
-    }
-
-    .login-link:hover {
-      color: #9b685a;
-    }
-
-    .favorite-btn.active {
-      background: #d88fa3;
-    }
-
-    .top-nav {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 24px;
-      padding: 16px 20px;
-      background: #ffffff;
-      border-bottom: 1px solid #eadfd6;
-      flex-wrap: wrap;
-      margin-top: 12px;
-    }
-
-    .top-nav a {
-      text-decoration: none;
-      color: #2f2a26;
-      font-size: 0.95rem;
-    }
-
-    .top-nav a:hover {
-      color: #9b685a;
-    }
-
-    .hero {
-      text-align: center;
-      padding: 14px 20px 8px;
-    }
-
-    .header-image {
-      max-width: 420px;
-      width: 100%;
-      height: auto;
-      display: inline-block;
-    }
-
-    .vendor-profile-container {
-      max-width: 1100px;
-      margin: 30px auto 60px;
-      padding: 0 20px;
-    }
-
-    .vendor-card {
-      background: #ffffff;
-      border: 1px solid #eadfd6;
-      border-radius: 22px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-      overflow: hidden;
-    }
-
-    .vendor-cover {
-      width: 100%;
-      height: 320px;
-      object-fit: cover;
-      background: #f5ece6;
-      display: block;
-    }
-
-    .vendor-content {
-      padding: 28px;
-    }
-
-    .vendor-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 20px;
-      flex-wrap: wrap;
-      margin-bottom: 18px;
-    }
-
-    .vendor-title-wrap h1 {
-      margin: 0 0 8px;
-      font-size: 2rem;
-      line-height: 1.2;
-    }
-
-    .vendor-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 10px;
-    }
-
-    .meta-pill {
-      background: #f7efe9;
-      color: #7d5b4f;
-      padding: 8px 14px;
-      border-radius: 999px;
-      font-size: 0.9rem;
-    }
-
-    .vendor-section {
-      margin-top: 28px;
-    }
-
-    .vendor-section h2 {
-      font-size: 1.2rem;
-      margin-bottom: 10px;
-      color: #7d5b4f;
-    }
-
-    .vendor-section p {
-      margin: 0;
-      line-height: 1.7;
-      font-size: 1rem;
-    }
-
-    .contact-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 16px;
-    }
-
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
-      margin-top: 16px;
-    }
-
-    .gallery-grid img {
-      width: 100%;
-      height: 240px;
-      object-fit: cover;
-      border-radius: 16px;
-      border: 1px solid #eadfd6;
-      background: #f5ece6;
-    }
-
-    footer {
-      text-align: center;
-      padding: 30px 20px;
-      border-top: 1px solid #eadfd6;
-      font-size: 0.9rem;
-      color: #6e625b;
-      background: #fffaf6;
-    }
-
-    @media (max-width: 768px) {
-      .vendor-cover {
-        height: 220px;
-      }
-
-      .vendor-content {
-        padding: 22px;
-      }
-
-      .vendor-title-wrap h1 {
-        font-size: 1.6rem;
-      }
-
-      .page-auth {
-        justify-content: center;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+  <!-- AUTH -->
   <div class="page-auth">
-    <a href="index.html" class="auth-pill">Home</a>
+    <a href="index.html" class="auth-link auth-pill">Home</a>
 
-    <a href="signup.html" id="joinLink" class="auth-pill">Join</a>
-    <a href="login.html" id="loginLink" class="login-link">Log In</a>
+    <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
+    <a href="login.html" id="loginLink" class="auth-link">Log In</a>
 
-    <a href="dashboard.html" id="dashboardLink" class="auth-pill" style="display:none;">Dashboard</a>
-    <button id="logoutLink" class="auth-pill" style="display:none;">Log Out</button>
+    <a href="dashboard.html" id="dashboardLink" class="auth-link auth-pill" style="display:none;">Dashboard</a>
+    <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
   </div>
 
-  <nav class="top-nav">
-    <a href="vendors.html">Browse Vendors</a>
-    <a href="pricing.html">Pricing</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-
+  <!-- HEADER -->
   <header class="hero">
-    <img src="images/header4.png" alt="Our Wedding Day Hub" class="header-image" />
+    <img src="images/header4.png" alt="Our Wedding Day Hub" class="header-image">
   </header>
 
-  <main class="vendor-profile-container">
-    <section class="vendor-card">
-      <img
-        id="vendorCover"
-        class="vendor-cover"
-        src="images/default-cover.jpg"
-        alt="Vendor cover image"
-      />
+  <!-- MAIN -->
+  <main class="vendor-profile">
 
-      <div class="vendor-content">
-        <div class="vendor-header">
-          <div class="vendor-title-wrap">
-            <h1 id="businessName">Vendor Business Name</h1>
+    <div class="vendor-top">
+      <h1 id="businessName">Business Name</h1>
 
-            <div class="vendor-meta">
-              <span class="meta-pill" id="vendorCategory">Category</span>
-              <span class="meta-pill" id="vendorLocation">Location</span>
-            </div>
-          </div>
+      <!-- ❤️ HEART BUTTON -->
+      <button id="favoriteBtn" class="favorite-btn">♡ Save</button>
+    </div>
 
-          <button id="favoriteBtn" class="favorite-btn" type="button">
-            ♡ Save to Favourites
-          </button>
-        </div>
+    <p id="vendorLocation">Location</p>
+    <p id="vendorCategory">Category</p>
 
-        <section class="vendor-section">
-          <h2>About</h2>
-          <p id="vendorBio">
-            This vendor profile will show the business bio here.
-          </p>
-        </section>
+    <div class="vendor-section">
+      <h2>About</h2>
+      <p id="vendorBio">Vendor bio will go here.</p>
+    </div>
 
-        <section class="vendor-section">
-          <h2>Contact</h2>
-          <div class="contact-buttons">
-            <a href="#" id="emailBtn" class="btn-primary">Email Vendor</a>
-            <a href="#" id="instagramBtn" class="btn-secondary" target="_blank" rel="noopener noreferrer">Instagram</a>
-            <a href="#" id="websiteBtn" class="btn-secondary" target="_blank" rel="noopener noreferrer">Website</a>
-          </div>
-        </section>
+    <div class="vendor-section">
+      <h2>Contact</h2>
+      <a id="emailBtn">Email</a>
+      <a id="instagramBtn">Instagram</a>
+      <a id="websiteBtn">Website</a>
+    </div>
 
-        <section class="vendor-section">
-          <h2>Gallery</h2>
-          <div class="gallery-grid">
-            <img id="gallery1" src="images/placeholder1.jpg" alt="Vendor gallery image 1" />
-            <img id="gallery2" src="images/placeholder2.jpg" alt="Vendor gallery image 2" />
-            <img id="gallery3" src="images/placeholder3.jpg" alt="Vendor gallery image 3" />
-          </div>
-        </section>
-      </div>
-    </section>
+    <div class="vendor-section">
+      <h2>Gallery</h2>
+      <img id="g1">
+      <img id="g2">
+      <img id="g3">
+    </div>
+
   </main>
 
   <footer>
     © Our Wedding Day Hub | ABN: 76688637041
   </footer>
 
+  <!-- SCRIPT -->
   <script>
-    const params = new URLSearchParams(window.location.search);
-    const vendorId = params.get("id") || "demo-vendor";
+    const vendorId = "demo";
 
-    const favoriteBtn = document.getElementById("favoriteBtn");
-    const favoritesKey = "favoriteVendors";
+    /* ❤️ FAVORITES */
+    const favBtn = document.getElementById("favoriteBtn");
 
-    function getFavorites() {
-      return JSON.parse(localStorage.getItem(favoritesKey)) || [];
+    function getFavs() {
+      return JSON.parse(localStorage.getItem("favs")) || [];
     }
 
-    function saveFavorites(favorites) {
-      localStorage.setItem(favoritesKey, JSON.stringify(favorites));
+    function setFavs(f) {
+      localStorage.setItem("favs", JSON.stringify(f));
     }
 
-    function updateFavoriteButton() {
-      const favorites = getFavorites();
-      const isFavorited = favorites.includes(vendorId);
-
-      if (isFavorited) {
-        favoriteBtn.classList.add("active");
-        favoriteBtn.innerHTML = "♥ Saved to Favourites";
+    function updateFav() {
+      const favs = getFavs();
+      if (favs.includes(vendorId)) {
+        favBtn.innerHTML = "♥ Saved";
       } else {
-        favoriteBtn.classList.remove("active");
-        favoriteBtn.innerHTML = "♡ Save to Favourites";
+        favBtn.innerHTML = "♡ Save";
       }
     }
 
-    favoriteBtn.addEventListener("click", () => {
-      let favorites = getFavorites();
-
-      if (favorites.includes(vendorId)) {
-        favorites = favorites.filter(id => id !== vendorId);
+    favBtn.onclick = () => {
+      let favs = getFavs();
+      if (favs.includes(vendorId)) {
+        favs = favs.filter(x => x !== vendorId);
       } else {
-        favorites.push(vendorId);
+        favs.push(vendorId);
       }
+      setFavs(favs);
+      updateFav();
+    };
 
-      saveFavorites(favorites);
-      updateFavoriteButton();
-    });
+    updateFav();
 
+    /* 🔐 AUTH */
     function isLoggedIn() {
       return localStorage.getItem("loggedIn") === "true";
     }
 
-    function updateAuthUI() {
+    function updateAuth() {
       const loggedIn = isLoggedIn();
 
       document.getElementById("joinLink").style.display = loggedIn ? "none" : "inline-block";
@@ -355,44 +114,43 @@
       document.getElementById("logoutLink").style.display = loggedIn ? "inline-block" : "none";
     }
 
-    document.getElementById("logoutLink").addEventListener("click", () => {
+    document.getElementById("logoutLink").onclick = () => {
       localStorage.removeItem("loggedIn");
-      updateAuthUI();
+      updateAuth();
       window.location.href = "index.html";
-    });
+    };
 
-    updateFavoriteButton();
-    updateAuthUI();
+    updateAuth();
 
-    const demoVendor = {
-      businessName: "Kaity Kissed Nails & Designs",
+    /* DEMO DATA */
+    const vendor = {
+      name: "Kaity Kissed Nails & Designs",
       category: "Beauty",
-      location: "Brisbane, Queensland",
-      bio: "Creating beautiful, polished looks for brides and bridal parties with care, creativity and a calming presence on your special day.",
-      email: "hello@ourweddingdayhub.com",
-      instagram: "https://www.instagram.com/",
-      website: "https://www.ourweddingdayhub.com",
-      cover: "images/default-cover.jpg",
-      gallery: [
+      location: "Brisbane",
+      bio: "Beautiful bridal nails designed with care.",
+      email: "hello@email.com",
+      instagram: "#",
+      website: "#",
+      images: [
         "images/placeholder1.jpg",
         "images/placeholder2.jpg",
         "images/placeholder3.jpg"
       ]
     };
 
-    document.getElementById("businessName").textContent = demoVendor.businessName;
-    document.getElementById("vendorCategory").textContent = demoVendor.category;
-    document.getElementById("vendorLocation").textContent = demoVendor.location;
-    document.getElementById("vendorBio").textContent = demoVendor.bio;
-    document.getElementById("vendorCover").src = demoVendor.cover;
+    document.getElementById("businessName").innerText = vendor.name;
+    document.getElementById("vendorCategory").innerText = vendor.category;
+    document.getElementById("vendorLocation").innerText = vendor.location;
+    document.getElementById("vendorBio").innerText = vendor.bio;
 
-    document.getElementById("emailBtn").href = `mailto:${demoVendor.email}`;
-    document.getElementById("instagramBtn").href = demoVendor.instagram;
-    document.getElementById("websiteBtn").href = demoVendor.website;
+    document.getElementById("emailBtn").href = "mailto:" + vendor.email;
+    document.getElementById("instagramBtn").href = vendor.instagram;
+    document.getElementById("websiteBtn").href = vendor.website;
 
-    document.getElementById("gallery1").src = demoVendor.gallery[0];
-    document.getElementById("gallery2").src = demoVendor.gallery[1];
-    document.getElementById("gallery3").src = demoVendor.gallery[2];
+    document.getElementById("g1").src = vendor.images[0];
+    document.getElementById("g2").src = vendor.images[1];
+    document.getElementById("g3").src = vendor.images[2];
   </script>
+
 </body>
 </html>
