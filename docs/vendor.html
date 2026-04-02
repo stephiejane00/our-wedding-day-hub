@@ -86,7 +86,7 @@
 
     .header-image {
       width: 100%;
-      max-width: 380px;
+      max-width: 340px;
       height: auto;
       display: block;
       margin: 0 auto;
@@ -450,7 +450,7 @@
       }
 
       .header-image {
-        max-width: 320px;
+        max-width: 280px;
       }
 
       .main-gallery-image {
@@ -500,7 +500,7 @@
         </div>
 
         <div class="card content-card">
-          <h1 id="businessName" class="vendor-title">Vendor</h1>
+          <h1 id="businessName" class="vendor-title">Loading vendor...</h1>
           <div id="vendorCategory" class="category-line"></div>
 
           <div class="location-box">
@@ -525,7 +525,7 @@
           <img id="profilePic" class="profile-pic" src="" alt="Vendor profile picture">
         </div>
 
-        <h2 id="sidebarBusinessName" class="sidebar-name">Vendor</h2>
+        <h2 id="sidebarBusinessName" class="sidebar-name">Loading vendor...</h2>
         <p id="sidebarMiniBio" class="sidebar-sub"></p>
 
         <button id="favoriteBtn" class="favorite-btn" type="button">♡ Save to favourites</button>
@@ -560,10 +560,21 @@
   <script type="module">
     import { auth, db } from "./firebase-config.js";
     import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-    import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    import {
+      doc,
+      getDoc,
+      collection,
+      query,
+      where,
+      getDocs,
+      limit
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
     const params = new URLSearchParams(window.location.search);
-    const vendorId = params.get("id");
+    const vendorIdFromUrl = params.get("id");
+    const vendorUidFromUrl = params.get("uid");
+    const vendorIdFromSession = sessionStorage.getItem("selectedVendorId");
+    const vendorUidFromSession = sessionStorage.getItem("selectedVendorUid");
 
     const joinLink = document.getElementById("joinLink");
     const loginLink = document.getElementById("loginLink");
@@ -595,7 +606,7 @@
     const lightboxImage = document.getElementById("lightboxImage");
     const lightboxClose = document.getElementById("lightboxClose");
 
-    let currentVendor = null;
+    let currentVendorDocId = vendorIdFromUrl || vendorIdFromSession || null;
     let galleryImages = [];
 
     function textOrFallback(value, fallback = "") {
@@ -644,18 +655,19 @@
         vendor.location,
         vendor.serviceAreas,
         vendor.serviceArea,
-        vendor.suburbs
+        vendor.suburbs,
+        vendor.states
       );
     }
 
     function getGallery(vendor) {
-      const combined = [
+      const gallery = [
         ...firstArray(vendor.gallery, vendor.galleryImages, vendor.images, vendor.photos, vendor.portfolioImages),
         firstNonEmpty(vendor.coverImage, vendor.coverPhoto, vendor.heroImage, vendor.bannerImage),
         firstNonEmpty(vendor.profileImage, vendor.profilePic, vendor.logoUrl, vendor.photoURL)
       ];
 
-      return [...new Set(combined.filter(Boolean))];
+      return [...new Set(gallery.filter(Boolean))];
     }
 
     function getProfileImage(vendor) {
@@ -704,7 +716,6 @@
 
     function setActiveImage(index) {
       if (!galleryImages.length || !galleryImages[index]) return;
-
       mainGalleryImage.src = galleryImages[index];
       mainGalleryImage.style.display = "block";
       emptyImageMessage.style.display = "none";
@@ -737,8 +748,15 @@
       });
     }
 
-    function renderVendor(vendor) {
-      currentVendor = vendor;
+    function renderVendor(vendor, docId) {
+      currentVendorDocId = docId || currentVendorDocId;
+
+      if (docId) {
+        sessionStorage.setItem("selectedVendorId", docId);
+      }
+      if (vendor.uid) {
+        sessionStorage.setItem("selectedVendorUid", vendor.uid);
+      }
 
       const businessName = firstNonEmpty(vendor.businessName, vendor.name, vendor.vendorName, "Vendor");
       const categoryArray = firstArray(vendor.categories, vendor.category);
@@ -751,7 +769,6 @@
       const email = firstNonEmpty(vendor.email, "");
       const locations = getLocations(vendor);
       const images = getGallery(vendor);
-      const profileImage = getProfileImage(vendor);
 
       businessNameEl.textContent = businessName;
       sidebarBusinessNameEl.textContent = businessName;
@@ -760,6 +777,10 @@
       vendorAboutEl.textContent = aboutText || "No extra details added yet.";
       sidebarMiniBioEl.textContent = shortBio || "This vendor has not added a short intro yet.";
 
+      renderLocations(locations);
+      renderGallery(images);
+
+      const profileImage = getProfileImage(vendor);
       if (profileImage) {
         profilePicEl.src = profileImage;
       }
@@ -774,31 +795,39 @@
         emailBtn.style.display = "none";
       }
 
-      renderLocations(locations);
-      renderGallery(images);
+      statusMessage.textContent = "";
       updateFavoriteButton();
     }
 
     async function loadVendor() {
-      if (!vendorId) {
-        statusMessage.textContent = "No vendor selected.";
-        return;
-      }
-
       try {
-        const vendorRef = doc(db, "vendors", vendorId);
-        const vendorSnap = await getDoc(vendorRef);
-
-        if (!vendorSnap.exists()) {
-          statusMessage.textContent = "Vendor not found.";
-          return;
+        if (currentVendorDocId) {
+          const snap = await getDoc(doc(db, "vendors", currentVendorDocId));
+          if (snap.exists()) {
+            renderVendor(snap.data(), snap.id);
+            return;
+          }
         }
 
-        const vendorData = vendorSnap.data();
-        renderVendor(vendorData);
+        const uidToTry = vendorUidFromUrl || vendorUidFromSession;
+        if (uidToTry) {
+          const q = query(collection(db, "vendors"), where("uid", "==", uidToTry), limit(1));
+          const results = await getDocs(q);
+          if (!results.empty) {
+            const found = results.docs[0];
+            renderVendor(found.data(), found.id);
+            return;
+          }
+        }
+
+        statusMessage.textContent = "Vendor not found. This link is missing its vendor ID.";
+        businessNameEl.textContent = "Vendor not found";
+        sidebarBusinessNameEl.textContent = "Vendor not found";
       } catch (error) {
         console.error("Error loading vendor:", error);
         statusMessage.textContent = "Could not load this vendor right now.";
+        businessNameEl.textContent = "Could not load vendor";
+        sidebarBusinessNameEl.textContent = "Could not load vendor";
       }
     }
 
@@ -812,7 +841,7 @@
 
     function updateFavoriteButton() {
       const favorites = getFavorites();
-      const saved = vendorId && favorites.includes(vendorId);
+      const saved = currentVendorDocId && favorites.includes(currentVendorDocId);
 
       if (saved) {
         favoriteBtn.classList.add("saved");
@@ -824,14 +853,14 @@
     }
 
     favoriteBtn.addEventListener("click", () => {
-      if (!vendorId) return;
+      if (!currentVendorDocId) return;
 
       let favorites = getFavorites();
 
-      if (favorites.includes(vendorId)) {
-        favorites = favorites.filter((id) => id !== vendorId);
+      if (favorites.includes(currentVendorDocId)) {
+        favorites = favorites.filter((id) => id !== currentVendorDocId);
       } else {
-        favorites.push(vendorId);
+        favorites.push(currentVendorDocId);
       }
 
       saveFavorites(favorites);
