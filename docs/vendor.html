@@ -113,6 +113,7 @@
     }
 
     .main-image-wrap {
+      position: relative;
       overflow: hidden;
       border-radius: 22px;
       background: #f2ebe6;
@@ -138,12 +139,49 @@
       text-align: center;
     }
 
+    .gallery-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 48px;
+      height: 48px;
+      border: none;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.92);
+      color: #4d4039;
+      font-size: 1.6rem;
+      line-height: 1;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(56, 38, 30, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 5;
+    }
+
+    .gallery-arrow:hover {
+      background: #ffffff;
+    }
+
+    .gallery-arrow.left {
+      left: 14px;
+    }
+
+    .gallery-arrow.right {
+      right: 14px;
+    }
+
+    .gallery-arrow.hidden {
+      display: none;
+    }
+
     .thumb-row {
       margin-top: 14px;
       display: flex;
       gap: 12px;
       overflow-x: auto;
       padding-bottom: 4px;
+      scroll-behavior: smooth;
     }
 
     .thumb-row:empty {
@@ -194,12 +232,14 @@
 
     .location-box {
       margin-top: 18px;
-      padding-top: 14px;
-      border-top: 1px solid #efe4dc;
+      background: #fcf8f5;
+      border: 1px solid #eee4dc;
+      border-radius: 20px;
+      padding: 18px 20px;
     }
 
     .location-label {
-      margin: 0 0 10px;
+      margin: 0 0 12px;
       font-size: 0.78rem;
       text-transform: uppercase;
       letter-spacing: 0.12em;
@@ -209,24 +249,20 @@
 
     .location-list {
       display: flex;
-      flex-direction: column;
-      gap: 8px;
+      flex-wrap: wrap;
+      gap: 10px;
     }
 
-    .location-item {
+    .location-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: #ffffff;
+      border: 1px solid #e7dbd1;
       color: #4a403a;
-      font-size: 0.98rem;
-      line-height: 1.5;
-      padding-left: 16px;
-      position: relative;
-    }
-
-    .location-item::before {
-      content: "•";
-      position: absolute;
-      left: 0;
-      top: 0;
-      color: #c19aa2;
+      font-size: 0.95rem;
+      font-weight: 500;
     }
 
     .section-block {
@@ -445,6 +481,12 @@
         width: 140px;
         height: 140px;
       }
+
+      .gallery-arrow {
+        width: 42px;
+        height: 42px;
+        font-size: 1.35rem;
+      }
     }
   </style>
 </head>
@@ -467,8 +509,10 @@
       <section>
         <div class="card gallery-card">
           <div class="main-image-wrap">
+            <button id="prevImageBtn" class="gallery-arrow left hidden" type="button" aria-label="Previous image">‹</button>
             <img id="mainGalleryImage" class="main-gallery-image" src="" alt="Vendor gallery image" style="display:none;">
             <div id="emptyImageMessage" class="empty-image">No gallery images yet.</div>
+            <button id="nextImageBtn" class="gallery-arrow right hidden" type="button" aria-label="Next image">›</button>
           </div>
           <div id="thumbRow" class="thumb-row"></div>
         </div>
@@ -573,6 +617,8 @@
     const mainGalleryImage = document.getElementById("mainGalleryImage");
     const emptyImageMessage = document.getElementById("emptyImageMessage");
     const thumbRow = document.getElementById("thumbRow");
+    const prevImageBtn = document.getElementById("prevImageBtn");
+    const nextImageBtn = document.getElementById("nextImageBtn");
 
     const favoriteBtn = document.getElementById("favoriteBtn");
     const favoritesKey = "favoriteVendors";
@@ -583,6 +629,7 @@
 
     let currentVendorDocId = vendorIdFromUrl || vendorIdFromSession || null;
     let galleryImages = [];
+    let currentImageIndex = 0;
 
     function textOrFallback(value, fallback = "") {
       if (typeof value === "string" && value.trim()) return value.trim();
@@ -680,10 +727,10 @@
       locationListEl.innerHTML = "";
 
       if (!locations.length) {
-        const item = document.createElement("div");
-        item.className = "location-item";
-        item.textContent = "Location not listed";
-        locationListEl.appendChild(item);
+        const pill = document.createElement("div");
+        pill.className = "location-pill";
+        pill.textContent = "Location not listed";
+        locationListEl.appendChild(pill);
         sidebarLocationTextEl.textContent = "Location not listed";
         return;
       }
@@ -691,16 +738,23 @@
       sidebarLocationTextEl.textContent = locations.join(", ");
 
       locations.forEach((location) => {
-        const item = document.createElement("div");
-        item.className = "location-item";
-        item.textContent = location;
-        locationListEl.appendChild(item);
+        const pill = document.createElement("div");
+        pill.className = "location-pill";
+        pill.textContent = location;
+        locationListEl.appendChild(pill);
       });
+    }
+
+    function updateArrowButtons() {
+      const showArrows = galleryImages.length > 1;
+      prevImageBtn.classList.toggle("hidden", !showArrows);
+      nextImageBtn.classList.toggle("hidden", !showArrows);
     }
 
     function setActiveImage(index) {
       if (!galleryImages.length || !galleryImages[index]) return;
 
+      currentImageIndex = index;
       mainGalleryImage.src = galleryImages[index];
       mainGalleryImage.style.display = "block";
       emptyImageMessage.style.display = "none";
@@ -708,16 +762,32 @@
       document.querySelectorAll(".thumb-btn").forEach((btn, i) => {
         btn.classList.toggle("active", i === index);
       });
+
+      updateArrowButtons();
+    }
+
+    function showPrevImage() {
+      if (galleryImages.length < 2) return;
+      const nextIndex = currentImageIndex === 0 ? galleryImages.length - 1 : currentImageIndex - 1;
+      setActiveImage(nextIndex);
+    }
+
+    function showNextImage() {
+      if (galleryImages.length < 2) return;
+      const nextIndex = currentImageIndex === galleryImages.length - 1 ? 0 : currentImageIndex + 1;
+      setActiveImage(nextIndex);
     }
 
     function renderGallery(images) {
       galleryImages = images;
+      currentImageIndex = 0;
       thumbRow.innerHTML = "";
 
       if (!images.length) {
         mainGalleryImage.removeAttribute("src");
         mainGalleryImage.style.display = "none";
         emptyImageMessage.style.display = "block";
+        updateArrowButtons();
         return;
       }
 
@@ -731,6 +801,8 @@
         btn.addEventListener("click", () => setActiveImage(index));
         thumbRow.appendChild(btn);
       });
+
+      updateArrowButtons();
     }
 
     function renderVendor(vendor, docId) {
@@ -864,6 +936,9 @@
       }
     });
 
+    prevImageBtn.addEventListener("click", showPrevImage);
+    nextImageBtn.addEventListener("click", showNextImage);
+
     mainGalleryImage.addEventListener("click", () => {
       if (!mainGalleryImage.src) return;
       lightboxImage.src = mainGalleryImage.src;
@@ -883,6 +958,8 @@
 
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") closeLightbox();
+      if (e.key === "ArrowLeft") showPrevImage();
+      if (e.key === "ArrowRight") showNextImage();
     });
 
     loadVendor();
