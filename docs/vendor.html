@@ -1,156 +1,634 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vendor Profile | Our Wedding Day Hub</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Georgia, serif;
+      background: #f6f3f1;
+      color: #2f2a26;
+    }
+
+    .page-auth {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 18px;
+      padding: 14px 22px 0;
+      max-width: 1280px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+    }
+
+    .auth-link,
+    .auth-button {
+      background: none;
+      border: none;
+      color: #2f2a26;
+      text-decoration: none;
+      font-size: 1rem;
+      font-family: inherit;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .auth-link:hover,
+    .auth-button:hover {
+      opacity: 0.7;
+    }
+
+    .auth-pill {
+      background: #e7dbd2;
+      padding: 10px 18px;
+      border-radius: 999px;
+      display: inline-block;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 16px 20px 10px;
+    }
+
+    .header-image {
+      max-width: 420px;
+      width: 100%;
+      height: auto;
+      display: inline-block;
+    }
+
+    .vendor-page {
+      max-width: 1280px;
+      margin: 18px auto 60px;
+      padding: 0 22px;
+    }
+
+    .vendor-shell {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(280px, 380px);
+      gap: 28px;
+      align-items: start;
+    }
+
+    .main-column {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .panel {
+      background: #ffffff;
+      border-radius: 28px;
+      border: 1px solid #ece2da;
+      box-shadow: 0 12px 40px rgba(80, 55, 40, 0.06);
+    }
+
+    .gallery-panel {
+      padding: 20px;
+    }
+
+    .main-image-wrap {
+      position: relative;
+      overflow: hidden;
+      border-radius: 22px;
+      background: #efe7e2;
+      margin-bottom: 14px;
+    }
+
+    .main-gallery-image {
+      width: 100%;
+      height: 520px;
+      object-fit: cover;
+      display: block;
+      cursor: zoom-in;
+      transition: transform 0.25s ease;
+    }
+
+    .main-image-wrap:hover .main-gallery-image {
+      transform: scale(1.015);
+    }
+
+    .thumb-row {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scroll-behavior: smooth;
+    }
+
+    .thumb-row::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .thumb-row::-webkit-scrollbar-thumb {
+      background: #d9c8bd;
+      border-radius: 999px;
+    }
+
+    .thumb-btn {
+      flex: 0 0 auto;
+      width: 105px;
+      height: 105px;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 2px solid transparent;
+      padding: 0;
+      background: #efe7e2;
+      cursor: pointer;
+    }
+
+    .thumb-btn.active {
+      border-color: #c8a998;
+    }
+
+    .thumb-btn img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .about-panel {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 18px;
+      padding: 28px;
+    }
+
+    .business-name {
+      margin: 0;
+      font-size: 2.2rem;
+      line-height: 1.1;
+      color: #2f2a26;
+    }
+
+    .meta-line {
+      margin-top: 10px;
+      color: #7f6c61;
+      font-size: 1rem;
+    }
+
+    .section-title {
+      font-size: 1.15rem;
+      margin: 0 0 10px;
+      color: #7a5f52;
+    }
+
+    .section-copy {
+      margin: 0;
+      line-height: 1.8;
+      font-size: 1rem;
+      color: #443b36;
+    }
+
+    .sidebar-card {
+      position: sticky;
+      top: 18px;
+      padding: 26px 22px 22px;
+      text-align: center;
+    }
+
+    .profile-pic-wrap {
+      width: 170px;
+      height: 170px;
+      margin: 0 auto 18px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: #efe7e2;
+      border: 5px solid #f6f0eb;
+      box-shadow: 0 8px 20px rgba(90, 60, 45, 0.08);
+    }
+
+    .profile-pic {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .sidebar-name {
+      margin: 0 0 8px;
+      font-size: 1.35rem;
+      line-height: 1.25;
+    }
+
+    .sidebar-mini-bio {
+      margin: 0 0 18px;
+      line-height: 1.7;
+      color: #6b5b52;
+      font-size: 0.98rem;
+    }
+
+    .contact-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .stack-btn {
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
+      padding: 13px 16px;
+      border-radius: 999px;
+      border: 1px solid #e6d9d0;
+      background: #f8f3ef;
+      color: #2f2a26;
+      text-decoration: none;
+      font-size: 0.98rem;
+      transition: all 0.2s ease;
+    }
+
+    .stack-btn:hover {
+      background: #efe4dc;
+    }
+
+    .save-heart {
+      position: absolute;
+      top: 12px;
+      right: 8px;
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      border: none;
+      background: #ffffff;
+      box-shadow: 0 10px 24px rgba(70, 45, 35, 0.12);
+      font-size: 2rem;
+      color: #c59aa7;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+      z-index: 5;
+    }
+
+    .save-heart:hover {
+      transform: scale(1.05);
+      box-shadow: 0 14px 28px rgba(70, 45, 35, 0.16);
+    }
+
+    .save-heart.saved {
+      color: #c86b88;
+    }
+
+    .save-label {
+      margin-top: 10px;
+      text-align: right;
+      color: #8a7568;
+      font-size: 0.92rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 28px 20px 34px;
+      color: #6f625b;
+      font-size: 0.92rem;
+    }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(28, 22, 18, 0.84);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      z-index: 2000;
+    }
+
+    .lightbox.open {
+      display: flex;
+    }
+
+    .lightbox-inner {
+      position: relative;
+      max-width: 95vw;
+      max-height: 92vh;
+    }
+
+    .lightbox img {
+      max-width: 95vw;
+      max-height: 92vh;
+      border-radius: 18px;
+      display: block;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -14px;
+      right: -14px;
+      width: 42px;
+      height: 42px;
+      border: none;
+      border-radius: 50%;
+      background: #ffffff;
+      font-size: 1.3rem;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+    }
+
+    @media (max-width: 980px) {
+      .vendor-shell {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar-card {
+        position: static;
+      }
+
+      .save-heart {
+        top: 10px;
+        right: 10px;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .page-auth {
+        justify-content: center;
+        gap: 14px;
+      }
+
+      .business-name {
+        font-size: 1.7rem;
+      }
+
+      .main-gallery-image {
+        height: 320px;
+      }
+
+      .profile-pic-wrap {
+        width: 140px;
+        height: 140px;
+      }
+
+      .gallery-panel,
+      .about-panel,
+      .sidebar-card {
+        padding: 18px;
+      }
+
+      .save-heart {
+        width: 62px;
+        height: 62px;
+        font-size: 1.8rem;
+      }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- AUTH -->
   <div class="page-auth">
-    <a href="index.html" class="auth-link auth-pill">Home</a>
-
     <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
+    <a href="index.html" class="auth-link">Home</a>
     <a href="login.html" id="loginLink" class="auth-link">Log In</a>
-
-    <a href="dashboard.html" id="dashboardLink" class="auth-link auth-pill" style="display:none;">Dashboard</a>
+    <a href="dashboard.html" id="dashboardLink" class="auth-link" style="display:none;">Dashboard</a>
     <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
   </div>
 
-  <!-- HEADER -->
   <header class="hero">
     <img src="images/header4.png" alt="Our Wedding Day Hub" class="header-image">
   </header>
 
-  <!-- MAIN -->
-  <main class="vendor-profile">
+  <main class="vendor-page">
+    <div class="vendor-shell">
 
-    <div class="vendor-top">
-      <h1 id="businessName">Business Name</h1>
+      <button id="favoriteBtn" class="save-heart" type="button" aria-label="Save vendor to favourites">♡</button>
 
-      <!-- ❤️ HEART BUTTON -->
-      <button id="favoriteBtn" class="favorite-btn">♡ Save</button>
+      <section class="main-column">
+        <div class="panel gallery-panel">
+          <div class="main-image-wrap">
+            <img id="mainGalleryImage" class="main-gallery-image" src="images/placeholder1.jpg" alt="Vendor gallery image">
+          </div>
+
+          <div id="thumbRow" class="thumb-row">
+            <button class="thumb-btn active" type="button" data-index="0">
+              <img id="thumb1" src="images/placeholder1.jpg" alt="Gallery thumbnail 1">
+            </button>
+            <button class="thumb-btn" type="button" data-index="1">
+              <img id="thumb2" src="images/placeholder2.jpg" alt="Gallery thumbnail 2">
+            </button>
+            <button class="thumb-btn" type="button" data-index="2">
+              <img id="thumb3" src="images/placeholder3.jpg" alt="Gallery thumbnail 3">
+            </button>
+            <button class="thumb-btn" type="button" data-index="3">
+              <img id="thumb4" src="images/placeholder1.jpg" alt="Gallery thumbnail 4">
+            </button>
+          </div>
+        </div>
+
+        <div class="panel about-panel">
+          <div>
+            <h1 id="businessName" class="business-name">Business Name</h1>
+            <div class="meta-line">
+              <span id="vendorLocation">Location</span> · <span id="vendorCategory">Category</span>
+            </div>
+          </div>
+
+          <div>
+            <h2 class="section-title">Business Bio</h2>
+            <p id="vendorBio" class="section-copy">Vendor bio will go here.</p>
+          </div>
+
+          <div>
+            <h2 class="section-title">About</h2>
+            <p id="vendorAbout" class="section-copy">More details about this vendor will go here.</p>
+          </div>
+        </div>
+      </section>
+
+      <aside class="panel sidebar-card">
+        <div class="profile-pic-wrap">
+          <img id="profilePic" class="profile-pic" src="images/placeholder1.jpg" alt="Vendor profile image">
+        </div>
+
+        <h2 id="sidebarBusinessName" class="sidebar-name">Business Name</h2>
+        <p id="sidebarMiniBio" class="sidebar-mini-bio">
+          A short little intro for this vendor goes here.
+        </p>
+
+        <div class="contact-stack">
+          <a href="#" id="websiteBtn" class="stack-btn" target="_blank" rel="noopener noreferrer">Website</a>
+          <a href="#" id="instagramBtn" class="stack-btn" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a href="#" id="emailBtn" class="stack-btn">Contact Vendor</a>
+        </div>
+
+        <div id="saveLabel" class="save-label">Save this vendor to your favourites</div>
+      </aside>
+
     </div>
-
-    <p id="vendorLocation">Location</p>
-    <p id="vendorCategory">Category</p>
-
-    <div class="vendor-section">
-      <h2>About</h2>
-      <p id="vendorBio">Vendor bio will go here.</p>
-    </div>
-
-    <div class="vendor-section">
-      <h2>Contact</h2>
-      <a id="emailBtn">Email</a>
-      <a id="instagramBtn">Instagram</a>
-      <a id="websiteBtn">Website</a>
-    </div>
-
-    <div class="vendor-section">
-      <h2>Gallery</h2>
-      <img id="g1">
-      <img id="g2">
-      <img id="g3">
-    </div>
-
   </main>
 
   <footer>
     © Our Wedding Day Hub | ABN: 76688637041
   </footer>
 
-  <!-- SCRIPT -->
+  <div id="lightbox" class="lightbox" aria-hidden="true">
+    <div class="lightbox-inner">
+      <button id="lightboxClose" class="lightbox-close" type="button" aria-label="Close image">×</button>
+      <img id="lightboxImage" src="" alt="Expanded gallery image">
+    </div>
+  </div>
+
   <script>
-    const vendorId = "demo";
+    const params = new URLSearchParams(window.location.search);
+    const vendorId = params.get("id") || "demo-vendor";
 
-    /* ❤️ FAVORITES */
-    const favBtn = document.getElementById("favoriteBtn");
-
-    function getFavs() {
-      return JSON.parse(localStorage.getItem("favs")) || [];
-    }
-
-    function setFavs(f) {
-      localStorage.setItem("favs", JSON.stringify(f));
-    }
-
-    function updateFav() {
-      const favs = getFavs();
-      if (favs.includes(vendorId)) {
-        favBtn.innerHTML = "♥ Saved";
-      } else {
-        favBtn.innerHTML = "♡ Save";
-      }
-    }
-
-    favBtn.onclick = () => {
-      let favs = getFavs();
-      if (favs.includes(vendorId)) {
-        favs = favs.filter(x => x !== vendorId);
-      } else {
-        favs.push(vendorId);
-      }
-      setFavs(favs);
-      updateFav();
+    const demoVendor = {
+      businessName: "Kaity Kissed Nails & Designs",
+      category: "Beauty",
+      location: "Brisbane, Queensland",
+      bio: "Elegant bridal nail artistry created with a soft, polished touch for weddings, elopements and special celebrations.",
+      about: "Kaity creates beautiful nail designs for brides and bridal parties with a calm, caring experience from start to finish. Her style is polished, feminine and designed to feel timeless in your photos.",
+      shortBio: "Soft, elegant bridal beauty with a polished, feminine feel.",
+      email: "hello@ourweddingdayhub.com",
+      instagram: "https://www.instagram.com/",
+      website: "https://www.ourweddingdayhub.com",
+      profilePic: "images/placeholder1.jpg",
+      gallery: [
+        "images/placeholder1.jpg",
+        "images/placeholder2.jpg",
+        "images/placeholder3.jpg",
+        "images/default-cover.jpg"
+      ]
     };
 
-    updateFav();
+    document.getElementById("businessName").textContent = demoVendor.businessName;
+    document.getElementById("sidebarBusinessName").textContent = demoVendor.businessName;
+    document.getElementById("vendorCategory").textContent = demoVendor.category;
+    document.getElementById("vendorLocation").textContent = demoVendor.location;
+    document.getElementById("vendorBio").textContent = demoVendor.bio;
+    document.getElementById("vendorAbout").textContent = demoVendor.about;
+    document.getElementById("sidebarMiniBio").textContent = demoVendor.shortBio;
+    document.getElementById("profilePic").src = demoVendor.profilePic;
 
-    /* 🔐 AUTH */
+    document.getElementById("websiteBtn").href = demoVendor.website;
+    document.getElementById("instagramBtn").href = demoVendor.instagram;
+    document.getElementById("emailBtn").href = "mailto:" + demoVendor.email;
+
+    const mainGalleryImage = document.getElementById("mainGalleryImage");
+    const thumbButtons = document.querySelectorAll(".thumb-btn");
+    const thumbImages = [
+      document.getElementById("thumb1"),
+      document.getElementById("thumb2"),
+      document.getElementById("thumb3"),
+      document.getElementById("thumb4")
+    ];
+
+    demoVendor.gallery.forEach((img, index) => {
+      if (thumbImages[index]) {
+        thumbImages[index].src = img;
+      }
+    });
+
+    mainGalleryImage.src = demoVendor.gallery[0];
+
+    function setActiveImage(index) {
+      mainGalleryImage.src = demoVendor.gallery[index];
+      thumbButtons.forEach((btn, i) => {
+        btn.classList.toggle("active", i === index);
+      });
+    }
+
+    thumbButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const index = Number(btn.dataset.index);
+        setActiveImage(index);
+      });
+    });
+
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImage = document.getElementById("lightboxImage");
+    const lightboxClose = document.getElementById("lightboxClose");
+
+    mainGalleryImage.addEventListener("click", () => {
+      lightboxImage.src = mainGalleryImage.src;
+      lightbox.classList.add("open");
+      lightbox.setAttribute("aria-hidden", "false");
+    });
+
+    lightboxClose.addEventListener("click", closeLightbox);
+    lightbox.addEventListener("click", (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeLightbox();
+    });
+
+    function closeLightbox() {
+      lightbox.classList.remove("open");
+      lightbox.setAttribute("aria-hidden", "true");
+    }
+
+    const favoriteBtn = document.getElementById("favoriteBtn");
+    const saveLabel = document.getElementById("saveLabel");
+    const favoritesKey = "favoriteVendors";
+
+    function getFavorites() {
+      return JSON.parse(localStorage.getItem(favoritesKey)) || [];
+    }
+
+    function saveFavorites(favorites) {
+      localStorage.setItem(favoritesKey, JSON.stringify(favorites));
+    }
+
+    function updateFavoriteButton() {
+      const favorites = getFavorites();
+      const isFavorited = favorites.includes(vendorId);
+
+      if (isFavorited) {
+        favoriteBtn.classList.add("saved");
+        favoriteBtn.textContent = "♥";
+        saveLabel.textContent = "Saved to your favourites";
+      } else {
+        favoriteBtn.classList.remove("saved");
+        favoriteBtn.textContent = "♡";
+        saveLabel.textContent = "Save this vendor to your favourites";
+      }
+    }
+
+    favoriteBtn.addEventListener("click", () => {
+      let favorites = getFavorites();
+
+      if (favorites.includes(vendorId)) {
+        favorites = favorites.filter(id => id !== vendorId);
+      } else {
+        favorites.push(vendorId);
+      }
+
+      saveFavorites(favorites);
+      updateFavoriteButton();
+    });
+
     function isLoggedIn() {
       return localStorage.getItem("loggedIn") === "true";
     }
 
-    function updateAuth() {
+    function updateAuthUI() {
       const loggedIn = isLoggedIn();
 
       document.getElementById("joinLink").style.display = loggedIn ? "none" : "inline-block";
       document.getElementById("loginLink").style.display = loggedIn ? "none" : "inline-block";
-
       document.getElementById("dashboardLink").style.display = loggedIn ? "inline-block" : "none";
       document.getElementById("logoutLink").style.display = loggedIn ? "inline-block" : "none";
     }
 
-    document.getElementById("logoutLink").onclick = () => {
+    document.getElementById("logoutLink").addEventListener("click", () => {
       localStorage.removeItem("loggedIn");
-      updateAuth();
+      updateAuthUI();
       window.location.href = "index.html";
-    };
+    });
 
-    updateAuth();
-
-    /* DEMO DATA */
-    const vendor = {
-      name: "Kaity Kissed Nails & Designs",
-      category: "Beauty",
-      location: "Brisbane",
-      bio: "Beautiful bridal nails designed with care.",
-      email: "hello@email.com",
-      instagram: "#",
-      website: "#",
-      images: [
-        "images/placeholder1.jpg",
-        "images/placeholder2.jpg",
-        "images/placeholder3.jpg"
-      ]
-    };
-
-    document.getElementById("businessName").innerText = vendor.name;
-    document.getElementById("vendorCategory").innerText = vendor.category;
-    document.getElementById("vendorLocation").innerText = vendor.location;
-    document.getElementById("vendorBio").innerText = vendor.bio;
-
-    document.getElementById("emailBtn").href = "mailto:" + vendor.email;
-    document.getElementById("instagramBtn").href = vendor.instagram;
-    document.getElementById("websiteBtn").href = vendor.website;
-
-    document.getElementById("g1").src = vendor.images[0];
-    document.getElementById("g2").src = vendor.images[1];
-    document.getElementById("g3").src = vendor.images[2];
+    updateFavoriteButton();
+    updateAuthUI();
   </script>
-
 </body>
 </html>
