@@ -10,7 +10,7 @@
     body {
       margin: 0;
       font-family: Georgia, serif;
-      background: #f6f3f1;
+      background: #fffaf6;
       color: #2f2a26;
     }
 
@@ -19,8 +19,8 @@
       justify-content: flex-end;
       align-items: center;
       gap: 18px;
-      padding: 14px 22px 0;
-      max-width: 1280px;
+      padding: 14px 20px 0;
+      max-width: 1200px;
       margin: 0 auto;
       flex-wrap: wrap;
     }
@@ -51,53 +51,76 @@
 
     .hero {
       text-align: center;
-      padding: 16px 20px 10px;
+      padding: 0;
     }
 
     .header-image {
-      max-width: 420px;
       width: 100%;
+      max-width: 100%;
       height: auto;
-      display: inline-block;
+      display: block;
+      margin: 0 auto;
     }
 
     .vendor-page {
       max-width: 1280px;
-      margin: 18px auto 60px;
-      padding: 0 22px;
+      margin: 28px auto 60px;
+      padding: 0 20px;
     }
 
     .vendor-shell {
-      position: relative;
       display: grid;
-      grid-template-columns: minmax(0, 1.6fr) minmax(280px, 380px);
+      grid-template-columns: minmax(0, 1.55fr) minmax(290px, 360px);
       gap: 28px;
       align-items: start;
     }
 
-    .main-column {
-      display: flex;
-      flex-direction: column;
-      gap: 22px;
-    }
-
     .panel {
       background: #ffffff;
-      border-radius: 28px;
-      border: 1px solid #ece2da;
-      box-shadow: 0 12px 40px rgba(80, 55, 40, 0.06);
+      border: 1px solid #eadfd6;
+      border-radius: 24px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
     }
 
     .gallery-panel {
       padding: 20px;
+      position: relative;
+      overflow: visible;
+    }
+
+    .save-heart {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      width: 74px;
+      height: 74px;
+      border-radius: 50%;
+      border: none;
+      background: #ffffff;
+      box-shadow: 0 12px 30px rgba(70, 45, 35, 0.16);
+      font-size: 2.1rem;
+      color: #c59aa7;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 20;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+    }
+
+    .save-heart:hover {
+      transform: scale(1.06);
+      box-shadow: 0 16px 32px rgba(70, 45, 35, 0.22);
+    }
+
+    .save-heart.saved {
+      color: #c86b88;
     }
 
     .main-image-wrap {
-      position: relative;
+      border-radius: 20px;
       overflow: hidden;
-      border-radius: 22px;
-      background: #efe7e2;
-      margin-bottom: 14px;
+      background: #f5ece6;
     }
 
     .main-gallery-image {
@@ -106,17 +129,13 @@
       object-fit: cover;
       display: block;
       cursor: zoom-in;
-      transition: transform 0.25s ease;
-    }
-
-    .main-image-wrap:hover .main-gallery-image {
-      transform: scale(1.015);
     }
 
     .thumb-row {
       display: flex;
       gap: 12px;
       overflow-x: auto;
+      margin-top: 14px;
       padding-bottom: 4px;
       scroll-behavior: smooth;
     }
@@ -134,11 +153,11 @@
       flex: 0 0 auto;
       width: 105px;
       height: 105px;
-      border-radius: 18px;
-      overflow: hidden;
-      border: 2px solid transparent;
       padding: 0;
-      background: #efe7e2;
+      border-radius: 16px;
+      border: 2px solid transparent;
+      overflow: hidden;
+      background: #f5ece6;
       cursor: pointer;
     }
 
@@ -154,23 +173,39 @@
     }
 
     .about-panel {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr);
-      gap: 18px;
       padding: 28px;
     }
 
     .business-name {
       margin: 0;
       font-size: 2.2rem;
-      line-height: 1.1;
-      color: #2f2a26;
+      line-height: 1.15;
     }
 
     .meta-line {
       margin-top: 10px;
       color: #7f6c61;
       font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .location-chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .location-chip {
+      background: #f7efe9;
+      color: #7a5f52;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 0.95rem;
+    }
+
+    .content-block {
+      margin-top: 26px;
     }
 
     .section-title {
@@ -187,10 +222,10 @@
     }
 
     .sidebar-card {
-      position: sticky;
-      top: 18px;
       padding: 26px 22px 22px;
       text-align: center;
+      position: sticky;
+      top: 18px;
     }
 
     .profile-pic-wrap {
@@ -199,9 +234,8 @@
       margin: 0 auto 18px;
       border-radius: 50%;
       overflow: hidden;
-      background: #efe7e2;
-      border: 5px solid #f6f0eb;
-      box-shadow: 0 8px 20px rgba(90, 60, 45, 0.08);
+      background: #f5ece6;
+      border: 4px solid #f7f0ea;
     }
 
     .profile-pic {
@@ -214,7 +248,6 @@
     .sidebar-name {
       margin: 0 0 8px;
       font-size: 1.35rem;
-      line-height: 1.25;
     }
 
     .sidebar-mini-bio {
@@ -224,11 +257,35 @@
       font-size: 0.98rem;
     }
 
+    .sidebar-location-box {
+      background: #fbf6f2;
+      border: 1px solid #eee1d7;
+      border-radius: 18px;
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      text-align: left;
+    }
+
+    .sidebar-location-title {
+      margin: 0 0 6px;
+      font-size: 0.92rem;
+      color: #8a7568;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .sidebar-location-text {
+      margin: 0;
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #3e3631;
+    }
+
     .contact-stack {
       display: flex;
       flex-direction: column;
       gap: 12px;
-      margin-top: 10px;
+      margin-top: 12px;
     }
 
     .stack-btn {
@@ -242,54 +299,27 @@
       color: #2f2a26;
       text-decoration: none;
       font-size: 0.98rem;
-      transition: all 0.2s ease;
+      transition: background 0.2s ease;
     }
 
     .stack-btn:hover {
       background: #efe4dc;
     }
 
-    .save-heart {
-      position: absolute;
-      top: 12px;
-      right: 8px;
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
-      border: none;
-      background: #ffffff;
-      box-shadow: 0 10px 24px rgba(70, 45, 35, 0.12);
-      font-size: 2rem;
-      color: #c59aa7;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
-      z-index: 5;
-    }
-
-    .save-heart:hover {
-      transform: scale(1.05);
-      box-shadow: 0 14px 28px rgba(70, 45, 35, 0.16);
-    }
-
-    .save-heart.saved {
-      color: #c86b88;
-    }
-
     .save-label {
-      margin-top: 10px;
-      text-align: right;
+      margin-top: 12px;
       color: #8a7568;
       font-size: 0.92rem;
     }
 
     footer {
       text-align: center;
-      padding: 28px 20px 34px;
-      color: #6f625b;
-      font-size: 0.92rem;
+      padding: 30px 20px;
+      border-top: 1px solid #eadfd6;
+      font-size: 0.9rem;
+      color: #6e625b;
+      background: #fffaf6;
+      margin-top: 40px;
     }
 
     .lightbox {
@@ -318,7 +348,6 @@
       max-height: 92vh;
       border-radius: 18px;
       display: block;
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
     }
 
     .lightbox-close {
@@ -332,7 +361,6 @@
       background: #ffffff;
       font-size: 1.3rem;
       cursor: pointer;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.18);
     }
 
     @media (max-width: 980px) {
@@ -343,25 +371,19 @@
       .sidebar-card {
         position: static;
       }
-
-      .save-heart {
-        top: 10px;
-        right: 10px;
-      }
     }
 
     @media (max-width: 700px) {
       .page-auth {
         justify-content: center;
-        gap: 14px;
-      }
-
-      .business-name {
-        font-size: 1.7rem;
       }
 
       .main-gallery-image {
         height: 320px;
+      }
+
+      .business-name {
+        font-size: 1.7rem;
       }
 
       .profile-pic-wrap {
@@ -376,8 +398,10 @@
       }
 
       .save-heart {
-        width: 62px;
-        height: 62px;
+        top: 18px;
+        right: 18px;
+        width: 64px;
+        height: 64px;
         font-size: 1.8rem;
       }
     }
@@ -399,45 +423,32 @@
 
   <main class="vendor-page">
     <div class="vendor-shell">
-
-      <button id="favoriteBtn" class="save-heart" type="button" aria-label="Save vendor to favourites">♡</button>
-
-      <section class="main-column">
+      <section>
         <div class="panel gallery-panel">
+          <button id="favoriteBtn" class="save-heart" type="button" aria-label="Save vendor">♡</button>
+
           <div class="main-image-wrap">
-            <img id="mainGalleryImage" class="main-gallery-image" src="images/placeholder1.jpg" alt="Vendor gallery image">
+            <img id="mainGalleryImage" class="main-gallery-image" src="" alt="Vendor gallery image">
           </div>
 
-          <div id="thumbRow" class="thumb-row">
-            <button class="thumb-btn active" type="button" data-index="0">
-              <img id="thumb1" src="images/placeholder1.jpg" alt="Gallery thumbnail 1">
-            </button>
-            <button class="thumb-btn" type="button" data-index="1">
-              <img id="thumb2" src="images/placeholder2.jpg" alt="Gallery thumbnail 2">
-            </button>
-            <button class="thumb-btn" type="button" data-index="2">
-              <img id="thumb3" src="images/placeholder3.jpg" alt="Gallery thumbnail 3">
-            </button>
-            <button class="thumb-btn" type="button" data-index="3">
-              <img id="thumb4" src="images/placeholder1.jpg" alt="Gallery thumbnail 4">
-            </button>
-          </div>
+          <div id="thumbRow" class="thumb-row"></div>
         </div>
 
-        <div class="panel about-panel">
-          <div>
-            <h1 id="businessName" class="business-name">Business Name</h1>
-            <div class="meta-line">
-              <span id="vendorLocation">Location</span> · <span id="vendorCategory">Category</span>
-            </div>
+        <div class="panel about-panel" style="margin-top: 24px;">
+          <h1 id="businessName" class="business-name">Business Name</h1>
+
+          <div class="meta-line">
+            <span id="vendorCategory">Category</span>
           </div>
 
-          <div>
+          <div id="locationChipRow" class="location-chip-row"></div>
+
+          <div class="content-block">
             <h2 class="section-title">Business Bio</h2>
             <p id="vendorBio" class="section-copy">Vendor bio will go here.</p>
           </div>
 
-          <div>
+          <div class="content-block">
             <h2 class="section-title">About</h2>
             <p id="vendorAbout" class="section-copy">More details about this vendor will go here.</p>
           </div>
@@ -446,13 +457,16 @@
 
       <aside class="panel sidebar-card">
         <div class="profile-pic-wrap">
-          <img id="profilePic" class="profile-pic" src="images/placeholder1.jpg" alt="Vendor profile image">
+          <img id="profilePic" class="profile-pic" src="" alt="Vendor profile picture">
         </div>
 
         <h2 id="sidebarBusinessName" class="sidebar-name">Business Name</h2>
-        <p id="sidebarMiniBio" class="sidebar-mini-bio">
-          A short little intro for this vendor goes here.
-        </p>
+        <p id="sidebarMiniBio" class="sidebar-mini-bio">A short intro goes here.</p>
+
+        <div class="sidebar-location-box">
+          <p class="sidebar-location-title">Locations</p>
+          <p id="sidebarLocationText" class="sidebar-location-text">Location goes here</p>
+        </div>
 
         <div class="contact-stack">
           <a href="#" id="websiteBtn" class="stack-btn" target="_blank" rel="noopener noreferrer">Website</a>
@@ -462,7 +476,6 @@
 
         <div id="saveLabel" class="save-label">Save this vendor to your favourites</div>
       </aside>
-
     </div>
   </main>
 
@@ -484,26 +497,25 @@
     const demoVendor = {
       businessName: "Kaity Kissed Nails & Designs",
       category: "Beauty",
-      location: "Brisbane, Queensland",
+      locations: ["Brisbane", "Moreton Bay", "Sunshine Coast"],
       bio: "Elegant bridal nail artistry created with a soft, polished touch for weddings, elopements and special celebrations.",
       about: "Kaity creates beautiful nail designs for brides and bridal parties with a calm, caring experience from start to finish. Her style is polished, feminine and designed to feel timeless in your photos.",
       shortBio: "Soft, elegant bridal beauty with a polished, feminine feel.",
       email: "hello@ourweddingdayhub.com",
       instagram: "https://www.instagram.com/",
       website: "https://www.ourweddingdayhub.com",
-      profilePic: "images/placeholder1.jpg",
+      profilePic: "images/kaity-profile.jpg",
       gallery: [
-        "images/placeholder1.jpg",
-        "images/placeholder2.jpg",
-        "images/placeholder3.jpg",
-        "images/default-cover.jpg"
+        "images/kaity1.jpg",
+        "images/kaity2.jpg",
+        "images/kaity3.jpg",
+        "images/kaity4.jpg"
       ]
     };
 
     document.getElementById("businessName").textContent = demoVendor.businessName;
     document.getElementById("sidebarBusinessName").textContent = demoVendor.businessName;
     document.getElementById("vendorCategory").textContent = demoVendor.category;
-    document.getElementById("vendorLocation").textContent = demoVendor.location;
     document.getElementById("vendorBio").textContent = demoVendor.bio;
     document.getElementById("vendorAbout").textContent = demoVendor.about;
     document.getElementById("sidebarMiniBio").textContent = demoVendor.shortBio;
@@ -513,46 +525,57 @@
     document.getElementById("instagramBtn").href = demoVendor.instagram;
     document.getElementById("emailBtn").href = "mailto:" + demoVendor.email;
 
-    const mainGalleryImage = document.getElementById("mainGalleryImage");
-    const thumbButtons = document.querySelectorAll(".thumb-btn");
-    const thumbImages = [
-      document.getElementById("thumb1"),
-      document.getElementById("thumb2"),
-      document.getElementById("thumb3"),
-      document.getElementById("thumb4")
-    ];
+    const sidebarLocationText = document.getElementById("sidebarLocationText");
+    const locationChipRow = document.getElementById("locationChipRow");
+    const locationList = Array.isArray(demoVendor.locations) ? demoVendor.locations : [];
 
-    demoVendor.gallery.forEach((img, index) => {
-      if (thumbImages[index]) {
-        thumbImages[index].src = img;
-      }
+    sidebarLocationText.textContent = locationList.length ? locationList.join(", ") : "Location not listed";
+
+    locationList.forEach((location) => {
+      const chip = document.createElement("span");
+      chip.className = "location-chip";
+      chip.textContent = location;
+      locationChipRow.appendChild(chip);
     });
 
-    mainGalleryImage.src = demoVendor.gallery[0];
+    const mainGalleryImage = document.getElementById("mainGalleryImage");
+    const thumbRow = document.getElementById("thumbRow");
 
     function setActiveImage(index) {
       mainGalleryImage.src = demoVendor.gallery[index];
-      thumbButtons.forEach((btn, i) => {
+      document.querySelectorAll(".thumb-btn").forEach((btn, i) => {
         btn.classList.toggle("active", i === index);
       });
     }
 
-    thumbButtons.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const index = Number(btn.dataset.index);
-        setActiveImage(index);
-      });
+    demoVendor.gallery.forEach((img, index) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "thumb-btn" + (index === 0 ? " active" : "");
+      btn.innerHTML = `<img src="${img}" alt="Gallery thumbnail ${index + 1}">`;
+      btn.addEventListener("click", () => setActiveImage(index));
+      thumbRow.appendChild(btn);
     });
+
+    if (demoVendor.gallery.length > 0) {
+      mainGalleryImage.src = demoVendor.gallery[0];
+    }
 
     const lightbox = document.getElementById("lightbox");
     const lightboxImage = document.getElementById("lightboxImage");
     const lightboxClose = document.getElementById("lightboxClose");
 
     mainGalleryImage.addEventListener("click", () => {
+      if (!mainGalleryImage.src) return;
       lightboxImage.src = mainGalleryImage.src;
       lightbox.classList.add("open");
       lightbox.setAttribute("aria-hidden", "false");
     });
+
+    function closeLightbox() {
+      lightbox.classList.remove("open");
+      lightbox.setAttribute("aria-hidden", "true");
+    }
 
     lightboxClose.addEventListener("click", closeLightbox);
     lightbox.addEventListener("click", (e) => {
@@ -562,11 +585,6 @@
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") closeLightbox();
     });
-
-    function closeLightbox() {
-      lightbox.classList.remove("open");
-      lightbox.setAttribute("aria-hidden", "true");
-    }
 
     const favoriteBtn = document.getElementById("favoriteBtn");
     const saveLabel = document.getElementById("saveLabel");
