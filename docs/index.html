@@ -110,9 +110,15 @@
     }
 
     function getCategoryLine(vendor) {
-      const categories = cleanArray(vendor.categories.length ? vendor.categories : vendor.category ? [vendor.category] : []);
-      if (!categories.length) return "";
-      return categories.slice(0, 3).map(formatText).join(" • ");
+      const categories = Array.isArray(vendor.categories) && vendor.categories.length
+        ? vendor.categories
+        : vendor.category
+          ? [vendor.category]
+          : [];
+
+      const cleaned = cleanArray(categories);
+      if (!cleaned.length) return "";
+      return cleaned.slice(0, 3).map(formatText).join(" • ");
     }
 
     function getLocationLine(vendor) {
@@ -236,12 +242,24 @@
         snapshot.forEach((docSnap) => {
           const vendor = docSnap.data();
 
+          const hasLiveProfile =
+            vendor.profileVisible === true && vendor.published === true;
+
+          const hasPaidAccess =
+            vendor.subscriptionActive === true || vendor.paidSetupFee === true;
+
+          const hasComplimentaryAccess =
+            vendor.complimentaryPlan === true;
+
+          const isApprovedAccount =
+            !vendor.accountStatus || vendor.accountStatus === "active";
+
           if (
             vendor &&
             vendor.uid &&
-            vendor.published === true &&
-            vendor.profileVisible === true &&
-            vendor.subscriptionActive === true
+            hasLiveProfile &&
+            isApprovedAccount &&
+            (hasPaidAccess || hasComplimentaryAccess)
           ) {
             liveVendors.push({
               ...vendor,
