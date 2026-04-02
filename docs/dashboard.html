@@ -456,7 +456,7 @@
       </section>
 
       <section class="vd-card">
-        <h2 class="vd-section-title" style="text-align:center;">Status</h2>
+        <h2 class="vd-section-title">Status</h2>
 
         <div class="vd-status-wrap">
           <span class="vd-status-pill" id="accountStatusText">Account status: loading...</span>
@@ -468,7 +468,7 @@
           <label for="profileLive" style="margin:0;">Make my profile live</label>
         </div>
 
-        <p class="vd-help" style="text-align:center;">
+        <p class="vd-help">
           When this is turned on and your subscription is active, your profile will be visible to couples on the hub.
         </p>
       </section>
@@ -496,27 +496,65 @@
             </div>
 
             <div class="vd-field">
-              <label for="instagram">Instagram</label>
-              <input type="text" id="instagram" placeholder="@yourhandle or full link">
+              <label for="website">Website</label>
+              <input type="text" id="website" placeholder="https://yourwebsite.com">
             </div>
 
             <div class="vd-field">
-              <label for="website">Website</label>
-              <input type="text" id="website" placeholder="https://yourwebsite.com">
+              <label for="serviceAreas">Service Areas Summary</label>
+              <input type="text" id="serviceAreas" placeholder="Brisbane, Gold Coast, Sunshine Coast">
             </div>
           </div>
 
           <div class="vd-grid-2" style="margin-top: 14px;">
             <div class="vd-field">
-              <label for="serviceAreas">Service Areas Summary</label>
-              <input type="text" id="serviceAreas" placeholder="Brisbane, Gold Coast, Sunshine Coast">
-            </div>
-
-            <div class="vd-field">
               <label for="displayLocation">Display Location</label>
               <input type="text" id="displayLocation" placeholder="Brisbane, Queensland">
             </div>
+
+            <div class="vd-field">
+              <label for="instagram">Instagram</label>
+              <input type="text" id="instagram" placeholder="@yourhandle or full link">
+            </div>
           </div>
+
+          <div class="vd-grid-3" style="margin-top: 14px;">
+            <div class="vd-field">
+              <label for="facebook">Facebook</label>
+              <input type="text" id="facebook" placeholder="Facebook link">
+            </div>
+
+            <div class="vd-field">
+              <label for="tiktok">TikTok</label>
+              <input type="text" id="tiktok" placeholder="TikTok link">
+            </div>
+
+            <div class="vd-field">
+              <label for="youtube">YouTube</label>
+              <input type="text" id="youtube" placeholder="YouTube link">
+            </div>
+          </div>
+
+          <div class="vd-grid-3" style="margin-top: 14px;">
+            <div class="vd-field">
+              <label for="pinterest">Pinterest</label>
+              <input type="text" id="pinterest" placeholder="Pinterest link">
+            </div>
+
+            <div class="vd-field">
+              <label for="linkedin">LinkedIn</label>
+              <input type="text" id="linkedin" placeholder="LinkedIn link">
+            </div>
+
+            <div class="vd-field">
+              <label for="x">X / Twitter</label>
+              <input type="text" id="x" placeholder="X or Twitter link">
+            </div>
+          </div>
+
+          <p class="vd-help">
+            Leave any social media field empty and it will be hidden from your public profile.
+          </p>
 
           <div class="vd-field" style="margin-top: 14px;">
             <label for="bio">Bio</label>
@@ -677,6 +715,12 @@
     const email = document.getElementById("email");
     const phone = document.getElementById("phone");
     const instagram = document.getElementById("instagram");
+    const facebook = document.getElementById("facebook");
+    const tiktok = document.getElementById("tiktok");
+    const youtube = document.getElementById("youtube");
+    const pinterest = document.getElementById("pinterest");
+    const linkedin = document.getElementById("linkedin");
+    const x = document.getElementById("x");
     const website = document.getElementById("website");
     const serviceAreas = document.getElementById("serviceAreas");
     const displayLocation = document.getElementById("displayLocation");
@@ -720,24 +764,9 @@
     let currentGalleryVideos = [];
 
     const STYLE_TAGS = [
-      "Indoor",
-      "Outdoor",
-      "Luxury",
-      "Modern",
-      "Romantic",
-      "Coastal",
-      "Boho",
-      "Minimal",
-      "Classic",
-      "Editorial",
-      "Garden",
-      "Rustic",
-      "Elegant",
-      "Destination",
-      "Intimate",
-      "Bold",
-      "Timeless",
-      "Whimsical"
+      "Indoor","Outdoor","Luxury","Modern","Romantic","Coastal","Boho","Minimal",
+      "Classic","Editorial","Garden","Rustic","Elegant","Destination","Intimate",
+      "Bold","Timeless","Whimsical"
     ];
 
     const CATEGORY_GROUPS = [
@@ -831,7 +860,7 @@
     function renderStates(selectedStates = []) {
       const selectedCountries = getCheckedValues(countryOptions);
       stateOptions.innerHTML = "";
-      regionOptions.innerHTML = '<p class="vd-small-text">Select states, provinces or territories first.</p>';
+      regionOptions.innerHTML = '<p class="vd-small-text">Select countries first.</p>';
 
       if (!selectedCountries.length) {
         stateOptions.innerHTML = '<p class="vd-small-text">Select countries first.</p>';
@@ -1035,6 +1064,12 @@
       email.value = vendorData.email || currentUser.email || "";
       phone.value = vendorData.phone || "";
       instagram.value = vendorData.instagram || "";
+      facebook.value = vendorData.facebook || "";
+      tiktok.value = vendorData.tiktok || "";
+      youtube.value = vendorData.youtube || "";
+      pinterest.value = vendorData.pinterest || "";
+      linkedin.value = vendorData.linkedin || "";
+      x.value = vendorData.x || vendorData.twitter || "";
       website.value = vendorData.website || "";
       serviceAreas.value = vendorData.serviceAreas || "";
       displayLocation.value = vendorData.displayLocation || "";
@@ -1130,6 +1165,12 @@
           email: email.value.trim().toLowerCase(),
           phone: phone.value.trim(),
           instagram: instagram.value.trim(),
+          facebook: facebook.value.trim(),
+          tiktok: tiktok.value.trim(),
+          youtube: youtube.value.trim(),
+          pinterest: pinterest.value.trim(),
+          linkedin: linkedin.value.trim(),
+          x: x.value.trim(),
           website: website.value.trim(),
           serviceAreas: serviceAreas.value.trim(),
           displayLocation: displayLocation.value.trim(),
