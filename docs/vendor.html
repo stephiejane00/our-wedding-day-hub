@@ -230,41 +230,6 @@
       font-weight: 500;
     }
 
-    .location-box {
-      margin-top: 18px;
-      background: #fcf8f5;
-      border: 1px solid #eee4dc;
-      border-radius: 20px;
-      padding: 18px 20px;
-    }
-
-    .location-label {
-      margin: 0 0 12px;
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: #9a8980;
-      font-weight: 700;
-    }
-
-    .location-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .location-pill {
-      display: inline-flex;
-      align-items: center;
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: #ffffff;
-      border: 1px solid #e7dbd1;
-      color: #4a403a;
-      font-size: 0.95rem;
-      font-weight: 500;
-    }
-
     .section-block {
       margin-top: 28px;
     }
@@ -352,7 +317,7 @@
     }
 
     .sidebar-location h3 {
-      margin: 0 0 8px;
+      margin: 0 0 10px;
       font-size: 0.8rem;
       text-transform: uppercase;
       letter-spacing: 0.12em;
@@ -360,12 +325,22 @@
       font-weight: 700;
     }
 
-    .sidebar-location p {
-      margin: 0;
-      color: #473d38;
-      line-height: 1.7;
-      font-size: 0.98rem;
-      white-space: pre-line;
+    .sidebar-location-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .sidebar-location-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: #ffffff;
+      border: 1px solid #e7dbd1;
+      color: #4a403a;
+      font-size: 0.95rem;
+      font-weight: 500;
     }
 
     .contact-stack {
@@ -521,16 +496,6 @@
           <h1 id="businessName" class="vendor-title">Loading vendor...</h1>
           <div id="vendorCategory" class="category-line"></div>
 
-          <div class="location-box">
-            <p class="location-label">Locations</p>
-            <div id="locationList" class="location-list"></div>
-          </div>
-
-          <div class="section-block">
-            <h2 class="section-title">Business Bio</h2>
-            <p id="vendorBio" class="section-copy"></p>
-          </div>
-
           <div class="section-block">
             <h2 class="section-title">About</h2>
             <p id="vendorAbout" class="section-copy"></p>
@@ -550,7 +515,7 @@
 
         <div class="sidebar-location">
           <h3>Locations</h3>
-          <p id="sidebarLocationText">Location not listed</p>
+          <div id="sidebarLocationList" class="sidebar-location-list"></div>
         </div>
 
         <div class="contact-stack">
@@ -604,15 +569,13 @@
     const businessNameEl = document.getElementById("businessName");
     const sidebarBusinessNameEl = document.getElementById("sidebarBusinessName");
     const vendorCategoryEl = document.getElementById("vendorCategory");
-    const vendorBioEl = document.getElementById("vendorBio");
     const vendorAboutEl = document.getElementById("vendorAbout");
     const sidebarMiniBioEl = document.getElementById("sidebarMiniBio");
     const profilePicEl = document.getElementById("profilePic");
     const websiteBtn = document.getElementById("websiteBtn");
     const instagramBtn = document.getElementById("instagramBtn");
     const emailBtn = document.getElementById("emailBtn");
-    const locationListEl = document.getElementById("locationList");
-    const sidebarLocationTextEl = document.getElementById("sidebarLocationText");
+    const sidebarLocationListEl = document.getElementById("sidebarLocationList");
 
     const mainGalleryImage = document.getElementById("mainGalleryImage");
     const emptyImageMessage = document.getElementById("emptyImageMessage");
@@ -723,25 +686,22 @@
       }
     }
 
-    function renderLocations(locations) {
-      locationListEl.innerHTML = "";
+    function renderSidebarLocations(locations) {
+      sidebarLocationListEl.innerHTML = "";
 
       if (!locations.length) {
         const pill = document.createElement("div");
-        pill.className = "location-pill";
+        pill.className = "sidebar-location-pill";
         pill.textContent = "Location not listed";
-        locationListEl.appendChild(pill);
-        sidebarLocationTextEl.textContent = "Location not listed";
+        sidebarLocationListEl.appendChild(pill);
         return;
       }
 
-      sidebarLocationTextEl.textContent = locations.join(", ");
-
       locations.forEach((location) => {
         const pill = document.createElement("div");
-        pill.className = "location-pill";
+        pill.className = "sidebar-location-pill";
         pill.textContent = location;
-        locationListEl.appendChild(pill);
+        sidebarLocationListEl.appendChild(pill);
       });
     }
 
@@ -814,9 +774,24 @@
       const businessName = firstNonEmpty(vendor.businessName, vendor.name, vendor.vendorName, "Vendor");
       const categoryArray = firstArray(vendor.categories, vendor.category);
       const categoryText = categoryArray.length ? categoryArray.join(", ") : "Vendor";
-      const bioText = firstNonEmpty(vendor.bio, vendor.description, vendor.shortDescription, "");
-      const aboutText = firstNonEmpty(vendor.about, vendor.longDescription, vendor.story, bioText, "");
-      const shortBio = firstNonEmpty(vendor.shortBio, vendor.tagline, vendor.excerpt, bioText, "");
+
+      const aboutText = firstNonEmpty(
+        vendor.about,
+        vendor.longDescription,
+        vendor.story,
+        vendor.bio,
+        vendor.description,
+        vendor.shortDescription,
+        ""
+      );
+
+      const shortBio = firstNonEmpty(
+        vendor.shortBio,
+        vendor.tagline,
+        vendor.excerpt,
+        ""
+      );
+
       const website = normalizeUrl(firstNonEmpty(vendor.website, vendor.websiteUrl, vendor.siteUrl));
       const instagram = normalizeUrl(firstNonEmpty(vendor.instagram, vendor.instagramUrl));
       const email = firstNonEmpty(vendor.email, "");
@@ -826,11 +801,10 @@
       businessNameEl.textContent = businessName;
       sidebarBusinessNameEl.textContent = businessName;
       vendorCategoryEl.textContent = categoryText;
-      vendorBioEl.textContent = bioText || "No business bio added yet.";
       vendorAboutEl.textContent = aboutText || "No extra details added yet.";
-      sidebarMiniBioEl.textContent = shortBio || "This vendor has not added a short intro yet.";
+      sidebarMiniBioEl.textContent = shortBio || "";
 
-      renderLocations(locations);
+      renderSidebarLocations(locations);
       renderGallery(images);
 
       const profileImage = getProfileImage(vendor);
