@@ -11,13 +11,13 @@
       --bg: #fffaf6;
       --card: #ffffff;
       --text: #2f2a26;
-      --muted: #7b6f68;
+      --muted: #7d7169;
       --line: #eadfd6;
       --soft: #e8ddd4;
-      --soft-2: #f7f1ec;
-      --accent: #b98c93;
-      --accent-deep: #9e7078;
-      --shadow: 0 12px 30px rgba(62, 44, 34, 0.06);
+      --soft-2: #f8f3ef;
+      --accent: #b67b8f;
+      --accent-soft: #faf1f4;
+      --shadow: 0 12px 28px rgba(62, 44, 34, 0.06);
       --radius-xl: 28px;
       --radius-lg: 22px;
       --radius-md: 16px;
@@ -56,7 +56,7 @@
       margin: 0;
       color: var(--text);
       text-decoration: none;
-      font-size: 1.05rem;
+      font-size: 1rem;
       font-weight: 500;
       letter-spacing: 0.01em;
       cursor: pointer;
@@ -81,12 +81,12 @@
 
     .hero {
       text-align: center;
-      padding: 8px 20px 14px;
+      padding: 6px 20px 12px;
     }
 
     .header-image {
       width: 100%;
-      max-width: 560px;
+      max-width: 380px;
       height: auto;
       display: block;
       margin: 0 auto;
@@ -94,7 +94,7 @@
 
     .vendor-page {
       max-width: 1240px;
-      margin: 8px auto 60px;
+      margin: 10px auto 60px;
       padding: 0 22px;
     }
 
@@ -121,6 +121,10 @@
       border-radius: 22px;
       background: #f2ebe6;
       border: 1px solid #efe5dc;
+      min-height: 320px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .main-gallery-image {
@@ -131,6 +135,13 @@
       cursor: zoom-in;
     }
 
+    .empty-image {
+      color: var(--muted);
+      font-size: 0.98rem;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
     .thumb-row {
       margin-top: 14px;
       display: flex;
@@ -138,6 +149,10 @@
       overflow-x: auto;
       padding-bottom: 4px;
       scroll-behavior: smooth;
+    }
+
+    .thumb-row:empty {
+      display: none;
     }
 
     .thumb-row::-webkit-scrollbar {
@@ -179,7 +194,7 @@
 
     .vendor-title {
       margin: 0;
-      font-size: 2.1rem;
+      font-size: 2.05rem;
       font-weight: 600;
       line-height: 1.08;
       letter-spacing: -0.02em;
@@ -188,20 +203,18 @@
     .category-line {
       margin-top: 10px;
       color: var(--muted);
-      font-size: 0.98rem;
+      font-size: 0.96rem;
       font-weight: 500;
     }
 
     .location-box {
       margin-top: 18px;
-      background: var(--soft-2);
-      border: 1px solid #eee3da;
-      border-radius: 18px;
-      padding: 16px 18px;
+      padding-top: 14px;
+      border-top: 1px solid #efe4dc;
     }
 
     .location-label {
-      margin: 0 0 8px;
+      margin: 0 0 10px;
       font-size: 0.78rem;
       text-transform: uppercase;
       letter-spacing: 0.12em;
@@ -211,18 +224,24 @@
 
     .location-list {
       display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
+      flex-direction: column;
+      gap: 8px;
     }
 
-    .location-tag {
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: #fff;
-      border: 1px solid #e8dcd2;
+    .location-item {
       color: #4a403a;
-      font-size: 0.95rem;
-      font-weight: 500;
+      font-size: 0.98rem;
+      line-height: 1.5;
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .location-item::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: #c19aa2;
     }
 
     .section-block {
@@ -231,7 +250,7 @@
 
     .section-title {
       margin: 0 0 10px;
-      font-size: 1.05rem;
+      font-size: 1.03rem;
       font-weight: 700;
       letter-spacing: 0.01em;
       color: #6f5c54;
@@ -242,6 +261,7 @@
       line-height: 1.8;
       font-size: 1rem;
       color: #463d38;
+      white-space: pre-line;
     }
 
     .sidebar-card {
@@ -285,11 +305,11 @@
 
     .favorite-btn {
       width: 100%;
-      border: 1px solid #e3d3d5;
+      border: 1px solid #ead7dd;
       background: #fff;
-      color: var(--accent-deep);
-      border-radius: var(--radius-pill);
-      padding: 14px 18px;
+      color: #7e5a67;
+      border-radius: 18px;
+      padding: 15px 18px;
       font-size: 1rem;
       font-weight: 600;
       font-family: inherit;
@@ -299,19 +319,19 @@
     }
 
     .favorite-btn:hover {
-      background: #fbf4f5;
+      background: #fcf7f9;
     }
 
     .favorite-btn.saved {
-      background: #faf1f3;
-      border-color: #dcb6bf;
+      background: var(--accent-soft);
+      border-color: #ddb8c4;
       color: #b06176;
     }
 
     .sidebar-location {
       text-align: left;
       background: var(--soft-2);
-      border: 1px solid #eee3da;
+      border: 1px solid #e7dbd1;
       border-radius: 18px;
       padding: 16px;
       margin-bottom: 16px;
@@ -331,6 +351,7 @@
       color: #473d38;
       line-height: 1.7;
       font-size: 0.98rem;
+      white-space: pre-line;
     }
 
     .contact-stack {
@@ -355,6 +376,13 @@
 
     .stack-btn:hover {
       background: #f0e5dc;
+    }
+
+    .status-message {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      text-align: center;
     }
 
     .lightbox {
@@ -422,7 +450,7 @@
       }
 
       .header-image {
-        max-width: 420px;
+        max-width: 320px;
       }
 
       .main-gallery-image {
@@ -465,14 +493,15 @@
       <section>
         <div class="card gallery-card">
           <div class="main-image-wrap">
-            <img id="mainGalleryImage" class="main-gallery-image" src="" alt="Vendor gallery image">
+            <img id="mainGalleryImage" class="main-gallery-image" src="" alt="Vendor gallery image" style="display:none;">
+            <div id="emptyImageMessage" class="empty-image">No gallery images yet.</div>
           </div>
           <div id="thumbRow" class="thumb-row"></div>
         </div>
 
         <div class="card content-card">
-          <h1 id="businessName" class="vendor-title">Business Name</h1>
-          <div id="vendorCategory" class="category-line">Category</div>
+          <h1 id="businessName" class="vendor-title">Vendor</h1>
+          <div id="vendorCategory" class="category-line"></div>
 
           <div class="location-box">
             <p class="location-label">Locations</p>
@@ -481,12 +510,12 @@
 
           <div class="section-block">
             <h2 class="section-title">Business Bio</h2>
-            <p id="vendorBio" class="section-copy">Vendor bio will go here.</p>
+            <p id="vendorBio" class="section-copy"></p>
           </div>
 
           <div class="section-block">
             <h2 class="section-title">About</h2>
-            <p id="vendorAbout" class="section-copy">More details about this vendor will go here.</p>
+            <p id="vendorAbout" class="section-copy"></p>
           </div>
         </div>
       </section>
@@ -496,14 +525,14 @@
           <img id="profilePic" class="profile-pic" src="" alt="Vendor profile picture">
         </div>
 
-        <h2 id="sidebarBusinessName" class="sidebar-name">Business Name</h2>
-        <p id="sidebarMiniBio" class="sidebar-sub">A short intro goes here.</p>
+        <h2 id="sidebarBusinessName" class="sidebar-name">Vendor</h2>
+        <p id="sidebarMiniBio" class="sidebar-sub"></p>
 
         <button id="favoriteBtn" class="favorite-btn" type="button">♡ Save to favourites</button>
 
         <div class="sidebar-location">
           <h3>Locations</h3>
-          <p id="sidebarLocationText">Location goes here</p>
+          <p id="sidebarLocationText">Location not listed</p>
         </div>
 
         <div class="contact-stack">
@@ -511,6 +540,8 @@
           <a href="#" id="instagramBtn" class="stack-btn" target="_blank" rel="noopener noreferrer">Instagram</a>
           <a href="#" id="emailBtn" class="stack-btn">Contact Vendor</a>
         </div>
+
+        <div id="statusMessage" class="status-message"></div>
       </aside>
     </div>
   </main>
@@ -527,81 +558,306 @@
   </div>
 
   <script type="module">
-    import { auth } from "./firebase-config.js";
+    import { auth, db } from "./firebase-config.js";
     import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
     const params = new URLSearchParams(window.location.search);
-    const vendorId = params.get("id") || "demo-vendor";
+    const vendorId = params.get("id");
 
-    const demoVendor = {
-      businessName: "Kaity Kissed Nails & Designs",
-      category: "Beauty",
-      locations: ["Brisbane", "Moreton Bay", "Sunshine Coast"],
-      bio: "Elegant bridal nail artistry created with a soft, polished touch for weddings, elopements and special celebrations.",
-      about: "Kaity creates beautiful nail designs for brides and bridal parties with a calm, caring experience from start to finish. Her style is polished, feminine and designed to feel timeless in your photos.",
-      shortBio: "Soft, elegant bridal beauty with a polished, feminine feel.",
-      email: "hello@ourweddingdayhub.com",
-      instagram: "https://www.instagram.com/",
-      website: "https://www.ourweddingdayhub.com",
-      profilePic: "images/kaity-profile.jpg",
-      gallery: [
-        "images/kaity1.jpg",
-        "images/kaity2.jpg",
-        "images/kaity3.jpg",
-        "images/kaity4.jpg"
-      ]
-    };
+    const joinLink = document.getElementById("joinLink");
+    const loginLink = document.getElementById("loginLink");
+    const dashboardLink = document.getElementById("dashboardLink");
+    const logoutLink = document.getElementById("logoutLink");
+    const statusMessage = document.getElementById("statusMessage");
 
-    document.getElementById("businessName").textContent = demoVendor.businessName;
-    document.getElementById("sidebarBusinessName").textContent = demoVendor.businessName;
-    document.getElementById("vendorCategory").textContent = demoVendor.category;
-    document.getElementById("vendorBio").textContent = demoVendor.bio;
-    document.getElementById("vendorAbout").textContent = demoVendor.about;
-    document.getElementById("sidebarMiniBio").textContent = demoVendor.shortBio;
-    document.getElementById("profilePic").src = demoVendor.profilePic;
-    document.getElementById("websiteBtn").href = demoVendor.website;
-    document.getElementById("instagramBtn").href = demoVendor.instagram;
-    document.getElementById("emailBtn").href = "mailto:" + demoVendor.email;
-
-    const locationList = document.getElementById("locationList");
-    const sidebarLocationText = document.getElementById("sidebarLocationText");
-    const locations = Array.isArray(demoVendor.locations) ? demoVendor.locations : [];
-
-    sidebarLocationText.textContent = locations.length ? locations.join(", ") : "Location not listed";
-
-    locations.forEach((location) => {
-      const tag = document.createElement("span");
-      tag.className = "location-tag";
-      tag.textContent = location;
-      locationList.appendChild(tag);
-    });
+    const businessNameEl = document.getElementById("businessName");
+    const sidebarBusinessNameEl = document.getElementById("sidebarBusinessName");
+    const vendorCategoryEl = document.getElementById("vendorCategory");
+    const vendorBioEl = document.getElementById("vendorBio");
+    const vendorAboutEl = document.getElementById("vendorAbout");
+    const sidebarMiniBioEl = document.getElementById("sidebarMiniBio");
+    const profilePicEl = document.getElementById("profilePic");
+    const websiteBtn = document.getElementById("websiteBtn");
+    const instagramBtn = document.getElementById("instagramBtn");
+    const emailBtn = document.getElementById("emailBtn");
+    const locationListEl = document.getElementById("locationList");
+    const sidebarLocationTextEl = document.getElementById("sidebarLocationText");
 
     const mainGalleryImage = document.getElementById("mainGalleryImage");
+    const emptyImageMessage = document.getElementById("emptyImageMessage");
     const thumbRow = document.getElementById("thumbRow");
 
+    const favoriteBtn = document.getElementById("favoriteBtn");
+    const favoritesKey = "favoriteVendors";
+
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImage = document.getElementById("lightboxImage");
+    const lightboxClose = document.getElementById("lightboxClose");
+
+    let currentVendor = null;
+    let galleryImages = [];
+
+    function textOrFallback(value, fallback = "") {
+      if (typeof value === "string" && value.trim()) return value.trim();
+      return fallback;
+    }
+
+    function arrayFromValue(value) {
+      if (Array.isArray(value)) {
+        return value.filter(item => typeof item === "string" && item.trim());
+      }
+      if (typeof value === "string" && value.trim()) {
+        return [value.trim()];
+      }
+      return [];
+    }
+
+    function firstNonEmpty(...values) {
+      for (const value of values) {
+        if (typeof value === "string" && value.trim()) return value.trim();
+      }
+      return "";
+    }
+
+    function firstArray(...values) {
+      for (const value of values) {
+        const arr = arrayFromValue(value);
+        if (arr.length) return arr;
+      }
+      return [];
+    }
+
+    function normalizeUrl(url) {
+      const clean = textOrFallback(url);
+      if (!clean) return "";
+      if (clean.startsWith("http://") || clean.startsWith("https://") || clean.startsWith("mailto:")) {
+        return clean;
+      }
+      return "https://" + clean;
+    }
+
+    function getLocations(vendor) {
+      return firstArray(
+        vendor.locations,
+        vendor.regions,
+        vendor.location,
+        vendor.serviceAreas,
+        vendor.serviceArea,
+        vendor.suburbs
+      );
+    }
+
+    function getGallery(vendor) {
+      const combined = [
+        ...firstArray(vendor.gallery, vendor.galleryImages, vendor.images, vendor.photos, vendor.portfolioImages),
+        firstNonEmpty(vendor.coverImage, vendor.coverPhoto, vendor.heroImage, vendor.bannerImage),
+        firstNonEmpty(vendor.profileImage, vendor.profilePic, vendor.logoUrl, vendor.photoURL)
+      ];
+
+      return [...new Set(combined.filter(Boolean))];
+    }
+
+    function getProfileImage(vendor) {
+      return firstNonEmpty(
+        vendor.profileImage,
+        vendor.profilePic,
+        vendor.logoUrl,
+        vendor.photoURL,
+        vendor.coverImage,
+        vendor.coverPhoto,
+        galleryImages[0]
+      );
+    }
+
+    function setLinkOrHide(element, url, label) {
+      if (url) {
+        element.href = url;
+        element.style.display = "block";
+        element.textContent = label;
+      } else {
+        element.style.display = "none";
+      }
+    }
+
+    function renderLocations(locations) {
+      locationListEl.innerHTML = "";
+
+      if (!locations.length) {
+        const item = document.createElement("div");
+        item.className = "location-item";
+        item.textContent = "Location not listed";
+        locationListEl.appendChild(item);
+        sidebarLocationTextEl.textContent = "Location not listed";
+        return;
+      }
+
+      sidebarLocationTextEl.textContent = locations.join(", ");
+
+      locations.forEach((location) => {
+        const item = document.createElement("div");
+        item.className = "location-item";
+        item.textContent = location;
+        locationListEl.appendChild(item);
+      });
+    }
+
     function setActiveImage(index) {
-      mainGalleryImage.src = demoVendor.gallery[index];
+      if (!galleryImages.length || !galleryImages[index]) return;
+
+      mainGalleryImage.src = galleryImages[index];
+      mainGalleryImage.style.display = "block";
+      emptyImageMessage.style.display = "none";
+
       document.querySelectorAll(".thumb-btn").forEach((btn, i) => {
         btn.classList.toggle("active", i === index);
       });
     }
 
-    demoVendor.gallery.forEach((img, index) => {
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "thumb-btn" + (index === 0 ? " active" : "");
-      btn.innerHTML = `<img src="${img}" alt="Gallery thumbnail ${index + 1}">`;
-      btn.addEventListener("click", () => setActiveImage(index));
-      thumbRow.appendChild(btn);
-    });
+    function renderGallery(images) {
+      galleryImages = images;
+      thumbRow.innerHTML = "";
 
-    if (demoVendor.gallery.length) {
-      mainGalleryImage.src = demoVendor.gallery[0];
+      if (!images.length) {
+        mainGalleryImage.removeAttribute("src");
+        mainGalleryImage.style.display = "none";
+        emptyImageMessage.style.display = "block";
+        return;
+      }
+
+      setActiveImage(0);
+
+      images.forEach((img, index) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "thumb-btn" + (index === 0 ? " active" : "");
+        btn.innerHTML = `<img src="${img}" alt="Gallery thumbnail ${index + 1}">`;
+        btn.addEventListener("click", () => setActiveImage(index));
+        thumbRow.appendChild(btn);
+      });
     }
 
-    const lightbox = document.getElementById("lightbox");
-    const lightboxImage = document.getElementById("lightboxImage");
-    const lightboxClose = document.getElementById("lightboxClose");
+    function renderVendor(vendor) {
+      currentVendor = vendor;
+
+      const businessName = firstNonEmpty(vendor.businessName, vendor.name, vendor.vendorName, "Vendor");
+      const categoryArray = firstArray(vendor.categories, vendor.category);
+      const categoryText = categoryArray.length ? categoryArray.join(", ") : "Vendor";
+      const bioText = firstNonEmpty(vendor.bio, vendor.description, vendor.shortDescription, "");
+      const aboutText = firstNonEmpty(vendor.about, vendor.longDescription, vendor.story, bioText, "");
+      const shortBio = firstNonEmpty(vendor.shortBio, vendor.tagline, vendor.excerpt, bioText, "");
+      const website = normalizeUrl(firstNonEmpty(vendor.website, vendor.websiteUrl, vendor.siteUrl));
+      const instagram = normalizeUrl(firstNonEmpty(vendor.instagram, vendor.instagramUrl));
+      const email = firstNonEmpty(vendor.email, "");
+      const locations = getLocations(vendor);
+      const images = getGallery(vendor);
+      const profileImage = getProfileImage(vendor);
+
+      businessNameEl.textContent = businessName;
+      sidebarBusinessNameEl.textContent = businessName;
+      vendorCategoryEl.textContent = categoryText;
+      vendorBioEl.textContent = bioText || "No business bio added yet.";
+      vendorAboutEl.textContent = aboutText || "No extra details added yet.";
+      sidebarMiniBioEl.textContent = shortBio || "This vendor has not added a short intro yet.";
+
+      if (profileImage) {
+        profilePicEl.src = profileImage;
+      }
+
+      setLinkOrHide(websiteBtn, website, "Website");
+      setLinkOrHide(instagramBtn, instagram, "Instagram");
+
+      if (email) {
+        emailBtn.href = "mailto:" + email;
+        emailBtn.style.display = "block";
+      } else {
+        emailBtn.style.display = "none";
+      }
+
+      renderLocations(locations);
+      renderGallery(images);
+      updateFavoriteButton();
+    }
+
+    async function loadVendor() {
+      if (!vendorId) {
+        statusMessage.textContent = "No vendor selected.";
+        return;
+      }
+
+      try {
+        const vendorRef = doc(db, "vendors", vendorId);
+        const vendorSnap = await getDoc(vendorRef);
+
+        if (!vendorSnap.exists()) {
+          statusMessage.textContent = "Vendor not found.";
+          return;
+        }
+
+        const vendorData = vendorSnap.data();
+        renderVendor(vendorData);
+      } catch (error) {
+        console.error("Error loading vendor:", error);
+        statusMessage.textContent = "Could not load this vendor right now.";
+      }
+    }
+
+    function getFavorites() {
+      return JSON.parse(localStorage.getItem(favoritesKey)) || [];
+    }
+
+    function saveFavorites(favorites) {
+      localStorage.setItem(favoritesKey, JSON.stringify(favorites));
+    }
+
+    function updateFavoriteButton() {
+      const favorites = getFavorites();
+      const saved = vendorId && favorites.includes(vendorId);
+
+      if (saved) {
+        favoriteBtn.classList.add("saved");
+        favoriteBtn.textContent = "♥ Saved to favourites";
+      } else {
+        favoriteBtn.classList.remove("saved");
+        favoriteBtn.textContent = "♡ Save to favourites";
+      }
+    }
+
+    favoriteBtn.addEventListener("click", () => {
+      if (!vendorId) return;
+
+      let favorites = getFavorites();
+
+      if (favorites.includes(vendorId)) {
+        favorites = favorites.filter((id) => id !== vendorId);
+      } else {
+        favorites.push(vendorId);
+      }
+
+      saveFavorites(favorites);
+      updateFavoriteButton();
+    });
+
+    function updateAuthUI(user) {
+      const loggedIn = !!user;
+      joinLink.style.display = loggedIn ? "none" : "inline-flex";
+      loginLink.style.display = loggedIn ? "none" : "inline-block";
+      dashboardLink.style.display = loggedIn ? "inline-block" : "none";
+      logoutLink.style.display = loggedIn ? "inline-block" : "none";
+    }
+
+    onAuthStateChanged(auth, (user) => {
+      updateAuthUI(user);
+    });
+
+    logoutLink.addEventListener("click", async () => {
+      try {
+        await signOut(auth);
+        window.location.href = "index.html";
+      } catch (error) {
+        console.error("Logout failed:", error);
+      }
+    });
 
     mainGalleryImage.addEventListener("click", () => {
       if (!mainGalleryImage.src) return;
@@ -624,70 +880,8 @@
       if (e.key === "Escape") closeLightbox();
     });
 
-    const favoriteBtn = document.getElementById("favoriteBtn");
-    const favoritesKey = "favoriteVendors";
-
-    function getFavorites() {
-      return JSON.parse(localStorage.getItem(favoritesKey)) || [];
-    }
-
-    function saveFavorites(favorites) {
-      localStorage.setItem(favoritesKey, JSON.stringify(favorites));
-    }
-
-    function updateFavoriteButton() {
-      const favorites = getFavorites();
-      const saved = favorites.includes(vendorId);
-
-      if (saved) {
-        favoriteBtn.classList.add("saved");
-        favoriteBtn.textContent = "♥ Saved to favourites";
-      } else {
-        favoriteBtn.classList.remove("saved");
-        favoriteBtn.textContent = "♡ Save to favourites";
-      }
-    }
-
-    favoriteBtn.addEventListener("click", () => {
-      let favorites = getFavorites();
-
-      if (favorites.includes(vendorId)) {
-        favorites = favorites.filter((id) => id !== vendorId);
-      } else {
-        favorites.push(vendorId);
-      }
-
-      saveFavorites(favorites);
-      updateFavoriteButton();
-    });
-
+    loadVendor();
     updateFavoriteButton();
-
-    const joinLink = document.getElementById("joinLink");
-    const loginLink = document.getElementById("loginLink");
-    const dashboardLink = document.getElementById("dashboardLink");
-    const logoutLink = document.getElementById("logoutLink");
-
-    function updateAuthUI(user) {
-      const loggedIn = !!user;
-      joinLink.style.display = loggedIn ? "none" : "inline-flex";
-      loginLink.style.display = loggedIn ? "none" : "inline-block";
-      dashboardLink.style.display = loggedIn ? "inline-block" : "none";
-      logoutLink.style.display = loggedIn ? "inline-block" : "none";
-    }
-
-    onAuthStateChanged(auth, (user) => {
-      updateAuthUI(user);
-    });
-
-    logoutLink.addEventListener("click", async () => {
-      try {
-        await signOut(auth);
-        window.location.href = "index.html";
-      } catch (error) {
-        console.error("Logout failed:", error);
-      }
-    });
   </script>
 </body>
 </html>
