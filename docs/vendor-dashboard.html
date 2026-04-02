@@ -623,7 +623,6 @@
     const videoPreview = document.getElementById("videoPreview");
 
     let currentUser = null;
-    let currentVendorData = null;
 
     const STYLE_TAGS = [
       "Indoor",
@@ -647,158 +646,22 @@
     ];
 
     const CATEGORY_GROUPS = [
-      {
-        title: "Photo & Video",
-        items: [
-          ["wedding_photographer", "Photographer"],
-          ["wedding_videographer", "Videographer"],
-          ["wedding_content_creator", "Content Creator"]
-        ]
-      },
-      {
-        title: "Hair & Beauty",
-        items: [
-          ["wedding_makeup_artist", "Makeup Artist"],
-          ["wedding_hair_stylist", "Hair Stylist"],
-          ["beauty_salon", "Beauty Salon"],
-          ["spray_tan", "Spray Tanning"],
-          ["skin_aesthetics", "Skin & Aesthetics"]
-        ]
-      },
-      {
-        title: "Entertainment",
-        items: [
-          ["wedding_singer", "Singer"],
-          ["wedding_band", "Band"],
-          ["wedding_dj", "DJ"],
-          ["acoustic_musician", "Acoustic Musician"],
-          ["violinist", "Violinist"],
-          ["saxophonist", "Saxophonist"],
-          ["harpist", "Harpist"],
-          ["wedding_mc", "MC"]
-        ]
-      },
-      {
-        title: "Styling & Florals",
-        items: [
-          ["wedding_florist", "Florist"],
-          ["wedding_stylist", "Wedding Stylist"],
-          ["event_designer", "Event Designer"],
-          ["balloon_stylist", "Balloon Stylist"],
-          ["backdrops_arches", "Backdrops & Arches"]
-        ]
-      },
-      {
-        title: "Food & Drink",
-        items: [
-          ["wedding_caterer", "Caterer"],
-          ["wedding_cake_designer", "Wedding Cake Designer"],
-          ["dessert_bar", "Dessert Bar"],
-          ["mobile_bar", "Mobile Bar"],
-          ["coffee_cart", "Coffee Cart"],
-          ["food_truck", "Food Truck"]
-        ]
-      },
-      {
-        title: "Venues",
-        items: [
-          ["wedding_venue", "Wedding Venue"],
-          ["ceremony_venue", "Ceremony Venue"],
-          ["reception_venue", "Reception Venue"],
-          ["elopement_location", "Elopement Location"],
-          ["outdoor_venue", "Outdoor Venue"],
-          ["church_ceremony_venue", "Church / Ceremony Venue"]
-        ]
-      },
-      {
-        title: "Stationery & Signage",
-        items: [
-          ["wedding_invitations", "Invitations"],
-          ["wedding_stationery", "Wedding Stationery"],
-          ["wedding_signage", "Signage"],
-          ["calligraphy", "Calligraphy"]
-        ]
-      },
-      {
-        title: "Fashion",
-        items: [
-          ["bridal_boutique", "Bridal Boutique"],
-          ["bridesmaid_dresses", "Bridesmaid Dresses"],
-          ["formal_wear", "Formal Wear"],
-          ["suit_hire", "Suit Hire"],
-          ["custom_designer", "Custom Designer"],
-          ["wedding_dress_alterations", "Wedding Dress Alterations"]
-        ]
-      },
-      {
-        title: "Jewellery",
-        items: [
-          ["wedding_rings", "Wedding Rings"],
-          ["engagement_rings", "Engagement Rings"],
-          ["custom_jewellery", "Custom Jewellery"]
-        ]
-      },
-      {
-        title: "Transport",
-        items: [
-          ["wedding_cars", "Wedding Cars"],
-          ["luxury_cars", "Luxury Cars"],
-          ["vintage_cars", "Vintage Cars"],
-          ["limousine", "Limousine"],
-          ["guest_transport", "Guest Transport"]
-        ]
-      },
-      {
-        title: "Experiences & Unique Services",
-        items: [
-          ["live_wedding_painter", "Live Wedding Painter"],
-          ["photo_booth", "Photo Booth"],
-          ["audio_guestbook", "Audio Guestbook"],
-          ["wedding_content_creator", "Wedding Content Creator"]
-        ]
-      },
-      {
-        title: "Ceremony Services",
-        items: [
-          ["wedding_celebrant", "Celebrant"]
-        ]
-      },
-      {
-        title: "Planning & Support",
-        items: [
-          ["wedding_planner", "Wedding Planner"],
-          ["wedding_coordinator", "Wedding Coordinator"],
-          ["on_the_day_coordinator", "On-the-day Coordinator"],
-          ["honeymoon_planner", "Honeymoon Planner"]
-        ]
-      },
-      {
-        title: "Care Services",
-        items: [
-          ["pet_attendant", "Pet Attendant"],
-          ["child_minder_wedding_nanny", "Child Minder / Wedding Nanny"]
-        ]
-      },
-      {
-        title: "Hire & Rentals",
-        items: [
-          ["furniture_hire", "Furniture Hire"],
-          ["decor_hire", "Decor Hire"],
-          ["tableware_hire", "Tableware Hire"],
-          ["lighting_hire", "Lighting Hire"],
-          ["marquee_hire", "Marquee Hire"],
-          ["styling_hire", "Styling Hire"],
-          ["dance_floor_hire", "Dance Floor Hire"]
-        ]
-      },
-      {
-        title: "Gifts & Favours",
-        items: [
-          ["wedding_favours", "Wedding Favours"],
-          ["personalised_gifts", "Personalised Gifts"],
-          ["hampers", "Hampers"]
-        ]
-      }
+      { title: "Photo & Video", items: [["wedding_photographer","Photographer"],["wedding_videographer","Videographer"],["wedding_content_creator","Content Creator"]] },
+      { title: "Hair & Beauty", items: [["wedding_makeup_artist","Makeup Artist"],["wedding_hair_stylist","Hair Stylist"],["beauty_salon","Beauty Salon"],["spray_tan","Spray Tanning"],["skin_aesthetics","Skin & Aesthetics"]] },
+      { title: "Entertainment", items: [["wedding_singer","Singer"],["wedding_band","Band"],["wedding_dj","DJ"],["acoustic_musician","Acoustic Musician"],["violinist","Violinist"],["saxophonist","Saxophonist"],["harpist","Harpist"],["wedding_mc","MC"]] },
+      { title: "Styling & Florals", items: [["wedding_florist","Florist"],["wedding_stylist","Wedding Stylist"],["event_designer","Event Designer"],["balloon_stylist","Balloon Stylist"],["backdrops_arches","Backdrops & Arches"]] },
+      { title: "Food & Drink", items: [["wedding_caterer","Caterer"],["wedding_cake_designer","Wedding Cake Designer"],["dessert_bar","Dessert Bar"],["mobile_bar","Mobile Bar"],["coffee_cart","Coffee Cart"],["food_truck","Food Truck"]] },
+      { title: "Venues", items: [["wedding_venue","Wedding Venue"],["ceremony_venue","Ceremony Venue"],["reception_venue","Reception Venue"],["elopement_location","Elopement Location"],["outdoor_venue","Outdoor Venue"],["church_ceremony_venue","Church / Ceremony Venue"]] },
+      { title: "Stationery & Signage", items: [["wedding_invitations","Invitations"],["wedding_stationery","Wedding Stationery"],["wedding_signage","Signage"],["calligraphy","Calligraphy"]] },
+      { title: "Fashion", items: [["bridal_boutique","Bridal Boutique"],["bridesmaid_dresses","Bridesmaid Dresses"],["formal_wear","Formal Wear"],["suit_hire","Suit Hire"],["custom_designer","Custom Designer"],["wedding_dress_alterations","Wedding Dress Alterations"]] },
+      { title: "Jewellery", items: [["wedding_rings","Wedding Rings"],["engagement_rings","Engagement Rings"],["custom_jewellery","Custom Jewellery"]] },
+      { title: "Transport", items: [["wedding_cars","Wedding Cars"],["luxury_cars","Luxury Cars"],["vintage_cars","Vintage Cars"],["limousine","Limousine"],["guest_transport","Guest Transport"]] },
+      { title: "Experiences & Unique Services", items: [["live_wedding_painter","Live Wedding Painter"],["photo_booth","Photo Booth"],["audio_guestbook","Audio Guestbook"],["wedding_content_creator","Wedding Content Creator"]] },
+      { title: "Ceremony Services", items: [["wedding_celebrant","Celebrant"]] },
+      { title: "Planning & Support", items: [["wedding_planner","Wedding Planner"],["wedding_coordinator","Wedding Coordinator"],["on_the_day_coordinator","On-the-day Coordinator"],["honeymoon_planner","Honeymoon Planner"]] },
+      { title: "Care Services", items: [["pet_attendant","Pet Attendant"],["child_minder_wedding_nanny","Child Minder / Wedding Nanny"]] },
+      { title: "Hire & Rentals", items: [["furniture_hire","Furniture Hire"],["decor_hire","Decor Hire"],["tableware_hire","Tableware Hire"],["lighting_hire","Lighting Hire"],["marquee_hire","Marquee Hire"],["styling_hire","Styling Hire"],["dance_floor_hire","Dance Floor Hire"]] },
+      { title: "Gifts & Favours", items: [["wedding_favours","Wedding Favours"],["personalised_gifts","Personalised Gifts"],["hampers","Hampers"]] }
     ];
 
     function getCheckedValues(container) {
@@ -826,15 +689,12 @@
     function renderStyleTags(selected = []) {
       styleTagOptions.innerHTML = "";
       STYLE_TAGS.forEach(tag => {
-        styleTagOptions.appendChild(
-          createPillCheckbox(tag, tag, selected.includes(tag), "styleTags")
-        );
+        styleTagOptions.appendChild(createPillCheckbox(tag, tag, selected.includes(tag), "styleTags"));
       });
     }
 
     function renderCategoryOptions(selected = []) {
       categoryOptions.innerHTML = "";
-
       CATEGORY_GROUPS.forEach(group => {
         const heading = document.createElement("div");
         heading.className = "category-group-title";
@@ -842,9 +702,7 @@
         categoryOptions.appendChild(heading);
 
         group.items.forEach(([value, label]) => {
-          categoryOptions.appendChild(
-            createPillCheckbox(value, label, selected.includes(value), "categories")
-          );
+          categoryOptions.appendChild(createPillCheckbox(value, label, selected.includes(value), "categories"));
         });
       });
     }
@@ -859,9 +717,7 @@
       }
 
       countries.forEach(country => {
-        countryOptions.appendChild(
-          createPillCheckbox(country, country, selectedCountries.includes(country), "countries")
-        );
+        countryOptions.appendChild(createPillCheckbox(country, country, selectedCountries.includes(country), "countries"));
       });
 
       countryOptions.querySelectorAll("input").forEach(input => {
@@ -895,9 +751,7 @@
 
         Object.keys(countryData).sort((a, b) => a.localeCompare(b)).forEach(state => {
           hasStates = true;
-          stateOptions.appendChild(
-            createPillCheckbox(state, state, selectedStates.includes(state), "states")
-          );
+          stateOptions.appendChild(createPillCheckbox(state, state, selectedStates.includes(state), "states"));
         });
       });
 
@@ -942,9 +796,7 @@
           regionOptions.appendChild(heading);
 
           regions.forEach(region => {
-            regionOptions.appendChild(
-              createPillCheckbox(region, region, previouslyChecked.includes(region), "regions")
-            );
+            regionOptions.appendChild(createPillCheckbox(region, region, previouslyChecked.includes(region), "regions"));
           });
         });
       });
@@ -1023,9 +875,7 @@
       const imageList = getImageList();
 
       imageList.slice(0, 12).forEach(imgUrl => {
-        imagePreview.appendChild(
-          buildMediaCard("image", imgUrl, () => removeImageUrl(imgUrl))
-        );
+        imagePreview.appendChild(buildMediaCard("image", imgUrl, () => removeImageUrl(imgUrl)));
       });
     }
 
@@ -1034,9 +884,7 @@
       const links = getVideoList();
 
       links.slice(0, 8).forEach(url => {
-        videoPreview.appendChild(
-          buildMediaCard("video", url, () => removeVideoUrl(url))
-        );
+        videoPreview.appendChild(buildMediaCard("video", url, () => removeVideoUrl(url)));
       });
     }
 
@@ -1116,43 +964,42 @@
 
       const vendorRef = doc(db, "vendors", uid);
       const vendorSnap = await getDoc(vendorRef);
+      const vendorData = vendorSnap.exists() ? vendorSnap.data() : {};
 
-      currentVendorData = vendorSnap.exists() ? vendorSnap.data() : {};
+      businessName.value = vendorData.businessName || "";
+      email.value = vendorData.email || currentUser.email || "";
+      phone.value = vendorData.phone || "";
+      instagram.value = vendorData.instagram || "";
+      website.value = vendorData.website || "";
+      serviceAreas.value = vendorData.serviceAreas || "";
+      displayLocation.value = vendorData.displayLocation || "";
+      bio.value = vendorData.bio || "";
 
-      businessName.value = currentVendorData.businessName || "";
-      email.value = currentVendorData.email || currentUser.email || "";
-      phone.value = currentVendorData.phone || "";
-      instagram.value = currentVendorData.instagram || "";
-      website.value = currentVendorData.website || "";
-      serviceAreas.value = currentVendorData.serviceAreas || "";
-      displayLocation.value = currentVendorData.displayLocation || "";
-      bio.value = currentVendorData.bio || "";
+      profileImageUrl.value = vendorData.profileImageUrl || "";
+      logoUrl.value = vendorData.logoUrl || "";
+      coverImageUrl.value = vendorData.coverImageUrl || "";
+      images.value = Array.isArray(vendorData.images) ? vendorData.images.join("\n") : "";
+      videoLinks.value = Array.isArray(vendorData.videos) ? vendorData.videos.join("\n") : "";
 
-      profileImageUrl.value = currentVendorData.profileImageUrl || "";
-      logoUrl.value = currentVendorData.logoUrl || "";
-      coverImageUrl.value = currentVendorData.coverImageUrl || "";
-      images.value = Array.isArray(currentVendorData.images) ? currentVendorData.images.join("\n") : "";
-      videoLinks.value = Array.isArray(currentVendorData.videos) ? currentVendorData.videos.join("\n") : "";
+      profileVisible.checked = vendorData.profileVisible === true;
+      published.checked = vendorData.published === true;
 
-      profileVisible.checked = currentVendorData.profileVisible === true;
-      published.checked = currentVendorData.published === true;
+      accountStatusText.textContent = `Account status: ${vendorData.accountStatus || "active"}`;
+      subscriptionStatusText.textContent = `Subscription: ${vendorData.subscriptionActive === true ? "active" : "inactive"}`;
 
-      accountStatusText.textContent = `Account status: ${currentVendorData.accountStatus || "active"}`;
-      subscriptionStatusText.textContent = `Subscription: ${currentVendorData.subscriptionActive === true ? "active" : "inactive"}`;
-
-      renderStyleTags(Array.isArray(currentVendorData.styleTags) ? currentVendorData.styleTags : []);
-      renderCategoryOptions(Array.isArray(currentVendorData.categories) ? currentVendorData.categories : []);
+      renderStyleTags(Array.isArray(vendorData.styleTags) ? vendorData.styleTags : []);
+      renderCategoryOptions(Array.isArray(vendorData.categories) ? vendorData.categories : []);
 
       const selectedCountries =
-        Array.isArray(currentVendorData.countries) && currentVendorData.countries.length
-          ? currentVendorData.countries
-          : currentVendorData.country
-            ? [currentVendorData.country]
+        Array.isArray(vendorData.countries) && vendorData.countries.length
+          ? vendorData.countries
+          : vendorData.country
+            ? [vendorData.country]
             : ["Australia"];
 
       renderCountries(selectedCountries);
-      renderStates(Array.isArray(currentVendorData.states) ? currentVendorData.states : []);
-      renderRegions(Array.isArray(currentVendorData.regions) ? currentVendorData.regions : []);
+      renderStates(Array.isArray(vendorData.states) ? vendorData.states : []);
+      renderRegions(Array.isArray(vendorData.regions) ? vendorData.regions : []);
 
       viewProfileBtn.href = `vendor.html?id=${uid}`;
 
@@ -1178,30 +1025,15 @@
         let finalLogoUrl = logoUrl.value.trim();
         let finalCoverImageUrl = coverImageUrl.value.trim();
 
-        let galleryImages = images.value
-          .split("\n")
-          .map(line => line.trim())
-          .filter(Boolean);
-
-        let galleryVideos = videoLinks.value
-          .split("\n")
-          .map(line => line.trim())
-          .filter(Boolean);
+        let galleryImages = images.value.split("\n").map(line => line.trim()).filter(Boolean);
+        let galleryVideos = videoLinks.value.split("\n").map(line => line.trim()).filter(Boolean);
 
         if (profileImageFile.files?.[0]) {
-          finalProfileImageUrl = await uploadFileToStorage(
-            profileImageFile.files[0],
-            "vendor-profile-images",
-            currentUser.uid
-          );
+          finalProfileImageUrl = await uploadFileToStorage(profileImageFile.files[0], "vendor-profile-images", currentUser.uid);
         }
 
         if (logoFile.files?.[0]) {
-          finalLogoUrl = await uploadFileToStorage(
-            logoFile.files[0],
-            "vendor-logos",
-            currentUser.uid
-          );
+          finalLogoUrl = await uploadFileToStorage(logoFile.files[0], "vendor-logos", currentUser.uid);
         }
 
         if (galleryImageFiles.files?.length) {
