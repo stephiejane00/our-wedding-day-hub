@@ -275,6 +275,22 @@
       margin-top: 8px;
     }
 
+    .remove-media-btn {
+      margin-top: 10px;
+      width: 100%;
+      border: none;
+      border-radius: 12px;
+      padding: 10px 12px;
+      background: #f1e4db;
+      color: #3a2a22;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .remove-media-btn:hover {
+      background: #ead7ca;
+    }
+
     @media (max-width: 980px) {
       .dashboard-two-col,
       .dashboard-three-col,
@@ -304,7 +320,7 @@
         <p class="eyebrow">vendor dashboard</p>
         <h1 class="page-title">Manage Your Vendor Profile</h1>
         <p class="page-subtitle">
-          Update your business details, upload your brand assets and media, choose your categories and style tags, and manage where your profile appears.
+          Update your business details, upload your brand assets and media, choose your style tags and service locations, and control when your profile appears.
         </p>
         <div class="dashboard-actions">
           <a href="#" id="viewProfileBtn" class="apply-button">View Public Profile</a>
@@ -393,7 +409,7 @@
         <div class="dashboard-card-soft">
           <div class="brand-assets-grid">
             <div class="asset-box">
-              <div class="asset-preview-circle" id="profileImagePreviewWrap">
+              <div class="asset-preview-circle">
                 <div class="asset-empty" id="profileImageEmpty">No profile image yet</div>
                 <img id="profileImagePreview" style="display:none;" alt="Profile image preview">
               </div>
@@ -405,7 +421,7 @@
             </div>
 
             <div class="asset-box">
-              <div class="asset-preview-square" id="logoPreviewWrap">
+              <div class="asset-preview-square">
                 <div class="asset-empty" id="logoEmpty">No logo yet</div>
                 <img id="logoPreview" style="display:none;" alt="Logo preview">
               </div>
@@ -413,7 +429,7 @@
                 <label for="logoFile">Logo</label>
                 <input type="file" id="logoFile" accept="image/*">
               </div>
-              <p class="dashboard-note">Best used as a square logo with soft rounded corners.</p>
+              <p class="dashboard-note">Best used as a square logo with rounded corners.</p>
             </div>
 
             <div>
@@ -428,7 +444,7 @@
               </div>
 
               <p class="dashboard-help" style="margin-top: 14px;">
-                Vendors can use uploaded files or paste direct image links. Uploaded files are easier for most vendors.
+                Uploaded files are easiest. Direct links still work too.
               </p>
             </div>
           </div>
@@ -549,11 +565,15 @@
     import {
       auth,
       db,
+      storage,
       onAuthStateChanged,
       doc,
       getDoc,
       setDoc,
-      serverTimestamp
+      serverTimestamp,
+      ref,
+      uploadBytes,
+      getDownloadURL
     } from "./firebase.js";
 
     import { LOCATION_DATA } from "./locations.js";
@@ -947,8 +967,35 @@
       }
     }
 
-    function setImagePreview() {
-      imagePreview.innerHTML = "";
+    function buildMediaCard(type, url, onRemove) {
+      const wrap = document.createElement("div");
+      wrap.className = "media-preview-item";
+
+      if (type === "image") {
+        const img = document.createElement("img");
+        img.src = url;
+        img.alt = "Vendor image preview";
+        img.loading = "lazy";
+        wrap.appendChild(img);
+      } else {
+        const video = document.createElement("video");
+        video.src = url;
+        video.controls = true;
+        video.preload = "metadata";
+        wrap.appendChild(video);
+      }
+
+      const removeBtn = document.createElement("button");
+      removeBtn.type = "button";
+      removeBtn.className = "remove-media-btn";
+      removeBtn.textContent = "Remove";
+      removeBtn.addEventListener("click", onRemove);
+      wrap.appendChild(removeBtn);
+
+      return wrap;
+    }
+
+    function getImageList() {
       const imageList = [];
 
       if (coverImageUrl.value.trim()) imageList.push(coverImageUrl.value.trim());
@@ -961,40 +1008,64 @@
           if (!imageList.includes(img)) imageList.push(img);
         });
 
+      return imageList;
+    }
+
+    function getVideoList() {
+      return videoLinks.value
+        .split("\n")
+        .map(line => line.trim())
+        .filter(Boolean);
+    }
+
+    function setImagePreview() {
+      imagePreview.innerHTML = "";
+      const imageList = getImageList();
+
       imageList.slice(0, 12).forEach(imgUrl => {
-        const wrap = document.createElement("div");
-        wrap.className = "media-preview-item";
-
-        const img = document.createElement("img");
-        img.src = imgUrl;
-        img.alt = "Vendor image preview";
-        img.loading = "lazy";
-
-        wrap.appendChild(img);
-        imagePreview.appendChild(wrap);
+        imagePreview.appendChild(
+          buildMediaCard("image", imgUrl, () => removeImageUrl(imgUrl))
+        );
       });
     }
 
     function setVideoPreview() {
       videoPreview.innerHTML = "";
-
-      const links = videoLinks.value
-        .split("\n")
-        .map(line => line.trim())
-        .filter(Boolean);
+      const links = getVideoList();
 
       links.slice(0, 8).forEach(url => {
-        const wrap = document.createElement("div");
-        wrap.className = "media-preview-item";
-
-        const video = document.createElement("video");
-        video.src = url;
-        video.controls = true;
-        video.preload = "metadata";
-
-        wrap.appendChild(video);
-        videoPreview.appendChild(wrap);
+        videoPreview.appendChild(
+          buildMediaCard("video", url, () => removeVideoUrl(url))
+        );
       });
+    }
+
+    function removeImageUrl(urlToRemove) {
+      const currentCover = coverImageUrl.value.trim();
+
+      if (currentCover === urlToRemove) {
+        coverImageUrl.value = "";
+      }
+
+      const remaining = images.value
+        .split("\n")
+        .map(line => line.trim())
+        .filter(Boolean)
+        .filter(url => url !== urlToRemove);
+
+      images.value = remaining.join("\n");
+      setImagePreview();
+    }
+
+    function removeVideoUrl(urlToRemove) {
+      const remaining = videoLinks.value
+        .split("\n")
+        .map(line => line.trim())
+        .filter(Boolean)
+        .filter(url => url !== urlToRemove);
+
+      videoLinks.value = remaining.join("\n");
+      setVideoPreview();
     }
 
     function previewLocalImage(file, targetInput, previewImg, emptyEl) {
@@ -1004,29 +1075,6 @@
       previewImg.src = localUrl;
       previewImg.style.display = "block";
       emptyEl.style.display = "none";
-    }
-
-    function appendLocalGalleryPreviews(files, targetTextarea, previewContainer, type = "image") {
-      const existing = targetTextarea.value
-        .split("\n")
-        .map(line => line.trim())
-        .filter(Boolean);
-
-      const localUrls = [];
-
-      Array.from(files).forEach(file => {
-        const localUrl = URL.createObjectURL(file);
-        localUrls.push(localUrl);
-      });
-
-      const combined = [...existing, ...localUrls];
-      targetTextarea.value = combined.join("\n");
-
-      if (type === "image") {
-        setImagePreview();
-      } else {
-        setVideoPreview();
-      }
     }
 
     profileImageUrl.addEventListener("input", () => {
@@ -1051,15 +1099,12 @@
       if (file) previewLocalImage(file, logoUrl, logoPreview, logoEmpty);
     });
 
-    galleryImageFiles.addEventListener("change", (e) => {
-      const files = e.target.files;
-      if (files?.length) appendLocalGalleryPreviews(files, images, imagePreview, "image");
-    });
-
-    galleryVideoFiles.addEventListener("change", (e) => {
-      const files = e.target.files;
-      if (files?.length) appendLocalGalleryPreviews(files, videoLinks, videoPreview, "video");
-    });
+    async function uploadFileToStorage(file, folder, uid) {
+      const safeName = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9._-]/g, "_")}`;
+      const storageRef = ref(storage, `${folder}/${uid}/${safeName}`);
+      await uploadBytes(storageRef, file);
+      return await getDownloadURL(storageRef);
+    }
 
     async function loadVendorData(uid) {
       const userSnap = await getDoc(doc(db, "users", uid));
@@ -1129,15 +1174,60 @@
         const selectedStates = getCheckedValues(stateOptions);
         const selectedRegions = getCheckedValues(regionOptions);
 
-        const galleryImages = images.value
+        let finalProfileImageUrl = profileImageUrl.value.trim();
+        let finalLogoUrl = logoUrl.value.trim();
+        let finalCoverImageUrl = coverImageUrl.value.trim();
+
+        let galleryImages = images.value
           .split("\n")
           .map(line => line.trim())
           .filter(Boolean);
 
-        const galleryVideos = videoLinks.value
+        let galleryVideos = videoLinks.value
           .split("\n")
           .map(line => line.trim())
           .filter(Boolean);
+
+        if (profileImageFile.files?.[0]) {
+          finalProfileImageUrl = await uploadFileToStorage(
+            profileImageFile.files[0],
+            "vendor-profile-images",
+            currentUser.uid
+          );
+        }
+
+        if (logoFile.files?.[0]) {
+          finalLogoUrl = await uploadFileToStorage(
+            logoFile.files[0],
+            "vendor-logos",
+            currentUser.uid
+          );
+        }
+
+        if (galleryImageFiles.files?.length) {
+          const uploadedImageUrls = [];
+          for (const file of Array.from(galleryImageFiles.files)) {
+            const url = await uploadFileToStorage(file, "vendor-gallery-images", currentUser.uid);
+            uploadedImageUrls.push(url);
+          }
+          galleryImages = [...galleryImages, ...uploadedImageUrls];
+        }
+
+        if (galleryVideoFiles.files?.length) {
+          const uploadedVideoUrls = [];
+          for (const file of Array.from(galleryVideoFiles.files)) {
+            const url = await uploadFileToStorage(file, "vendor-gallery-videos", currentUser.uid);
+            uploadedVideoUrls.push(url);
+          }
+          galleryVideos = [...galleryVideos, ...uploadedVideoUrls];
+        }
+
+        if (!finalCoverImageUrl && galleryImages.length) {
+          finalCoverImageUrl = galleryImages[0];
+        }
+
+        galleryImages = [...new Set(galleryImages)];
+        galleryVideos = [...new Set(galleryVideos)];
 
         await setDoc(doc(db, "vendors", currentUser.uid), {
           uid: currentUser.uid,
@@ -1149,9 +1239,9 @@
           serviceAreas: serviceAreas.value.trim(),
           displayLocation: displayLocation.value.trim(),
           bio: bio.value.trim(),
-          profileImageUrl: profileImageUrl.value.trim(),
-          logoUrl: logoUrl.value.trim(),
-          coverImageUrl: coverImageUrl.value.trim(),
+          profileImageUrl: finalProfileImageUrl,
+          logoUrl: finalLogoUrl,
+          coverImageUrl: finalCoverImageUrl,
           images: galleryImages,
           videos: galleryVideos,
           styleTags: selectedStyleTags,
@@ -1165,9 +1255,23 @@
           updatedAt: serverTimestamp()
         }, { merge: true });
 
-        message.textContent = "Your changes have been saved.";
+        profileImageUrl.value = finalProfileImageUrl;
+        logoUrl.value = finalLogoUrl;
+        coverImageUrl.value = finalCoverImageUrl;
+        images.value = galleryImages.join("\n");
+        videoLinks.value = galleryVideos.join("\n");
+
+        profileImageFile.value = "";
+        logoFile.value = "";
+        galleryImageFiles.value = "";
+        galleryVideoFiles.value = "";
+
+        setSingleImagePreview(profileImageUrl.value, profileImagePreview, profileImageEmpty);
+        setSingleImagePreview(logoUrl.value, logoPreview, logoEmpty);
         setImagePreview();
         setVideoPreview();
+
+        message.textContent = "Your changes have been saved.";
       } catch (error) {
         console.error(error);
         message.textContent = "There was a problem saving your changes.";
