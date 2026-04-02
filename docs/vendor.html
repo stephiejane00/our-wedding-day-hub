@@ -68,7 +68,7 @@
     .auth-pill {
       background: var(--soft);
       padding: 12px 20px;
-      border-radius: var(--radius-pill);
+      border-radius: 999px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -104,7 +104,7 @@
     .card {
       background: var(--card);
       border: 1px solid var(--line);
-      border-radius: var(--radius-xl);
+      border-radius: 28px;
       box-shadow: var(--shadow);
     }
 
@@ -336,7 +336,7 @@
       color: var(--text);
       background: #f8f3ef;
       border: 1px solid #e7dbd1;
-      border-radius: var(--radius-pill);
+      border-radius: 999px;
       padding: 14px 16px;
       font-size: 0.98rem;
       font-weight: 500;
@@ -533,6 +533,12 @@
           <a href="#" id="websiteBtn" class="stack-btn" target="_blank" rel="noopener noreferrer">Website</a>
           <a href="#" id="emailBtn" class="stack-btn">Contact Vendor</a>
           <a href="#" id="instagramBtn" class="stack-btn" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a href="#" id="facebookBtn" class="stack-btn" target="_blank" rel="noopener noreferrer">Facebook</a>
+          <a href="#" id="tiktokBtn" class="stack-btn" target="_blank" rel="noopener noreferrer">TikTok</a>
+          <a href="#" id="youtubeBtn" class="stack-btn" target="_blank" rel="noopener noreferrer">YouTube</a>
+          <a href="#" id="pinterestBtn" class="stack-btn" target="_blank" rel="noopener noreferrer">Pinterest</a>
+          <a href="#" id="linkedinBtn" class="stack-btn" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="#" id="xBtn" class="stack-btn" target="_blank" rel="noopener noreferrer">X / Twitter</a>
         </div>
 
         <div class="sidebar-location">
@@ -588,9 +594,17 @@
     const vendorAboutEl = document.getElementById("vendorAbout");
     const sidebarMiniBioEl = document.getElementById("sidebarMiniBio");
     const profilePicEl = document.getElementById("profilePic");
+
     const websiteBtn = document.getElementById("websiteBtn");
-    const instagramBtn = document.getElementById("instagramBtn");
     const emailBtn = document.getElementById("emailBtn");
+    const instagramBtn = document.getElementById("instagramBtn");
+    const facebookBtn = document.getElementById("facebookBtn");
+    const tiktokBtn = document.getElementById("tiktokBtn");
+    const youtubeBtn = document.getElementById("youtubeBtn");
+    const pinterestBtn = document.getElementById("pinterestBtn");
+    const linkedinBtn = document.getElementById("linkedinBtn");
+    const xBtn = document.getElementById("xBtn");
+
     const sidebarLocationListEl = document.getElementById("sidebarLocationList");
 
     const mainGalleryImage = document.getElementById("mainGalleryImage");
@@ -692,6 +706,7 @@
         firstNonEmpty(
           vendor.profileImage,
           vendor.profilePic,
+          vendor.profileImageUrl,
           vendor.logoUrl,
           vendor.photoURL
         )
@@ -704,6 +719,7 @@
       return firstNonEmpty(
         vendor.profileImage,
         vendor.profilePic,
+        vendor.profileImageUrl,
         vendor.logoUrl,
         vendor.photoURL,
         vendor.coverImageUrl,
@@ -836,6 +852,12 @@
 
       const website = normalizeUrl(firstNonEmpty(vendor.website, vendor.websiteUrl, vendor.siteUrl));
       const instagram = normalizeUrl(firstNonEmpty(vendor.instagram, vendor.instagramUrl));
+      const facebook = normalizeUrl(firstNonEmpty(vendor.facebook, vendor.facebookUrl));
+      const tiktok = normalizeUrl(firstNonEmpty(vendor.tiktok, vendor.tiktokUrl));
+      const youtube = normalizeUrl(firstNonEmpty(vendor.youtube, vendor.youtubeUrl));
+      const pinterest = normalizeUrl(firstNonEmpty(vendor.pinterest, vendor.pinterestUrl));
+      const linkedin = normalizeUrl(firstNonEmpty(vendor.linkedin, vendor.linkedinUrl));
+      const xUrl = normalizeUrl(firstNonEmpty(vendor.x, vendor.twitter, vendor.twitterUrl, vendor.xUrl));
       const email = firstNonEmpty(vendor.email, "");
       const locations = getLocations(vendor);
       const images = getGallery(vendor);
@@ -858,6 +880,12 @@
 
       setLinkOrHide(websiteBtn, website, "Website");
       setLinkOrHide(instagramBtn, instagram, "Instagram");
+      setLinkOrHide(facebookBtn, facebook, "Facebook");
+      setLinkOrHide(tiktokBtn, tiktok, "TikTok");
+      setLinkOrHide(youtubeBtn, youtube, "YouTube");
+      setLinkOrHide(pinterestBtn, pinterest, "Pinterest");
+      setLinkOrHide(linkedinBtn, linkedin, "LinkedIn");
+      setLinkOrHide(xBtn, xUrl, "X / Twitter");
 
       if (email) {
         emailBtn.href = "mailto:" + email;
