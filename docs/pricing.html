@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vendor Pricing | Our Wedding Day Hub</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pricing | Our Wedding Day Hub</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
   <div class="page-auth">
+    <a href="index.html" class="auth-link">Home</a>
+    <a href="dashboard.html" id="dashboardLink" class="auth-link" style="display:none;">Dashboard</a>
     <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
     <a href="login.html" id="loginLink" class="auth-link">Log In</a>
     <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
@@ -18,57 +20,44 @@
     <img src="images/header4.png" alt="Our Wedding Day Hub" class="header-image">
   </header>
 
-  <main class="page-shell">
+  <main class="page-wrap">
     <section class="card hero-card">
-      <p class="eyebrow">vendor pricing</p>
-      <h1>Choose the plan that suits your business.</h1>
-      <p class="intro-text">
-        Create your profile on Our Wedding Day Hub and showcase your business in a beautiful, thoughtful space designed for discovery.
+      <p class="eyebrow">pricing</p>
+      <h1 class="page-title">Simple pricing for wedding vendors</h1>
+      <p class="page-subtitle">
+        A beautiful way to be seen by couples planning their day.
       </p>
-      <a href="signup.html?type=vendor" class="apply-button">Continue to Sign Up</a>
     </section>
 
-    <section class="card">
-      <h2>Classic Listing</h2>
-      <p>$4.75 / month</p>
-      <p>Vendor info sidebar on your profile</p>
-      <p>Inquiry / Contact / Book button</p>
-      <p>Showcase 3 images</p>
-      <p>Bio limit: 500 characters</p>
+    <section class="card" style="max-width:1100px;">
+      <p class="eyebrow">one off</p>
+      <div class="pricing-card" style="max-width:360px; margin:0 auto; padding:30px 24px;">
+        <h2>Setup Fee</h2>
+        <div class="pricing-price">$50</div>
+        <p>This is a one-time setup fee to create and launch your profile.</p>
+      </div>
     </section>
 
-    <section class="card">
-      <h2>Signature Spotlight</h2>
-      <p>$5.95 / month</p>
-      <p>Everything in Classic Listing, plus:</p>
-      <p>Showcase 5 images</p>
-      <p>Bio limit: 1,000 characters</p>
-    </section>
+    <section class="pricing-grid">
+      <article class="pricing-card">
+        <h2>Classic Listing</h2>
+        <div class="pricing-price">$4.75 <small>/ month</small></div>
+      </article>
 
-    <section class="card">
-      <h2>Elite Feature</h2>
-      <p>$7.25 / month</p>
-      <p>Everything in Signature Spotlight, plus:</p>
-      <p>Showcase 8 images</p>
-      <p>Bio limit: 1,500 characters</p>
-      <p>Highlighted placement in search results</p>
-    </section>
+      <article class="pricing-card">
+        <h2>Signature Spotlight</h2>
+        <div class="pricing-price">$5.95 <small>/ month</small></div>
+      </article>
 
-    <section class="card">
-      <h2>Platinum Prestige</h2>
-      <p>$9.95 / month</p>
-      <p>Everything in Elite Feature, plus:</p>
-      <p>Unlimited images</p>
-      <p>Unlimited bio characters</p>
-      <p>Priority placement in search results</p>
-      <p>Featured vendor spotlights and promotions</p>
-    </section>
+      <article class="pricing-card">
+        <h2>Elite Feature</h2>
+        <div class="pricing-price">$7.25 <small>/ month</small></div>
+      </article>
 
-    <section class="card">
-      <p><strong>One-off setup fee: $50</strong></p>
-      <p>Includes account creation, vendor profile setup, and access to the platform.</p>
-      <p>The one-off $50 setup fee is non-refundable.</p>
-      <p>Vendors may cancel at any time. We offer a refund of up to 60 days of subscription fees only.</p>
+      <article class="pricing-card">
+        <h2>Platinum Prestige</h2>
+        <div class="pricing-price">$9.95 <small>/ month</small></div>
+      </article>
     </section>
   </main>
 
@@ -93,6 +82,36 @@
     </div>
   </footer>
 
-  <script type="module" src="nav.js"></script>
+  <script type="module">
+    import { auth, onAuthStateChanged, signOut } from "./firebase.js";
+
+    const joinLink = document.getElementById("joinLink");
+    const loginLink = document.getElementById("loginLink");
+    const dashboardLink = document.getElementById("dashboardLink");
+    const logoutLink = document.getElementById("logoutLink");
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        joinLink.style.display = "none";
+        loginLink.style.display = "none";
+        dashboardLink.style.display = "inline-block";
+        logoutLink.style.display = "inline-block";
+      } else {
+        joinLink.style.display = "inline-flex";
+        loginLink.style.display = "inline-block";
+        dashboardLink.style.display = "none";
+        logoutLink.style.display = "none";
+      }
+    });
+
+    logoutLink.addEventListener("click", async () => {
+      try {
+        await signOut(auth);
+        window.location.href = "index.html";
+      } catch (error) {
+        console.error("Logout failed:", error);
+      }
+    });
+  </script>
 </body>
 </html>
