@@ -5,6 +5,217 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vendor Profile | Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    .vendor-page-shell {
+      max-width: 1100px;
+      margin: 0 auto 40px;
+      padding: 20px;
+    }
+
+    .vendor-profile-card {
+      background: #fffdfb;
+      border: 1px solid #efe1d6;
+      border-radius: 28px;
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(70, 45, 25, 0.05);
+    }
+
+    .vendor-hero-wrap {
+      margin-bottom: 24px;
+    }
+
+    .vendor-hero-image {
+      width: 100%;
+      max-height: 470px;
+      object-fit: cover;
+      border-radius: 24px;
+      display: block;
+      background: #f7efe8;
+    }
+
+    .vendor-brand-row {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 20px;
+      align-items: center;
+      margin-bottom: 22px;
+    }
+
+    .vendor-brand-images {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .vendor-profile-image {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 1px solid #eadfd6;
+      background: #f6eee7;
+      flex-shrink: 0;
+    }
+
+    .vendor-profile-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .vendor-logo-image {
+      width: 96px;
+      height: 96px;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid #eadfd6;
+      background: #f6eee7;
+      flex-shrink: 0;
+    }
+
+    .vendor-logo-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .vendor-header-text .eyebrow {
+      margin-bottom: 8px;
+    }
+
+    .vendor-header-text h1 {
+      margin: 0 0 10px;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.06;
+      color: #2d221c;
+    }
+
+    .vendor-location-line {
+      margin: 0;
+      color: #7c6c60;
+      font-size: 1rem;
+    }
+
+    .vendor-section {
+      margin-top: 28px;
+      padding-top: 22px;
+      border-top: 1px solid #f1e6dd;
+    }
+
+    .vendor-section h3 {
+      margin: 0 0 12px;
+      color: #2d221c;
+      font-size: 1.05rem;
+    }
+
+    .vendor-section p {
+      margin: 0;
+      color: #4a3b31;
+      line-height: 1.7;
+    }
+
+    .vendor-tag-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .vendor-tag,
+    .vendor-style-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      line-height: 1.2;
+    }
+
+    .vendor-tag {
+      background: #f8f4f1;
+      border: 1px solid #e8ddd2;
+      color: #3c2d24;
+    }
+
+    .vendor-style-tag {
+      background: #111;
+      border: 1px solid #111;
+      color: #fff;
+    }
+
+    .vendor-contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .vendor-contact-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: #111;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      transition: transform 0.18s ease, opacity 0.18s ease;
+    }
+
+    .vendor-contact-button:hover {
+      opacity: 0.92;
+      transform: translateY(-1px);
+    }
+
+    .vendor-gallery-grid,
+    .vendor-video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .vendor-gallery-grid img,
+    .vendor-video-grid video {
+      width: 100%;
+      border-radius: 18px;
+      display: block;
+      background: #f7efe8;
+    }
+
+    .vendor-gallery-grid img {
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+    }
+
+    .vendor-video-grid video {
+      max-height: 360px;
+      object-fit: cover;
+    }
+
+    @media (max-width: 760px) {
+      .vendor-brand-row {
+        grid-template-columns: 1fr;
+        align-items: start;
+      }
+
+      .vendor-brand-images {
+        justify-content: flex-start;
+      }
+
+      .vendor-profile-image {
+        width: 88px;
+        height: 88px;
+      }
+
+      .vendor-logo-image {
+        width: 78px;
+        height: 78px;
+        border-radius: 20px;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -18,39 +229,53 @@
     <img src="images/header4.png" alt="Our Wedding Day Hub" class="header-image">
   </header>
 
-  <main class="page-shell">
-    <section id="vendorProfileCard" class="profile-card" style="display:none;">
-      <div id="vendorHeroImageWrap" style="margin-bottom: 24px;"></div>
+  <main class="vendor-page-shell">
+    <section id="vendorProfileCard" class="vendor-profile-card" style="display:none;">
+      <div id="vendorHeroImageWrap" class="vendor-hero-wrap"></div>
 
-      <div class="profile-header">
-        <p class="eyebrow" id="vendorEyebrow">wedding vendor</p>
-        <h1 id="vendorName">Vendor Name</h1>
-        <p class="profile-location" id="vendorLocation"></p>
+      <div class="vendor-brand-row">
+        <div class="vendor-brand-images" id="vendorBrandImages"></div>
+
+        <div class="vendor-header-text">
+          <p class="eyebrow" id="vendorEyebrow">wedding vendor</p>
+          <h1 id="vendorName">Vendor Name</h1>
+          <p class="vendor-location-line" id="vendorLocation"></p>
+        </div>
       </div>
 
-      <div class="profile-section" id="vendorCategoriesSection" style="display:none;">
+      <div class="vendor-section" id="vendorStyleTagsSection" style="display:none;">
+        <h3>Style</h3>
+        <div class="vendor-tag-wrap" id="vendorStyleTags"></div>
+      </div>
+
+      <div class="vendor-section" id="vendorCategoriesSection" style="display:none;">
         <h3>Categories</h3>
-        <div class="profile-tags" id="vendorCategories"></div>
+        <div class="vendor-tag-wrap" id="vendorCategories"></div>
       </div>
 
-      <div class="profile-section" id="vendorBioSection" style="display:none;">
+      <div class="vendor-section" id="vendorBioSection" style="display:none;">
         <h3>About</h3>
         <p id="vendorBio"></p>
       </div>
 
-      <div class="profile-section" id="vendorGallerySection" style="display:none;">
+      <div class="vendor-section" id="vendorGallerySection" style="display:none;">
         <h3>Gallery</h3>
-        <div id="vendorGallery" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:16px;"></div>
+        <div id="vendorGallery" class="vendor-gallery-grid"></div>
       </div>
 
-      <div class="profile-section" id="vendorServiceAreasSection" style="display:none;">
+      <div class="vendor-section" id="vendorVideosSection" style="display:none;">
+        <h3>Videos</h3>
+        <div id="vendorVideos" class="vendor-video-grid"></div>
+      </div>
+
+      <div class="vendor-section" id="vendorServiceAreasSection" style="display:none;">
         <h3>Service Areas</h3>
         <p id="vendorServiceAreas"></p>
       </div>
 
-      <div class="profile-section" id="vendorLinksSection" style="display:none;">
+      <div class="vendor-section" id="vendorLinksSection" style="display:none;">
         <h3>Connect</h3>
-        <div class="profile-links" id="vendorLinks"></div>
+        <div class="vendor-contact-links" id="vendorLinks"></div>
       </div>
     </section>
 
@@ -99,47 +324,126 @@
     const vendorProfileCard = document.getElementById("vendorProfileCard");
 
     const vendorHeroImageWrap = document.getElementById("vendorHeroImageWrap");
+    const vendorBrandImages = document.getElementById("vendorBrandImages");
     const vendorName = document.getElementById("vendorName");
     const vendorEyebrow = document.getElementById("vendorEyebrow");
     const vendorLocation = document.getElementById("vendorLocation");
     const vendorBio = document.getElementById("vendorBio");
     const vendorCategories = document.getElementById("vendorCategories");
+    const vendorStyleTags = document.getElementById("vendorStyleTags");
     const vendorGallery = document.getElementById("vendorGallery");
+    const vendorVideos = document.getElementById("vendorVideos");
     const vendorServiceAreas = document.getElementById("vendorServiceAreas");
     const vendorLinks = document.getElementById("vendorLinks");
 
+    const vendorStyleTagsSection = document.getElementById("vendorStyleTagsSection");
     const vendorCategoriesSection = document.getElementById("vendorCategoriesSection");
     const vendorBioSection = document.getElementById("vendorBioSection");
     const vendorGallerySection = document.getElementById("vendorGallerySection");
+    const vendorVideosSection = document.getElementById("vendorVideosSection");
     const vendorServiceAreasSection = document.getElementById("vendorServiceAreasSection");
     const vendorLinksSection = document.getElementById("vendorLinksSection");
 
     const params = new URLSearchParams(window.location.search);
     const vendorId = params.get("id");
 
+    const CATEGORY_LABEL_MAP = {
+      wedding_photographer: "Photographer",
+      wedding_videographer: "Videographer",
+      wedding_content_creator: "Content Creator",
+      wedding_makeup_artist: "Makeup Artist",
+      wedding_hair_stylist: "Hair Stylist",
+      beauty_salon: "Beauty Salon",
+      spray_tan: "Spray Tanning",
+      skin_aesthetics: "Skin & Aesthetics",
+      wedding_singer: "Singer",
+      wedding_band: "Band",
+      wedding_dj: "DJ",
+      acoustic_musician: "Acoustic Musician",
+      violinist: "Violinist",
+      saxophonist: "Saxophonist",
+      harpist: "Harpist",
+      wedding_mc: "MC",
+      wedding_florist: "Florist",
+      wedding_stylist: "Wedding Stylist",
+      event_designer: "Event Designer",
+      balloon_stylist: "Balloon Stylist",
+      backdrops_arches: "Backdrops & Arches",
+      wedding_caterer: "Caterer",
+      wedding_cake_designer: "Wedding Cake Designer",
+      dessert_bar: "Dessert Bar",
+      mobile_bar: "Mobile Bar",
+      coffee_cart: "Coffee Cart",
+      food_truck: "Food Truck",
+      wedding_venue: "Wedding Venue",
+      ceremony_venue: "Ceremony Venue",
+      reception_venue: "Reception Venue",
+      elopement_location: "Elopement Location",
+      outdoor_venue: "Outdoor Venue",
+      church_ceremony_venue: "Church / Ceremony Venue",
+      wedding_invitations: "Invitations",
+      wedding_stationery: "Wedding Stationery",
+      wedding_signage: "Signage",
+      calligraphy: "Calligraphy",
+      bridal_boutique: "Bridal Boutique",
+      bridesmaid_dresses: "Bridesmaid Dresses",
+      formal_wear: "Formal Wear",
+      suit_hire: "Suit Hire",
+      custom_designer: "Custom Designer",
+      wedding_dress_alterations: "Wedding Dress Alterations",
+      wedding_rings: "Wedding Rings",
+      engagement_rings: "Engagement Rings",
+      custom_jewellery: "Custom Jewellery",
+      wedding_cars: "Wedding Cars",
+      luxury_cars: "Luxury Cars",
+      vintage_cars: "Vintage Cars",
+      limousine: "Limousine",
+      guest_transport: "Guest Transport",
+      live_wedding_painter: "Live Wedding Painter",
+      photo_booth: "Photo Booth",
+      audio_guestbook: "Audio Guestbook",
+      wedding_celebrant: "Celebrant",
+      wedding_planner: "Wedding Planner",
+      wedding_coordinator: "Wedding Coordinator",
+      on_the_day_coordinator: "On-the-day Coordinator",
+      honeymoon_planner: "Honeymoon Planner",
+      pet_attendant: "Pet Attendant",
+      child_minder_wedding_nanny: "Child Minder / Wedding Nanny",
+      furniture_hire: "Furniture Hire",
+      decor_hire: "Decor Hire",
+      tableware_hire: "Tableware Hire",
+      lighting_hire: "Lighting Hire",
+      marquee_hire: "Marquee Hire",
+      styling_hire: "Styling Hire",
+      dance_floor_hire: "Dance Floor Hire",
+      wedding_favours: "Wedding Favours",
+      personalised_gifts: "Personalised Gifts",
+      hampers: "Hampers"
+    };
+
     function cleanArray(arr) {
-      return Array.isArray(arr) ? arr.filter(item => typeof item === "string" && item.trim() !== "") : [];
+      return Array.isArray(arr)
+        ? arr.filter(item => typeof item === "string" && item.trim() !== "")
+        : [];
     }
 
     function formatCategoryName(category) {
-      return String(category)
-        .replace(/_/g, " ")
-        .replace(/\b\w/g, char => char.toUpperCase());
+      return CATEGORY_LABEL_MAP[category] ||
+        String(category)
+          .replace(/_/g, " ")
+          .replace(/\b\w/g, char => char.toUpperCase());
     }
 
-    function getMainImage(vendor) {
+    function getHeroImage(vendor) {
       if (vendor.coverImageUrl && String(vendor.coverImageUrl).trim()) return vendor.coverImageUrl;
       if (Array.isArray(vendor.images) && vendor.images.length > 0) return vendor.images[0];
+      if (vendor.profileImageUrl && String(vendor.profileImageUrl).trim()) return vendor.profileImageUrl;
       if (vendor.logoUrl && String(vendor.logoUrl).trim()) return vendor.logoUrl;
       return "images/header4.png";
     }
 
-    function getAllImages(vendor) {
+    function getGalleryImages(vendor) {
       const images = [];
-
-      if (vendor.coverImageUrl && String(vendor.coverImageUrl).trim()) {
-        images.push(vendor.coverImageUrl);
-      }
 
       if (Array.isArray(vendor.images)) {
         vendor.images.forEach(img => {
@@ -149,39 +453,88 @@
         });
       }
 
-      if (images.length === 0 && vendor.logoUrl && String(vendor.logoUrl).trim()) {
-        images.push(vendor.logoUrl);
-      }
-
       return images;
     }
 
+    function getVideoLinks(vendor) {
+      return cleanArray(vendor.videos);
+    }
+
     function getLocationText(vendor) {
+      if (vendor.displayLocation && String(vendor.displayLocation).trim()) {
+        return vendor.displayLocation.trim();
+      }
+
       if (vendor.serviceAreas && String(vendor.serviceAreas).trim()) {
         return vendor.serviceAreas.trim();
       }
 
       const regions = cleanArray(vendor.regions);
-      if (regions.length) {
-        return regions.join(" • ");
-      }
+      if (regions.length) return regions.join(" • ");
 
       const states = cleanArray(vendor.states);
-      if (states.length) {
-        return states.join(" • ");
-      }
+      if (states.length) return states.join(" • ");
+
+      const countries = cleanArray(vendor.countries);
+      if (countries.length) return countries.join(" • ");
 
       return "";
+    }
+
+    function getServiceAreasText(vendor) {
+      if (vendor.serviceAreas && String(vendor.serviceAreas).trim()) {
+        return vendor.serviceAreas.trim();
+      }
+
+      const parts = [];
+
+      const regions = cleanArray(vendor.regions);
+      const states = cleanArray(vendor.states);
+      const countries = cleanArray(vendor.countries);
+
+      if (regions.length) parts.push(regions.join(" • "));
+      if (states.length) parts.push(states.join(" • "));
+      if (countries.length) parts.push(countries.join(" • "));
+
+      return parts.join(" · ");
     }
 
     function makeLinkButton(label, href) {
       const link = document.createElement("a");
       link.href = href;
       link.textContent = label;
-      link.className = "pretty-button small-button";
+      link.className = "vendor-contact-button";
       link.target = "_blank";
       link.rel = "noopener noreferrer";
       return link;
+    }
+
+    function renderBrandImages(vendor) {
+      vendorBrandImages.innerHTML = "";
+
+      if (vendor.profileImageUrl && String(vendor.profileImageUrl).trim()) {
+        const wrap = document.createElement("div");
+        wrap.className = "vendor-profile-image";
+
+        const img = document.createElement("img");
+        img.src = vendor.profileImageUrl.trim();
+        img.alt = `${vendor.businessName || "Vendor"} profile image`;
+
+        wrap.appendChild(img);
+        vendorBrandImages.appendChild(wrap);
+      }
+
+      if (vendor.logoUrl && String(vendor.logoUrl).trim()) {
+        const wrap = document.createElement("div");
+        wrap.className = "vendor-logo-image";
+
+        const img = document.createElement("img");
+        img.src = vendor.logoUrl.trim();
+        img.alt = `${vendor.businessName || "Vendor"} logo`;
+
+        wrap.appendChild(img);
+        vendorBrandImages.appendChild(wrap);
+      }
     }
 
     function renderVendor(vendor) {
@@ -193,14 +546,28 @@
       const locationText = getLocationText(vendor);
       vendorLocation.textContent = locationText || "";
 
-      const mainImage = getMainImage(vendor);
+      const heroImage = getHeroImage(vendor);
       vendorHeroImageWrap.innerHTML = `
         <img
-          src="${mainImage}"
+          src="${heroImage}"
           alt="${vendor.businessName || "Vendor"}"
-          style="width:100%; border-radius:20px; display:block;"
+          class="vendor-hero-image"
         >
       `;
+
+      renderBrandImages(vendor);
+
+      const styleTags = cleanArray(vendor.styleTags);
+      if (styleTags.length) {
+        vendorStyleTagsSection.style.display = "block";
+        vendorStyleTags.innerHTML = "";
+        styleTags.forEach(tag => {
+          const pill = document.createElement("span");
+          pill.className = "vendor-style-tag";
+          pill.textContent = tag;
+          vendorStyleTags.appendChild(pill);
+        });
+      }
 
       const categories = cleanArray(vendor.categories);
       if (categories.length) {
@@ -208,6 +575,7 @@
         vendorCategories.innerHTML = "";
         categories.forEach(category => {
           const tag = document.createElement("span");
+          tag.className = "vendor-tag";
           tag.textContent = formatCategoryName(category);
           vendorCategories.appendChild(tag);
         });
@@ -218,32 +586,38 @@
         vendorBio.textContent = vendor.bio.trim();
       }
 
-      const allImages = getAllImages(vendor);
-      if (allImages.length > 1) {
+      const galleryImages = getGalleryImages(vendor);
+      if (galleryImages.length) {
         vendorGallerySection.style.display = "block";
         vendorGallery.innerHTML = "";
-        allImages.forEach(image => {
+        galleryImages.forEach(image => {
           const img = document.createElement("img");
           img.src = image;
           img.alt = vendor.businessName || "Vendor";
-          img.style.width = "100%";
-          img.style.borderRadius = "16px";
-          img.style.display = "block";
           vendorGallery.appendChild(img);
         });
       }
 
-      const serviceAreasText = vendor.serviceAreas && String(vendor.serviceAreas).trim()
-        ? vendor.serviceAreas.trim()
-        : getLocationText(vendor);
+      const videos = getVideoLinks(vendor);
+      if (videos.length) {
+        vendorVideosSection.style.display = "block";
+        vendorVideos.innerHTML = "";
+        videos.forEach(videoUrl => {
+          const video = document.createElement("video");
+          video.src = videoUrl;
+          video.controls = true;
+          video.preload = "metadata";
+          vendorVideos.appendChild(video);
+        });
+      }
 
+      const serviceAreasText = getServiceAreasText(vendor);
       if (serviceAreasText) {
         vendorServiceAreasSection.style.display = "block";
         vendorServiceAreas.textContent = serviceAreasText;
       }
 
       vendorLinks.innerHTML = "";
-
       let hasLinks = false;
 
       if (vendor.website && String(vendor.website).trim()) {
