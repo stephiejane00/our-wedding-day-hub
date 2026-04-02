@@ -7,21 +7,44 @@
   <link rel="stylesheet" href="style.css" />
 
   <style>
+    :root {
+      --bg: #fffaf6;
+      --card: #ffffff;
+      --text: #2f2a26;
+      --muted: #7b6f68;
+      --line: #eadfd6;
+      --soft: #e8ddd4;
+      --soft-2: #f7f1ec;
+      --accent: #b98c93;
+      --accent-deep: #9e7078;
+      --shadow: 0 12px 30px rgba(62, 44, 34, 0.06);
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --radius-pill: 999px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
-      font-family: Georgia, serif;
-      background: #fffaf6;
-      color: #2f2a26;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
     }
 
     .page-auth {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 12px 22px 0;
       display: flex;
       justify-content: flex-end;
       align-items: center;
-      gap: 18px;
-      padding: 14px 20px 0;
-      max-width: 1200px;
-      margin: 0 auto;
+      gap: 22px;
       flex-wrap: wrap;
     }
 
@@ -29,113 +52,90 @@
     .auth-button {
       background: none;
       border: none;
-      color: #2f2a26;
-      text-decoration: none;
-      font-size: 1rem;
-      font-family: inherit;
-      cursor: pointer;
       padding: 0;
+      margin: 0;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 1.05rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      cursor: pointer;
+      font-family: inherit;
+      line-height: 1;
     }
 
     .auth-link:hover,
     .auth-button:hover {
-      opacity: 0.7;
+      opacity: 0.72;
     }
 
     .auth-pill {
-      background: #e7dbd2;
-      padding: 10px 18px;
-      border-radius: 999px;
-      display: inline-block;
+      background: var(--soft);
+      padding: 12px 20px;
+      border-radius: var(--radius-pill);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
     }
 
     .hero {
       text-align: center;
-      padding: 0;
+      padding: 8px 20px 14px;
     }
 
     .header-image {
       width: 100%;
-      max-width: 100%;
+      max-width: 560px;
       height: auto;
       display: block;
       margin: 0 auto;
     }
 
     .vendor-page {
-      max-width: 1280px;
-      margin: 28px auto 60px;
-      padding: 0 20px;
+      max-width: 1240px;
+      margin: 8px auto 60px;
+      padding: 0 22px;
     }
 
-    .vendor-shell {
+    .vendor-layout {
       display: grid;
-      grid-template-columns: minmax(0, 1.55fr) minmax(290px, 360px);
+      grid-template-columns: minmax(0, 1.55fr) minmax(300px, 360px);
       gap: 28px;
       align-items: start;
     }
 
-    .panel {
-      background: #ffffff;
-      border: 1px solid #eadfd6;
-      border-radius: 24px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
     }
 
-    .gallery-panel {
-      padding: 20px;
-      position: relative;
-      overflow: visible;
-    }
-
-    .save-heart {
-      position: absolute;
-      top: 24px;
-      right: 24px;
-      width: 74px;
-      height: 74px;
-      border-radius: 50%;
-      border: none;
-      background: #ffffff;
-      box-shadow: 0 12px 30px rgba(70, 45, 35, 0.16);
-      font-size: 2.1rem;
-      color: #c59aa7;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 20;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
-    }
-
-    .save-heart:hover {
-      transform: scale(1.06);
-      box-shadow: 0 16px 32px rgba(70, 45, 35, 0.22);
-    }
-
-    .save-heart.saved {
-      color: #c86b88;
+    .gallery-card {
+      padding: 18px;
     }
 
     .main-image-wrap {
-      border-radius: 20px;
       overflow: hidden;
-      background: #f5ece6;
+      border-radius: 22px;
+      background: #f2ebe6;
+      border: 1px solid #efe5dc;
     }
 
     .main-gallery-image {
       width: 100%;
-      height: 520px;
+      height: 560px;
       object-fit: cover;
       display: block;
       cursor: zoom-in;
     }
 
     .thumb-row {
+      margin-top: 14px;
       display: flex;
       gap: 12px;
       overflow-x: auto;
-      margin-top: 14px;
       padding-bottom: 4px;
       scroll-behavior: smooth;
     }
@@ -145,24 +145,24 @@
     }
 
     .thumb-row::-webkit-scrollbar-thumb {
-      background: #d9c8bd;
+      background: #daccc1;
       border-radius: 999px;
     }
 
     .thumb-btn {
       flex: 0 0 auto;
-      width: 105px;
-      height: 105px;
+      width: 100px;
+      height: 100px;
       padding: 0;
       border-radius: 16px;
       border: 2px solid transparent;
       overflow: hidden;
-      background: #f5ece6;
+      background: #f2ebe6;
       cursor: pointer;
     }
 
     .thumb-btn.active {
-      border-color: #c8a998;
+      border-color: #c9aeb0;
     }
 
     .thumb-btn img {
@@ -172,60 +172,83 @@
       display: block;
     }
 
-    .about-panel {
-      padding: 28px;
+    .content-card {
+      margin-top: 24px;
+      padding: 30px;
     }
 
-    .business-name {
+    .vendor-title {
       margin: 0;
-      font-size: 2.2rem;
-      line-height: 1.15;
+      font-size: 2.1rem;
+      font-weight: 600;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
     }
 
-    .meta-line {
+    .category-line {
       margin-top: 10px;
-      color: #7f6c61;
-      font-size: 1rem;
-      line-height: 1.6;
+      color: var(--muted);
+      font-size: 0.98rem;
+      font-weight: 500;
     }
 
-    .location-chip-row {
+    .location-box {
+      margin-top: 18px;
+      background: var(--soft-2);
+      border: 1px solid #eee3da;
+      border-radius: 18px;
+      padding: 16px 18px;
+    }
+
+    .location-label {
+      margin: 0 0 8px;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #9a8980;
+      font-weight: 700;
+    }
+
+    .location-list {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin-top: 16px;
     }
 
-    .location-chip {
-      background: #f7efe9;
-      color: #7a5f52;
-      padding: 8px 14px;
+    .location-tag {
+      padding: 8px 12px;
       border-radius: 999px;
+      background: #fff;
+      border: 1px solid #e8dcd2;
+      color: #4a403a;
       font-size: 0.95rem;
+      font-weight: 500;
     }
 
-    .content-block {
-      margin-top: 26px;
+    .section-block {
+      margin-top: 28px;
     }
 
     .section-title {
-      font-size: 1.15rem;
       margin: 0 0 10px;
-      color: #7a5f52;
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      color: #6f5c54;
     }
 
     .section-copy {
       margin: 0;
       line-height: 1.8;
       font-size: 1rem;
-      color: #443b36;
+      color: #463d38;
     }
 
     .sidebar-card {
-      padding: 26px 22px 22px;
-      text-align: center;
       position: sticky;
       top: 18px;
+      padding: 24px 22px 22px;
+      text-align: center;
     }
 
     .profile-pic-wrap {
@@ -234,8 +257,8 @@
       margin: 0 auto 18px;
       border-radius: 50%;
       overflow: hidden;
-      background: #f5ece6;
-      border: 4px solid #f7f0ea;
+      background: #f2ebe6;
+      border: 4px solid #f8f2ed;
     }
 
     .profile-pic {
@@ -246,91 +269,103 @@
     }
 
     .sidebar-name {
-      margin: 0 0 8px;
-      font-size: 1.35rem;
-    }
-
-    .sidebar-mini-bio {
-      margin: 0 0 18px;
-      line-height: 1.7;
-      color: #6b5b52;
-      font-size: 0.98rem;
-    }
-
-    .sidebar-location-box {
-      background: #fbf6f2;
-      border: 1px solid #eee1d7;
-      border-radius: 18px;
-      padding: 14px 16px;
-      margin-bottom: 16px;
-      text-align: left;
-    }
-
-    .sidebar-location-title {
-      margin: 0 0 6px;
-      font-size: 0.92rem;
-      color: #8a7568;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-
-    .sidebar-location-text {
       margin: 0;
+      font-size: 1.35rem;
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+    }
+
+    .sidebar-sub {
+      margin: 10px 0 18px;
+      color: var(--muted);
+      font-size: 0.97rem;
+      line-height: 1.7;
+    }
+
+    .favorite-btn {
+      width: 100%;
+      border: 1px solid #e3d3d5;
+      background: #fff;
+      color: var(--accent-deep);
+      border-radius: var(--radius-pill);
+      padding: 14px 18px;
       font-size: 1rem;
-      line-height: 1.6;
-      color: #3e3631;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin-bottom: 16px;
+    }
+
+    .favorite-btn:hover {
+      background: #fbf4f5;
+    }
+
+    .favorite-btn.saved {
+      background: #faf1f3;
+      border-color: #dcb6bf;
+      color: #b06176;
+    }
+
+    .sidebar-location {
+      text-align: left;
+      background: var(--soft-2);
+      border: 1px solid #eee3da;
+      border-radius: 18px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+
+    .sidebar-location h3 {
+      margin: 0 0 8px;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #9a8980;
+      font-weight: 700;
+    }
+
+    .sidebar-location p {
+      margin: 0;
+      color: #473d38;
+      line-height: 1.7;
+      font-size: 0.98rem;
     }
 
     .contact-stack {
       display: flex;
       flex-direction: column;
       gap: 12px;
-      margin-top: 12px;
     }
 
     .stack-btn {
-      display: block;
       width: 100%;
-      box-sizing: border-box;
-      padding: 13px 16px;
-      border-radius: 999px;
-      border: 1px solid #e6d9d0;
-      background: #f8f3ef;
-      color: #2f2a26;
+      display: block;
       text-decoration: none;
+      color: var(--text);
+      background: #f8f3ef;
+      border: 1px solid #e7dbd1;
+      border-radius: var(--radius-pill);
+      padding: 14px 16px;
       font-size: 0.98rem;
+      font-weight: 500;
       transition: background 0.2s ease;
     }
 
     .stack-btn:hover {
-      background: #efe4dc;
-    }
-
-    .save-label {
-      margin-top: 12px;
-      color: #8a7568;
-      font-size: 0.92rem;
-    }
-
-    footer {
-      text-align: center;
-      padding: 30px 20px;
-      border-top: 1px solid #eadfd6;
-      font-size: 0.9rem;
-      color: #6e625b;
-      background: #fffaf6;
-      margin-top: 40px;
+      background: #f0e5dc;
     }
 
     .lightbox {
       position: fixed;
       inset: 0;
-      background: rgba(28, 22, 18, 0.84);
+      background: rgba(26, 21, 18, 0.84);
       display: none;
       align-items: center;
       justify-content: center;
       padding: 24px;
-      z-index: 2000;
+      z-index: 4000;
     }
 
     .lightbox.open {
@@ -346,25 +381,32 @@
     .lightbox img {
       max-width: 95vw;
       max-height: 92vh;
-      border-radius: 18px;
       display: block;
+      border-radius: 20px;
     }
 
     .lightbox-close {
       position: absolute;
-      top: -14px;
-      right: -14px;
+      top: -12px;
+      right: -12px;
       width: 42px;
       height: 42px;
       border: none;
       border-radius: 50%;
-      background: #ffffff;
-      font-size: 1.3rem;
+      background: #fff;
+      font-size: 1.2rem;
       cursor: pointer;
     }
 
+    footer {
+      text-align: center;
+      padding: 30px 20px 34px;
+      color: #746761;
+      font-size: 0.92rem;
+    }
+
     @media (max-width: 980px) {
-      .vendor-shell {
+      .vendor-layout {
         grid-template-columns: 1fr;
       }
 
@@ -376,33 +418,30 @@
     @media (max-width: 700px) {
       .page-auth {
         justify-content: center;
+        gap: 18px;
+      }
+
+      .header-image {
+        max-width: 420px;
       }
 
       .main-gallery-image {
-        height: 320px;
+        height: 340px;
       }
 
-      .business-name {
+      .vendor-title {
         font-size: 1.7rem;
+      }
+
+      .gallery-card,
+      .content-card,
+      .sidebar-card {
+        padding: 18px;
       }
 
       .profile-pic-wrap {
         width: 140px;
         height: 140px;
-      }
-
-      .gallery-panel,
-      .about-panel,
-      .sidebar-card {
-        padding: 18px;
-      }
-
-      .save-heart {
-        top: 18px;
-        right: 18px;
-        width: 64px;
-        height: 64px;
-        font-size: 1.8rem;
       }
     }
   </style>
@@ -422,50 +461,49 @@
   </header>
 
   <main class="vendor-page">
-    <div class="vendor-shell">
+    <div class="vendor-layout">
       <section>
-        <div class="panel gallery-panel">
-          <button id="favoriteBtn" class="save-heart" type="button" aria-label="Save vendor">♡</button>
-
+        <div class="card gallery-card">
           <div class="main-image-wrap">
             <img id="mainGalleryImage" class="main-gallery-image" src="" alt="Vendor gallery image">
           </div>
-
           <div id="thumbRow" class="thumb-row"></div>
         </div>
 
-        <div class="panel about-panel" style="margin-top: 24px;">
-          <h1 id="businessName" class="business-name">Business Name</h1>
+        <div class="card content-card">
+          <h1 id="businessName" class="vendor-title">Business Name</h1>
+          <div id="vendorCategory" class="category-line">Category</div>
 
-          <div class="meta-line">
-            <span id="vendorCategory">Category</span>
+          <div class="location-box">
+            <p class="location-label">Locations</p>
+            <div id="locationList" class="location-list"></div>
           </div>
 
-          <div id="locationChipRow" class="location-chip-row"></div>
-
-          <div class="content-block">
+          <div class="section-block">
             <h2 class="section-title">Business Bio</h2>
             <p id="vendorBio" class="section-copy">Vendor bio will go here.</p>
           </div>
 
-          <div class="content-block">
+          <div class="section-block">
             <h2 class="section-title">About</h2>
             <p id="vendorAbout" class="section-copy">More details about this vendor will go here.</p>
           </div>
         </div>
       </section>
 
-      <aside class="panel sidebar-card">
+      <aside class="card sidebar-card">
         <div class="profile-pic-wrap">
           <img id="profilePic" class="profile-pic" src="" alt="Vendor profile picture">
         </div>
 
         <h2 id="sidebarBusinessName" class="sidebar-name">Business Name</h2>
-        <p id="sidebarMiniBio" class="sidebar-mini-bio">A short intro goes here.</p>
+        <p id="sidebarMiniBio" class="sidebar-sub">A short intro goes here.</p>
 
-        <div class="sidebar-location-box">
-          <p class="sidebar-location-title">Locations</p>
-          <p id="sidebarLocationText" class="sidebar-location-text">Location goes here</p>
+        <button id="favoriteBtn" class="favorite-btn" type="button">♡ Save to favourites</button>
+
+        <div class="sidebar-location">
+          <h3>Locations</h3>
+          <p id="sidebarLocationText">Location goes here</p>
         </div>
 
         <div class="contact-stack">
@@ -473,8 +511,6 @@
           <a href="#" id="instagramBtn" class="stack-btn" target="_blank" rel="noopener noreferrer">Instagram</a>
           <a href="#" id="emailBtn" class="stack-btn">Contact Vendor</a>
         </div>
-
-        <div id="saveLabel" class="save-label">Save this vendor to your favourites</div>
       </aside>
     </div>
   </main>
@@ -490,7 +526,10 @@
     </div>
   </div>
 
-  <script>
+  <script type="module">
+    import { auth } from "./firebase-config.js";
+    import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
     const params = new URLSearchParams(window.location.search);
     const vendorId = params.get("id") || "demo-vendor";
 
@@ -520,22 +559,21 @@
     document.getElementById("vendorAbout").textContent = demoVendor.about;
     document.getElementById("sidebarMiniBio").textContent = demoVendor.shortBio;
     document.getElementById("profilePic").src = demoVendor.profilePic;
-
     document.getElementById("websiteBtn").href = demoVendor.website;
     document.getElementById("instagramBtn").href = demoVendor.instagram;
     document.getElementById("emailBtn").href = "mailto:" + demoVendor.email;
 
+    const locationList = document.getElementById("locationList");
     const sidebarLocationText = document.getElementById("sidebarLocationText");
-    const locationChipRow = document.getElementById("locationChipRow");
-    const locationList = Array.isArray(demoVendor.locations) ? demoVendor.locations : [];
+    const locations = Array.isArray(demoVendor.locations) ? demoVendor.locations : [];
 
-    sidebarLocationText.textContent = locationList.length ? locationList.join(", ") : "Location not listed";
+    sidebarLocationText.textContent = locations.length ? locations.join(", ") : "Location not listed";
 
-    locationList.forEach((location) => {
-      const chip = document.createElement("span");
-      chip.className = "location-chip";
-      chip.textContent = location;
-      locationChipRow.appendChild(chip);
+    locations.forEach((location) => {
+      const tag = document.createElement("span");
+      tag.className = "location-tag";
+      tag.textContent = location;
+      locationList.appendChild(tag);
     });
 
     const mainGalleryImage = document.getElementById("mainGalleryImage");
@@ -557,7 +595,7 @@
       thumbRow.appendChild(btn);
     });
 
-    if (demoVendor.gallery.length > 0) {
+    if (demoVendor.gallery.length) {
       mainGalleryImage.src = demoVendor.gallery[0];
     }
 
@@ -587,7 +625,6 @@
     });
 
     const favoriteBtn = document.getElementById("favoriteBtn");
-    const saveLabel = document.getElementById("saveLabel");
     const favoritesKey = "favoriteVendors";
 
     function getFavorites() {
@@ -600,16 +637,14 @@
 
     function updateFavoriteButton() {
       const favorites = getFavorites();
-      const isFavorited = favorites.includes(vendorId);
+      const saved = favorites.includes(vendorId);
 
-      if (isFavorited) {
+      if (saved) {
         favoriteBtn.classList.add("saved");
-        favoriteBtn.textContent = "♥";
-        saveLabel.textContent = "Saved to your favourites";
+        favoriteBtn.textContent = "♥ Saved to favourites";
       } else {
         favoriteBtn.classList.remove("saved");
-        favoriteBtn.textContent = "♡";
-        saveLabel.textContent = "Save this vendor to your favourites";
+        favoriteBtn.textContent = "♡ Save to favourites";
       }
     }
 
@@ -617,7 +652,7 @@
       let favorites = getFavorites();
 
       if (favorites.includes(vendorId)) {
-        favorites = favorites.filter(id => id !== vendorId);
+        favorites = favorites.filter((id) => id !== vendorId);
       } else {
         favorites.push(vendorId);
       }
@@ -626,27 +661,33 @@
       updateFavoriteButton();
     });
 
-    function isLoggedIn() {
-      return localStorage.getItem("loggedIn") === "true";
+    updateFavoriteButton();
+
+    const joinLink = document.getElementById("joinLink");
+    const loginLink = document.getElementById("loginLink");
+    const dashboardLink = document.getElementById("dashboardLink");
+    const logoutLink = document.getElementById("logoutLink");
+
+    function updateAuthUI(user) {
+      const loggedIn = !!user;
+      joinLink.style.display = loggedIn ? "none" : "inline-flex";
+      loginLink.style.display = loggedIn ? "none" : "inline-block";
+      dashboardLink.style.display = loggedIn ? "inline-block" : "none";
+      logoutLink.style.display = loggedIn ? "inline-block" : "none";
     }
 
-    function updateAuthUI() {
-      const loggedIn = isLoggedIn();
-
-      document.getElementById("joinLink").style.display = loggedIn ? "none" : "inline-block";
-      document.getElementById("loginLink").style.display = loggedIn ? "none" : "inline-block";
-      document.getElementById("dashboardLink").style.display = loggedIn ? "inline-block" : "none";
-      document.getElementById("logoutLink").style.display = loggedIn ? "inline-block" : "none";
-    }
-
-    document.getElementById("logoutLink").addEventListener("click", () => {
-      localStorage.removeItem("loggedIn");
-      updateAuthUI();
-      window.location.href = "index.html";
+    onAuthStateChanged(auth, (user) => {
+      updateAuthUI(user);
     });
 
-    updateFavoriteButton();
-    updateAuthUI();
+    logoutLink.addEventListener("click", async () => {
+      try {
+        await signOut(auth);
+        window.location.href = "index.html";
+      } catch (error) {
+        console.error("Logout failed:", error);
+      }
+    });
   </script>
 </body>
 </html>
