@@ -1,289 +1,987 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Vendor Profile | Our Wedding Day Hub</title>
-<link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vendor Profile | Our Wedding Day Hub</title>
+  <link rel="stylesheet" href="style.css" />
 
-<style>
-:root{
---bg:#fffaf6;
---card:#ffffff;
---text:#2f2a26;
---muted:#7d7169;
---line:#eadfd6;
---soft:#e8ddd4;
---soft-2:#f8f3ef;
---accent-soft:#faf1f4;
---shadow:0 12px 28px rgba(62,44,34,0.06);
---radius-xl:28px;
---radius-pill:999px;
-}
+  <style>
+    :root {
+      --bg: #fffaf6;
+      --card: #ffffff;
+      --text: #2f2a26;
+      --muted: #7d7169;
+      --line: #eadfd6;
+      --soft: #e8ddd4;
+      --soft-2: #f8f3ef;
+      --accent-soft: #faf1f4;
+      --shadow: 0 12px 28px rgba(62, 44, 34, 0.06);
+      --radius-xl: 28px;
+      --radius-pill: 999px;
+    }
 
-body{
-margin:0;
-background:var(--bg);
-color:var(--text);
-font-family:"Helvetica Neue",Arial,sans-serif;
-}
+    * {
+      box-sizing: border-box;
+    }
 
-.page-auth{
-max-width:1240px;
-margin:0 auto;
-padding:12px 22px 0;
-display:flex;
-justify-content:flex-end;
-gap:22px;
-}
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
 
-.auth-link,.auth-button{
-background:none;
-border:none;
-color:var(--text);
-text-decoration:none;
-font-size:1rem;
-cursor:pointer;
-}
+    .page-auth {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 12px 22px 0;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 22px;
+      flex-wrap: wrap;
+    }
 
-.auth-pill{
-background:var(--soft);
-padding:12px 20px;
-border-radius:999px;
-}
+    .auth-link,
+    .auth-button {
+      background: none;
+      border: none;
+      padding: 0;
+      margin: 0;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: inherit;
+      line-height: 1;
+    }
 
-.hero{
-text-align:center;
-padding:12px 20px 18px;
-}
+    .auth-link:hover,
+    .auth-button:hover {
+      opacity: 0.72;
+    }
 
-.header-image{
-max-width:420px;
-width:100%;
-margin:auto;
-display:block;
-}
+    .auth-pill {
+      background: var(--soft);
+      padding: 12px 20px;
+      border-radius: var(--radius-pill);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+    }
 
-.vendor-layout{
-max-width:1240px;
-margin:20px auto;
-padding:0 22px;
-display:grid;
-grid-template-columns:1.6fr 360px;
-gap:28px;
-}
+    .hero {
+      text-align: center;
+      padding: 10px 20px 18px;
+    }
 
-.card{
-background:white;
-border-radius:28px;
-border:1px solid var(--line);
-box-shadow:var(--shadow);
-}
+    .header-image {
+      width: 100%;
+      max-width: 380px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
 
-.gallery-card{padding:18px;}
+    .vendor-page {
+      max-width: 1240px;
+      margin: 10px auto 60px;
+      padding: 0 22px;
+    }
 
-.main-gallery-image{
-width:100%;
-height:560px;
-object-fit:cover;
-border-radius:22px;
-}
+    .vendor-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.55fr) minmax(300px, 360px);
+      gap: 28px;
+      align-items: start;
+    }
 
-.gallery-arrow{
-position:absolute;
-top:50%;
-transform:translateY(-50%);
-width:44px;
-height:44px;
-border-radius:50%;
-border:none;
-background:white;
-cursor:pointer;
-}
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+    }
 
-.gallery-arrow.left{left:10px;}
-.gallery-arrow.right{right:10px;}
+    .gallery-card {
+      padding: 18px;
+    }
 
-.content-card{padding:30px;}
+    .main-image-wrap {
+      position: relative;
+      overflow: hidden;
+      border-radius: 22px;
+      background: #f2ebe6;
+      border: 1px solid #efe5dc;
+      min-height: 320px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-.vendor-title{
-font-size:2rem;
-font-weight:600;
-}
+    .main-gallery-image {
+      width: 100%;
+      height: 560px;
+      object-fit: cover;
+      display: block;
+      cursor: zoom-in;
+    }
 
-.category-line{
-color:var(--muted);
-margin-top:6px;
-}
+    .empty-image {
+      color: var(--muted);
+      font-size: 0.98rem;
+      padding: 40px 20px;
+      text-align: center;
+    }
 
-.sidebar-card{
-padding:28px 22px;
-background:linear-gradient(#fff,#fdf9f6);
-text-align:center;
-}
+    .gallery-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 48px;
+      height: 48px;
+      border: none;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.92);
+      color: #4d4039;
+      font-size: 1.6rem;
+      line-height: 1;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(56, 38, 30, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 5;
+    }
 
-.profile-pic-wrap{
-width:160px;
-height:160px;
-border-radius:50%;
-overflow:hidden;
-margin:auto;
-}
+    .gallery-arrow:hover {
+      background: #ffffff;
+    }
 
-.profile-pic{width:100%;height:100%;object-fit:cover;}
+    .gallery-arrow.left {
+      left: 14px;
+    }
 
-.favorite-btn{
-width:100%;
-border-radius:999px;
-padding:14px;
-border:1px solid #ead8de;
-background:#fff;
-cursor:pointer;
-margin:14px 0;
-display:flex;
-justify-content:center;
-gap:8px;
-}
+    .gallery-arrow.right {
+      right: 14px;
+    }
 
-.contact-stack{
-display:flex;
-flex-direction:column;
-gap:10px;
-margin-bottom:14px;
-}
+    .gallery-arrow.hidden {
+      display: none;
+    }
 
-.stack-btn{
-padding:12px;
-border-radius:999px;
-background:#f8f3ef;
-text-decoration:none;
-color:var(--text);
-border:1px solid #e7dbd1;
-}
+    .thumb-row {
+      margin-top: 14px;
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scroll-behavior: smooth;
+    }
 
-.sidebar-location{
-padding:16px;
-border-radius:18px;
-background:#f8f3ef;
-}
+    .thumb-row:empty {
+      display: none;
+    }
 
-.sidebar-location-list{
-display:flex;
-flex-wrap:wrap;
-gap:8px;
-}
+    .thumb-btn {
+      flex: 0 0 auto;
+      width: 100px;
+      height: 100px;
+      padding: 0;
+      border-radius: 16px;
+      border: 2px solid transparent;
+      overflow: hidden;
+      background: #f2ebe6;
+      cursor: pointer;
+    }
 
-.sidebar-location-pill{
-padding:8px 12px;
-border-radius:999px;
-background:white;
-border:1px solid #e7dbd1;
-font-size:0.9rem;
-}
-</style>
+    .thumb-btn.active {
+      border-color: #c9aeb0;
+    }
+
+    .thumb-btn img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .content-card {
+      margin-top: 24px;
+      padding: 30px;
+    }
+
+    .vendor-title {
+      margin: 0;
+      font-size: 2rem;
+      font-weight: 600;
+      line-height: 1.08;
+    }
+
+    .category-line {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 0.96rem;
+      font-weight: 500;
+    }
+
+    .section-block {
+      margin-top: 28px;
+    }
+
+    .section-title {
+      margin: 0 0 10px;
+      font-size: 1.03rem;
+      font-weight: 700;
+      color: #6f5c54;
+    }
+
+    .section-copy {
+      margin: 0;
+      line-height: 1.8;
+      font-size: 1rem;
+      color: #463d38;
+      white-space: pre-line;
+    }
+
+    .sidebar-card {
+      position: sticky;
+      top: 18px;
+      padding: 28px 22px 22px;
+      text-align: center;
+      background: linear-gradient(180deg, #ffffff 0%, #fdf9f6 100%);
+    }
+
+    .profile-pic-wrap {
+      width: 170px;
+      height: 170px;
+      margin: 0 auto 18px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: #f2ebe6;
+      border: 4px solid #f8f2ed;
+    }
+
+    .profile-pic {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .sidebar-name {
+      margin: 0 0 10px;
+      font-size: 1.35rem;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    .sidebar-sub {
+      margin: 0 0 20px;
+      color: var(--muted);
+      font-size: 0.97rem;
+      line-height: 1.7;
+    }
+
+    .favorite-btn {
+      width: 100%;
+      border: 1px solid #ead8de;
+      background: linear-gradient(180deg, #ffffff 0%, #fcf7f8 100%);
+      color: #7f5b68;
+      border-radius: 999px;
+      padding: 15px 18px;
+      font-size: 0.98rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      margin-bottom: 14px;
+      box-shadow: 0 10px 24px rgba(185, 140, 147, 0.10);
+      transition: all 0.22s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      letter-spacing: 0.01em;
+    }
+
+    .favorite-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 28px rgba(185, 140, 147, 0.14);
+      border-color: #dfc0c8;
+    }
+
+    .favorite-btn.saved {
+      background: linear-gradient(180deg, #fff7f9 0%, #f9edf1 100%);
+      border-color: #ddb8c4;
+      color: #b06176;
+      box-shadow: 0 12px 26px rgba(176, 97, 118, 0.14);
+    }
+
+    .contact-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .stack-btn {
+      width: 100%;
+      display: block;
+      text-decoration: none;
+      color: var(--text);
+      background: #f8f3ef;
+      border: 1px solid #e7dbd1;
+      border-radius: var(--radius-pill);
+      padding: 14px 16px;
+      font-size: 0.98rem;
+      font-weight: 500;
+    }
+
+    .sidebar-location {
+      text-align: left;
+      background: var(--soft-2);
+      border: 1px solid #e7dbd1;
+      border-radius: 18px;
+      padding: 16px;
+      margin-top: 4px;
+    }
+
+    .sidebar-location h3 {
+      margin: 0 0 10px;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #9a8980;
+      font-weight: 700;
+    }
+
+    .sidebar-location-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .sidebar-location-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: #ffffff;
+      border: 1px solid #e7dbd1;
+      color: #4a403a;
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    .status-message {
+      margin-top: 18px;
+      color: #a14d68;
+      font-size: 0.95rem;
+      text-align: center;
+      white-space: pre-line;
+    }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(26, 21, 18, 0.84);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      z-index: 4000;
+    }
+
+    .lightbox.open {
+      display: flex;
+    }
+
+    .lightbox-inner {
+      position: relative;
+      max-width: 95vw;
+      max-height: 92vh;
+    }
+
+    .lightbox img {
+      max-width: 95vw;
+      max-height: 92vh;
+      display: block;
+      border-radius: 20px;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -12px;
+      right: -12px;
+      width: 42px;
+      height: 42px;
+      border: none;
+      border-radius: 50%;
+      background: #fff;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px 34px;
+      color: #746761;
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 980px) {
+      .vendor-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar-card {
+        position: static;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .page-auth {
+        justify-content: center;
+        gap: 18px;
+      }
+
+      .header-image {
+        max-width: 300px;
+      }
+
+      .main-gallery-image {
+        height: 340px;
+      }
+
+      .vendor-title {
+        font-size: 1.7rem;
+      }
+
+      .gallery-card,
+      .content-card,
+      .sidebar-card {
+        padding: 18px;
+      }
+
+      .profile-pic-wrap {
+        width: 140px;
+        height: 140px;
+      }
+
+      .gallery-arrow {
+        width: 42px;
+        height: 42px;
+        font-size: 1.35rem;
+      }
+    }
+  </style>
 </head>
-
 <body>
 
-<div class="page-auth">
-<a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
-<a href="index.html" class="auth-link">Home</a>
-<a href="login.html" id="loginLink" class="auth-link">Log In</a>
-<a href="dashboard.html" id="dashboardLink" class="auth-link" style="display:none;">Dashboard</a>
-<button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
-</div>
+  <div class="page-auth">
+    <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
+    <a href="index.html" class="auth-link">Home</a>
+    <a href="login.html" id="loginLink" class="auth-link">Log In</a>
+    <a href="dashboard.html" id="dashboardLink" class="auth-link" style="display:none;">Dashboard</a>
+    <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
+  </div>
 
-<header class="hero">
-<img src="images/header4.png" class="header-image">
-</header>
+  <header class="hero">
+    <img src="images/header4.png" alt="Our Wedding Day Hub" class="header-image">
+  </header>
 
-<main class="vendor-layout">
+  <main class="vendor-page">
+    <div class="vendor-layout">
+      <section>
+        <div class="card gallery-card">
+          <div class="main-image-wrap">
+            <button id="prevImageBtn" class="gallery-arrow left hidden" type="button" aria-label="Previous image">‹</button>
+            <img id="mainGalleryImage" class="main-gallery-image" src="" alt="Vendor gallery image" style="display:none;">
+            <div id="emptyImageMessage" class="empty-image">No gallery images yet.</div>
+            <button id="nextImageBtn" class="gallery-arrow right hidden" type="button" aria-label="Next image">›</button>
+          </div>
+          <div id="thumbRow" class="thumb-row"></div>
+        </div>
 
-<section>
+        <div class="card content-card">
+          <h1 id="businessName" class="vendor-title">Loading vendor...</h1>
+          <div id="vendorCategory" class="category-line"></div>
 
-<div class="card gallery-card">
-<img id="mainGalleryImage" class="main-gallery-image">
-</div>
+          <div class="section-block">
+            <h2 class="section-title">About</h2>
+            <p id="vendorAbout" class="section-copy"></p>
+          </div>
+        </div>
+      </section>
 
-<div class="card content-card">
-<h1 id="businessName" class="vendor-title"></h1>
-<div id="vendorCategory" class="category-line"></div>
+      <aside class="card sidebar-card">
+        <div class="profile-pic-wrap">
+          <img id="profilePic" class="profile-pic" src="" alt="Vendor profile picture">
+        </div>
 
-<h3>About</h3>
-<p id="vendorAbout"></p>
-</div>
+        <h2 id="sidebarBusinessName" class="sidebar-name">Loading vendor...</h2>
+        <p id="sidebarMiniBio" class="sidebar-sub"></p>
 
-</section>
+        <button id="favoriteBtn" class="favorite-btn" type="button">♡ Save to favourites</button>
 
-<aside class="card sidebar-card">
+        <div class="contact-stack">
+          <a href="#" id="websiteBtn" class="stack-btn" target="_blank" rel="noopener noreferrer">Website</a>
+          <a href="#" id="emailBtn" class="stack-btn">Contact Vendor</a>
+          <a href="#" id="instagramBtn" class="stack-btn" target="_blank" rel="noopener noreferrer">Instagram</a>
+        </div>
 
-<div class="profile-pic-wrap">
-<img id="profilePic" class="profile-pic">
-</div>
+        <div class="sidebar-location">
+          <h3>Locations</h3>
+          <div id="sidebarLocationList" class="sidebar-location-list"></div>
+        </div>
 
-<button id="favoriteBtn" class="favorite-btn"></button>
+        <div id="statusMessage" class="status-message"></div>
+      </aside>
+    </div>
+  </main>
 
-<div class="contact-stack">
-<a id="websiteBtn" class="stack-btn">Website</a>
-<a id="emailBtn" class="stack-btn">Contact</a>
-<a id="instagramBtn" class="stack-btn">Instagram</a>
-</div>
+  <footer>
+    © Our Wedding Day Hub | ABN: 76688637041
+  </footer>
 
-<div class="sidebar-location">
-<h4>Locations</h4>
-<div id="sidebarLocationList" class="sidebar-location-list"></div>
-</div>
+  <div id="lightbox" class="lightbox" aria-hidden="true">
+    <div class="lightbox-inner">
+      <button id="lightboxClose" class="lightbox-close" type="button" aria-label="Close image">×</button>
+      <img id="lightboxImage" src="" alt="Expanded gallery image">
+    </div>
+  </div>
 
-</aside>
+  <script type="module">
+    import {
+      db,
+      auth,
+      onAuthStateChanged,
+      signOut,
+      doc,
+      getDoc,
+      collection,
+      getDocs,
+      query,
+      where
+    } from "./firebase.js";
 
-</main>
+    const params = new URLSearchParams(window.location.search);
+    const vendorIdFromUrl = params.get("id");
+    const vendorUidFromUrl = params.get("uid");
+    const vendorIdFromSession = sessionStorage.getItem("selectedVendorId");
+    const vendorUidFromSession = sessionStorage.getItem("selectedVendorUid");
 
-<script type="module">
-import {db,doc,getDoc} from "./firebase.js";
+    const joinLink = document.getElementById("joinLink");
+    const loginLink = document.getElementById("loginLink");
+    const dashboardLink = document.getElementById("dashboardLink");
+    const logoutLink = document.getElementById("logoutLink");
+    const statusMessage = document.getElementById("statusMessage");
 
-function formatText(value){
-if(!value) return "";
-return String(value)
-.replace(/_/g," ")
-.replace(/-/g," ")
-.replace(/\b\w/g,l=>l.toUpperCase());
-}
+    const businessNameEl = document.getElementById("businessName");
+    const sidebarBusinessNameEl = document.getElementById("sidebarBusinessName");
+    const vendorCategoryEl = document.getElementById("vendorCategory");
+    const vendorAboutEl = document.getElementById("vendorAbout");
+    const sidebarMiniBioEl = document.getElementById("sidebarMiniBio");
+    const profilePicEl = document.getElementById("profilePic");
+    const websiteBtn = document.getElementById("websiteBtn");
+    const instagramBtn = document.getElementById("instagramBtn");
+    const emailBtn = document.getElementById("emailBtn");
+    const sidebarLocationListEl = document.getElementById("sidebarLocationList");
 
-const params=new URLSearchParams(window.location.search);
-const id=params.get("id");
+    const mainGalleryImage = document.getElementById("mainGalleryImage");
+    const emptyImageMessage = document.getElementById("emptyImageMessage");
+    const thumbRow = document.getElementById("thumbRow");
+    const prevImageBtn = document.getElementById("prevImageBtn");
+    const nextImageBtn = document.getElementById("nextImageBtn");
 
-async function loadVendor(){
-const snap=await getDoc(doc(db,"vendors",id));
-const v=snap.data();
+    const favoriteBtn = document.getElementById("favoriteBtn");
+    const favoritesKey = "favoriteVendors";
 
-document.getElementById("businessName").textContent=formatText(v.businessName);
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImage = document.getElementById("lightboxImage");
+    const lightboxClose = document.getElementById("lightboxClose");
 
-const cats=(v.categories||[]).map(formatText).join(" • ");
-document.getElementById("vendorCategory").textContent=cats;
+    let currentVendorDocId = vendorIdFromUrl || vendorIdFromSession || null;
+    let galleryImages = [];
+    let currentImageIndex = 0;
 
-document.getElementById("vendorAbout").textContent=v.bio||"";
+    function formatText(value) {
+      if (!value) return "";
+      return String(value)
+        .replace(/_/g, " ")
+        .replace(/-/g, " ")
+        .replace(/\s+/g, " ")
+        .trim()
+        .replace(/\b\w/g, char => char.toUpperCase());
+    }
 
-document.getElementById("profilePic").src=v.profileImage||"";
+    function textOrFallback(value, fallback = "") {
+      if (typeof value === "string" && value.trim()) return value.trim();
+      return fallback;
+    }
 
-document.getElementById("websiteBtn").href=v.website||"#";
-document.getElementById("instagramBtn").href=v.instagram||"#";
-document.getElementById("emailBtn").href="mailto:"+v.email;
+    function arrayFromValue(value) {
+      if (Array.isArray(value)) {
+        return value.filter(item => typeof item === "string" && item.trim());
+      }
+      if (typeof value === "string" && value.trim()) return [value.trim()];
+      return [];
+    }
 
-const locWrap=document.getElementById("sidebarLocationList");
-locWrap.innerHTML="";
-(v.regions||[]).forEach(l=>{
-const div=document.createElement("div");
-div.className="sidebar-location-pill";
-div.textContent=formatText(l);
-locWrap.appendChild(div);
-});
-}
+    function firstNonEmpty(...values) {
+      for (const value of values) {
+        if (typeof value === "string" && value.trim()) return value.trim();
+      }
+      return "";
+    }
 
-loadVendor();
+    function firstArray(...values) {
+      for (const value of values) {
+        const arr = arrayFromValue(value);
+        if (arr.length) return arr;
+      }
+      return [];
+    }
 
-const favBtn=document.getElementById("favoriteBtn");
-favBtn.innerHTML="♡ Save to favourites";
-</script>
+    function normalizeUrl(url) {
+      const clean = textOrFallback(url);
+      if (!clean) return "";
+      if (
+        clean.startsWith("http://") ||
+        clean.startsWith("https://") ||
+        clean.startsWith("mailto:")
+      ) {
+        return clean;
+      }
+      return "https://" + clean;
+    }
 
+    function getLocations(vendor) {
+      return firstArray(
+        vendor.locations,
+        vendor.regions,
+        vendor.location,
+        vendor.serviceAreas,
+        vendor.serviceArea,
+        vendor.suburbs,
+        vendor.states
+      );
+    }
+
+    function getGallery(vendor) {
+      const items = [
+        ...firstArray(
+          vendor.gallery,
+          vendor.galleryImages,
+          vendor.images,
+          vendor.photos,
+          vendor.portfolioImages
+        ),
+        firstNonEmpty(
+          vendor.coverImageUrl,
+          vendor.coverImage,
+          vendor.coverPhoto,
+          vendor.heroImage,
+          vendor.bannerImage
+        ),
+        firstNonEmpty(
+          vendor.profileImage,
+          vendor.profilePic,
+          vendor.logoUrl,
+          vendor.photoURL
+        )
+      ];
+
+      return [...new Set(items.filter(Boolean))];
+    }
+
+    function getProfileImage(vendor) {
+      return firstNonEmpty(
+        vendor.profileImage,
+        vendor.profilePic,
+        vendor.logoUrl,
+        vendor.photoURL,
+        vendor.coverImageUrl,
+        vendor.coverImage,
+        vendor.coverPhoto,
+        galleryImages[0]
+      );
+    }
+
+    function setLinkOrHide(element, url, label) {
+      if (url) {
+        element.href = url;
+        element.textContent = label;
+        element.style.display = "block";
+      } else {
+        element.style.display = "none";
+      }
+    }
+
+    function renderSidebarLocations(locations) {
+      sidebarLocationListEl.innerHTML = "";
+
+      if (!locations.length) {
+        const pill = document.createElement("div");
+        pill.className = "sidebar-location-pill";
+        pill.textContent = "Location not listed";
+        sidebarLocationListEl.appendChild(pill);
+        return;
+      }
+
+      locations.forEach((location) => {
+        const pill = document.createElement("div");
+        pill.className = "sidebar-location-pill";
+        pill.textContent = formatText(location);
+        sidebarLocationListEl.appendChild(pill);
+      });
+    }
+
+    function updateArrowButtons() {
+      const showArrows = galleryImages.length > 1;
+      prevImageBtn.classList.toggle("hidden", !showArrows);
+      nextImageBtn.classList.toggle("hidden", !showArrows);
+    }
+
+    function setActiveImage(index) {
+      if (!galleryImages.length || !galleryImages[index]) return;
+
+      currentImageIndex = index;
+      mainGalleryImage.src = galleryImages[index];
+      mainGalleryImage.style.display = "block";
+      emptyImageMessage.style.display = "none";
+
+      document.querySelectorAll(".thumb-btn").forEach((btn, i) => {
+        btn.classList.toggle("active", i === index);
+      });
+
+      updateArrowButtons();
+    }
+
+    function showPrevImage() {
+      if (galleryImages.length < 2) return;
+      const nextIndex = currentImageIndex === 0 ? galleryImages.length - 1 : currentImageIndex - 1;
+      setActiveImage(nextIndex);
+    }
+
+    function showNextImage() {
+      if (galleryImages.length < 2) return;
+      const nextIndex = currentImageIndex === galleryImages.length - 1 ? 0 : currentImageIndex + 1;
+      setActiveImage(nextIndex);
+    }
+
+    function renderGallery(images) {
+      galleryImages = images;
+      currentImageIndex = 0;
+      thumbRow.innerHTML = "";
+
+      if (!images.length) {
+        mainGalleryImage.removeAttribute("src");
+        mainGalleryImage.style.display = "none";
+        emptyImageMessage.style.display = "block";
+        updateArrowButtons();
+        return;
+      }
+
+      setActiveImage(0);
+
+      images.forEach((img, index) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "thumb-btn" + (index === 0 ? " active" : "");
+        btn.innerHTML = `<img src="${img}" alt="Gallery thumbnail ${index + 1}">`;
+        btn.addEventListener("click", () => setActiveImage(index));
+        thumbRow.appendChild(btn);
+      });
+
+      updateArrowButtons();
+    }
+
+    function renderVendor(vendor, docId) {
+      currentVendorDocId = docId || currentVendorDocId;
+
+      if (docId) sessionStorage.setItem("selectedVendorId", docId);
+      if (vendor.uid) sessionStorage.setItem("selectedVendorUid", vendor.uid);
+
+      const businessName = formatText(
+        firstNonEmpty(vendor.businessName, vendor.name, vendor.vendorName, "Vendor")
+      );
+
+      const categoryArray = firstArray(vendor.categories, vendor.category);
+      const categoryText = categoryArray.length
+        ? categoryArray.map(formatText).join(" • ")
+        : "Vendor";
+
+      const aboutText = firstNonEmpty(
+        vendor.about,
+        vendor.longDescription,
+        vendor.story,
+        vendor.bio,
+        vendor.description,
+        vendor.shortDescription,
+        ""
+      );
+
+      const shortBio = firstNonEmpty(
+        vendor.shortBio,
+        vendor.tagline,
+        vendor.excerpt,
+        ""
+      );
+
+      const website = normalizeUrl(firstNonEmpty(vendor.website, vendor.websiteUrl, vendor.siteUrl));
+      const instagram = normalizeUrl(firstNonEmpty(vendor.instagram, vendor.instagramUrl));
+      const email = firstNonEmpty(vendor.email, "");
+      const locations = getLocations(vendor);
+      const images = getGallery(vendor);
+
+      businessNameEl.textContent = businessName;
+      sidebarBusinessNameEl.textContent = businessName;
+      vendorCategoryEl.textContent = categoryText;
+      vendorAboutEl.textContent = aboutText || "No extra details added yet.";
+      sidebarMiniBioEl.textContent = shortBio || "";
+
+      renderSidebarLocations(locations);
+      renderGallery(images);
+
+      const profileImage = getProfileImage(vendor);
+      if (profileImage) {
+        profilePicEl.src = profileImage;
+      } else {
+        profilePicEl.removeAttribute("src");
+      }
+
+      setLinkOrHide(websiteBtn, website, "Website");
+      setLinkOrHide(instagramBtn, instagram, "Instagram");
+
+      if (email) {
+        emailBtn.href = "mailto:" + email;
+        emailBtn.style.display = "block";
+      } else {
+        emailBtn.style.display = "none";
+      }
+
+      statusMessage.textContent = "";
+      updateFavoriteButton();
+    }
+
+    async function loadVendor() {
+      try {
+        if (currentVendorDocId) {
+          const snap = await getDoc(doc(db, "vendors", currentVendorDocId));
+          if (snap.exists()) {
+            renderVendor(snap.data(), snap.id);
+            return;
+          }
+        }
+
+        const uidToTry = vendorUidFromUrl || vendorUidFromSession;
+        if (uidToTry) {
+          const results = await getDocs(query(collection(db, "vendors"), where("uid", "==", uidToTry)));
+          if (!results.empty) {
+            const found = results.docs[0];
+            renderVendor(found.data(), found.id);
+            return;
+          }
+        }
+
+        statusMessage.textContent = "Vendor not found.\nThis page did not receive a valid vendor ID.";
+        businessNameEl.textContent = "Vendor not found";
+        sidebarBusinessNameEl.textContent = "Vendor not found";
+      } catch (error) {
+        console.error("Vendor load error:", error);
+        statusMessage.textContent = "Could not load this vendor right now.\nCheck the browser console for the exact error.";
+        businessNameEl.textContent = "Could not load vendor";
+        sidebarBusinessNameEl.textContent = "Could not load vendor";
+      }
+    }
+
+    function getFavorites() {
+      return JSON.parse(localStorage.getItem(favoritesKey)) || [];
+    }
+
+    function saveFavorites(favorites) {
+      localStorage.setItem(favoritesKey, JSON.stringify(favorites));
+    }
+
+    function updateFavoriteButton() {
+      const favorites = getFavorites();
+      const saved = currentVendorDocId && favorites.includes(currentVendorDocId);
+
+      if (saved) {
+        favoriteBtn.classList.add("saved");
+        favoriteBtn.innerHTML = `<span>♥</span><span>Saved to favourites</span>`;
+      } else {
+        favoriteBtn.classList.remove("saved");
+        favoriteBtn.innerHTML = `<span>♡</span><span>Save to favourites</span>`;
+      }
+    }
+
+    favoriteBtn.addEventListener("click", () => {
+      if (!currentVendorDocId) return;
+
+      let favorites = getFavorites();
+
+      if (favorites.includes(currentVendorDocId)) {
+        favorites = favorites.filter((id) => id !== currentVendorDocId);
+      } else {
+        favorites.push(currentVendorDocId);
+      }
+
+      saveFavorites(favorites);
+      updateFavoriteButton();
+    });
+
+    onAuthStateChanged(auth, (user) => {
+      const loggedIn = !!user;
+      joinLink.style.display = loggedIn ? "none" : "inline-flex";
+      loginLink.style.display = loggedIn ? "none" : "inline-block";
+      dashboardLink.style.display = loggedIn ? "inline-block" : "none";
+      logoutLink.style.display = loggedIn ? "inline-block" : "none";
+    });
+
+    logoutLink.addEventListener("click", async () => {
+      try {
+        await signOut(auth);
+        window.location.href = "index.html";
+      } catch (error) {
+        console.error("Logout failed:", error);
+      }
+    });
+
+    prevImageBtn.addEventListener("click", showPrevImage);
+    nextImageBtn.addEventListener("click", showNextImage);
+
+    mainGalleryImage.addEventListener("click", () => {
+      if (!mainGalleryImage.src) return;
+      lightboxImage.src = mainGalleryImage.src;
+      lightbox.classList.add("open");
+      lightbox.setAttribute("aria-hidden", "false");
+    });
+
+    function closeLightbox() {
+      lightbox.classList.remove("open");
+      lightbox.setAttribute("aria-hidden", "true");
+    }
+
+    lightboxClose.addEventListener("click", closeLightbox);
+    lightbox.addEventListener("click", (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeLightbox();
+      if (e.key === "ArrowLeft") showPrevImage();
+      if (e.key === "ArrowRight") showNextImage();
+    });
+
+    loadVendor();
+    updateFavoriteButton();
+  </script>
 </body>
 </html>
