@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="style.css">
   <style>
     .dashboard-page {
-      max-width: 1100px;
+      max-width: 1120px;
       margin: 0 auto 40px;
       padding: 20px;
     }
@@ -31,13 +31,19 @@
       gap: 18px;
     }
 
+    .dashboard-three-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 18px;
+    }
+
     .dashboard-section-title {
       text-align: left;
       margin-bottom: 12px;
     }
 
     .dashboard-help {
-      color: var(--muted);
+      color: #8c7f75;
       font-size: 14px;
       margin-top: 6px;
       text-align: left;
@@ -55,8 +61,8 @@
       display: inline-block;
       padding: 8px 14px;
       border-radius: 999px;
-      background: var(--accent-soft);
-      color: var(--text);
+      background: #f5ebe3;
+      color: #2b211b;
       font-size: 13px;
       font-weight: 600;
       margin: 0;
@@ -75,29 +81,192 @@
       height: 18px;
     }
 
-    .image-preview-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 16px;
-      margin-top: 14px;
-    }
-
-    .image-preview-grid img {
-      width: 100%;
-      display: block;
-      border-radius: 16px;
-      aspect-ratio: 1 / 1;
-      object-fit: cover;
-      border: 1px solid #eadfd6;
-      background: #fffaf6;
-    }
-
     .dashboard-card-soft {
-      margin-top: 18px;
-      padding: 16px;
-      border-radius: 18px;
+      margin-top: 14px;
+      padding: 18px;
+      border-radius: 22px;
       background: #fffaf8;
       border: 1px solid #efe1d6;
+    }
+
+    .dashboard-field label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #3b2d25;
+    }
+
+    .dashboard-field input,
+    .dashboard-field textarea,
+    .dashboard-field select {
+      width: 100%;
+      border: 1px solid #eadfd6;
+      border-radius: 16px;
+      background: #fffdfb;
+      padding: 14px 16px;
+      font-size: 0.96rem;
+      color: #2d221c;
+      box-sizing: border-box;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .dashboard-field input:focus,
+    .dashboard-field textarea:focus,
+    .dashboard-field select:focus {
+      outline: none;
+      border-color: #d9c2b2;
+      box-shadow: 0 0 0 3px rgba(217, 194, 178, 0.18);
+      background: #ffffff;
+    }
+
+    .media-uploader-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .upload-box {
+      border: 1px dashed #d8c6b8;
+      background: #fffaf6;
+      border-radius: 20px;
+      padding: 18px;
+      text-align: left;
+    }
+
+    .upload-box h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 1rem;
+    }
+
+    .upload-box input[type="file"] {
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .media-preview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .media-preview-item {
+      background: #fffaf8;
+      border: 1px solid #eadfd6;
+      border-radius: 18px;
+      padding: 10px;
+    }
+
+    .media-preview-item img,
+    .media-preview-item video {
+      width: 100%;
+      display: block;
+      border-radius: 14px;
+      background: #f8f0ea;
+      object-fit: cover;
+      max-height: 220px;
+    }
+
+    .brand-assets-grid {
+      display: grid;
+      grid-template-columns: 220px 220px 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .asset-box {
+      background: #fffaf8;
+      border: 1px solid #eadfd6;
+      border-radius: 22px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .asset-preview-circle {
+      width: 140px;
+      height: 140px;
+      margin: 0 auto 12px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: #f6eee7;
+      border: 1px solid #eadfd6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .asset-preview-circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .asset-preview-square {
+      width: 140px;
+      height: 140px;
+      margin: 0 auto 12px;
+      border-radius: 24px;
+      overflow: hidden;
+      background: #f6eee7;
+      border: 1px solid #eadfd6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .asset-preview-square img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .asset-empty {
+      color: #a18f83;
+      font-size: 0.86rem;
+      padding: 10px;
+    }
+
+    .mini-pill-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding-top: 8px;
+    }
+
+    .mini-pill-grid label {
+      display: inline-flex;
+      align-items: center;
+      margin: 0;
+    }
+
+    .mini-pill-grid input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .mini-pill-grid span {
+      display: inline-block;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: #f8f4f1;
+      border: 1px solid #e8ddd2;
+      font-size: 0.88rem;
+      line-height: 1.2;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .mini-pill-grid label:hover span {
+      background: #efe6de;
+      border-color: #dccabc;
+    }
+
+    .mini-pill-grid input:checked + span {
+      background: #111;
+      color: #fff;
+      border-color: #111;
     }
 
     .dashboard-note {
@@ -106,8 +275,11 @@
       margin-top: 8px;
     }
 
-    @media (max-width: 900px) {
-      .dashboard-two-col {
+    @media (max-width: 980px) {
+      .dashboard-two-col,
+      .dashboard-three-col,
+      .media-uploader-grid,
+      .brand-assets-grid {
         grid-template-columns: 1fr;
       }
     }
@@ -132,7 +304,7 @@
         <p class="eyebrow">vendor dashboard</p>
         <h1 class="page-title">Manage Your Vendor Profile</h1>
         <p class="page-subtitle">
-          Update your business details, choose your categories, set your service locations, and control when your profile is visible on the hub.
+          Update your business details, upload your brand assets and media, choose your categories and style tags, and manage where your profile appears.
         </p>
         <div class="dashboard-actions">
           <a href="#" id="viewProfileBtn" class="apply-button">View Public Profile</a>
@@ -166,45 +338,149 @@
       <section class="card" style="text-align:left;">
         <h2 class="dashboard-section-title">Business Details</h2>
 
-        <div class="dashboard-two-col">
-          <div>
-            <label for="businessName"><strong>Business Name</strong></label>
-            <input type="text" id="businessName">
+        <div class="dashboard-card-soft">
+          <div class="dashboard-two-col">
+            <div class="dashboard-field">
+              <label for="businessName">Business Name</label>
+              <input type="text" id="businessName">
+            </div>
+
+            <div class="dashboard-field">
+              <label for="email">Email</label>
+              <input type="email" id="email">
+            </div>
           </div>
 
-          <div>
-            <label for="email"><strong>Email</strong></label>
-            <input type="email" id="email">
+          <div class="dashboard-three-col" style="margin-top: 14px;">
+            <div class="dashboard-field">
+              <label for="phone">Phone</label>
+              <input type="text" id="phone">
+            </div>
+
+            <div class="dashboard-field">
+              <label for="instagram">Instagram</label>
+              <input type="text" id="instagram" placeholder="@yourhandle or full link">
+            </div>
+
+            <div class="dashboard-field">
+              <label for="website">Website</label>
+              <input type="text" id="website" placeholder="https://yourwebsite.com">
+            </div>
+          </div>
+
+          <div class="dashboard-two-col" style="margin-top: 14px;">
+            <div class="dashboard-field">
+              <label for="serviceAreas">Service Areas Summary</label>
+              <input type="text" id="serviceAreas" placeholder="Brisbane, Gold Coast, Sunshine Coast">
+            </div>
+
+            <div class="dashboard-field">
+              <label for="displayLocation">Display Location</label>
+              <input type="text" id="displayLocation" placeholder="Brisbane, Queensland">
+            </div>
+          </div>
+
+          <div class="dashboard-field" style="margin-top: 14px;">
+            <label for="bio">Bio</label>
+            <textarea id="bio" rows="6" placeholder="Tell couples about your business..."></textarea>
           </div>
         </div>
+      </section>
 
-        <div class="dashboard-two-col" style="margin-top: 14px;">
-          <div>
-            <label for="phone"><strong>Phone</strong></label>
-            <input type="text" id="phone">
-          </div>
+      <section class="card" style="text-align:left;">
+        <h2 class="dashboard-section-title">Profile Picture & Logo</h2>
 
-          <div>
-            <label for="instagram"><strong>Instagram</strong></label>
-            <input type="text" id="instagram" placeholder="@yourhandle or full link">
+        <div class="dashboard-card-soft">
+          <div class="brand-assets-grid">
+            <div class="asset-box">
+              <div class="asset-preview-circle" id="profileImagePreviewWrap">
+                <div class="asset-empty" id="profileImageEmpty">No profile image yet</div>
+                <img id="profileImagePreview" style="display:none;" alt="Profile image preview">
+              </div>
+              <div class="dashboard-field">
+                <label for="profileImageFile">Profile Picture</label>
+                <input type="file" id="profileImageFile" accept="image/*">
+              </div>
+              <p class="dashboard-note">Best used as a circle portrait or hero headshot.</p>
+            </div>
+
+            <div class="asset-box">
+              <div class="asset-preview-square" id="logoPreviewWrap">
+                <div class="asset-empty" id="logoEmpty">No logo yet</div>
+                <img id="logoPreview" style="display:none;" alt="Logo preview">
+              </div>
+              <div class="dashboard-field">
+                <label for="logoFile">Logo</label>
+                <input type="file" id="logoFile" accept="image/*">
+              </div>
+              <p class="dashboard-note">Best used as a square logo with soft rounded corners.</p>
+            </div>
+
+            <div>
+              <div class="dashboard-field">
+                <label for="profileImageUrl">Profile Image URL</label>
+                <input type="text" id="profileImageUrl" placeholder="Optional fallback image URL">
+              </div>
+
+              <div class="dashboard-field" style="margin-top: 14px;">
+                <label for="logoUrl">Logo URL</label>
+                <input type="text" id="logoUrl" placeholder="Optional fallback logo URL">
+              </div>
+
+              <p class="dashboard-help" style="margin-top: 14px;">
+                Vendors can use uploaded files or paste direct image links. Uploaded files are easier for most vendors.
+              </p>
+            </div>
           </div>
         </div>
+      </section>
 
-        <div class="dashboard-two-col" style="margin-top: 14px;">
-          <div>
-            <label for="website"><strong>Website</strong></label>
-            <input type="text" id="website" placeholder="https://yourwebsite.com">
+      <section class="card" style="text-align:left;">
+        <h2 class="dashboard-section-title">Media Uploads</h2>
+
+        <div class="dashboard-card-soft">
+          <div class="media-uploader-grid">
+            <div class="upload-box">
+              <h3>Upload Photos</h3>
+              <p class="dashboard-note">Add gallery photos for your public profile.</p>
+              <input type="file" id="galleryImageFiles" accept="image/*" multiple>
+            </div>
+
+            <div class="upload-box">
+              <h3>Upload Videos</h3>
+              <p class="dashboard-note">Add short videos or reels for your profile.</p>
+              <input type="file" id="galleryVideoFiles" accept="video/*" multiple>
+            </div>
           </div>
 
-          <div>
-            <label for="serviceAreas"><strong>Service Areas Summary</strong></label>
-            <input type="text" id="serviceAreas" placeholder="Brisbane, Gold Coast, Sunshine Coast">
+          <div class="dashboard-two-col" style="margin-top: 18px;">
+            <div class="dashboard-field">
+              <label for="coverImageUrl">Cover Image URL</label>
+              <input type="text" id="coverImageUrl" placeholder="https://...">
+            </div>
+
+            <div class="dashboard-field">
+              <label for="videoLinks">Video Links</label>
+              <textarea id="videoLinks" rows="4" placeholder="One video URL per line"></textarea>
+            </div>
           </div>
+
+          <div class="dashboard-field" style="margin-top: 14px;">
+            <label for="images">Gallery Image URLs</label>
+            <textarea id="images" rows="6" placeholder="One image URL per line"></textarea>
+            <p class="dashboard-help">You can still paste direct image links if needed.</p>
+          </div>
+
+          <div id="imagePreview" class="media-preview-grid"></div>
+          <div id="videoPreview" class="media-preview-grid"></div>
         </div>
+      </section>
 
-        <div style="margin-top: 14px;">
-          <label for="bio"><strong>Bio</strong></label>
-          <textarea id="bio" rows="6" placeholder="Tell couples about your business..."></textarea>
+      <section class="card" style="text-align:left;">
+        <h2 class="dashboard-section-title">Style Tags</h2>
+
+        <div class="dashboard-card-soft">
+          <div id="styleTagOptions" class="mini-pill-grid"></div>
         </div>
       </section>
 
@@ -238,23 +514,6 @@
             <p class="small-text">Select states, provinces or territories first.</p>
           </div>
         </div>
-      </section>
-
-      <section class="card" style="text-align:left;">
-        <h2 class="dashboard-section-title">Images</h2>
-
-        <div style="margin-bottom: 14px;">
-          <label for="coverImageUrl"><strong>Cover Image URL</strong></label>
-          <input type="text" id="coverImageUrl" placeholder="https://...">
-        </div>
-
-        <div>
-          <label for="images"><strong>Gallery Image URLs</strong></label>
-          <textarea id="images" rows="6" placeholder="One image URL per line"></textarea>
-          <p class="dashboard-help">Paste one image link per line.</p>
-        </div>
-
-        <div id="imagePreview" class="image-preview-grid"></div>
       </section>
 
       <section class="card">
@@ -300,6 +559,7 @@
     import { LOCATION_DATA } from "./locations.js";
 
     const categoryOptions = document.getElementById("categoryOptions");
+    const styleTagOptions = document.getElementById("styleTagOptions");
     const countryOptions = document.getElementById("countryOptions");
     const stateOptions = document.getElementById("stateOptions");
     const regionOptions = document.getElementById("regionOptions");
@@ -310,9 +570,24 @@
     const instagram = document.getElementById("instagram");
     const website = document.getElementById("website");
     const serviceAreas = document.getElementById("serviceAreas");
+    const displayLocation = document.getElementById("displayLocation");
     const bio = document.getElementById("bio");
+
+    const profileImageUrl = document.getElementById("profileImageUrl");
+    const logoUrl = document.getElementById("logoUrl");
     const coverImageUrl = document.getElementById("coverImageUrl");
     const images = document.getElementById("images");
+    const videoLinks = document.getElementById("videoLinks");
+
+    const profileImageFile = document.getElementById("profileImageFile");
+    const logoFile = document.getElementById("logoFile");
+    const galleryImageFiles = document.getElementById("galleryImageFiles");
+    const galleryVideoFiles = document.getElementById("galleryVideoFiles");
+
+    const profileImagePreview = document.getElementById("profileImagePreview");
+    const profileImageEmpty = document.getElementById("profileImageEmpty");
+    const logoPreview = document.getElementById("logoPreview");
+    const logoEmpty = document.getElementById("logoEmpty");
 
     const profileVisible = document.getElementById("profileVisible");
     const published = document.getElementById("published");
@@ -325,9 +600,31 @@
     const accountStatusText = document.getElementById("accountStatusText");
     const subscriptionStatusText = document.getElementById("subscriptionStatusText");
     const imagePreview = document.getElementById("imagePreview");
+    const videoPreview = document.getElementById("videoPreview");
 
     let currentUser = null;
     let currentVendorData = null;
+
+    const STYLE_TAGS = [
+      "Indoor",
+      "Outdoor",
+      "Luxury",
+      "Modern",
+      "Romantic",
+      "Coastal",
+      "Boho",
+      "Minimal",
+      "Classic",
+      "Editorial",
+      "Garden",
+      "Rustic",
+      "Elegant",
+      "Destination",
+      "Intimate",
+      "Bold",
+      "Timeless",
+      "Whimsical"
+    ];
 
     const CATEGORY_GROUPS = [
       {
@@ -484,63 +781,6 @@
       }
     ];
 
-    const LEGACY_CATEGORY_MAP = {
-      photographer: "wedding_photographer",
-      videographer: "wedding_videographer",
-      content_creator: "wedding_content_creator",
-      makeup_artist: "wedding_makeup_artist",
-      hair_stylist: "wedding_hair_stylist",
-      singer: "wedding_singer",
-      band: "wedding_band",
-      dj: "wedding_dj",
-      acoustic: "acoustic_musician",
-      mc: "wedding_mc",
-      florist: "wedding_florist",
-      stylist: "wedding_stylist",
-      balloon: "balloon_stylist",
-      backdrops: "backdrops_arches",
-      caterer: "wedding_caterer",
-      cake: "wedding_cake_designer",
-      dessert: "dessert_bar",
-      bar: "mobile_bar",
-      coffee: "coffee_cart",
-      venue: "wedding_venue",
-      elopement: "elopement_location",
-      outdoor: "outdoor_venue",
-      invitations: "wedding_invitations",
-      stationery: "wedding_stationery",
-      signage: "wedding_signage",
-      bridal: "bridal_boutique",
-      bridesmaid: "bridesmaid_dresses",
-      formal: "formal_wear",
-      suits: "suit_hire",
-      designer: "custom_designer",
-      rings: "wedding_rings",
-      engagement: "engagement_rings",
-      cars: "wedding_cars",
-      limo: "limousine",
-      bus: "guest_transport",
-      live_painter: "live_wedding_painter",
-      planner: "wedding_planner",
-      coordinator: "wedding_coordinator",
-      on_day_coordinator: "on_the_day_coordinator",
-      honeymoon: "honeymoon_planner",
-      child_minder: "child_minder_wedding_nanny",
-      furniture: "furniture_hire",
-      decor: "decor_hire",
-      tableware: "tableware_hire",
-      lighting: "lighting_hire",
-      marquee: "marquee_hire",
-      favours: "wedding_favours",
-      gifts: "personalised_gifts",
-      celebrant: "wedding_celebrant"
-    };
-
-    function normalizeCategories(categories = []) {
-      const cleaned = categories.map(item => LEGACY_CATEGORY_MAP[item] || item);
-      return [...new Set(cleaned)];
-    }
-
     function getCheckedValues(container) {
       return Array.from(container.querySelectorAll("input:checked")).map(input => input.value);
     }
@@ -563,9 +803,17 @@
       return label;
     }
 
+    function renderStyleTags(selected = []) {
+      styleTagOptions.innerHTML = "";
+      STYLE_TAGS.forEach(tag => {
+        styleTagOptions.appendChild(
+          createPillCheckbox(tag, tag, selected.includes(tag), "styleTags")
+        );
+      });
+    }
+
     function renderCategoryOptions(selected = []) {
       categoryOptions.innerHTML = "";
-      const normalizedSelected = normalizeCategories(selected);
 
       CATEGORY_GROUPS.forEach(group => {
         const heading = document.createElement("div");
@@ -575,7 +823,7 @@
 
         group.items.forEach(([value, label]) => {
           categoryOptions.appendChild(
-            createPillCheckbox(value, label, normalizedSelected.includes(value), "categories")
+            createPillCheckbox(value, label, selected.includes(value), "categories")
           );
         });
       });
@@ -686,13 +934,24 @@
       }
     }
 
+    function setSingleImagePreview(inputValue, imgEl, emptyEl) {
+      const value = inputValue.trim();
+      if (value) {
+        imgEl.src = value;
+        imgEl.style.display = "block";
+        emptyEl.style.display = "none";
+      } else {
+        imgEl.removeAttribute("src");
+        imgEl.style.display = "none";
+        emptyEl.style.display = "block";
+      }
+    }
+
     function setImagePreview() {
       imagePreview.innerHTML = "";
       const imageList = [];
 
-      if (coverImageUrl.value.trim()) {
-        imageList.push(coverImageUrl.value.trim());
-      }
+      if (coverImageUrl.value.trim()) imageList.push(coverImageUrl.value.trim());
 
       images.value
         .split("\n")
@@ -702,17 +961,105 @@
           if (!imageList.includes(img)) imageList.push(img);
         });
 
-      imageList.slice(0, 8).forEach(imgUrl => {
+      imageList.slice(0, 12).forEach(imgUrl => {
+        const wrap = document.createElement("div");
+        wrap.className = "media-preview-item";
+
         const img = document.createElement("img");
         img.src = imgUrl;
         img.alt = "Vendor image preview";
         img.loading = "lazy";
-        imagePreview.appendChild(img);
+
+        wrap.appendChild(img);
+        imagePreview.appendChild(wrap);
       });
     }
 
+    function setVideoPreview() {
+      videoPreview.innerHTML = "";
+
+      const links = videoLinks.value
+        .split("\n")
+        .map(line => line.trim())
+        .filter(Boolean);
+
+      links.slice(0, 8).forEach(url => {
+        const wrap = document.createElement("div");
+        wrap.className = "media-preview-item";
+
+        const video = document.createElement("video");
+        video.src = url;
+        video.controls = true;
+        video.preload = "metadata";
+
+        wrap.appendChild(video);
+        videoPreview.appendChild(wrap);
+      });
+    }
+
+    function previewLocalImage(file, targetInput, previewImg, emptyEl) {
+      if (!file) return;
+      const localUrl = URL.createObjectURL(file);
+      targetInput.value = localUrl;
+      previewImg.src = localUrl;
+      previewImg.style.display = "block";
+      emptyEl.style.display = "none";
+    }
+
+    function appendLocalGalleryPreviews(files, targetTextarea, previewContainer, type = "image") {
+      const existing = targetTextarea.value
+        .split("\n")
+        .map(line => line.trim())
+        .filter(Boolean);
+
+      const localUrls = [];
+
+      Array.from(files).forEach(file => {
+        const localUrl = URL.createObjectURL(file);
+        localUrls.push(localUrl);
+      });
+
+      const combined = [...existing, ...localUrls];
+      targetTextarea.value = combined.join("\n");
+
+      if (type === "image") {
+        setImagePreview();
+      } else {
+        setVideoPreview();
+      }
+    }
+
+    profileImageUrl.addEventListener("input", () => {
+      setSingleImagePreview(profileImageUrl.value, profileImagePreview, profileImageEmpty);
+    });
+
+    logoUrl.addEventListener("input", () => {
+      setSingleImagePreview(logoUrl.value, logoPreview, logoEmpty);
+    });
+
     coverImageUrl.addEventListener("input", setImagePreview);
     images.addEventListener("input", setImagePreview);
+    videoLinks.addEventListener("input", setVideoPreview);
+
+    profileImageFile.addEventListener("change", (e) => {
+      const file = e.target.files?.[0];
+      if (file) previewLocalImage(file, profileImageUrl, profileImagePreview, profileImageEmpty);
+    });
+
+    logoFile.addEventListener("change", (e) => {
+      const file = e.target.files?.[0];
+      if (file) previewLocalImage(file, logoUrl, logoPreview, logoEmpty);
+    });
+
+    galleryImageFiles.addEventListener("change", (e) => {
+      const files = e.target.files;
+      if (files?.length) appendLocalGalleryPreviews(files, images, imagePreview, "image");
+    });
+
+    galleryVideoFiles.addEventListener("change", (e) => {
+      const files = e.target.files;
+      if (files?.length) appendLocalGalleryPreviews(files, videoLinks, videoPreview, "video");
+    });
 
     async function loadVendorData(uid) {
       const userSnap = await getDoc(doc(db, "users", uid));
@@ -733,9 +1080,14 @@
       instagram.value = currentVendorData.instagram || "";
       website.value = currentVendorData.website || "";
       serviceAreas.value = currentVendorData.serviceAreas || "";
+      displayLocation.value = currentVendorData.displayLocation || "";
       bio.value = currentVendorData.bio || "";
+
+      profileImageUrl.value = currentVendorData.profileImageUrl || "";
+      logoUrl.value = currentVendorData.logoUrl || "";
       coverImageUrl.value = currentVendorData.coverImageUrl || "";
       images.value = Array.isArray(currentVendorData.images) ? currentVendorData.images.join("\n") : "";
+      videoLinks.value = Array.isArray(currentVendorData.videos) ? currentVendorData.videos.join("\n") : "";
 
       profileVisible.checked = currentVendorData.profileVisible === true;
       published.checked = currentVendorData.published === true;
@@ -743,6 +1095,7 @@
       accountStatusText.textContent = `Account status: ${currentVendorData.accountStatus || "active"}`;
       subscriptionStatusText.textContent = `Subscription: ${currentVendorData.subscriptionActive === true ? "active" : "inactive"}`;
 
+      renderStyleTags(Array.isArray(currentVendorData.styleTags) ? currentVendorData.styleTags : []);
       renderCategoryOptions(Array.isArray(currentVendorData.categories) ? currentVendorData.categories : []);
 
       const selectedCountries =
@@ -758,7 +1111,10 @@
 
       viewProfileBtn.href = `vendor.html?id=${uid}`;
 
+      setSingleImagePreview(profileImageUrl.value, profileImagePreview, profileImageEmpty);
+      setSingleImagePreview(logoUrl.value, logoPreview, logoEmpty);
       setImagePreview();
+      setVideoPreview();
     }
 
     async function saveVendorData() {
@@ -767,12 +1123,18 @@
       message.textContent = "Saving...";
 
       try {
-        const selectedCategories = normalizeCategories(getCheckedValues(categoryOptions));
+        const selectedStyleTags = getCheckedValues(styleTagOptions);
+        const selectedCategories = getCheckedValues(categoryOptions);
         const selectedCountries = getCheckedValues(countryOptions);
         const selectedStates = getCheckedValues(stateOptions);
         const selectedRegions = getCheckedValues(regionOptions);
 
         const galleryImages = images.value
+          .split("\n")
+          .map(line => line.trim())
+          .filter(Boolean);
+
+        const galleryVideos = videoLinks.value
           .split("\n")
           .map(line => line.trim())
           .filter(Boolean);
@@ -785,9 +1147,14 @@
           instagram: instagram.value.trim(),
           website: website.value.trim(),
           serviceAreas: serviceAreas.value.trim(),
+          displayLocation: displayLocation.value.trim(),
           bio: bio.value.trim(),
+          profileImageUrl: profileImageUrl.value.trim(),
+          logoUrl: logoUrl.value.trim(),
           coverImageUrl: coverImageUrl.value.trim(),
           images: galleryImages,
+          videos: galleryVideos,
+          styleTags: selectedStyleTags,
           categories: selectedCategories,
           countries: selectedCountries,
           country: selectedCountries[0] || "",
@@ -800,6 +1167,7 @@
 
         message.textContent = "Your changes have been saved.";
         setImagePreview();
+        setVideoPreview();
       } catch (error) {
         console.error(error);
         message.textContent = "There was a problem saving your changes.";
