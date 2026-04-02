@@ -139,9 +139,34 @@
       font-size: 1rem;
     }
 
-    .upload-box input[type="file"] {
-      width: 100%;
+    .pretty-upload-input {
+      display: none;
+    }
+
+    .pretty-upload-label {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: #111;
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.18s ease, opacity 0.18s ease;
+    }
+
+    .pretty-upload-label:hover {
+      opacity: 0.92;
+      transform: translateY(-1px);
+    }
+
+    .selected-file-note {
       margin-top: 10px;
+      color: #8c7f75;
+      font-size: 0.9rem;
     }
 
     .media-preview-grid {
@@ -170,9 +195,10 @@
 
     .brand-assets-grid {
       display: grid;
-      grid-template-columns: 220px 220px 1fr;
+      grid-template-columns: 220px 220px;
       gap: 20px;
       align-items: start;
+      justify-content: start;
     }
 
     .asset-box {
@@ -267,12 +293,6 @@
       background: #111;
       color: #fff;
       border-color: #111;
-    }
-
-    .dashboard-note {
-      font-size: 0.92rem;
-      color: #8c7f75;
-      margin-top: 8px;
     }
 
     .remove-media-btn {
@@ -408,11 +428,10 @@
                 <div class="asset-empty" id="profileImageEmpty">No profile image yet</div>
                 <img id="profileImagePreview" style="display:none;" alt="Profile image preview">
               </div>
-              <div class="dashboard-field">
-                <label for="profileImageFile">Profile Picture</label>
-                <input type="file" id="profileImageFile" accept="image/*">
-              </div>
-              <p class="dashboard-note">Best used as a circle portrait or hero headshot.</p>
+
+              <input type="file" id="profileImageFile" class="pretty-upload-input" accept="image/*">
+              <label for="profileImageFile" class="pretty-upload-label">Upload Profile Picture</label>
+              <div id="profileImageFileName" class="selected-file-note"></div>
             </div>
 
             <div class="asset-box">
@@ -420,27 +439,10 @@
                 <div class="asset-empty" id="logoEmpty">No logo yet</div>
                 <img id="logoPreview" style="display:none;" alt="Logo preview">
               </div>
-              <div class="dashboard-field">
-                <label for="logoFile">Logo</label>
-                <input type="file" id="logoFile" accept="image/*">
-              </div>
-              <p class="dashboard-note">Best used as a square logo with rounded corners.</p>
-            </div>
 
-            <div>
-              <div class="dashboard-field">
-                <label for="profileImageUrl">Profile Image URL</label>
-                <input type="text" id="profileImageUrl" placeholder="Optional fallback image URL">
-              </div>
-
-              <div class="dashboard-field" style="margin-top: 14px;">
-                <label for="logoUrl">Logo URL</label>
-                <input type="text" id="logoUrl" placeholder="Optional fallback logo URL">
-              </div>
-
-              <p class="dashboard-help" style="margin-top: 14px;">
-                Uploaded files are easiest. Direct links still work too.
-              </p>
+              <input type="file" id="logoFile" class="pretty-upload-input" accept="image/*">
+              <label for="logoFile" class="pretty-upload-label">Upload Logo</label>
+              <div id="logoFileName" class="selected-file-note"></div>
             </div>
           </div>
         </div>
@@ -453,33 +455,17 @@
           <div class="media-uploader-grid">
             <div class="upload-box">
               <h3>Upload Photos</h3>
-              <p class="dashboard-note">Add gallery photos for your public profile.</p>
-              <input type="file" id="galleryImageFiles" accept="image/*" multiple>
+              <input type="file" id="galleryImageFiles" class="pretty-upload-input" accept="image/*" multiple>
+              <label for="galleryImageFiles" class="pretty-upload-label">Choose Photos</label>
+              <div id="galleryImageFileName" class="selected-file-note"></div>
             </div>
 
             <div class="upload-box">
               <h3>Upload Videos</h3>
-              <p class="dashboard-note">Add short videos or reels for your profile.</p>
-              <input type="file" id="galleryVideoFiles" accept="video/*" multiple>
+              <input type="file" id="galleryVideoFiles" class="pretty-upload-input" accept="video/*" multiple>
+              <label for="galleryVideoFiles" class="pretty-upload-label">Choose Videos</label>
+              <div id="galleryVideoFileName" class="selected-file-note"></div>
             </div>
-          </div>
-
-          <div class="dashboard-two-col" style="margin-top: 18px;">
-            <div class="dashboard-field">
-              <label for="coverImageUrl">Cover Image URL</label>
-              <input type="text" id="coverImageUrl" placeholder="https://...">
-            </div>
-
-            <div class="dashboard-field">
-              <label for="videoLinks">Video Links</label>
-              <textarea id="videoLinks" rows="4" placeholder="One video URL per line"></textarea>
-            </div>
-          </div>
-
-          <div class="dashboard-field" style="margin-top: 14px;">
-            <label for="images">Gallery Image URLs</label>
-            <textarea id="images" rows="6" placeholder="One image URL per line"></textarea>
-            <p class="dashboard-help">You can still paste direct image links if needed.</p>
           </div>
 
           <div id="imagePreview" class="media-preview-grid"></div>
@@ -588,16 +574,15 @@
     const displayLocation = document.getElementById("displayLocation");
     const bio = document.getElementById("bio");
 
-    const profileImageUrl = document.getElementById("profileImageUrl");
-    const logoUrl = document.getElementById("logoUrl");
-    const coverImageUrl = document.getElementById("coverImageUrl");
-    const images = document.getElementById("images");
-    const videoLinks = document.getElementById("videoLinks");
-
     const profileImageFile = document.getElementById("profileImageFile");
     const logoFile = document.getElementById("logoFile");
     const galleryImageFiles = document.getElementById("galleryImageFiles");
     const galleryVideoFiles = document.getElementById("galleryVideoFiles");
+
+    const profileImageFileName = document.getElementById("profileImageFileName");
+    const logoFileName = document.getElementById("logoFileName");
+    const galleryImageFileName = document.getElementById("galleryImageFileName");
+    const galleryVideoFileName = document.getElementById("galleryVideoFileName");
 
     const profileImagePreview = document.getElementById("profileImagePreview");
     const profileImageEmpty = document.getElementById("profileImageEmpty");
@@ -617,6 +602,10 @@
     const videoPreview = document.getElementById("videoPreview");
 
     let currentUser = null;
+    let currentProfileImageUrl = "";
+    let currentLogoUrl = "";
+    let currentGalleryImages = [];
+    let currentGalleryVideos = [];
 
     const STYLE_TAGS = [
       "Indoor",
@@ -805,10 +794,9 @@
       }
     }
 
-    function setSingleImagePreview(inputValue, imgEl, emptyEl) {
-      const value = inputValue.trim();
-      if (value) {
-        imgEl.src = value;
+    function setSingleImagePreview(url, imgEl, emptyEl) {
+      if (url) {
+        imgEl.src = url;
         imgEl.style.display = "block";
         emptyEl.style.display = "none";
       } else {
@@ -846,104 +834,70 @@
       return wrap;
     }
 
-    function getImageList() {
-      const imageList = [];
-
-      if (coverImageUrl.value.trim()) imageList.push(coverImageUrl.value.trim());
-
-      images.value
-        .split("\n")
-        .map(line => line.trim())
-        .filter(Boolean)
-        .forEach(img => {
-          if (!imageList.includes(img)) imageList.push(img);
-        });
-
-      return imageList;
-    }
-
-    function getVideoList() {
-      return videoLinks.value
-        .split("\n")
-        .map(line => line.trim())
-        .filter(Boolean);
-    }
-
     function setImagePreview() {
       imagePreview.innerHTML = "";
-      const imageList = getImageList();
-
-      imageList.slice(0, 12).forEach(imgUrl => {
+      currentGalleryImages.slice(0, 12).forEach(imgUrl => {
         imagePreview.appendChild(buildMediaCard("image", imgUrl, () => removeImageUrl(imgUrl)));
       });
     }
 
     function setVideoPreview() {
       videoPreview.innerHTML = "";
-      const links = getVideoList();
-
-      links.slice(0, 8).forEach(url => {
+      currentGalleryVideos.slice(0, 8).forEach(url => {
         videoPreview.appendChild(buildMediaCard("video", url, () => removeVideoUrl(url)));
       });
     }
 
     function removeImageUrl(urlToRemove) {
-      const currentCover = coverImageUrl.value.trim();
-
-      if (currentCover === urlToRemove) {
-        coverImageUrl.value = "";
-      }
-
-      const remaining = images.value
-        .split("\n")
-        .map(line => line.trim())
-        .filter(Boolean)
-        .filter(url => url !== urlToRemove);
-
-      images.value = remaining.join("\n");
+      currentGalleryImages = currentGalleryImages.filter(url => url !== urlToRemove);
       setImagePreview();
     }
 
     function removeVideoUrl(urlToRemove) {
-      const remaining = videoLinks.value
-        .split("\n")
-        .map(line => line.trim())
-        .filter(Boolean)
-        .filter(url => url !== urlToRemove);
-
-      videoLinks.value = remaining.join("\n");
+      currentGalleryVideos = currentGalleryVideos.filter(url => url !== urlToRemove);
       setVideoPreview();
     }
 
-    function previewLocalImage(file, targetInput, previewImg, emptyEl) {
+    function showSelectedFileNames(input, targetEl, multiple = false) {
+      const files = Array.from(input.files || []);
+      if (!files.length) {
+        targetEl.textContent = "";
+        return;
+      }
+
+      if (multiple) {
+        targetEl.textContent = `${files.length} file${files.length === 1 ? "" : "s"} selected`;
+      } else {
+        targetEl.textContent = files[0].name;
+      }
+    }
+
+    function previewLocalSingleImage(file, previewEl, emptyEl) {
       if (!file) return;
       const localUrl = URL.createObjectURL(file);
-      targetInput.value = localUrl;
-      previewImg.src = localUrl;
-      previewImg.style.display = "block";
+      previewEl.src = localUrl;
+      previewEl.style.display = "block";
       emptyEl.style.display = "none";
     }
 
-    profileImageUrl.addEventListener("input", () => {
-      setSingleImagePreview(profileImageUrl.value, profileImagePreview, profileImageEmpty);
-    });
-
-    logoUrl.addEventListener("input", () => {
-      setSingleImagePreview(logoUrl.value, logoPreview, logoEmpty);
-    });
-
-    coverImageUrl.addEventListener("input", setImagePreview);
-    images.addEventListener("input", setImagePreview);
-    videoLinks.addEventListener("input", setVideoPreview);
-
     profileImageFile.addEventListener("change", (e) => {
       const file = e.target.files?.[0];
-      if (file) previewLocalImage(file, profileImageUrl, profileImagePreview, profileImageEmpty);
+      showSelectedFileNames(profileImageFile, profileImageFileName, false);
+      if (file) previewLocalSingleImage(file, profileImagePreview, profileImageEmpty);
     });
 
     logoFile.addEventListener("change", (e) => {
       const file = e.target.files?.[0];
-      if (file) previewLocalImage(file, logoUrl, logoPreview, logoEmpty);
+      showSelectedFileNames(logoFile, logoFileName, false);
+      if (file) previewLocalSingleImage(file, logoPreview, logoEmpty);
+    });
+
+    galleryImageFiles.addEventListener("change", () => {
+      showSelectedFileNames(galleryImageFiles, galleryImageFileName, true);
+    });
+
+    galleryVideoFiles.addEventListener("change", () => {
+      showSelectedFileNames(galleryVideoFiles, galleryVideoFileName, true);
     });
 
     async function uploadFileToStorage(file, folder, uid) {
@@ -974,11 +928,10 @@
       displayLocation.value = vendorData.displayLocation || "";
       bio.value = vendorData.bio || "";
 
-      profileImageUrl.value = vendorData.profileImageUrl || "";
-      logoUrl.value = vendorData.logoUrl || "";
-      coverImageUrl.value = vendorData.coverImageUrl || "";
-      images.value = Array.isArray(vendorData.images) ? vendorData.images.join("\n") : "";
-      videoLinks.value = Array.isArray(vendorData.videos) ? vendorData.videos.join("\n") : "";
+      currentProfileImageUrl = vendorData.profileImageUrl || "";
+      currentLogoUrl = vendorData.logoUrl || "";
+      currentGalleryImages = Array.isArray(vendorData.images) ? [...vendorData.images] : [];
+      currentGalleryVideos = Array.isArray(vendorData.videos) ? [...vendorData.videos] : [];
 
       profileLive.checked = vendorData.profileVisible === true && vendorData.published === true;
 
@@ -1001,8 +954,8 @@
 
       viewProfileBtn.href = `vendor.html?id=${uid}`;
 
-      setSingleImagePreview(profileImageUrl.value, profileImagePreview, profileImageEmpty);
-      setSingleImagePreview(logoUrl.value, logoPreview, logoEmpty);
+      setSingleImagePreview(currentProfileImageUrl, profileImagePreview, profileImageEmpty);
+      setSingleImagePreview(currentLogoUrl, logoPreview, logoEmpty);
       setImagePreview();
       setVideoPreview();
       updateViewProfileVisibility(vendorData.subscriptionActive === true);
@@ -1024,12 +977,10 @@
         const selectedStates = getCheckedValues(stateOptions);
         const selectedRegions = getCheckedValues(regionOptions);
 
-        let finalProfileImageUrl = profileImageUrl.value.trim();
-        let finalLogoUrl = logoUrl.value.trim();
-        let finalCoverImageUrl = coverImageUrl.value.trim();
-
-        let galleryImages = images.value.split("\n").map(line => line.trim()).filter(Boolean);
-        let galleryVideos = videoLinks.value.split("\n").map(line => line.trim()).filter(Boolean);
+        let finalProfileImageUrl = currentProfileImageUrl;
+        let finalLogoUrl = currentLogoUrl;
+        let galleryImages = [...currentGalleryImages];
+        let galleryVideos = [...currentGalleryVideos];
 
         if (profileImageFile.files?.[0]) {
           finalProfileImageUrl = await uploadFileToStorage(profileImageFile.files[0], "vendor-profile-images", currentUser.uid);
@@ -1057,12 +1008,9 @@
           galleryVideos = [...galleryVideos, ...uploadedVideoUrls];
         }
 
-        if (!finalCoverImageUrl && galleryImages.length) {
-          finalCoverImageUrl = galleryImages[0];
-        }
-
         galleryImages = [...new Set(galleryImages)];
         galleryVideos = [...new Set(galleryVideos)];
+        const finalCoverImageUrl = galleryImages[0] || "";
 
         await setDoc(doc(db, "vendors", currentUser.uid), {
           uid: currentUser.uid,
@@ -1090,19 +1038,23 @@
           updatedAt: serverTimestamp()
         }, { merge: true });
 
-        profileImageUrl.value = finalProfileImageUrl;
-        logoUrl.value = finalLogoUrl;
-        coverImageUrl.value = finalCoverImageUrl;
-        images.value = galleryImages.join("\n");
-        videoLinks.value = galleryVideos.join("\n");
+        currentProfileImageUrl = finalProfileImageUrl;
+        currentLogoUrl = finalLogoUrl;
+        currentGalleryImages = galleryImages;
+        currentGalleryVideos = galleryVideos;
 
         profileImageFile.value = "";
         logoFile.value = "";
         galleryImageFiles.value = "";
         galleryVideoFiles.value = "";
 
-        setSingleImagePreview(profileImageUrl.value, profileImagePreview, profileImageEmpty);
-        setSingleImagePreview(logoUrl.value, logoPreview, logoEmpty);
+        profileImageFileName.textContent = "";
+        logoFileName.textContent = "";
+        galleryImageFileName.textContent = "";
+        galleryVideoFileName.textContent = "";
+
+        setSingleImagePreview(currentProfileImageUrl, profileImagePreview, profileImageEmpty);
+        setSingleImagePreview(currentLogoUrl, logoPreview, logoEmpty);
         setImagePreview();
         setVideoPreview();
         updateViewProfileVisibility(subscriptionActive);
