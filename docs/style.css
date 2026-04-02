@@ -693,3 +693,87 @@ input[type="checkbox"] {
     padding: 24px;
   }
 }
+/* --- CATEGORY PILLS STYLING --- */
+
+.dropdown-content-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-top: 10px;
+}
+
+.dropdown-content-form label {
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+}
+
+.dropdown-content-form label span {
+  display: inline-block;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: #f8f4f1;
+  border: 1px solid #e8ddd2;
+  font-size: 0.88rem;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dropdown-content-form label:hover span {
+  background: #efe6de;
+  border-color: #dccabc;
+}
+
+.dropdown-content-form input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.dropdown-content-form input:checked + span {
+  background: #111;
+  color: #fff;
+  border-color: #111;
+}
+
+.category-group-title {
+  width: 100%;
+  margin-top: 18px;
+  margin-bottom: 2px;
+  font-size: 0.76rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #a89b8f;
+  font-weight: 600;
+}
+
+.signup-dropdown {
+  margin-bottom: 16px;
+}
+
+.signup-dropdown summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 14px 16px;
+  border: 1px solid #e8ddd2;
+  border-radius: 14px;
+  background: #fffaf6;
+  font-weight: 600;
+}
+
+.signup-dropdown summary::-webkit-details-marker {
+  display: none;
+}
+
+.signup-dropdown[open] summary {
+  margin-bottom: 12px;
+}
+
+.field-soft {
+  margin-top: 18px;
+  padding: 16px;
+  border-radius: 18px;
+  background: #fffaf8;
+  border: 1px solid #efe1d6;
+}
