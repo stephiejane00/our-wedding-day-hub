@@ -18,7 +18,7 @@
     <img src="images/header4.png" alt="Our Wedding Day Hub" class="header-image">
   </header>
 
- 
+  <main>
     <section class="search-wrap">
       <div class="search-bar">
         <input type="text" id="searchInput" placeholder="Search by vendor, location, category...">
@@ -69,6 +69,8 @@
       if (vendor.coverImageUrl && String(vendor.coverImageUrl).trim()) return vendor.coverImageUrl;
       if (Array.isArray(vendor.images) && vendor.images.length > 0) return vendor.images[0];
       if (vendor.logoUrl && String(vendor.logoUrl).trim()) return vendor.logoUrl;
+      if (vendor.coverImage && String(vendor.coverImage).trim()) return vendor.coverImage;
+      if (vendor.profileImage && String(vendor.profileImage).trim()) return vendor.profileImage;
       return "images/header4.png";
     }
 
@@ -163,7 +165,11 @@
         `;
 
         card.addEventListener("click", () => {
-          window.location.href = `vendor.html?id=${vendor.uid}`;
+          sessionStorage.setItem("selectedVendorId", vendor.docId);
+          if (vendor.uid) {
+            sessionStorage.setItem("selectedVendorUid", vendor.uid);
+          }
+          window.location.href = `vendor.html?id=${vendor.docId}`;
         });
 
         vendorsGrid.appendChild(card);
@@ -185,7 +191,10 @@
             vendor.profileVisible === true &&
             vendor.subscriptionActive === true
           ) {
-            liveVendors.push(vendor);
+            liveVendors.push({
+              ...vendor,
+              docId: docSnap.id
+            });
           }
         });
 
