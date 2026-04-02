@@ -77,12 +77,12 @@
 
     .hero {
       text-align: center;
-      padding: 6px 20px 12px;
+      padding: 8px 20px 14px;
     }
 
     .header-image {
       width: 100%;
-      max-width: 260px;
+      max-width: 320px;
       height: auto;
       display: block;
       margin: 0 auto;
@@ -252,8 +252,9 @@
     .sidebar-card {
       position: sticky;
       top: 18px;
-      padding: 24px 22px 22px;
+      padding: 28px 22px 22px;
       text-align: center;
+      background: linear-gradient(180deg, #ffffff 0%, #fdf9f6 100%);
     }
 
     .profile-pic-wrap {
@@ -289,22 +290,36 @@
 
     .favorite-btn {
       width: 100%;
-      border: 1px solid #ead7dd;
-      background: #fff;
-      color: #7e5a67;
-      border-radius: 18px;
+      border: 1px solid #ead8de;
+      background: linear-gradient(180deg, #ffffff 0%, #fcf7f8 100%);
+      color: #7f5b68;
+      border-radius: 999px;
       padding: 15px 18px;
-      font-size: 1rem;
+      font-size: 0.98rem;
       font-weight: 600;
       font-family: inherit;
       cursor: pointer;
       margin-bottom: 16px;
+      box-shadow: 0 10px 24px rgba(185, 140, 147, 0.10);
+      transition: all 0.22s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      letter-spacing: 0.01em;
+    }
+
+    .favorite-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 28px rgba(185, 140, 147, 0.14);
+      border-color: #dfc0c8;
     }
 
     .favorite-btn.saved {
-      background: var(--accent-soft);
+      background: linear-gradient(180deg, #fff7f9 0%, #f9edf1 100%);
       border-color: #ddb8c4;
       color: #b06176;
+      box-shadow: 0 12px 26px rgba(176, 97, 118, 0.14);
     }
 
     .sidebar-location {
@@ -435,7 +450,7 @@
       }
 
       .header-image {
-        max-width: 220px;
+        max-width: 260px;
       }
 
       .main-gallery-image {
@@ -871,10 +886,10 @@
 
       if (saved) {
         favoriteBtn.classList.add("saved");
-        favoriteBtn.textContent = "♥ Saved to favourites";
+        favoriteBtn.innerHTML = `<span>♥</span><span>Saved to favourites</span>`;
       } else {
         favoriteBtn.classList.remove("saved");
-        favoriteBtn.textContent = "♡ Save to favourites";
+        favoriteBtn.innerHTML = `<span>♡</span><span>Save to favourites</span>`;
       }
     }
 
