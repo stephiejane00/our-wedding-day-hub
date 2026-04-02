@@ -323,7 +323,7 @@
           Update your business details, upload your brand assets and media, choose your style tags and service locations, and control when your profile appears.
         </p>
         <div class="dashboard-actions">
-          <a href="#" id="viewProfileBtn" class="apply-button">View Public Profile</a>
+          <a href="#" id="viewProfileBtn" class="apply-button" style="display:none;">View Public Profile</a>
           <button type="button" id="saveTopBtn" class="pretty-button">Save Changes</button>
         </div>
       </section>
@@ -337,17 +337,12 @@
         </div>
 
         <div class="inline-toggle" style="margin-top: 18px;">
-          <input type="checkbox" id="profileVisible">
-          <label for="profileVisible" style="margin:0;">Show my profile publicly</label>
-        </div>
-
-        <div class="inline-toggle" style="margin-top: 12px;">
-          <input type="checkbox" id="published">
-          <label for="published" style="margin:0;">Mark profile as published</label>
+          <input type="checkbox" id="profileLive">
+          <label for="profileLive" style="margin:0;">Make my profile live</label>
         </div>
 
         <p class="dashboard-help" style="text-align:center; margin-top:16px;">
-          Your profile will only appear publicly when both options are turned on and your subscription is active.
+          When this is turned on and your subscription is active, your profile will be visible to couples on the hub.
         </p>
       </section>
 
@@ -609,8 +604,7 @@
     const logoPreview = document.getElementById("logoPreview");
     const logoEmpty = document.getElementById("logoEmpty");
 
-    const profileVisible = document.getElementById("profileVisible");
-    const published = document.getElementById("published");
+    const profileLive = document.getElementById("profileLive");
 
     const saveBtn = document.getElementById("saveBtn");
     const saveTopBtn = document.getElementById("saveTopBtn");
@@ -684,6 +678,11 @@
       label.appendChild(span);
 
       return label;
+    }
+
+    function updateViewProfileVisibility(subscriptionActive) {
+      const isLive = profileLive.checked === true && subscriptionActive === true;
+      viewProfileBtn.style.display = isLive ? "inline-block" : "none";
     }
 
     function renderStyleTags(selected = []) {
@@ -981,8 +980,7 @@
       images.value = Array.isArray(vendorData.images) ? vendorData.images.join("\n") : "";
       videoLinks.value = Array.isArray(vendorData.videos) ? vendorData.videos.join("\n") : "";
 
-      profileVisible.checked = vendorData.profileVisible === true;
-      published.checked = vendorData.published === true;
+      profileLive.checked = vendorData.profileVisible === true && vendorData.published === true;
 
       accountStatusText.textContent = `Account status: ${vendorData.accountStatus || "active"}`;
       subscriptionStatusText.textContent = `Subscription: ${vendorData.subscriptionActive === true ? "active" : "inactive"}`;
@@ -1007,6 +1005,7 @@
       setSingleImagePreview(logoUrl.value, logoPreview, logoEmpty);
       setImagePreview();
       setVideoPreview();
+      updateViewProfileVisibility(vendorData.subscriptionActive === true);
     }
 
     async function saveVendorData() {
@@ -1015,6 +1014,10 @@
       message.textContent = "Saving...";
 
       try {
+        const vendorSnap = await getDoc(doc(db, "vendors", currentUser.uid));
+        const existingVendorData = vendorSnap.exists() ? vendorSnap.data() : {};
+        const subscriptionActive = existingVendorData.subscriptionActive === true;
+
         const selectedStyleTags = getCheckedValues(styleTagOptions);
         const selectedCategories = getCheckedValues(categoryOptions);
         const selectedCountries = getCheckedValues(countryOptions);
@@ -1082,8 +1085,8 @@
           country: selectedCountries[0] || "",
           states: selectedStates,
           regions: selectedRegions,
-          profileVisible: profileVisible.checked,
-          published: published.checked,
+          profileVisible: profileLive.checked,
+          published: profileLive.checked,
           updatedAt: serverTimestamp()
         }, { merge: true });
 
@@ -1102,6 +1105,7 @@
         setSingleImagePreview(logoUrl.value, logoPreview, logoEmpty);
         setImagePreview();
         setVideoPreview();
+        updateViewProfileVisibility(subscriptionActive);
 
         message.textContent = "Your changes have been saved.";
       } catch (error) {
