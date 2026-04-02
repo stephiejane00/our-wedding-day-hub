@@ -43,17 +43,12 @@
       text-align: left;
     }
 
-    .check-grid {
-      display: grid;
-      gap: 8px;
-      text-align: left;
-    }
-
-    .check-grid label {
+    .status-wrap {
       display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 500;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 12px;
     }
 
     .status-pill {
@@ -64,7 +59,7 @@
       color: var(--text);
       font-size: 13px;
       font-weight: 600;
-      margin: 4px;
+      margin: 0;
     }
 
     .inline-toggle {
@@ -91,6 +86,24 @@
       width: 100%;
       display: block;
       border-radius: 16px;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border: 1px solid #eadfd6;
+      background: #fffaf6;
+    }
+
+    .dashboard-card-soft {
+      margin-top: 18px;
+      padding: 16px;
+      border-radius: 18px;
+      background: #fffaf8;
+      border: 1px solid #efe1d6;
+    }
+
+    .dashboard-note {
+      font-size: 0.92rem;
+      color: #8c7f75;
+      margin-top: 8px;
     }
 
     @media (max-width: 900px) {
@@ -119,7 +132,7 @@
         <p class="eyebrow">vendor dashboard</p>
         <h1 class="page-title">Manage Your Vendor Profile</h1>
         <p class="page-subtitle">
-          Update your business details, add your service areas, and control whether your profile is visible on the hub.
+          Update your business details, choose your categories, set your service locations, and control when your profile is visible on the hub.
         </p>
         <div class="dashboard-actions">
           <a href="#" id="viewProfileBtn" class="apply-button">View Public Profile</a>
@@ -129,7 +142,8 @@
 
       <section class="card">
         <h2>Status</h2>
-        <div style="margin-top: 12px;">
+
+        <div class="status-wrap">
           <span class="status-pill" id="accountStatusText">Account status: loading...</span>
           <span class="status-pill" id="subscriptionStatusText">Subscription: loading...</span>
         </div>
@@ -183,7 +197,7 @@
           </div>
 
           <div>
-            <label for="serviceAreas"><strong>Service Areas</strong></label>
+            <label for="serviceAreas"><strong>Service Areas Summary</strong></label>
             <input type="text" id="serviceAreas" placeholder="Brisbane, Gold Coast, Sunshine Coast">
           </div>
         </div>
@@ -196,25 +210,33 @@
 
       <section class="card" style="text-align:left;">
         <h2 class="dashboard-section-title">Categories</h2>
-        <div id="categoryOptions" class="check-grid"></div>
-      </section>
-
-      <section class="card" style="text-align:left;">
-        <h2 class="dashboard-section-title">Country</h2>
-        <select id="countrySelect"></select>
-      </section>
-
-      <section class="card" style="text-align:left;">
-        <h2 class="dashboard-section-title">States / Provinces</h2>
-        <div id="stateOptions" class="check-grid">
-          <p class="small-text">Select a country first.</p>
+        <div class="dashboard-card-soft">
+          <div id="categoryOptions" class="dropdown-content-form"></div>
         </div>
       </section>
 
       <section class="card" style="text-align:left;">
-        <h2 class="dashboard-section-title">Regions / Areas</h2>
-        <div id="regionOptions" class="check-grid">
-          <p class="small-text">Select a state first.</p>
+        <h2 class="dashboard-section-title">Countries You Service</h2>
+        <div class="dashboard-card-soft">
+          <div id="countryOptions" class="dropdown-content-form"></div>
+        </div>
+      </section>
+
+      <section class="card" style="text-align:left;">
+        <h2 class="dashboard-section-title">States / Provinces / Territories</h2>
+        <div class="dashboard-card-soft">
+          <div id="stateOptions" class="dropdown-content-form">
+            <p class="small-text">Select countries first.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" style="text-align:left;">
+        <h2 class="dashboard-section-title">Regions / Cities / Areas</h2>
+        <div class="dashboard-card-soft">
+          <div id="regionOptions" class="dropdown-content-form">
+            <p class="small-text">Select states, provinces or territories first.</p>
+          </div>
         </div>
       </section>
 
@@ -278,9 +300,9 @@
     import { LOCATION_DATA } from "./locations.js";
 
     const categoryOptions = document.getElementById("categoryOptions");
+    const countryOptions = document.getElementById("countryOptions");
     const stateOptions = document.getElementById("stateOptions");
     const regionOptions = document.getElementById("regionOptions");
-    const countrySelect = document.getElementById("countrySelect");
 
     const businessName = document.getElementById("businessName");
     const email = document.getElementById("email");
@@ -307,129 +329,373 @@
     let currentUser = null;
     let currentVendorData = null;
 
-    const categoriesList = [
-      "photographer","videographer","content_creator",
-      "makeup_artist","hair_stylist","beauty_salon","spray_tan","skin_aesthetics",
-      "singer","band","dj","acoustic","violinist","saxophonist","harpist","mc",
-      "florist","stylist","event_designer","balloon","backdrops",
-      "caterer","cake","dessert","bar","coffee","food_truck",
-      "venue","ceremony_venue","reception_venue","elopement","outdoor",
-      "invitations","stationery","signage","calligraphy",
-      "bridal","bridesmaid","formal","suits","designer",
-      "rings","engagement","custom_jewellery",
-      "cars","luxury_cars","vintage_cars","limo","bus",
-      "live_painter","photo_booth","audio_guestbook","wedding_content_creator",
-      "planner","coordinator","on_day_coordinator","honeymoon",
-      "pet_attendant","child_minder",
-      "furniture","decor","tableware","lighting","marquee",
-      "favours","gifts","hampers"
+    const CATEGORY_GROUPS = [
+      {
+        title: "Photo & Video",
+        items: [
+          ["wedding_photographer", "Photographer"],
+          ["wedding_videographer", "Videographer"],
+          ["wedding_content_creator", "Content Creator"]
+        ]
+      },
+      {
+        title: "Hair & Beauty",
+        items: [
+          ["wedding_makeup_artist", "Makeup Artist"],
+          ["wedding_hair_stylist", "Hair Stylist"],
+          ["beauty_salon", "Beauty Salon"],
+          ["spray_tan", "Spray Tanning"],
+          ["skin_aesthetics", "Skin & Aesthetics"]
+        ]
+      },
+      {
+        title: "Entertainment",
+        items: [
+          ["wedding_singer", "Singer"],
+          ["wedding_band", "Band"],
+          ["wedding_dj", "DJ"],
+          ["acoustic_musician", "Acoustic Musician"],
+          ["violinist", "Violinist"],
+          ["saxophonist", "Saxophonist"],
+          ["harpist", "Harpist"],
+          ["wedding_mc", "MC"]
+        ]
+      },
+      {
+        title: "Styling & Florals",
+        items: [
+          ["wedding_florist", "Florist"],
+          ["wedding_stylist", "Wedding Stylist"],
+          ["event_designer", "Event Designer"],
+          ["balloon_stylist", "Balloon Stylist"],
+          ["backdrops_arches", "Backdrops & Arches"]
+        ]
+      },
+      {
+        title: "Food & Drink",
+        items: [
+          ["wedding_caterer", "Caterer"],
+          ["wedding_cake_designer", "Wedding Cake Designer"],
+          ["dessert_bar", "Dessert Bar"],
+          ["mobile_bar", "Mobile Bar"],
+          ["coffee_cart", "Coffee Cart"],
+          ["food_truck", "Food Truck"]
+        ]
+      },
+      {
+        title: "Venues",
+        items: [
+          ["wedding_venue", "Wedding Venue"],
+          ["ceremony_venue", "Ceremony Venue"],
+          ["reception_venue", "Reception Venue"],
+          ["elopement_location", "Elopement Location"],
+          ["outdoor_venue", "Outdoor Venue"],
+          ["church_ceremony_venue", "Church / Ceremony Venue"]
+        ]
+      },
+      {
+        title: "Stationery & Signage",
+        items: [
+          ["wedding_invitations", "Invitations"],
+          ["wedding_stationery", "Wedding Stationery"],
+          ["wedding_signage", "Signage"],
+          ["calligraphy", "Calligraphy"]
+        ]
+      },
+      {
+        title: "Fashion",
+        items: [
+          ["bridal_boutique", "Bridal Boutique"],
+          ["bridesmaid_dresses", "Bridesmaid Dresses"],
+          ["formal_wear", "Formal Wear"],
+          ["suit_hire", "Suit Hire"],
+          ["custom_designer", "Custom Designer"],
+          ["wedding_dress_alterations", "Wedding Dress Alterations"]
+        ]
+      },
+      {
+        title: "Jewellery",
+        items: [
+          ["wedding_rings", "Wedding Rings"],
+          ["engagement_rings", "Engagement Rings"],
+          ["custom_jewellery", "Custom Jewellery"]
+        ]
+      },
+      {
+        title: "Transport",
+        items: [
+          ["wedding_cars", "Wedding Cars"],
+          ["luxury_cars", "Luxury Cars"],
+          ["vintage_cars", "Vintage Cars"],
+          ["limousine", "Limousine"],
+          ["guest_transport", "Guest Transport"]
+        ]
+      },
+      {
+        title: "Experiences & Unique Services",
+        items: [
+          ["live_wedding_painter", "Live Wedding Painter"],
+          ["photo_booth", "Photo Booth"],
+          ["audio_guestbook", "Audio Guestbook"],
+          ["wedding_content_creator", "Wedding Content Creator"]
+        ]
+      },
+      {
+        title: "Ceremony Services",
+        items: [
+          ["wedding_celebrant", "Celebrant"]
+        ]
+      },
+      {
+        title: "Planning & Support",
+        items: [
+          ["wedding_planner", "Wedding Planner"],
+          ["wedding_coordinator", "Wedding Coordinator"],
+          ["on_the_day_coordinator", "On-the-day Coordinator"],
+          ["honeymoon_planner", "Honeymoon Planner"]
+        ]
+      },
+      {
+        title: "Care Services",
+        items: [
+          ["pet_attendant", "Pet Attendant"],
+          ["child_minder_wedding_nanny", "Child Minder / Wedding Nanny"]
+        ]
+      },
+      {
+        title: "Hire & Rentals",
+        items: [
+          ["furniture_hire", "Furniture Hire"],
+          ["decor_hire", "Decor Hire"],
+          ["tableware_hire", "Tableware Hire"],
+          ["lighting_hire", "Lighting Hire"],
+          ["marquee_hire", "Marquee Hire"],
+          ["styling_hire", "Styling Hire"],
+          ["dance_floor_hire", "Dance Floor Hire"]
+        ]
+      },
+      {
+        title: "Gifts & Favours",
+        items: [
+          ["wedding_favours", "Wedding Favours"],
+          ["personalised_gifts", "Personalised Gifts"],
+          ["hampers", "Hampers"]
+        ]
+      }
     ];
 
-    function formatCategoryName(category) {
-      return String(category)
-        .replace(/_/g, " ")
-        .replace(/\\b\\w/g, char => char.toUpperCase());
+    const LEGACY_CATEGORY_MAP = {
+      photographer: "wedding_photographer",
+      videographer: "wedding_videographer",
+      content_creator: "wedding_content_creator",
+      makeup_artist: "wedding_makeup_artist",
+      hair_stylist: "wedding_hair_stylist",
+      singer: "wedding_singer",
+      band: "wedding_band",
+      dj: "wedding_dj",
+      acoustic: "acoustic_musician",
+      mc: "wedding_mc",
+      florist: "wedding_florist",
+      stylist: "wedding_stylist",
+      balloon: "balloon_stylist",
+      backdrops: "backdrops_arches",
+      caterer: "wedding_caterer",
+      cake: "wedding_cake_designer",
+      dessert: "dessert_bar",
+      bar: "mobile_bar",
+      coffee: "coffee_cart",
+      venue: "wedding_venue",
+      elopement: "elopement_location",
+      outdoor: "outdoor_venue",
+      invitations: "wedding_invitations",
+      stationery: "wedding_stationery",
+      signage: "wedding_signage",
+      bridal: "bridal_boutique",
+      bridesmaid: "bridesmaid_dresses",
+      formal: "formal_wear",
+      suits: "suit_hire",
+      designer: "custom_designer",
+      rings: "wedding_rings",
+      engagement: "engagement_rings",
+      cars: "wedding_cars",
+      limo: "limousine",
+      bus: "guest_transport",
+      live_painter: "live_wedding_painter",
+      planner: "wedding_planner",
+      coordinator: "wedding_coordinator",
+      on_day_coordinator: "on_the_day_coordinator",
+      honeymoon: "honeymoon_planner",
+      child_minder: "child_minder_wedding_nanny",
+      furniture: "furniture_hire",
+      decor: "decor_hire",
+      tableware: "tableware_hire",
+      lighting: "lighting_hire",
+      marquee: "marquee_hire",
+      favours: "wedding_favours",
+      gifts: "personalised_gifts",
+      celebrant: "wedding_celebrant"
+    };
+
+    function normalizeCategories(categories = []) {
+      const cleaned = categories.map(item => LEGACY_CATEGORY_MAP[item] || item);
+      return [...new Set(cleaned)];
+    }
+
+    function getCheckedValues(container) {
+      return Array.from(container.querySelectorAll("input:checked")).map(input => input.value);
+    }
+
+    function createPillCheckbox(value, labelText, checked = false, name = "") {
+      const label = document.createElement("label");
+      const input = document.createElement("input");
+      const span = document.createElement("span");
+
+      input.type = "checkbox";
+      input.value = value;
+      if (name) input.name = name;
+      input.checked = checked;
+
+      span.textContent = labelText;
+
+      label.appendChild(input);
+      label.appendChild(span);
+
+      return label;
     }
 
     function renderCategoryOptions(selected = []) {
       categoryOptions.innerHTML = "";
-      categoriesList.forEach(category => {
-        const label = document.createElement("label");
-        label.innerHTML = \`<input type="checkbox" value="\${category}" \${selected.includes(category) ? "checked" : ""}> \${formatCategoryName(category)}\`;
-        categoryOptions.appendChild(label);
+      const normalizedSelected = normalizeCategories(selected);
+
+      CATEGORY_GROUPS.forEach(group => {
+        const heading = document.createElement("div");
+        heading.className = "category-group-title";
+        heading.textContent = group.title;
+        categoryOptions.appendChild(heading);
+
+        group.items.forEach(([value, label]) => {
+          categoryOptions.appendChild(
+            createPillCheckbox(value, label, normalizedSelected.includes(value), "categories")
+          );
+        });
       });
     }
 
-    function renderCountries(selectedCountry = "") {
-      countrySelect.innerHTML = '<option value="">Select country</option>';
+    function renderCountries(selectedCountries = []) {
+      countryOptions.innerHTML = "";
+      const countries = Object.keys(LOCATION_DATA).sort((a, b) => a.localeCompare(b));
 
-      Object.keys(LOCATION_DATA).sort().forEach(country => {
-        const option = document.createElement("option");
-        option.value = country;
-        option.textContent = country;
-        if (country === selectedCountry) option.selected = true;
-        countrySelect.appendChild(option);
+      if (!countries.length) {
+        countryOptions.innerHTML = '<p class="small-text">No countries found.</p>';
+        return;
+      }
+
+      countries.forEach(country => {
+        countryOptions.appendChild(
+          createPillCheckbox(country, country, selectedCountries.includes(country), "countries")
+        );
       });
-    }
 
-    function getSelectedStates() {
-      return Array.from(stateOptions.querySelectorAll("input:checked")).map(input => input.value);
-    }
-
-    function getSelectedRegions() {
-      return Array.from(regionOptions.querySelectorAll("input:checked")).map(input => input.value);
+      countryOptions.querySelectorAll("input").forEach(input => {
+        input.addEventListener("change", () => {
+          renderStates([]);
+          renderRegions([]);
+        });
+      });
     }
 
     function renderStates(selectedStates = []) {
-      const country = countrySelect.value;
+      const selectedCountries = getCheckedValues(countryOptions);
       stateOptions.innerHTML = "";
-      regionOptions.innerHTML = '<p class="small-text">Select a state first.</p>';
+      regionOptions.innerHTML = '<p class="small-text">Select states, provinces or territories first.</p>';
 
-      if (!country || !LOCATION_DATA[country]) {
-        stateOptions.innerHTML = '<p class="small-text">Select a country first.</p>';
+      if (!selectedCountries.length) {
+        stateOptions.innerHTML = '<p class="small-text">Select countries first.</p>';
         return;
       }
 
-      const states = Object.keys(LOCATION_DATA[country]).sort();
+      let hasStates = false;
 
-      if (!states.length) {
-        stateOptions.innerHTML = '<p class="small-text">No state data available for this country.</p>';
-        return;
-      }
+      selectedCountries.forEach(country => {
+        const countryData = LOCATION_DATA[country];
+        if (!countryData) return;
 
-      states.forEach(state => {
-        const label = document.createElement("label");
-        label.innerHTML = \`<input type="checkbox" value="\${state}" \${selectedStates.includes(state) ? "checked" : ""}> \${state}\`;
-        stateOptions.appendChild(label);
+        const heading = document.createElement("div");
+        heading.className = "region-heading";
+        heading.textContent = country;
+        stateOptions.appendChild(heading);
+
+        Object.keys(countryData).sort((a, b) => a.localeCompare(b)).forEach(state => {
+          hasStates = true;
+          stateOptions.appendChild(
+            createPillCheckbox(state, state, selectedStates.includes(state), "states")
+          );
+        });
       });
 
+      if (!hasStates) {
+        stateOptions.innerHTML = '<p class="small-text">No states, provinces or territories found.</p>';
+        return;
+      }
+
       stateOptions.querySelectorAll("input").forEach(input => {
-        input.addEventListener("change", () => renderRegions(getSelectedRegions()));
+        input.addEventListener("change", () => {
+          renderRegions(getCheckedValues(regionOptions));
+        });
       });
     }
 
     function renderRegions(previouslyChecked = []) {
-      const country = countrySelect.value;
-      const selectedStates = getSelectedStates();
+      const selectedCountries = getCheckedValues(countryOptions);
+      const selectedStates = getCheckedValues(stateOptions);
+
       regionOptions.innerHTML = "";
 
-      if (!country || !selectedStates.length) {
-        regionOptions.innerHTML = '<p class="small-text">Select a state first.</p>';
+      if (!selectedCountries.length || !selectedStates.length) {
+        regionOptions.innerHTML = '<p class="small-text">Select states, provinces or territories first.</p>';
         return;
       }
 
-      selectedStates.forEach(state => {
-        const heading = document.createElement("p");
-        heading.className = "region-heading";
-        heading.textContent = state;
-        regionOptions.appendChild(heading);
+      let hasRegions = false;
 
-        const regions = LOCATION_DATA[country]?.[state] || [];
+      selectedCountries.forEach(country => {
+        const countryData = LOCATION_DATA[country];
+        if (!countryData) return;
 
-        if (!regions.length) {
-          const noData = document.createElement("p");
-          noData.className = "small-text";
-          noData.textContent = "No region data available.";
-          regionOptions.appendChild(noData);
-          return;
-        }
+        selectedStates.forEach(state => {
+          const regions = countryData[state];
+          if (!regions || !regions.length) return;
 
-        regions.forEach(region => {
-          const label = document.createElement("label");
-          label.innerHTML = \`<input type="checkbox" value="\${region}" \${previouslyChecked.includes(region) ? "checked" : ""}> \${region}\`;
-          regionOptions.appendChild(label);
+          hasRegions = true;
+
+          const heading = document.createElement("div");
+          heading.className = "region-heading";
+          heading.textContent = `${country} — ${state}`;
+          regionOptions.appendChild(heading);
+
+          regions.forEach(region => {
+            regionOptions.appendChild(
+              createPillCheckbox(region, region, previouslyChecked.includes(region), "regions")
+            );
+          });
         });
       });
+
+      if (!hasRegions) {
+        regionOptions.innerHTML = '<p class="small-text">No regions or cities found for the selected areas.</p>';
+      }
     }
 
     function setImagePreview() {
       imagePreview.innerHTML = "";
       const imageList = [];
 
-      if (coverImageUrl.value.trim()) imageList.push(coverImageUrl.value.trim());
+      if (coverImageUrl.value.trim()) {
+        imageList.push(coverImageUrl.value.trim());
+      }
 
       images.value
-        .split("\\n")
+        .split("\n")
         .map(line => line.trim())
         .filter(Boolean)
         .forEach(img => {
@@ -440,17 +706,13 @@
         const img = document.createElement("img");
         img.src = imgUrl;
         img.alt = "Vendor image preview";
+        img.loading = "lazy";
         imagePreview.appendChild(img);
       });
     }
 
     coverImageUrl.addEventListener("input", setImagePreview);
     images.addEventListener("input", setImagePreview);
-
-    countrySelect.addEventListener("change", () => {
-      renderStates([]);
-      renderRegions([]);
-    });
 
     async function loadVendorData(uid) {
       const userSnap = await getDoc(doc(db, "users", uid));
@@ -473,22 +735,28 @@
       serviceAreas.value = currentVendorData.serviceAreas || "";
       bio.value = currentVendorData.bio || "";
       coverImageUrl.value = currentVendorData.coverImageUrl || "";
-      images.value = Array.isArray(currentVendorData.images) ? currentVendorData.images.join("\\n") : "";
+      images.value = Array.isArray(currentVendorData.images) ? currentVendorData.images.join("\n") : "";
 
       profileVisible.checked = currentVendorData.profileVisible === true;
       published.checked = currentVendorData.published === true;
 
-      accountStatusText.textContent = \`Account status: \${currentVendorData.accountStatus || "active"}\`;
-      subscriptionStatusText.textContent = \`Subscription: \${currentVendorData.subscriptionActive === true ? "active" : "inactive"}\`;
+      accountStatusText.textContent = `Account status: ${currentVendorData.accountStatus || "active"}`;
+      subscriptionStatusText.textContent = `Subscription: ${currentVendorData.subscriptionActive === true ? "active" : "inactive"}`;
 
       renderCategoryOptions(Array.isArray(currentVendorData.categories) ? currentVendorData.categories : []);
 
-      const selectedCountry = currentVendorData.country || "Australia";
-      renderCountries(selectedCountry);
+      const selectedCountries =
+        Array.isArray(currentVendorData.countries) && currentVendorData.countries.length
+          ? currentVendorData.countries
+          : currentVendorData.country
+            ? [currentVendorData.country]
+            : ["Australia"];
+
+      renderCountries(selectedCountries);
       renderStates(Array.isArray(currentVendorData.states) ? currentVendorData.states : []);
       renderRegions(Array.isArray(currentVendorData.regions) ? currentVendorData.regions : []);
 
-      viewProfileBtn.href = \`vendor.html?id=\${uid}\`;
+      viewProfileBtn.href = `vendor.html?id=${uid}`;
 
       setImagePreview();
     }
@@ -499,11 +767,13 @@
       message.textContent = "Saving...";
 
       try {
-        const selectedCategories = Array.from(categoryOptions.querySelectorAll("input:checked")).map(input => input.value);
-        const selectedStates = getSelectedStates();
-        const selectedRegions = getSelectedRegions();
+        const selectedCategories = normalizeCategories(getCheckedValues(categoryOptions));
+        const selectedCountries = getCheckedValues(countryOptions);
+        const selectedStates = getCheckedValues(stateOptions);
+        const selectedRegions = getCheckedValues(regionOptions);
+
         const galleryImages = images.value
-          .split("\\n")
+          .split("\n")
           .map(line => line.trim())
           .filter(Boolean);
 
@@ -519,7 +789,8 @@
           coverImageUrl: coverImageUrl.value.trim(),
           images: galleryImages,
           categories: selectedCategories,
-          country: countrySelect.value,
+          countries: selectedCountries,
+          country: selectedCountries[0] || "",
           states: selectedStates,
           regions: selectedRegions,
           profileVisible: profileVisible.checked,
