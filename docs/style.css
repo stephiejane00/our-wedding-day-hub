@@ -677,6 +677,13 @@ input[type="checkbox"] {
   color: var(--muted);
 }
 
+/* Keep footer title on one line on desktop */
+@media (min-width: 701px) {
+  .footer-title {
+    white-space: nowrap;
+  }
+}
+
 /* =========================
    RESPONSIVE
 ========================= */
@@ -709,16 +716,10 @@ input[type="checkbox"] {
     width: 100%;
   }
 
- .footer-title {
-  font-size: 2rem;
-  margin-bottom: 14px;
-}
-
-@media (min-width: 701px) {
   .footer-title {
-    white-space: nowrap;
+    font-size: 1.7rem;
+    white-space: normal;
   }
-}
 
   .page-auth {
     justify-content: center;
