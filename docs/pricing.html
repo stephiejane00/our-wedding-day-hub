@@ -1,11 +1,72 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Pricing | Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css" />
+
+  <style>
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      max-width: 1100px;
+      margin: 30px auto;
+      padding: 0 16px;
+    }
+
+    .pricing-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 26px 22px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+      position: relative;
+    }
+
+    .pricing-price {
+      font-size: 28px;
+      margin: 12px 0;
+      font-family: "Prata", serif;
+    }
+
+    .pricing-card p {
+      font-size: 14px;
+      color: #866f66;
+      line-height: 1.6;
+    }
+
+    /* MOST POPULAR BADGE */
+    .popular-badge {
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #111;
+      color: #fff;
+      font-size: 11px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      letter-spacing: 1px;
+    }
+
+    @media (max-width: 900px) {
+      .pricing-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .pricing-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+
 </head>
+
 <body>
 
   <div class="page-auth">
@@ -22,64 +83,68 @@
 
   <main class="page-wrap">
 
-    <section class="card hero-card">
-      <p class="eyebrow">pricing</p>
-      <h1 class="page-title">Simple pricing for wedding vendors</h1>
-      <p class="page-subtitle">
-        Choose the listing level that feels right for your business and update your profile anytime.
-      </p>
-    </section>
+```
+<section class="card hero-card">
+  <p class="eyebrow">pricing</p>
+  <h1 class="page-title">Simple pricing for wedding vendors</h1>
+  <p class="page-subtitle">
+    Choose the listing level that feels right for your business and update your profile anytime.
+  </p>
+</section>
 
-    <section class="card" style="max-width:1100px;">
-      <p class="eyebrow">one off</p>
-      <div class="pricing-card" style="max-width:360px; margin:0 auto; padding:30px 24px;">
-        <h2>Setup Fee</h2>
-        <div class="pricing-price">$50</div>
-        <p>
-          A one-time fee to create and launch your vendor account, giving you access to build and manage your profile.
-        </p>
-      </div>
-    </section>
+<section class="card" style="max-width:1100px;">
+  <p class="eyebrow">one off</p>
+  <div class="pricing-card" style="max-width:360px; margin:0 auto;">
+    <h2>Setup Fee</h2>
+    <div class="pricing-price">$50</div>
+    <p>
+      A one-time onboarding fee that gives you access to create your profile, upload your content,
+      and launch your business on the platform. This helps us maintain and support the experience for all vendors.
+    </p>
+  </div>
+</section>
 
-    <section class="pricing-grid">
+<section class="pricing-grid">
 
-      <article class="pricing-card">
-        <h2>Classic Listing</h2>
-        <div class="pricing-price">$4.75 <small>/ month</small></div>
-        <p>
-          A simple and beautiful starting point to get your business seen. Your profile includes your business name, bio, contact details,
-          and location so couples can discover and connect with you with ease.
-        </p>
-      </article>
+  <article class="pricing-card">
+    <h2>Classic Listing</h2>
+    <div class="pricing-price">$4.75 <small>/ month</small></div>
+    <p>
+      A simple and beautiful starting point to get your business seen. Your profile includes your business name, bio,
+      contact details and location so couples can easily discover and connect with you.
+    </p>
+  </article>
 
-      <article class="pricing-card">
-        <h2>Signature Spotlight</h2>
-        <div class="pricing-price">$5.95 <small>/ month</small></div>
-        <p>
-          A more elevated listing that gives you additional space to showcase your business. Perfect for vendors who want a stronger presence
-          and more room to share their work and brand.
-        </p>
-      </article>
+  <article class="pricing-card">
+    <h2>Signature Spotlight</h2>
+    <div class="pricing-price">$5.95 <small>/ month</small></div>
+    <p>
+      A more elevated listing that gives you additional space to showcase your business.
+      Ideal for vendors wanting a stronger presence and more room to share their work.
+    </p>
+  </article>
 
-      <article class="pricing-card">
-        <h2>Elite Feature</h2>
-        <div class="pricing-price">$7.25 <small>/ month</small></div>
-        <p>
-          Designed for vendors wanting a fuller profile experience. With expanded content and visual space, your business can be presented in
-          a more refined and detailed way.
-        </p>
-      </article>
+  <article class="pricing-card">
+    <h2>Elite Feature</h2>
+    <div class="pricing-price">$7.25 <small>/ month</small></div>
+    <p>
+      Designed for vendors wanting a fuller profile experience. With expanded content and visual space,
+      your business can be presented in a more refined and detailed way.
+    </p>
+  </article>
 
-      <article class="pricing-card">
-        <h2>Platinum Prestige</h2>
-        <div class="pricing-price">$9.95 <small>/ month</small></div>
-        <p>
-          Our most premium option, offering the fullest and most flexible profile experience. Ideal for vendors who want to present their
-          brand at its best and create a strong, lasting impression.
-        </p>
-      </article>
+  <article class="pricing-card">
+    <div class="popular-badge">MOST POPULAR</div>
+    <h2>Platinum Prestige</h2>
+    <div class="pricing-price">$9.95 <small>/ month</small></div>
+    <p>
+      Our most complete listing experience, offering the greatest flexibility to showcase your work,
+      brand and services. Perfect for vendors who want to stand out and make a lasting impression.
+    </p>
+  </article>
 
-    </section>
+</section>
+```
 
   </main>
 
@@ -91,17 +156,20 @@
         Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.
       </p>
 
-      <div class="footer-links">
-        <a href="about.html">About Us</a>
-        <a href="pricing.html">Pricing</a>
-        <a href="refund-policy.html">Refund Policy</a>
-        <a href="terms.html">Terms &amp; Conditions</a>
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="contact.html">Enquiries</a>
-      </div>
+```
+  <div class="footer-links">
+    <a href="about.html">About Us</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="refund-policy.html">Refund Policy</a>
+    <a href="terms.html">Terms &amp; Conditions</a>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="contact.html">Enquiries</a>
+  </div>
 
-      <p class="footer-abn">ABN: 76688637041</p>
-    </div>
+  <p class="footer-abn">ABN: 76688637041</p>
+</div>
+```
+
   </footer>
 
   <script type="module">
@@ -127,12 +195,8 @@
     });
 
     logoutLink.addEventListener("click", async () => {
-      try {
-        await signOut(auth);
-        window.location.href = "index.html";
-      } catch (error) {
-        console.error("Logout failed:", error);
-      }
+      await signOut(auth);
+      window.location.href = "index.html";
     });
   </script>
 
