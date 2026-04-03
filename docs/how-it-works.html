@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>How It Works | Our Wedding Day Hub</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <div class="page-auth">
+    <a href="index.html" class="auth-link">Home</a>
+    <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
+    <a href="login.html" id="loginLink" class="auth-link">Log In</a>
+    <a href="dashboard.html" id="dashboardLink" class="auth-link" style="display:none;">Dashboard</a>
+    <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
+  </div>
+
+  <header class="hero">
+    <img src="images/header4.png" alt="Our Wedding Day Hub" class="header-image">
+  </header>
+
+  <main class="page-wrap">
+    <section class="card hero-card">
+      <p class="eyebrow">how it works</p>
+      <h1 class="page-title">A simple way to connect couples and wedding vendors</h1>
+      <p class="page-subtitle">
+        Our Wedding Day Hub helps couples discover beautiful wedding businesses in one place, while giving vendors a lovely way to be seen by people actively planning their day.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>For Couples</h2>
+      <p class="page-subtitle">
+        Browse wedding vendors by category and location, all in one place. Explore profiles, discover local favourites, and connect directly with the businesses that feel like the right fit for your wedding.
+      </p>
+      <p class="page-subtitle">
+        It is designed to make the search feel simpler, calmer, and far less overwhelming.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>For Vendors</h2>
+      <p class="page-subtitle">
+        Create your profile, choose the listing level that suits your business, and showcase what you offer to couples who are actively searching for wedding services.
+      </p>
+      <p class="page-subtitle">
+        Your profile gives couples a clear place to view your business, learn more about your services, and decide if you feel like the right fit for their day.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Getting Started</h2>
+      <p class="page-subtitle">
+        Sign up, select your preferred tier, and complete your business profile with your details, imagery, and information.
+      </p>
+      <p class="page-subtitle">
+        Once your profile is ready and live, couples can begin discovering your business through the platform.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Why Join</h2>
+      <p class="page-subtitle">
+        Whether you are planning your wedding or growing your business, Our Wedding Day Hub is designed to feel elegant, easy to use, and thoughtfully curated.
+      </p>
+      <p class="page-subtitle">
+        It is a simple way to bring the right people together in one beautiful space.
+      </p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p class="footer-eyebrow">wedding vendor directory</p>
+      <h2 class="footer-title">Everything you need for your wedding, all in one place.</h2>
+      <p class="footer-text">
+        Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.
+      </p>
+
+      <div class="footer-links">
+        <a href="about.html">About Us</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="refund-policy.html">Refund Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="contact.html">Enquiries</a>
+      </div>
+
+      <p class="footer-abn">ABN: 76688637041</p>
+    </div>
+  </footer>
+
+  <script type="module">
+    import { auth, onAuthStateChanged, signOut } from "./firebase.js";
+
+    const joinLink = document.getElementById("joinLink");
+    const loginLink = document.getElementById("loginLink");
+    const dashboardLink = document.getElementById("dashboardLink");
+    const logoutLink = document.getElementById("logoutLink");
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        joinLink.style.display = "none";
+        loginLink.style.display = "none";
+        dashboardLink.style.display = "inline-block";
+        logoutLink.style.display = "inline-block";
+      } else {
+        joinLink.style.display = "inline-flex";
+        loginLink.style.display = "inline-block";
+        dashboardLink.style.display = "none";
+        logoutLink.style.display = "none";
+      }
+    });
+
+    logoutLink.addEventListener("click", async () => {
+      try {
+        await signOut(auth);
+        window.location.href = "index.html";
+      } catch (error) {
+        console.error("Logout failed:", error);
+      }
+    });
+  </script>
+
+</body>
+</html>
