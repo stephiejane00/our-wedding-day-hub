@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -8,63 +7,188 @@
   <link rel="stylesheet" href="style.css" />
 
   <style>
+    .pricing-page {
+      max-width: 1180px;
+      margin: 0 auto 60px;
+      padding: 0 20px;
+    }
+
+    .setup-fee-wrap {
+      margin: 10px auto 38px;
+      text-align: center;
+    }
+
+    .setup-fee-eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .setup-fee-box {
+      max-width: 430px;
+      margin: 0 auto;
+      padding: 6px 0 0;
+      background: transparent;
+      box-shadow: none;
+      border: none;
+    }
+
+    .setup-fee-box h2 {
+      margin-bottom: 10px;
+    }
+
+    .setup-fee-price {
+      font-family: "Prata", serif;
+      font-size: 2.5rem;
+      line-height: 1;
+      margin-bottom: 14px;
+      color: var(--text);
+    }
+
+    .setup-fee-box p {
+      margin: 0 auto;
+      max-width: 420px;
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: 0.98rem;
+    }
+
     .pricing-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-      max-width: 1100px;
-      margin: 30px auto;
-      padding: 0 16px;
+      gap: 22px;
+      align-items: stretch;
+      margin-top: 8px;
     }
 
     .pricing-card {
-      background: #fff;
-      border-radius: 20px;
-      padding: 26px 22px;
-      text-align: center;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
       position: relative;
+      background: #fff;
+      border-radius: 24px;
+      padding: 28px 22px 24px;
+      text-align: center;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.05);
+      border: 1px solid var(--border);
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .pricing-card h2 {
+      font-size: 1.35rem;
+      margin-bottom: 10px;
     }
 
     .pricing-price {
-      font-size: 28px;
-      margin: 12px 0;
       font-family: "Prata", serif;
+      font-size: 2.15rem;
+      line-height: 1;
+      margin: 10px 0 14px;
+      color: var(--text);
     }
 
-    .pricing-card p {
-      font-size: 14px;
-      color: #866f66;
-      line-height: 1.6;
+    .pricing-price small {
+      font-family: "Manrope", sans-serif;
+      font-size: 0.92rem;
+      color: var(--muted);
     }
 
-    /* MOST POPULAR BADGE */
+    .pricing-subtext {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin: 0 0 18px;
+    }
+
+    .pricing-includes {
+      margin-top: auto;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+      text-align: left;
+    }
+
+    .pricing-includes p {
+      margin: 0 0 12px;
+      color: var(--text);
+      line-height: 1.65;
+      font-size: 0.94rem;
+    }
+
+    .pricing-includes p:last-child {
+      margin-bottom: 0;
+    }
+
+    .pricing-classic {
+      background: linear-gradient(180deg, #ffffff 0%, #fffaf7 100%);
+    }
+
+    .pricing-signature {
+      background: linear-gradient(180deg, #ffffff 0%, #fff8f3 100%);
+      box-shadow: 0 14px 30px rgba(199, 157, 137, 0.08);
+    }
+
+    .pricing-elite {
+      background: linear-gradient(180deg, #fffdfc 0%, #fff5ef 100%);
+      box-shadow: 0 16px 34px rgba(199, 157, 137, 0.11);
+      border-color: #ead7cb;
+    }
+
+    .pricing-platinum {
+      background: linear-gradient(180deg, #fffdfc 0%, #fff1e8 100%);
+      box-shadow: 0 18px 38px rgba(199, 157, 137, 0.16);
+      border-color: #e3c7b6;
+      transform: translateY(-6px);
+    }
+
+    .pricing-platinum:hover {
+      transform: translateY(-10px);
+    }
+
     .popular-badge {
       position: absolute;
-      top: -10px;
+      top: -11px;
       left: 50%;
       transform: translateX(-50%);
       background: #111;
       color: #fff;
       font-size: 11px;
-      padding: 6px 12px;
-      border-radius: 999px;
+      font-weight: 700;
       letter-spacing: 1px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      white-space: nowrap;
     }
 
-    @media (max-width: 900px) {
+    @media (max-width: 980px) {
       .pricing-grid {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .pricing-platinum {
+        transform: none;
+      }
+
+      .pricing-platinum:hover {
+        transform: translateY(-4px);
       }
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 640px) {
       .pricing-grid {
         grid-template-columns: 1fr;
       }
+
+      .setup-fee-price {
+        font-size: 2.2rem;
+      }
     }
   </style>
-
 </head>
 
 <body>
@@ -81,70 +205,87 @@
     <img src="images/header4.png" alt="Our Wedding Day Hub" class="header-image">
   </header>
 
-  <main class="page-wrap">
+  <main class="pricing-page">
 
-```
-<section class="card hero-card">
-  <p class="eyebrow">pricing</p>
-  <h1 class="page-title">Simple pricing for wedding vendors</h1>
-  <p class="page-subtitle">
-    Choose the listing level that feels right for your business and update your profile anytime.
-  </p>
-</section>
+    <section class="card hero-card">
+      <p class="eyebrow">pricing</p>
+      <h1 class="page-title">Simple pricing for wedding vendors</h1>
+      <p class="page-subtitle">
+        Choose the listing level that feels right for your business and present your brand beautifully to couples searching for the right fit.
+      </p>
+    </section>
 
-<section class="card" style="max-width:1100px;">
-  <p class="eyebrow">one off</p>
-  <div class="pricing-card" style="max-width:360px; margin:0 auto;">
-    <h2>Setup Fee</h2>
-    <div class="pricing-price">$50</div>
-    <p>
-      A one-time onboarding fee that gives you access to create your profile, upload your content,
-      and launch your business on the platform. This helps us maintain and support the experience for all vendors.
-    </p>
-  </div>
-</section>
+    <section class="setup-fee-wrap">
+      <p class="setup-fee-eyebrow">one off</p>
+      <div class="setup-fee-box">
+        <h2>Setup Fee</h2>
+        <div class="setup-fee-price">$50</div>
+        <p>
+          A one-time onboarding fee to create and activate your account, set up your profile space, and get your business ready to be shown on the platform.
+        </p>
+      </div>
+    </section>
 
-<section class="pricing-grid">
+    <section class="pricing-grid">
 
-  <article class="pricing-card">
-    <h2>Classic Listing</h2>
-    <div class="pricing-price">$4.75 <small>/ month</small></div>
-    <p>
-      A simple and beautiful starting point to get your business seen. Your profile includes your business name, bio,
-      contact details and location so couples can easily discover and connect with you.
-    </p>
-  </article>
+      <article class="pricing-card pricing-classic">
+        <h2>Classic Listing</h2>
+        <div class="pricing-price">$4.75 <small>/ month</small></div>
+        <p class="pricing-subtext">
+          A beautiful starting point for getting your business listed and discoverable.
+        </p>
 
-  <article class="pricing-card">
-    <h2>Signature Spotlight</h2>
-    <div class="pricing-price">$5.95 <small>/ month</small></div>
-    <p>
-      A more elevated listing that gives you additional space to showcase your business.
-      Ideal for vendors wanting a stronger presence and more room to share their work.
-    </p>
-  </article>
+        <div class="pricing-includes">
+          <p><strong>Includes your own public profile page</strong> with your business name, bio, contact details, and core business information.</p>
+          <p><strong>Shown in your chosen categories and locations</strong> so couples can find you when browsing the platform.</p>
+          <p><strong>Perfect for vendors who want a simple presence</strong> and an affordable way to be visible online.</p>
+        </div>
+      </article>
 
-  <article class="pricing-card">
-    <h2>Elite Feature</h2>
-    <div class="pricing-price">$7.25 <small>/ month</small></div>
-    <p>
-      Designed for vendors wanting a fuller profile experience. With expanded content and visual space,
-      your business can be presented in a more refined and detailed way.
-    </p>
-  </article>
+      <article class="pricing-card pricing-signature">
+        <h2>Signature Spotlight</h2>
+        <div class="pricing-price">$5.95 <small>/ month</small></div>
+        <p class="pricing-subtext">
+          For vendors who want a little more room to showcase what makes them special.
+        </p>
 
-  <article class="pricing-card">
-    <div class="popular-badge">MOST POPULAR</div>
-    <h2>Platinum Prestige</h2>
-    <div class="pricing-price">$9.95 <small>/ month</small></div>
-    <p>
-      Our most complete listing experience, offering the greatest flexibility to showcase your work,
-      brand and services. Perfect for vendors who want to stand out and make a lasting impression.
-    </p>
-  </article>
+        <div class="pricing-includes">
+          <p><strong>Everything in Classic Listing</strong>, with more flexibility in how your profile is presented.</p>
+          <p><strong>More space to showcase your business</strong> through additional content and profile detail.</p>
+          <p><strong>Ideal if you want a stronger first impression</strong> and a more polished, established presence.</p>
+        </div>
+      </article>
 
-</section>
-```
+      <article class="pricing-card pricing-elite">
+        <h2>Elite Feature</h2>
+        <div class="pricing-price">$7.25 <small>/ month</small></div>
+        <p class="pricing-subtext">
+          A fuller profile experience for vendors wanting a more elevated showcase.
+        </p>
+
+        <div class="pricing-includes">
+          <p><strong>Everything in Signature Spotlight</strong>, with expanded room for your brand, content, and visuals.</p>
+          <p><strong>Gives couples a better feel for your business</strong> by allowing a richer and more complete profile presentation.</p>
+          <p><strong>Best suited to vendors who want to stand out more clearly</strong> and share a more refined version of their work.</p>
+        </div>
+      </article>
+
+      <article class="pricing-card pricing-platinum">
+        <div class="popular-badge">MOST POPULAR</div>
+        <h2>Platinum Prestige</h2>
+        <div class="pricing-price">$9.95 <small>/ month</small></div>
+        <p class="pricing-subtext">
+          Our most premium listing, designed for the strongest and most complete presentation.
+        </p>
+
+        <div class="pricing-includes">
+          <p><strong>Everything in Elite Feature</strong>, with the greatest flexibility for profile content, imagery, and overall presence.</p>
+          <p><strong>Creates the most polished and premium impression</strong> for couples viewing your business.</p>
+          <p><strong>Best for vendors who want their profile to feel full, refined, and memorable</strong> while giving couples the clearest picture of what they offer.</p>
+        </div>
+      </article>
+
+    </section>
 
   </main>
 
@@ -156,20 +297,17 @@
         Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.
       </p>
 
-```
-  <div class="footer-links">
-    <a href="about.html">About Us</a>
-    <a href="pricing.html">Pricing</a>
-    <a href="refund-policy.html">Refund Policy</a>
-    <a href="terms.html">Terms &amp; Conditions</a>
-    <a href="privacy.html">Privacy Policy</a>
-    <a href="contact.html">Enquiries</a>
-  </div>
+      <div class="footer-links">
+        <a href="about.html">About Us</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="refund-policy.html">Refund Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="contact.html">Enquiries</a>
+      </div>
 
-  <p class="footer-abn">ABN: 76688637041</p>
-</div>
-```
-
+      <p class="footer-abn">ABN: 76688637041</p>
+    </div>
   </footer>
 
   <script type="module">
@@ -195,8 +333,12 @@
     });
 
     logoutLink.addEventListener("click", async () => {
-      await signOut(auth);
-      window.location.href = "index.html";
+      try {
+        await signOut(auth);
+        window.location.href = "index.html";
+      } catch (error) {
+        console.error("Logout failed:", error);
+      }
     });
   </script>
 
