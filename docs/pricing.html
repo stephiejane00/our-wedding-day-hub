@@ -13,6 +13,23 @@
       padding: 0 20px;
     }
 
+    .pricing-intro-wrap {
+      max-width: 860px;
+      margin: 0 auto 34px;
+      text-align: center;
+    }
+
+    .pricing-intro-wrap .page-subtitle {
+      margin-bottom: 14px;
+    }
+
+    .pricing-note-soft {
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
     .setup-fee-wrap {
       margin: 10px auto 38px;
       text-align: center;
@@ -27,7 +44,7 @@
     }
 
     .setup-fee-box {
-      max-width: 430px;
+      max-width: 520px;
       margin: 0 auto;
       padding: 6px 0 0;
       background: transparent;
@@ -49,10 +66,14 @@
 
     .setup-fee-box p {
       margin: 0 auto;
-      max-width: 420px;
+      max-width: 500px;
       color: var(--muted);
-      line-height: 1.75;
+      line-height: 1.8;
       font-size: 0.98rem;
+    }
+
+    .setup-fee-box p + p {
+      margin-top: 12px;
     }
 
     .pricing-grid {
@@ -102,7 +123,7 @@
     .pricing-subtext {
       color: var(--muted);
       font-size: 0.95rem;
-      line-height: 1.7;
+      line-height: 1.75;
       margin: 0 0 18px;
     }
 
@@ -116,12 +137,19 @@
     .pricing-includes p {
       margin: 0 0 12px;
       color: var(--text);
-      line-height: 1.65;
+      line-height: 1.72;
       font-size: 0.94rem;
     }
 
     .pricing-includes p:last-child {
       margin-bottom: 0;
+    }
+
+    .pricing-best-for {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
+      color: var(--muted) !important;
     }
 
     .pricing-classic {
@@ -208,9 +236,17 @@
   <main class="pricing-page">
 
     <section class="card hero-card">
-      <p class="page-subtitle">
-        Choose the listing level that feels right for your business and connect with couples who are actively planning their wedding. You can select your tier during sign up.
-      </p>
+      <div class="pricing-intro-wrap">
+        <p class="page-subtitle">
+          Choose the listing level that feels right for your business and the way you would like to appear on the platform.
+        </p>
+        <p class="pricing-note-soft">
+          Each tier gives your business a stronger presence, with higher levels designed to make your profile more noticeable and help you stand out more clearly to couples who are actively searching.
+        </p>
+        <p class="pricing-note-soft">
+          You can select your tier during sign up and upgrade at any time as your business grows.
+        </p>
+      </div>
     </section>
 
     <section class="setup-fee-wrap">
@@ -221,6 +257,9 @@
         <p>
           A one-time onboarding fee to create and activate your account, set up your profile space, and get your business ready to be shown on the platform.
         </p>
+        <p>
+          With our 60 day satisfaction guarantee, your first two months of subscription can be refunded if you choose not to continue.
+        </p>
       </div>
     </section>
 
@@ -230,13 +269,14 @@
         <h2>Classic Listing</h2>
         <div class="pricing-price">$4.75 <small>/ month</small></div>
         <p class="pricing-subtext">
-          A beautiful starting point for getting your business listed and discoverable.
+          A simple starting point for vendors wanting a polished and affordable presence.
         </p>
 
         <div class="pricing-includes">
-          <p><strong>Includes your own public profile page</strong> with your business name, bio, contact details, and core business information.</p>
-          <p><strong>Shown in your chosen categories and locations</strong> so couples can find you when browsing the platform.</p>
-          <p><strong>Perfect for vendors who want a simple presence</strong> and an affordable way to be visible online.</p>
+          <p><strong>Your own public profile page</strong> with your business name, bio, contact details, and core business information so couples can view your business in one dedicated place.</p>
+          <p><strong>Shown in your chosen categories and locations</strong> so your business can be discovered when couples are browsing the platform for services in their area.</p>
+          <p><strong>A clear and professional way to be visible online</strong> without needing the higher levels of profile presence.</p>
+          <p class="pricing-best-for"><strong>Best for:</strong> vendors who want a simple and affordable way to be seen.</p>
         </div>
       </article>
 
@@ -244,13 +284,14 @@
         <h2>Signature Spotlight</h2>
         <div class="pricing-price">$5.95 <small>/ month</small></div>
         <p class="pricing-subtext">
-          For vendors who want a little more room to showcase what makes them special.
+          For vendors who want a little more presence and a stronger first impression.
         </p>
 
         <div class="pricing-includes">
-          <p><strong>Everything in Classic Listing</strong>, with more flexibility in how your profile is presented.</p>
-          <p><strong>More space to showcase your business</strong> through additional content and profile detail.</p>
-          <p><strong>Ideal if you want a stronger first impression</strong> and a more polished, established presence.</p>
+          <p><strong>Everything in Classic Listing</strong>, with a stronger profile presence that gives your business a little more impact when couples are browsing their options.</p>
+          <p><strong>More room to showcase your business</strong> so couples can get a better feel for what you offer and what makes your brand special.</p>
+          <p><strong>A more established overall presentation</strong> for vendors who want their profile to feel more noticeable than an entry-level listing.</p>
+          <p class="pricing-best-for"><strong>Best for:</strong> vendors who want to stand out a little more while keeping things affordable.</p>
         </div>
       </article>
 
@@ -258,13 +299,14 @@
         <h2>Elite Feature</h2>
         <div class="pricing-price">$7.25 <small>/ month</small></div>
         <p class="pricing-subtext">
-          A fuller profile experience for vendors wanting a more elevated showcase.
+          A stronger showcase for vendors ready to grow their visibility on the platform.
         </p>
 
         <div class="pricing-includes">
-          <p><strong>Everything in Signature Spotlight</strong>, with expanded room for your brand, content, and visuals.</p>
-          <p><strong>Gives couples a better feel for your business</strong> by allowing a richer and more complete profile presentation.</p>
-          <p><strong>Best suited to vendors who want to stand out more clearly</strong> and share a more refined version of their work.</p>
+          <p><strong>Everything in Signature Spotlight</strong>, with a more elevated profile presence that helps your business feel fuller, stronger, and more refined.</p>
+          <p><strong>More opportunity to capture attention</strong> when couples are comparing vendors and deciding who feels like the right fit for their wedding.</p>
+          <p><strong>A more noticeable place on the platform</strong> for businesses wanting their profile to work harder for them and create a stronger impression.</p>
+          <p class="pricing-best-for"><strong>Best for:</strong> vendors who want greater visibility and a more elevated business presence.</p>
         </div>
       </article>
 
@@ -273,13 +315,14 @@
         <h2>Platinum Prestige</h2>
         <div class="pricing-price">$9.95 <small>/ month</small></div>
         <p class="pricing-subtext">
-          Our most premium listing, designed for the strongest and most complete presentation.
+          Our most premium listing for vendors wanting the strongest and most complete presentation.
         </p>
 
         <div class="pricing-includes">
-          <p><strong>Everything in Elite Feature</strong>, with the greatest flexibility for profile content, imagery, and overall presence.</p>
-          <p><strong>Creates the most polished and premium impression</strong> for couples viewing your business.</p>
-          <p><strong>Best for vendors who want their profile to feel full, refined, and memorable</strong> while giving couples the clearest picture of what they offer.</p>
+          <p><strong>Everything in Elite Feature</strong>, with the highest level of profile presence available on the platform.</p>
+          <p><strong>The most polished and premium impression</strong> for couples viewing your business, helping your profile feel especially full, refined, and memorable.</p>
+          <p><strong>The strongest opportunity to stand out clearly</strong> for vendors who want to give couples the clearest and most confident picture of what they offer.</p>
+          <p class="pricing-best-for"><strong>Best for:</strong> vendors who want their business to have the highest level of presence on the platform.</p>
         </div>
       </article>
 
