@@ -45,8 +45,9 @@
     .dashboard-help {
       color: #8c7f75;
       font-size: 14px;
-      margin-top: 6px;
+      margin-top: 10px;
       text-align: left;
+      line-height: 1.6;
     }
 
     .status-wrap {
@@ -431,6 +432,44 @@
             </div>
           </div>
 
+          <div class="dashboard-three-col" style="margin-top: 14px;">
+            <div class="dashboard-field">
+              <label for="facebook">Facebook</label>
+              <input type="text" id="facebook" placeholder="https://facebook.com/...">
+            </div>
+
+            <div class="dashboard-field">
+              <label for="tiktok">TikTok</label>
+              <input type="text" id="tiktok" placeholder="https://tiktok.com/...">
+            </div>
+
+            <div class="dashboard-field">
+              <label for="youtube">YouTube</label>
+              <input type="text" id="youtube" placeholder="https://youtube.com/...">
+            </div>
+          </div>
+
+          <div class="dashboard-three-col" style="margin-top: 14px;">
+            <div class="dashboard-field">
+              <label for="pinterest">Pinterest</label>
+              <input type="text" id="pinterest" placeholder="https://pinterest.com/...">
+            </div>
+
+            <div class="dashboard-field">
+              <label for="linkedin">LinkedIn</label>
+              <input type="text" id="linkedin" placeholder="https://linkedin.com/...">
+            </div>
+
+            <div class="dashboard-field">
+              <label for="x">X (Twitter)</label>
+              <input type="text" id="x" placeholder="https://x.com/...">
+            </div>
+          </div>
+
+          <p class="dashboard-help">
+            Only the links you fill in will appear on your public profile.
+          </p>
+
           <div class="dashboard-two-col" style="margin-top: 14px;">
             <div class="dashboard-field">
               <label for="serviceAreas">Service Areas Summary</label>
@@ -602,6 +641,12 @@
     const phone = document.getElementById("phone");
     const instagram = document.getElementById("instagram");
     const website = document.getElementById("website");
+    const facebook = document.getElementById("facebook");
+    const tiktok = document.getElementById("tiktok");
+    const youtube = document.getElementById("youtube");
+    const pinterest = document.getElementById("pinterest");
+    const linkedin = document.getElementById("linkedin");
+    const x = document.getElementById("x");
     const serviceAreas = document.getElementById("serviceAreas");
     const displayLocation = document.getElementById("displayLocation");
     const bio = document.getElementById("bio");
@@ -1002,6 +1047,12 @@
       phone.value = vendorData.phone || "";
       instagram.value = vendorData.instagram || "";
       website.value = vendorData.website || "";
+      facebook.value = vendorData.facebook || "";
+      tiktok.value = vendorData.tiktok || "";
+      youtube.value = vendorData.youtube || "";
+      pinterest.value = vendorData.pinterest || "";
+      linkedin.value = vendorData.linkedin || "";
+      x.value = vendorData.x || "";
       serviceAreas.value = vendorData.serviceAreas || "";
       displayLocation.value = vendorData.displayLocation || "";
       bio.value = vendorData.bio || "";
@@ -1104,6 +1155,12 @@
           phone: phone.value.trim(),
           instagram: instagram.value.trim(),
           website: website.value.trim(),
+          facebook: facebook.value.trim(),
+          tiktok: tiktok.value.trim(),
+          youtube: youtube.value.trim(),
+          pinterest: pinterest.value.trim(),
+          linkedin: linkedin.value.trim(),
+          x: x.value.trim(),
           serviceAreas: serviceAreas.value.trim(),
           displayLocation: displayLocation.value.trim(),
           bio: bio.value.trim(),
