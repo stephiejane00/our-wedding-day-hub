@@ -294,6 +294,70 @@
       white-space: pre-line;
     }
 
+    .availability-card {
+      margin-top: 24px;
+      padding: 26px;
+      text-align: left;
+    }
+
+    .availability-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .availability-title {
+      margin: 0;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #5b463d;
+    }
+
+    .availability-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: #f8f0ea;
+      border: 1px solid #ead8cb;
+      color: #4b3a32;
+      font-size: 0.93rem;
+      font-weight: 600;
+    }
+
+    .availability-text {
+      margin: 0;
+      font-size: 0.98rem;
+      line-height: 1.75;
+      color: #4b403a;
+      white-space: pre-line;
+    }
+
+    .calendar-placeholder {
+      margin-top: 18px;
+      background: #fffaf8;
+      border: 1px solid #eadfd6;
+      border-radius: 20px;
+      padding: 18px;
+    }
+
+    .calendar-placeholder-title {
+      margin: 0 0 8px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #6f5c54;
+    }
+
+    .calendar-placeholder-text {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+
     .sidebar-card {
       position: sticky;
       top: 18px;
@@ -365,6 +429,26 @@
       border-color: #ddb8c4;
       color: #b06176;
       box-shadow: 0 12px 26px rgba(176, 97, 118, 0.14);
+    }
+
+    .book-now-btn {
+      width: 100%;
+      display: none;
+      text-decoration: none;
+      color: #fff;
+      background: #111;
+      border: 1px solid #111;
+      border-radius: 999px;
+      padding: 15px 18px;
+      font-size: 0.98rem;
+      font-weight: 600;
+      margin-bottom: 14px;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .book-now-btn:hover {
+      opacity: 0.94;
+      transform: translateY(-1px);
     }
 
     .contact-stack {
@@ -510,6 +594,7 @@
 
       .gallery-card,
       .content-card,
+      .availability-card,
       .sidebar-card {
         padding: 18px;
       }
@@ -584,6 +669,22 @@
             <p id="vendorAbout" class="section-copy"></p>
           </div>
         </div>
+
+        <div id="availabilityCard" class="card availability-card" style="display:none;">
+          <div class="availability-top">
+            <h2 class="availability-title">Availability</h2>
+            <div id="availabilityPill" class="availability-pill" style="display:none;"></div>
+          </div>
+
+          <p id="availabilityText" class="availability-text"></p>
+
+          <div class="calendar-placeholder">
+            <p class="calendar-placeholder-title">Calendar coming soon</p>
+            <p class="calendar-placeholder-text">
+              A live availability calendar can be added here later. For now, couples can use the booking button or contact the vendor directly to enquire about dates.
+            </p>
+          </div>
+        </div>
       </section>
 
       <aside class="card sidebar-card">
@@ -595,6 +696,8 @@
         <p id="sidebarMiniBio" class="sidebar-sub"></p>
 
         <button id="favoriteBtn" class="favorite-btn" type="button">♡ Save to favourites</button>
+
+        <a href="#" id="bookNowBtn" class="book-now-btn" target="_blank" rel="noopener noreferrer">Book Now</a>
 
         <div class="contact-stack">
           <a href="#" id="websiteBtn" class="stack-btn" target="_blank" rel="noopener noreferrer">Website</a>
@@ -667,6 +770,11 @@
     const aboutLogoWrap = document.getElementById("aboutLogoWrap");
     const aboutLogoImage = document.getElementById("aboutLogoImage");
 
+    const availabilityCard = document.getElementById("availabilityCard");
+    const availabilityPill = document.getElementById("availabilityPill");
+    const availabilityText = document.getElementById("availabilityText");
+
+    const bookNowBtn = document.getElementById("bookNowBtn");
     const websiteBtn = document.getElementById("websiteBtn");
     const emailBtn = document.getElementById("emailBtn");
     const instagramBtn = document.getElementById("instagramBtn");
@@ -999,6 +1107,9 @@
       const linkedin = normalizeUrl(firstNonEmpty(vendor.linkedin, vendor.linkedinUrl));
       const xUrl = normalizeUrl(firstNonEmpty(vendor.x, vendor.twitter, vendor.twitterUrl, vendor.xUrl));
       const email = firstNonEmpty(vendor.email, "");
+      const bookingUrl = normalizeUrl(firstNonEmpty(vendor.bookingLink, vendor.bookNowLink));
+      const availabilityStatus = firstNonEmpty(vendor.availabilityStatus, "");
+      const bookingNotes = firstNonEmpty(vendor.bookingNotes, "");
       const locations = getLocations(vendor);
       const items = getGalleryItems(vendor);
       const profileImage = getProfileImage(vendor);
@@ -1026,6 +1137,28 @@
       } else {
         aboutLogoImage.removeAttribute("src");
         aboutLogoWrap.style.display = "none";
+      }
+
+      if (bookingUrl) {
+        bookNowBtn.href = bookingUrl;
+        bookNowBtn.style.display = "block";
+      } else {
+        bookNowBtn.style.display = "none";
+      }
+
+      const showAvailability = Boolean(availabilityStatus || bookingNotes);
+      if (showAvailability) {
+        availabilityCard.style.display = "block";
+        if (availabilityStatus) {
+          availabilityPill.textContent = availabilityStatus;
+          availabilityPill.style.display = "inline-flex";
+        } else {
+          availabilityPill.style.display = "none";
+        }
+
+        availabilityText.textContent = bookingNotes || "Please get in touch to check available dates.";
+      } else {
+        availabilityCard.style.display = "none";
       }
 
       setLinkOrHide(websiteBtn, website, "Website");
