@@ -415,7 +415,6 @@
 
     .calendar-day:hover {
       transform: translateY(-1px);
-      background: #fcf7f4;
     }
 
     .calendar-day.empty {
@@ -432,6 +431,43 @@
     .calendar-day.today {
       outline: 2px solid #d8c0b3;
       outline-offset: -2px;
+    }
+
+    .calendar-day.available {
+      background: #eef8f0;
+      border-color: #cfe8d4;
+      color: #2f5d3a;
+    }
+
+    .calendar-day.available:hover {
+      background: #e6f4e9;
+    }
+
+    .calendar-day.past {
+      background: #f5f1ee;
+      border-color: #ece3dc;
+      color: #b1a39a;
+      cursor: not-allowed;
+    }
+
+    .calendar-day.past:hover {
+      transform: none;
+      background: #f5f1ee;
+    }
+
+    .calendar-day.past::after {
+      content: "Past";
+      position: absolute;
+      left: 8px;
+      bottom: 8px;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #a99a91;
+      background: rgba(255,255,255,0.82);
+      padding: 3px 6px;
+      border-radius: 999px;
     }
 
     .calendar-day.blocked {
@@ -477,10 +513,9 @@
       border-radius: 999px;
     }
 
-    .calendar-day.blocked.selected::after {
-      content: "Unavailable";
-      color: #9a5f5f;
-      background: rgba(255,255,255,0.75);
+    .calendar-day.blocked.selected::after,
+    .calendar-day.past.selected::after {
+      content: "Selected";
     }
 
     .calendar-legend {
@@ -506,9 +541,19 @@
       background: #fff;
     }
 
+    .calendar-legend-swatch.available {
+      background: #eef8f0;
+      border-color: #cfe8d4;
+    }
+
     .calendar-legend-swatch.blocked {
       background: #f6e7e3;
       border-color: #e2c2b9;
+    }
+
+    .calendar-legend-swatch.past {
+      background: #f5f1ee;
+      border-color: #ece3dc;
     }
 
     .calendar-legend-swatch.selected {
@@ -861,7 +906,8 @@
       }
 
       .calendar-day.blocked::after,
-      .calendar-day.selected::after {
+      .calendar-day.selected::after,
+      .calendar-day.past::after {
         font-size: 0.56rem;
         left: 6px;
         bottom: 6px;
@@ -947,12 +993,16 @@
 
             <div class="calendar-legend">
               <div class="calendar-legend-item">
-                <span class="calendar-legend-swatch"></span>
+                <span class="calendar-legend-swatch available"></span>
                 <span>Available</span>
               </div>
               <div class="calendar-legend-item">
                 <span class="calendar-legend-swatch blocked"></span>
                 <span>Unavailable</span>
+              </div>
+              <div class="calendar-legend-item">
+                <span class="calendar-legend-swatch past"></span>
+                <span>Past</span>
               </div>
               <div class="calendar-legend-item">
                 <span class="calendar-legend-swatch selected"></span>
@@ -1131,6 +1181,7 @@
     let currentMediaIndex = 0;
 
     const today = new Date();
+    const todayString = toLocalDateString(today);
     let calendarMonth = today.getMonth();
     let calendarYear = today.getFullYear();
     let selectedCalendarDate = "";
@@ -1308,8 +1359,13 @@
       });
     }
 
-    function handleCalendarDateClick(dateString, isBlocked) {
-      if (isBlocked) {
+    function handleCalendarDateClick(dateString, state) {
+      if (state === "past") {
+        bookingFormMessage.textContent = "That date has already passed. Please choose a future date.";
+        return;
+      }
+
+      if (state === "blocked") {
         bookingFormMessage.textContent = "That date is marked as unavailable. Please choose another date.";
         return;
       }
@@ -1346,39 +1402,35 @@
       for (let day = 1; day <= daysInMonth; day++) {
         const dateObj = new Date(calendarYear, calendarMonth, day);
         const dateString = toLocalDateString(dateObj);
+        const isPast = dateString < todayString;
         const isBlocked = currentBlockedDates.includes(dateString);
+
+        let state = "available";
+        if (isPast) state = "past";
+        if (isBlocked) state = "blocked";
 
         const dayCell = document.createElement("button");
         dayCell.type = "button";
-        dayCell.className = "calendar-day";
+        dayCell.className = `calendar-day ${state}`;
         dayCell.textContent = day;
         dayCell.setAttribute("aria-label", formatDateForDisplay(dateString));
 
-        if (dateString === toLocalDateString(today)) {
+        if (dateString === todayString) {
           dayCell.classList.add("today");
-        }
-
-        if (isBlocked) {
-          dayCell.classList.add("blocked");
         }
 
         if (selectedCalendarDate === dateString) {
           dayCell.classList.add("selected");
         }
 
-        dayCell.addEventListener("click", () => handleCalendarDateClick(dateString, isBlocked));
+        dayCell.addEventListener("click", () => handleCalendarDateClick(dateString, state));
         calendarGrid.appendChild(dayCell);
       }
     }
 
     function updateCalendarVisibility() {
-      if (currentBlockedDates.length) {
-        calendarWrap.style.display = "block";
-        renderCalendar();
-      } else {
-        calendarWrap.style.display = "block";
-        renderCalendar();
-      }
+      calendarWrap.style.display = "block";
+      renderCalendar();
     }
 
     function updateArrowButtons() {
@@ -1487,8 +1539,7 @@
     }
 
     function prepareDateInput() {
-      const now = new Date();
-      enquiryDate.min = toLocalDateString(now);
+      enquiryDate.min = todayString;
     }
 
     function isBlockedDate(dateValue) {
@@ -1510,6 +1561,11 @@
 
       if (!nameValue || !emailValue || !dateValue || !messageValue) {
         bookingFormMessage.textContent = "Please fill in your name, email, preferred date, and message.";
+        return;
+      }
+
+      if (dateValue < todayString) {
+        bookingFormMessage.textContent = "Please choose a future date.";
         return;
       }
 
@@ -1595,12 +1651,12 @@
 
       selectedCalendarDate = "";
 
-      const firstBlockedFutureDate = currentBlockedDates
-        .filter(date => date >= toLocalDateString(today))
+      const firstRelevantFutureDate = currentBlockedDates
+        .filter(date => date >= todayString)
         .sort()[0];
 
-      if (firstBlockedFutureDate) {
-        const futureDateObj = new Date(firstBlockedFutureDate + "T00:00:00");
+      if (firstRelevantFutureDate) {
+        const futureDateObj = new Date(firstRelevantFutureDate + "T00:00:00");
         calendarMonth = futureDateObj.getMonth();
         calendarYear = futureDateObj.getFullYear();
       } else {
