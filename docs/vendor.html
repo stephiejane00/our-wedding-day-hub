@@ -233,6 +233,7 @@
     .content-card {
       margin-top: 24px;
       padding: 30px;
+      text-align: center;
     }
 
     .vendor-title {
@@ -247,6 +248,31 @@
       color: var(--muted);
       font-size: 0.96rem;
       font-weight: 500;
+    }
+
+    .about-logo-wrap {
+      margin: 22px auto 8px;
+      display: none;
+      justify-content: center;
+    }
+
+    .about-logo-box {
+      background: #fffaf8;
+      border: 1px solid #eadfd6;
+      border-radius: 22px;
+      padding: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 160px;
+      min-height: 160px;
+    }
+
+    .about-logo-box img {
+      max-width: 140px;
+      max-height: 140px;
+      object-fit: contain;
+      display: block;
     }
 
     .section-block {
@@ -359,48 +385,6 @@
       padding: 14px 16px;
       font-size: 0.98rem;
       font-weight: 500;
-    }
-
-    .logo-card {
-      background: var(--soft-2);
-      border: 1px solid #e7dbd1;
-      border-radius: 18px;
-      padding: 16px;
-      margin-top: 8px;
-      margin-bottom: 16px;
-    }
-
-    .logo-card h3 {
-      margin: 0 0 12px;
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: #9a8980;
-      font-weight: 700;
-      text-align: left;
-    }
-
-    .logo-box {
-      background: #fff;
-      border: 1px solid #e7dbd1;
-      border-radius: 18px;
-      min-height: 120px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 18px;
-    }
-
-    .logo-box img {
-      max-width: 100%;
-      max-height: 120px;
-      object-fit: contain;
-      display: block;
-    }
-
-    .logo-empty {
-      color: var(--muted);
-      font-size: 0.92rem;
     }
 
     .sidebar-location {
@@ -540,6 +524,16 @@
         height: 42px;
         font-size: 1.35rem;
       }
+
+      .about-logo-box {
+        min-width: 130px;
+        min-height: 130px;
+      }
+
+      .about-logo-box img {
+        max-width: 110px;
+        max-height: 110px;
+      }
     }
   </style>
 </head>
@@ -579,6 +573,12 @@
           <h1 id="businessName" class="vendor-title">Loading vendor...</h1>
           <div id="vendorCategory" class="category-line"></div>
 
+          <div id="aboutLogoWrap" class="about-logo-wrap">
+            <div class="about-logo-box">
+              <img id="aboutLogoImage" src="" alt="Vendor logo">
+            </div>
+          </div>
+
           <div class="section-block">
             <h2 class="section-title">About</h2>
             <p id="vendorAbout" class="section-copy"></p>
@@ -606,13 +606,6 @@
           <a href="#" id="pinterestBtn" class="stack-btn" target="_blank" rel="noopener noreferrer">Pinterest</a>
           <a href="#" id="linkedinBtn" class="stack-btn" target="_blank" rel="noopener noreferrer">LinkedIn</a>
           <a href="#" id="xBtn" class="stack-btn" target="_blank" rel="noopener noreferrer">X / Twitter</a>
-        </div>
-
-        <div id="logoCard" class="logo-card" style="display:none;">
-          <h3>Logo</h3>
-          <div class="logo-box">
-            <img id="vendorLogo" src="" alt="Vendor logo">
-          </div>
         </div>
 
         <div class="sidebar-location">
@@ -671,6 +664,9 @@
     const sidebarMiniBioEl = document.getElementById("sidebarMiniBio");
     const profilePicEl = document.getElementById("profilePic");
 
+    const aboutLogoWrap = document.getElementById("aboutLogoWrap");
+    const aboutLogoImage = document.getElementById("aboutLogoImage");
+
     const websiteBtn = document.getElementById("websiteBtn");
     const emailBtn = document.getElementById("emailBtn");
     const instagramBtn = document.getElementById("instagramBtn");
@@ -680,9 +676,6 @@
     const pinterestBtn = document.getElementById("pinterestBtn");
     const linkedinBtn = document.getElementById("linkedinBtn");
     const xBtn = document.getElementById("xBtn");
-
-    const logoCard = document.getElementById("logoCard");
-    const vendorLogo = document.getElementById("vendorLogo");
 
     const sidebarLocationListEl = document.getElementById("sidebarLocationList");
 
@@ -1028,11 +1021,11 @@
       }
 
       if (logo) {
-        vendorLogo.src = logo;
-        logoCard.style.display = "block";
+        aboutLogoImage.src = logo;
+        aboutLogoWrap.style.display = "flex";
       } else {
-        vendorLogo.removeAttribute("src");
-        logoCard.style.display = "none";
+        aboutLogoImage.removeAttribute("src");
+        aboutLogoWrap.style.display = "none";
       }
 
       setLinkOrHide(websiteBtn, website, "Website");
