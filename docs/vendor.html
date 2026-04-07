@@ -336,26 +336,108 @@
       white-space: pre-line;
     }
 
-    .calendar-placeholder {
+    .blocked-date-wrap {
       margin-top: 18px;
-      background: #fffaf8;
-      border: 1px solid #eadfd6;
-      border-radius: 20px;
-      padding: 18px;
     }
 
-    .calendar-placeholder-title {
-      margin: 0 0 8px;
+    .blocked-date-title {
+      margin: 0 0 10px;
       font-size: 0.95rem;
       font-weight: 700;
       color: #6f5c54;
     }
 
-    .calendar-placeholder-text {
-      margin: 0;
-      color: var(--muted);
-      font-size: 0.92rem;
+    .blocked-date-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .blocked-date-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: #f8f3ef;
+      border: 1px solid #eadfd6;
+      color: #4a403a;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .booking-form-card {
+      margin-top: 24px;
+      padding: 26px;
+      text-align: left;
+    }
+
+    .booking-form-title {
+      margin: 0 0 10px;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #5b463d;
+    }
+
+    .booking-form-copy {
+      margin: 0 0 18px;
+      color: #6e6058;
       line-height: 1.7;
+      font-size: 0.95rem;
+    }
+
+    .booking-form-grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .booking-field label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #3b2d25;
+    }
+
+    .booking-field input,
+    .booking-field textarea {
+      width: 100%;
+      border: 1px solid #eadfd6;
+      border-radius: 16px;
+      background: #fffdfb;
+      padding: 14px 16px;
+      font-size: 0.96rem;
+      color: #2d221c;
+      box-sizing: border-box;
+    }
+
+    .booking-field textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .booking-submit {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 14px 22px;
+      border-radius: 999px;
+      background: #111;
+      color: #fff;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 6px;
+    }
+
+    .booking-submit:hover {
+      opacity: 0.94;
+    }
+
+    .booking-form-message {
+      margin-top: 12px;
+      color: #8a5d5d;
+      font-size: 0.93rem;
+      white-space: pre-line;
     }
 
     .sidebar-card {
@@ -595,6 +677,7 @@
       .gallery-card,
       .content-card,
       .availability-card,
+      .booking-form-card,
       .sidebar-card {
         padding: 18px;
       }
@@ -678,11 +761,41 @@
 
           <p id="availabilityText" class="availability-text"></p>
 
-          <div class="calendar-placeholder">
-            <p class="calendar-placeholder-title">Calendar coming soon</p>
-            <p class="calendar-placeholder-text">
-              A live availability calendar can be added here later. For now, couples can use the booking button or contact the vendor directly to enquire about dates.
-            </p>
+          <div id="blockedDateWrap" class="blocked-date-wrap" style="display:none;">
+            <p class="blocked-date-title">Unavailable dates</p>
+            <div id="blockedDateList" class="blocked-date-list"></div>
+          </div>
+        </div>
+
+        <div id="bookingFormCard" class="card booking-form-card" style="display:none;">
+          <h2 class="booking-form-title">Enquire about a date</h2>
+          <p class="booking-form-copy">
+            Choose your preferred date and send your enquiry directly to this vendor.
+          </p>
+
+          <div class="booking-form-grid">
+            <div class="booking-field">
+              <label for="enquiryName">Your Name</label>
+              <input type="text" id="enquiryName" placeholder="Your full name">
+            </div>
+
+            <div class="booking-field">
+              <label for="enquiryEmail">Your Email</label>
+              <input type="email" id="enquiryEmail" placeholder="you@example.com">
+            </div>
+
+            <div class="booking-field">
+              <label for="enquiryDate">Preferred Date</label>
+              <input type="date" id="enquiryDate">
+            </div>
+
+            <div class="booking-field">
+              <label for="enquiryMessage">Message</label>
+              <textarea id="enquiryMessage" placeholder="Share a few details about your wedding, venue, timing, and what you’re looking for."></textarea>
+            </div>
+
+            <button type="button" id="sendEnquiryBtn" class="booking-submit">Send Enquiry</button>
+            <p id="bookingFormMessage" class="booking-form-message"></p>
           </div>
         </div>
       </section>
@@ -773,6 +886,16 @@
     const availabilityCard = document.getElementById("availabilityCard");
     const availabilityPill = document.getElementById("availabilityPill");
     const availabilityText = document.getElementById("availabilityText");
+    const blockedDateWrap = document.getElementById("blockedDateWrap");
+    const blockedDateList = document.getElementById("blockedDateList");
+
+    const bookingFormCard = document.getElementById("bookingFormCard");
+    const enquiryName = document.getElementById("enquiryName");
+    const enquiryEmail = document.getElementById("enquiryEmail");
+    const enquiryDate = document.getElementById("enquiryDate");
+    const enquiryMessage = document.getElementById("enquiryMessage");
+    const sendEnquiryBtn = document.getElementById("sendEnquiryBtn");
+    const bookingFormMessage = document.getElementById("bookingFormMessage");
 
     const bookNowBtn = document.getElementById("bookNowBtn");
     const websiteBtn = document.getElementById("websiteBtn");
@@ -802,6 +925,9 @@
     const lightboxClose = document.getElementById("lightboxClose");
 
     let currentVendorDocId = vendorIdFromUrl || vendorIdFromSession || null;
+    let currentVendorEmail = "";
+    let currentVendorName = "";
+    let currentBlockedDates = [];
     let galleryItems = [];
     let currentMediaIndex = 0;
 
@@ -854,6 +980,16 @@
         return clean;
       }
       return "https://" + clean;
+    }
+
+    function formatDateForDisplay(dateString) {
+      if (!dateString) return "";
+      const date = new Date(dateString + "T00:00:00");
+      return date.toLocaleDateString("en-AU", {
+        day: "numeric",
+        month: "short",
+        year: "numeric"
+      });
     }
 
     function getLocations(vendor) {
@@ -961,6 +1097,27 @@
       });
     }
 
+    function renderBlockedDates() {
+      blockedDateList.innerHTML = "";
+
+      if (!currentBlockedDates.length) {
+        blockedDateWrap.style.display = "none";
+        return;
+      }
+
+      blockedDateWrap.style.display = "block";
+
+      currentBlockedDates
+        .slice()
+        .sort()
+        .forEach(dateValue => {
+          const pill = document.createElement("div");
+          pill.className = "blocked-date-pill";
+          pill.textContent = formatDateForDisplay(dateValue);
+          blockedDateList.appendChild(pill);
+        });
+    }
+
     function updateArrowButtons() {
       const showArrows = galleryItems.length > 1;
       prevMediaBtn.classList.toggle("hidden", !showArrows);
@@ -1066,6 +1223,61 @@
       }
     }
 
+    function prepareDateInput() {
+      const today = new Date();
+      const yyyy = today.getFullYear();
+      const mm = String(today.getMonth() + 1).padStart(2, "0");
+      const dd = String(today.getDate()).padStart(2, "0");
+      enquiryDate.min = `${yyyy}-${mm}-${dd}`;
+    }
+
+    function isBlockedDate(dateValue) {
+      return currentBlockedDates.includes(dateValue);
+    }
+
+    function sendBookingEnquiry() {
+      bookingFormMessage.textContent = "";
+
+      if (!currentVendorEmail) {
+        bookingFormMessage.textContent = "This vendor has not added an enquiry email yet.";
+        return;
+      }
+
+      const nameValue = enquiryName.value.trim();
+      const emailValue = enquiryEmail.value.trim();
+      const dateValue = enquiryDate.value;
+      const messageValue = enquiryMessage.value.trim();
+
+      if (!nameValue || !emailValue || !dateValue || !messageValue) {
+        bookingFormMessage.textContent = "Please fill in your name, email, preferred date, and message.";
+        return;
+      }
+
+      if (isBlockedDate(dateValue)) {
+        bookingFormMessage.textContent = "That date is marked as unavailable. Please choose another date.";
+        return;
+      }
+
+      const subject = `Wedding enquiry for ${currentVendorName} — ${formatDateForDisplay(dateValue)}`;
+      const body = [
+        `Hi ${currentVendorName || "there"},`,
+        ``,
+        `I would love to enquire about availability for ${formatDateForDisplay(dateValue)}.`,
+        ``,
+        `Name: ${nameValue}`,
+        `Email: ${emailValue}`,
+        `Preferred Date: ${formatDateForDisplay(dateValue)}`,
+        ``,
+        `Message:`,
+        `${messageValue}`,
+        ``,
+        `Sent via Our Wedding Day Hub`
+      ].join("\n");
+
+      const mailtoUrl = `mailto:${encodeURIComponent(currentVendorEmail)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.location.href = mailtoUrl;
+    }
+
     async function renderVendor(vendor, docId) {
       currentVendorDocId = docId || currentVendorDocId;
 
@@ -1108,12 +1320,18 @@
       const xUrl = normalizeUrl(firstNonEmpty(vendor.x, vendor.twitter, vendor.twitterUrl, vendor.xUrl));
       const email = firstNonEmpty(vendor.email, "");
       const bookingUrl = normalizeUrl(firstNonEmpty(vendor.bookingLink, vendor.bookNowLink));
-      const availabilityStatus = firstNonEmpty(vendor.availabilityStatus, "");
-      const bookingNotes = firstNonEmpty(vendor.bookingNotes, "");
+      const availabilityStatusValue = firstNonEmpty(vendor.availabilityStatus, "");
+      const bookingNotesValue = firstNonEmpty(vendor.bookingNotes, "");
       const locations = getLocations(vendor);
       const items = getGalleryItems(vendor);
       const profileImage = getProfileImage(vendor);
       const logo = getLogo(vendor);
+
+      currentVendorEmail = email;
+      currentVendorName = businessName;
+      currentBlockedDates = Array.isArray(vendor.blockedDates)
+        ? vendor.blockedDates.filter(Boolean)
+        : [];
 
       businessNameEl.textContent = businessName;
       sidebarBusinessNameEl.textContent = businessName;
@@ -1123,6 +1341,8 @@
 
       renderSidebarLocations(locations);
       renderGallery(items);
+      renderBlockedDates();
+      prepareDateInput();
 
       if (profileImage) {
         profilePicEl.src = profileImage;
@@ -1146,19 +1366,25 @@
         bookNowBtn.style.display = "none";
       }
 
-      const showAvailability = Boolean(availabilityStatus || bookingNotes);
+      const showAvailability = Boolean(availabilityStatusValue || bookingNotesValue || currentBlockedDates.length);
       if (showAvailability) {
         availabilityCard.style.display = "block";
-        if (availabilityStatus) {
-          availabilityPill.textContent = availabilityStatus;
+        if (availabilityStatusValue) {
+          availabilityPill.textContent = availabilityStatusValue;
           availabilityPill.style.display = "inline-flex";
         } else {
           availabilityPill.style.display = "none";
         }
 
-        availabilityText.textContent = bookingNotes || "Please get in touch to check available dates.";
+        availabilityText.textContent = bookingNotesValue || "Please get in touch to check available dates.";
       } else {
         availabilityCard.style.display = "none";
+      }
+
+      if (email) {
+        bookingFormCard.style.display = "block";
+      } else {
+        bookingFormCard.style.display = "none";
       }
 
       setLinkOrHide(websiteBtn, website, "Website");
@@ -1269,6 +1495,7 @@
 
     prevMediaBtn.addEventListener("click", showPrevMedia);
     nextMediaBtn.addEventListener("click", showNextMedia);
+    sendEnquiryBtn.addEventListener("click", sendBookingEnquiry);
 
     mainGalleryImage.addEventListener("click", () => {
       if (!mainGalleryImage.src || mainGalleryImage.style.display === "none") return;
