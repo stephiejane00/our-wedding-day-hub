@@ -336,33 +336,138 @@
       white-space: pre-line;
     }
 
-    .blocked-date-wrap {
-      margin-top: 18px;
+    .calendar-wrap {
+      margin-top: 20px;
+      padding: 18px;
+      border-radius: 22px;
+      background: #fffaf8;
+      border: 1px solid #eadfd6;
     }
 
-    .blocked-date-title {
-      margin: 0 0 10px;
-      font-size: 0.95rem;
+    .calendar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .calendar-nav {
+      border: 1px solid #e7dbd1;
+      background: #fff;
+      color: #4d4039;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1rem;
+      line-height: 1;
+    }
+
+    .calendar-nav:hover {
+      background: #f7f1ec;
+    }
+
+    .calendar-month-label {
+      font-size: 1rem;
       font-weight: 700;
-      color: #6f5c54;
+      color: #5e4b42;
+      text-align: center;
+      flex: 1;
     }
 
-    .blocked-date-list {
+    .calendar-weekdays,
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .calendar-weekdays {
+      margin-bottom: 8px;
+    }
+
+    .calendar-weekday {
+      text-align: center;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #9a8980;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 6px 0;
+    }
+
+    .calendar-day {
+      min-height: 62px;
+      border-radius: 16px;
+      background: #fff;
+      border: 1px solid #efe5dc;
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-end;
+      padding: 10px;
+      font-size: 0.92rem;
+      color: #4b403a;
+      position: relative;
+    }
+
+    .calendar-day.empty {
+      background: transparent;
+      border: none;
+    }
+
+    .calendar-day.today {
+      outline: 2px solid #d8c0b3;
+      outline-offset: -2px;
+    }
+
+    .calendar-day.blocked {
+      background: #f6e7e3;
+      border-color: #e2c2b9;
+      color: #8a4d4d;
+    }
+
+    .calendar-day.blocked::after {
+      content: "Unavailable";
+      position: absolute;
+      left: 8px;
+      bottom: 8px;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #9a5f5f;
+      background: rgba(255,255,255,0.75);
+      padding: 3px 6px;
+      border-radius: 999px;
+    }
+
+    .calendar-legend {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 12px;
+      margin-top: 16px;
     }
 
-    .blocked-date-pill {
+    .calendar-legend-item {
       display: inline-flex;
       align-items: center;
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: #f8f3ef;
-      border: 1px solid #eadfd6;
-      color: #4a403a;
-      font-size: 0.9rem;
-      font-weight: 500;
+      gap: 8px;
+      font-size: 0.88rem;
+      color: #6b5c54;
+    }
+
+    .calendar-legend-swatch {
+      width: 18px;
+      height: 18px;
+      border-radius: 6px;
+      border: 1px solid #e7dbd1;
+      background: #fff;
+    }
+
+    .calendar-legend-swatch.blocked {
+      background: #f6e7e3;
+      border-color: #e2c2b9;
     }
 
     .booking-form-card {
@@ -702,6 +807,19 @@
         max-width: 110px;
         max-height: 110px;
       }
+
+      .calendar-day {
+        min-height: 52px;
+        padding: 8px;
+        font-size: 0.84rem;
+      }
+
+      .calendar-day.blocked::after {
+        font-size: 0.56rem;
+        left: 6px;
+        bottom: 6px;
+        padding: 2px 5px;
+      }
     }
   </style>
 </head>
@@ -761,9 +879,35 @@
 
           <p id="availabilityText" class="availability-text"></p>
 
-          <div id="blockedDateWrap" class="blocked-date-wrap" style="display:none;">
-            <p class="blocked-date-title">Unavailable dates</p>
-            <div id="blockedDateList" class="blocked-date-list"></div>
+          <div id="calendarWrap" class="calendar-wrap" style="display:none;">
+            <div class="calendar-header">
+              <button type="button" id="calendarPrevBtn" class="calendar-nav" aria-label="Previous month">‹</button>
+              <div id="calendarMonthLabel" class="calendar-month-label"></div>
+              <button type="button" id="calendarNextBtn" class="calendar-nav" aria-label="Next month">›</button>
+            </div>
+
+            <div class="calendar-weekdays">
+              <div class="calendar-weekday">Sun</div>
+              <div class="calendar-weekday">Mon</div>
+              <div class="calendar-weekday">Tue</div>
+              <div class="calendar-weekday">Wed</div>
+              <div class="calendar-weekday">Thu</div>
+              <div class="calendar-weekday">Fri</div>
+              <div class="calendar-weekday">Sat</div>
+            </div>
+
+            <div id="calendarGrid" class="calendar-grid"></div>
+
+            <div class="calendar-legend">
+              <div class="calendar-legend-item">
+                <span class="calendar-legend-swatch"></span>
+                <span>Available</span>
+              </div>
+              <div class="calendar-legend-item">
+                <span class="calendar-legend-swatch blocked"></span>
+                <span>Unavailable</span>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -886,8 +1030,12 @@
     const availabilityCard = document.getElementById("availabilityCard");
     const availabilityPill = document.getElementById("availabilityPill");
     const availabilityText = document.getElementById("availabilityText");
-    const blockedDateWrap = document.getElementById("blockedDateWrap");
-    const blockedDateList = document.getElementById("blockedDateList");
+
+    const calendarWrap = document.getElementById("calendarWrap");
+    const calendarMonthLabel = document.getElementById("calendarMonthLabel");
+    const calendarGrid = document.getElementById("calendarGrid");
+    const calendarPrevBtn = document.getElementById("calendarPrevBtn");
+    const calendarNextBtn = document.getElementById("calendarNextBtn");
 
     const bookingFormCard = document.getElementById("bookingFormCard");
     const enquiryName = document.getElementById("enquiryName");
@@ -930,6 +1078,10 @@
     let currentBlockedDates = [];
     let galleryItems = [];
     let currentMediaIndex = 0;
+
+    const today = new Date();
+    let calendarMonth = today.getMonth();
+    let calendarYear = today.getFullYear();
 
     function formatText(value) {
       if (!value) return "";
@@ -980,6 +1132,13 @@
         return clean;
       }
       return "https://" + clean;
+    }
+
+    function toLocalDateString(dateObj) {
+      const y = dateObj.getFullYear();
+      const m = String(dateObj.getMonth() + 1).padStart(2, "0");
+      const d = String(dateObj.getDate()).padStart(2, "0");
+      return `${y}-${m}-${d}`;
     }
 
     function formatDateForDisplay(dateString) {
@@ -1097,25 +1256,52 @@
       });
     }
 
-    function renderBlockedDates() {
-      blockedDateList.innerHTML = "";
+    function renderCalendar() {
+      calendarGrid.innerHTML = "";
 
-      if (!currentBlockedDates.length) {
-        blockedDateWrap.style.display = "none";
-        return;
+      const firstDay = new Date(calendarYear, calendarMonth, 1);
+      const lastDay = new Date(calendarYear, calendarMonth + 1, 0);
+      const startWeekday = firstDay.getDay();
+      const daysInMonth = lastDay.getDate();
+
+      calendarMonthLabel.textContent = firstDay.toLocaleDateString("en-AU", {
+        month: "long",
+        year: "numeric"
+      });
+
+      for (let i = 0; i < startWeekday; i++) {
+        const emptyCell = document.createElement("div");
+        emptyCell.className = "calendar-day empty";
+        calendarGrid.appendChild(emptyCell);
       }
 
-      blockedDateWrap.style.display = "block";
+      for (let day = 1; day <= daysInMonth; day++) {
+        const dateObj = new Date(calendarYear, calendarMonth, day);
+        const dateString = toLocalDateString(dateObj);
 
-      currentBlockedDates
-        .slice()
-        .sort()
-        .forEach(dateValue => {
-          const pill = document.createElement("div");
-          pill.className = "blocked-date-pill";
-          pill.textContent = formatDateForDisplay(dateValue);
-          blockedDateList.appendChild(pill);
-        });
+        const dayCell = document.createElement("div");
+        dayCell.className = "calendar-day";
+        dayCell.textContent = day;
+
+        if (dateString === toLocalDateString(today)) {
+          dayCell.classList.add("today");
+        }
+
+        if (currentBlockedDates.includes(dateString)) {
+          dayCell.classList.add("blocked");
+        }
+
+        calendarGrid.appendChild(dayCell);
+      }
+    }
+
+    function updateCalendarVisibility() {
+      if (currentBlockedDates.length) {
+        calendarWrap.style.display = "block";
+        renderCalendar();
+      } else {
+        calendarWrap.style.display = "none";
+      }
     }
 
     function updateArrowButtons() {
@@ -1224,11 +1410,8 @@
     }
 
     function prepareDateInput() {
-      const today = new Date();
-      const yyyy = today.getFullYear();
-      const mm = String(today.getMonth() + 1).padStart(2, "0");
-      const dd = String(today.getDate()).padStart(2, "0");
-      enquiryDate.min = `${yyyy}-${mm}-${dd}`;
+      const now = new Date();
+      enquiryDate.min = toLocalDateString(now);
     }
 
     function isBlockedDate(dateValue) {
@@ -1333,6 +1516,19 @@
         ? vendor.blockedDates.filter(Boolean)
         : [];
 
+      const firstBlockedFutureDate = currentBlockedDates
+        .filter(date => date >= toLocalDateString(today))
+        .sort()[0];
+
+      if (firstBlockedFutureDate) {
+        const futureDateObj = new Date(firstBlockedFutureDate + "T00:00:00");
+        calendarMonth = futureDateObj.getMonth();
+        calendarYear = futureDateObj.getFullYear();
+      } else {
+        calendarMonth = today.getMonth();
+        calendarYear = today.getFullYear();
+      }
+
       businessNameEl.textContent = businessName;
       sidebarBusinessNameEl.textContent = businessName;
       vendorCategoryEl.textContent = categoryText;
@@ -1341,7 +1537,7 @@
 
       renderSidebarLocations(locations);
       renderGallery(items);
-      renderBlockedDates();
+      updateCalendarVisibility();
       prepareDateInput();
 
       if (profileImage) {
@@ -1496,6 +1692,24 @@
     prevMediaBtn.addEventListener("click", showPrevMedia);
     nextMediaBtn.addEventListener("click", showNextMedia);
     sendEnquiryBtn.addEventListener("click", sendBookingEnquiry);
+
+    calendarPrevBtn.addEventListener("click", () => {
+      calendarMonth -= 1;
+      if (calendarMonth < 0) {
+        calendarMonth = 11;
+        calendarYear -= 1;
+      }
+      renderCalendar();
+    });
+
+    calendarNextBtn.addEventListener("click", () => {
+      calendarMonth += 1;
+      if (calendarMonth > 11) {
+        calendarMonth = 0;
+        calendarYear += 1;
+      }
+      renderCalendar();
+    });
 
     mainGalleryImage.addEventListener("click", () => {
       if (!mainGalleryImage.src || mainGalleryImage.style.display === "none") return;
