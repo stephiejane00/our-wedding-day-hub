@@ -15,10 +15,7 @@
       --line: #eadfd6;
       --soft: #e8ddd4;
       --soft-2: #f8f3ef;
-      --accent-soft: #faf1f4;
       --shadow: 0 12px 28px rgba(62, 44, 34, 0.06);
-      --radius-xl: 28px;
-      --radius-pill: 999px;
     }
 
     * {
@@ -102,7 +99,7 @@
     }
 
     .card {
-      background: var(--card);
+      background: #fff;
       border: 1px solid var(--line);
       border-radius: 28px;
       box-shadow: var(--shadow);
@@ -338,9 +335,9 @@
 
     .calendar-wrap {
       margin-top: 20px;
-      padding: 18px;
-      border-radius: 22px;
-      background: #fffaf8;
+      padding: 20px;
+      border-radius: 24px;
+      background: linear-gradient(180deg, #fffdfb 0%, #fff8f3 100%);
       border: 1px solid #eadfd6;
     }
 
@@ -349,68 +346,70 @@
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
     }
 
     .calendar-nav {
-      border: 1px solid #e7dbd1;
+      border: 1px solid #eadfd6;
       background: #fff;
       color: #4d4039;
-      width: 40px;
-      height: 40px;
+      width: 42px;
+      height: 42px;
       border-radius: 50%;
       cursor: pointer;
       font-size: 1rem;
       line-height: 1;
+      box-shadow: 0 4px 12px rgba(62, 44, 34, 0.06);
     }
 
     .calendar-nav:hover {
-      background: #f7f1ec;
+      background: #f8f2ed;
     }
 
     .calendar-month-label {
-      font-size: 1rem;
+      font-size: 1.02rem;
       font-weight: 700;
       color: #5e4b42;
       text-align: center;
       flex: 1;
+      letter-spacing: 0.02em;
     }
 
     .calendar-weekdays,
     .calendar-grid {
       display: grid;
       grid-template-columns: repeat(7, minmax(0, 1fr));
-      gap: 8px;
+      gap: 9px;
     }
 
     .calendar-weekdays {
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
 
     .calendar-weekday {
       text-align: center;
-      font-size: 0.82rem;
+      font-size: 0.78rem;
       font-weight: 700;
       color: #9a8980;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.08em;
       padding: 6px 0;
     }
 
     .calendar-day {
-      min-height: 62px;
-      border-radius: 16px;
-      background: #fff;
-      border: 1px solid #efe5dc;
+      min-height: 68px;
+      border-radius: 18px;
+      border: 1px solid #ece2da;
       display: flex;
       align-items: flex-start;
       justify-content: flex-end;
       padding: 10px;
-      font-size: 0.92rem;
+      font-size: 0.94rem;
       color: #4b403a;
       position: relative;
       cursor: pointer;
-      transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+      box-shadow: 0 4px 10px rgba(62, 44, 34, 0.03);
     }
 
     .calendar-day:hover {
@@ -420,12 +419,12 @@
     .calendar-day.empty {
       background: transparent;
       border: none;
+      box-shadow: none;
       cursor: default;
     }
 
     .calendar-day.empty:hover {
       transform: none;
-      background: transparent;
     }
 
     .calendar-day.today {
@@ -434,25 +433,42 @@
     }
 
     .calendar-day.available {
-      background: #eef8f0;
+      background: linear-gradient(180deg, #f2fbf4 0%, #e8f6eb 100%);
       border-color: #cfe8d4;
       color: #2f5d3a;
     }
 
     .calendar-day.available:hover {
-      background: #e6f4e9;
+      background: linear-gradient(180deg, #edf9ef 0%, #def0e3 100%);
+      box-shadow: 0 10px 18px rgba(64, 116, 76, 0.10);
+    }
+
+    .calendar-day.available::after {
+      content: "Open";
+      position: absolute;
+      left: 8px;
+      bottom: 8px;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #2f7a45;
+      background: rgba(255,255,255,0.85);
+      padding: 3px 6px;
+      border-radius: 999px;
     }
 
     .calendar-day.past {
-      background: #f5f1ee;
-      border-color: #ece3dc;
+      background: #f6f1ed;
+      border-color: #ebe2db;
       color: #b1a39a;
       cursor: not-allowed;
+      box-shadow: none;
     }
 
     .calendar-day.past:hover {
       transform: none;
-      background: #f5f1ee;
+      background: #f6f1ed;
     }
 
     .calendar-day.past::after {
@@ -471,9 +487,10 @@
     }
 
     .calendar-day.blocked {
-      background: #f6e7e3;
-      border-color: #e2c2b9;
+      background: linear-gradient(180deg, #fbeeee 0%, #f6e2e2 100%);
+      border-color: #e8c7c7;
       color: #8a4d4d;
+      box-shadow: 0 8px 16px rgba(154, 95, 95, 0.08);
     }
 
     .calendar-day.blocked::after {
@@ -486,16 +503,16 @@
       letter-spacing: 0.04em;
       text-transform: uppercase;
       color: #9a5f5f;
-      background: rgba(255,255,255,0.75);
+      background: rgba(255,255,255,0.78);
       padding: 3px 6px;
       border-radius: 999px;
     }
 
     .calendar-day.selected {
-      background: #111;
+      background: linear-gradient(180deg, #111 0%, #232323 100%);
       border-color: #111;
       color: #fff;
-      box-shadow: 0 10px 22px rgba(17, 17, 17, 0.16);
+      box-shadow: 0 12px 22px rgba(17, 17, 17, 0.18);
     }
 
     .calendar-day.selected::after {
@@ -508,14 +525,20 @@
       letter-spacing: 0.04em;
       text-transform: uppercase;
       color: #111;
-      background: rgba(255,255,255,0.92);
+      background: rgba(255,255,255,0.94);
       padding: 3px 6px;
       border-radius: 999px;
     }
 
-    .calendar-day.blocked.selected::after,
-    .calendar-day.past.selected::after {
-      content: "Selected";
+    .calendar-summary {
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: #fff;
+      border: 1px solid #eadfd6;
+      color: #5d4b42;
+      font-size: 0.93rem;
+      line-height: 1.6;
     }
 
     .calendar-legend {
@@ -542,18 +565,18 @@
     }
 
     .calendar-legend-swatch.available {
-      background: #eef8f0;
+      background: #e8f6eb;
       border-color: #cfe8d4;
     }
 
     .calendar-legend-swatch.blocked {
-      background: #f6e7e3;
-      border-color: #e2c2b9;
+      background: #f6e2e2;
+      border-color: #e8c7c7;
     }
 
     .calendar-legend-swatch.past {
-      background: #f5f1ee;
-      border-color: #ece3dc;
+      background: #f6f1ed;
+      border-color: #ebe2db;
     }
 
     .calendar-legend-swatch.selected {
@@ -751,7 +774,7 @@
 
     .sidebar-location {
       text-align: left;
-      background: var(--soft-2);
+      background: #f8f3ef;
       border: 1px solid #e7dbd1;
       border-radius: 18px;
       padding: 16px;
@@ -900,18 +923,16 @@
       }
 
       .calendar-day {
-        min-height: 52px;
+        min-height: 56px;
         padding: 8px;
         font-size: 0.84rem;
       }
 
-      .calendar-day.blocked::after,
-      .calendar-day.selected::after,
-      .calendar-day.past::after {
-        font-size: 0.56rem;
-        left: 6px;
-        bottom: 6px;
-        padding: 2px 5px;
+      .calendar-day::after {
+        font-size: 0.56rem !important;
+        left: 6px !important;
+        bottom: 6px !important;
+        padding: 2px 5px !important;
       }
     }
   </style>
@@ -990,6 +1011,10 @@
             </div>
 
             <div id="calendarGrid" class="calendar-grid"></div>
+
+            <div id="calendarSummary" class="calendar-summary">
+              Tap an available day to pre-fill the enquiry form.
+            </div>
 
             <div class="calendar-legend">
               <div class="calendar-legend-item">
@@ -1137,6 +1162,7 @@
     const calendarGrid = document.getElementById("calendarGrid");
     const calendarPrevBtn = document.getElementById("calendarPrevBtn");
     const calendarNextBtn = document.getElementById("calendarNextBtn");
+    const calendarSummary = document.getElementById("calendarSummary");
 
     const bookingFormCard = document.getElementById("bookingFormCard");
     const enquiryName = document.getElementById("enquiryName");
@@ -1172,6 +1198,13 @@
     const lightbox = document.getElementById("lightbox");
     const lightboxImage = document.getElementById("lightboxImage");
     const lightboxClose = document.getElementById("lightboxClose");
+
+    function toLocalDateString(dateObj) {
+      const y = dateObj.getFullYear();
+      const m = String(dateObj.getMonth() + 1).padStart(2, "0");
+      const d = String(dateObj.getDate()).padStart(2, "0");
+      return `${y}-${m}-${d}`;
+    }
 
     let currentVendorDocId = vendorIdFromUrl || vendorIdFromSession || null;
     let currentVendorEmail = "";
@@ -1235,13 +1268,6 @@
         return clean;
       }
       return "https://" + clean;
-    }
-
-    function toLocalDateString(dateObj) {
-      const y = dateObj.getFullYear();
-      const m = String(dateObj.getMonth() + 1).padStart(2, "0");
-      const d = String(dateObj.getDate()).padStart(2, "0");
-      return `${y}-${m}-${d}`;
     }
 
     function formatDateForDisplay(dateString) {
@@ -1362,17 +1388,20 @@
     function handleCalendarDateClick(dateString, state) {
       if (state === "past") {
         bookingFormMessage.textContent = "That date has already passed. Please choose a future date.";
+        calendarSummary.textContent = "Past dates can’t be selected.";
         return;
       }
 
       if (state === "blocked") {
         bookingFormMessage.textContent = "That date is marked as unavailable. Please choose another date.";
+        calendarSummary.textContent = `${formatDateForDisplay(dateString)} is unavailable.`;
         return;
       }
 
       selectedCalendarDate = dateString;
       enquiryDate.value = dateString;
       bookingFormMessage.textContent = `Preferred date selected: ${formatDateForDisplay(dateString)}`;
+      calendarSummary.textContent = `Selected date: ${formatDateForDisplay(dateString)}. You can now complete the enquiry form below.`;
       renderCalendar();
 
       if (bookingFormCard.style.display !== "none") {
@@ -1430,6 +1459,9 @@
 
     function updateCalendarVisibility() {
       calendarWrap.style.display = "block";
+      if (!selectedCalendarDate) {
+        calendarSummary.textContent = "Tap an available day to pre-fill the enquiry form.";
+      }
       renderCalendar();
     }
 
@@ -1832,6 +1864,9 @@
     enquiryDate.addEventListener("change", () => {
       selectedCalendarDate = enquiryDate.value || "";
       bookingFormMessage.textContent = "";
+      calendarSummary.textContent = selectedCalendarDate
+        ? `Selected date: ${formatDateForDisplay(selectedCalendarDate)}. You can now complete the enquiry form below.`
+        : "Tap an available day to pre-fill the enquiry form.";
       renderCalendar();
     });
 
