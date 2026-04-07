@@ -112,7 +112,7 @@
       padding: 18px;
     }
 
-    .main-image-wrap {
+    .main-media-wrap {
       position: relative;
       overflow: hidden;
       border-radius: 22px;
@@ -124,15 +124,20 @@
       justify-content: center;
     }
 
-    .main-gallery-image {
+    .main-gallery-image,
+    .main-gallery-video {
       width: 100%;
       height: 560px;
       object-fit: cover;
-      display: block;
+      display: none;
+      background: #000;
+    }
+
+    .main-gallery-image {
       cursor: zoom-in;
     }
 
-    .empty-image {
+    .empty-media {
       color: var(--muted);
       font-size: 0.98rem;
       padding: 40px 20px;
@@ -198,17 +203,31 @@
       overflow: hidden;
       background: #f2ebe6;
       cursor: pointer;
+      position: relative;
     }
 
     .thumb-btn.active {
       border-color: #c9aeb0;
     }
 
-    .thumb-btn img {
+    .thumb-btn img,
+    .thumb-btn video {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
+    }
+
+    .thumb-video-badge {
+      position: absolute;
+      right: 8px;
+      bottom: 8px;
+      background: rgba(17, 17, 17, 0.78);
+      color: #fff;
+      font-size: 0.72rem;
+      padding: 4px 7px;
+      border-radius: 999px;
+      line-height: 1;
     }
 
     .content-card {
@@ -342,6 +361,48 @@
       font-weight: 500;
     }
 
+    .logo-card {
+      background: var(--soft-2);
+      border: 1px solid #e7dbd1;
+      border-radius: 18px;
+      padding: 16px;
+      margin-top: 8px;
+      margin-bottom: 16px;
+    }
+
+    .logo-card h3 {
+      margin: 0 0 12px;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #9a8980;
+      font-weight: 700;
+      text-align: left;
+    }
+
+    .logo-box {
+      background: #fff;
+      border: 1px solid #e7dbd1;
+      border-radius: 18px;
+      min-height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+    }
+
+    .logo-box img {
+      max-width: 100%;
+      max-height: 120px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .logo-empty {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
     .sidebar-location {
       text-align: left;
       background: var(--soft-2);
@@ -454,7 +515,8 @@
         max-width: 300px;
       }
 
-      .main-gallery-image {
+      .main-gallery-image,
+      .main-gallery-video {
         height: 340px;
       }
 
@@ -499,12 +561,17 @@
     <div class="vendor-layout">
       <section>
         <div class="card gallery-card">
-          <div class="main-image-wrap">
-            <button id="prevImageBtn" class="gallery-arrow left hidden" type="button" aria-label="Previous image">‹</button>
-            <img id="mainGalleryImage" class="main-gallery-image" src="" alt="Vendor gallery image" style="display:none;">
-            <div id="emptyImageMessage" class="empty-image">No gallery images yet.</div>
-            <button id="nextImageBtn" class="gallery-arrow right hidden" type="button" aria-label="Next image">›</button>
+          <div class="main-media-wrap">
+            <button id="prevMediaBtn" class="gallery-arrow left hidden" type="button" aria-label="Previous media">‹</button>
+
+            <img id="mainGalleryImage" class="main-gallery-image" src="" alt="Vendor gallery image">
+            <video id="mainGalleryVideo" class="main-gallery-video" controls playsinline preload="metadata"></video>
+
+            <div id="emptyMediaMessage" class="empty-media">No gallery images or videos yet.</div>
+
+            <button id="nextMediaBtn" class="gallery-arrow right hidden" type="button" aria-label="Next media">›</button>
           </div>
+
           <div id="thumbRow" class="thumb-row"></div>
         </div>
 
@@ -539,6 +606,13 @@
           <a href="#" id="pinterestBtn" class="stack-btn" target="_blank" rel="noopener noreferrer">Pinterest</a>
           <a href="#" id="linkedinBtn" class="stack-btn" target="_blank" rel="noopener noreferrer">LinkedIn</a>
           <a href="#" id="xBtn" class="stack-btn" target="_blank" rel="noopener noreferrer">X / Twitter</a>
+        </div>
+
+        <div id="logoCard" class="logo-card" style="display:none;">
+          <h3>Logo</h3>
+          <div class="logo-box">
+            <img id="vendorLogo" src="" alt="Vendor logo">
+          </div>
         </div>
 
         <div class="sidebar-location">
@@ -607,13 +681,17 @@
     const linkedinBtn = document.getElementById("linkedinBtn");
     const xBtn = document.getElementById("xBtn");
 
+    const logoCard = document.getElementById("logoCard");
+    const vendorLogo = document.getElementById("vendorLogo");
+
     const sidebarLocationListEl = document.getElementById("sidebarLocationList");
 
     const mainGalleryImage = document.getElementById("mainGalleryImage");
-    const emptyImageMessage = document.getElementById("emptyImageMessage");
+    const mainGalleryVideo = document.getElementById("mainGalleryVideo");
+    const emptyMediaMessage = document.getElementById("emptyMediaMessage");
     const thumbRow = document.getElementById("thumbRow");
-    const prevImageBtn = document.getElementById("prevImageBtn");
-    const nextImageBtn = document.getElementById("nextImageBtn");
+    const prevMediaBtn = document.getElementById("prevMediaBtn");
+    const nextMediaBtn = document.getElementById("nextMediaBtn");
 
     const favoriteBtn = document.getElementById("favoriteBtn");
     const favoritesKey = "favoriteVendors";
@@ -623,8 +701,8 @@
     const lightboxClose = document.getElementById("lightboxClose");
 
     let currentVendorDocId = vendorIdFromUrl || vendorIdFromSession || null;
-    let galleryImages = [];
-    let currentImageIndex = 0;
+    let galleryItems = [];
+    let currentMediaIndex = 0;
 
     function formatText(value) {
       if (!value) return "";
@@ -689,32 +767,52 @@
       );
     }
 
-    function getGallery(vendor) {
-      const items = [
-        ...firstArray(
-          vendor.gallery,
-          vendor.galleryImages,
-          vendor.images,
-          vendor.photos,
-          vendor.portfolioImages
-        ),
-        firstNonEmpty(
+    function getGalleryItems(vendor) {
+      const images = firstArray(
+        vendor.gallery,
+        vendor.galleryImages,
+        vendor.images,
+        vendor.photos,
+        vendor.portfolioImages
+      );
+
+      const videos = firstArray(
+        vendor.videos,
+        vendor.galleryVideos,
+        vendor.portfolioVideos
+      );
+
+      const items = [];
+
+      images.forEach((url) => {
+        if (url) items.push({ type: "image", url });
+      });
+
+      videos.forEach((url) => {
+        if (url) items.push({ type: "video", url });
+      });
+
+      if (!items.length) {
+        const fallbackCover = firstNonEmpty(
           vendor.coverImageUrl,
           vendor.coverImage,
           vendor.coverPhoto,
           vendor.heroImage,
           vendor.bannerImage
-        ),
-        firstNonEmpty(
-          vendor.profileImage,
-          vendor.profilePic,
-          vendor.profileImageUrl,
-          vendor.logoUrl,
-          vendor.photoURL
-        )
-      ];
+        );
 
-      return [...new Set(items.filter(Boolean))];
+        if (fallbackCover) {
+          items.push({ type: "image", url: fallbackCover });
+        }
+      }
+
+      const seen = new Set();
+      return items.filter(item => {
+        const key = `${item.type}:${item.url}`;
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      });
     }
 
     function getProfileImage(vendor) {
@@ -722,13 +820,15 @@
         vendor.profileImage,
         vendor.profilePic,
         vendor.profileImageUrl,
-        vendor.logoUrl,
         vendor.photoURL,
         vendor.coverImageUrl,
         vendor.coverImage,
-        vendor.coverPhoto,
-        galleryImages[0]
+        vendor.coverPhoto
       );
+    }
+
+    function getLogo(vendor) {
+      return firstNonEmpty(vendor.logoUrl, vendor.logo, vendor.brandLogo);
     }
 
     function setLinkOrHide(element, url, label) {
@@ -761,18 +861,36 @@
     }
 
     function updateArrowButtons() {
-      const showArrows = galleryImages.length > 1;
-      prevImageBtn.classList.toggle("hidden", !showArrows);
-      nextImageBtn.classList.toggle("hidden", !showArrows);
+      const showArrows = galleryItems.length > 1;
+      prevMediaBtn.classList.toggle("hidden", !showArrows);
+      nextMediaBtn.classList.toggle("hidden", !showArrows);
     }
 
-    function setActiveImage(index) {
-      if (!galleryImages.length || !galleryImages[index]) return;
+    function stopCurrentVideo() {
+      mainGalleryVideo.pause();
+      mainGalleryVideo.removeAttribute("src");
+      mainGalleryVideo.load();
+      mainGalleryVideo.style.display = "none";
+    }
 
-      currentImageIndex = index;
-      mainGalleryImage.src = galleryImages[index];
-      mainGalleryImage.style.display = "block";
-      emptyImageMessage.style.display = "none";
+    function setActiveMedia(index) {
+      const item = galleryItems[index];
+      if (!item) return;
+
+      currentMediaIndex = index;
+
+      mainGalleryImage.style.display = "none";
+      stopCurrentVideo();
+
+      if (item.type === "video") {
+        mainGalleryVideo.src = item.url;
+        mainGalleryVideo.style.display = "block";
+      } else {
+        mainGalleryImage.src = item.url;
+        mainGalleryImage.style.display = "block";
+      }
+
+      emptyMediaMessage.style.display = "none";
 
       document.querySelectorAll(".thumb-btn").forEach((btn, i) => {
         btn.classList.toggle("active", i === index);
@@ -781,42 +899,51 @@
       updateArrowButtons();
     }
 
-    function showPrevImage() {
-      if (galleryImages.length < 2) return;
-      const nextIndex = currentImageIndex === 0 ? galleryImages.length - 1 : currentImageIndex - 1;
-      setActiveImage(nextIndex);
+    function showPrevMedia() {
+      if (galleryItems.length < 2) return;
+      const nextIndex = currentMediaIndex === 0 ? galleryItems.length - 1 : currentMediaIndex - 1;
+      setActiveMedia(nextIndex);
     }
 
-    function showNextImage() {
-      if (galleryImages.length < 2) return;
-      const nextIndex = currentImageIndex === galleryImages.length - 1 ? 0 : currentImageIndex + 1;
-      setActiveImage(nextIndex);
+    function showNextMedia() {
+      if (galleryItems.length < 2) return;
+      const nextIndex = currentMediaIndex === galleryItems.length - 1 ? 0 : currentMediaIndex + 1;
+      setActiveMedia(nextIndex);
     }
 
-    function renderGallery(images) {
-      galleryImages = images;
-      currentImageIndex = 0;
+    function renderGallery(items) {
+      galleryItems = items;
+      currentMediaIndex = 0;
       thumbRow.innerHTML = "";
 
-      if (!images.length) {
+      if (!items.length) {
         mainGalleryImage.removeAttribute("src");
         mainGalleryImage.style.display = "none";
-        emptyImageMessage.style.display = "block";
+        stopCurrentVideo();
+        emptyMediaMessage.style.display = "block";
         updateArrowButtons();
         return;
       }
 
-      setActiveImage(0);
-
-      images.forEach((img, index) => {
+      items.forEach((item, index) => {
         const btn = document.createElement("button");
         btn.type = "button";
         btn.className = "thumb-btn" + (index === 0 ? " active" : "");
-        btn.innerHTML = `<img src="${img}" alt="Gallery thumbnail ${index + 1}">`;
-        btn.addEventListener("click", () => setActiveImage(index));
+
+        if (item.type === "video") {
+          btn.innerHTML = `
+            <video src="${item.url}" muted playsinline preload="metadata"></video>
+            <span class="thumb-video-badge">Video</span>
+          `;
+        } else {
+          btn.innerHTML = `<img src="${item.url}" alt="Gallery thumbnail ${index + 1}">`;
+        }
+
+        btn.addEventListener("click", () => setActiveMedia(index));
         thumbRow.appendChild(btn);
       });
 
+      setActiveMedia(0);
       updateArrowButtons();
     }
 
@@ -880,7 +1007,9 @@
       const xUrl = normalizeUrl(firstNonEmpty(vendor.x, vendor.twitter, vendor.twitterUrl, vendor.xUrl));
       const email = firstNonEmpty(vendor.email, "");
       const locations = getLocations(vendor);
-      const images = getGallery(vendor);
+      const items = getGalleryItems(vendor);
+      const profileImage = getProfileImage(vendor);
+      const logo = getLogo(vendor);
 
       businessNameEl.textContent = businessName;
       sidebarBusinessNameEl.textContent = businessName;
@@ -889,14 +1018,21 @@
       sidebarMiniBioEl.textContent = shortBio || "";
 
       renderSidebarLocations(locations);
-      renderGallery(images);
+      renderGallery(items);
 
-      const profileImage = getProfileImage(vendor);
       if (profileImage) {
         profilePicEl.src = profileImage;
         profilePicEl.style.display = "block";
       } else {
         profilePicEl.removeAttribute("src");
+      }
+
+      if (logo) {
+        vendorLogo.src = logo;
+        logoCard.style.display = "block";
+      } else {
+        vendorLogo.removeAttribute("src");
+        logoCard.style.display = "none";
       }
 
       setLinkOrHide(websiteBtn, website, "Website");
@@ -1005,11 +1141,11 @@
       }
     });
 
-    prevImageBtn.addEventListener("click", showPrevImage);
-    nextImageBtn.addEventListener("click", showNextImage);
+    prevMediaBtn.addEventListener("click", showPrevMedia);
+    nextMediaBtn.addEventListener("click", showNextMedia);
 
     mainGalleryImage.addEventListener("click", () => {
-      if (!mainGalleryImage.src) return;
+      if (!mainGalleryImage.src || mainGalleryImage.style.display === "none") return;
       lightboxImage.src = mainGalleryImage.src;
       lightbox.classList.add("open");
       lightbox.setAttribute("aria-hidden", "false");
@@ -1027,8 +1163,8 @@
 
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") closeLightbox();
-      if (e.key === "ArrowLeft") showPrevImage();
-      if (e.key === "ArrowRight") showNextImage();
+      if (e.key === "ArrowLeft") showPrevMedia();
+      if (e.key === "ArrowRight") showNextMedia();
     });
 
     loadVendor();
