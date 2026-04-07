@@ -264,7 +264,8 @@
     }
 
     .mini-pill-grid label,
-    .dropdown-content-form label {
+    .dropdown-content-form label,
+    .weekday-pill-grid label {
       display: inline-flex;
       align-items: center;
       margin: 0;
@@ -272,14 +273,16 @@
     }
 
     .mini-pill-grid input,
-    .dropdown-content-form input {
+    .dropdown-content-form input,
+    .weekday-pill-grid input {
       position: absolute;
       opacity: 0;
       pointer-events: none;
     }
 
     .mini-pill-grid span,
-    .dropdown-content-form span {
+    .dropdown-content-form span,
+    .weekday-pill-grid span {
       display: inline-block;
       padding: 10px 14px;
       border-radius: 999px;
@@ -292,13 +295,15 @@
     }
 
     .mini-pill-grid label:hover span,
-    .dropdown-content-form label:hover span {
+    .dropdown-content-form label:hover span,
+    .weekday-pill-grid label:hover span {
       background: #efe6de;
       border-color: #dccabc;
     }
 
     .mini-pill-grid input:checked + span,
-    .dropdown-content-form input:checked + span {
+    .dropdown-content-form input:checked + span,
+    .weekday-pill-grid input:checked + span {
       background: #111;
       color: #fff;
       border-color: #111;
@@ -329,7 +334,8 @@
 
     .remove-media-btn,
     .date-add-btn,
-    .date-remove-btn {
+    .date-remove-btn,
+    .bulk-add-btn {
       margin-top: 10px;
       border: none;
       border-radius: 12px;
@@ -346,15 +352,16 @@
 
     .remove-media-btn:hover,
     .date-add-btn:hover,
-    .date-remove-btn:hover {
+    .date-remove-btn:hover,
+    .bulk-add-btn:hover {
       background: #ead7ca;
     }
 
     .date-manager-wrap {
       margin-top: 16px;
-      padding: 16px;
+      padding: 18px;
       border: 1px solid #eadfd6;
-      border-radius: 18px;
+      border-radius: 22px;
       background: #fffdfb;
     }
 
@@ -369,8 +376,29 @@
       flex: 1 1 220px;
     }
 
+    .bulk-block-wrap {
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid #efe3d9;
+    }
+
+    .weekday-pill-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .bulk-date-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr auto;
+      gap: 12px;
+      align-items: end;
+      margin-top: 14px;
+    }
+
     .date-chip-list {
-      margin-top: 16px;
+      margin-top: 18px;
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
@@ -400,7 +428,8 @@
       .dashboard-two-col,
       .dashboard-three-col,
       .media-uploader-grid,
-      .brand-assets-grid {
+      .brand-assets-grid,
+      .bulk-date-grid {
         grid-template-columns: 1fr;
       }
     }
@@ -566,14 +595,55 @@
           <div class="date-manager-wrap">
             <div class="date-manager-top">
               <div class="dashboard-field">
-                <label for="blockedDateInput">Mark a date as unavailable</label>
+                <label for="blockedDateInput">Add one unavailable date</label>
                 <input type="date" id="blockedDateInput">
               </div>
               <button type="button" id="addBlockedDateBtn" class="date-add-btn">Add Date</button>
             </div>
 
+            <div class="bulk-block-wrap">
+              <h3 style="margin:0 0 8px; font-size:1rem; color:#4b3a32;">Bulk block weekdays</h3>
+              <p class="dashboard-help" style="margin-top:0;">
+                Great for vendors who never work certain days, like every Sunday or every Monday and Tuesday.
+              </p>
+
+              <div id="weekdayOptions" class="weekday-pill-grid">
+                <label><input type="checkbox" value="0"><span>Sunday</span></label>
+                <label><input type="checkbox" value="1"><span>Monday</span></label>
+                <label><input type="checkbox" value="2"><span>Tuesday</span></label>
+                <label><input type="checkbox" value="3"><span>Wednesday</span></label>
+                <label><input type="checkbox" value="4"><span>Thursday</span></label>
+                <label><input type="checkbox" value="5"><span>Friday</span></label>
+                <label><input type="checkbox" value="6"><span>Saturday</span></label>
+              </div>
+
+              <div class="bulk-date-grid">
+                <div class="dashboard-field">
+                  <label for="bulkStartDate">Start Date</label>
+                  <input type="date" id="bulkStartDate">
+                </div>
+
+                <div class="dashboard-field">
+                  <label for="bulkEndDate">End Date</label>
+                  <input type="date" id="bulkEndDate">
+                </div>
+
+                <div class="dashboard-field">
+                  <label for="bulkMonthsPreset">Quick Range</label>
+                  <select id="bulkMonthsPreset">
+                    <option value="">Custom dates</option>
+                    <option value="3">Next 3 months</option>
+                    <option value="6">Next 6 months</option>
+                    <option value="12">Next 12 months</option>
+                  </select>
+                </div>
+
+                <button type="button" id="bulkAddBtn" class="bulk-add-btn">Block Selected Days</button>
+              </div>
+            </div>
+
             <p class="dashboard-help">
-              These dates will be treated as unavailable on your public profile booking form.
+              These dates will be treated as unavailable on your public profile calendar and enquiry form.
             </p>
 
             <div id="blockedDateList" class="date-chip-list"></div>
@@ -751,6 +821,11 @@
     const blockedDateInput = document.getElementById("blockedDateInput");
     const addBlockedDateBtn = document.getElementById("addBlockedDateBtn");
     const blockedDateList = document.getElementById("blockedDateList");
+    const weekdayOptions = document.getElementById("weekdayOptions");
+    const bulkStartDate = document.getElementById("bulkStartDate");
+    const bulkEndDate = document.getElementById("bulkEndDate");
+    const bulkMonthsPreset = document.getElementById("bulkMonthsPreset");
+    const bulkAddBtn = document.getElementById("bulkAddBtn");
     const bio = document.getElementById("bio");
 
     const profileImageFile = document.getElementById("profileImageFile");
@@ -1105,6 +1180,13 @@
       });
     }
 
+    function toLocalDateString(dateObj) {
+      const y = dateObj.getFullYear();
+      const m = String(dateObj.getMonth() + 1).padStart(2, "0");
+      const d = String(dateObj.getDate()).padStart(2, "0");
+      return `${y}-${m}-${d}`;
+    }
+
     function renderBlockedDates() {
       blockedDateList.innerHTML = "";
 
@@ -1151,6 +1233,75 @@
       renderBlockedDates();
     }
 
+    function getSelectedWeekdays() {
+      return Array.from(weekdayOptions.querySelectorAll("input:checked")).map(input => Number(input.value));
+    }
+
+    function addMonthsToDate(dateObj, months) {
+      const copy = new Date(dateObj);
+      copy.setMonth(copy.getMonth() + months);
+      return copy;
+    }
+
+    function applyBulkWeekdayBlock() {
+      const selectedWeekdays = getSelectedWeekdays();
+
+      if (!selectedWeekdays.length) {
+        message.textContent = "Please choose at least one weekday to bulk block.";
+        return;
+      }
+
+      let startValue = bulkStartDate.value;
+      let endValue = bulkEndDate.value;
+      const presetMonths = bulkMonthsPreset.value;
+
+      const today = new Date();
+      const todayString = toLocalDateString(today);
+
+      if (!startValue) {
+        startValue = todayString;
+        bulkStartDate.value = startValue;
+      }
+
+      if (!endValue && presetMonths) {
+        const presetEnd = addMonthsToDate(new Date(startValue + "T00:00:00"), Number(presetMonths));
+        endValue = toLocalDateString(presetEnd);
+        bulkEndDate.value = endValue;
+      }
+
+      if (!endValue) {
+        message.textContent = "Please choose an end date or use a quick range.";
+        return;
+      }
+
+      if (endValue < startValue) {
+        message.textContent = "The end date must be after the start date.";
+        return;
+      }
+
+      const startDate = new Date(startValue + "T00:00:00");
+      const endDate = new Date(endValue + "T00:00:00");
+
+      let addedCount = 0;
+      const existing = new Set(currentBlockedDates);
+
+      for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
+        if (selectedWeekdays.includes(d.getDay())) {
+          const dateString = toLocalDateString(d);
+          if (!existing.has(dateString)) {
+            existing.add(dateString);
+            addedCount += 1;
+          }
+        }
+      }
+
+      currentBlockedDates = Array.from(existing).sort();
+      renderBlockedDates();
+      message.textContent = addedCount
+        ? `${addedCount} unavailable date${addedCount === 1 ? "" : "s"} added.`
+        : "No new unavailable dates were added.";
+    }
+
     profileImageFile.addEventListener("change", (e) => {
       const file = e.target.files?.[0];
       showSelectedFileNames(profileImageFile, profileImageFileName, false);
@@ -1181,6 +1332,24 @@
         e.preventDefault();
         addBlockedDate();
       }
+    });
+
+    bulkAddBtn.addEventListener("click", applyBulkWeekdayBlock);
+
+    bulkMonthsPreset.addEventListener("change", () => {
+      const presetMonths = bulkMonthsPreset.value;
+      if (!presetMonths) return;
+
+      const baseDate = bulkStartDate.value
+        ? new Date(bulkStartDate.value + "T00:00:00")
+        : new Date();
+
+      if (!bulkStartDate.value) {
+        bulkStartDate.value = toLocalDateString(baseDate);
+      }
+
+      const computedEnd = addMonthsToDate(baseDate, Number(presetMonths));
+      bulkEndDate.value = toLocalDateString(computedEnd);
     });
 
     async function uploadFileToStorage(file, folder, uid) {
