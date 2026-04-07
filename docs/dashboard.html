@@ -490,6 +490,33 @@
       </section>
 
       <section class="card" style="text-align:left;">
+        <h2 class="dashboard-section-title">Booking & Availability</h2>
+
+        <div class="dashboard-card-soft">
+          <div class="dashboard-two-col">
+            <div class="dashboard-field">
+              <label for="bookingLink">Booking Link</label>
+              <input type="text" id="bookingLink" placeholder="https://calendly.com/... or your booking page">
+            </div>
+
+            <div class="dashboard-field">
+              <label for="availabilityStatus">Availability Status</label>
+              <input type="text" id="availabilityStatus" placeholder="Now booking 2026 weddings">
+            </div>
+          </div>
+
+          <div class="dashboard-field" style="margin-top: 14px;">
+            <label for="bookingNotes">Booking Notes</label>
+            <textarea id="bookingNotes" rows="4" placeholder="Share anything couples should know before booking, like weekday availability, lead times, travel details, or busy seasons."></textarea>
+          </div>
+
+          <p class="dashboard-help">
+            Your booking link will show as a Book Now button on your public profile. If you leave it blank, the button will stay hidden. Your availability status and notes will appear in the availability section if filled in.
+          </p>
+        </div>
+      </section>
+
+      <section class="card" style="text-align:left;">
         <h2 class="dashboard-section-title">Profile Picture & Logo</h2>
 
         <div class="dashboard-card-soft">
@@ -649,6 +676,9 @@
     const x = document.getElementById("x");
     const serviceAreas = document.getElementById("serviceAreas");
     const displayLocation = document.getElementById("displayLocation");
+    const bookingLink = document.getElementById("bookingLink");
+    const availabilityStatus = document.getElementById("availabilityStatus");
+    const bookingNotes = document.getElementById("bookingNotes");
     const bio = document.getElementById("bio");
 
     const profileImageFile = document.getElementById("profileImageFile");
@@ -1055,6 +1085,9 @@
       x.value = vendorData.x || "";
       serviceAreas.value = vendorData.serviceAreas || "";
       displayLocation.value = vendorData.displayLocation || "";
+      bookingLink.value = vendorData.bookingLink || "";
+      availabilityStatus.value = vendorData.availabilityStatus || "";
+      bookingNotes.value = vendorData.bookingNotes || "";
       bio.value = vendorData.bio || "";
 
       currentProfileImageUrl = vendorData.profileImageUrl || "";
@@ -1163,6 +1196,9 @@
           x: x.value.trim(),
           serviceAreas: serviceAreas.value.trim(),
           displayLocation: displayLocation.value.trim(),
+          bookingLink: bookingLink.value.trim(),
+          availabilityStatus: availabilityStatus.value.trim(),
+          bookingNotes: bookingNotes.value.trim(),
           bio: bio.value.trim(),
           profileImageUrl: finalProfileImageUrl,
           logoUrl: finalLogoUrl,
