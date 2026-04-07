@@ -409,11 +409,24 @@
       font-size: 0.92rem;
       color: #4b403a;
       position: relative;
+      cursor: pointer;
+      transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+    }
+
+    .calendar-day:hover {
+      transform: translateY(-1px);
+      background: #fcf7f4;
     }
 
     .calendar-day.empty {
       background: transparent;
       border: none;
+      cursor: default;
+    }
+
+    .calendar-day.empty:hover {
+      transform: none;
+      background: transparent;
     }
 
     .calendar-day.today {
@@ -442,6 +455,34 @@
       border-radius: 999px;
     }
 
+    .calendar-day.selected {
+      background: #111;
+      border-color: #111;
+      color: #fff;
+      box-shadow: 0 10px 22px rgba(17, 17, 17, 0.16);
+    }
+
+    .calendar-day.selected::after {
+      content: "Selected";
+      position: absolute;
+      left: 8px;
+      bottom: 8px;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #111;
+      background: rgba(255,255,255,0.92);
+      padding: 3px 6px;
+      border-radius: 999px;
+    }
+
+    .calendar-day.blocked.selected::after {
+      content: "Unavailable";
+      color: #9a5f5f;
+      background: rgba(255,255,255,0.75);
+    }
+
     .calendar-legend {
       display: flex;
       flex-wrap: wrap;
@@ -468,6 +509,11 @@
     .calendar-legend-swatch.blocked {
       background: #f6e7e3;
       border-color: #e2c2b9;
+    }
+
+    .calendar-legend-swatch.selected {
+      background: #111;
+      border-color: #111;
     }
 
     .booking-form-card {
@@ -814,7 +860,8 @@
         font-size: 0.84rem;
       }
 
-      .calendar-day.blocked::after {
+      .calendar-day.blocked::after,
+      .calendar-day.selected::after {
         font-size: 0.56rem;
         left: 6px;
         bottom: 6px;
@@ -906,6 +953,10 @@
               <div class="calendar-legend-item">
                 <span class="calendar-legend-swatch blocked"></span>
                 <span>Unavailable</span>
+              </div>
+              <div class="calendar-legend-item">
+                <span class="calendar-legend-swatch selected"></span>
+                <span>Selected</span>
               </div>
             </div>
           </div>
@@ -1082,6 +1133,7 @@
     const today = new Date();
     let calendarMonth = today.getMonth();
     let calendarYear = today.getFullYear();
+    let selectedCalendarDate = "";
 
     function formatText(value) {
       if (!value) return "";
@@ -1256,6 +1308,22 @@
       });
     }
 
+    function handleCalendarDateClick(dateString, isBlocked) {
+      if (isBlocked) {
+        bookingFormMessage.textContent = "That date is marked as unavailable. Please choose another date.";
+        return;
+      }
+
+      selectedCalendarDate = dateString;
+      enquiryDate.value = dateString;
+      bookingFormMessage.textContent = `Preferred date selected: ${formatDateForDisplay(dateString)}`;
+      renderCalendar();
+
+      if (bookingFormCard.style.display !== "none") {
+        enquiryDate.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    }
+
     function renderCalendar() {
       calendarGrid.innerHTML = "";
 
@@ -1278,19 +1346,27 @@
       for (let day = 1; day <= daysInMonth; day++) {
         const dateObj = new Date(calendarYear, calendarMonth, day);
         const dateString = toLocalDateString(dateObj);
+        const isBlocked = currentBlockedDates.includes(dateString);
 
-        const dayCell = document.createElement("div");
+        const dayCell = document.createElement("button");
+        dayCell.type = "button";
         dayCell.className = "calendar-day";
         dayCell.textContent = day;
+        dayCell.setAttribute("aria-label", formatDateForDisplay(dateString));
 
         if (dateString === toLocalDateString(today)) {
           dayCell.classList.add("today");
         }
 
-        if (currentBlockedDates.includes(dateString)) {
+        if (isBlocked) {
           dayCell.classList.add("blocked");
         }
 
+        if (selectedCalendarDate === dateString) {
+          dayCell.classList.add("selected");
+        }
+
+        dayCell.addEventListener("click", () => handleCalendarDateClick(dateString, isBlocked));
         calendarGrid.appendChild(dayCell);
       }
     }
@@ -1300,7 +1376,8 @@
         calendarWrap.style.display = "block";
         renderCalendar();
       } else {
-        calendarWrap.style.display = "none";
+        calendarWrap.style.display = "block";
+        renderCalendar();
       }
     }
 
@@ -1516,6 +1593,8 @@
         ? vendor.blockedDates.filter(Boolean)
         : [];
 
+      selectedCalendarDate = "";
+
       const firstBlockedFutureDate = currentBlockedDates
         .filter(date => date >= toLocalDateString(today))
         .sort()[0];
@@ -1600,6 +1679,7 @@
       }
 
       statusMessage.textContent = "";
+      bookingFormMessage.textContent = "";
       updateFavoriteButton();
 
       await incrementProfileView(currentVendorDocId);
@@ -1692,6 +1772,12 @@
     prevMediaBtn.addEventListener("click", showPrevMedia);
     nextMediaBtn.addEventListener("click", showNextMedia);
     sendEnquiryBtn.addEventListener("click", sendBookingEnquiry);
+
+    enquiryDate.addEventListener("change", () => {
+      selectedCalendarDate = enquiryDate.value || "";
+      bookingFormMessage.textContent = "";
+      renderCalendar();
+    });
 
     calendarPrevBtn.addEventListener("click", () => {
       calendarMonth -= 1;
