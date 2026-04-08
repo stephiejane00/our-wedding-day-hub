@@ -12,6 +12,7 @@ const loginLink = document.getElementById('loginLink');
 const logoutLink = document.getElementById('logoutLink');
 const dashboardLink = document.getElementById('dashboardLink');
 
+// ✅ correct dashboard logic
 function getDashboardUrl(role) {
   if (role === 'couple') {
     return 'https://ourweddingdayhub.com/couple-dashboard.html';
@@ -19,6 +20,7 @@ function getDashboardUrl(role) {
   return 'https://ourweddingdayhub.com/dashboard.html';
 }
 
+// 🔓 logged OUT state
 function setLoggedOutNav() {
   if (joinLink) joinLink.style.display = 'inline-flex';
   if (loginLink) loginLink.style.display = 'inline-flex';
@@ -26,21 +28,30 @@ function setLoggedOutNav() {
 
   if (dashboardLink) {
     dashboardLink.style.display = 'none';
-    dashboardLink.href = 'https://ourweddingdayhub.com/dashboard.html';
   }
 }
 
+// 🔐 logged IN state
 function setLoggedInNav(dashboardUrl) {
+  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+
   if (joinLink) joinLink.style.display = 'none';
   if (loginLink) loginLink.style.display = 'none';
   if (logoutLink) logoutLink.style.display = 'inline-flex';
 
   if (dashboardLink) {
-    dashboardLink.style.display = 'inline-flex';
     dashboardLink.href = dashboardUrl;
+
+    // ✨ hide dashboard link ONLY if already on dashboard
+    if (currentPage === 'dashboard.html') {
+      dashboardLink.style.display = 'none';
+    } else {
+      dashboardLink.style.display = 'inline-flex';
+    }
   }
 }
 
+// 🔍 get user role
 async function getUserRole(user) {
   try {
     const userRef = doc(db, 'users', user.uid);
@@ -53,11 +64,12 @@ async function getUserRole(user) {
 
     return null;
   } catch (error) {
-    console.error('Could not get user role:', error);
+    console.error('Error getting user role:', error);
     return null;
   }
 }
 
+// 🔄 auth state listener
 onAuthStateChanged(auth, async (user) => {
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
 
@@ -71,6 +83,7 @@ onAuthStateChanged(auth, async (user) => {
 
   setLoggedInNav(dashboardUrl);
 
+  // 🚫 stop logged-in users going back to login/signup
   const authPages = ['login.html', 'signup.html'];
 
   if (authPages.includes(currentPage)) {
@@ -78,6 +91,7 @@ onAuthStateChanged(auth, async (user) => {
   }
 });
 
+// 🚪 logout
 if (logoutLink) {
   logoutLink.addEventListener('click', async () => {
     try {
@@ -90,8 +104,9 @@ if (logoutLink) {
   });
 }
 
-if (joinLink) {
-  joinLink.addEventListener('click', async (e) => {
+// 🚫 block login click if already logged in
+if (loginLink) {
+  loginLink.addEventListener('click', async (e) => {
     if (auth.currentUser) {
       e.preventDefault();
       const role = await getUserRole(auth.currentUser);
@@ -100,8 +115,9 @@ if (joinLink) {
   });
 }
 
-if (loginLink) {
-  loginLink.addEventListener('click', async (e) => {
+// 🚫 block signup click if already logged in
+if (joinLink) {
+  joinLink.addEventListener('click', async (e) => {
     if (auth.currentUser) {
       e.preventDefault();
       const role = await getUserRole(auth.currentUser);
