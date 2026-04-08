@@ -23,7 +23,11 @@ function setLoggedOutNav() {
   if (joinLink) joinLink.style.display = 'inline-flex';
   if (loginLink) loginLink.style.display = 'inline-flex';
   if (logoutLink) logoutLink.style.display = 'none';
-  if (dashboardLink) dashboardLink.style.display = 'none';
+
+  if (dashboardLink) {
+    dashboardLink.style.display = 'none';
+    dashboardLink.href = 'https://ourweddingdayhub.com/dashboard.html';
+  }
 }
 
 function setLoggedInNav(dashboardUrl) {
