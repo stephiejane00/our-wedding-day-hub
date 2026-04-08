@@ -58,30 +58,6 @@ export const LOCATION_DATA = {
       "Echuca",
       "Mildura"
     ],
-    Queensland: {
-      Regions: [
-        "Brisbane",
-        "Gold Coast",
-        "Sunshine Coast",
-        "Noosa",
-        "Ipswich",
-        "Toowoomba",
-        "Scenic Rim",
-        "Cairns",
-        "Port Douglas",
-        "Townsville",
-        "Airlie Beach",
-        "Whitsundays",
-        "Mackay",
-        "Bundaberg",
-        "Hervey Bay",
-        "Fraser Coast",
-        "Rockhampton",
-        "Gladstone",
-        "Mount Tamborine",
-        "Redlands Coast"
-      ]
-    },
     Queensland: [
       "Brisbane",
       "Fortitude Valley",
@@ -839,7 +815,7 @@ export const LOCATION_DATA = {
       "Bogor",
       "Puncak"
     ],
-    "Yogyakarta": [
+    Yogyakarta: [
       "Yogyakarta",
       "Sleman"
     ],
@@ -987,6 +963,582 @@ export const LOCATION_DATA = {
     "Vanua Levu": [
       "Savusavu",
       "Labasa"
+    ]
+  },
+
+  Germany: {
+    Baden_Wurttemberg: [
+      "Stuttgart",
+      "Heidelberg",
+      "Mannheim",
+      "Karlsruhe",
+      "Freiburg im Breisgau",
+      "Baden-Baden",
+      "Ulm",
+      "Lake Constance",
+      "Titisee-Neustadt"
+    ],
+    Bavaria: [
+      "Munich",
+      "Nuremberg",
+      "Augsburg",
+      "Regensburg",
+      "Wurzburg",
+      "Bamberg",
+      "Ingolstadt",
+      "Garmisch-Partenkirchen",
+      "Fussen",
+      "Berchtesgaden"
+    ],
+    Berlin: [
+      "Berlin"
+    ],
+    Brandenburg: [
+      "Potsdam",
+      "Cottbus",
+      "Brandenburg an der Havel",
+      "Neuruppin",
+      "Spreewald"
+    ],
+    Bremen: [
+      "Bremen",
+      "Bremerhaven"
+    ],
+    Hamburg: [
+      "Hamburg"
+    ],
+    Hesse: [
+      "Frankfurt",
+      "Wiesbaden",
+      "Kassel",
+      "Darmstadt",
+      "Marburg",
+      "Fulda"
+    ],
+    "Lower Saxony": [
+      "Hanover",
+      "Braunschweig",
+      "Gottingen",
+      "Osnabruck",
+      "Luneburg",
+      "Celle",
+      "Oldenburg"
+    ],
+    Mecklenburg_Vorpommern: [
+      "Rostock",
+      "Schwerin",
+      "Stralsund",
+      "Usedom",
+      "Ruegen"
+    ],
+    "North Rhine-Westphalia": [
+      "Cologne",
+      "Dusseldorf",
+      "Dortmund",
+      "Bonn",
+      "Munster",
+      "Aachen",
+      "Essen",
+      "Wuppertal"
+    ],
+    Rhineland_Palatinate: [
+      "Mainz",
+      "Trier",
+      "Koblenz",
+      "Worms",
+      "Speyer",
+      "Moselle Valley"
+    ],
+    Saarland: [
+      "Saarbrucken",
+      "Saarlouis"
+    ],
+    Saxony: [
+      "Dresden",
+      "Leipzig",
+      "Chemnitz",
+      "Meissen"
+    ],
+    Saxony_Anhalt: [
+      "Magdeburg",
+      "Halle",
+      "Dessau",
+      "Wernigerode",
+      "Quedlinburg"
+    ],
+    Schleswig_Holstein: [
+      "Kiel",
+      "Lubeck",
+      "Flensburg",
+      "Sylt",
+      "Timmendorfer Strand"
+    ],
+    Thuringia: [
+      "Erfurt",
+      "Weimar",
+      "Jena",
+      "Eisenach"
+    ]
+  },
+
+  Switzerland: {
+    Zurich: [
+      "Zurich",
+      "Winterthur",
+      "Uster"
+    ],
+    Bern: [
+      "Bern",
+      "Interlaken",
+      "Thun",
+      "Grindelwald",
+      "Lauterbrunnen",
+      "Gstaad"
+    ],
+    Lucerne: [
+      "Lucerne",
+      "Vitznau",
+      "Weggis"
+    ],
+    Geneva: [
+      "Geneva",
+      "Carouge"
+    ],
+    Vaud: [
+      "Lausanne",
+      "Montreux",
+      "Vevey",
+      "Nyon"
+    ],
+    Valais: [
+      "Zermatt",
+      "Sion",
+      "Verbier",
+      "Crans-Montana"
+    ],
+    Ticino: [
+      "Lugano",
+      "Locarno",
+      "Ascona",
+      "Bellinzona"
+    ],
+    Graubunden: [
+      "St Moritz",
+      "Davos",
+      "Chur"
+    ],
+    Basel_Stadt: [
+      "Basel"
+    ],
+    Fribourg: [
+      "Fribourg",
+      "Gruyeres"
+    ],
+    Zug: [
+      "Zug"
+    ],
+    Aargau: [
+      "Baden",
+      "Aarau"
+    ],
+    Schwyz: [
+      "Schwyz",
+      "Einsiedeln"
+    ]
+  },
+
+  Austria: {
+    Vienna: [
+      "Vienna"
+    ],
+    Salzburg: [
+      "Salzburg",
+      "Zell am See",
+      "Saalbach-Hinterglemm"
+    ],
+    Tyrol: [
+      "Innsbruck",
+      "Kitzbuhel",
+      "Mayrhofen",
+      "Seefeld",
+      "St Anton am Arlberg"
+    ],
+    Vorarlberg: [
+      "Bregenz",
+      "Lech",
+      "Dornbirn"
+    ],
+    Styria: [
+      "Graz",
+      "Schladming"
+    ],
+    Carinthia: [
+      "Klagenfurt",
+      "Villach",
+      "Worth Lake"
+    ],
+    "Lower Austria": [
+      "Krems",
+      "Melk",
+      "Baden bei Wien",
+      "Wachau Valley"
+    ],
+    "Upper Austria": [
+      "Linz",
+      "Hallstatt",
+      "Steyr",
+      "Gmunden"
+    ],
+    Burgenland: [
+      "Eisenstadt",
+      "Rust"
+    ]
+  },
+
+  Netherlands: {
+    "North Holland": [
+      "Amsterdam",
+      "Haarlem",
+      "Alkmaar",
+      "Zandvoort",
+      "Hilversum"
+    ],
+    "South Holland": [
+      "Rotterdam",
+      "The Hague",
+      "Leiden",
+      "Delft",
+      "Gouda",
+      "Noordwijk"
+    ],
+    Utrecht: [
+      "Utrecht",
+      "Amersfoort"
+    ],
+    Zeeland: [
+      "Middelburg",
+      "Domburg",
+      "Vlissingen"
+    ],
+    "North Brabant": [
+      "Eindhoven",
+      "Breda",
+      "s-Hertogenbosch",
+      "Tilburg"
+    ],
+    Gelderland: [
+      "Arnhem",
+      "Nijmegen",
+      "Apeldoorn"
+    ],
+    Limburg: [
+      "Maastricht",
+      "Roermond",
+      "Valkenburg"
+    ],
+    Friesland: [
+      "Leeuwarden",
+      "Sneek"
+    ],
+    Groningen: [
+      "Groningen"
+    ],
+    Drenthe: [
+      "Assen",
+      "Emmen"
+    ],
+    Flevoland: [
+      "Almere",
+      "Lelystad"
+    ],
+    Overijssel: [
+      "Zwolle",
+      "Deventer",
+      "Enschede"
+    ]
+  },
+
+  Belgium: {
+    Brussels: [
+      "Brussels"
+    ],
+    Flanders: [
+      "Antwerp",
+      "Ghent",
+      "Bruges",
+      "Leuven",
+      "Mechelen",
+      "Hasselt",
+      "Kortrijk",
+      "Ostend"
+    ],
+    Wallonia: [
+      "Liege",
+      "Namur",
+      "Mons",
+      "Charleroi",
+      "Spa",
+      "Dinant",
+      "Durbuy"
+    ]
+  },
+
+  Croatia: {
+    Zagreb: [
+      "Zagreb"
+    ],
+    Istria: [
+      "Rovinj",
+      "Pula",
+      "Porec",
+      "Motovun",
+      "Umag"
+    ],
+    "Split-Dalmatia": [
+      "Split",
+      "Hvar",
+      "Brac",
+      "Trogir",
+      "Makarska",
+      "Vis"
+    ],
+    Dubrovnik_Neretva: [
+      "Dubrovnik",
+      "Korcula",
+      "Cavtat",
+      "Mljet"
+    ],
+    Primorje_Gorski_Kotar: [
+      "Opatija",
+      "Rijeka",
+      "Krk",
+      "Cres",
+      "Losinj"
+    ],
+    Zadar: [
+      "Zadar",
+      "Pag"
+    ],
+    Sibenik_Knin: [
+      "Sibenik",
+      "Primosten"
+    ]
+  },
+
+  Malta: {
+    Malta: [
+      "Valletta",
+      "Sliema",
+      "St Julians",
+      "Mdina",
+      "Rabat",
+      "Mellieha",
+      "Bugibba",
+      "Marsaxlokk"
+    ],
+    Gozo: [
+      "Victoria",
+      "Xlendi",
+      "Marsalforn",
+      "Nadur"
+    ],
+    Comino: [
+      "Blue Lagoon"
+    ]
+  },
+
+  Vietnam: {
+    Hanoi: [
+      "Hanoi"
+    ],
+    "Ho Chi Minh City": [
+      "District 1",
+      "District 2",
+      "District 3",
+      "District 7",
+      "Thu Duc"
+    ],
+    "Da Nang": [
+      "Da Nang",
+      "Hoi An",
+      "My Khe Beach"
+    ],
+    Khanh_Hoa: [
+      "Nha Trang",
+      "Cam Ranh"
+    ],
+    Kien_Giang: [
+      "Phu Quoc"
+    ],
+    Lam_Dong: [
+      "Da Lat"
+    ],
+    Quang_Ninh: [
+      "Ha Long"
+    ],
+    Thua_Thien_Hue: [
+      "Hue"
+    ],
+    Binh_Thuan: [
+      "Mui Ne",
+      "Phan Thiet"
+    ],
+    Ninh_Binh: [
+      "Ninh Binh",
+      "Tam Coc"
+    ]
+  },
+
+  Malaysia: {
+    "Kuala Lumpur": [
+      "Kuala Lumpur"
+    ],
+    Selangor: [
+      "Petaling Jaya",
+      "Shah Alam",
+      "Subang Jaya",
+      "Klang",
+      "Ampang Jaya"
+    ],
+    Penang: [
+      "George Town",
+      "Batu Ferringhi",
+      "Butterworth"
+    ],
+    Johor: [
+      "Johor Bahru",
+      "Desaru",
+      "Muar"
+    ],
+    Sabah: [
+      "Kota Kinabalu",
+      "Sandakan",
+      "Semporna"
+    ],
+    Sarawak: [
+      "Kuching",
+      "Miri",
+      "Sibu"
+    ],
+    Perak: [
+      "Ipoh",
+      "Pangkor"
+    ],
+    Kedah: [
+      "Langkawi",
+      "Alor Setar"
+    ],
+    Malacca: [
+      "Melaka"
+    ],
+    Negeri_Sembilan: [
+      "Seremban",
+      "Port Dickson"
+    ],
+    Pahang: [
+      "Kuantan",
+      "Cameron Highlands",
+      "Genting Highlands"
+    ],
+    Terengganu: [
+      "Kuala Terengganu",
+      "Redang Island",
+      "Perhentian Islands"
+    ]
+  },
+
+  "Sri Lanka": {
+    Western: [
+      "Colombo",
+      "Negombo",
+      "Mount Lavinia",
+      "Kalutara"
+    ],
+    Southern: [
+      "Galle",
+      "Unawatuna",
+      "Bentota",
+      "Hikkaduwa",
+      "Mirissa",
+      "Tangalle"
+    ],
+    Central: [
+      "Kandy",
+      "Nuwara Eliya",
+      "Ella"
+    ],
+    "North Western": [
+      "Chilaw",
+      "Kurunegala"
+    ],
+    Uva: [
+      "Ella",
+      "Bandarawela"
+    ],
+    Eastern: [
+      "Trincomalee",
+      "Pasikuda",
+      "Arugam Bay"
+    ],
+    Sabaragamuwa: [
+      "Ratnapura"
+    ],
+    Northern: [
+      "Jaffna"
+    ]
+  },
+
+  "South Africa": {
+    "Western Cape": [
+      "Cape Town",
+      "Stellenbosch",
+      "Franschhoek",
+      "Paarl",
+      "Hermanus",
+      "George",
+      "Knysna",
+      "Plettenberg Bay",
+      "Langebaan"
+    ],
+    Gauteng: [
+      "Johannesburg",
+      "Pretoria",
+      "Sandton",
+      "Midrand"
+    ],
+    "KwaZulu-Natal": [
+      "Durban",
+      "Umhlanga",
+      "Ballito",
+      "Drakensberg",
+      "Pietermaritzburg"
+    ],
+    "Eastern Cape": [
+      "Port Elizabeth",
+      "East London",
+      "Jeffreys Bay",
+      "Gqeberha"
+    ],
+    Mpumalanga: [
+      "Mbombela",
+      "White River",
+      "Kruger Area"
+    ],
+    Limpopo: [
+      "Polokwane",
+      "Bela-Bela",
+      "Hoedspruit"
+    ],
+    "North West": [
+      "Sun City",
+      "Rustenburg"
+    ],
+    Free_State: [
+      "Bloemfontein",
+      "Clarens"
+    ],
+    "Northern Cape": [
+      "Kimberley"
     ]
   }
 };
