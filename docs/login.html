@@ -80,6 +80,13 @@
     const loginForm = document.getElementById('loginForm');
     const message = document.getElementById('message');
 
+    function getDashboardUrl(role) {
+      if (role === 'couple') {
+        return 'https://ourweddingdayhub.com/couple-dashboard.html';
+      }
+      return 'https://ourweddingdayhub.com/dashboard.html';
+    }
+
     loginForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       message.textContent = '';
@@ -109,18 +116,13 @@
         }
 
         const userData = userSnap.data();
+        const redirectUrl = getDashboardUrl(userData.role);
 
         message.textContent = 'Login successful! Redirecting...';
 
         setTimeout(() => {
-          if (userData.role === 'vendor') {
-            window.location.href = 'vendor-dashboard.html';
-          } else if (userData.role === 'couple') {
-            window.location.href = 'couple-dashboard.html';
-          } else {
-            window.location.href = 'dashboard.html';
-          }
-        }, 1000);
+          window.location.href = redirectUrl;
+        }, 800);
 
       } catch (error) {
         console.error(error);
