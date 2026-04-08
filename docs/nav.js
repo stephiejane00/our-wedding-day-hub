@@ -12,15 +12,18 @@ const loginLink = document.getElementById('loginLink');
 const logoutLink = document.getElementById('logoutLink');
 const dashboardLink = document.getElementById('dashboardLink');
 
-// ✅ correct dashboard logic
 function getDashboardUrl(role) {
   if (role === 'couple') {
-    return 'https://ourweddingdayhub.com/couple-dashboard.html';
+    return 'couple-dashboard.html';
   }
-  return 'https://ourweddingdayhub.com/dashboard.html';
+
+  if (role === 'vendor') {
+    return 'dashboard.html';
+  }
+
+  return null;
 }
 
-// 🔓 logged OUT state
 function setLoggedOutNav() {
   if (joinLink) joinLink.style.display = 'inline-flex';
   if (loginLink) loginLink.style.display = 'inline-flex';
@@ -31,7 +34,6 @@ function setLoggedOutNav() {
   }
 }
 
-// 🔐 logged IN state
 function setLoggedInNav(dashboardUrl) {
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
 
@@ -39,19 +41,22 @@ function setLoggedInNav(dashboardUrl) {
   if (loginLink) loginLink.style.display = 'none';
   if (logoutLink) logoutLink.style.display = 'inline-flex';
 
-  if (dashboardLink) {
+  if (dashboardLink && dashboardUrl) {
     dashboardLink.href = dashboardUrl;
 
-    // ✨ hide dashboard link ONLY if already on dashboard
-    if (currentPage === 'dashboard.html') {
+    if (
+      currentPage === 'dashboard.html' ||
+      currentPage === 'couple-dashboard.html'
+    ) {
       dashboardLink.style.display = 'none';
     } else {
       dashboardLink.style.display = 'inline-flex';
     }
+  } else if (dashboardLink) {
+    dashboardLink.style.display = 'none';
   }
 }
 
-// 🔍 get user role
 async function getUserRole(user) {
   try {
     const userRef = doc(db, 'users', user.uid);
@@ -69,7 +74,6 @@ async function getUserRole(user) {
   }
 }
 
-// 🔄 auth state listener
 onAuthStateChanged(auth, async (user) => {
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
 
@@ -83,20 +87,17 @@ onAuthStateChanged(auth, async (user) => {
 
   setLoggedInNav(dashboardUrl);
 
-  // 🚫 stop logged-in users going back to login/signup
-  const authPages = ['login.html', 'signup.html'];
-
-  if (authPages.includes(currentPage)) {
+  // Only auto-redirect from LOGIN page, not SIGNUP page
+  if (currentPage === 'login.html' && dashboardUrl) {
     window.location.href = dashboardUrl;
   }
 });
 
-// 🚪 logout
 if (logoutLink) {
   logoutLink.addEventListener('click', async () => {
     try {
       await signOut(auth);
-      window.location.href = 'https://ourweddingdayhub.com/index.html';
+      window.location.href = 'index.html';
     } catch (error) {
       console.error('Logout failed:', error);
       alert('Logout failed. Please try again.');
@@ -104,24 +105,30 @@ if (logoutLink) {
   });
 }
 
-// 🚫 block login click if already logged in
 if (loginLink) {
   loginLink.addEventListener('click', async (e) => {
     if (auth.currentUser) {
       e.preventDefault();
       const role = await getUserRole(auth.currentUser);
-      window.location.href = getDashboardUrl(role);
+      const dashboardUrl = getDashboardUrl(role);
+
+      if (dashboardUrl) {
+        window.location.href = dashboardUrl;
+      }
     }
   });
 }
 
-// 🚫 block signup click if already logged in
 if (joinLink) {
   joinLink.addEventListener('click', async (e) => {
     if (auth.currentUser) {
       e.preventDefault();
       const role = await getUserRole(auth.currentUser);
-      window.location.href = getDashboardUrl(role);
+      const dashboardUrl = getDashboardUrl(role);
+
+      if (dashboardUrl) {
+        window.location.href = dashboardUrl;
+      }
     }
   });
 }
