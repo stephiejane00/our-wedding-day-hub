@@ -613,7 +613,7 @@ export const LOCATION_DATA = {
       "Chamonix",
       "Grenoble"
     ],
-    Nouvelle_Aquitaine: [
+    "Nouvelle-Aquitaine": [
       "Bordeaux",
       "Biarritz",
       "Saint-Émilion"
@@ -716,7 +716,7 @@ export const LOCATION_DATA = {
       "Gran Canaria",
       "Lanzarote"
     ],
-    Basque_Country: [
+    "Basque Country": [
       "Bilbao",
       "San Sebastian"
     ]
@@ -855,7 +855,7 @@ export const LOCATION_DATA = {
       "Chiang Mai",
       "Mae Rim"
     ],
-    Koh_Samui: [
+    "Koh Samui": [
       "Chaweng",
       "Bophut",
       "Lamai",
@@ -865,7 +865,7 @@ export const LOCATION_DATA = {
       "Pattaya",
       "Jomtien"
     ],
-    Hua_Hin: [
+    "Hua Hin": [
       "Hua Hin"
     ]
   },
@@ -923,7 +923,7 @@ export const LOCATION_DATA = {
       "Jebel Ali",
       "Desert Resorts"
     ],
-    Abu_Dhabi: [
+    "Abu Dhabi": [
       "Abu Dhabi City",
       "Saadiyat Island",
       "Yas Island",
@@ -933,7 +933,7 @@ export const LOCATION_DATA = {
       "Sharjah City",
       "Khor Fakkan"
     ],
-    Ras_Al_Khaimah: [
+    "Ras Al Khaimah": [
       "Ras Al Khaimah",
       "Al Hamra"
     ],
@@ -967,7 +967,7 @@ export const LOCATION_DATA = {
   },
 
   Germany: {
-    Baden_Wurttemberg: [
+    "Baden-Württemberg": [
       "Stuttgart",
       "Heidelberg",
       "Mannheim",
@@ -983,11 +983,11 @@ export const LOCATION_DATA = {
       "Nuremberg",
       "Augsburg",
       "Regensburg",
-      "Wurzburg",
+      "Würzburg",
       "Bamberg",
       "Ingolstadt",
       "Garmisch-Partenkirchen",
-      "Fussen",
+      "Füssen",
       "Berchtesgaden"
     ],
     Berlin: [
@@ -1018,30 +1018,30 @@ export const LOCATION_DATA = {
     "Lower Saxony": [
       "Hanover",
       "Braunschweig",
-      "Gottingen",
-      "Osnabruck",
-      "Luneburg",
+      "Göttingen",
+      "Osnabrück",
+      "Lüneburg",
       "Celle",
       "Oldenburg"
     ],
-    Mecklenburg_Vorpommern: [
+    "Mecklenburg-Vorpommern": [
       "Rostock",
       "Schwerin",
       "Stralsund",
       "Usedom",
-      "Ruegen"
+      "Rügen"
     ],
     "North Rhine-Westphalia": [
       "Cologne",
-      "Dusseldorf",
+      "Düsseldorf",
       "Dortmund",
       "Bonn",
-      "Munster",
+      "Münster",
       "Aachen",
       "Essen",
       "Wuppertal"
     ],
-    Rhineland_Palatinate: [
+    "Rhineland-Palatinate": [
       "Mainz",
       "Trier",
       "Koblenz",
@@ -1050,7 +1050,7 @@ export const LOCATION_DATA = {
       "Moselle Valley"
     ],
     Saarland: [
-      "Saarbrucken",
+      "Saarbrücken",
       "Saarlouis"
     ],
     Saxony: [
@@ -1059,16 +1059,16 @@ export const LOCATION_DATA = {
       "Chemnitz",
       "Meissen"
     ],
-    Saxony_Anhalt: [
+    "Saxony-Anhalt": [
       "Magdeburg",
       "Halle",
       "Dessau",
       "Wernigerode",
       "Quedlinburg"
     ],
-    Schleswig_Holstein: [
+    "Schleswig-Holstein": [
       "Kiel",
-      "Lubeck",
+      "Lübeck",
       "Flensburg",
       "Sylt",
       "Timmendorfer Strand"
@@ -1122,17 +1122,17 @@ export const LOCATION_DATA = {
       "Ascona",
       "Bellinzona"
     ],
-    Graubunden: [
+    Graubünden: [
       "St Moritz",
       "Davos",
       "Chur"
     ],
-    Basel_Stadt: [
+    "Basel-Stadt": [
       "Basel"
     ],
     Fribourg: [
       "Fribourg",
-      "Gruyeres"
+      "Gruyères"
     ],
     Zug: [
       "Zug"
@@ -1158,7 +1158,7 @@ export const LOCATION_DATA = {
     ],
     Tyrol: [
       "Innsbruck",
-      "Kitzbuhel",
+      "Kitzbühel",
       "Mayrhofen",
       "Seefeld",
       "St Anton am Arlberg"
@@ -1175,7 +1175,7 @@ export const LOCATION_DATA = {
     Carinthia: [
       "Klagenfurt",
       "Villach",
-      "Worth Lake"
+      "Wörthersee"
     ],
     "Lower Austria": [
       "Krems",
@@ -1273,7 +1273,7 @@ export const LOCATION_DATA = {
       "Ostend"
     ],
     Wallonia: [
-      "Liege",
+      "Liège",
       "Namur",
       "Mons",
       "Charleroi",
@@ -1290,38 +1290,38 @@ export const LOCATION_DATA = {
     Istria: [
       "Rovinj",
       "Pula",
-      "Porec",
+      "Poreč",
       "Motovun",
       "Umag"
     ],
     "Split-Dalmatia": [
       "Split",
       "Hvar",
-      "Brac",
+      "Brač",
       "Trogir",
       "Makarska",
       "Vis"
     ],
-    Dubrovnik_Neretva: [
+    "Dubrovnik-Neretva": [
       "Dubrovnik",
-      "Korcula",
+      "Korčula",
       "Cavtat",
       "Mljet"
     ],
-    Primorje_Gorski_Kotar: [
+    "Primorje-Gorski Kotar": [
       "Opatija",
       "Rijeka",
       "Krk",
       "Cres",
-      "Losinj"
+      "Lošinj"
     ],
     Zadar: [
       "Zadar",
       "Pag"
     ],
-    Sibenik_Knin: [
-      "Sibenik",
-      "Primosten"
+    "Šibenik-Knin": [
+      "Šibenik",
+      "Primošten"
     ]
   },
 
@@ -1363,27 +1363,27 @@ export const LOCATION_DATA = {
       "Hoi An",
       "My Khe Beach"
     ],
-    Khanh_Hoa: [
+    "Khanh Hoa": [
       "Nha Trang",
       "Cam Ranh"
     ],
-    Kien_Giang: [
+    "Kien Giang": [
       "Phu Quoc"
     ],
-    Lam_Dong: [
+    "Lam Dong": [
       "Da Lat"
     ],
-    Quang_Ninh: [
+    "Quang Ninh": [
       "Ha Long"
     ],
-    Thua_Thien_Hue: [
+    "Thua Thien Hue": [
       "Hue"
     ],
-    Binh_Thuan: [
+    "Binh Thuan": [
       "Mui Ne",
       "Phan Thiet"
     ],
-    Ninh_Binh: [
+    "Ninh Binh": [
       "Ninh Binh",
       "Tam Coc"
     ]
@@ -1431,7 +1431,7 @@ export const LOCATION_DATA = {
     Malacca: [
       "Melaka"
     ],
-    Negeri_Sembilan: [
+    "Negeri Sembilan": [
       "Seremban",
       "Port Dickson"
     ],
@@ -1533,7 +1533,7 @@ export const LOCATION_DATA = {
       "Sun City",
       "Rustenburg"
     ],
-    Free_State: [
+    "Free State": [
       "Bloemfontein",
       "Clarens"
     ],
