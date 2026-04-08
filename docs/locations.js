@@ -781,6 +781,21 @@ export const LOCATION_DATA = {
     Paros: [
       "Naousa",
       "Parikia"
+    ],
+    Naxos: [
+      "Naxos Town",
+      "Agios Prokopios",
+      "Plaka"
+    ],
+    Milos: [
+      "Adamas",
+      "Pollonia",
+      "Plaka"
+    ],
+    Zakynthos: [
+      "Zakynthos Town",
+      "Laganas",
+      "Tsilivi"
     ]
   },
 
@@ -1122,7 +1137,7 @@ export const LOCATION_DATA = {
       "Ascona",
       "Bellinzona"
     ],
-    Graubünden: [
+    "Graubünden": [
       "St Moritz",
       "Davos",
       "Chur"
@@ -1539,6 +1554,543 @@ export const LOCATION_DATA = {
     ],
     "Northern Cape": [
       "Kimberley"
+    ]
+  },
+
+  Mexico: {
+    "Mexico City": [
+      "Mexico City",
+      "Polanco",
+      "Roma",
+      "Condesa",
+      "Coyoacan"
+    ],
+    Jalisco: [
+      "Guadalajara",
+      "Puerto Vallarta",
+      "Sayulita",
+      "Punta Mita",
+      "Riviera Nayarit"
+    ],
+    "Quintana Roo": [
+      "Cancun",
+      "Tulum",
+      "Playa del Carmen",
+      "Riviera Maya",
+      "Isla Mujeres",
+      "Cozumel",
+      "Bacalar"
+    ],
+    Oaxaca: [
+      "Oaxaca City",
+      "Puerto Escondido",
+      "Huatulco"
+    ],
+    "Baja California Sur": [
+      "Los Cabos",
+      "Cabo San Lucas",
+      "San Jose del Cabo",
+      "Todos Santos",
+      "La Paz"
+    ],
+    Yucatan: [
+      "Merida",
+      "Valladolid"
+    ],
+    Guanajuato: [
+      "San Miguel de Allende",
+      "Guanajuato City"
+    ],
+    Puebla: [
+      "Puebla",
+      "Cholula"
+    ]
+  },
+
+  Mauritius: {
+    "Black River": [
+      "Flic en Flac",
+      "Tamarin",
+      "Le Morne",
+      "Black River"
+    ],
+    Pamplemousses: [
+      "Grand Baie",
+      "Trou aux Biches",
+      "Mont Choisy"
+    ],
+    Flacq: [
+      "Belle Mare",
+      "Trou d'Eau Douce"
+    ],
+    Savanne: [
+      "Bel Ombre",
+      "Souillac"
+    ],
+    "Plaines Wilhems": [
+      "Curepipe",
+      "Quatre Bornes",
+      "Rose Hill"
+    ],
+    "Riviere du Rempart": [
+      "Pereybere",
+      "Cap Malheureux"
+    ]
+  },
+
+  Seychelles: {
+    Mahe: [
+      "Victoria",
+      "Beau Vallon",
+      "Anse Royale",
+      "Takamaka",
+      "Eden Island"
+    ],
+    Praslin: [
+      "Anse Lazio",
+      "Grand Anse",
+      "Baie Sainte Anne"
+    ],
+    "La Digue": [
+      "Anse Source d'Argent",
+      "La Passe",
+      "Grand Anse"
+    ],
+    "Private Islands": [
+      "Denis Island",
+      "Fregate Island",
+      "North Island",
+      "Silhouette Island"
+    ]
+  },
+
+  Turkey: {
+    Istanbul: [
+      "Istanbul",
+      "Bosphorus",
+      "Beyoglu",
+      "Besiktas",
+      "Sultanahmet"
+    ],
+    Antalya: [
+      "Antalya",
+      "Belek",
+      "Kemer",
+      "Side",
+      "Kas"
+    ],
+    Mugla: [
+      "Bodrum",
+      "Fethiye",
+      "Marmaris",
+      "Oludeniz",
+      "Gocek"
+    ],
+    Izmir: [
+      "Izmir",
+      "Alacati",
+      "Cesme"
+    ],
+    Cappadocia: [
+      "Goreme",
+      "Uchisar",
+      "Urgup"
+    ],
+    Ankara: [
+      "Ankara"
+    ]
+  },
+
+  Cyprus: {
+    Nicosia: [
+      "Nicosia"
+    ],
+    Limassol: [
+      "Limassol"
+    ],
+    Paphos: [
+      "Paphos",
+      "Coral Bay"
+    ],
+    Larnaca: [
+      "Larnaca"
+    ],
+    Famagusta: [
+      "Ayia Napa",
+      "Protaras"
+    ],
+    Troodos: [
+      "Troodos Mountains",
+      "Platres",
+      "Kakopetria"
+    ]
+  },
+
+  India: {
+    Maharashtra: [
+      "Mumbai",
+      "Pune",
+      "Lonavala",
+      "Nashik",
+      "Alibaug"
+    ],
+    Goa: [
+      "North Goa",
+      "South Goa",
+      "Panaji",
+      "Candolim",
+      "Calangute",
+      "Anjuna",
+      "Morjim",
+      "Palolem"
+    ],
+    Rajasthan: [
+      "Jaipur",
+      "Udaipur",
+      "Jodhpur",
+      "Pushkar"
+    ],
+    Delhi: [
+      "New Delhi",
+      "South Delhi",
+      "Central Delhi"
+    ],
+    Karnataka: [
+      "Bengaluru",
+      "Mysuru",
+      "Coorg"
+    ],
+    Kerala: [
+      "Kochi",
+      "Kumarakom",
+      "Munnar",
+      "Alleppey",
+      "Kovalam"
+    ],
+    "Tamil Nadu": [
+      "Chennai",
+      "Mahabalipuram",
+      "Ooty",
+      "Kodaikanal"
+    ],
+    Telangana: [
+      "Hyderabad"
+    ],
+    "Uttar Pradesh": [
+      "Agra",
+      "Lucknow",
+      "Varanasi"
+    ],
+    Uttarakhand: [
+      "Rishikesh",
+      "Mussoorie",
+      "Nainital"
+    ],
+    Punjab: [
+      "Amritsar",
+      "Chandigarh",
+      "Ludhiana"
+    ],
+    "West Bengal": [
+      "Kolkata",
+      "Darjeeling"
+    ],
+    Gujarat: [
+      "Ahmedabad",
+      "Vadodara",
+      "Udaipur Border Region"
+    ],
+    "Himachal Pradesh": [
+      "Shimla",
+      "Manali",
+      "Dharamshala"
+    ]
+  },
+
+  Jamaica: {
+    "Saint James": [
+      "Montego Bay",
+      "Rose Hall"
+    ],
+    "Saint Ann": [
+      "Ocho Rios",
+      "Runaway Bay"
+    ],
+    "Saint James / Hanover": [
+      "Negril"
+    ],
+    Portland: [
+      "Port Antonio"
+    ],
+    Kingston: [
+      "Kingston"
+    ],
+    Trelawny: [
+      "Falmouth"
+    ]
+  },
+
+  Bahamas: {
+    "New Providence": [
+      "Nassau",
+      "Paradise Island"
+    ],
+    Exuma: [
+      "Great Exuma",
+      "Little Exuma"
+    ],
+    Abaco: [
+      "Marsh Harbour",
+      "Treasure Cay"
+    ],
+    Eleuthera: [
+      "Governor's Harbour",
+      "Harbour Island"
+    ],
+    "Grand Bahama": [
+      "Freeport"
+    ]
+  },
+
+  Barbados: {
+    "Saint Michael": [
+      "Bridgetown"
+    ],
+    "Saint James": [
+      "Holetown",
+      "Paynes Bay"
+    ],
+    "Saint Peter": [
+      "Speightstown"
+    ],
+    "Christ Church": [
+      "St Lawrence Gap",
+      "Oistins"
+    ],
+    "Saint Joseph": [
+      "Bathsheba"
+    ]
+  },
+
+  "Saint Lucia": {
+    Castries: [
+      "Castries",
+      "Rodney Bay"
+    ],
+    "Gros Islet": [
+      "Gros Islet",
+      "Cap Estate"
+    ],
+    Soufriere: [
+      "Soufriere",
+      "Anse Chastanet"
+    ],
+    "Vieux Fort": [
+      "Vieux Fort"
+    ],
+    Laborie: [
+      "Laborie"
+    ]
+  },
+
+  "Dominican Republic": {
+    "La Altagracia": [
+      "Punta Cana",
+      "Bavaro",
+      "Cap Cana",
+      "Uvero Alto"
+    ],
+    "Distrito Nacional": [
+      "Santo Domingo"
+    ],
+    Samana: [
+      "Las Terrenas",
+      "Samana",
+      "Las Galeras"
+    ],
+    "Puerto Plata": [
+      "Puerto Plata",
+      "Sosua",
+      "Cabarete"
+    ],
+    "La Romana": [
+      "La Romana",
+      "Casa de Campo",
+      "Bayahibe"
+    ]
+  },
+
+  Aruba: {
+    Noord: [
+      "Palm Beach",
+      "Eagle Beach",
+      "Malmok"
+    ],
+    Oranjestad: [
+      "Oranjestad"
+    ],
+    Paradera: [
+      "Paradera"
+    ],
+    Savaneta: [
+      "Savaneta"
+    ],
+    "San Nicolas": [
+      "Baby Beach",
+      "San Nicolas"
+    ]
+  },
+
+  "Turks and Caicos": {
+    Providenciales: [
+      "Grace Bay",
+      "Long Bay",
+      "Leeward",
+      "Turtle Cove"
+    ],
+    "Grand Turk": [
+      "Cockburn Town"
+    ],
+    "North Caicos": [
+      "Whitby",
+      "Sandy Point"
+    ],
+    "South Caicos": [
+      "Cockburn Harbour"
+    ]
+  },
+
+  Maldives: {
+    "North Malé Atoll": [
+      "Male",
+      "Hulhumale",
+      "Baros",
+      "Bandos",
+      "Meeru",
+      "Thulusdhoo"
+    ],
+    "South Malé Atoll": [
+      "Maafushi",
+      "Gulhi",
+      "Olhuveli",
+      "Velassaru"
+    ],
+    "Ari Atoll": [
+      "North Ari Atoll",
+      "South Ari Atoll",
+      "Rangali",
+      "Dhigurah",
+      "Ukulhas"
+    ],
+    Baa: [
+      "Baa Atoll",
+      "Milaidhoo",
+      "Finolhu"
+    ],
+    Lhaviyani: [
+      "Lhaviyani Atoll"
+    ],
+    Raa: [
+      "Raa Atoll"
+    ],
+    Noonu: [
+      "Noonu Atoll"
+    ],
+    Dhaalu: [
+      "Dhaalu Atoll"
+    ],
+    "Laamu": [
+      "Laamu Atoll"
+    ],
+    "Private Island Resorts": [
+      "Soneva Fushi",
+      "Soneva Jani",
+      "Joali",
+      "Vakkaru",
+      "Kudadoo"
+    ]
+  },
+
+  "French Polynesia": {
+    Tahiti: [
+      "Papeete",
+      "Faaa",
+      "Punaauia",
+      "Papara",
+      "Taravao"
+    ],
+    Bora_Bora: [
+      "Vaitape",
+      "Matira",
+      "Motu Piti Aau",
+      "Nunue"
+    ],
+    Moorea: [
+      "Maharepa",
+      "Papetoai",
+      "Temae",
+      "Haapiti"
+    ],
+    Raiatea: [
+      "Uturoa",
+      "Opoa"
+    ],
+    Taha_a: [
+      "Patio",
+      "Tiva"
+    ],
+    Huahine: [
+      "Fare",
+      "Maeva"
+    ],
+    Rangiroa: [
+      "Avatoru",
+      "Tiputa"
+    ]
+  },
+
+  "Cook Islands": {
+    Rarotonga: [
+      "Avarua",
+      "Muri",
+      "Arorangi",
+      "Titikaveka"
+    ],
+    Aitutaki: [
+      "Arutanga",
+      "Amuri",
+      "Vaipae"
+    ],
+    Atiu: [
+      "Mapumai"
+    ],
+    Mangaia: [
+      "Oneroa"
+    ]
+  },
+
+  Samoa: {
+    Upolu: [
+      "Apia",
+      "Lalomanu",
+      "Siumu",
+      "Mulifanua",
+      "Maninoa"
+    ],
+    Savai_i: [
+      "Salelologa",
+      "Manase",
+      "Fagamalo"
+    ]
+  },
+
+  Tahiti: {
+    Tahiti: [
+      "Papeete",
+      "Faaa",
+      "Punaauia",
+      "Papara",
+      "Taravao"
     ]
   }
 };
