@@ -357,12 +357,34 @@
       background: #ead7ca;
     }
 
-    .date-manager-wrap {
-      margin-top: 16px;
-      padding: 18px;
+    .booking-layout {
+      display: grid;
+      gap: 18px;
+    }
+
+    .booking-subcard {
+      background: #fffdfb;
       border: 1px solid #eadfd6;
       border-radius: 22px;
-      background: #fffdfb;
+      padding: 18px;
+    }
+
+    .booking-subcard h3 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+      color: #4b3a32;
+    }
+
+    .booking-subcard .dashboard-help {
+      margin-top: 0;
+    }
+
+    .date-manager-wrap {
+      margin-top: 0;
+      padding: 0;
+      border: none;
+      border-radius: 0;
+      background: transparent;
     }
 
     .date-manager-top {
@@ -422,6 +444,17 @@
       border-radius: 999px;
       font-size: 0.82rem;
       background: #e9d7cc;
+    }
+
+    .calendar-tip-box {
+      margin-top: 12px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: #fff7f2;
+      border: 1px solid #f0dfd2;
+      color: #7b6558;
+      font-size: 0.92rem;
+      line-height: 1.6;
     }
 
     @media (max-width: 980px) {
@@ -608,84 +641,99 @@
       <section class="card" style="text-align:left;">
         <h2 class="dashboard-section-title">Booking & Availability</h2>
 
-        <div class="dashboard-card-soft">
-          <div class="dashboard-two-col">
-            <div class="dashboard-field">
-              <label for="bookingLink">Booking Link</label>
-              <input type="text" id="bookingLink" placeholder="https://calendly.com/... or your booking page">
+        <div class="dashboard-card-soft booking-layout">
+          <div class="booking-subcard">
+            <h3>Booking Link & Availability</h3>
+            <p class="dashboard-help">
+              Add your booking page and a short status update so couples know whether you are taking enquiries right now.
+            </p>
+
+            <div class="dashboard-two-col">
+              <div class="dashboard-field">
+                <label for="bookingLink">Booking Link</label>
+                <input type="text" id="bookingLink" placeholder="https://calendly.com/... or your booking page">
+              </div>
+
+              <div class="dashboard-field">
+                <label for="availabilityStatus">Availability Status</label>
+                <input type="text" id="availabilityStatus" placeholder="Now booking 2026 weddings">
+              </div>
             </div>
 
-            <div class="dashboard-field">
-              <label for="availabilityStatus">Availability Status</label>
-              <input type="text" id="availabilityStatus" placeholder="Now booking 2026 weddings">
+            <div class="dashboard-field" style="margin-top: 14px;">
+              <label for="bookingNotes">Booking Notes</label>
+              <textarea id="bookingNotes" rows="4" placeholder="Share anything couples should know before booking, like weekday availability, lead times, travel details, or busy seasons."></textarea>
             </div>
           </div>
 
-          <div class="dashboard-field" style="margin-top: 14px;">
-            <label for="bookingNotes">Booking Notes</label>
-            <textarea id="bookingNotes" rows="4" placeholder="Share anything couples should know before booking, like weekday availability, lead times, travel details, or busy seasons."></textarea>
-          </div>
+          <div class="booking-subcard">
+            <h3>Block One Unavailable Date</h3>
+            <p class="dashboard-help">
+              Add a single date when you are already booked or not available.
+            </p>
 
-          <div class="date-manager-wrap">
             <div class="date-manager-top">
               <div class="dashboard-field">
-                <label for="blockedDateInput">Add one unavailable date</label>
+                <label for="blockedDateInput">Unavailable Date</label>
                 <input type="date" id="blockedDateInput">
               </div>
               <button type="button" id="addBlockedDateBtn" class="date-add-btn">Add Date</button>
             </div>
+          </div>
 
-            <div class="bulk-block-wrap">
-              <h3 style="margin:0 0 8px; font-size:1rem; color:#4b3a32;">Bulk block weekdays</h3>
-              <p class="dashboard-help" style="margin-top:0;">
-                Great for vendors who never work certain days, like every Sunday or every Monday and Tuesday.
-              </p>
+          <div class="booking-subcard">
+            <h3>Bulk Block Weekdays</h3>
+            <p class="dashboard-help">
+              Great for vendors who never work certain days, like every Sunday or every Monday and Tuesday.
+            </p>
 
-              <div id="weekdayOptions" class="weekday-pill-grid">
-                <label><input type="checkbox" value="0"><span>Sunday</span></label>
-                <label><input type="checkbox" value="1"><span>Monday</span></label>
-                <label><input type="checkbox" value="2"><span>Tuesday</span></label>
-                <label><input type="checkbox" value="3"><span>Wednesday</span></label>
-                <label><input type="checkbox" value="4"><span>Thursday</span></label>
-                <label><input type="checkbox" value="5"><span>Friday</span></label>
-                <label><input type="checkbox" value="6"><span>Saturday</span></label>
-              </div>
-
-              <div class="bulk-date-grid">
-                <div class="dashboard-field">
-                  <label for="bulkStartDate">Start Date</label>
-                  <input type="date" id="bulkStartDate">
-                </div>
-
-                <div class="dashboard-field">
-                  <label for="bulkEndDate">End Date</label>
-                  <input type="date" id="bulkEndDate">
-                </div>
-
-                <div class="dashboard-field">
-                  <label for="bulkMonthsPreset">Quick Range</label>
-                  <select id="bulkMonthsPreset">
-                    <option value="">Custom dates</option>
-                    <option value="3">Next 3 months</option>
-                    <option value="6">Next 6 months</option>
-                    <option value="12">Next 12 months</option>
-                  </select>
-                </div>
-
-                <button type="button" id="bulkAddBtn" class="bulk-add-btn">Block Selected Days</button>
-              </div>
+            <div id="weekdayOptions" class="weekday-pill-grid">
+              <label><input type="checkbox" value="0"><span>Sunday</span></label>
+              <label><input type="checkbox" value="1"><span>Monday</span></label>
+              <label><input type="checkbox" value="2"><span>Tuesday</span></label>
+              <label><input type="checkbox" value="3"><span>Wednesday</span></label>
+              <label><input type="checkbox" value="4"><span>Thursday</span></label>
+              <label><input type="checkbox" value="5"><span>Friday</span></label>
+              <label><input type="checkbox" value="6"><span>Saturday</span></label>
             </div>
 
+            <div class="bulk-date-grid">
+              <div class="dashboard-field">
+                <label for="bulkStartDate">Start Date</label>
+                <input type="date" id="bulkStartDate">
+              </div>
+
+              <div class="dashboard-field">
+                <label for="bulkEndDate">End Date</label>
+                <input type="date" id="bulkEndDate">
+              </div>
+
+              <div class="dashboard-field">
+                <label for="bulkMonthsPreset">Quick Range</label>
+                <select id="bulkMonthsPreset">
+                  <option value="">Custom dates</option>
+                  <option value="3">Next 3 months</option>
+                  <option value="6">Next 6 months</option>
+                  <option value="12">Next 12 months</option>
+                </select>
+              </div>
+
+              <button type="button" id="bulkAddBtn" class="bulk-add-btn">Block Selected Days</button>
+            </div>
+          </div>
+
+          <div class="booking-subcard">
+            <h3>Unavailable Dates</h3>
             <p class="dashboard-help">
               These dates will be treated as unavailable on your public profile calendar and enquiry form.
             </p>
 
             <div id="blockedDateList" class="date-chip-list"></div>
-          </div>
 
-          <p class="dashboard-help">
-            Your booking link will show as a Book Now button on your public profile if filled in. Couples will also be able to choose a preferred date using the enquiry form, and unavailable dates will be checked before they send it.
-          </p>
+            <div class="calendar-tip-box">
+              Your booking link will show as a Book Now button on your public profile if filled in. Couples will also be able to choose a preferred date using the enquiry form, and unavailable dates will be checked before they send it.
+            </div>
+          </div>
         </div>
       </section>
 
