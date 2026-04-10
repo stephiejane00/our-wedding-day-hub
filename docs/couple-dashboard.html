@@ -55,7 +55,8 @@
     .vision-upload-card,
     .vendor-card-public,
     .board-item,
-    .account-card-inner {
+    .account-card-inner,
+    .planning-card-inner {
       border: 1px solid rgba(216, 197, 189, 0.45);
       box-shadow: 0 16px 40px rgba(74, 49, 42, 0.06);
     }
@@ -133,7 +134,10 @@
     .board-delete:hover,
     .board-upload-button:hover,
     .remove-favourite-btn:hover,
-    .account-save-btn:hover {
+    .account-save-btn:hover,
+    .todo-add-btn:hover,
+    .todo-delete-btn:hover,
+    .calendar-nav:hover {
       transform: translateY(-1px);
     }
 
@@ -142,7 +146,7 @@
     }
 
     .profile-help {
-      margin: 12px 0 0;
+      margin: 10px 0 0;
       color: #8e7369;
       font-size: 0.92rem;
       line-height: 1.6;
@@ -151,15 +155,6 @@
 
     .hero-copy {
       text-align: left;
-    }
-
-    .couple-kicker {
-      display: inline-block;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      font-size: 0.78rem;
-      color: #9d7f74;
-      margin-bottom: 12px;
     }
 
     .hero-copy h1 {
@@ -215,20 +210,32 @@
       line-height: 1.7;
     }
 
-    .account-card-inner {
-      max-width: 700px;
+    .account-card-inner,
+    .planning-card-inner {
+      max-width: 760px;
       margin: 0 auto;
       background: #fffdfb;
       border-radius: 24px;
       padding: 22px;
     }
 
-    .account-form {
+    .account-form,
+    .planning-form-grid {
       display: grid;
       gap: 14px;
     }
 
-    .account-form input {
+    .account-two-col,
+    .planning-two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .account-form input,
+    .planning-form-grid input,
+    .vision-form textarea,
+    .todo-input {
       width: 100%;
       border-radius: 18px;
       border: 1px solid rgba(212, 194, 186, 0.8);
@@ -236,16 +243,20 @@
       font: inherit;
       background: #fff;
       color: #3f2d28;
+      box-sizing: border-box;
     }
 
     .account-form input:focus,
-    .vision-form textarea:focus {
+    .planning-form-grid input:focus,
+    .vision-form textarea:focus,
+    .todo-input:focus {
       outline: none;
       border-color: #caaea2;
       box-shadow: 0 0 0 4px rgba(234, 215, 206, 0.45);
     }
 
-    .account-save-btn {
+    .account-save-btn,
+    .todo-add-btn {
       border: none;
       background: #ead7ce;
       color: #3f2d28;
@@ -256,13 +267,191 @@
       transition: 0.18s ease;
     }
 
-    .account-status {
+    .account-status,
+    .todo-status {
       margin: 0;
       min-height: 24px;
       color: #8f746a;
       font-size: 0.93rem;
       line-height: 1.6;
       text-align: center;
+    }
+
+    .planning-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .calendar-box,
+    .todo-box {
+      background: #fffaf8;
+      border: 1px solid #efe1d6;
+      border-radius: 22px;
+      padding: 18px;
+    }
+
+    .calendar-header {
+      display: grid;
+      grid-template-columns: 44px 1fr 44px;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .calendar-nav {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid #eadfd6;
+      background: rgba(255,255,255,0.92);
+      color: #534740;
+      cursor: pointer;
+      font-size: 1rem;
+      box-shadow: 0 6px 16px rgba(62, 44, 34, 0.05);
+      transition: 0.18s ease;
+    }
+
+    .calendar-month-label {
+      text-align: center;
+      font-size: 1.02rem;
+      font-weight: 700;
+      color: #5c4d45;
+      letter-spacing: 0.02em;
+    }
+
+    .calendar-weekdays,
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .calendar-weekdays {
+      margin-bottom: 8px;
+    }
+
+    .calendar-weekday {
+      text-align: center;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #aa998f;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 4px 0;
+    }
+
+    .calendar-day {
+      position: relative;
+      min-height: 58px;
+      border-radius: 16px;
+      border: 1px solid #efe3da;
+      background: rgba(255,255,255,0.88);
+      color: #4e433d;
+      padding: 8px 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-end;
+      transition: 0.18s ease;
+      box-shadow: 0 6px 14px rgba(62, 44, 34, 0.03);
+    }
+
+    .calendar-day:hover {
+      box-shadow: 0 10px 18px rgba(62, 44, 34, 0.07);
+    }
+
+    .calendar-day.empty {
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      cursor: default;
+    }
+
+    .calendar-day.today {
+      box-shadow: inset 0 0 0 2px #d8bfae;
+    }
+
+    .calendar-day.selected {
+      background: linear-gradient(180deg, #332f2c 0%, #24211f 100%);
+      border-color: #2d2926;
+      color: white;
+      box-shadow: 0 14px 24px rgba(31, 27, 24, 0.16);
+    }
+
+    .calendar-day .calendar-number {
+      font-size: 0.92rem;
+      font-weight: 600;
+      line-height: 1;
+    }
+
+    .calendar-heart {
+      position: absolute;
+      left: 10px;
+      bottom: 10px;
+      font-size: 0.78rem;
+      opacity: 0.8;
+    }
+
+    .calendar-note {
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.8);
+      border: 1px solid #ede2d8;
+      color: #5e5047;
+      font-size: 0.93rem;
+      line-height: 1.6;
+    }
+
+    .todo-form {
+      display: grid;
+      gap: 12px;
+    }
+
+    .todo-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .todo-item {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 10px;
+      align-items: center;
+      background: #fff;
+      border: 1px solid #eadfd6;
+      border-radius: 16px;
+      padding: 12px 14px;
+    }
+
+    .todo-item.done .todo-text {
+      text-decoration: line-through;
+      color: #a29086;
+    }
+
+    .todo-check {
+      width: 18px;
+      height: 18px;
+    }
+
+    .todo-text {
+      color: #4a3c35;
+      line-height: 1.5;
+      word-break: break-word;
+    }
+
+    .todo-delete-btn {
+      border: none;
+      background: #f1ddd4;
+      color: #6d4f45;
+      border-radius: 999px;
+      padding: 7px 10px;
+      cursor: pointer;
+      font: inherit;
+      transition: 0.18s ease;
     }
 
     .vendors-grid {
@@ -341,6 +530,7 @@
       padding: 12px 14px;
       font: inherit;
       cursor: pointer;
+      box-sizing: border-box;
     }
 
     .remove-favourite-btn {
@@ -389,18 +579,6 @@
     .vision-form {
       display: grid;
       gap: 14px;
-    }
-
-    .vision-form textarea {
-      width: 100%;
-      min-height: 110px;
-      resize: vertical;
-      border-radius: 18px;
-      border: 1px solid rgba(212, 194, 186, 0.8);
-      padding: 14px 15px;
-      font: inherit;
-      background: #fff;
-      color: #3f2d28;
     }
 
     .board-upload-button {
@@ -453,14 +631,6 @@
       padding: 14px 16px 16px;
     }
 
-    .board-item-caption {
-      margin: 0 0 12px;
-      color: #6e5b54;
-      line-height: 1.6;
-      white-space: pre-wrap;
-      word-break: break-word;
-    }
-
     .board-item-title {
       margin: 0 0 8px;
       color: #3f2d28;
@@ -475,25 +645,65 @@
       line-height: 1.5;
     }
 
-    .board-item-meta {
+    .board-item-caption {
+      margin: 0;
+      color: #6e5b54;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .board-overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.18s ease;
+    }
+
+    .board-item:hover .board-overlay {
+      opacity: 1;
+    }
+
+    .board-overlay-top,
+    .board-overlay-bottom {
+      position: absolute;
+      left: 12px;
+      right: 12px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
       gap: 10px;
-      flex-wrap: wrap;
+      pointer-events: none;
+    }
+
+    .board-overlay-top {
+      top: 12px;
+    }
+
+    .board-overlay-bottom {
+      bottom: 12px;
+      justify-content: flex-start;
+    }
+
+    .board-chip,
+    .board-link,
+    .board-delete {
+      pointer-events: auto;
     }
 
     .board-chip {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      background: #f4e5de;
-      color: #805f54;
+      background: rgba(36, 33, 31, 0.78);
+      color: #fff;
       padding: 8px 12px;
       border-radius: 999px;
-      font-size: 0.79rem;
+      font-size: 0.74rem;
       line-height: 1;
-      border: 1px solid rgba(207, 178, 166, 0.45);
+      border: 1px solid rgba(255,255,255,0.18);
+      backdrop-filter: blur(3px);
     }
 
     .board-actions {
@@ -505,20 +715,25 @@
 
     .board-link,
     .board-delete {
+      width: 34px;
+      height: 34px;
       border: none;
-      background: #f1ddd4;
-      color: #6d4f45;
-      border-radius: 999px;
-      padding: 9px 14px;
+      background: rgba(36, 33, 31, 0.78);
+      color: #fff;
+      border-radius: 50%;
       cursor: pointer;
       font: inherit;
       text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       transition: 0.18s ease;
+      backdrop-filter: blur(3px);
     }
 
-    .board-link {
-      background: #ead7ce;
-      color: #3f2d28;
+    .board-delete {
+      font-size: 1rem;
+      line-height: 1;
     }
 
     .site-footer {
@@ -532,7 +747,10 @@
 
     @media (max-width: 920px) {
       .couple-hero-grid,
-      .vision-layout {
+      .vision-layout,
+      .planning-layout,
+      .account-two-col,
+      .planning-two-col {
         grid-template-columns: 1fr;
       }
 
@@ -573,6 +791,10 @@
         width: 142px;
         height: 142px;
       }
+
+      .board-overlay {
+        opacity: 1;
+      }
     }
   </style>
 </head>
@@ -580,7 +802,6 @@
 
   <div class="couple-topbar">
     <a href="index.html" class="auth-link auth-pill">Home</a>
-    <a href="vendors.html" class="auth-link">Vendors</a>
     <button id="logoutBtn" class="auth-button" type="button">Log Out</button>
   </div>
 
@@ -599,13 +820,12 @@
 
           <label for="profileImageInput" class="upload-label">Upload Profile Photo</label>
           <input id="profileImageInput" class="hidden-input" type="file" accept="image/*">
-          <p id="profileUploadStatus" class="profile-help">Add a lovely photo for your planning space.</p>
+          <p id="profileUploadStatus" class="profile-help"></p>
         </div>
 
         <div class="hero-copy">
-          <span class="couple-kicker">Couple Dashboard</span>
           <h1 id="welcomeMessage">Loading your dashboard...</h1>
-          <p>Your favourite vendors, saved inspiration, and wedding ideas can all live together here in one soft little space.</p>
+          <p>Your favourite vendors, saved inspiration, planning notes, and wedding ideas can all live together here in one lovely space.</p>
 
           <div class="hero-actions">
             <a href="vendors.html" class="soft-pill-button">Find Vendors</a>
@@ -616,16 +836,64 @@
 
     <section class="dashboard-card">
       <h2>Your Account</h2>
-      <p class="dashboard-subtext">Update your name, email, or password whenever you need to.</p>
+      <p class="dashboard-subtext">Update your names, email, or password whenever you need to.</p>
 
       <div class="account-card-inner">
         <form id="accountForm" class="account-form">
-          <input id="accountName" type="text" placeholder="Your name">
+          <div class="account-two-col">
+            <input id="partnerOne" type="text" placeholder="Name one">
+            <input id="partnerTwo" type="text" placeholder="Name two">
+          </div>
           <input id="accountEmail" type="email" placeholder="Your email">
           <input id="accountPassword" type="password" placeholder="New password (optional)">
           <button type="submit" class="account-save-btn">Update Details</button>
           <p id="accountStatus" class="account-status"></p>
         </form>
+      </div>
+    </section>
+
+    <section class="dashboard-card">
+      <h2>Your Planning Space</h2>
+      <p class="dashboard-subtext">Keep your date and your next little jobs together in one easy spot.</p>
+
+      <div class="planning-card-inner">
+        <div class="planning-layout">
+          <div class="calendar-box">
+            <div class="planning-form-grid">
+              <input id="weddingDateInput" type="date">
+            </div>
+
+            <div class="calendar-header" style="margin-top:16px;">
+              <button type="button" id="calendarPrevBtn" class="calendar-nav" aria-label="Previous month">‹</button>
+              <div id="calendarMonthLabel" class="calendar-month-label"></div>
+              <button type="button" id="calendarNextBtn" class="calendar-nav" aria-label="Next month">›</button>
+            </div>
+
+            <div class="calendar-weekdays">
+              <div class="calendar-weekday">Sun</div>
+              <div class="calendar-weekday">Mon</div>
+              <div class="calendar-weekday">Tue</div>
+              <div class="calendar-weekday">Wed</div>
+              <div class="calendar-weekday">Thu</div>
+              <div class="calendar-weekday">Fri</div>
+              <div class="calendar-weekday">Sat</div>
+            </div>
+
+            <div id="planningCalendarGrid" class="calendar-grid"></div>
+            <div id="calendarNote" class="calendar-note">Choose your wedding date above and it will be highlighted on your planning calendar.</div>
+          </div>
+
+          <div class="todo-box">
+            <div class="todo-form">
+              <input id="todoInput" class="todo-input" type="text" placeholder="Add a to-do item">
+              <button type="button" id="addTodoBtn" class="todo-add-btn">Add To-Do</button>
+              <p id="todoStatus" class="todo-status"></p>
+            </div>
+
+            <div id="todoList" class="todo-list"></div>
+            <p id="emptyTodo" class="empty-message" style="display:none;">No to-do items yet.</p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -641,8 +909,8 @@
     </section>
 
     <section class="dashboard-card" id="visionBoardSection">
-      <h2>Your Vision Board</h2>
-      <p class="dashboard-subtext">Upload inspiration images and build a soft Pinterest-lite collage for your wedding ideas.</p>
+      <h2>Your Inspiration Board</h2>
+      <p class="dashboard-subtext">Upload images, save visual ideas, and pin vendors you love into one simple mood board for your wedding planning.</p>
 
       <div class="vision-layout">
         <aside>
@@ -656,7 +924,7 @@
 
               <textarea id="visionCaptionInput" placeholder="Add a little note if you like... soft florals, candlelit reception, modern white cake, romantic textures..."></textarea>
 
-              <button type="submit" class="board-upload-button">Add To Vision Board</button>
+              <button type="submit" class="board-upload-button">Add To Board</button>
               <p id="visionUploadStatus" class="upload-status"></p>
             </form>
           </div>
@@ -672,7 +940,7 @@
         <div>
           <div id="visionBoardGrid" class="vision-board-grid"></div>
           <p id="emptyVisionBoard" class="empty-message" style="display:none;">
-            Your vision board is empty for now. Upload your first inspiration image to get started.
+            Your board is empty for now. Upload your first inspiration image or pin a vendor from their page to get started.
           </p>
         </div>
       </div>
@@ -725,10 +993,24 @@
     const profileUploadStatus = document.getElementById('profileUploadStatus');
 
     const accountForm = document.getElementById('accountForm');
-    const accountName = document.getElementById('accountName');
+    const partnerOne = document.getElementById('partnerOne');
+    const partnerTwo = document.getElementById('partnerTwo');
     const accountEmail = document.getElementById('accountEmail');
     const accountPassword = document.getElementById('accountPassword');
     const accountStatus = document.getElementById('accountStatus');
+
+    const weddingDateInput = document.getElementById('weddingDateInput');
+    const calendarPrevBtn = document.getElementById('calendarPrevBtn');
+    const calendarNextBtn = document.getElementById('calendarNextBtn');
+    const calendarMonthLabel = document.getElementById('calendarMonthLabel');
+    const planningCalendarGrid = document.getElementById('planningCalendarGrid');
+    const calendarNote = document.getElementById('calendarNote');
+
+    const todoInput = document.getElementById('todoInput');
+    const addTodoBtn = document.getElementById('addTodoBtn');
+    const todoStatus = document.getElementById('todoStatus');
+    const todoList = document.getElementById('todoList');
+    const emptyTodo = document.getElementById('emptyTodo');
 
     const visionUploadForm = document.getElementById('visionUploadForm');
     const visionImageInput = document.getElementById('visionImageInput');
@@ -738,8 +1020,11 @@
     const emptyVisionBoard = document.getElementById('emptyVisionBoard');
 
     const storage = getStorage();
+
     let currentUser = null;
     let currentUserData = null;
+    let calendarMonth = new Date().getMonth();
+    let calendarYear = new Date().getFullYear();
 
     function prettifyCategory(category) {
       return String(category)
@@ -766,6 +1051,81 @@
         profilePhoto.style.display = 'none';
         profilePlaceholder.style.display = 'block';
       }
+    }
+
+    function getDisplayNames(userData) {
+      const one = (userData.partnerOne || '').trim();
+      const two = (userData.partnerTwo || '').trim();
+
+      if (one && two) return `${one} & ${two}`;
+      if (userData.name && userData.name.trim()) return userData.name.trim();
+      if (one) return one;
+      return 'Lovely';
+    }
+
+    function parseLegacyNames(userData) {
+      const one = (userData.partnerOne || '').trim();
+      const two = (userData.partnerTwo || '').trim();
+
+      if (one || two) {
+        return { one, two };
+      }
+
+      const legacy = (userData.name || '').trim();
+      if (legacy.includes('&')) {
+        const parts = legacy.split('&').map(part => part.trim()).filter(Boolean);
+        return {
+          one: parts[0] || '',
+          two: parts[1] || ''
+        };
+      }
+
+      return {
+        one: legacy,
+        two: ''
+      };
+    }
+
+    function getLocalFavorites() {
+      try {
+        const raw = localStorage.getItem('favoriteVendors');
+        const parsed = raw ? JSON.parse(raw) : [];
+        return Array.isArray(parsed) ? parsed.filter(Boolean) : [];
+      } catch {
+        return [];
+      }
+    }
+
+    function setLocalFavorites(ids) {
+      localStorage.setItem('favoriteVendors', JSON.stringify(ids));
+    }
+
+    function getMergedFavoriteIds(userData) {
+      const firestoreFavs = Array.isArray(userData?.favorites) ? userData.favorites : [];
+      const localFavs = getLocalFavorites();
+      return Array.from(new Set([...firestoreFavs, ...localFavs])).filter(Boolean);
+    }
+
+    async function syncFavoritesIfNeeded(user) {
+      const merged = getMergedFavoriteIds(currentUserData);
+      const firestoreFavs = Array.isArray(currentUserData?.favorites) ? currentUserData.favorites : [];
+
+      const sameLength = merged.length === firestoreFavs.length;
+      const sameValues = sameLength && merged.every(id => firestoreFavs.includes(id));
+
+      if (!sameValues) {
+        await updateDoc(doc(db, 'users', user.uid), {
+          favorites: merged
+        });
+
+        currentUserData = {
+          ...(currentUserData || {}),
+          favorites: merged
+        };
+      }
+
+      setLocalFavorites(merged);
+      return merged;
     }
 
     function createVendorCard(vendor) {
@@ -800,7 +1160,7 @@
           </div>
 
           <div class="vendor-card-links">
-            <a class="pretty-button small-button" href="vendor-profile.html?id=${encodeURIComponent(vendor.uid || '')}">
+            <a class="pretty-button small-button" href="Vendor.html?id=${encodeURIComponent(vendor.id || vendor.uid || '')}">
               View Profile
             </a>
             <button class="remove-favourite-btn" type="button">Remove from favourites</button>
@@ -812,13 +1172,15 @@
       removeBtn.addEventListener('click', async () => {
         if (!currentUser) return;
 
-        const currentFavorites = Array.isArray(currentUserData?.favorites) ? currentUserData.favorites : [];
-        const newFavorites = currentFavorites.filter(id => id !== vendor.uid);
+        const merged = getMergedFavoriteIds(currentUserData);
+        const newFavorites = merged.filter(id => id !== vendor.id);
 
         try {
           await updateDoc(doc(db, 'users', currentUser.uid), {
             favorites: newFavorites
           });
+
+          setLocalFavorites(newFavorites);
 
           currentUserData = {
             ...(currentUserData || {}),
@@ -842,16 +1204,19 @@
       const isVendorPin = item.type === 'vendor';
 
       article.innerHTML = `
-        ${item.imageUrl ? `<img src="${safeText(item.imageUrl)}" alt="Vision board image">` : ''}
+        ${item.imageUrl ? `<img src="${safeText(item.imageUrl)}" alt="Board image">` : ''}
         <div class="board-item-body">
           ${isVendorPin ? `<h3 class="board-item-title">${safeText(item.title || 'Vendor Pin')}</h3>` : ''}
           ${isVendorPin && item.subtitle ? `<p class="board-item-subtitle">${safeText(item.subtitle)}</p>` : ''}
           ${item.caption ? `<p class="board-item-caption">${safeText(item.caption)}</p>` : ''}
-          <div class="board-item-meta">
-            <span class="board-chip">${isVendorPin ? 'Vendor Pin' : 'Inspiration'}</span>
-            <div class="board-actions">
-              ${item.linkUrl ? `<a class="board-link" href="${safeText(item.linkUrl)}">Open</a>` : ''}
-              <button class="board-delete" type="button">Remove</button>
+
+          <div class="board-overlay">
+            <div class="board-overlay-top">
+              <span class="board-chip">${isVendorPin ? 'Vendor' : 'Idea'}</span>
+              <div class="board-actions">
+                ${item.linkUrl ? `<a class="board-link" href="${safeText(item.linkUrl)}" title="Open">↗</a>` : ''}
+                <button class="board-delete" type="button" title="Delete">×</button>
+              </div>
             </div>
           </div>
         </div>
@@ -859,7 +1224,7 @@
 
       const deleteBtn = article.querySelector('.board-delete');
       deleteBtn.addEventListener('click', async () => {
-        const confirmed = window.confirm('Remove this item from your vision board?');
+        const confirmed = window.confirm('Remove this item from your board?');
         if (!confirmed || !currentUser) return;
 
         try {
@@ -879,9 +1244,7 @@
     }
 
     async function loadFavouriteVendors(userData) {
-      const favouriteVendorIds = Array.isArray(userData.favorites)
-        ? userData.favorites
-        : [];
+      const favouriteVendorIds = getMergedFavoriteIds(userData);
 
       if (favouriteVendorIds.length === 0) {
         emptyFavourites.style.display = 'block';
@@ -894,8 +1257,10 @@
 
       const favouriteVendors = vendorSnapshots
         .filter(snap => snap.exists())
-        .map(snap => snap.data())
-        .filter(vendor => vendor.profileVisible === true || vendor.published === true);
+        .map(snap => ({
+          id: snap.id,
+          ...snap.data()
+        }));
 
       if (favouriteVendors.length === 0) {
         emptyFavourites.style.display = 'block';
@@ -909,6 +1274,30 @@
       favouriteVendors.forEach(vendor => {
         favouritesGrid.appendChild(createVendorCard(vendor));
       });
+    }
+
+    async function importPendingVendorPin(user) {
+      const raw = sessionStorage.getItem('pendingVisionPin');
+      if (!raw) return;
+
+      try {
+        const pin = JSON.parse(raw);
+
+        await addDoc(collection(db, 'users', user.uid, 'visionBoard'), {
+          type: 'vendor',
+          vendorId: pin.vendorId || '',
+          title: pin.title || 'Vendor Pin',
+          subtitle: pin.subtitle || '',
+          imageUrl: pin.imageUrl || '',
+          linkUrl: pin.linkUrl || '',
+          caption: pin.caption || '',
+          createdAt: serverTimestamp()
+        });
+
+        sessionStorage.removeItem('pendingVisionPin');
+      } catch (error) {
+        console.error('Pending vendor pin import error:', error);
+      }
     }
 
     async function loadVisionBoard(user) {
@@ -933,6 +1322,141 @@
       });
     }
 
+    function renderPlanningCalendar() {
+      const weddingDate = weddingDateInput.value || '';
+      planningCalendarGrid.innerHTML = '';
+
+      const firstDay = new Date(calendarYear, calendarMonth, 1);
+      const lastDay = new Date(calendarYear, calendarMonth + 1, 0);
+      const startWeekday = firstDay.getDay();
+      const daysInMonth = lastDay.getDate();
+      const today = new Date();
+      const todayString = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
+
+      calendarMonthLabel.textContent = firstDay.toLocaleDateString("en-AU", {
+        month: "long",
+        year: "numeric"
+      });
+
+      for (let i = 0; i < startWeekday; i++) {
+        const emptyCell = document.createElement('div');
+        emptyCell.className = 'calendar-day empty';
+        planningCalendarGrid.appendChild(emptyCell);
+      }
+
+      for (let day = 1; day <= daysInMonth; day++) {
+        const dateObj = new Date(calendarYear, calendarMonth, day);
+        const dateString = `${dateObj.getFullYear()}-${String(dateObj.getMonth() + 1).padStart(2, "0")}-${String(dateObj.getDate()).padStart(2, "0")}`;
+
+        const cell = document.createElement('button');
+        cell.type = 'button';
+        cell.className = 'calendar-day';
+
+        if (dateString === todayString) {
+          cell.classList.add('today');
+        }
+
+        if (weddingDate && dateString === weddingDate) {
+          cell.classList.add('selected');
+        }
+
+        cell.innerHTML = `<span class="calendar-number">${day}</span>${weddingDate && dateString === weddingDate ? '<span class="calendar-heart">♥</span>' : ''}`;
+
+        cell.addEventListener('click', async () => {
+          weddingDateInput.value = dateString;
+          await savePlanningData();
+          renderPlanningCalendar();
+        });
+
+        planningCalendarGrid.appendChild(cell);
+      }
+
+      if (weddingDate) {
+        const prettyDate = new Date(weddingDate + "T00:00:00").toLocaleDateString("en-AU", {
+          day: "numeric",
+          month: "long",
+          year: "numeric"
+        });
+        calendarNote.textContent = `Wedding date saved: ${prettyDate}`;
+      } else {
+        calendarNote.textContent = 'Choose your wedding date above and it will be highlighted on your planning calendar.';
+      }
+    }
+
+    function renderTodoList() {
+      const todos = Array.isArray(currentUserData?.todoItems) ? currentUserData.todoItems : [];
+
+      todoList.innerHTML = '';
+
+      if (!todos.length) {
+        emptyTodo.style.display = 'block';
+        return;
+      }
+
+      emptyTodo.style.display = 'none';
+
+      todos.forEach((todo, index) => {
+        const item = document.createElement('div');
+        item.className = `todo-item ${todo.done ? 'done' : ''}`;
+
+        item.innerHTML = `
+          <input class="todo-check" type="checkbox" ${todo.done ? 'checked' : ''}>
+          <div class="todo-text">${safeText(todo.text)}</div>
+          <button class="todo-delete-btn" type="button">×</button>
+        `;
+
+        const check = item.querySelector('.todo-check');
+        const del = item.querySelector('.todo-delete-btn');
+
+        check.addEventListener('change', async () => {
+          const updated = [...todos];
+          updated[index] = {
+            ...updated[index],
+            done: check.checked
+          };
+          currentUserData.todoItems = updated;
+          await savePlanningData(false);
+          renderTodoList();
+        });
+
+        del.addEventListener('click', async () => {
+          const updated = todos.filter((_, i) => i !== index);
+          currentUserData.todoItems = updated;
+          await savePlanningData(false);
+          renderTodoList();
+        });
+
+        todoList.appendChild(item);
+      });
+    }
+
+    async function savePlanningData(showMessage = true) {
+      if (!currentUser) return;
+
+      try {
+        const payload = {
+          weddingDate: weddingDateInput.value || '',
+          todoItems: Array.isArray(currentUserData?.todoItems) ? currentUserData.todoItems : []
+        };
+
+        await updateDoc(doc(db, 'users', currentUser.uid), payload);
+
+        currentUserData = {
+          ...(currentUserData || {}),
+          ...payload
+        };
+
+        if (showMessage) {
+          todoStatus.textContent = 'Planning details saved.';
+        }
+      } catch (error) {
+        console.error(error);
+        if (showMessage) {
+          todoStatus.textContent = 'Could not save planning details right now.';
+        }
+      }
+    }
+
     async function loadCoupleDashboard(user) {
       try {
         const userSnap = await getDoc(doc(db, 'users', user.uid));
@@ -951,13 +1475,30 @@
 
         currentUserData = userData;
 
-        welcomeMessage.textContent = `Welcome, ${userData.name || 'Lovely'}!`;
-        accountName.value = userData.name || '';
+        const names = parseLegacyNames(userData);
+        partnerOne.value = names.one || '';
+        partnerTwo.value = names.two || '';
         accountEmail.value = userData.email || '';
 
+        welcomeMessage.textContent = `Welcome, ${getDisplayNames({
+          ...userData,
+          partnerOne: names.one,
+          partnerTwo: names.two
+        })}!`;
+
         setProfileImage(userData.profileImage || '');
-        await loadFavouriteVendors(userData);
+
+        weddingDateInput.value = userData.weddingDate || '';
+        const baseDate = weddingDateInput.value ? new Date(weddingDateInput.value + "T00:00:00") : new Date();
+        calendarMonth = baseDate.getMonth();
+        calendarYear = baseDate.getFullYear();
+
+        await importPendingVendorPin(user);
+        await syncFavoritesIfNeeded(user);
+        await loadFavouriteVendors(currentUserData);
         await loadVisionBoard(user);
+        renderPlanningCalendar();
+        renderTodoList();
       } catch (error) {
         console.error(error);
         welcomeMessage.textContent = 'There was a problem loading your dashboard.';
@@ -1004,12 +1545,16 @@
       accountStatus.textContent = 'Updating your details...';
 
       try {
-        const newName = accountName.value.trim();
+        const one = partnerOne.value.trim();
+        const two = partnerTwo.value.trim();
         const newEmail = accountEmail.value.trim();
         const newPassword = accountPassword.value.trim();
+        const combinedName = [one, two].filter(Boolean).join(' & ');
 
         await updateDoc(doc(db, 'users', auth.currentUser.uid), {
-          name: newName,
+          partnerOne: one,
+          partnerTwo: two,
+          name: combinedName,
           email: newEmail
         });
 
@@ -1022,23 +1567,66 @@
             accountStatus.textContent = 'Password must be at least 6 characters.';
             return;
           }
-
           await updatePassword(auth.currentUser, newPassword);
         }
 
         currentUserData = {
           ...(currentUserData || {}),
-          name: newName,
+          partnerOne: one,
+          partnerTwo: two,
+          name: combinedName,
           email: newEmail
         };
 
-        welcomeMessage.textContent = `Welcome, ${newName || 'Lovely'}!`;
+        welcomeMessage.textContent = `Welcome, ${combinedName || one || 'Lovely'}!`;
         accountPassword.value = '';
         accountStatus.textContent = 'Details updated successfully.';
       } catch (error) {
         console.error(error);
         accountStatus.textContent = 'Could not update your details right now. You may need to log in again before changing email or password.';
       }
+    });
+
+    weddingDateInput.addEventListener('change', async () => {
+      await savePlanningData(false);
+      renderPlanningCalendar();
+    });
+
+    calendarPrevBtn.addEventListener('click', () => {
+      calendarMonth -= 1;
+      if (calendarMonth < 0) {
+        calendarMonth = 11;
+        calendarYear -= 1;
+      }
+      renderPlanningCalendar();
+    });
+
+    calendarNextBtn.addEventListener('click', () => {
+      calendarMonth += 1;
+      if (calendarMonth > 11) {
+        calendarMonth = 0;
+        calendarYear += 1;
+      }
+      renderPlanningCalendar();
+    });
+
+    addTodoBtn.addEventListener('click', async () => {
+      const text = todoInput.value.trim();
+      if (!text) {
+        todoStatus.textContent = 'Please write a to-do item first.';
+        return;
+      }
+
+      const todos = Array.isArray(currentUserData?.todoItems) ? currentUserData.todoItems : [];
+      currentUserData.todoItems = [
+        ...todos,
+        { text, done: false }
+      ];
+
+      todoInput.value = '';
+      await savePlanningData(false);
+      todoStatus.textContent = 'To-do item added.';
+      renderTodoList();
     });
 
     visionUploadForm.addEventListener('submit', async (e) => {
@@ -1071,7 +1659,7 @@
 
         visionImageInput.value = '';
         visionCaptionInput.value = '';
-        visionUploadStatus.textContent = 'Added to your vision board.';
+        visionUploadStatus.textContent = 'Added to your board.';
         await loadVisionBoard(auth.currentUser);
       } catch (error) {
         console.error(error);
