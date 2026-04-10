@@ -332,7 +332,6 @@
       white-space: pre-line;
     }
 
-    /* prettier calendar */
     .calendar-wrap {
       margin-top: 22px;
       padding: 22px;
@@ -1050,6 +1049,7 @@
         <p id="sidebarMiniBio" class="sidebar-sub"></p>
 
         <button id="favoriteBtn" class="favorite-btn" type="button">♡ Save to favourites</button>
+        <button id="pinVisionBtn" class="favorite-btn" type="button">📌 Pin to vision board</button>
 
         <a href="#" id="bookNowBtn" class="book-now-btn" target="_blank" rel="noopener noreferrer">Book Now</a>
 
@@ -1164,7 +1164,7 @@
     const nextMediaBtn = document.getElementById("nextMediaBtn");
 
     const favoriteBtn = document.getElementById("favoriteBtn");
-    const favoritesKey = "favoriteVendors";
+    const pinVisionBtn = document.getElementById("pinVisionBtn");
 
     const lightbox = document.getElementById("lightbox");
     const lightboxImage = document.getElementById("lightboxImage");
@@ -1173,9 +1173,15 @@
     let currentVendorDocId = vendorIdFromUrl || vendorIdFromSession || null;
     let currentVendorEmail = "";
     let currentVendorName = "";
+    let currentVendorImage = "";
+    let currentVendorCategoryText = "";
     let currentBlockedDates = [];
     let galleryItems = [];
     let currentMediaIndex = 0;
+
+    let currentUser = null;
+    let currentUserRole = null;
+    let currentUserFavorites = [];
 
     const today = new Date();
     const todayString = toLocalDateString(today);
@@ -1606,6 +1612,121 @@
       window.location.href = mailtoUrl;
     }
 
+    function getLocalFavorites() {
+      try {
+        const raw = localStorage.getItem("favoriteVendors");
+        const parsed = raw ? JSON.parse(raw) : [];
+        return Array.isArray(parsed) ? parsed.filter(Boolean) : [];
+      } catch {
+        return [];
+      }
+    }
+
+    function setLocalFavorites(favorites) {
+      localStorage.setItem("favoriteVendors", JSON.stringify(favorites));
+    }
+
+    function getMergedFavorites() {
+      const firestoreFavs = Array.isArray(currentUserFavorites) ? currentUserFavorites : [];
+      const localFavs = getLocalFavorites();
+      return Array.from(new Set([...firestoreFavs, ...localFavs])).filter(Boolean);
+    }
+
+    function updateFavoriteButton() {
+      const favorites = getMergedFavorites();
+      const saved = currentVendorDocId && favorites.includes(currentVendorDocId);
+
+      if (!currentUser) {
+        favoriteBtn.classList.remove("saved");
+        favoriteBtn.innerHTML = `<span>♡</span><span>Log in to save</span>`;
+        return;
+      }
+
+      if (currentUserRole !== "couple") {
+        favoriteBtn.classList.remove("saved");
+        favoriteBtn.innerHTML = `<span>♡</span><span>Couples can save favourites</span>`;
+        return;
+      }
+
+      if (saved) {
+        favoriteBtn.classList.add("saved");
+        favoriteBtn.innerHTML = `<span>♥</span><span>Saved to favourites</span>`;
+      } else {
+        favoriteBtn.classList.remove("saved");
+        favoriteBtn.innerHTML = `<span>♡</span><span>Save to favourites</span>`;
+      }
+    }
+
+    async function toggleFavourite() {
+      if (!currentVendorDocId) return;
+
+      if (!currentUser) {
+        window.location.href = "login.html";
+        return;
+      }
+
+      if (currentUserRole !== "couple") {
+        statusMessage.textContent = "Only couple accounts can save favourite vendors.";
+        return;
+      }
+
+      try {
+        const merged = getMergedFavorites();
+        let newFavorites;
+
+        if (merged.includes(currentVendorDocId)) {
+          newFavorites = merged.filter((id) => id !== currentVendorDocId);
+          statusMessage.textContent = "Removed from favourites.";
+        } else {
+          newFavorites = [...merged, currentVendorDocId];
+          statusMessage.textContent = "Saved to favourites.";
+        }
+
+        await updateDoc(doc(db, "users", currentUser.uid), {
+          favorites: newFavorites
+        });
+
+        currentUserFavorites = newFavorites;
+        setLocalFavorites(newFavorites);
+        updateFavoriteButton();
+      } catch (error) {
+        console.error("Favourite update error:", error);
+        statusMessage.textContent = "Could not update favourites right now.";
+      }
+    }
+
+    async function pinVendorToVisionBoard() {
+      if (!currentVendorDocId) return;
+
+      if (!currentUser) {
+        window.location.href = "login.html";
+        return;
+      }
+
+      if (currentUserRole !== "couple") {
+        statusMessage.textContent = "Only couple accounts can pin vendors to a vision board.";
+        return;
+      }
+
+      try {
+        const pin = {
+          type: "vendor",
+          vendorId: currentVendorDocId,
+          title: currentVendorName || "Vendor Pin",
+          subtitle: currentVendorCategoryText || "",
+          imageUrl: currentVendorImage || "",
+          linkUrl: `Vendor.html?id=${currentVendorDocId}`,
+          caption: ""
+        };
+
+        sessionStorage.setItem("pendingVisionPin", JSON.stringify(pin));
+        window.location.href = "couple-dashboard.html#visionBoardSection";
+      } catch (error) {
+        console.error("Vendor pin error:", error);
+        statusMessage.textContent = "Could not pin this vendor right now.";
+      }
+    }
+
     async function renderVendor(vendor, docId) {
       currentVendorDocId = docId || currentVendorDocId;
 
@@ -1654,6 +1775,9 @@
       const items = getGalleryItems(vendor);
       const profileImage = getProfileImage(vendor);
       const logo = getLogo(vendor);
+
+      currentVendorImage = profileImage || (items[0]?.url || "");
+      currentVendorCategoryText = categoryText;
 
       currentVendorEmail = email;
       currentVendorName = businessName;
@@ -1784,48 +1908,44 @@
       }
     }
 
-    function getFavorites() {
-      return JSON.parse(localStorage.getItem(favoritesKey)) || [];
-    }
+    onAuthStateChanged(auth, async (user) => {
+      currentUser = user;
+      currentUserRole = null;
+      currentUserFavorites = [];
 
-    function saveFavorites(favorites) {
-      localStorage.setItem(favoritesKey, JSON.stringify(favorites));
-    }
-
-    function updateFavoriteButton() {
-      const favorites = getFavorites();
-      const saved = currentVendorDocId && favorites.includes(currentVendorDocId);
-
-      if (saved) {
-        favoriteBtn.classList.add("saved");
-        favoriteBtn.innerHTML = `<span>♥</span><span>Saved to favourites</span>`;
-      } else {
-        favoriteBtn.classList.remove("saved");
-        favoriteBtn.innerHTML = `<span>♡</span><span>Save to favourites</span>`;
-      }
-    }
-
-    favoriteBtn.addEventListener("click", () => {
-      if (!currentVendorDocId) return;
-
-      let favorites = getFavorites();
-
-      if (favorites.includes(currentVendorDocId)) {
-        favorites = favorites.filter((id) => id !== currentVendorDocId);
-      } else {
-        favorites.push(currentVendorDocId);
-      }
-
-      saveFavorites(favorites);
-      updateFavoriteButton();
-    });
-
-    onAuthStateChanged(auth, (user) => {
       const loggedIn = !!user;
       joinLink.style.display = loggedIn ? "none" : "inline-flex";
       loginLink.style.display = loggedIn ? "none" : "inline-block";
-      dashboardLink.style.display = loggedIn ? "inline-block" : "none";
       logoutLink.style.display = loggedIn ? "inline-block" : "none";
+
+      if (!user) {
+        dashboardLink.style.display = "none";
+        updateFavoriteButton();
+        return;
+      }
+
+      try {
+        const userSnap = await getDoc(doc(db, "users", user.uid));
+
+        if (userSnap.exists()) {
+          const userData = userSnap.data();
+          currentUserRole = userData.role || null;
+          currentUserFavorites = Array.isArray(userData.favorites) ? userData.favorites : [];
+
+          dashboardLink.href = currentUserRole === "couple"
+            ? "couple-dashboard.html"
+            : "dashboard.html";
+
+          dashboardLink.style.display = "inline-block";
+        } else {
+          dashboardLink.style.display = "none";
+        }
+      } catch (error) {
+        console.error("User load error:", error);
+        dashboardLink.style.display = "none";
+      }
+
+      updateFavoriteButton();
     });
 
     logoutLink.addEventListener("click", async () => {
@@ -1837,6 +1957,8 @@
       }
     });
 
+    favoriteBtn.addEventListener("click", toggleFavourite);
+    pinVisionBtn.addEventListener("click", pinVendorToVisionBoard);
     prevMediaBtn.addEventListener("click", showPrevMedia);
     nextMediaBtn.addEventListener("click", showNextMedia);
     sendEnquiryBtn.addEventListener("click", sendBookingEnquiry);
@@ -1892,7 +2014,6 @@
     });
 
     loadVendor();
-    updateFavoriteButton();
   </script>
 </body>
 </html>
