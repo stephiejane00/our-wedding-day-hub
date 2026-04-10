@@ -23,69 +23,33 @@
   <main class="vendor-page">
     <div class="vendor-layout">
 
-      <section class="vendor-main">
-
+      <section>
         <div class="card gallery-card">
-          <img id="mainImage" class="main-image" src="images/header4.png" alt="Vendor gallery image">
+          <div class="vendor-slideshow">
+            <button type="button" id="prevImageBtn" class="gallery-arrow gallery-arrow-left" aria-label="Previous image">‹</button>
+            <img id="mainImage" class="main-image" src="images/header4.png" alt="Vendor gallery image">
+            <button type="button" id="nextImageBtn" class="gallery-arrow gallery-arrow-right" aria-label="Next image">›</button>
+          </div>
+
           <div id="thumbnailRow" class="thumbnail-row"></div>
         </div>
 
         <div class="card content-card">
           <h1 id="businessName">Loading vendor...</h1>
           <p id="vendorCategory"></p>
-          <p id="vendorTagline"></p>
           <p id="vendorAbout"></p>
         </div>
-
-        <div class="card locations-card" id="locationsCard">
-          <h2>Locations</h2>
-          <p id="vendorServiceAreas"></p>
-          <p id="vendorRegions"></p>
-          <p id="vendorStates"></p>
-          <p id="vendorCountries"></p>
-          <p id="vendorDisplayLocation"></p>
-        </div>
-
-        <div class="card enquiries-card" id="enquiriesCard">
-          <h2>Enquiries</h2>
-          <p id="vendorEnquiriesText">Get in touch with this vendor using the details below.</p>
-          <div class="contact-stack">
-            <a id="enquiryEmailBtn" class="stack-btn">Email Enquiry</a>
-            <a id="enquiryPhoneBtn" class="stack-btn">Call / Phone</a>
-            <a id="enquiryWebsiteBtn" class="stack-btn" target="_blank" rel="noopener noreferrer">Visit Website</a>
-          </div>
-        </div>
-
-        <div class="card booking-card" id="bookingCard">
-          <h2>Booking Calendar</h2>
-          <p id="bookingIntro">Check availability or make a booking enquiry below.</p>
-          <div id="bookingEmbedWrap">
-            <iframe
-              id="bookingFrame"
-              title="Vendor booking calendar"
-              src=""
-              width="100%"
-              height="700"
-              frameborder="0"
-              loading="lazy"
-              style="border:0;">
-            </iframe>
-          </div>
-          <div id="bookingFallback" style="display:none;">
-            <p>This vendor has not added a live booking calendar yet.</p>
-            <a id="bookingFallbackBtn" class="stack-btn" target="_blank" rel="noopener noreferrer">Open Booking Link</a>
-          </div>
-        </div>
-
       </section>
 
       <aside class="card sidebar-card">
-
         <div class="profile-pic-wrap">
           <img id="profilePic" class="profile-pic" src="" alt="Vendor profile image">
         </div>
 
         <h2 id="sidebarBusinessName">Loading vendor...</h2>
+
+        <p id="sidebarLocation"></p>
+        <p id="sidebarServiceAreas"></p>
 
         <button id="favoriteBtn" class="favorite-btn">♡ Save to favourites</button>
 
@@ -96,7 +60,6 @@
         </div>
 
         <div id="statusMessage"></div>
-
       </aside>
 
     </div>
@@ -122,31 +85,16 @@
     const businessNameEl = document.getElementById("businessName");
     const sidebarBusinessNameEl = document.getElementById("sidebarBusinessName");
     const vendorCategoryEl = document.getElementById("vendorCategory");
-    const vendorTaglineEl = document.getElementById("vendorTagline");
     const vendorAboutEl = document.getElementById("vendorAbout");
     const profilePicEl = document.getElementById("profilePic");
 
+    const sidebarLocationEl = document.getElementById("sidebarLocation");
+    const sidebarServiceAreasEl = document.getElementById("sidebarServiceAreas");
+
     const mainImage = document.getElementById("mainImage");
     const thumbnailRow = document.getElementById("thumbnailRow");
-
-    const vendorServiceAreasEl = document.getElementById("vendorServiceAreas");
-    const vendorRegionsEl = document.getElementById("vendorRegions");
-    const vendorStatesEl = document.getElementById("vendorStates");
-    const vendorCountriesEl = document.getElementById("vendorCountries");
-    const vendorDisplayLocationEl = document.getElementById("vendorDisplayLocation");
-    const locationsCard = document.getElementById("locationsCard");
-
-    const enquiriesCard = document.getElementById("enquiriesCard");
-    const vendorEnquiriesText = document.getElementById("vendorEnquiriesText");
-    const enquiryEmailBtn = document.getElementById("enquiryEmailBtn");
-    const enquiryPhoneBtn = document.getElementById("enquiryPhoneBtn");
-    const enquiryWebsiteBtn = document.getElementById("enquiryWebsiteBtn");
-
-    const bookingCard = document.getElementById("bookingCard");
-    const bookingFrame = document.getElementById("bookingFrame");
-    const bookingEmbedWrap = document.getElementById("bookingEmbedWrap");
-    const bookingFallback = document.getElementById("bookingFallback");
-    const bookingFallbackBtn = document.getElementById("bookingFallbackBtn");
+    const prevImageBtn = document.getElementById("prevImageBtn");
+    const nextImageBtn = document.getElementById("nextImageBtn");
 
     const websiteBtn = document.getElementById("websiteBtn");
     const emailBtn = document.getElementById("emailBtn");
@@ -161,6 +109,9 @@
 
     const favoritesKey = "favoriteVendors";
 
+    let galleryImages = [];
+    let currentImageIndex = 0;
+
     function cleanArray(arr) {
       return Array.isArray(arr) ? arr.filter(Boolean) : [];
     }
@@ -171,11 +122,8 @@
         .replace(/_/g, " ")
         .replace(/-/g, " ")
         .replace(/\s+/g, " ")
-        .trim();
-    }
-
-    function titleCase(value) {
-      return formatText(value).replace(/\b\w/g, char => char.toUpperCase());
+        .trim()
+        .replace(/\b\w/g, char => char.toUpperCase());
     }
 
     function getFavorites() {
@@ -214,17 +162,43 @@
       updateFavoriteButton(vendorId);
     });
 
-    function hideIfEmpty(el, value, prefix = "") {
-      if (!value) {
-        el.style.display = "none";
-        return;
-      }
-      el.style.display = "";
-      el.textContent = prefix ? `${prefix}${value}` : value;
+    function setMainImage(index) {
+      if (!galleryImages.length) return;
+
+      currentImageIndex = index;
+      mainImage.src = galleryImages[currentImageIndex];
+
+      const thumbs = thumbnailRow.querySelectorAll(".thumbnail");
+      thumbs.forEach((thumb, thumbIndex) => {
+        if (thumbIndex === currentImageIndex) {
+          thumb.classList.add("active");
+        } else {
+          thumb.classList.remove("active");
+        }
+      });
+
+      const hasMultiple = galleryImages.length > 1;
+      prevImageBtn.style.display = hasMultiple ? "inline-flex" : "none";
+      nextImageBtn.style.display = hasMultiple ? "inline-flex" : "none";
     }
 
+    function showPreviousImage() {
+      if (galleryImages.length <= 1) return;
+      const newIndex = currentImageIndex === 0 ? galleryImages.length - 1 : currentImageIndex - 1;
+      setMainImage(newIndex);
+    }
+
+    function showNextImage() {
+      if (galleryImages.length <= 1) return;
+      const newIndex = currentImageIndex === galleryImages.length - 1 ? 0 : currentImageIndex + 1;
+      setMainImage(newIndex);
+    }
+
+    prevImageBtn.addEventListener("click", showPreviousImage);
+    nextImageBtn.addEventListener("click", showNextImage);
+
     function renderGallery(vendor) {
-      const galleryImages = [];
+      galleryImages = [];
 
       if (vendor.coverImageUrl && String(vendor.coverImageUrl).trim()) {
         galleryImages.push(vendor.coverImageUrl);
@@ -232,7 +206,7 @@
 
       if (Array.isArray(vendor.images) && vendor.images.length) {
         vendor.images.forEach((img) => {
-          if (img && !galleryImages.includes(img)) {
+          if (img && String(img).trim() && !galleryImages.includes(img)) {
             galleryImages.push(img);
           }
         });
@@ -243,10 +217,9 @@
       }
 
       if (!galleryImages.length) {
-        galleryImages.push("images/header4.png");
+        galleryImages = ["images/header4.png"];
       }
 
-      mainImage.src = galleryImages[0];
       thumbnailRow.innerHTML = "";
 
       galleryImages.forEach((img, index) => {
@@ -256,96 +229,13 @@
         thumb.alt = `Gallery image ${index + 1}`;
 
         thumb.addEventListener("click", () => {
-          mainImage.src = img;
+          setMainImage(index);
         });
 
         thumbnailRow.appendChild(thumb);
       });
-    }
 
-    function renderLocations(vendor) {
-      const serviceAreas = formatText(vendor.serviceAreas || "");
-      const regions = cleanArray(vendor.regions).map(titleCase).join(" • ");
-      const states = cleanArray(vendor.states).map(titleCase).join(" • ");
-      const countries = cleanArray(vendor.countries).map(titleCase).join(" • ");
-      const displayLocation = titleCase(vendor.displayLocation || "");
-
-      hideIfEmpty(vendorServiceAreasEl, serviceAreas, "Service Areas: ");
-      hideIfEmpty(vendorRegionsEl, regions, "Regions: ");
-      hideIfEmpty(vendorStatesEl, states, "States: ");
-      hideIfEmpty(vendorCountriesEl, countries, "Countries: ");
-      hideIfEmpty(vendorDisplayLocationEl, displayLocation, "Location: ");
-
-      const hasAnyLocation =
-        serviceAreas || regions || states || countries || displayLocation;
-
-      if (!hasAnyLocation) {
-        locationsCard.style.display = "none";
-      }
-    }
-
-    function renderEnquiries(vendor) {
-      const enquiryEmail = vendor.email || vendor.contactEmail || "";
-      const phone = vendor.phone || vendor.phoneNumber || vendor.mobile || "";
-      const website = vendor.website || "";
-
-      if (enquiryEmail) {
-        enquiryEmailBtn.href = "mailto:" + enquiryEmail;
-      } else {
-        enquiryEmailBtn.style.display = "none";
-      }
-
-      if (phone) {
-        enquiryPhoneBtn.href = "tel:" + phone;
-        enquiryPhoneBtn.textContent = phone;
-      } else {
-        enquiryPhoneBtn.style.display = "none";
-      }
-
-      if (website) {
-        enquiryWebsiteBtn.href = website;
-      } else {
-        enquiryWebsiteBtn.style.display = "none";
-      }
-
-      const hasEnquiryOption = enquiryEmail || phone || website;
-
-      if (!hasEnquiryOption) {
-        enquiriesCard.style.display = "none";
-      } else if (vendor.enquiriesNote) {
-        vendorEnquiriesText.textContent = vendor.enquiriesNote;
-      }
-    }
-
-    function renderBooking(vendor) {
-      const bookingLink =
-        vendor.bookingLink ||
-        vendor.bookingUrl ||
-        vendor.calendly ||
-        vendor.calendlyUrl ||
-        vendor.calendarLink ||
-        vendor.calendarUrl ||
-        "";
-
-      if (!bookingLink) {
-        bookingCard.style.display = "none";
-        return;
-      }
-
-      const lowerLink = bookingLink.toLowerCase();
-      const embeddable =
-        lowerLink.includes("calendly.com") ||
-        lowerLink.includes("tidycal.com");
-
-      if (embeddable) {
-        bookingFrame.src = bookingLink;
-        bookingEmbedWrap.style.display = "";
-        bookingFallback.style.display = "none";
-      } else {
-        bookingEmbedWrap.style.display = "none";
-        bookingFallback.style.display = "";
-        bookingFallbackBtn.href = bookingLink;
-      }
+      setMainImage(0);
     }
 
     async function loadVendor() {
@@ -367,10 +257,9 @@
         const v = snap.data();
 
         const name = v.businessName || "Vendor";
-        const categories = Array.isArray(v.categories) && v.categories.length
-          ? v.categories.map(titleCase).join(" • ")
-          : titleCase(v.category || "");
-        const tagline = v.tagline || "";
+        const category = Array.isArray(v.categories) && v.categories.length
+          ? v.categories.map(formatText).join(" • ")
+          : formatText(v.category || "");
         const about = v.bio || v.shortBio || v.description || "Beautiful vendor profile coming soon.";
         const profileImage =
           v.profileImageUrl ||
@@ -378,10 +267,15 @@
           v.coverImageUrl ||
           (Array.isArray(v.images) && v.images.length ? v.images[0] : "");
 
+        const serviceAreas = v.serviceAreas ? formatText(v.serviceAreas) : "";
+        const displayLocation = v.displayLocation ? formatText(v.displayLocation) : "";
+        const regions = cleanArray(v.regions).map(formatText).join(" • ");
+        const states = cleanArray(v.states).map(formatText).join(" • ");
+        const countries = cleanArray(v.countries).map(formatText).join(" • ");
+
         businessNameEl.textContent = name;
         sidebarBusinessNameEl.textContent = name;
-        vendorCategoryEl.textContent = categories;
-        hideIfEmpty(vendorTaglineEl, tagline);
+        vendorCategoryEl.textContent = category;
         vendorAboutEl.textContent = about;
 
         if (profileImage) {
@@ -390,10 +284,20 @@
           profilePicEl.style.display = "none";
         }
 
+        const locationLine = displayLocation || regions || states || countries;
+        if (locationLine) {
+          sidebarLocationEl.textContent = locationLine;
+        } else {
+          sidebarLocationEl.style.display = "none";
+        }
+
+        if (serviceAreas) {
+          sidebarServiceAreasEl.textContent = serviceAreas;
+        } else {
+          sidebarServiceAreasEl.style.display = "none";
+        }
+
         renderGallery(v);
-        renderLocations(v);
-        renderEnquiries(v);
-        renderBooking(v);
 
         if (v.website) {
           websiteBtn.href = v.website;
