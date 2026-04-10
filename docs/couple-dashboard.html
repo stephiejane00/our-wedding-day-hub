@@ -5,90 +5,678 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Couple Dashboard | Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css">
-</head>
+  <style>
+    .couple-topbar {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 12px;
+      padding: 18px 24px 10px;
+      max-width: 1180px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+    }
 
+    .couple-topbar .auth-link,
+    .couple-topbar .auth-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .couple-topbar .auth-link {
+      text-decoration: none;
+    }
+
+    .couple-dashboard-page header {
+      text-align: center;
+      padding: 2px 20px 0;
+    }
+
+    .couple-dashboard-page header img {
+      max-width: 620px;
+      width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .couple-page-shell {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+      display: grid;
+      gap: 22px;
+    }
+
+    .couple-hero-card,
+    .dashboard-card,
+    .mini-panel,
+    .vision-upload-card,
+    .vendor-card-public,
+    .board-item,
+    .account-card-inner {
+      border: 1px solid rgba(216, 197, 189, 0.45);
+      box-shadow: 0 16px 40px rgba(74, 49, 42, 0.06);
+    }
+
+    .couple-hero-card,
+    .dashboard-card {
+      background: linear-gradient(180deg, #faf4f1 0%, #fdfaf8 100%);
+      border-radius: 28px;
+    }
+
+    .couple-hero-card {
+      padding: 34px 30px;
+    }
+
+    .couple-hero-grid {
+      display: grid;
+      grid-template-columns: 290px 1fr;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .profile-card {
+      background: #fffdfb;
+      border-radius: 24px;
+      padding: 22px;
+      text-align: center;
+      border: 1px solid rgba(221, 206, 200, 0.7);
+    }
+
+    .profile-photo-wrap {
+      width: 168px;
+      height: 168px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin: 0 auto 16px;
+      border: 4px solid #f0dfd7;
+      background: #f7ece8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .profile-photo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .profile-placeholder {
+      color: #9a7e73;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .upload-label {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 150px;
+      padding: 11px 16px;
+      background: #ead7ce;
+      color: #3f2d28;
+      border-radius: 999px;
+      cursor: pointer;
+      border: none;
+      text-decoration: none;
+      transition: 0.18s ease;
+    }
+
+    .upload-label:hover,
+    .soft-pill-button:hover,
+    .board-delete:hover,
+    .board-upload-button:hover,
+    .remove-favourite-btn:hover,
+    .account-save-btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .hidden-input {
+      display: none;
+    }
+
+    .profile-help {
+      margin: 12px 0 0;
+      color: #8e7369;
+      font-size: 0.92rem;
+      line-height: 1.6;
+      min-height: 24px;
+    }
+
+    .hero-copy {
+      text-align: left;
+    }
+
+    .couple-kicker {
+      display: inline-block;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      color: #9d7f74;
+      margin-bottom: 12px;
+    }
+
+    .hero-copy h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.08;
+      color: #3f2d28;
+    }
+
+    .hero-copy p {
+      margin: 0;
+      color: #8d7369;
+      font-size: 1.04rem;
+      line-height: 1.75;
+      max-width: 58ch;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 22px;
+      flex-wrap: wrap;
+    }
+
+    .soft-pill-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 145px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      text-decoration: none;
+      background: #ead7ce;
+      color: #3f2d28;
+      transition: 0.18s ease;
+    }
+
+    .dashboard-card {
+      padding: 28px 26px;
+    }
+
+    .dashboard-card h2 {
+      margin: 0 0 10px;
+      color: #3f2d28;
+      font-size: clamp(1.7rem, 3vw, 2.25rem);
+      text-align: center;
+    }
+
+    .dashboard-subtext {
+      margin: 0 0 22px;
+      color: #94786d;
+      text-align: center;
+      line-height: 1.7;
+    }
+
+    .account-card-inner {
+      max-width: 700px;
+      margin: 0 auto;
+      background: #fffdfb;
+      border-radius: 24px;
+      padding: 22px;
+    }
+
+    .account-form {
+      display: grid;
+      gap: 14px;
+    }
+
+    .account-form input {
+      width: 100%;
+      border-radius: 18px;
+      border: 1px solid rgba(212, 194, 186, 0.8);
+      padding: 14px 15px;
+      font: inherit;
+      background: #fff;
+      color: #3f2d28;
+    }
+
+    .account-form input:focus,
+    .vision-form textarea:focus {
+      outline: none;
+      border-color: #caaea2;
+      box-shadow: 0 0 0 4px rgba(234, 215, 206, 0.45);
+    }
+
+    .account-save-btn {
+      border: none;
+      background: #ead7ce;
+      color: #3f2d28;
+      border-radius: 999px;
+      padding: 12px 16px;
+      cursor: pointer;
+      font: inherit;
+      transition: 0.18s ease;
+    }
+
+    .account-status {
+      margin: 0;
+      min-height: 24px;
+      color: #8f746a;
+      font-size: 0.93rem;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    .vendors-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 18px;
+    }
+
+    .vendor-card-public {
+      background: #fffdfb;
+      border-radius: 22px;
+      overflow: hidden;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .vendor-card-public:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 34px rgba(74, 49, 42, 0.08);
+    }
+
+    .vendor-card-public-inner {
+      padding: 22px;
+    }
+
+    .vendor-card-top h3 {
+      margin: 0 0 6px;
+      color: #3f2d28;
+      font-size: 1.22rem;
+      line-height: 1.2;
+    }
+
+    .vendor-card-location {
+      margin: 0 0 14px;
+      color: #a08479;
+      font-size: 0.94rem;
+    }
+
+    .vendor-card-bio {
+      margin: 0 0 18px;
+      color: #6f5c55;
+      line-height: 1.7;
+      font-size: 0.98rem;
+    }
+
+    .vendor-card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .vendor-tag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #f4e5de;
+      color: #805f54;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 0.84rem;
+      line-height: 1;
+      border: 1px solid rgba(207, 178, 166, 0.45);
+    }
+
+    .vendor-card-links {
+      display: grid;
+      gap: 10px;
+    }
+
+    .vendor-card-links .pretty-button.small-button,
+    .remove-favourite-btn {
+      width: 100%;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 999px;
+      padding: 12px 14px;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .remove-favourite-btn {
+      border: 1px solid rgba(214, 184, 191, 0.7);
+      background: #fff7f9;
+      color: #9d6778;
+      transition: 0.18s ease;
+    }
+
+    .empty-message {
+      text-align: center;
+      margin: 16px 0 0;
+      color: #8f746a;
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    .vision-layout {
+      display: grid;
+      grid-template-columns: 330px 1fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .vision-upload-card,
+    .mini-panel {
+      background: #fffdfb;
+      border-radius: 24px;
+      padding: 22px;
+    }
+
+    .vision-upload-card h3,
+    .mini-panel h3 {
+      margin: 0 0 10px;
+      color: #3f2d28;
+      font-size: 1.25rem;
+    }
+
+    .vision-upload-card p,
+    .mini-panel p {
+      margin: 0 0 16px;
+      color: #8f746a;
+      line-height: 1.7;
+    }
+
+    .vision-form {
+      display: grid;
+      gap: 14px;
+    }
+
+    .vision-form textarea {
+      width: 100%;
+      min-height: 110px;
+      resize: vertical;
+      border-radius: 18px;
+      border: 1px solid rgba(212, 194, 186, 0.8);
+      padding: 14px 15px;
+      font: inherit;
+      background: #fff;
+      color: #3f2d28;
+    }
+
+    .board-upload-button {
+      border: none;
+      background: #ead7ce;
+      color: #3f2d28;
+      border-radius: 999px;
+      padding: 12px 16px;
+      cursor: pointer;
+      font: inherit;
+      transition: 0.18s ease;
+    }
+
+    .upload-status {
+      margin: 0;
+      min-height: 24px;
+      color: #8f746a;
+      font-size: 0.93rem;
+      line-height: 1.6;
+    }
+
+    .mini-panel-soft {
+      margin: 0;
+      color: #8f746a;
+      line-height: 1.8;
+    }
+
+    .vision-board-grid {
+      columns: 4 220px;
+      column-gap: 18px;
+    }
+
+    .board-item {
+      break-inside: avoid;
+      margin-bottom: 18px;
+      background: #fffdfb;
+      border-radius: 22px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .board-item img {
+      width: 100%;
+      display: block;
+      height: auto;
+      background: #f4ece8;
+    }
+
+    .board-item-body {
+      padding: 14px 16px 16px;
+    }
+
+    .board-item-caption {
+      margin: 0 0 12px;
+      color: #6e5b54;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .board-item-title {
+      margin: 0 0 8px;
+      color: #3f2d28;
+      font-size: 1rem;
+      line-height: 1.35;
+    }
+
+    .board-item-subtitle {
+      margin: 0 0 12px;
+      color: #9a7c70;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .board-item-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .board-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #f4e5de;
+      color: #805f54;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 0.79rem;
+      line-height: 1;
+      border: 1px solid rgba(207, 178, 166, 0.45);
+    }
+
+    .board-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-left: auto;
+    }
+
+    .board-link,
+    .board-delete {
+      border: none;
+      background: #f1ddd4;
+      color: #6d4f45;
+      border-radius: 999px;
+      padding: 9px 14px;
+      cursor: pointer;
+      font: inherit;
+      text-decoration: none;
+      transition: 0.18s ease;
+    }
+
+    .board-link {
+      background: #ead7ce;
+      color: #3f2d28;
+    }
+
+    .site-footer {
+      text-align: center;
+      padding: 6px 20px 44px;
+    }
+
+    .site-footer p {
+      color: #544641;
+    }
+
+    @media (max-width: 920px) {
+      .couple-hero-grid,
+      .vision-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-copy {
+        text-align: center;
+      }
+
+      .hero-copy p {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .hero-actions {
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .couple-topbar {
+        padding: 14px 14px 8px;
+      }
+
+      .couple-page-shell {
+        padding-left: 14px;
+        padding-right: 14px;
+      }
+
+      .couple-dashboard-page header {
+        padding: 0 14px;
+      }
+
+      .couple-hero-card,
+      .dashboard-card {
+        padding: 22px 18px;
+      }
+
+      .profile-photo-wrap {
+        width: 142px;
+        height: 142px;
+      }
+    }
+  </style>
+</head>
 <body class="couple-dashboard-page">
 
-  <!-- TOP BAR -->
   <div class="couple-topbar">
-    <a href="index.html" class="auth-link">Home</a>
+    <a href="index.html" class="auth-link auth-pill">Home</a>
     <a href="vendors.html" class="auth-link">Vendors</a>
-    <button id="logoutBtn" class="auth-button">Log Out</button>
+    <button id="logoutBtn" class="auth-button" type="button">Log Out</button>
   </div>
 
   <header>
-    <img src="images/header4.png" alt="Header">
+    <img src="images/header4.png" alt="Our Wedding Day Hub Header">
   </header>
 
   <main class="couple-page-shell">
-
-    <!-- HERO -->
     <section class="couple-hero-card">
       <div class="couple-hero-grid">
-
         <div class="profile-card">
           <div class="profile-photo-wrap">
-            <img id="profilePhoto" style="display:none;">
-            <div id="profilePlaceholder">No profile photo yet</div>
+            <div class="profile-placeholder" id="profilePlaceholder">No profile photo yet</div>
+            <img id="profilePhoto" alt="Profile photo" style="display:none;">
           </div>
 
-          <label class="upload-label">Upload Photo</label>
-          <input id="profileImageInput" type="file" class="hidden-input">
-          <p id="profileUploadStatus"></p>
+          <label for="profileImageInput" class="upload-label">Upload Profile Photo</label>
+          <input id="profileImageInput" class="hidden-input" type="file" accept="image/*">
+          <p id="profileUploadStatus" class="profile-help">Add a lovely photo for your planning space.</p>
         </div>
 
         <div class="hero-copy">
           <span class="couple-kicker">Couple Dashboard</span>
-          <h1 id="welcomeMessage">Loading...</h1>
+          <h1 id="welcomeMessage">Loading your dashboard...</h1>
+          <p>Your favourite vendors, saved inspiration, and wedding ideas can all live together here in one soft little space.</p>
 
           <div class="hero-actions">
             <a href="vendors.html" class="soft-pill-button">Find Vendors</a>
           </div>
         </div>
-
       </div>
     </section>
 
-    <!-- ACCOUNT SETTINGS -->
     <section class="dashboard-card">
       <h2>Your Account</h2>
+      <p class="dashboard-subtext">Update your name, email, or password whenever you need to.</p>
 
-      <form id="accountForm" class="vision-form" style="max-width:500px;margin:auto;">
-        <input id="accountName" placeholder="Your name">
-        <input id="accountEmail" placeholder="Your email">
-        <input id="accountPassword" placeholder="New password (optional)">
-
-        <button type="submit" class="board-upload-button">Update Details</button>
-        <p id="accountStatus"></p>
-      </form>
+      <div class="account-card-inner">
+        <form id="accountForm" class="account-form">
+          <input id="accountName" type="text" placeholder="Your name">
+          <input id="accountEmail" type="email" placeholder="Your email">
+          <input id="accountPassword" type="password" placeholder="New password (optional)">
+          <button type="submit" class="account-save-btn">Update Details</button>
+          <p id="accountStatus" class="account-status"></p>
+        </form>
+      </div>
     </section>
 
-    <!-- FAVOURITES -->
     <section class="dashboard-card">
       <h2>Your Favourite Vendors</h2>
+      <p class="dashboard-subtext">The vendors you save will appear here for easy viewing whenever you come back.</p>
 
-      <div id="favouritesGrid"></div>
-      <p id="emptyFavourites">No favourites yet.</p>
-    </section>
+      <div id="favouritesGrid" class="vendors-grid"></div>
 
-    <!-- VISION BOARD -->
-    <section class="dashboard-card">
-      <h2>Your Vision Board</h2>
-
-      <p>
-        Bridal style, ceremony flowers, reception styling, colour palettes, table settings,
-        hair and makeup looks — save anything that inspires you and start shaping your vision.
+      <p id="emptyFavourites" class="empty-message" style="display:none;">
+        You have not saved any vendors yet.
       </p>
-
-      <form id="visionUploadForm">
-        <input id="visionImageInput" type="file" required>
-        <textarea id="visionCaptionInput"></textarea>
-        <button type="submit">Add</button>
-      </form>
-
-      <div id="visionBoardGrid"></div>
     </section>
 
+    <section class="dashboard-card" id="visionBoardSection">
+      <h2>Your Vision Board</h2>
+      <p class="dashboard-subtext">Upload inspiration images and build a soft Pinterest-lite collage for your wedding ideas.</p>
+
+      <div class="vision-layout">
+        <aside>
+          <div class="vision-upload-card">
+            <h3>Add Inspiration</h3>
+            <p>Upload screenshots, mood images, flowers, dresses, stationery, styling, or anything you love.</p>
+
+            <form id="visionUploadForm" class="vision-form">
+              <label for="visionImageInput" class="upload-label">Choose Image</label>
+              <input id="visionImageInput" class="hidden-input" type="file" accept="image/*" required>
+
+              <textarea id="visionCaptionInput" placeholder="Add a little note if you like... soft florals, candlelit reception, modern white cake, romantic textures..."></textarea>
+
+              <button type="submit" class="board-upload-button">Add To Vision Board</button>
+              <p id="visionUploadStatus" class="upload-status"></p>
+            </form>
+          </div>
+
+          <div class="mini-panel" style="margin-top:18px;">
+            <h3>Ideas for this space</h3>
+            <p class="mini-panel-soft">
+              Bridal style, ceremony flowers, reception styling, colour palettes, table settings, hair and makeup looks — save anything that inspires you and start shaping your vision.
+            </p>
+          </div>
+        </aside>
+
+        <div>
+          <div id="visionBoardGrid" class="vision-board-grid"></div>
+          <p id="emptyVisionBoard" class="empty-message" style="display:none;">
+            Your vision board is empty for now. Upload your first inspiration image to get started.
+          </p>
+        </div>
+      </div>
+    </section>
   </main>
 
   <script type="module">
@@ -107,8 +695,34 @@
       updatePassword
     } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
+    import {
+      collection,
+      addDoc,
+      query,
+      orderBy,
+      getDocs,
+      deleteDoc,
+      serverTimestamp
+    } from 'https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js';
+
+    import {
+      getStorage,
+      ref,
+      uploadBytes,
+      getDownloadURL,
+      deleteObject
+    } from 'https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js';
+
     const logoutBtn = document.getElementById('logoutBtn');
     const welcomeMessage = document.getElementById('welcomeMessage');
+
+    const favouritesGrid = document.getElementById('favouritesGrid');
+    const emptyFavourites = document.getElementById('emptyFavourites');
+
+    const profilePhoto = document.getElementById('profilePhoto');
+    const profilePlaceholder = document.getElementById('profilePlaceholder');
+    const profileImageInput = document.getElementById('profileImageInput');
+    const profileUploadStatus = document.getElementById('profileUploadStatus');
 
     const accountForm = document.getElementById('accountForm');
     const accountName = document.getElementById('accountName');
@@ -116,53 +730,374 @@
     const accountPassword = document.getElementById('accountPassword');
     const accountStatus = document.getElementById('accountStatus');
 
-    async function loadDashboard(user) {
-      const snap = await getDoc(doc(db, 'users', user.uid));
-      const data = snap.data();
+    const visionUploadForm = document.getElementById('visionUploadForm');
+    const visionImageInput = document.getElementById('visionImageInput');
+    const visionCaptionInput = document.getElementById('visionCaptionInput');
+    const visionUploadStatus = document.getElementById('visionUploadStatus');
+    const visionBoardGrid = document.getElementById('visionBoardGrid');
+    const emptyVisionBoard = document.getElementById('emptyVisionBoard');
 
-      welcomeMessage.textContent = `Welcome, ${data.name || 'Lovely'}!`;
+    const storage = getStorage();
+    let currentUser = null;
+    let currentUserData = null;
 
-      accountName.value = data.name || '';
-      accountEmail.value = data.email || '';
+    function prettifyCategory(category) {
+      return String(category)
+        .replaceAll('_', ' ')
+        .replace(/\b\w/g, letter => letter.toUpperCase());
     }
+
+    function safeText(value) {
+      return String(value || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function setProfileImage(url) {
+      if (url) {
+        profilePhoto.src = url;
+        profilePhoto.style.display = 'block';
+        profilePlaceholder.style.display = 'none';
+      } else {
+        profilePhoto.removeAttribute('src');
+        profilePhoto.style.display = 'none';
+        profilePlaceholder.style.display = 'block';
+      }
+    }
+
+    function createVendorCard(vendor) {
+      const card = document.createElement('article');
+      card.className = 'vendor-card-public';
+
+      const categories = Array.isArray(vendor.categories) ? vendor.categories : [];
+      const states = Array.isArray(vendor.states) ? vendor.states : [];
+      const regions = Array.isArray(vendor.regions) ? vendor.regions : [];
+
+      const shortBio = vendor.bio
+        ? vendor.bio.length > 180
+          ? vendor.bio.slice(0, 180) + '...'
+          : vendor.bio
+        : 'This vendor has not added their bio yet.';
+
+      card.innerHTML = `
+        <div class="vendor-card-public-inner">
+          <div class="vendor-card-top">
+            <h3>${safeText(vendor.businessName || 'Vendor')}</h3>
+            <p class="vendor-card-location">
+              ${safeText(regions.slice(0, 2).join(', ') || states.slice(0, 2).join(', ') || 'Australia')}
+            </p>
+          </div>
+
+          <p class="vendor-card-bio">${safeText(shortBio)}</p>
+
+          <div class="vendor-card-tags">
+            ${categories.slice(0, 4).map(category => `
+              <span class="vendor-tag">${safeText(prettifyCategory(category))}</span>
+            `).join('')}
+          </div>
+
+          <div class="vendor-card-links">
+            <a class="pretty-button small-button" href="vendor-profile.html?id=${encodeURIComponent(vendor.uid || '')}">
+              View Profile
+            </a>
+            <button class="remove-favourite-btn" type="button">Remove from favourites</button>
+          </div>
+        </div>
+      `;
+
+      const removeBtn = card.querySelector('.remove-favourite-btn');
+      removeBtn.addEventListener('click', async () => {
+        if (!currentUser) return;
+
+        const currentFavorites = Array.isArray(currentUserData?.favorites) ? currentUserData.favorites : [];
+        const newFavorites = currentFavorites.filter(id => id !== vendor.uid);
+
+        try {
+          await updateDoc(doc(db, 'users', currentUser.uid), {
+            favorites: newFavorites
+          });
+
+          currentUserData = {
+            ...(currentUserData || {}),
+            favorites: newFavorites
+          };
+
+          await loadFavouriteVendors(currentUserData);
+        } catch (error) {
+          console.error(error);
+          alert('Could not remove this favourite right now.');
+        }
+      });
+
+      return card;
+    }
+
+    function createBoardItem(docId, item) {
+      const article = document.createElement('article');
+      article.className = 'board-item';
+
+      const isVendorPin = item.type === 'vendor';
+
+      article.innerHTML = `
+        ${item.imageUrl ? `<img src="${safeText(item.imageUrl)}" alt="Vision board image">` : ''}
+        <div class="board-item-body">
+          ${isVendorPin ? `<h3 class="board-item-title">${safeText(item.title || 'Vendor Pin')}</h3>` : ''}
+          ${isVendorPin && item.subtitle ? `<p class="board-item-subtitle">${safeText(item.subtitle)}</p>` : ''}
+          ${item.caption ? `<p class="board-item-caption">${safeText(item.caption)}</p>` : ''}
+          <div class="board-item-meta">
+            <span class="board-chip">${isVendorPin ? 'Vendor Pin' : 'Inspiration'}</span>
+            <div class="board-actions">
+              ${item.linkUrl ? `<a class="board-link" href="${safeText(item.linkUrl)}">Open</a>` : ''}
+              <button class="board-delete" type="button">Remove</button>
+            </div>
+          </div>
+        </div>
+      `;
+
+      const deleteBtn = article.querySelector('.board-delete');
+      deleteBtn.addEventListener('click', async () => {
+        const confirmed = window.confirm('Remove this item from your vision board?');
+        if (!confirmed || !currentUser) return;
+
+        try {
+          if (item.storagePath) {
+            await deleteObject(ref(storage, item.storagePath));
+          }
+
+          await deleteDoc(doc(db, 'users', currentUser.uid, 'visionBoard', docId));
+          await loadVisionBoard(currentUser);
+        } catch (error) {
+          console.error(error);
+          alert('Could not remove this item right now.');
+        }
+      });
+
+      return article;
+    }
+
+    async function loadFavouriteVendors(userData) {
+      const favouriteVendorIds = Array.isArray(userData.favorites)
+        ? userData.favorites
+        : [];
+
+      if (favouriteVendorIds.length === 0) {
+        emptyFavourites.style.display = 'block';
+        favouritesGrid.innerHTML = '';
+        return;
+      }
+
+      const vendorPromises = favouriteVendorIds.map(id => getDoc(doc(db, 'vendors', id)));
+      const vendorSnapshots = await Promise.all(vendorPromises);
+
+      const favouriteVendors = vendorSnapshots
+        .filter(snap => snap.exists())
+        .map(snap => snap.data())
+        .filter(vendor => vendor.profileVisible === true || vendor.published === true);
+
+      if (favouriteVendors.length === 0) {
+        emptyFavourites.style.display = 'block';
+        favouritesGrid.innerHTML = '';
+        return;
+      }
+
+      emptyFavourites.style.display = 'none';
+      favouritesGrid.innerHTML = '';
+
+      favouriteVendors.forEach(vendor => {
+        favouritesGrid.appendChild(createVendorCard(vendor));
+      });
+    }
+
+    async function loadVisionBoard(user) {
+      const boardQuery = query(
+        collection(db, 'users', user.uid, 'visionBoard'),
+        orderBy('createdAt', 'desc')
+      );
+
+      const snapshot = await getDocs(boardQuery);
+
+      if (snapshot.empty) {
+        visionBoardGrid.innerHTML = '';
+        emptyVisionBoard.style.display = 'block';
+        return;
+      }
+
+      emptyVisionBoard.style.display = 'none';
+      visionBoardGrid.innerHTML = '';
+
+      snapshot.forEach(docSnap => {
+        visionBoardGrid.appendChild(createBoardItem(docSnap.id, docSnap.data()));
+      });
+    }
+
+    async function loadCoupleDashboard(user) {
+      try {
+        const userSnap = await getDoc(doc(db, 'users', user.uid));
+
+        if (!userSnap.exists()) {
+          welcomeMessage.textContent = 'We could not find your account details.';
+          return;
+        }
+
+        const userData = userSnap.data();
+
+        if (userData.role !== 'couple') {
+          window.location.href = 'dashboard.html';
+          return;
+        }
+
+        currentUserData = userData;
+
+        welcomeMessage.textContent = `Welcome, ${userData.name || 'Lovely'}!`;
+        accountName.value = userData.name || '';
+        accountEmail.value = userData.email || '';
+
+        setProfileImage(userData.profileImage || '');
+        await loadFavouriteVendors(userData);
+        await loadVisionBoard(user);
+      } catch (error) {
+        console.error(error);
+        welcomeMessage.textContent = 'There was a problem loading your dashboard.';
+      }
+    }
+
+    profileImageInput.addEventListener('change', async () => {
+      const file = profileImageInput.files?.[0];
+      if (!file || !auth.currentUser) return;
+
+      profileUploadStatus.textContent = 'Uploading profile photo...';
+
+      try {
+        const storagePath = `couples/${auth.currentUser.uid}/profile/${Date.now()}-${file.name}`;
+        const storageRef = ref(storage, storagePath);
+
+        await uploadBytes(storageRef, file);
+        const imageUrl = await getDownloadURL(storageRef);
+
+        await updateDoc(doc(db, 'users', auth.currentUser.uid), {
+          profileImage: imageUrl,
+          profileImagePath: storagePath
+        });
+
+        currentUserData = {
+          ...(currentUserData || {}),
+          profileImage: imageUrl,
+          profileImagePath: storagePath
+        };
+
+        setProfileImage(imageUrl);
+        profileUploadStatus.textContent = 'Profile photo updated.';
+      } catch (error) {
+        console.error(error);
+        profileUploadStatus.textContent = 'Could not upload your profile photo right now.';
+      }
+    });
 
     accountForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
+      if (!auth.currentUser) return;
+
+      accountStatus.textContent = 'Updating your details...';
+
       try {
+        const newName = accountName.value.trim();
+        const newEmail = accountEmail.value.trim();
+        const newPassword = accountPassword.value.trim();
+
         await updateDoc(doc(db, 'users', auth.currentUser.uid), {
-          name: accountName.value,
-          email: accountEmail.value
+          name: newName,
+          email: newEmail
         });
 
-        if (accountEmail.value !== auth.currentUser.email) {
-          await updateEmail(auth.currentUser, accountEmail.value);
+        if (newEmail && newEmail !== auth.currentUser.email) {
+          await updateEmail(auth.currentUser, newEmail);
         }
 
-        if (accountPassword.value.length >= 6) {
-          await updatePassword(auth.currentUser, accountPassword.value);
+        if (newPassword) {
+          if (newPassword.length < 6) {
+            accountStatus.textContent = 'Password must be at least 6 characters.';
+            return;
+          }
+
+          await updatePassword(auth.currentUser, newPassword);
         }
 
-        accountStatus.textContent = "Updated ✨";
+        currentUserData = {
+          ...(currentUserData || {}),
+          name: newName,
+          email: newEmail
+        };
 
-      } catch (err) {
-        accountStatus.textContent = "Error updating";
+        welcomeMessage.textContent = `Welcome, ${newName || 'Lovely'}!`;
+        accountPassword.value = '';
+        accountStatus.textContent = 'Details updated successfully.';
+      } catch (error) {
+        console.error(error);
+        accountStatus.textContent = 'Could not update your details right now. You may need to log in again before changing email or password.';
       }
     });
 
-    logoutBtn.onclick = async () => {
-      await signOut(auth);
-      window.location.href = "login.html";
-    };
+    visionUploadForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
 
-    onAuthStateChanged(auth, (user) => {
-      if (!user) {
-        window.location.href = "login.html";
-      } else {
-        loadDashboard(user);
+      const file = visionImageInput.files?.[0];
+      const caption = visionCaptionInput.value.trim();
+
+      if (!file || !auth.currentUser) {
+        visionUploadStatus.textContent = 'Please choose an image first.';
+        return;
       }
+
+      visionUploadStatus.textContent = 'Uploading inspiration image...';
+
+      try {
+        const storagePath = `couples/${auth.currentUser.uid}/vision-board/${Date.now()}-${file.name}`;
+        const storageRef = ref(storage, storagePath);
+
+        await uploadBytes(storageRef, file);
+        const imageUrl = await getDownloadURL(storageRef);
+
+        await addDoc(collection(db, 'users', auth.currentUser.uid, 'visionBoard'), {
+          type: 'image',
+          imageUrl,
+          storagePath,
+          caption,
+          createdAt: serverTimestamp()
+        });
+
+        visionImageInput.value = '';
+        visionCaptionInput.value = '';
+        visionUploadStatus.textContent = 'Added to your vision board.';
+        await loadVisionBoard(auth.currentUser);
+      } catch (error) {
+        console.error(error);
+        visionUploadStatus.textContent = 'Could not upload that image right now.';
+      }
+    });
+
+    logoutBtn.addEventListener('click', async () => {
+      await signOut(auth);
+      window.location.href = 'login.html';
+    });
+
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        window.location.href = 'login.html';
+        return;
+      }
+
+      currentUser = user;
+      await loadCoupleDashboard(user);
     });
   </script>
 
+  <footer class="site-footer">
+    <p>© 2026 Our Wedding Day Hub</p>
+    <p>ABN 76 688 637 041 • Australia</p>
+  </footer>
 </body>
 </html>
