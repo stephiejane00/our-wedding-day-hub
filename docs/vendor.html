@@ -116,8 +116,6 @@
     }
 
     .vendor-category,
-    .vendor-location-line,
-    .vendor-service-line,
     .vendor-tagline {
       margin: 0 0 10px;
       color: #6d6058;
@@ -230,21 +228,32 @@
       display: none !important;
     }
 
+    .sidebar-locations {
+      margin-top: 20px;
+      padding-top: 18px;
+      border-top: 1px solid #f0e3dc;
+      text-align: left;
+    }
+
+    .sidebar-locations h3 {
+      margin: 0 0 12px;
+      font-size: 1rem;
+      color: #5b4046;
+      text-align: center;
+    }
+
+    .sidebar-location-item {
+      margin: 0 0 10px;
+      color: #6d6058;
+      line-height: 1.5;
+      text-align: center;
+    }
+
     #statusMessage {
       margin-top: 12px;
       min-height: 22px;
       color: #6d6058;
       font-size: 0.95rem;
-    }
-
-    .detail-list {
-      display: grid;
-      gap: 10px;
-    }
-
-    .detail-item {
-      margin: 0;
-      line-height: 1.6;
     }
 
     .booking-frame {
@@ -374,18 +383,6 @@
           <p id="vendorAbout" class="vendor-about"></p>
         </div>
 
-        <div class="vendor-card" id="enquiriesCard">
-          <h2 class="vendor-section-title">Enquiries</h2>
-          <p id="vendorEnquiriesText" class="empty-block">Send an enquiry directly to this vendor.</p>
-
-          <form id="enquiryForm" class="enquiry-form">
-            <input type="text" id="enquiryName" placeholder="Your name" required>
-            <input type="email" id="enquiryEmail" placeholder="Your email" required>
-            <textarea id="enquiryMessage" placeholder="Your message" required></textarea>
-            <button type="submit" class="stack-btn">Send Enquiry</button>
-          </form>
-        </div>
-
         <div class="vendor-card" id="bookingCard">
           <h2 class="vendor-section-title">Booking Calendar</h2>
           <p id="bookingIntro" class="empty-block">Check availability or make a booking enquiry below.</p>
@@ -401,6 +398,18 @@
             </div>
           </div>
         </div>
+
+        <div class="vendor-card" id="enquiriesCard">
+          <h2 class="vendor-section-title">Enquiries</h2>
+          <p id="vendorEnquiriesText" class="empty-block">Send an enquiry directly to this vendor.</p>
+
+          <form id="enquiryForm" class="enquiry-form">
+            <input type="text" id="enquiryName" placeholder="Your name" required>
+            <input type="email" id="enquiryEmail" placeholder="Your email" required>
+            <textarea id="enquiryMessage" placeholder="Your message" required></textarea>
+            <button type="submit" class="stack-btn">Send Enquiry</button>
+          </form>
+        </div>
       </section>
 
       <aside class="vendor-card sidebar-card">
@@ -415,8 +424,6 @@
         </div>
 
         <p id="sidebarCategory" class="sidebar-copy"></p>
-        <p id="sidebarLocation" class="sidebar-copy"></p>
-        <p id="sidebarServiceAreas" class="sidebar-copy"></p>
 
         <button id="favoriteBtn" class="favorite-btn">♡ Save to favourites</button>
 
@@ -427,6 +434,15 @@
           <a id="facebookBtn" class="stack-btn" target="_blank" rel="noopener noreferrer">Facebook</a>
           <a id="tiktokBtn" class="stack-btn" target="_blank" rel="noopener noreferrer">TikTok</a>
           <a id="youtubeBtn" class="stack-btn" target="_blank" rel="noopener noreferrer">YouTube</a>
+        </div>
+
+        <div id="sidebarLocations" class="sidebar-locations" style="display:none;">
+          <h3>Locations</h3>
+          <p id="sidebarLocation" class="sidebar-location-item"></p>
+          <p id="sidebarServiceAreas" class="sidebar-location-item"></p>
+          <p id="sidebarRegions" class="sidebar-location-item"></p>
+          <p id="sidebarStates" class="sidebar-location-item"></p>
+          <p id="sidebarCountries" class="sidebar-location-item"></p>
         </div>
 
         <div id="statusMessage"></div>
@@ -479,8 +495,6 @@
     const profilePicEl = document.getElementById("profilePic");
     const sidebarBusinessNameEl = document.getElementById("sidebarBusinessName");
     const sidebarCategoryEl = document.getElementById("sidebarCategory");
-    const sidebarLocationEl = document.getElementById("sidebarLocation");
-    const sidebarServiceAreasEl = document.getElementById("sidebarServiceAreas");
 
     const logoWrap = document.getElementById("logoWrap");
     const logoImage = document.getElementById("logoImage");
@@ -491,6 +505,13 @@
     const facebookBtn = document.getElementById("facebookBtn");
     const tiktokBtn = document.getElementById("tiktokBtn");
     const youtubeBtn = document.getElementById("youtubeBtn");
+
+    const sidebarLocations = document.getElementById("sidebarLocations");
+    const sidebarLocationEl = document.getElementById("sidebarLocation");
+    const sidebarServiceAreasEl = document.getElementById("sidebarServiceAreas");
+    const sidebarRegionsEl = document.getElementById("sidebarRegions");
+    const sidebarStatesEl = document.getElementById("sidebarStates");
+    const sidebarCountriesEl = document.getElementById("sidebarCountries");
 
     const favoriteBtn = document.getElementById("favoriteBtn");
     const statusMessage = document.getElementById("statusMessage");
@@ -727,6 +748,27 @@
       showElement(el, "inline-flex");
     }
 
+    function renderSidebarLocations(v) {
+      const displayLocation = formatText(v.displayLocation || "");
+      const serviceAreas = formatText(v.serviceAreas || "");
+      const regions = cleanArray(v.regions).map(formatText).join(" • ");
+      const states = cleanArray(v.states).map(formatText).join(" • ");
+      const countries = cleanArray(v.countries).map(formatText).join(" • ");
+
+      const hasAny =
+        setTextOrHide(sidebarLocationEl, displayLocation, "Location: ") |
+        setTextOrHide(sidebarServiceAreasEl, serviceAreas, "Service Areas: ") |
+        setTextOrHide(sidebarRegionsEl, regions, "Regions: ") |
+        setTextOrHide(sidebarStatesEl, states, "States: ") |
+        setTextOrHide(sidebarCountriesEl, countries, "Countries: ");
+
+      if (hasAny) {
+        showElement(sidebarLocations, "block");
+      } else {
+        hideElement(sidebarLocations);
+      }
+    }
+
     enquiryForm.addEventListener("submit", (event) => {
       event.preventDefault();
 
@@ -776,17 +818,7 @@
           v.coverImageUrl ||
           (Array.isArray(v.images) && v.images.length ? v.images[0] : "");
 
-        const serviceAreas = formatText(v.serviceAreas || "");
-        const locationLine =
-          formatText(v.displayLocation || "") ||
-          cleanArray(v.regions).map(formatText).join(" • ") ||
-          cleanArray(v.states).map(formatText).join(" • ") ||
-          cleanArray(v.countries).map(formatText).join(" • ");
-
-        const logo =
-          v.logoUrl ||
-          v.logo ||
-          "";
+        const logo = v.logoUrl || v.logo || "";
 
         vendorEmailAddress = v.email || v.contactEmail || "";
 
@@ -796,10 +828,7 @@
 
         setTextOrHide(vendorCategoryEl, category);
         setTextOrHide(vendorTaglineEl, tagline);
-
         setTextOrHide(sidebarCategoryEl, category);
-        setTextOrHide(sidebarLocationEl, locationLine);
-        setTextOrHide(sidebarServiceAreasEl, serviceAreas);
 
         if (profileImage) {
           profilePicEl.src = profileImage;
@@ -817,6 +846,7 @@
 
         renderGallery(v);
         renderBooking(v);
+        renderSidebarLocations(v);
 
         if (v.enquiriesNote) {
           vendorEnquiriesText.textContent = v.enquiriesNote;
