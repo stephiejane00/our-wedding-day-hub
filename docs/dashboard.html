@@ -484,6 +484,38 @@
       </section>
 
       <section class="card" style="text-align:left;">
+        <h2 class="dashboard-section-title">Account Settings</h2>
+
+        <div class="dashboard-card-soft">
+          <div class="dashboard-two-col">
+            <div class="dashboard-field">
+              <label for="accountName">Your Name</label>
+              <input type="text" id="accountName" placeholder="Your name">
+            </div>
+
+            <div class="dashboard-field">
+              <label for="accountEmail">Login Email</label>
+              <input type="email" id="accountEmail" placeholder="you@example.com">
+            </div>
+          </div>
+
+          <div class="dashboard-field" style="margin-top:14px;">
+            <label for="accountPassword">New Password</label>
+            <input type="password" id="accountPassword" placeholder="Leave blank if not changing">
+          </div>
+
+          <div class="dashboard-actions" style="justify-content:flex-start; margin-top:16px;">
+            <button type="button" id="saveAccountBtn" class="pretty-button">Update Account</button>
+          </div>
+
+          <p id="accountMessage" class="dashboard-help"></p>
+          <p class="dashboard-help">
+            If changing your email or password does not work, Firebase may ask you to log in again first.
+          </p>
+        </div>
+      </section>
+
+      <section class="card" style="text-align:left;">
         <h2 class="dashboard-section-title">Business Details</h2>
 
         <div class="dashboard-card-soft">
@@ -796,6 +828,11 @@
       getDownloadURL
     } from "./firebase.js";
 
+    import {
+      updateEmail,
+      updatePassword
+    } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
     import { LOCATION_DATA } from "./locations.js";
 
     const categoryOptions = document.getElementById("categoryOptions");
@@ -857,6 +894,12 @@
     const viewsStatusText = document.getElementById("viewsStatusText");
     const imagePreview = document.getElementById("imagePreview");
     const videoPreview = document.getElementById("videoPreview");
+
+    const accountName = document.getElementById("accountName");
+    const accountEmail = document.getElementById("accountEmail");
+    const accountPassword = document.getElementById("accountPassword");
+    const saveAccountBtn = document.getElementById("saveAccountBtn");
+    const accountMessage = document.getElementById("accountMessage");
 
     let currentUser = null;
     let currentProfileImageUrl = "";
@@ -1556,6 +1599,7 @@
         return;
       }
 
+      const userData = userSnap.data();
       const vendorRef = doc(db, "vendors", uid);
       const vendorSnap = await getDoc(vendorRef);
       const vendorData = vendorSnap.exists() ? vendorSnap.data() : {};
@@ -1569,6 +1613,8 @@
 
       businessName.value = vendorData.businessName || "";
       email.value = vendorData.email || currentUser.email || "";
+      accountName.value = userData.name || "";
+      accountEmail.value = userData.email || currentUser.email || "";
       phone.value = vendorData.phone || "";
       instagram.value = vendorData.instagram || "";
       website.value = vendorData.website || "";
@@ -1622,6 +1668,48 @@
       setVideoPreview();
       renderBlockedDates();
       updateViewProfileVisibility(currentVendorAccess);
+    }
+
+    async function saveAccountSettings() {
+      if (!currentUser) return;
+
+      accountMessage.textContent = "Updating account...";
+
+      try {
+        const newName = accountName.value.trim();
+        const newEmail = accountEmail.value.trim().toLowerCase();
+        const newPassword = accountPassword.value.trim();
+
+        await setDoc(doc(db, "users", currentUser.uid), {
+          name: newName,
+          email: newEmail,
+          role: "vendor",
+          updatedAt: serverTimestamp()
+        }, { merge: true });
+
+        if (newEmail && newEmail !== currentUser.email) {
+          await updateEmail(currentUser, newEmail);
+        }
+
+        if (newPassword) {
+          if (newPassword.length < 6) {
+            accountMessage.textContent = "Password must be at least 6 characters.";
+            return;
+          }
+          await updatePassword(currentUser, newPassword);
+        }
+
+        await setDoc(doc(db, "vendors", currentUser.uid), {
+          email: newEmail
+        }, { merge: true });
+
+        email.value = newEmail;
+        accountPassword.value = "";
+        accountMessage.textContent = "Account details updated successfully.";
+      } catch (error) {
+        console.error(error);
+        accountMessage.textContent = "Could not update account details. You may need to log in again before changing email or password.";
+      }
     }
 
     async function saveVendorData() {
@@ -1750,6 +1838,7 @@
 
     saveBtn.addEventListener("click", saveVendorData);
     saveTopBtn.addEventListener("click", saveVendorData);
+    saveAccountBtn.addEventListener("click", saveAccountSettings);
 
     onAuthStateChanged(auth, async (user) => {
       if (!user) {
