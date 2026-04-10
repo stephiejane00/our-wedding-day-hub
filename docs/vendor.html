@@ -5,10 +5,277 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Vendor Profile | Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css"/>
+  <style>
+    .vendor-page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px 20px 50px;
+    }
+
+    .vendor-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.65fr) minmax(300px, 0.95fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .vendor-left {
+      display: grid;
+      gap: 24px;
+    }
+
+    .vendor-card {
+      background: #fff;
+      border-radius: 24px;
+      padding: 22px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+    }
+
+    .vendor-gallery-stage {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      background: #f8f3ef;
+    }
+
+    .vendor-gallery-stage img {
+      width: 100%;
+      height: 520px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .vendor-gallery-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 46px;
+      height: 46px;
+      border: none;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.92);
+      color: #3d342f;
+      font-size: 28px;
+      line-height: 1;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
+      z-index: 2;
+    }
+
+    .vendor-gallery-arrow.left {
+      left: 14px;
+    }
+
+    .vendor-gallery-arrow.right {
+      right: 14px;
+    }
+
+    .vendor-gallery-arrow[hidden] {
+      display: none !important;
+    }
+
+    .vendor-thumbnails {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    .vendor-thumbnail {
+      width: 84px;
+      height: 84px;
+      object-fit: cover;
+      border-radius: 14px;
+      cursor: pointer;
+      border: 2px solid transparent;
+      background: #f3ece6;
+    }
+
+    .vendor-thumbnail.active {
+      border-color: #c9ab97;
+    }
+
+    .vendor-title {
+      margin: 0 0 10px;
+      font-size: clamp(1.8rem, 2.6vw, 2.4rem);
+      line-height: 1.1;
+    }
+
+    .vendor-category,
+    .vendor-location-line,
+    .vendor-service-line,
+    .vendor-tagline {
+      margin: 0 0 10px;
+      color: #6d6058;
+    }
+
+    .vendor-about {
+      margin: 0;
+      line-height: 1.7;
+      white-space: pre-wrap;
+    }
+
+    .vendor-section-title {
+      margin: 0 0 14px;
+      font-size: 1.2rem;
+    }
+
+    .sidebar-card {
+      position: sticky;
+      top: 20px;
+      text-align: center;
+    }
+
+    .profile-pic-wrap {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    .profile-pic {
+      width: 180px;
+      height: 180px;
+      border-radius: 999px;
+      object-fit: cover;
+      display: block;
+      background: #f3ece6;
+    }
+
+    .sidebar-business-name {
+      margin: 0 0 10px;
+      font-size: 1.5rem;
+    }
+
+    .sidebar-copy {
+      margin: 0 0 10px;
+      color: #6d6058;
+      line-height: 1.5;
+    }
+
+    .favorite-btn {
+      width: 100%;
+      border: none;
+      border-radius: 999px;
+      padding: 14px 18px;
+      font: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      background: #ead8cb;
+      color: #3d342f;
+      margin: 12px 0 16px;
+    }
+
+    .favorite-btn.saved {
+      background: #d9c0b0;
+    }
+
+    .contact-stack {
+      display: grid;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .stack-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 999px;
+      padding: 13px 16px;
+      background: #f5eee8;
+      color: #2f2a27;
+      font-weight: 600;
+      min-height: 48px;
+    }
+
+    .stack-btn[hidden] {
+      display: none !important;
+    }
+
+    #statusMessage {
+      margin-top: 12px;
+      min-height: 22px;
+      color: #6d6058;
+      font-size: 0.95rem;
+    }
+
+    .detail-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .detail-item {
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    .booking-frame {
+      width: 100%;
+      min-height: 720px;
+      border: 0;
+      border-radius: 16px;
+      background: #fff;
+    }
+
+    .empty-block {
+      color: #6d6058;
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 920px) {
+      .vendor-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar-card {
+        position: static;
+      }
+
+      .vendor-gallery-stage img {
+        height: 400px;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .vendor-page {
+        padding: 18px 14px 40px;
+      }
+
+      .vendor-card {
+        padding: 16px;
+        border-radius: 18px;
+      }
+
+      .vendor-gallery-stage img {
+        height: 280px;
+      }
+
+      .vendor-gallery-arrow {
+        width: 40px;
+        height: 40px;
+        font-size: 24px;
+      }
+
+      .vendor-thumbnail {
+        width: 66px;
+        height: 66px;
+      }
+
+      .profile-pic {
+        width: 140px;
+        height: 140px;
+      }
+    }
+  </style>
 </head>
 
 <body>
-
   <div class="page-auth">
     <a href="index.html" class="auth-link">Home</a>
     <a href="login.html" id="loginLink" class="auth-link">Log In</a>
@@ -23,33 +290,68 @@
   <main class="vendor-page">
     <div class="vendor-layout">
 
-      <section>
-        <div class="card gallery-card">
-          <div class="vendor-slideshow">
-            <button type="button" id="prevImageBtn" class="gallery-arrow gallery-arrow-left" aria-label="Previous image">‹</button>
-            <img id="mainImage" class="main-image" src="images/header4.png" alt="Vendor gallery image">
-            <button type="button" id="nextImageBtn" class="gallery-arrow gallery-arrow-right" aria-label="Next image">›</button>
+      <section class="vendor-left">
+        <div class="vendor-card">
+          <div class="vendor-gallery-stage">
+            <button type="button" id="prevImageBtn" class="vendor-gallery-arrow left" aria-label="Previous image">‹</button>
+            <img id="mainImage" src="images/header4.png" alt="Vendor gallery image">
+            <button type="button" id="nextImageBtn" class="vendor-gallery-arrow right" aria-label="Next image">›</button>
           </div>
-
-          <div id="thumbnailRow" class="thumbnail-row"></div>
+          <div id="thumbnailRow" class="vendor-thumbnails"></div>
         </div>
 
-        <div class="card content-card">
-          <h1 id="businessName">Loading vendor...</h1>
-          <p id="vendorCategory"></p>
-          <p id="vendorAbout"></p>
+        <div class="vendor-card">
+          <h1 id="businessName" class="vendor-title">Loading vendor...</h1>
+          <p id="vendorCategory" class="vendor-category"></p>
+          <p id="vendorTagline" class="vendor-tagline"></p>
+          <p id="vendorAbout" class="vendor-about"></p>
+        </div>
+
+        <div class="vendor-card" id="locationsCard">
+          <h2 class="vendor-section-title">Locations</h2>
+          <div class="detail-list">
+            <p id="vendorServiceAreas" class="detail-item"></p>
+            <p id="vendorRegions" class="detail-item"></p>
+            <p id="vendorStates" class="detail-item"></p>
+            <p id="vendorCountries" class="detail-item"></p>
+            <p id="vendorDisplayLocation" class="detail-item"></p>
+          </div>
+        </div>
+
+        <div class="vendor-card" id="enquiriesCard">
+          <h2 class="vendor-section-title">Enquiries</h2>
+          <p id="vendorEnquiriesText" class="empty-block">Get in touch with this vendor using the details below.</p>
+          <div class="contact-stack" style="margin-top:16px;">
+            <a id="enquiryEmailBtn" class="stack-btn">Email Enquiry</a>
+            <a id="enquiryPhoneBtn" class="stack-btn">Call Vendor</a>
+            <a id="enquiryWebsiteBtn" class="stack-btn" target="_blank" rel="noopener noreferrer">Visit Website</a>
+          </div>
+        </div>
+
+        <div class="vendor-card" id="bookingCard">
+          <h2 class="vendor-section-title">Booking Calendar</h2>
+          <p id="bookingIntro" class="empty-block">Check availability or make a booking enquiry below.</p>
+          <div id="bookingEmbedWrap" style="margin-top:16px;">
+            <iframe id="bookingFrame" class="booking-frame" title="Vendor booking calendar" src="" loading="lazy"></iframe>
+          </div>
+          <div id="bookingFallback" style="display:none; margin-top:16px;">
+            <p class="empty-block">This vendor has not added an embeddable live calendar yet.</p>
+            <div class="contact-stack" style="margin-top:16px;">
+              <a id="bookingFallbackBtn" class="stack-btn" target="_blank" rel="noopener noreferrer">Open Booking Link</a>
+            </div>
+          </div>
         </div>
       </section>
 
-      <aside class="card sidebar-card">
+      <aside class="vendor-card sidebar-card">
         <div class="profile-pic-wrap">
-          <img id="profilePic" class="profile-pic" src="" alt="Vendor profile image">
+          <img id="profilePic" class="profile-pic" src="" alt="Vendor profile picture">
         </div>
 
-        <h2 id="sidebarBusinessName">Loading vendor...</h2>
-
-        <p id="sidebarLocation"></p>
-        <p id="sidebarServiceAreas"></p>
+        <h2 id="sidebarBusinessName" class="sidebar-business-name">Loading vendor...</h2>
+        <p id="sidebarCategory" class="sidebar-copy"></p>
+        <p id="sidebarLocation" class="sidebar-copy"></p>
+        <p id="sidebarServiceAreas" class="sidebar-copy"></p>
 
         <button id="favoriteBtn" class="favorite-btn">♡ Save to favourites</button>
 
@@ -83,18 +385,39 @@
     const vendorId = params.get("id");
 
     const businessNameEl = document.getElementById("businessName");
-    const sidebarBusinessNameEl = document.getElementById("sidebarBusinessName");
     const vendorCategoryEl = document.getElementById("vendorCategory");
+    const vendorTaglineEl = document.getElementById("vendorTagline");
     const vendorAboutEl = document.getElementById("vendorAbout");
-    const profilePicEl = document.getElementById("profilePic");
-
-    const sidebarLocationEl = document.getElementById("sidebarLocation");
-    const sidebarServiceAreasEl = document.getElementById("sidebarServiceAreas");
 
     const mainImage = document.getElementById("mainImage");
     const thumbnailRow = document.getElementById("thumbnailRow");
     const prevImageBtn = document.getElementById("prevImageBtn");
     const nextImageBtn = document.getElementById("nextImageBtn");
+
+    const locationsCard = document.getElementById("locationsCard");
+    const vendorServiceAreasEl = document.getElementById("vendorServiceAreas");
+    const vendorRegionsEl = document.getElementById("vendorRegions");
+    const vendorStatesEl = document.getElementById("vendorStates");
+    const vendorCountriesEl = document.getElementById("vendorCountries");
+    const vendorDisplayLocationEl = document.getElementById("vendorDisplayLocation");
+
+    const enquiriesCard = document.getElementById("enquiriesCard");
+    const vendorEnquiriesText = document.getElementById("vendorEnquiriesText");
+    const enquiryEmailBtn = document.getElementById("enquiryEmailBtn");
+    const enquiryPhoneBtn = document.getElementById("enquiryPhoneBtn");
+    const enquiryWebsiteBtn = document.getElementById("enquiryWebsiteBtn");
+
+    const bookingCard = document.getElementById("bookingCard");
+    const bookingFrame = document.getElementById("bookingFrame");
+    const bookingEmbedWrap = document.getElementById("bookingEmbedWrap");
+    const bookingFallback = document.getElementById("bookingFallback");
+    const bookingFallbackBtn = document.getElementById("bookingFallbackBtn");
+
+    const profilePicEl = document.getElementById("profilePic");
+    const sidebarBusinessNameEl = document.getElementById("sidebarBusinessName");
+    const sidebarCategoryEl = document.getElementById("sidebarCategory");
+    const sidebarLocationEl = document.getElementById("sidebarLocation");
+    const sidebarServiceAreasEl = document.getElementById("sidebarServiceAreas");
 
     const websiteBtn = document.getElementById("websiteBtn");
     const emailBtn = document.getElementById("emailBtn");
@@ -123,7 +446,25 @@
         .replace(/-/g, " ")
         .replace(/\s+/g, " ")
         .trim()
-        .replace(/\b\w/g, char => char.toUpperCase());
+        .replace(/\b\w/g, c => c.toUpperCase());
+    }
+
+    function hideElement(el) {
+      if (el) el.style.display = "none";
+    }
+
+    function showElement(el, displayValue = "") {
+      if (el) el.style.display = displayValue;
+    }
+
+    function setTextOrHide(el, value, prefix = "") {
+      if (!value) {
+        hideElement(el);
+        return false;
+      }
+      el.textContent = prefix ? `${prefix}${value}` : value;
+      showElement(el);
+      return true;
     }
 
     function getFavorites() {
@@ -137,10 +478,10 @@
     function updateFavoriteButton(id) {
       const favs = getFavorites();
       if (favs.includes(id)) {
-        favoriteBtn.innerHTML = "♥ Saved";
+        favoriteBtn.textContent = "♥ Saved";
         favoriteBtn.classList.add("saved");
       } else {
-        favoriteBtn.innerHTML = "♡ Save to favourites";
+        favoriteBtn.textContent = "♡ Save to favourites";
         favoriteBtn.classList.remove("saved");
       }
     }
@@ -162,80 +503,166 @@
       updateFavoriteButton(vendorId);
     });
 
-    function setMainImage(index) {
-      if (!galleryImages.length) return;
-
-      currentImageIndex = index;
-      mainImage.src = galleryImages[currentImageIndex];
-
-      const thumbs = thumbnailRow.querySelectorAll(".thumbnail");
-      thumbs.forEach((thumb, thumbIndex) => {
-        if (thumbIndex === currentImageIndex) {
-          thumb.classList.add("active");
-        } else {
-          thumb.classList.remove("active");
-        }
-      });
-
-      const hasMultiple = galleryImages.length > 1;
-      prevImageBtn.style.display = hasMultiple ? "inline-flex" : "none";
-      nextImageBtn.style.display = hasMultiple ? "inline-flex" : "none";
-    }
-
-    function showPreviousImage() {
-      if (galleryImages.length <= 1) return;
-      const newIndex = currentImageIndex === 0 ? galleryImages.length - 1 : currentImageIndex - 1;
-      setMainImage(newIndex);
-    }
-
-    function showNextImage() {
-      if (galleryImages.length <= 1) return;
-      const newIndex = currentImageIndex === galleryImages.length - 1 ? 0 : currentImageIndex + 1;
-      setMainImage(newIndex);
-    }
-
-    prevImageBtn.addEventListener("click", showPreviousImage);
-    nextImageBtn.addEventListener("click", showNextImage);
-
-    function renderGallery(vendor) {
-      galleryImages = [];
-
-      if (vendor.coverImageUrl && String(vendor.coverImageUrl).trim()) {
-        galleryImages.push(vendor.coverImageUrl);
-      }
-
-      if (Array.isArray(vendor.images) && vendor.images.length) {
-        vendor.images.forEach((img) => {
-          if (img && String(img).trim() && !galleryImages.includes(img)) {
-            galleryImages.push(img);
-          }
-        });
-      }
-
-      if (vendor.profileImageUrl && String(vendor.profileImageUrl).trim() && !galleryImages.includes(vendor.profileImageUrl)) {
-        galleryImages.push(vendor.profileImageUrl);
-      }
-
+    function updateGalleryUI() {
       if (!galleryImages.length) {
         galleryImages = ["images/header4.png"];
       }
 
+      mainImage.src = galleryImages[currentImageIndex];
+
+      const thumbs = thumbnailRow.querySelectorAll(".vendor-thumbnail");
+      thumbs.forEach((thumb, index) => {
+        thumb.classList.toggle("active", index === currentImageIndex);
+      });
+
+      const hasMultiple = galleryImages.length > 1;
+      prevImageBtn.hidden = !hasMultiple;
+      nextImageBtn.hidden = !hasMultiple;
+    }
+
+    function setMainImage(index) {
+      currentImageIndex = index;
+      updateGalleryUI();
+    }
+
+    function renderGallery(vendor) {
+      const images = [];
+
+      if (vendor.coverImageUrl && String(vendor.coverImageUrl).trim()) {
+        images.push(vendor.coverImageUrl);
+      }
+
+      if (Array.isArray(vendor.images)) {
+        vendor.images.forEach(img => {
+          if (img && !images.includes(img)) images.push(img);
+        });
+      }
+
+      if (vendor.profileImageUrl && !images.includes(vendor.profileImageUrl)) {
+        images.push(vendor.profileImageUrl);
+      }
+
+      if (!images.length) {
+        images.push("images/header4.png");
+      }
+
+      galleryImages = images;
+      currentImageIndex = 0;
       thumbnailRow.innerHTML = "";
 
       galleryImages.forEach((img, index) => {
         const thumb = document.createElement("img");
         thumb.src = img;
-        thumb.className = "thumbnail";
         thumb.alt = `Gallery image ${index + 1}`;
-
-        thumb.addEventListener("click", () => {
-          setMainImage(index);
-        });
-
+        thumb.className = "vendor-thumbnail";
+        thumb.addEventListener("click", () => setMainImage(index));
         thumbnailRow.appendChild(thumb);
       });
 
-      setMainImage(0);
+      updateGalleryUI();
+    }
+
+    prevImageBtn.addEventListener("click", () => {
+      if (galleryImages.length <= 1) return;
+      currentImageIndex = (currentImageIndex - 1 + galleryImages.length) % galleryImages.length;
+      updateGalleryUI();
+    });
+
+    nextImageBtn.addEventListener("click", () => {
+      if (galleryImages.length <= 1) return;
+      currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
+      updateGalleryUI();
+    });
+
+    function renderLocations(v) {
+      const serviceAreas = formatText(v.serviceAreas || "");
+      const regions = cleanArray(v.regions).map(formatText).join(" • ");
+      const states = cleanArray(v.states).map(formatText).join(" • ");
+      const countries = cleanArray(v.countries).map(formatText).join(" • ");
+      const displayLocation = formatText(v.displayLocation || "");
+
+      const hasAny =
+        setTextOrHide(vendorServiceAreasEl, serviceAreas, "Service Areas: ") |
+        setTextOrHide(vendorRegionsEl, regions, "Regions: ") |
+        setTextOrHide(vendorStatesEl, states, "States: ") |
+        setTextOrHide(vendorCountriesEl, countries, "Countries: ") |
+        setTextOrHide(vendorDisplayLocationEl, displayLocation, "Location: ");
+
+      if (!hasAny) {
+        hideElement(locationsCard);
+      }
+    }
+
+    function renderEnquiries(v) {
+      const email = v.email || v.contactEmail || "";
+      const phone = v.phone || v.phoneNumber || v.mobile || "";
+      const website = v.website || "";
+
+      let hasAny = false;
+
+      if (email) {
+        enquiryEmailBtn.href = `mailto:${email}`;
+        showElement(enquiryEmailBtn, "inline-flex");
+        hasAny = true;
+      } else {
+        hideElement(enquiryEmailBtn);
+      }
+
+      if (phone) {
+        enquiryPhoneBtn.href = `tel:${phone}`;
+        enquiryPhoneBtn.textContent = phone;
+        showElement(enquiryPhoneBtn, "inline-flex");
+        hasAny = true;
+      } else {
+        hideElement(enquiryPhoneBtn);
+      }
+
+      if (website) {
+        enquiryWebsiteBtn.href = website;
+        showElement(enquiryWebsiteBtn, "inline-flex");
+        hasAny = true;
+      } else {
+        hideElement(enquiryWebsiteBtn);
+      }
+
+      if (v.enquiriesNote) {
+        vendorEnquiriesText.textContent = v.enquiriesNote;
+      }
+
+      if (!hasAny) {
+        hideElement(enquiriesCard);
+      }
+    }
+
+    function renderBooking(v) {
+      const bookingLink =
+        v.bookingLink ||
+        v.bookingUrl ||
+        v.calendly ||
+        v.calendlyUrl ||
+        v.calendarLink ||
+        v.calendarUrl ||
+        "";
+
+      if (!bookingLink) {
+        hideElement(bookingCard);
+        return;
+      }
+
+      const lower = bookingLink.toLowerCase();
+      const embeddable =
+        lower.includes("calendly.com") ||
+        lower.includes("tidycal.com");
+
+      if (embeddable) {
+        bookingFrame.src = bookingLink;
+        showElement(bookingEmbedWrap);
+        hideElement(bookingFallback);
+      } else {
+        hideElement(bookingEmbedWrap);
+        showElement(bookingFallback);
+        bookingFallbackBtn.href = bookingLink;
+      }
     }
 
     async function loadVendor() {
@@ -260,61 +687,64 @@
         const category = Array.isArray(v.categories) && v.categories.length
           ? v.categories.map(formatText).join(" • ")
           : formatText(v.category || "");
+        const tagline = formatText(v.tagline || "");
         const about = v.bio || v.shortBio || v.description || "Beautiful vendor profile coming soon.";
+
         const profileImage =
           v.profileImageUrl ||
           v.logoUrl ||
           v.coverImageUrl ||
           (Array.isArray(v.images) && v.images.length ? v.images[0] : "");
 
-        const serviceAreas = v.serviceAreas ? formatText(v.serviceAreas) : "";
-        const displayLocation = v.displayLocation ? formatText(v.displayLocation) : "";
-        const regions = cleanArray(v.regions).map(formatText).join(" • ");
-        const states = cleanArray(v.states).map(formatText).join(" • ");
-        const countries = cleanArray(v.countries).map(formatText).join(" • ");
+        const serviceAreas = formatText(v.serviceAreas || "");
+        const locationLine =
+          formatText(v.displayLocation || "") ||
+          cleanArray(v.regions).map(formatText).join(" • ") ||
+          cleanArray(v.states).map(formatText).join(" • ") ||
+          cleanArray(v.countries).map(formatText).join(" • ");
 
         businessNameEl.textContent = name;
-        sidebarBusinessNameEl.textContent = name;
-        vendorCategoryEl.textContent = category;
         vendorAboutEl.textContent = about;
+        sidebarBusinessNameEl.textContent = name;
+
+        setTextOrHide(vendorCategoryEl, category);
+        setTextOrHide(vendorTaglineEl, tagline);
+
+        setTextOrHide(sidebarCategoryEl, category);
+        setTextOrHide(sidebarLocationEl, locationLine);
+        setTextOrHide(sidebarServiceAreasEl, serviceAreas);
 
         if (profileImage) {
           profilePicEl.src = profileImage;
+          showElement(profilePicEl, "block");
         } else {
-          profilePicEl.style.display = "none";
-        }
-
-        const locationLine = displayLocation || regions || states || countries;
-        if (locationLine) {
-          sidebarLocationEl.textContent = locationLine;
-        } else {
-          sidebarLocationEl.style.display = "none";
-        }
-
-        if (serviceAreas) {
-          sidebarServiceAreasEl.textContent = serviceAreas;
-        } else {
-          sidebarServiceAreasEl.style.display = "none";
+          hideElement(profilePicEl);
         }
 
         renderGallery(v);
+        renderLocations(v);
+        renderEnquiries(v);
+        renderBooking(v);
 
         if (v.website) {
           websiteBtn.href = v.website;
+          showElement(websiteBtn, "inline-flex");
         } else {
-          websiteBtn.style.display = "none";
+          hideElement(websiteBtn);
         }
 
         if (v.email || v.contactEmail) {
-          emailBtn.href = "mailto:" + (v.email || v.contactEmail);
+          emailBtn.href = `mailto:${v.email || v.contactEmail}`;
+          showElement(emailBtn, "inline-flex");
         } else {
-          emailBtn.style.display = "none";
+          hideElement(emailBtn);
         }
 
         if (v.instagram) {
           instagramBtn.href = v.instagram;
+          showElement(instagramBtn, "inline-flex");
         } else {
-          instagramBtn.style.display = "none";
+          hideElement(instagramBtn);
         }
 
         updateFavoriteButton(vendorId);
@@ -348,6 +778,5 @@
 
     loadVendor();
   </script>
-
 </body>
 </html>
