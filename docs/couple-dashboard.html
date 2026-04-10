@@ -137,7 +137,8 @@
     .account-save-btn:hover,
     .todo-add-btn:hover,
     .todo-delete-btn:hover,
-    .calendar-nav:hover {
+    .calendar-nav:hover,
+    .favourite-filter:hover {
       transform: translateY(-1px);
     }
 
@@ -235,7 +236,8 @@
     .account-form input,
     .planning-form-grid input,
     .vision-form textarea,
-    .todo-input {
+    .todo-input,
+    .favourite-filter {
       width: 100%;
       border-radius: 18px;
       border: 1px solid rgba(212, 194, 186, 0.8);
@@ -249,7 +251,8 @@
     .account-form input:focus,
     .planning-form-grid input:focus,
     .vision-form textarea:focus,
-    .todo-input:focus {
+    .todo-input:focus,
+    .favourite-filter:focus {
       outline: none;
       border-color: #caaea2;
       box-shadow: 0 0 0 4px rgba(234, 215, 206, 0.45);
@@ -454,6 +457,11 @@
       transition: 0.18s ease;
     }
 
+    .favourites-topbar {
+      max-width: 360px;
+      margin: 0 auto 22px;
+    }
+
     .vendors-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -470,6 +478,21 @@
     .vendor-card-public:hover {
       transform: translateY(-3px);
       box-shadow: 0 18px 34px rgba(74, 49, 42, 0.08);
+    }
+
+    .vendor-card-image-wrap {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      background: #f4ece8;
+      overflow: hidden;
+      border-radius: 22px 22px 0 0;
+    }
+
+    .vendor-card-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
     .vendor-card-public-inner {
@@ -665,9 +688,9 @@
       opacity: 1;
     }
 
-    .board-overlay-top,
-    .board-overlay-bottom {
+    .board-overlay-top {
       position: absolute;
+      top: 12px;
       left: 12px;
       right: 12px;
       display: flex;
@@ -675,15 +698,6 @@
       justify-content: space-between;
       gap: 10px;
       pointer-events: none;
-    }
-
-    .board-overlay-top {
-      top: 12px;
-    }
-
-    .board-overlay-bottom {
-      bottom: 12px;
-      justify-content: flex-start;
     }
 
     .board-chip,
@@ -897,20 +911,9 @@
       </div>
     </section>
 
-    <section class="dashboard-card">
-      <h2>Your Favourite Vendors</h2>
-      <p class="dashboard-subtext">The vendors you save will appear here for easy viewing whenever you come back.</p>
-
-      <div id="favouritesGrid" class="vendors-grid"></div>
-
-      <p id="emptyFavourites" class="empty-message" style="display:none;">
-        You have not saved any vendors yet.
-      </p>
-    </section>
-
     <section class="dashboard-card" id="visionBoardSection">
       <h2>Your Inspiration Board</h2>
-      <p class="dashboard-subtext">Upload images, save visual ideas, and pin vendors you love into one simple mood board for your wedding planning.</p>
+      <p class="dashboard-subtext">Upload images, save visual ideas, and collect vendors you love into one simple mood board for your wedding planning.</p>
 
       <div class="vision-layout">
         <aside>
@@ -940,10 +943,27 @@
         <div>
           <div id="visionBoardGrid" class="vision-board-grid"></div>
           <p id="emptyVisionBoard" class="empty-message" style="display:none;">
-            Your board is empty for now. Upload your first inspiration image or pin a vendor from their page to get started.
+            Your board is empty for now. Upload your first inspiration image to get started.
           </p>
         </div>
       </div>
+    </section>
+
+    <section class="dashboard-card">
+      <h2>Your Favourite Vendors</h2>
+      <p class="dashboard-subtext">Browse your saved vendors by category whenever you come back.</p>
+
+      <div class="favourites-topbar">
+        <select id="favouriteCategoryFilter" class="favourite-filter">
+          <option value="all">All favourites</option>
+        </select>
+      </div>
+
+      <div id="favouritesGrid" class="vendors-grid"></div>
+
+      <p id="emptyFavourites" class="empty-message" style="display:none;">
+        You have not saved any vendors yet.
+      </p>
     </section>
   </main>
 
@@ -986,6 +1006,7 @@
 
     const favouritesGrid = document.getElementById('favouritesGrid');
     const emptyFavourites = document.getElementById('emptyFavourites');
+    const favouriteCategoryFilter = document.getElementById('favouriteCategoryFilter');
 
     const profilePhoto = document.getElementById('profilePhoto');
     const profilePlaceholder = document.getElementById('profilePlaceholder');
@@ -1025,6 +1046,7 @@
     let currentUserData = null;
     let calendarMonth = new Date().getMonth();
     let calendarYear = new Date().getFullYear();
+    let loadedFavouriteVendors = [];
 
     function prettifyCategory(category) {
       return String(category)
@@ -1128,6 +1150,24 @@
       return merged;
     }
 
+    function getVendorMainCategory(vendor) {
+      const categories = Array.isArray(vendor.categories) ? vendor.categories : [];
+      return categories.length ? prettifyCategory(categories[0]) : 'Other';
+    }
+
+    function populateFavouriteFilter(vendors) {
+      const categories = Array.from(new Set(vendors.map(getVendorMainCategory))).sort();
+
+      favouriteCategoryFilter.innerHTML = '<option value="all">All favourites</option>';
+
+      categories.forEach(category => {
+        const option = document.createElement('option');
+        option.value = category;
+        option.textContent = category;
+        favouriteCategoryFilter.appendChild(option);
+      });
+    }
+
     function createVendorCard(vendor) {
       const card = document.createElement('article');
       card.className = 'vendor-card-public';
@@ -1142,7 +1182,21 @@
           : vendor.bio
         : 'This vendor has not added their bio yet.';
 
+      const cardImage =
+        vendor.profileImageUrl ||
+        vendor.profileImage ||
+        vendor.coverImageUrl ||
+        vendor.coverImage ||
+        (Array.isArray(vendor.images) && vendor.images.length ? vendor.images[0] : '') ||
+        (Array.isArray(vendor.galleryImages) && vendor.galleryImages.length ? vendor.galleryImages[0] : '');
+
       card.innerHTML = `
+        ${cardImage ? `
+          <div class="vendor-card-image-wrap">
+            <img src="${safeText(cardImage)}" alt="${safeText(vendor.businessName || 'Vendor')}">
+          </div>
+        ` : ''}
+
         <div class="vendor-card-public-inner">
           <div class="vendor-card-top">
             <h3>${safeText(vendor.businessName || 'Vendor')}</h3>
@@ -1197,6 +1251,27 @@
       return card;
     }
 
+    function renderFavouriteGrid() {
+      const selectedCategory = favouriteCategoryFilter.value || 'all';
+
+      const filtered = selectedCategory === 'all'
+        ? loadedFavouriteVendors
+        : loadedFavouriteVendors.filter(vendor => getVendorMainCategory(vendor) === selectedCategory);
+
+      favouritesGrid.innerHTML = '';
+
+      if (!filtered.length) {
+        emptyFavourites.style.display = 'block';
+        return;
+      }
+
+      emptyFavourites.style.display = 'none';
+
+      filtered.forEach(vendor => {
+        favouritesGrid.appendChild(createVendorCard(vendor));
+      });
+    }
+
     function createBoardItem(docId, item) {
       const article = document.createElement('article');
       article.className = 'board-item';
@@ -1247,6 +1322,8 @@
       const favouriteVendorIds = getMergedFavoriteIds(userData);
 
       if (favouriteVendorIds.length === 0) {
+        loadedFavouriteVendors = [];
+        favouriteCategoryFilter.innerHTML = '<option value="all">All favourites</option>';
         emptyFavourites.style.display = 'block';
         favouritesGrid.innerHTML = '';
         return;
@@ -1255,49 +1332,22 @@
       const vendorPromises = favouriteVendorIds.map(id => getDoc(doc(db, 'vendors', id)));
       const vendorSnapshots = await Promise.all(vendorPromises);
 
-      const favouriteVendors = vendorSnapshots
+      loadedFavouriteVendors = vendorSnapshots
         .filter(snap => snap.exists())
         .map(snap => ({
           id: snap.id,
           ...snap.data()
         }));
 
-      if (favouriteVendors.length === 0) {
+      if (!loadedFavouriteVendors.length) {
+        favouriteCategoryFilter.innerHTML = '<option value="all">All favourites</option>';
         emptyFavourites.style.display = 'block';
         favouritesGrid.innerHTML = '';
         return;
       }
 
-      emptyFavourites.style.display = 'none';
-      favouritesGrid.innerHTML = '';
-
-      favouriteVendors.forEach(vendor => {
-        favouritesGrid.appendChild(createVendorCard(vendor));
-      });
-    }
-
-    async function importPendingVendorPin(user) {
-      const raw = sessionStorage.getItem('pendingVisionPin');
-      if (!raw) return;
-
-      try {
-        const pin = JSON.parse(raw);
-
-        await addDoc(collection(db, 'users', user.uid, 'visionBoard'), {
-          type: 'vendor',
-          vendorId: pin.vendorId || '',
-          title: pin.title || 'Vendor Pin',
-          subtitle: pin.subtitle || '',
-          imageUrl: pin.imageUrl || '',
-          linkUrl: pin.linkUrl || '',
-          caption: pin.caption || '',
-          createdAt: serverTimestamp()
-        });
-
-        sessionStorage.removeItem('pendingVisionPin');
-      } catch (error) {
-        console.error('Pending vendor pin import error:', error);
-      }
+      populateFavouriteFilter(loadedFavouriteVendors);
+      renderFavouriteGrid();
     }
 
     async function loadVisionBoard(user) {
@@ -1493,7 +1543,6 @@
         calendarMonth = baseDate.getMonth();
         calendarYear = baseDate.getFullYear();
 
-        await importPendingVendorPin(user);
         await syncFavoritesIfNeeded(user);
         await loadFavouriteVendors(currentUserData);
         await loadVisionBoard(user);
@@ -1628,6 +1677,8 @@
       todoStatus.textContent = 'To-do item added.';
       renderTodoList();
     });
+
+    favouriteCategoryFilter.addEventListener('change', renderFavouriteGrid);
 
     visionUploadForm.addEventListener('submit', async (e) => {
       e.preventDefault();
