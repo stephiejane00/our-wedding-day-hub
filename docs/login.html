@@ -5,6 +5,63 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Log In | Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    .reset-password-wrap {
+      margin-top: 16px;
+      padding: 18px;
+      border: 1px solid #eadfd6;
+      border-radius: 22px;
+      background: #fffaf8;
+      text-align: left;
+    }
+
+    .reset-password-wrap label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #3b2d25;
+    }
+
+    .reset-password-wrap input {
+      width: 100%;
+      border: 1px solid #eadfd6;
+      border-radius: 16px;
+      background: #fffdfb;
+      padding: 14px 16px;
+      font-size: 0.96rem;
+      color: #2d221c;
+      box-sizing: border-box;
+      margin-bottom: 12px;
+    }
+
+    .reset-password-wrap input:focus {
+      outline: none;
+      border-color: #d9c2b2;
+      box-shadow: 0 0 0 3px rgba(217, 194, 178, 0.18);
+      background: #ffffff;
+    }
+
+    .forgot-password-btn {
+      background: none;
+      border: none;
+      color: #8d7369;
+      text-decoration: underline;
+      cursor: pointer;
+      font: inherit;
+      padding: 0;
+    }
+
+    .forgot-password-btn:hover {
+      opacity: 0.8;
+    }
+
+    .reset-help-note {
+      margin: 12px 0 0;
+      color: #8c7f75;
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+  </style>
 </head>
 <body>
 
@@ -38,6 +95,26 @@
         </form>
 
         <p id="message" class="form-message"></p>
+
+        <div style="margin-top:14px; text-align:center;">
+          <button type="button" id="forgotPasswordBtn" class="forgot-password-btn">
+            Forgot your password?
+          </button>
+        </div>
+
+        <div id="resetPasswordBox" class="reset-password-wrap" style="display:none;">
+          <label for="resetEmail">Enter your email address and we’ll send you a reset link.</label>
+          <input type="email" id="resetEmail" placeholder="you@example.com">
+
+          <button type="button" id="sendResetBtn" class="pretty-button wide-glow">
+            Send Reset Email
+          </button>
+
+          <p id="resetMessage" class="form-message" style="margin-top:12px;"></p>
+          <p class="reset-help-note">
+            If the email does not appear straight away, it may take a few moments to arrive. It is also worth checking your junk or spam folder, just in case it has landed there.
+          </p>
+        </div>
 
         <p class="auth-footer-text">
           Don’t have an account yet? <a href="signup.html">Create one here</a>
@@ -77,8 +154,18 @@
       getDoc
     } from './firebase.js';
 
+    import {
+      sendPasswordResetEmail
+    } from 'https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js';
+
     const loginForm = document.getElementById('loginForm');
     const message = document.getElementById('message');
+
+    const forgotPasswordBtn = document.getElementById('forgotPasswordBtn');
+    const resetPasswordBox = document.getElementById('resetPasswordBox');
+    const resetEmail = document.getElementById('resetEmail');
+    const sendResetBtn = document.getElementById('sendResetBtn');
+    const resetMessage = document.getElementById('resetMessage');
 
     function getDashboardUrl(role) {
       if (role === 'couple') {
@@ -127,6 +214,33 @@
       } catch (error) {
         console.error(error);
         message.textContent = 'Login failed: ' + error.message;
+      }
+    });
+
+    forgotPasswordBtn.addEventListener('click', () => {
+      resetPasswordBox.style.display =
+        resetPasswordBox.style.display === 'none' ? 'block' : 'none';
+
+      resetMessage.textContent = '';
+      resetEmail.value = document.getElementById('email').value.trim();
+    });
+
+    sendResetBtn.addEventListener('click', async () => {
+      const emailValue = resetEmail.value.trim().toLowerCase();
+
+      resetMessage.textContent = '';
+
+      if (!emailValue) {
+        resetMessage.textContent = 'Please enter your email address.';
+        return;
+      }
+
+      try {
+        await sendPasswordResetEmail(auth, emailValue);
+        resetMessage.textContent = 'Your password reset email has been sent.';
+      } catch (error) {
+        console.error(error);
+        resetMessage.textContent = 'Could not send reset email: ' + error.message;
       }
     });
   </script>
