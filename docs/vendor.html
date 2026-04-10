@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -10,163 +9,441 @@
 
 <body>
 
-<div class="page-auth">
-  <a href="index.html" class="auth-link">Home</a>
-  <a href="login.html" id="loginLink" class="auth-link">Log In</a>
-  <a href="dashboard.html" id="dashboardLink" class="auth-link" style="display:none;">Dashboard</a>
-  <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
-</div>
-
-<header class="hero">
-  <img src="images/header4.png" alt="Our Wedding Day Hub" class="header-image">
-</header>
-
-<main class="vendor-page">
-  <div class="vendor-layout">
-
-```
-<section>
-  <div class="card content-card">
-    <h1 id="businessName">Loading vendor...</h1>
-    <p id="vendorCategory"></p>
-    <p id="vendorAbout"></p>
-  </div>
-</section>
-
-<aside class="card sidebar-card">
-
-  <div class="profile-pic-wrap">
-    <img id="profilePic" class="profile-pic" src="">
+  <div class="page-auth">
+    <a href="index.html" class="auth-link">Home</a>
+    <a href="login.html" id="loginLink" class="auth-link">Log In</a>
+    <a href="dashboard.html" id="dashboardLink" class="auth-link" style="display:none;">Dashboard</a>
+    <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
   </div>
 
-  <h2 id="sidebarBusinessName">Loading vendor...</h2>
+  <header class="hero">
+    <img src="images/header4.png" alt="Our Wedding Day Hub" class="header-image">
+  </header>
 
-  <!-- ONLY KEEP THIS BUTTON -->
-  <button id="favoriteBtn" class="favorite-btn">♡ Save to favourites</button>
+  <main class="vendor-page">
+    <div class="vendor-layout">
 
-  <div class="contact-stack">
-    <a id="websiteBtn" class="stack-btn" target="_blank">Website</a>
-    <a id="emailBtn" class="stack-btn">Contact Vendor</a>
-    <a id="instagramBtn" class="stack-btn" target="_blank">Instagram</a>
-  </div>
+      <section class="vendor-main">
 
-  <div id="statusMessage"></div>
+        <div class="card gallery-card">
+          <img id="mainImage" class="main-image" src="images/header4.png" alt="Vendor gallery image">
+          <div id="thumbnailRow" class="thumbnail-row"></div>
+        </div>
 
-</aside>
-```
+        <div class="card content-card">
+          <h1 id="businessName">Loading vendor...</h1>
+          <p id="vendorCategory"></p>
+          <p id="vendorTagline"></p>
+          <p id="vendorAbout"></p>
+        </div>
 
-  </div>
-</main>
+        <div class="card locations-card" id="locationsCard">
+          <h2>Locations</h2>
+          <p id="vendorServiceAreas"></p>
+          <p id="vendorRegions"></p>
+          <p id="vendorStates"></p>
+          <p id="vendorCountries"></p>
+          <p id="vendorDisplayLocation"></p>
+        </div>
 
-<footer>
-  © Our Wedding Day Hub
-</footer>
+        <div class="card enquiries-card" id="enquiriesCard">
+          <h2>Enquiries</h2>
+          <p id="vendorEnquiriesText">Get in touch with this vendor using the details below.</p>
+          <div class="contact-stack">
+            <a id="enquiryEmailBtn" class="stack-btn">Email Enquiry</a>
+            <a id="enquiryPhoneBtn" class="stack-btn">Call / Phone</a>
+            <a id="enquiryWebsiteBtn" class="stack-btn" target="_blank" rel="noopener noreferrer">Visit Website</a>
+          </div>
+        </div>
 
-<script type="module">
-import {
-  db,
-  auth,
-  doc,
-  getDoc
-} from "./firebase.js";
+        <div class="card booking-card" id="bookingCard">
+          <h2>Booking Calendar</h2>
+          <p id="bookingIntro">Check availability or make a booking enquiry below.</p>
+          <div id="bookingEmbedWrap">
+            <iframe
+              id="bookingFrame"
+              title="Vendor booking calendar"
+              src=""
+              width="100%"
+              height="700"
+              frameborder="0"
+              loading="lazy"
+              style="border:0;">
+            </iframe>
+          </div>
+          <div id="bookingFallback" style="display:none;">
+            <p>This vendor has not added a live booking calendar yet.</p>
+            <a id="bookingFallbackBtn" class="stack-btn" target="_blank" rel="noopener noreferrer">Open Booking Link</a>
+          </div>
+        </div>
 
-const params = new URLSearchParams(window.location.search);
-const vendorId = params.get("id");
+      </section>
 
-const businessNameEl = document.getElementById("businessName");
-const sidebarBusinessNameEl = document.getElementById("sidebarBusinessName");
-const vendorCategoryEl = document.getElementById("vendorCategory");
-const vendorAboutEl = document.getElementById("vendorAbout");
-const profilePicEl = document.getElementById("profilePic");
+      <aside class="card sidebar-card">
 
-const websiteBtn = document.getElementById("websiteBtn");
-const emailBtn = document.getElementById("emailBtn");
-const instagramBtn = document.getElementById("instagramBtn");
+        <div class="profile-pic-wrap">
+          <img id="profilePic" class="profile-pic" src="" alt="Vendor profile image">
+        </div>
 
-const favoriteBtn = document.getElementById("favoriteBtn");
-const statusMessage = document.getElementById("statusMessage");
+        <h2 id="sidebarBusinessName">Loading vendor...</h2>
 
-const favoritesKey = "favoriteVendors";
+        <button id="favoriteBtn" class="favorite-btn">♡ Save to favourites</button>
 
-function getFavorites() {
-  return JSON.parse(localStorage.getItem(favoritesKey)) || [];
-}
+        <div class="contact-stack">
+          <a id="websiteBtn" class="stack-btn" target="_blank" rel="noopener noreferrer">Website</a>
+          <a id="emailBtn" class="stack-btn">Contact Vendor</a>
+          <a id="instagramBtn" class="stack-btn" target="_blank" rel="noopener noreferrer">Instagram</a>
+        </div>
 
-function saveFavorites(favs) {
-  localStorage.setItem(favoritesKey, JSON.stringify(favs));
-}
+        <div id="statusMessage"></div>
 
-function updateFavoriteButton(id) {
-  const favs = getFavorites();
-  if (favs.includes(id)) {
-    favoriteBtn.innerHTML = "♥ Saved";
-    favoriteBtn.classList.add("saved");
-  } else {
-    favoriteBtn.innerHTML = "♡ Save to favourites";
-    favoriteBtn.classList.remove("saved");
-  }
-}
+      </aside>
 
-favoriteBtn.addEventListener("click", () => {
-  let favs = getFavorites();
+    </div>
+  </main>
 
-  if (favs.includes(vendorId)) {
-    favs = favs.filter(id => id !== vendorId);
-  } else {
-    favs.push(vendorId);
-  }
+  <footer>
+    © Our Wedding Day Hub
+  </footer>
 
-  saveFavorites(favs);
-  updateFavoriteButton(vendorId);
-});
+  <script type="module">
+    import {
+      db,
+      auth,
+      doc,
+      getDoc,
+      onAuthStateChanged,
+      signOut
+    } from "./firebase.js";
 
-async function loadVendor() {
-  if (!vendorId) return;
+    const params = new URLSearchParams(window.location.search);
+    const vendorId = params.get("id");
 
-  const snap = await getDoc(doc(db, "vendors", vendorId));
+    const businessNameEl = document.getElementById("businessName");
+    const sidebarBusinessNameEl = document.getElementById("sidebarBusinessName");
+    const vendorCategoryEl = document.getElementById("vendorCategory");
+    const vendorTaglineEl = document.getElementById("vendorTagline");
+    const vendorAboutEl = document.getElementById("vendorAbout");
+    const profilePicEl = document.getElementById("profilePic");
 
-  if (!snap.exists()) {
-    businessNameEl.textContent = "Vendor not found";
-    return;
-  }
+    const mainImage = document.getElementById("mainImage");
+    const thumbnailRow = document.getElementById("thumbnailRow");
 
-  const v = snap.data();
+    const vendorServiceAreasEl = document.getElementById("vendorServiceAreas");
+    const vendorRegionsEl = document.getElementById("vendorRegions");
+    const vendorStatesEl = document.getElementById("vendorStates");
+    const vendorCountriesEl = document.getElementById("vendorCountries");
+    const vendorDisplayLocationEl = document.getElementById("vendorDisplayLocation");
+    const locationsCard = document.getElementById("locationsCard");
 
-  const name = v.businessName || "Vendor";
-  const category = v.category || "";
-  const about = v.bio || "";
-  const image = v.profileImageUrl || "";
+    const enquiriesCard = document.getElementById("enquiriesCard");
+    const vendorEnquiriesText = document.getElementById("vendorEnquiriesText");
+    const enquiryEmailBtn = document.getElementById("enquiryEmailBtn");
+    const enquiryPhoneBtn = document.getElementById("enquiryPhoneBtn");
+    const enquiryWebsiteBtn = document.getElementById("enquiryWebsiteBtn");
 
-  businessNameEl.textContent = name;
-  sidebarBusinessNameEl.textContent = name;
-  vendorCategoryEl.textContent = category;
-  vendorAboutEl.textContent = about;
+    const bookingCard = document.getElementById("bookingCard");
+    const bookingFrame = document.getElementById("bookingFrame");
+    const bookingEmbedWrap = document.getElementById("bookingEmbedWrap");
+    const bookingFallback = document.getElementById("bookingFallback");
+    const bookingFallbackBtn = document.getElementById("bookingFallbackBtn");
 
-  if (image) profilePicEl.src = image;
+    const websiteBtn = document.getElementById("websiteBtn");
+    const emailBtn = document.getElementById("emailBtn");
+    const instagramBtn = document.getElementById("instagramBtn");
 
-  if (v.website) {
-    websiteBtn.href = v.website;
-  } else {
-    websiteBtn.style.display = "none";
-  }
+    const favoriteBtn = document.getElementById("favoriteBtn");
+    const statusMessage = document.getElementById("statusMessage");
 
-  if (v.email) {
-    emailBtn.href = "mailto:" + v.email;
-  } else {
-    emailBtn.style.display = "none";
-  }
+    const loginLink = document.getElementById("loginLink");
+    const dashboardLink = document.getElementById("dashboardLink");
+    const logoutLink = document.getElementById("logoutLink");
 
-  if (v.instagram) {
-    instagramBtn.href = v.instagram;
-  } else {
-    instagramBtn.style.display = "none";
-  }
+    const favoritesKey = "favoriteVendors";
 
-  updateFavoriteButton(vendorId);
-}
+    function cleanArray(arr) {
+      return Array.isArray(arr) ? arr.filter(Boolean) : [];
+    }
 
-loadVendor();
-</script>
+    function formatText(value) {
+      if (!value) return "";
+      return String(value)
+        .replace(/_/g, " ")
+        .replace(/-/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+    }
+
+    function titleCase(value) {
+      return formatText(value).replace(/\b\w/g, char => char.toUpperCase());
+    }
+
+    function getFavorites() {
+      return JSON.parse(localStorage.getItem(favoritesKey)) || [];
+    }
+
+    function saveFavorites(favs) {
+      localStorage.setItem(favoritesKey, JSON.stringify(favs));
+    }
+
+    function updateFavoriteButton(id) {
+      const favs = getFavorites();
+      if (favs.includes(id)) {
+        favoriteBtn.innerHTML = "♥ Saved";
+        favoriteBtn.classList.add("saved");
+      } else {
+        favoriteBtn.innerHTML = "♡ Save to favourites";
+        favoriteBtn.classList.remove("saved");
+      }
+    }
+
+    favoriteBtn.addEventListener("click", () => {
+      if (!vendorId) return;
+
+      let favs = getFavorites();
+
+      if (favs.includes(vendorId)) {
+        favs = favs.filter(id => id !== vendorId);
+        statusMessage.textContent = "Removed from favourites.";
+      } else {
+        favs.push(vendorId);
+        statusMessage.textContent = "Saved to favourites.";
+      }
+
+      saveFavorites(favs);
+      updateFavoriteButton(vendorId);
+    });
+
+    function hideIfEmpty(el, value, prefix = "") {
+      if (!value) {
+        el.style.display = "none";
+        return;
+      }
+      el.style.display = "";
+      el.textContent = prefix ? `${prefix}${value}` : value;
+    }
+
+    function renderGallery(vendor) {
+      const galleryImages = [];
+
+      if (vendor.coverImageUrl && String(vendor.coverImageUrl).trim()) {
+        galleryImages.push(vendor.coverImageUrl);
+      }
+
+      if (Array.isArray(vendor.images) && vendor.images.length) {
+        vendor.images.forEach((img) => {
+          if (img && !galleryImages.includes(img)) {
+            galleryImages.push(img);
+          }
+        });
+      }
+
+      if (vendor.profileImageUrl && String(vendor.profileImageUrl).trim() && !galleryImages.includes(vendor.profileImageUrl)) {
+        galleryImages.push(vendor.profileImageUrl);
+      }
+
+      if (!galleryImages.length) {
+        galleryImages.push("images/header4.png");
+      }
+
+      mainImage.src = galleryImages[0];
+      thumbnailRow.innerHTML = "";
+
+      galleryImages.forEach((img, index) => {
+        const thumb = document.createElement("img");
+        thumb.src = img;
+        thumb.className = "thumbnail";
+        thumb.alt = `Gallery image ${index + 1}`;
+
+        thumb.addEventListener("click", () => {
+          mainImage.src = img;
+        });
+
+        thumbnailRow.appendChild(thumb);
+      });
+    }
+
+    function renderLocations(vendor) {
+      const serviceAreas = formatText(vendor.serviceAreas || "");
+      const regions = cleanArray(vendor.regions).map(titleCase).join(" • ");
+      const states = cleanArray(vendor.states).map(titleCase).join(" • ");
+      const countries = cleanArray(vendor.countries).map(titleCase).join(" • ");
+      const displayLocation = titleCase(vendor.displayLocation || "");
+
+      hideIfEmpty(vendorServiceAreasEl, serviceAreas, "Service Areas: ");
+      hideIfEmpty(vendorRegionsEl, regions, "Regions: ");
+      hideIfEmpty(vendorStatesEl, states, "States: ");
+      hideIfEmpty(vendorCountriesEl, countries, "Countries: ");
+      hideIfEmpty(vendorDisplayLocationEl, displayLocation, "Location: ");
+
+      const hasAnyLocation =
+        serviceAreas || regions || states || countries || displayLocation;
+
+      if (!hasAnyLocation) {
+        locationsCard.style.display = "none";
+      }
+    }
+
+    function renderEnquiries(vendor) {
+      const enquiryEmail = vendor.email || vendor.contactEmail || "";
+      const phone = vendor.phone || vendor.phoneNumber || vendor.mobile || "";
+      const website = vendor.website || "";
+
+      if (enquiryEmail) {
+        enquiryEmailBtn.href = "mailto:" + enquiryEmail;
+      } else {
+        enquiryEmailBtn.style.display = "none";
+      }
+
+      if (phone) {
+        enquiryPhoneBtn.href = "tel:" + phone;
+        enquiryPhoneBtn.textContent = phone;
+      } else {
+        enquiryPhoneBtn.style.display = "none";
+      }
+
+      if (website) {
+        enquiryWebsiteBtn.href = website;
+      } else {
+        enquiryWebsiteBtn.style.display = "none";
+      }
+
+      const hasEnquiryOption = enquiryEmail || phone || website;
+
+      if (!hasEnquiryOption) {
+        enquiriesCard.style.display = "none";
+      } else if (vendor.enquiriesNote) {
+        vendorEnquiriesText.textContent = vendor.enquiriesNote;
+      }
+    }
+
+    function renderBooking(vendor) {
+      const bookingLink =
+        vendor.bookingLink ||
+        vendor.bookingUrl ||
+        vendor.calendly ||
+        vendor.calendlyUrl ||
+        vendor.calendarLink ||
+        vendor.calendarUrl ||
+        "";
+
+      if (!bookingLink) {
+        bookingCard.style.display = "none";
+        return;
+      }
+
+      const lowerLink = bookingLink.toLowerCase();
+      const embeddable =
+        lowerLink.includes("calendly.com") ||
+        lowerLink.includes("tidycal.com");
+
+      if (embeddable) {
+        bookingFrame.src = bookingLink;
+        bookingEmbedWrap.style.display = "";
+        bookingFallback.style.display = "none";
+      } else {
+        bookingEmbedWrap.style.display = "none";
+        bookingFallback.style.display = "";
+        bookingFallbackBtn.href = bookingLink;
+      }
+    }
+
+    async function loadVendor() {
+      if (!vendorId) {
+        businessNameEl.textContent = "Vendor not found";
+        sidebarBusinessNameEl.textContent = "Vendor not found";
+        return;
+      }
+
+      try {
+        const snap = await getDoc(doc(db, "vendors", vendorId));
+
+        if (!snap.exists()) {
+          businessNameEl.textContent = "Vendor not found";
+          sidebarBusinessNameEl.textContent = "Vendor not found";
+          return;
+        }
+
+        const v = snap.data();
+
+        const name = v.businessName || "Vendor";
+        const categories = Array.isArray(v.categories) && v.categories.length
+          ? v.categories.map(titleCase).join(" • ")
+          : titleCase(v.category || "");
+        const tagline = v.tagline || "";
+        const about = v.bio || v.shortBio || v.description || "Beautiful vendor profile coming soon.";
+        const profileImage =
+          v.profileImageUrl ||
+          v.logoUrl ||
+          v.coverImageUrl ||
+          (Array.isArray(v.images) && v.images.length ? v.images[0] : "");
+
+        businessNameEl.textContent = name;
+        sidebarBusinessNameEl.textContent = name;
+        vendorCategoryEl.textContent = categories;
+        hideIfEmpty(vendorTaglineEl, tagline);
+        vendorAboutEl.textContent = about;
+
+        if (profileImage) {
+          profilePicEl.src = profileImage;
+        } else {
+          profilePicEl.style.display = "none";
+        }
+
+        renderGallery(v);
+        renderLocations(v);
+        renderEnquiries(v);
+        renderBooking(v);
+
+        if (v.website) {
+          websiteBtn.href = v.website;
+        } else {
+          websiteBtn.style.display = "none";
+        }
+
+        if (v.email || v.contactEmail) {
+          emailBtn.href = "mailto:" + (v.email || v.contactEmail);
+        } else {
+          emailBtn.style.display = "none";
+        }
+
+        if (v.instagram) {
+          instagramBtn.href = v.instagram;
+        } else {
+          instagramBtn.style.display = "none";
+        }
+
+        updateFavoriteButton(vendorId);
+      } catch (error) {
+        console.error("Error loading vendor:", error);
+        businessNameEl.textContent = "There was a problem loading this vendor";
+        sidebarBusinessNameEl.textContent = "Vendor profile";
+      }
+    }
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        loginLink.style.display = "none";
+        dashboardLink.style.display = "inline-block";
+        logoutLink.style.display = "inline-block";
+      } else {
+        loginLink.style.display = "inline-block";
+        dashboardLink.style.display = "none";
+        logoutLink.style.display = "none";
+      }
+    });
+
+    logoutLink.addEventListener("click", async () => {
+      try {
+        await signOut(auth);
+        window.location.href = "index.html";
+      } catch (error) {
+        console.error("Logout failed:", error);
+      }
+    });
+
+    loadVendor();
+  </script>
 
 </body>
 </html>
