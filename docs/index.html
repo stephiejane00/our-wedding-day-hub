@@ -6,20 +6,20 @@
   <title>Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    .vendors-carousel-section {
+    .partners-carousel-section {
       width: min(1120px, calc(100% - 32px));
       margin: 0 auto;
       padding-bottom: 10px;
     }
 
-    .vendors-carousel-shell {
+    .partners-carousel-shell {
       display: flex;
       align-items: center;
       gap: 16px;
       margin-top: 10px;
     }
 
-    .vendors-arrow {
+    .partners-arrow {
       width: 48px;
       height: 48px;
       border: none;
@@ -36,30 +36,30 @@
       transition: transform 0.2s ease, opacity 0.2s ease, background 0.2s ease;
     }
 
-    .vendors-arrow:hover {
+    .partners-arrow:hover {
       transform: translateY(-1px);
       background: #e2cec0;
     }
 
-    .vendors-arrow:disabled {
+    .partners-arrow:disabled {
       opacity: 0.45;
       cursor: default;
       transform: none;
     }
 
-    .vendors-carousel-viewport {
+    .partners-carousel-viewport {
       flex: 1;
       overflow: hidden;
     }
 
-    .vendors-grid {
+    .partners-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 20px;
       align-items: stretch;
     }
 
-    .vendor-card {
+    .partner-card {
       background: #fff;
       border-radius: 22px;
       padding: 18px;
@@ -69,12 +69,12 @@
       min-height: 100%;
     }
 
-    .vendor-card:hover {
+    .partner-card:hover {
       transform: translateY(-3px);
       box-shadow: 0 14px 34px rgba(0, 0, 0, 0.08);
     }
 
-    .vendor-card img {
+    .partner-card img {
       width: 100%;
       aspect-ratio: 1 / 0.8;
       object-fit: cover;
@@ -83,24 +83,24 @@
       margin-bottom: 14px;
     }
 
-    .vendor-card h3 {
+    .partner-card h3 {
       margin: 0 0 8px;
     }
 
-    .vendor-card p {
+    .partner-card p {
       margin: 0 0 10px;
     }
 
-    .vendor-category-line,
-    .vendor-location-line {
+    .partner-category-line,
+    .partner-location-line {
       color: #7d6f67;
     }
 
-    .vendor-card-actions {
+    .partner-card-actions {
       margin-top: 14px;
     }
 
-    .vendor-profile-btn {
+    .partner-profile-btn {
       border: none;
       border-radius: 999px;
       background: #ead8cb;
@@ -112,11 +112,11 @@
       transition: background 0.2s ease;
     }
 
-    .vendor-profile-btn:hover {
+    .partner-profile-btn:hover {
       background: #e2cec0;
     }
 
-    .vendors-dots {
+    .partners-dots {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -125,7 +125,7 @@
       min-height: 14px;
     }
 
-    .vendors-dot {
+    .partners-dot {
       width: 10px;
       height: 10px;
       border-radius: 999px;
@@ -136,7 +136,7 @@
       transition: transform 0.2s ease, background 0.2s ease;
     }
 
-    .vendors-dot.active {
+    .partners-dot.active {
       background: #b79d8d;
       transform: scale(1.15);
     }
@@ -147,21 +147,21 @@
     }
 
     @media (max-width: 980px) {
-      .vendors-grid {
+      .partners-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
 
     @media (max-width: 700px) {
-      .vendors-carousel-shell {
+      .partners-carousel-shell {
         gap: 10px;
       }
 
-      .vendors-grid {
+      .partners-grid {
         grid-template-columns: 1fr;
       }
 
-      .vendors-arrow {
+      .partners-arrow {
         width: 42px;
         height: 42px;
         flex-basis: 42px;
@@ -170,11 +170,11 @@
     }
 
     @media (max-width: 520px) {
-      .vendors-carousel-shell {
+      .partners-carousel-shell {
         align-items: stretch;
       }
 
-      .vendors-arrow {
+      .partners-arrow {
         align-self: center;
       }
     }
@@ -191,37 +191,37 @@
 
   <header class="hero">
     <img src="images/1.png" alt="Our Wedding Day Hub" class="header-image">
-    <p class="hero-subheading">Connect with trusted wedding vendors in your area, without the overwhelm.</p>
+    <p class="hero-subheading">Connect with trusted wedding partners in your area, without the overwhelm.</p>
   </header>
 
   <main>
     <section class="search-wrap">
       <div class="search-bar">
-        <input type="text" id="searchInput" placeholder="Search by vendor, location, category...">
+        <input type="text" id="searchInput" placeholder="Search by partner, location, category...">
         <button type="button" id="searchBtn">Search</button>
       </div>
     </section>
 
-    <section class="vendors-carousel-section">
-      <div class="vendors-carousel-shell">
-        <button type="button" id="prevVendorsBtn" class="vendors-arrow" aria-label="Previous vendors">&#8249;</button>
+    <section class="partners-carousel-section">
+      <div class="partners-carousel-shell">
+        <button type="button" id="prevpartnersBtn" class="partners-arrow" aria-label="Previous partners">&#8249;</button>
 
-        <div class="vendors-carousel-viewport">
-          <section id="vendorsGrid" class="vendors-grid"></section>
+        <div class="partners-carousel-viewport">
+          <section id="partnersGrid" class="partners-grid"></section>
         </div>
 
-        <button type="button" id="nextVendorsBtn" class="vendors-arrow" aria-label="Next vendors">&#8250;</button>
+        <button type="button" id="nextpartnersBtn" class="partners-arrow" aria-label="Next partners">&#8250;</button>
       </div>
 
-      <div id="vendorsDots" class="vendors-dots"></div>
-      <p class="vendors-growing-note">We’re growing, and new vendors are joining. Be one of the first to be seen.</p>
-      <p id="emptyMessage" class="empty-message" style="display:none;">No live vendors found yet.</p>
+      <div id="partnersDots" class="partners-dots"></div>
+      <p class="partners-growing-note">We’re growing, and new partners are joining. Be one of the first to be seen.</p>
+      <p id="emptyMessage" class="empty-message" style="display:none;">No live partners found yet.</p>
     </section>
   </main>
 
    <footer class="site-footer">
     <div class="footer-content">
-      <p class="footer-eyebrow">wedding vendor directory</p>
+      <p class="footer-eyebrow">wedding partner directory</p>
       <h2 class="footer-title">Everything you need for your wedding, all in one place.</h2>
       <p class="footer-text">
         Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.
@@ -252,21 +252,21 @@
       signOut
     } from "./firebase.js";
 
-    const vendorsGrid = document.getElementById("vendorsGrid");
+    const partnersGrid = document.getElementById("partnersGrid");
     const emptyMessage = document.getElementById("emptyMessage");
     const searchInput = document.getElementById("searchInput");
     const searchBtn = document.getElementById("searchBtn");
-    const prevVendorsBtn = document.getElementById("prevVendorsBtn");
-    const nextVendorsBtn = document.getElementById("nextVendorsBtn");
-    const vendorsDots = document.getElementById("vendorsDots");
+    const prevpartnersBtn = document.getElementById("prevpartnersBtn");
+    const nextpartnersBtn = document.getElementById("nextpartnersBtn");
+    const partnersDots = document.getElementById("partnersDots");
 
     const joinLink = document.getElementById("joinLink");
     const loginLink = document.getElementById("loginLink");
     const dashboardLink = document.getElementById("dashboardLink");
     const logoutLink = document.getElementById("logoutLink");
 
-    let allVendors = [];
-    let filteredVendors = [];
+    let allpartners = [];
+    let filteredpartners = [];
     let currentSlide = 0;
 
     function cleanArray(arr) {
@@ -283,32 +283,32 @@
         .replace(/\b\w/g, char => char.toUpperCase());
     }
 
-    function getCardImage(vendor) {
-      if (vendor.coverImageUrl && String(vendor.coverImageUrl).trim()) return vendor.coverImageUrl;
-      if (Array.isArray(vendor.images) && vendor.images.length > 0) return vendor.images[0];
-      if (vendor.profileImageUrl && String(vendor.profileImageUrl).trim()) return vendor.profileImageUrl;
-      if (vendor.logoUrl && String(vendor.logoUrl).trim()) return vendor.logoUrl;
-      if (vendor.coverImage && String(vendor.coverImage).trim()) return vendor.coverImage;
-      if (vendor.profileImage && String(vendor.profileImage).trim()) return vendor.profileImage;
+    function getCardImage(partner) {
+      if (partner.coverImageUrl && String(partner.coverImageUrl).trim()) return partner.coverImageUrl;
+      if (Array.isArray(partner.images) && partner.images.length > 0) return partner.images[0];
+      if (partner.profileImageUrl && String(partner.profileImageUrl).trim()) return partner.profileImageUrl;
+      if (partner.logoUrl && String(partner.logoUrl).trim()) return partner.logoUrl;
+      if (partner.coverImage && String(partner.coverImage).trim()) return partner.coverImage;
+      if (partner.profileImage && String(partner.profileImage).trim()) return partner.profileImage;
       return "images/header4.png";
     }
 
-    function getShortBio(vendor) {
+    function getShortBio(partner) {
       const source =
-        (vendor.shortBio || "").trim() ||
-        (vendor.tagline || "").trim() ||
-        (vendor.bio || "").trim() ||
-        (vendor.description || "").trim();
+        (partner.shortBio || "").trim() ||
+        (partner.tagline || "").trim() ||
+        (partner.bio || "").trim() ||
+        (partner.description || "").trim();
 
-      if (!source) return "Beautiful vendor profile coming soon.";
+      if (!source) return "Beautiful partner profile coming soon.";
       return source.length > 120 ? source.slice(0, 120).trim() + "..." : source;
     }
 
-    function getCategoryLine(vendor) {
-      const categories = Array.isArray(vendor.categories) && vendor.categories.length
-        ? vendor.categories
-        : vendor.category
-          ? [vendor.category]
+    function getCategoryLine(partner) {
+      const categories = Array.isArray(partner.categories) && partner.categories.length
+        ? partner.categories
+        : partner.category
+          ? [partner.category]
           : [];
 
       const cleaned = cleanArray(categories);
@@ -316,52 +316,52 @@
       return cleaned.slice(0, 3).map(formatText).join(" • ");
     }
 
-    function getLocationLine(vendor) {
-      if (vendor.serviceAreas && String(vendor.serviceAreas).trim()) {
-        return formatText(vendor.serviceAreas.trim());
+    function getLocationLine(partner) {
+      if (partner.serviceAreas && String(partner.serviceAreas).trim()) {
+        return formatText(partner.serviceAreas.trim());
       }
 
-      const regions = cleanArray(vendor.regions);
+      const regions = cleanArray(partner.regions);
       if (regions.length) return regions.slice(0, 3).map(formatText).join(" • ");
 
-      const states = cleanArray(vendor.states);
+      const states = cleanArray(partner.states);
       if (states.length) return states.map(formatText).join(" • ");
 
-      const countries = cleanArray(vendor.countries);
+      const countries = cleanArray(partner.countries);
       if (countries.length) return countries.map(formatText).join(" • ");
 
-      if (vendor.displayLocation && String(vendor.displayLocation).trim()) {
-        return formatText(vendor.displayLocation.trim());
+      if (partner.displayLocation && String(partner.displayLocation).trim()) {
+        return formatText(partner.displayLocation.trim());
       }
 
       return "";
     }
 
-    function getSearchText(vendor) {
+    function getSearchText(partner) {
       return `
-        ${vendor.businessName || ""}
-        ${vendor.bio || ""}
-        ${vendor.shortBio || ""}
-        ${vendor.instagram || ""}
-        ${vendor.facebook || ""}
-        ${vendor.tiktok || ""}
-        ${vendor.youtube || ""}
-        ${vendor.pinterest || ""}
-        ${vendor.linkedin || ""}
-        ${vendor.x || ""}
-        ${vendor.website || ""}
-        ${vendor.serviceAreas || ""}
-        ${vendor.displayLocation || ""}
-        ${cleanArray(vendor.categories).join(" ")}
-        ${cleanArray(vendor.regions).join(" ")}
-        ${cleanArray(vendor.states).join(" ")}
-        ${cleanArray(vendor.countries).join(" ")}
-        ${cleanArray(vendor.styleTags).join(" ")}
+        ${partner.businessName || ""}
+        ${partner.bio || ""}
+        ${partner.shortBio || ""}
+        ${partner.instagram || ""}
+        ${partner.facebook || ""}
+        ${partner.tiktok || ""}
+        ${partner.youtube || ""}
+        ${partner.pinterest || ""}
+        ${partner.linkedin || ""}
+        ${partner.x || ""}
+        ${partner.website || ""}
+        ${partner.serviceAreas || ""}
+        ${partner.displayLocation || ""}
+        ${cleanArray(partner.categories).join(" ")}
+        ${cleanArray(partner.regions).join(" ")}
+        ${cleanArray(partner.states).join(" ")}
+        ${cleanArray(partner.countries).join(" ")}
+        ${cleanArray(partner.styleTags).join(" ")}
       `.toLowerCase();
     }
 
-    function sortVendors(vendors) {
-      return vendors.sort((a, b) => {
+    function sortpartners(partners) {
+      return partners.sort((a, b) => {
         const aPriority = a.priorityPlacement === true ? 1 : 0;
         const bPriority = b.priorityPlacement === true ? 1 : 0;
         if (bPriority !== aPriority) return bPriority - aPriority;
@@ -376,12 +376,12 @@
       });
     }
 
-    function goToVendor(vendor) {
-      sessionStorage.setItem("selectedVendorId", vendor.docId);
-      if (vendor.uid) {
-        sessionStorage.setItem("selectedVendorUid", vendor.uid);
+    function goToPartner(partner) {
+      sessionStorage.setItem("selectedPartnerId", partner.docId);
+      if (partner.uid) {
+        sessionStorage.setItem("selectedPartnerUid", partner.uid);
       }
-      window.location.href = `vendor.html?id=${vendor.docId}`;
+      window.location.href = `partner.html?id=${partner.docId}`;
     }
 
     function getCardsPerSlide() {
@@ -390,57 +390,57 @@
       return 3;
     }
 
-    function getTotalSlides(vendors) {
+    function getTotalSlides(partners) {
       const cardsPerSlide = getCardsPerSlide();
-      return Math.max(1, Math.ceil(vendors.length / cardsPerSlide));
+      return Math.max(1, Math.ceil(partners.length / cardsPerSlide));
     }
 
-    function updateArrowState(vendors) {
-      const totalSlides = getTotalSlides(vendors);
-      const disableControls = vendors.length <= getCardsPerSlide();
+    function updateArrowState(partners) {
+      const totalSlides = getTotalSlides(partners);
+      const disableControls = partners.length <= getCardsPerSlide();
 
-      prevVendorsBtn.disabled = disableControls || currentSlide <= 0;
-      nextVendorsBtn.disabled = disableControls || currentSlide >= totalSlides - 1;
+      prevpartnersBtn.disabled = disableControls || currentSlide <= 0;
+      nextpartnersBtn.disabled = disableControls || currentSlide >= totalSlides - 1;
     }
 
-    function renderDots(vendors) {
-      vendorsDots.innerHTML = "";
+    function renderDots(partners) {
+      partnersDots.innerHTML = "";
 
-      const totalSlides = getTotalSlides(vendors);
-      if (vendors.length <= getCardsPerSlide()) return;
+      const totalSlides = getTotalSlides(partners);
+      if (partners.length <= getCardsPerSlide()) return;
 
       for (let i = 0; i < totalSlides; i++) {
         const dot = document.createElement("button");
         dot.type = "button";
-        dot.className = `vendors-dot ${i === currentSlide ? "active" : ""}`;
-        dot.setAttribute("aria-label", `Go to vendor slide ${i + 1}`);
+        dot.className = `partners-dot ${i === currentSlide ? "active" : ""}`;
+        dot.setAttribute("aria-label", `Go to partner slide ${i + 1}`);
 
         dot.addEventListener("click", () => {
           currentSlide = i;
-          renderVendors(filteredVendors);
+          renderPartners(filteredpartners);
         });
 
-        vendorsDots.appendChild(dot);
+        partnersDots.appendChild(dot);
       }
     }
 
-    function renderVendors(vendors) {
-      vendorsGrid.innerHTML = "";
+    function renderPartners(partners) {
+      partnersGrid.innerHTML = "";
 
-      if (!vendors.length) {
+      if (!partners.length) {
         emptyMessage.style.display = "block";
-        prevVendorsBtn.style.display = "none";
-        nextVendorsBtn.style.display = "none";
-        vendorsDots.innerHTML = "";
+        prevpartnersBtn.style.display = "none";
+        nextpartnersBtn.style.display = "none";
+        partnersDots.innerHTML = "";
         return;
       }
 
       emptyMessage.style.display = "none";
-      prevVendorsBtn.style.display = "inline-flex";
-      nextVendorsBtn.style.display = "inline-flex";
+      prevpartnersBtn.style.display = "inline-flex";
+      nextpartnersBtn.style.display = "inline-flex";
 
       const cardsPerSlide = getCardsPerSlide();
-      const totalSlides = getTotalSlides(vendors);
+      const totalSlides = getTotalSlides(partners);
 
       if (currentSlide > totalSlides - 1) {
         currentSlide = totalSlides - 1;
@@ -448,91 +448,91 @@
 
       const start = currentSlide * cardsPerSlide;
       const end = start + cardsPerSlide;
-      const visibleVendors = vendors.slice(start, end);
+      const visiblepartners = partners.slice(start, end);
 
-      visibleVendors.forEach((vendor) => {
+      visiblepartners.forEach((partner) => {
         const card = document.createElement("article");
-        card.className = "vendor-card";
+        card.className = "partner-card";
 
-        const image = getCardImage(vendor);
-        const name = formatText(vendor.businessName || "Vendor");
-        const categoryLine = getCategoryLine(vendor);
-        const locationLine = getLocationLine(vendor);
-        const bio = getShortBio(vendor);
+        const image = getCardImage(partner);
+        const name = formatText(partner.businessName || "Partner");
+        const categoryLine = getCategoryLine(partner);
+        const locationLine = getLocationLine(partner);
+        const bio = getShortBio(partner);
 
         card.innerHTML = `
           <img src="${image}" alt="${name}" loading="lazy">
           <h3>${name}</h3>
-          ${categoryLine ? `<p class="vendor-category-line">${categoryLine}</p>` : ""}
-          ${locationLine ? `<p class="vendor-location-line">${locationLine}</p>` : ""}
+          ${categoryLine ? `<p class="partner-category-line">${categoryLine}</p>` : ""}
+          ${locationLine ? `<p class="partner-location-line">${locationLine}</p>` : ""}
           <p>${bio}</p>
-          <div class="vendor-card-actions">
-            <button type="button" class="vendor-profile-btn">View Profile</button>
+          <div class="partner-card-actions">
+            <button type="button" class="partner-profile-btn">View Profile</button>
           </div>
         `;
 
         card.addEventListener("click", () => {
-          goToVendor(vendor);
+          goToPartner(partner);
         });
 
-        const profileBtn = card.querySelector(".vendor-profile-btn");
+        const profileBtn = card.querySelector(".partner-profile-btn");
         profileBtn.addEventListener("click", (event) => {
           event.stopPropagation();
-          goToVendor(vendor);
+          goToPartner(partner);
         });
 
-        vendorsGrid.appendChild(card);
+        partnersGrid.appendChild(card);
       });
 
-      updateArrowState(vendors);
-      renderDots(vendors);
+      updateArrowState(partners);
+      renderDots(partners);
     }
 
-    async function loadVendors() {
+    async function loadpartners() {
       try {
         const snapshot = await getDocs(collection(db, "vendors"));
-        const liveVendors = [];
+        const livepartners = [];
 
         snapshot.forEach((docSnap) => {
-          const vendor = docSnap.data();
+          const partner = docSnap.data();
 
           const hasLiveProfile =
-            vendor.profileVisible === true && vendor.published === true;
+            partner.profileVisible === true && partner.published === true;
 
           const hasPaidAccess =
-            vendor.subscriptionActive === true || vendor.paidSetupFee === true;
+            partner.subscriptionActive === true || partner.paidSetupFee === true;
 
           const hasComplimentaryAccess =
-            vendor.complimentaryPlan === true;
+            partner.complimentaryPlan === true;
 
           const isApprovedAccount =
-            !vendor.accountStatus || vendor.accountStatus === "active";
+            !partner.accountStatus || partner.accountStatus === "active";
 
           if (
-            vendor &&
-            vendor.uid &&
+            partner &&
+            partner.uid &&
             hasLiveProfile &&
             isApprovedAccount &&
             (hasPaidAccess || hasComplimentaryAccess)
           ) {
-            liveVendors.push({
-              ...vendor,
+            livepartners.push({
+              ...partner,
               docId: docSnap.id
             });
           }
         });
 
-        allVendors = sortVendors(liveVendors);
-        filteredVendors = [...allVendors];
+        allpartners = sortpartners(livepartners);
+        filteredpartners = [...allpartners];
         currentSlide = 0;
-        renderVendors(filteredVendors);
+        renderPartners(filteredpartners);
       } catch (error) {
-        console.error("Vendor load error:", error);
+        console.error("Partner load error:", error);
         emptyMessage.style.display = "block";
-        emptyMessage.textContent = "There was a problem loading vendors.";
-        prevVendorsBtn.style.display = "none";
-        nextVendorsBtn.style.display = "none";
-        vendorsDots.innerHTML = "";
+        emptyMessage.textContent = "There was a problem loading partners.";
+        prevpartnersBtn.style.display = "none";
+        nextpartnersBtn.style.display = "none";
+        partnersDots.innerHTML = "";
       }
     }
 
@@ -540,29 +540,29 @@
       const term = searchInput.value.trim().toLowerCase();
 
       if (!term) {
-        filteredVendors = [...allVendors];
+        filteredpartners = [...allpartners];
       } else {
-        filteredVendors = allVendors.filter((vendor) =>
-          getSearchText(vendor).includes(term)
+        filteredpartners = allpartners.filter((partner) =>
+          getSearchText(partner).includes(term)
         );
       }
 
       currentSlide = 0;
-      renderVendors(filteredVendors);
+      renderPartners(filteredpartners);
     }
 
-    prevVendorsBtn.addEventListener("click", () => {
+    prevpartnersBtn.addEventListener("click", () => {
       if (currentSlide > 0) {
         currentSlide--;
-        renderVendors(filteredVendors);
+        renderPartners(filteredpartners);
       }
     });
 
-    nextVendorsBtn.addEventListener("click", () => {
-      const totalSlides = getTotalSlides(filteredVendors);
+    nextpartnersBtn.addEventListener("click", () => {
+      const totalSlides = getTotalSlides(filteredpartners);
       if (currentSlide < totalSlides - 1) {
         currentSlide++;
-        renderVendors(filteredVendors);
+        renderPartners(filteredpartners);
       }
     });
 
@@ -570,11 +570,11 @@
     window.addEventListener("resize", () => {
       clearTimeout(resizeTimeout);
       resizeTimeout = setTimeout(() => {
-        const totalSlides = getTotalSlides(filteredVendors);
+        const totalSlides = getTotalSlides(filteredpartners);
         if (currentSlide > totalSlides - 1) {
           currentSlide = Math.max(0, totalSlides - 1);
         }
-        renderVendors(filteredVendors);
+        renderPartners(filteredpartners);
       }, 120);
     });
 
@@ -604,7 +604,7 @@
     searchBtn.addEventListener("click", runSearch);
     searchInput.addEventListener("input", runSearch);
 
-    loadVendors();
+    loadpartners();
   </script>
 
   <script type="module" src="nav.js"></script>
