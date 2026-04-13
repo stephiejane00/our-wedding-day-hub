@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css">
+
   <style>
-    /* KEEP ORIGINAL CLASSES (vendor) */
     .vendors-carousel-section {
       width: min(1120px, calc(100% - 32px));
       margin: 0 auto;
@@ -29,6 +29,23 @@
       color: #3d342f;
       font-size: 1.6rem;
       cursor: pointer;
+      flex: 0 0 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+      transition: transform 0.2s ease, opacity 0.2s ease, background 0.2s ease;
+    }
+
+    .vendors-arrow:hover {
+      transform: translateY(-1px);
+      background: #e2cec0;
+    }
+
+    .vendors-arrow:disabled {
+      opacity: 0.45;
+      cursor: default;
+      transform: none;
     }
 
     .vendors-carousel-viewport {
@@ -38,134 +55,196 @@
 
     .vendors-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 20px;
+      align-items: stretch;
     }
 
     .vendor-card {
       background: #fff;
       border-radius: 22px;
       padding: 18px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
       cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      min-height: 100%;
+    }
+
+    .vendor-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.08);
+    }
+
+    .vendor-card img {
+      width: 100%;
+      aspect-ratio: 1 / 0.8;
+      object-fit: cover;
+      border-radius: 16px;
+      display: block;
+      margin-bottom: 14px;
+    }
+
+    .vendor-card h3 {
+      margin: 0 0 8px;
+    }
+
+    .vendor-card p {
+      margin: 0 0 10px;
+    }
+
+    .vendor-category-line,
+    .vendor-location-line {
+      color: #7d6f67;
+    }
+
+    .vendor-card-actions {
+      margin-top: 14px;
     }
 
     .vendor-profile-btn {
+      border: none;
       border-radius: 999px;
       background: #ead8cb;
+      color: #3d342f;
       padding: 12px 20px;
+      font: inherit;
+      font-weight: 600;
       cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .vendor-profile-btn:hover {
+      background: #e2cec0;
     }
 
     .vendors-dots {
       display: flex;
       justify-content: center;
+      align-items: center;
+      gap: 10px;
       margin-top: 18px;
+      min-height: 14px;
+    }
+
+    .vendors-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(120, 104, 95, 0.25);
+      border: none;
+      padding: 0;
+      cursor: pointer;
+    }
+
+    .vendors-dot.active {
+      background: #b79d8d;
+      transform: scale(1.15);
+    }
+
+    .empty-message {
+      text-align: center;
+      margin-top: 20px;
     }
   </style>
 </head>
 
 <body>
 
-<header class="hero">
-  <img src="images/1.png" class="header-image">
-  <!-- ✅ visible text changed -->
-  <p>Connect with trusted wedding partners in your area, without the overwhelm.</p>
-</header>
+  <div class="page-auth">
+    <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
+    <a href="login.html" id="loginLink" class="auth-link">Log In</a>
+    <a href="dashboard.html" id="dashboardLink" class="auth-link" style="display:none;">Dashboard</a>
+    <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
+  </div>
 
-<main>
+  <header class="hero">
+    <img src="images/1.png" alt="Our Wedding Day Hub" class="header-image">
+    <p class="hero-subheading">
+      Connect with trusted wedding vendors in your area, without the overwhelm.
+    </p>
+  </header>
 
-  <section class="search-wrap">
-    <input id="searchInput" placeholder="Search by partner, location, category...">
-    <button id="searchBtn">Search</button>
-  </section>
+  <main>
 
-  <!-- KEEP vendor structure -->
-  <section class="vendors-carousel-section">
+    <section class="search-wrap">
+      <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search by vendor, location, category...">
+        <button type="button" id="searchBtn">Search</button>
+      </div>
+    </section>
 
-    <div class="vendors-carousel-shell">
-      <button id="prevVendorsBtn" class="vendors-arrow">&#8249;</button>
+    <section class="vendors-carousel-section">
 
-      <div class="vendors-carousel-viewport">
-        <section id="vendorsGrid" class="vendors-grid"></section>
+      <div class="vendors-carousel-shell">
+        <button id="prevVendorsBtn" class="vendors-arrow">&#8249;</button>
+
+        <div class="vendors-carousel-viewport">
+          <section id="vendorsGrid" class="vendors-grid"></section>
+        </div>
+
+        <button id="nextVendorsBtn" class="vendors-arrow">&#8250;</button>
       </div>
 
-      <button id="nextVendorsBtn" class="vendors-arrow">&#8250;</button>
-    </div>
+      <div id="vendorsDots" class="vendors-dots"></div>
 
-    <div id="vendorsDots" class="vendors-dots"></div>
+      <p class="vendors-growing-note">
+        We’re growing, and new vendors are joining. Be one of the first to be seen.
+      </p>
 
-    <!-- ✅ visible text changed -->
-    <p>We’re growing, and new partners are joining. Be one of the first to be seen.</p>
-    <p id="emptyMessage" style="display:none;">No live partners found yet.</p>
+      <p id="emptyMessage" class="empty-message" style="display:none;">
+        No live vendors found yet.
+      </p>
 
-  </section>
+    </section>
 
-</main>
+  </main>
 
-<script type="module">
-import {
-  db,
-  collection,
-  getDocs
-} from "./firebase.js";
+  <script type="module">
+    import {
+      db,
+      collection,
+      getDocs
+    } from "./firebase.js";
 
-/* KEEP vendor variables */
-const vendorsGrid = document.getElementById("vendorsGrid");
-const prevVendorsBtn = document.getElementById("prevVendorsBtn");
-const nextVendorsBtn = document.getElementById("nextVendorsBtn");
+    const vendorsGrid = document.getElementById("vendorsGrid");
 
-let allVendors = [];
+    function goToVendor(vendor) {
+      window.location.href = `vendor.html?id=${vendor.docId}`;
+    }
 
-/* KEEP vendor logic */
-function goToVendor(vendor) {
-  window.location.href = `vendor.html?id=${vendor.docId}`;
-}
+    function renderVendors(vendors) {
+      vendorsGrid.innerHTML = "";
 
-function renderVendors(vendors) {
-  vendorsGrid.innerHTML = "";
+      vendors.forEach((vendor) => {
+        const card = document.createElement("div");
+        card.className = "vendor-card";
 
-  if (!vendors.length) {
-    document.getElementById("emptyMessage").style.display = "block";
-    return;
-  }
+        card.innerHTML = `
+          <h3>${vendor.businessName || "Vendor"}</h3>
+          <p>Beautiful vendor profile coming soon.</p>
+        `;
 
-  vendors.forEach((vendor) => {
-    const card = document.createElement("div");
-    card.className = "vendor-card";
+        card.addEventListener("click", () => goToVendor(vendor));
+        vendorsGrid.appendChild(card);
+      });
+    }
 
-    /* ✅ visible text only */
-    const name = vendor.businessName || "Partner";
+    async function loadVendors() {
+      const snapshot = await getDocs(collection(db, "vendors"));
+      const list = [];
 
-    card.innerHTML = `
-      <h3>${name}</h3>
-      <p>Beautiful partner profile coming soon.</p>
-      <button class="vendor-profile-btn">View Profile</button>
-    `;
+      snapshot.forEach((doc) => {
+        list.push({
+          ...doc.data(),
+          docId: doc.id
+        });
+      });
 
-    card.addEventListener("click", () => goToVendor(vendor));
+      renderVendors(list);
+    }
 
-    vendorsGrid.appendChild(card);
-  });
-}
-
-async function loadVendors() {
-  const snapshot = await getDocs(collection(db, "vendors"));
-
-  const list = [];
-
-  snapshot.forEach((doc) => {
-    list.push({
-      ...doc.data(),
-      docId: doc.id
-    });
-  });
-
-  allVendors = list;
-  renderVendors(allVendors);
-}
-
-loadVendors();
-</script>
+    loadVendors();
+  </script>
 
 </body>
 </html>
