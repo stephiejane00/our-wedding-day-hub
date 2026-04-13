@@ -3,106 +3,248 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Partner Dashboard | Our Wedding Day Hub</title>
+  <title>Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css">
+
   <style>
-    /* ALL STYLES EXACTLY THE SAME */
+    .vendors-carousel-section {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      padding-bottom: 10px;
+    }
+
+    .vendors-carousel-shell {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 10px;
+    }
+
+    .vendors-arrow {
+      width: 48px;
+      height: 48px;
+      border: none;
+      border-radius: 999px;
+      background: #ead8cb;
+      color: #3d342f;
+      font-size: 1.6rem;
+      cursor: pointer;
+      flex: 0 0 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+      transition: transform 0.2s ease, opacity 0.2s ease, background 0.2s ease;
+    }
+
+    .vendors-arrow:hover {
+      transform: translateY(-1px);
+      background: #e2cec0;
+    }
+
+    .vendors-arrow:disabled {
+      opacity: 0.45;
+      cursor: default;
+      transform: none;
+    }
+
+    .vendors-carousel-viewport {
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .vendors-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    .vendor-card {
+      background: #fff;
+      border-radius: 22px;
+      padding: 18px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      min-height: 100%;
+    }
+
+    .vendor-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.08);
+    }
+
+    .vendor-card img {
+      width: 100%;
+      aspect-ratio: 1 / 0.8;
+      object-fit: cover;
+      border-radius: 16px;
+      display: block;
+      margin-bottom: 14px;
+    }
+
+    .vendor-card h3 {
+      margin: 0 0 8px;
+    }
+
+    .vendor-card p {
+      margin: 0 0 10px;
+    }
+
+    .vendor-category-line,
+    .vendor-location-line {
+      color: #7d6f67;
+    }
+
+    .vendor-card-actions {
+      margin-top: 14px;
+    }
+
+    .vendor-profile-btn {
+      border: none;
+      border-radius: 999px;
+      background: #ead8cb;
+      color: #3d342f;
+      padding: 12px 20px;
+      font: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .vendor-profile-btn:hover {
+      background: #e2cec0;
+    }
+
+    .vendors-dots {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-top: 18px;
+      min-height: 14px;
+    }
+
+    .vendors-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(120, 104, 95, 0.25);
+      border: none;
+      padding: 0;
+      cursor: pointer;
+    }
+
+    .vendors-dot.active {
+      background: #b79d8d;
+      transform: scale(1.15);
+    }
+
+    .empty-message {
+      text-align: center;
+      margin-top: 20px;
+    }
   </style>
 </head>
+
 <body>
 
   <div class="page-auth">
-    <a href="index.html" id="homeLink" class="auth-link">Home</a>
-    <a href="dashboard.html" id="dashboardLink" class="auth-link" style="display:none;">Dashboard</a>
     <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
     <a href="login.html" id="loginLink" class="auth-link">Log In</a>
+    <a href="dashboard.html" id="dashboardLink" class="auth-link" style="display:none;">Dashboard</a>
     <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
   </div>
 
   <header class="hero">
     <img src="images/1.png" alt="Our Wedding Day Hub" class="header-image">
+    <p class="hero-subheading">
+      Connect with trusted wedding vendors in your area, without the overwhelm.
+    </p>
   </header>
 
-  <main class="dashboard-page">
-    <div class="dashboard-stack">
+  <main>
 
-      <section class="card hero-card">
-        <p class="eyebrow">partner dashboard</p>
-        <h1 class="page-title">Manage Your Partner Profile</h1>
-        <p class="page-subtitle">
-          Update your business details, upload your brand assets and media, choose your style tags and service locations, and control when your profile appears.
-        </p>
-        <div class="dashboard-actions">
-          <a href="#" id="viewProfileBtn" class="apply-button" style="display:none;">View Public Profile</a>
-          <button type="button" id="saveTopBtn" class="pretty-button">Save Changes</button>
-        </div>
-      </section>
+    <section class="search-wrap">
+      <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search by vendor, location, category...">
+        <button type="button" id="searchBtn">Search</button>
+      </div>
+    </section>
 
-      <section class="card">
-        <h2>Status</h2>
+    <section class="vendors-carousel-section">
 
-        <div class="status-wrap">
-          <span class="status-pill" id="accountStatusText">Account status: loading...</span>
-          <span class="status-pill" id="subscriptionStatusText">Plan access: loading...</span>
-          <span class="status-pill" id="viewsStatusText">Profile views: 0</span>
+      <div class="vendors-carousel-shell">
+        <button id="prevVendorsBtn" class="vendors-arrow">&#8249;</button>
+
+        <div class="vendors-carousel-viewport">
+          <section id="vendorsGrid" class="vendors-grid"></section>
         </div>
 
-        <div class="inline-toggle" style="margin-top: 18px;">
-          <input type="checkbox" id="profileLive">
-          <label for="profileLive" style="margin:0;">Make my profile live on the hub</label>
-        </div>
+        <button id="nextVendorsBtn" class="vendors-arrow">&#8250;</button>
+      </div>
 
-        <p class="dashboard-help" style="text-align:center; margin-top:16px;">
-          Turn this on when you are ready for couples to see your profile. Your listing can appear when your account is active and you have either a paid plan or complimentary partner access.
-        </p>
-      </section>
+      <div id="vendorsDots" class="vendors-dots"></div>
 
-      <!-- EVERYTHING ELSE UNCHANGED EXCEPT TEXT BELOW -->
-
-      <section class="card" style="text-align:left;">
-        <h2 class="dashboard-section-title">Booking & Availability</h2>
-
-        <div class="dashboard-card-soft booking-layout">
-          <div class="booking-subcard">
-            <h3>Bulk Block Weekdays</h3>
-            <p class="dashboard-help">
-              Great for partners who never work certain days, like every Sunday or every Monday and Tuesday.
-            </p>
-          </div>
-        </div>
-      </section>
-
-    </div>
-  </main>
-
-  <footer class="site-footer">
-    <div class="footer-content">
-      <p class="footer-eyebrow">wedding partner directory</p>
-      <h2 class="footer-title">Everything you need for your wedding, all in one place.</h2>
-      <p class="footer-text">
-        Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.
+      <p class="vendors-growing-note">
+        We’re growing, and new vendors are joining. Be one of the first to be seen.
       </p>
 
-      <div class="footer-links">
-        <a href="about.html">About Us</a>
-        <a href="how-it-works.html">How It Works</a>
-        <a href="pricing.html">Pricing</a>
-        <a href="refund-policy.html">Refund Policy</a>
-        <a href="terms.html">Terms &amp; Conditions</a>
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="contact.html">Enquiries</a>
-      </div>
-  <footer class="site-footer">
-    <p>© 2026 Our Wedding Day Hub</p>
-    <p>ABN 76 688 637 041 • Australia</p>
-    </div>
-  </footer>
+      <p id="emptyMessage" class="empty-message" style="display:none;">
+        No live vendors found yet.
+      </p>
 
-  <!-- ALL JS 100% UNTOUCHED -->
+    </section>
+
+  </main>
+
   <script type="module">
-    // your entire original JS stays EXACTLY the same
+    import {
+      db,
+      collection,
+      getDocs
+    } from "./firebase.js";
+
+    const vendorsGrid = document.getElementById("vendorsGrid");
+
+    function goToVendor(vendor) {
+      window.location.href = `vendor.html?id=${vendor.docId}`;
+    }
+
+    function renderVendors(vendors) {
+      vendorsGrid.innerHTML = "";
+
+      vendors.forEach((vendor) => {
+        const card = document.createElement("div");
+        card.className = "vendor-card";
+
+        card.innerHTML = `
+          <h3>${vendor.businessName || "Vendor"}</h3>
+          <p>Beautiful vendor profile coming soon.</p>
+        `;
+
+        card.addEventListener("click", () => goToVendor(vendor));
+        vendorsGrid.appendChild(card);
+      });
+    }
+
+    async function loadVendors() {
+      const snapshot = await getDocs(collection(db, "vendors"));
+      const list = [];
+
+      snapshot.forEach((doc) => {
+        list.push({
+          ...doc.data(),
+          docId: doc.id
+        });
+      });
+
+      renderVendors(list);
+    }
+
+    loadVendors();
   </script>
 
-  <script type="module" src="nav.js"></script>
 </body>
 </html>
