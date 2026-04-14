@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css">
-
   <style>
     .vendors-carousel-section {
       width: min(1120px, calc(100% - 32px));
@@ -134,6 +133,7 @@
       border: none;
       padding: 0;
       cursor: pointer;
+      transition: transform 0.2s ease, background 0.2s ease;
     }
 
     .vendors-dot.active {
@@ -145,9 +145,41 @@
       text-align: center;
       margin-top: 20px;
     }
+
+    @media (max-width: 980px) {
+      .vendors-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 700px) {
+      .vendors-carousel-shell {
+        gap: 10px;
+      }
+
+      .vendors-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .vendors-arrow {
+        width: 42px;
+        height: 42px;
+        flex-basis: 42px;
+        font-size: 1.35rem;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .vendors-carousel-shell {
+        align-items: stretch;
+      }
+
+      .vendors-arrow {
+        align-self: center;
+      }
+    }
   </style>
 </head>
-
 <body>
 
   <div class="page-auth">
@@ -159,13 +191,10 @@
 
   <header class="hero">
     <img src="images/1.png" alt="Our Wedding Day Hub" class="header-image">
-    <p class="hero-subheading">
-      Connect with trusted wedding vendors in your area, without the overwhelm.
-    </p>
+    <p class="hero-subheading">Connect with trusted wedding vendors in your area, without the overwhelm.</p>
   </header>
 
   <main>
-
     <section class="search-wrap">
       <div class="search-bar">
         <input type="text" id="searchInput" placeholder="Search by vendor, location, category...">
@@ -174,77 +203,410 @@
     </section>
 
     <section class="vendors-carousel-section">
-
       <div class="vendors-carousel-shell">
-        <button id="prevVendorsBtn" class="vendors-arrow">&#8249;</button>
+        <button type="button" id="prevVendorsBtn" class="vendors-arrow" aria-label="Previous vendors">&#8249;</button>
 
         <div class="vendors-carousel-viewport">
           <section id="vendorsGrid" class="vendors-grid"></section>
         </div>
 
-        <button id="nextVendorsBtn" class="vendors-arrow">&#8250;</button>
+        <button type="button" id="nextVendorsBtn" class="vendors-arrow" aria-label="Next vendors">&#8250;</button>
       </div>
 
       <div id="vendorsDots" class="vendors-dots"></div>
-
-      <p class="vendors-growing-note">
-        We’re growing, and new vendors are joining. Be one of the first to be seen.
-      </p>
-
-      <p id="emptyMessage" class="empty-message" style="display:none;">
-        No live vendors found yet.
-      </p>
-
+      <p class="vendors-growing-note">We’re growing, and new vendors are joining. Be one of the first to be seen.</p>
+      <p id="emptyMessage" class="empty-message" style="display:none;">No live vendors found yet.</p>
     </section>
-
   </main>
+
+   <footer class="site-footer">
+    <div class="footer-content">
+      <p class="footer-eyebrow">wedding vendor directory</p>
+      <h2 class="footer-title">Everything you need for your wedding, all in one place.</h2>
+      <p class="footer-text">
+        Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.
+      </p>
+
+      <div class="footer-links">
+        <a href="about.html">About Us</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="refund-policy.html">Refund Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="contact.html">Enquiries</a>
+      </div>
+  <footer class="site-footer">
+    <p>© 2026 Our Wedding Day Hub</p>
+    <p>ABN 76 688 637 041 • Australia</p>
+    </div>
+  </footer>
 
   <script type="module">
     import {
       db,
+      auth,
       collection,
-      getDocs
+      getDocs,
+      onAuthStateChanged,
+      signOut
     } from "./firebase.js";
 
     const vendorsGrid = document.getElementById("vendorsGrid");
+    const emptyMessage = document.getElementById("emptyMessage");
+    const searchInput = document.getElementById("searchInput");
+    const searchBtn = document.getElementById("searchBtn");
+    const prevVendorsBtn = document.getElementById("prevVendorsBtn");
+    const nextVendorsBtn = document.getElementById("nextVendorsBtn");
+    const vendorsDots = document.getElementById("vendorsDots");
+
+    const joinLink = document.getElementById("joinLink");
+    const loginLink = document.getElementById("loginLink");
+    const dashboardLink = document.getElementById("dashboardLink");
+    const logoutLink = document.getElementById("logoutLink");
+
+    let allVendors = [];
+    let filteredVendors = [];
+    let currentSlide = 0;
+
+    function cleanArray(arr) {
+      return Array.isArray(arr) ? arr.filter(Boolean) : [];
+    }
+
+    function formatText(value) {
+      if (!value) return "";
+      return String(value)
+        .replace(/_/g, " ")
+        .replace(/-/g, " ")
+        .replace(/\s+/g, " ")
+        .trim()
+        .replace(/\b\w/g, char => char.toUpperCase());
+    }
+
+    function getCardImage(vendor) {
+      if (vendor.coverImageUrl && String(vendor.coverImageUrl).trim()) return vendor.coverImageUrl;
+      if (Array.isArray(vendor.images) && vendor.images.length > 0) return vendor.images[0];
+      if (vendor.profileImageUrl && String(vendor.profileImageUrl).trim()) return vendor.profileImageUrl;
+      if (vendor.logoUrl && String(vendor.logoUrl).trim()) return vendor.logoUrl;
+      if (vendor.coverImage && String(vendor.coverImage).trim()) return vendor.coverImage;
+      if (vendor.profileImage && String(vendor.profileImage).trim()) return vendor.profileImage;
+      return "images/header4.png";
+    }
+
+    function getShortBio(vendor) {
+      const source =
+        (vendor.shortBio || "").trim() ||
+        (vendor.tagline || "").trim() ||
+        (vendor.bio || "").trim() ||
+        (vendor.description || "").trim();
+
+      if (!source) return "Beautiful vendor profile coming soon.";
+      return source.length > 120 ? source.slice(0, 120).trim() + "..." : source;
+    }
+
+    function getCategoryLine(vendor) {
+      const categories = Array.isArray(vendor.categories) && vendor.categories.length
+        ? vendor.categories
+        : vendor.category
+          ? [vendor.category]
+          : [];
+
+      const cleaned = cleanArray(categories);
+      if (!cleaned.length) return "";
+      return cleaned.slice(0, 3).map(formatText).join(" • ");
+    }
+
+    function getLocationLine(vendor) {
+      if (vendor.serviceAreas && String(vendor.serviceAreas).trim()) {
+        return formatText(vendor.serviceAreas.trim());
+      }
+
+      const regions = cleanArray(vendor.regions);
+      if (regions.length) return regions.slice(0, 3).map(formatText).join(" • ");
+
+      const states = cleanArray(vendor.states);
+      if (states.length) return states.map(formatText).join(" • ");
+
+      const countries = cleanArray(vendor.countries);
+      if (countries.length) return countries.map(formatText).join(" • ");
+
+      if (vendor.displayLocation && String(vendor.displayLocation).trim()) {
+        return formatText(vendor.displayLocation.trim());
+      }
+
+      return "";
+    }
+
+    function getSearchText(vendor) {
+      return `
+        ${vendor.businessName || ""}
+        ${vendor.bio || ""}
+        ${vendor.shortBio || ""}
+        ${vendor.instagram || ""}
+        ${vendor.facebook || ""}
+        ${vendor.tiktok || ""}
+        ${vendor.youtube || ""}
+        ${vendor.pinterest || ""}
+        ${vendor.linkedin || ""}
+        ${vendor.x || ""}
+        ${vendor.website || ""}
+        ${vendor.serviceAreas || ""}
+        ${vendor.displayLocation || ""}
+        ${cleanArray(vendor.categories).join(" ")}
+        ${cleanArray(vendor.regions).join(" ")}
+        ${cleanArray(vendor.states).join(" ")}
+        ${cleanArray(vendor.countries).join(" ")}
+        ${cleanArray(vendor.styleTags).join(" ")}
+      `.toLowerCase();
+    }
+
+    function sortVendors(vendors) {
+      return vendors.sort((a, b) => {
+        const aPriority = a.priorityPlacement === true ? 1 : 0;
+        const bPriority = b.priorityPlacement === true ? 1 : 0;
+        if (bPriority !== aPriority) return bPriority - aPriority;
+
+        const aFeatured = a.featuredPlacement === true ? 1 : 0;
+        const bFeatured = b.featuredPlacement === true ? 1 : 0;
+        if (bFeatured !== aFeatured) return bFeatured - aFeatured;
+
+        const aUpdated = a.updatedAt?.seconds || 0;
+        const bUpdated = b.updatedAt?.seconds || 0;
+        return bUpdated - aUpdated;
+      });
+    }
 
     function goToVendor(vendor) {
+      sessionStorage.setItem("selectedVendorId", vendor.docId);
+      if (vendor.uid) {
+        sessionStorage.setItem("selectedVendorUid", vendor.uid);
+      }
       window.location.href = `vendor.html?id=${vendor.docId}`;
+    }
+
+    function getCardsPerSlide() {
+      if (window.innerWidth <= 700) return 1;
+      if (window.innerWidth <= 980) return 2;
+      return 3;
+    }
+
+    function getTotalSlides(vendors) {
+      const cardsPerSlide = getCardsPerSlide();
+      return Math.max(1, Math.ceil(vendors.length / cardsPerSlide));
+    }
+
+    function updateArrowState(vendors) {
+      const totalSlides = getTotalSlides(vendors);
+      const disableControls = vendors.length <= getCardsPerSlide();
+
+      prevVendorsBtn.disabled = disableControls || currentSlide <= 0;
+      nextVendorsBtn.disabled = disableControls || currentSlide >= totalSlides - 1;
+    }
+
+    function renderDots(vendors) {
+      vendorsDots.innerHTML = "";
+
+      const totalSlides = getTotalSlides(vendors);
+      if (vendors.length <= getCardsPerSlide()) return;
+
+      for (let i = 0; i < totalSlides; i++) {
+        const dot = document.createElement("button");
+        dot.type = "button";
+        dot.className = `vendors-dot ${i === currentSlide ? "active" : ""}`;
+        dot.setAttribute("aria-label", `Go to vendor slide ${i + 1}`);
+
+        dot.addEventListener("click", () => {
+          currentSlide = i;
+          renderVendors(filteredVendors);
+        });
+
+        vendorsDots.appendChild(dot);
+      }
     }
 
     function renderVendors(vendors) {
       vendorsGrid.innerHTML = "";
 
-      vendors.forEach((vendor) => {
-        const card = document.createElement("div");
+      if (!vendors.length) {
+        emptyMessage.style.display = "block";
+        prevVendorsBtn.style.display = "none";
+        nextVendorsBtn.style.display = "none";
+        vendorsDots.innerHTML = "";
+        return;
+      }
+
+      emptyMessage.style.display = "none";
+      prevVendorsBtn.style.display = "inline-flex";
+      nextVendorsBtn.style.display = "inline-flex";
+
+      const cardsPerSlide = getCardsPerSlide();
+      const totalSlides = getTotalSlides(vendors);
+
+      if (currentSlide > totalSlides - 1) {
+        currentSlide = totalSlides - 1;
+      }
+
+      const start = currentSlide * cardsPerSlide;
+      const end = start + cardsPerSlide;
+      const visibleVendors = vendors.slice(start, end);
+
+      visibleVendors.forEach((vendor) => {
+        const card = document.createElement("article");
         card.className = "vendor-card";
 
+        const image = getCardImage(vendor);
+        const name = formatText(vendor.businessName || "Vendor");
+        const categoryLine = getCategoryLine(vendor);
+        const locationLine = getLocationLine(vendor);
+        const bio = getShortBio(vendor);
+
         card.innerHTML = `
-          <h3>${vendor.businessName || "Vendor"}</h3>
-          <p>Beautiful vendor profile coming soon.</p>
+          <img src="${image}" alt="${name}" loading="lazy">
+          <h3>${name}</h3>
+          ${categoryLine ? `<p class="vendor-category-line">${categoryLine}</p>` : ""}
+          ${locationLine ? `<p class="vendor-location-line">${locationLine}</p>` : ""}
+          <p>${bio}</p>
+          <div class="vendor-card-actions">
+            <button type="button" class="vendor-profile-btn">View Profile</button>
+          </div>
         `;
 
-        card.addEventListener("click", () => goToVendor(vendor));
+        card.addEventListener("click", () => {
+          goToVendor(vendor);
+        });
+
+        const profileBtn = card.querySelector(".vendor-profile-btn");
+        profileBtn.addEventListener("click", (event) => {
+          event.stopPropagation();
+          goToVendor(vendor);
+        });
+
         vendorsGrid.appendChild(card);
       });
+
+      updateArrowState(vendors);
+      renderDots(vendors);
     }
 
     async function loadVendors() {
-      const snapshot = await getDocs(collection(db, "vendors"));
-      const list = [];
+      try {
+        const snapshot = await getDocs(collection(db, "vendors"));
+        const liveVendors = [];
 
-      snapshot.forEach((doc) => {
-        list.push({
-          ...doc.data(),
-          docId: doc.id
+        snapshot.forEach((docSnap) => {
+          const vendor = docSnap.data();
+
+          const hasLiveProfile =
+            vendor.profileVisible === true && vendor.published === true;
+
+          const hasPaidAccess =
+            vendor.subscriptionActive === true || vendor.paidSetupFee === true;
+
+          const hasComplimentaryAccess =
+            vendor.complimentaryPlan === true;
+
+          const isApprovedAccount =
+            !vendor.accountStatus || vendor.accountStatus === "active";
+
+          if (
+            vendor &&
+            vendor.uid &&
+            hasLiveProfile &&
+            isApprovedAccount &&
+            (hasPaidAccess || hasComplimentaryAccess)
+          ) {
+            liveVendors.push({
+              ...vendor,
+              docId: docSnap.id
+            });
+          }
         });
-      });
 
-      renderVendors(list);
+        allVendors = sortVendors(liveVendors);
+        filteredVendors = [...allVendors];
+        currentSlide = 0;
+        renderVendors(filteredVendors);
+      } catch (error) {
+        console.error("Vendor load error:", error);
+        emptyMessage.style.display = "block";
+        emptyMessage.textContent = "There was a problem loading vendors.";
+        prevVendorsBtn.style.display = "none";
+        nextVendorsBtn.style.display = "none";
+        vendorsDots.innerHTML = "";
+      }
     }
+
+    function runSearch() {
+      const term = searchInput.value.trim().toLowerCase();
+
+      if (!term) {
+        filteredVendors = [...allVendors];
+      } else {
+        filteredVendors = allVendors.filter((vendor) =>
+          getSearchText(vendor).includes(term)
+        );
+      }
+
+      currentSlide = 0;
+      renderVendors(filteredVendors);
+    }
+
+    prevVendorsBtn.addEventListener("click", () => {
+      if (currentSlide > 0) {
+        currentSlide--;
+        renderVendors(filteredVendors);
+      }
+    });
+
+    nextVendorsBtn.addEventListener("click", () => {
+      const totalSlides = getTotalSlides(filteredVendors);
+      if (currentSlide < totalSlides - 1) {
+        currentSlide++;
+        renderVendors(filteredVendors);
+      }
+    });
+
+    let resizeTimeout;
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        const totalSlides = getTotalSlides(filteredVendors);
+        if (currentSlide > totalSlides - 1) {
+          currentSlide = Math.max(0, totalSlides - 1);
+        }
+        renderVendors(filteredVendors);
+      }, 120);
+    });
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        joinLink.style.display = "none";
+        loginLink.style.display = "none";
+        dashboardLink.style.display = "inline-block";
+        logoutLink.style.display = "inline-block";
+      } else {
+        joinLink.style.display = "inline-flex";
+        loginLink.style.display = "inline-block";
+        dashboardLink.style.display = "none";
+        logoutLink.style.display = "none";
+      }
+    });
+
+    logoutLink.addEventListener("click", async () => {
+      try {
+        await signOut(auth);
+        window.location.href = "index.html";
+      } catch (error) {
+        console.error("Logout failed:", error);
+      }
+    });
+
+    searchBtn.addEventListener("click", runSearch);
+    searchInput.addEventListener("input", runSearch);
 
     loadVendors();
   </script>
 
+  <script type="module" src="nav.js"></script>
 </body>
 </html>
