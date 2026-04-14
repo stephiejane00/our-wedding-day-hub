@@ -3,248 +3,1903 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Our Wedding Day Hub</title>
+  <title>Vendor Dashboard | Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css">
-
   <style>
-    .vendors-carousel-section {
-      width: min(1120px, calc(100% - 32px));
-      margin: 0 auto;
-      padding-bottom: 10px;
+    .dashboard-page {
+      max-width: 1120px;
+      margin: 0 auto 40px;
+      padding: 20px;
     }
 
-    .vendors-carousel-shell {
+    .dashboard-stack {
+      display: grid;
+      gap: 24px;
+    }
+
+    .dashboard-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 18px;
+    }
+
+    .dashboard-two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .dashboard-three-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 18px;
+    }
+
+    .dashboard-section-title {
+      text-align: left;
+      margin-bottom: 12px;
+    }
+
+    .dashboard-help {
+      color: #8c7f75;
+      font-size: 14px;
+      margin-top: 10px;
+      text-align: left;
+      line-height: 1.6;
+    }
+
+    .status-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 12px;
+    }
+
+    .status-pill {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: #f5ebe3;
+      color: #2b211b;
+      font-size: 13px;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .inline-toggle {
       display: flex;
       align-items: center;
-      gap: 16px;
-      margin-top: 10px;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
     }
 
-    .vendors-arrow {
-      width: 48px;
-      height: 48px;
-      border: none;
-      border-radius: 999px;
-      background: #ead8cb;
-      color: #3d342f;
-      font-size: 1.6rem;
-      cursor: pointer;
-      flex: 0 0 48px;
+    .inline-toggle input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+    }
+
+    .dashboard-card-soft {
+      margin-top: 14px;
+      padding: 18px;
+      border-radius: 22px;
+      background: #fffaf8;
+      border: 1px solid #efe1d6;
+    }
+
+    .dashboard-field label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #3b2d25;
+    }
+
+    .dashboard-field input,
+    .dashboard-field textarea,
+    .dashboard-field select {
+      width: 100%;
+      border: 1px solid #eadfd6;
+      border-radius: 16px;
+      background: #fffdfb;
+      padding: 14px 16px;
+      font-size: 0.96rem;
+      color: #2d221c;
+      box-sizing: border-box;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .dashboard-field input:focus,
+    .dashboard-field textarea:focus,
+    .dashboard-field select:focus {
+      outline: none;
+      border-color: #d9c2b2;
+      box-shadow: 0 0 0 3px rgba(217, 194, 178, 0.18);
+      background: #ffffff;
+    }
+
+    .media-uploader-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .upload-box {
+      border: 1px dashed #d8c6b8;
+      background: #fffaf6;
+      border-radius: 20px;
+      padding: 18px;
+      text-align: left;
+    }
+
+    .upload-box h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 1rem;
+    }
+
+    .pretty-upload-input {
+      display: none;
+    }
+
+    .pretty-upload-label {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
-      transition: transform 0.2s ease, opacity 0.2s ease, background 0.2s ease;
+      min-height: 46px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: #111;
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.18s ease, opacity 0.18s ease;
     }
 
-    .vendors-arrow:hover {
+    .pretty-upload-label:hover {
+      opacity: 0.92;
       transform: translateY(-1px);
-      background: #e2cec0;
     }
 
-    .vendors-arrow:disabled {
-      opacity: 0.45;
-      cursor: default;
-      transform: none;
+    .selected-file-note {
+      margin-top: 10px;
+      color: #8c7f75;
+      font-size: 0.9rem;
     }
 
-    .vendors-carousel-viewport {
-      flex: 1;
-      overflow: hidden;
-    }
-
-    .vendors-grid {
+    .media-preview-grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 20px;
-      align-items: stretch;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
     }
 
-    .vendor-card {
+    .media-preview-item {
+      background: #fffaf8;
+      border: 1px solid #eadfd6;
+      border-radius: 18px;
+      padding: 10px;
+    }
+
+    .media-preview-item img,
+    .media-preview-item video {
+      width: 100%;
+      display: block;
+      border-radius: 14px;
+      background: #f8f0ea;
+      object-fit: cover;
+      max-height: 220px;
+    }
+
+    .brand-assets-grid {
+      display: grid;
+      grid-template-columns: 220px 220px;
+      gap: 20px;
+      align-items: start;
+      justify-content: start;
+    }
+
+    .asset-box {
+      background: #fffaf8;
+      border: 1px solid #eadfd6;
+      border-radius: 22px;
+      padding: 16px;
+      text-align: center;
+    }
+
+.asset-preview-circle {
+  width: 140px;
+  height: 140px;
+  margin: 0 auto 12px;
+  border-radius: 24px;
+      overflow: hidden;
+      background: #f6eee7;
+      border: 1px solid #eadfd6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .asset-preview-circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+.asset-preview-square {
+  width: 140px;
+  height: 140px;
+  margin: 0 auto 12px;
+  border-radius: 24px;
+      overflow: hidden;
+      background: #f6eee7;
+      border: 1px solid #eadfd6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .asset-preview-square img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 8px;
       background: #fff;
+    }
+
+    .asset-empty {
+      color: #a18f83;
+      font-size: 0.86rem;
+      padding: 10px;
+    }
+
+    .mini-pill-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding-top: 8px;
+    }
+
+    .mini-pill-grid label,
+    .dropdown-content-form label,
+    .weekday-pill-grid label {
+      display: inline-flex;
+      align-items: center;
+      margin: 0;
+      position: relative;
+    }
+
+    .mini-pill-grid input,
+    .dropdown-content-form input,
+    .weekday-pill-grid input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .mini-pill-grid span,
+    .dropdown-content-form span,
+    .weekday-pill-grid span {
+      display: inline-block;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: #f8f4f1;
+      border: 1px solid #e8ddd2;
+      font-size: 0.88rem;
+      line-height: 1.2;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .mini-pill-grid label:hover span,
+    .dropdown-content-form label:hover span,
+    .weekday-pill-grid label:hover span {
+      background: #efe6de;
+      border-color: #dccabc;
+    }
+
+    .mini-pill-grid input:checked + span,
+    .dropdown-content-form input:checked + span,
+    .weekday-pill-grid input:checked + span {
+      background: #111;
+      color: #fff;
+      border-color: #111;
+    }
+
+    .dropdown-content-form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .category-group-title,
+    .region-heading {
+      width: 100%;
+      margin: 14px 0 4px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #7b6558;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .small-text {
+      color: #8c7f75;
+      font-size: 0.9rem;
+      margin: 0;
+    }
+
+    .remove-media-btn,
+    .date-add-btn,
+    .date-remove-btn,
+    .bulk-add-btn {
+      margin-top: 10px;
+      border: none;
+      border-radius: 12px;
+      padding: 10px 12px;
+      background: #f1e4db;
+      color: #3a2a22;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .remove-media-btn {
+      width: 100%;
+    }
+
+    .remove-media-btn:hover,
+    .date-add-btn:hover,
+    .date-remove-btn:hover,
+    .bulk-add-btn:hover {
+      background: #ead7ca;
+    }
+
+    .booking-layout {
+      display: grid;
+      gap: 18px;
+    }
+
+    .booking-subcard {
+      background: #fffdfb;
+      border: 1px solid #eadfd6;
       border-radius: 22px;
       padding: 18px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-      cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      min-height: 100%;
     }
 
-    .vendor-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.08);
-    }
-
-    .vendor-card img {
-      width: 100%;
-      aspect-ratio: 1 / 0.8;
-      object-fit: cover;
-      border-radius: 16px;
-      display: block;
-      margin-bottom: 14px;
-    }
-
-    .vendor-card h3 {
+    .booking-subcard h3 {
       margin: 0 0 8px;
+      font-size: 1rem;
+      color: #4b3a32;
     }
 
-    .vendor-card p {
-      margin: 0 0 10px;
+    .booking-subcard .dashboard-help {
+      margin-top: 0;
     }
 
-    .vendor-category-line,
-    .vendor-location-line {
-      color: #7d6f67;
+    .date-manager-wrap {
+      margin-top: 0;
+      padding: 0;
+      border: none;
+      border-radius: 0;
+      background: transparent;
     }
 
-    .vendor-card-actions {
+    .date-manager-top {
+      display: flex;
+      gap: 12px;
+      align-items: end;
+      flex-wrap: wrap;
+    }
+
+    .date-manager-top .dashboard-field {
+      flex: 1 1 220px;
+    }
+
+    .bulk-block-wrap {
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid #efe3d9;
+    }
+
+    .weekday-pill-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .bulk-date-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr auto;
+      gap: 12px;
+      align-items: end;
       margin-top: 14px;
     }
 
-    .vendor-profile-btn {
-      border: none;
-      border-radius: 999px;
-      background: #ead8cb;
-      color: #3d342f;
-      padding: 12px 20px;
-      font: inherit;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.2s ease;
-    }
-
-    .vendor-profile-btn:hover {
-      background: #e2cec0;
-    }
-
-    .vendors-dots {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
+    .date-chip-list {
       margin-top: 18px;
-      min-height: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
     }
 
-    .vendors-dot {
-      width: 10px;
-      height: 10px;
+    .date-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
       border-radius: 999px;
-      background: rgba(120, 104, 95, 0.25);
-      border: none;
-      padding: 0;
-      cursor: pointer;
+      background: #f8f3ef;
+      border: 1px solid #eadfd6;
+      color: #3a2d27;
+      font-size: 0.88rem;
     }
 
-    .vendors-dot.active {
-      background: #b79d8d;
-      transform: scale(1.15);
+    .date-remove-btn {
+      margin-top: 0;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      background: #e9d7cc;
     }
 
-    .empty-message {
-      text-align: center;
-      margin-top: 20px;
+    .calendar-tip-box {
+      margin-top: 12px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: #fff7f2;
+      border: 1px solid #f0dfd2;
+      color: #7b6558;
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 980px) {
+      .dashboard-two-col,
+      .dashboard-three-col,
+      .media-uploader-grid,
+      .brand-assets-grid,
+      .bulk-date-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
-
 <body>
 
   <div class="page-auth">
+    <a href="index.html" id="homeLink" class="auth-link">Home</a>
+    <a href="dashboard.html" id="dashboardLink" class="auth-link" style="display:none;">Dashboard</a>
     <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
     <a href="login.html" id="loginLink" class="auth-link">Log In</a>
-    <a href="dashboard.html" id="dashboardLink" class="auth-link" style="display:none;">Dashboard</a>
     <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
   </div>
 
   <header class="hero">
-    <img src="images/1.png" alt="Our Wedding Day Hub" class="header-image">
-    <p class="hero-subheading">
-      Connect with trusted wedding vendors in your area, without the overwhelm.
-    </p>
+    <img src="images/header4.png" alt="Our Wedding Day Hub" class="header-image">
   </header>
 
-  <main>
+  <main class="dashboard-page">
+    <div class="dashboard-stack">
 
-    <section class="search-wrap">
-      <div class="search-bar">
-        <input type="text" id="searchInput" placeholder="Search by vendor, location, category...">
-        <button type="button" id="searchBtn">Search</button>
-      </div>
-    </section>
+      <section class="card hero-card">
+        <p class="eyebrow">vendor dashboard</p>
+        <h1 class="page-title">Manage Your Vendor Profile</h1>
+        <p class="page-subtitle">
+          Update your business details, upload your brand assets and media, choose your style tags and service locations, and control when your profile appears.
+        </p>
+        <div class="dashboard-actions">
+          <a href="#" id="viewProfileBtn" class="apply-button" style="display:none;">View Public Profile</a>
+          <button type="button" id="saveTopBtn" class="pretty-button">Save Changes</button>
+        </div>
+      </section>
 
-    <section class="vendors-carousel-section">
+      <section class="card">
+        <h2>Status</h2>
 
-      <div class="vendors-carousel-shell">
-        <button id="prevVendorsBtn" class="vendors-arrow">&#8249;</button>
-
-        <div class="vendors-carousel-viewport">
-          <section id="vendorsGrid" class="vendors-grid"></section>
+        <div class="status-wrap">
+          <span class="status-pill" id="accountStatusText">Account status: loading...</span>
+          <span class="status-pill" id="subscriptionStatusText">Plan access: loading...</span>
+          <span class="status-pill" id="viewsStatusText">Profile views: 0</span>
         </div>
 
-        <button id="nextVendorsBtn" class="vendors-arrow">&#8250;</button>
-      </div>
+        <div class="inline-toggle" style="margin-top: 18px;">
+          <input type="checkbox" id="profileLive">
+          <label for="profileLive" style="margin:0;">Make my profile live on the hub</label>
+        </div>
 
-      <div id="vendorsDots" class="vendors-dots"></div>
+        <p class="dashboard-help" style="text-align:center; margin-top:16px;">
+          Turn this on when you are ready for couples to see your profile. Your listing can appear when your account is active and you have either a paid plan or complimentary vendor access.
+        </p>
+      </section>
 
-      <p class="vendors-growing-note">
-        We’re growing, and new vendors are joining. Be one of the first to be seen.
-      </p>
+      <section class="card" style="text-align:left;">
+        <h2 class="dashboard-section-title">Account Settings</h2>
 
-      <p id="emptyMessage" class="empty-message" style="display:none;">
-        No live vendors found yet.
-      </p>
+        <div class="dashboard-card-soft">
+          <div class="dashboard-two-col">
+            <div class="dashboard-field">
+              <label for="accountName">Your Name</label>
+              <input type="text" id="accountName" placeholder="Your name">
+            </div>
 
-    </section>
+            <div class="dashboard-field">
+              <label for="accountEmail">Login Email</label>
+              <input type="email" id="accountEmail" placeholder="you@example.com">
+            </div>
+          </div>
 
+          <div class="dashboard-field" style="margin-top:14px;">
+            <label for="accountPassword">New Password</label>
+            <input type="password" id="accountPassword" placeholder="Leave blank if not changing">
+          </div>
+
+          <div class="dashboard-actions" style="justify-content:flex-start; margin-top:16px;">
+            <button type="button" id="saveAccountBtn" class="pretty-button">Update Account</button>
+          </div>
+
+          <p id="accountMessage" class="dashboard-help"></p>
+          <p class="dashboard-help">
+            If changing your email or password does not work, Firebase may ask you to log in again first.
+          </p>
+        </div>
+      </section>
+
+      <section class="card" style="text-align:left;">
+        <h2 class="dashboard-section-title">Business Details</h2>
+
+        <div class="dashboard-card-soft">
+          <div class="dashboard-two-col">
+            <div class="dashboard-field">
+              <label for="businessName">Business Name</label>
+              <input type="text" id="businessName">
+            </div>
+
+            <div class="dashboard-field">
+              <label for="email">Email</label>
+              <input type="email" id="email">
+            </div>
+          </div>
+
+          <div class="dashboard-three-col" style="margin-top: 14px;">
+            <div class="dashboard-field">
+              <label for="phone">Phone</label>
+              <input type="text" id="phone">
+            </div>
+
+            <div class="dashboard-field">
+              <label for="instagram">Instagram</label>
+              <input type="text" id="instagram" placeholder="@yourhandle or full link">
+            </div>
+
+            <div class="dashboard-field">
+              <label for="website">Website</label>
+              <input type="text" id="website" placeholder="https://yourwebsite.com">
+            </div>
+          </div>
+
+          <div class="dashboard-three-col" style="margin-top: 14px;">
+            <div class="dashboard-field">
+              <label for="facebook">Facebook</label>
+              <input type="text" id="facebook" placeholder="https://facebook.com/...">
+            </div>
+
+            <div class="dashboard-field">
+              <label for="tiktok">TikTok</label>
+              <input type="text" id="tiktok" placeholder="https://tiktok.com/...">
+            </div>
+
+            <div class="dashboard-field">
+              <label for="youtube">YouTube</label>
+              <input type="text" id="youtube" placeholder="https://youtube.com/...">
+            </div>
+          </div>
+
+          <div class="dashboard-three-col" style="margin-top: 14px;">
+            <div class="dashboard-field">
+              <label for="pinterest">Pinterest</label>
+              <input type="text" id="pinterest" placeholder="https://pinterest.com/...">
+            </div>
+
+            <div class="dashboard-field">
+              <label for="linkedin">LinkedIn</label>
+              <input type="text" id="linkedin" placeholder="https://linkedin.com/...">
+            </div>
+
+            <div class="dashboard-field">
+              <label for="x">X (Twitter)</label>
+              <input type="text" id="x" placeholder="https://x.com/...">
+            </div>
+          </div>
+
+          <p class="dashboard-help">
+            Only the links you fill in will appear on your public profile.
+          </p>
+
+          <div class="dashboard-two-col" style="margin-top: 14px;">
+            <div class="dashboard-field">
+              <label for="serviceAreas">Service Areas Summary</label>
+              <input type="text" id="serviceAreas" placeholder="Brisbane, Gold Coast, Sunshine Coast">
+            </div>
+
+            <div class="dashboard-field">
+              <label for="displayLocation">Display Location</label>
+              <input type="text" id="displayLocation" placeholder="Brisbane, Queensland">
+            </div>
+          </div>
+
+          <div class="dashboard-field" style="margin-top: 14px;">
+            <label for="bio">Bio</label>
+            <textarea id="bio" rows="6" placeholder="Tell couples about your business..."></textarea>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" style="text-align:left;">
+        <h2 class="dashboard-section-title">Booking & Availability</h2>
+
+        <div class="dashboard-card-soft booking-layout">
+          <div class="booking-subcard">
+            <h3>Booking Link & Availability</h3>
+            <p class="dashboard-help">
+              Add your booking page and a short status update so couples know whether you are taking enquiries right now.
+            </p>
+
+            <div class="dashboard-two-col">
+              <div class="dashboard-field">
+                <label for="bookingLink">Booking Link</label>
+                <input type="text" id="bookingLink" placeholder="https://calendly.com/... or your booking page">
+              </div>
+
+              <div class="dashboard-field">
+                <label for="availabilityStatus">Availability Status</label>
+                <input type="text" id="availabilityStatus" placeholder="Now booking 2026 weddings">
+              </div>
+            </div>
+
+            <div class="dashboard-field" style="margin-top: 14px;">
+              <label for="bookingNotes">Booking Notes</label>
+              <textarea id="bookingNotes" rows="4" placeholder="Share anything couples should know before booking, like weekday availability, lead times, travel details, or busy seasons."></textarea>
+            </div>
+          </div>
+
+          <div class="booking-subcard">
+            <h3>Block One Unavailable Date</h3>
+            <p class="dashboard-help">
+              Add a single date when you are already booked or not available.
+            </p>
+
+            <div class="date-manager-top">
+              <div class="dashboard-field">
+                <label for="blockedDateInput">Unavailable Date</label>
+                <input type="date" id="blockedDateInput">
+              </div>
+              <button type="button" id="addBlockedDateBtn" class="date-add-btn">Add Date</button>
+            </div>
+          </div>
+
+          <div class="booking-subcard">
+            <h3>Bulk Block Weekdays</h3>
+            <p class="dashboard-help">
+              Great for vendors who never work certain days, like every Sunday or every Monday and Tuesday.
+            </p>
+
+            <div id="weekdayOptions" class="weekday-pill-grid">
+              <label><input type="checkbox" value="0"><span>Sunday</span></label>
+              <label><input type="checkbox" value="1"><span>Monday</span></label>
+              <label><input type="checkbox" value="2"><span>Tuesday</span></label>
+              <label><input type="checkbox" value="3"><span>Wednesday</span></label>
+              <label><input type="checkbox" value="4"><span>Thursday</span></label>
+              <label><input type="checkbox" value="5"><span>Friday</span></label>
+              <label><input type="checkbox" value="6"><span>Saturday</span></label>
+            </div>
+
+            <div class="bulk-date-grid">
+              <div class="dashboard-field">
+                <label for="bulkStartDate">Start Date</label>
+                <input type="date" id="bulkStartDate">
+              </div>
+
+              <div class="dashboard-field">
+                <label for="bulkEndDate">End Date</label>
+                <input type="date" id="bulkEndDate">
+              </div>
+
+              <div class="dashboard-field">
+                <label for="bulkMonthsPreset">Quick Range</label>
+                <select id="bulkMonthsPreset">
+                  <option value="">Custom dates</option>
+                  <option value="3">Next 3 months</option>
+                  <option value="6">Next 6 months</option>
+                  <option value="12">Next 12 months</option>
+                </select>
+              </div>
+
+              <button type="button" id="bulkAddBtn" class="bulk-add-btn">Block Selected Days</button>
+            </div>
+          </div>
+
+          <div class="booking-subcard">
+            <h3>Unavailable Dates</h3>
+            <p class="dashboard-help">
+              These dates will be treated as unavailable on your public profile calendar and enquiry form.
+            </p>
+
+            <div id="blockedDateList" class="date-chip-list"></div>
+
+            <div class="calendar-tip-box">
+              Your booking link will show as a Book Now button on your public profile if filled in. Couples will also be able to choose a preferred date using the enquiry form, and unavailable dates will be checked before they send it.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" style="text-align:left;">
+        <h2 class="dashboard-section-title">Profile Picture & Logo</h2>
+
+        <div class="dashboard-card-soft">
+          <div class="brand-assets-grid">
+            <div class="asset-box">
+              <div class="asset-preview-circle">
+                <div class="asset-empty" id="profileImageEmpty">No profile image yet</div>
+                <img id="profileImagePreview" style="display:none;" alt="Profile image preview">
+              </div>
+
+              <input type="file" id="profileImageFile" class="pretty-upload-input" accept="image/*">
+              <label for="profileImageFile" class="pretty-upload-label">Upload Profile Picture</label>
+              <div id="profileImageFileName" class="selected-file-note"></div>
+            </div>
+
+            <div class="asset-box">
+              <div class="asset-preview-square">
+                <div class="asset-empty" id="logoEmpty">No logo yet</div>
+                <img id="logoPreview" style="display:none;" alt="Logo preview">
+              </div>
+
+              <input type="file" id="logoFile" class="pretty-upload-input" accept="image/*">
+              <label for="logoFile" class="pretty-upload-label">Upload Logo</label>
+              <div id="logoFileName" class="selected-file-note"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" style="text-align:left;">
+        <h2 class="dashboard-section-title">Media Uploads</h2>
+
+        <div class="dashboard-card-soft">
+          <div class="media-uploader-grid">
+            <div class="upload-box">
+              <h3>Upload Photos</h3>
+              <input type="file" id="galleryImageFiles" class="pretty-upload-input" accept="image/*" multiple>
+              <label for="galleryImageFiles" class="pretty-upload-label">Choose Photos</label>
+              <div id="galleryImageFileName" class="selected-file-note"></div>
+            </div>
+
+            <div class="upload-box">
+              <h3>Upload Videos</h3>
+              <input type="file" id="galleryVideoFiles" class="pretty-upload-input" accept="video/*" multiple>
+              <label for="galleryVideoFiles" class="pretty-upload-label">Choose Videos</label>
+              <div id="galleryVideoFileName" class="selected-file-note"></div>
+            </div>
+          </div>
+
+          <div id="imagePreview" class="media-preview-grid"></div>
+          <div id="videoPreview" class="media-preview-grid"></div>
+        </div>
+      </section>
+
+      <section class="card" style="text-align:left;">
+        <h2 class="dashboard-section-title">Style Tags</h2>
+
+        <div class="dashboard-card-soft">
+          <div id="styleTagOptions" class="mini-pill-grid"></div>
+        </div>
+      </section>
+
+      <section class="card" style="text-align:left;">
+        <h2 class="dashboard-section-title">Categories</h2>
+        <div class="dashboard-card-soft">
+          <div id="categoryOptions" class="dropdown-content-form"></div>
+        </div>
+      </section>
+
+      <section class="card" style="text-align:left;">
+        <h2 class="dashboard-section-title">Countries You Service</h2>
+        <div class="dashboard-card-soft">
+          <div id="countryOptions" class="dropdown-content-form"></div>
+        </div>
+      </section>
+
+      <section class="card" style="text-align:left;">
+        <h2 class="dashboard-section-title">States / Provinces / Territories</h2>
+        <div class="dashboard-card-soft">
+          <div id="stateOptions" class="dropdown-content-form">
+            <p class="small-text">Select countries first.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" style="text-align:left;">
+        <h2 class="dashboard-section-title">Regions / Cities / Areas</h2>
+        <div class="dashboard-card-soft">
+          <div id="regionOptions" class="dropdown-content-form">
+            <p class="small-text">Select states, provinces or territories first.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <button type="button" id="saveBtn" class="pretty-button wide-glow">Save Changes</button>
+        <p id="message" class="form-message"></p>
+      </section>
+
+    </div>
   </main>
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p class="footer-eyebrow">wedding vendor directory</p>
+      <h2 class="footer-title">Everything you need for your wedding, all in one place.</h2>
+      <p class="footer-text">
+        Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.
+      </p>
+
+      <div class="footer-links">
+        <a href="about.html">About Us</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="refund-policy.html">Refund Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="contact.html">Enquiries</a>
+      </div>
+  <footer class="site-footer">
+    <p>© 2026 Our Wedding Day Hub</p>
+    <p>ABN 76 688 637 041 • Australia</p>
+    </div>
+  </footer>
 
   <script type="module">
     import {
+      auth,
       db,
-      collection,
-      getDocs
+      storage,
+      onAuthStateChanged,
+      doc,
+      getDoc,
+      setDoc,
+      serverTimestamp,
+      ref,
+      uploadBytes,
+      getDownloadURL
     } from "./firebase.js";
 
-    const vendorsGrid = document.getElementById("vendorsGrid");
+    import {
+      updateEmail,
+      updatePassword
+    } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
-    function goToVendor(vendor) {
-      window.location.href = `vendor.html?id=${vendor.docId}`;
+    import { LOCATION_DATA } from "./locations.js";
+
+    const categoryOptions = document.getElementById("categoryOptions");
+    const styleTagOptions = document.getElementById("styleTagOptions");
+    const countryOptions = document.getElementById("countryOptions");
+    const stateOptions = document.getElementById("stateOptions");
+    const regionOptions = document.getElementById("regionOptions");
+
+    const businessName = document.getElementById("businessName");
+    const email = document.getElementById("email");
+    const phone = document.getElementById("phone");
+    const instagram = document.getElementById("instagram");
+    const website = document.getElementById("website");
+    const facebook = document.getElementById("facebook");
+    const tiktok = document.getElementById("tiktok");
+    const youtube = document.getElementById("youtube");
+    const pinterest = document.getElementById("pinterest");
+    const linkedin = document.getElementById("linkedin");
+    const x = document.getElementById("x");
+    const serviceAreas = document.getElementById("serviceAreas");
+    const displayLocation = document.getElementById("displayLocation");
+    const bookingLink = document.getElementById("bookingLink");
+    const availabilityStatus = document.getElementById("availabilityStatus");
+    const bookingNotes = document.getElementById("bookingNotes");
+    const blockedDateInput = document.getElementById("blockedDateInput");
+    const addBlockedDateBtn = document.getElementById("addBlockedDateBtn");
+    const blockedDateList = document.getElementById("blockedDateList");
+    const weekdayOptions = document.getElementById("weekdayOptions");
+    const bulkStartDate = document.getElementById("bulkStartDate");
+    const bulkEndDate = document.getElementById("bulkEndDate");
+    const bulkMonthsPreset = document.getElementById("bulkMonthsPreset");
+    const bulkAddBtn = document.getElementById("bulkAddBtn");
+    const bio = document.getElementById("bio");
+
+    const profileImageFile = document.getElementById("profileImageFile");
+    const logoFile = document.getElementById("logoFile");
+    const galleryImageFiles = document.getElementById("galleryImageFiles");
+    const galleryVideoFiles = document.getElementById("galleryVideoFiles");
+
+    const profileImageFileName = document.getElementById("profileImageFileName");
+    const logoFileName = document.getElementById("logoFileName");
+    const galleryImageFileName = document.getElementById("galleryImageFileName");
+    const galleryVideoFileName = document.getElementById("galleryVideoFileName");
+
+    const profileImagePreview = document.getElementById("profileImagePreview");
+    const profileImageEmpty = document.getElementById("profileImageEmpty");
+    const logoPreview = document.getElementById("logoPreview");
+    const logoEmpty = document.getElementById("logoEmpty");
+
+    const profileLive = document.getElementById("profileLive");
+
+    const saveBtn = document.getElementById("saveBtn");
+    const saveTopBtn = document.getElementById("saveTopBtn");
+    const viewProfileBtn = document.getElementById("viewProfileBtn");
+    const message = document.getElementById("message");
+
+    const accountStatusText = document.getElementById("accountStatusText");
+    const subscriptionStatusText = document.getElementById("subscriptionStatusText");
+    const viewsStatusText = document.getElementById("viewsStatusText");
+    const imagePreview = document.getElementById("imagePreview");
+    const videoPreview = document.getElementById("videoPreview");
+
+    const accountName = document.getElementById("accountName");
+    const accountEmail = document.getElementById("accountEmail");
+    const accountPassword = document.getElementById("accountPassword");
+    const saveAccountBtn = document.getElementById("saveAccountBtn");
+    const accountMessage = document.getElementById("accountMessage");
+
+    let currentUser = null;
+    let currentProfileImageUrl = "";
+    let currentLogoUrl = "";
+    let currentGalleryImages = [];
+    let currentGalleryVideos = [];
+    let currentBlockedDates = [];
+    let currentVendorAccess = {
+      subscriptionActive: false,
+      paidSetupFee: false,
+      complimentaryPlan: false,
+      accountStatus: "active"
+    };
+
+    const STYLE_TAGS = [
+      "Indoor",
+      "Outdoor",
+      "Luxury",
+      "Modern",
+      "Romantic",
+      "Coastal",
+      "Boho",
+      "Minimal",
+      "Classic",
+      "Editorial",
+      "Garden",
+      "Rustic",
+      "Elegant",
+      "Destination",
+      "Intimate",
+      "Bold",
+      "Timeless",
+      "Whimsical"
+    ];
+
+    const CATEGORY_GROUPS = [
+      {
+        title: "Photo & Video",
+        items: [
+          ["wedding_photographer", "Photographer"],
+          ["wedding_videographer", "Videographer"],
+          ["wedding_content_creator", "Content Creator"],
+          ["photo_and_video_team", "Photo & Video Team"],
+          ["engagement_photographer", "Engagement Photographer"],
+          ["drone_operator", "Drone Operator"]
+        ]
+      },
+      {
+        title: "Hair & Beauty",
+        items: [
+          ["wedding_makeup_artist", "Makeup Artist"],
+          ["wedding_hair_stylist", "Hair Stylist"],
+          ["nail_artist", "Nail Artist"],
+          ["beauty_salon", "Beauty Salon"],
+          ["spray_tan", "Spray Tanning"],
+          ["skin_aesthetics", "Skin & Aesthetics"],
+          ["brow_artist", "Brow Artist"],
+          ["lash_artist", "Lash Artist"],
+          ["barber_grooming", "Barber / Grooming"]
+        ]
+      },
+      {
+        title: "Entertainment",
+        items: [
+          ["wedding_singer", "Singer"],
+          ["wedding_band", "Band"],
+          ["wedding_dj", "DJ"],
+          ["acoustic_musician", "Acoustic Musician"],
+          ["violinist", "Violinist"],
+          ["saxophonist", "Saxophonist"],
+          ["harpist", "Harpist"],
+          ["wedding_mc", "MC"],
+          ["string_quartet", "String Quartet"],
+          ["live_entertainment", "Live Entertainment"]
+        ]
+      },
+      {
+        title: "Styling & Florals",
+        items: [
+          ["wedding_florist", "Florist"],
+          ["wedding_stylist", "Wedding Stylist"],
+          ["event_designer", "Event Designer"],
+          ["balloon_stylist", "Balloon Stylist"],
+          ["backdrops_arches", "Backdrops & Arches"],
+          ["ceremony_styling", "Ceremony Styling"],
+          ["reception_styling", "Reception Styling"]
+        ]
+      },
+      {
+        title: "Food & Drink",
+        items: [
+          ["wedding_caterer", "Caterer"],
+          ["wedding_cake_designer", "Wedding Cake Designer"],
+          ["dessert_bar", "Dessert Bar"],
+          ["mobile_bar", "Mobile Bar"],
+          ["coffee_cart", "Coffee Cart"],
+          ["food_truck", "Food Truck"],
+          ["grazing_tables", "Grazing Tables"],
+          ["cocktail_catering", "Cocktail Catering"],
+          ["ice_cream_cart", "Ice Cream Cart"]
+        ]
+      },
+      {
+        title: "Venues",
+        items: [
+          ["wedding_venue", "Wedding Venue"],
+          ["ceremony_venue", "Ceremony Venue"],
+          ["reception_venue", "Reception Venue"],
+          ["elopement_location", "Elopement Location"],
+          ["outdoor_venue", "Outdoor Venue"],
+          ["church_ceremony_venue", "Church / Ceremony Venue"],
+          ["garden_venue", "Garden Venue"],
+          ["winery_venue", "Winery Venue"],
+          ["beach_venue", "Beach Venue"]
+        ]
+      },
+      {
+        title: "Stationery & Signage",
+        items: [
+          ["wedding_invitations", "Invitations"],
+          ["wedding_stationery", "Wedding Stationery"],
+          ["wedding_signage", "Signage"],
+          ["calligraphy", "Calligraphy"],
+          ["place_cards", "Place Cards"],
+          ["seating_charts", "Seating Charts"]
+        ]
+      },
+      {
+        title: "Fashion",
+        items: [
+          ["bridal_boutique", "Bridal Boutique"],
+          ["bridesmaid_dresses", "Bridesmaid Dresses"],
+          ["formal_wear", "Formal Wear"],
+          ["suit_hire", "Suit Hire"],
+          ["custom_designer", "Custom Designer"],
+          ["wedding_dress_alterations", "Wedding Dress Alterations"],
+          ["bridal_accessories", "Bridal Accessories"],
+          ["bridal_shoes", "Bridal Shoes"],
+          ["veils_headpieces", "Veils & Headpieces"]
+        ]
+      },
+      {
+        title: "Jewellery",
+        items: [
+          ["wedding_rings", "Wedding Rings"],
+          ["engagement_rings", "Engagement Rings"],
+          ["custom_jewellery", "Custom Jewellery"],
+          ["permanent_jewellery", "Permanent Jewellery"]
+        ]
+      },
+      {
+        title: "Transport",
+        items: [
+          ["wedding_cars", "Wedding Cars"],
+          ["luxury_cars", "Luxury Cars"],
+          ["vintage_cars", "Vintage Cars"],
+          ["limousine", "Limousine"],
+          ["guest_transport", "Guest Transport"],
+          ["bus_charter", "Bus Charter"],
+          ["horse_carriage", "Horse & Carriage"]
+        ]
+      },
+      {
+        title: "Experiences & Unique Services",
+        items: [
+          ["live_wedding_painter", "Live Wedding Painter"],
+          ["photo_booth", "Photo Booth"],
+          ["audio_guestbook", "Audio Guestbook"],
+          ["wedding_content_creator_unique", "Wedding Content Creator"],
+          ["fireworks_special_effects", "Fireworks / Special Effects"],
+          ["dance_lessons", "Dance Lessons"],
+          ["caricature_artist", "Caricature Artist"],
+          ["tarot_reader", "Tarot Reader"]
+        ]
+      },
+      {
+        title: "Ceremony Services",
+        items: [
+          ["wedding_celebrant", "Celebrant"],
+          ["ceremony_music", "Ceremony Music"],
+          ["wedding_vows_speech_writer", "Vow / Speech Writer"]
+        ]
+      },
+      {
+        title: "Planning & Support",
+        items: [
+          ["wedding_planner", "Wedding Planner"],
+          ["wedding_coordinator", "Wedding Coordinator"],
+          ["on_the_day_coordinator", "On-the-day Coordinator"],
+          ["honeymoon_planner", "Honeymoon Planner"],
+          ["wedding_consultant", "Wedding Consultant"]
+        ]
+      },
+      {
+        title: "Care Services",
+        items: [
+          ["pet_attendant", "Pet Attendant"],
+          ["child_minder_wedding_nanny", "Child Minder / Wedding Nanny"]
+        ]
+      },
+      {
+        title: "Hire & Rentals",
+        items: [
+          ["furniture_hire", "Furniture Hire"],
+          ["decor_hire", "Decor Hire"],
+          ["tableware_hire", "Tableware Hire"],
+          ["lighting_hire", "Lighting Hire"],
+          ["marquee_hire", "Marquee Hire"],
+          ["styling_hire", "Styling Hire"],
+          ["dance_floor_hire", "Dance Floor Hire"],
+          ["linen_hire", "Linen Hire"],
+          ["prop_hire", "Prop Hire"]
+        ]
+      },
+      {
+        title: "Gifts & Favours",
+        items: [
+          ["wedding_favours", "Wedding Favours"],
+          ["personalised_gifts", "Personalised Gifts"],
+          ["hampers", "Hampers"],
+          ["bomboniere", "Bomboniere"]
+        ]
+      },
+      {
+        title: "Health & Wellness",
+        items: [
+          ["bridal_fitness", "Bridal Fitness"],
+          ["massage_therapist", "Massage Therapist"],
+          ["wellness_services", "Wellness Services"]
+        ]
+      },
+      {
+        title: "Accommodation",
+        items: [
+          ["guest_accommodation", "Guest Accommodation"],
+          ["bridal_suite", "Bridal Suite"],
+          ["honeymoon_stay", "Honeymoon Stay"]
+        ]
+      }
+    ];
+
+    function getCheckedValues(container) {
+      return Array.from(container.querySelectorAll("input:checked")).map(input => input.value);
     }
 
-    function renderVendors(vendors) {
-      vendorsGrid.innerHTML = "";
+    function createPillCheckbox(value, labelText, checked = false, name = "") {
+      const label = document.createElement("label");
+      const input = document.createElement("input");
+      const span = document.createElement("span");
 
-      vendors.forEach((vendor) => {
-        const card = document.createElement("div");
-        card.className = "vendor-card";
+      input.type = "checkbox";
+      input.value = value;
+      if (name) input.name = name;
+      input.checked = checked;
 
-        card.innerHTML = `
-          <h3>${vendor.businessName || "Vendor"}</h3>
-          <p>Beautiful vendor profile coming soon.</p>
-        `;
+      span.textContent = labelText;
 
-        card.addEventListener("click", () => goToVendor(vendor));
-        vendorsGrid.appendChild(card);
+      label.appendChild(input);
+      label.appendChild(span);
+
+      return label;
+    }
+
+    function hasVendorAccess(vendorData) {
+      const hasPaidAccess =
+        vendorData.subscriptionActive === true || vendorData.paidSetupFee === true;
+
+      const hasComplimentaryAccess =
+        vendorData.complimentaryPlan === true;
+
+      const isApprovedAccount =
+        !vendorData.accountStatus || vendorData.accountStatus === "active";
+
+      return isApprovedAccount && (hasPaidAccess || hasComplimentaryAccess);
+    }
+
+    function getPlanAccessLabel(vendorData) {
+      if (vendorData.complimentaryPlan === true) return "complimentary";
+      if (vendorData.subscriptionActive === true) return "active subscription";
+      if (vendorData.paidSetupFee === true) return "setup paid";
+      return "inactive";
+    }
+
+    function getProfileViews(vendorData) {
+      if (typeof vendorData.profileViews === "number") return vendorData.profileViews;
+      if (typeof vendorData.viewCount === "number") return vendorData.viewCount;
+      if (typeof vendorData.views === "number") return vendorData.views;
+      return 0;
+    }
+
+    function updateViewProfileVisibility(vendorData) {
+      const isLive = profileLive.checked === true;
+      const canBeShown = hasVendorAccess(vendorData);
+      viewProfileBtn.style.display = isLive && canBeShown ? "inline-block" : "none";
+    }
+
+    function renderStyleTags(selected = []) {
+      styleTagOptions.innerHTML = "";
+      STYLE_TAGS.forEach(tag => {
+        styleTagOptions.appendChild(createPillCheckbox(tag, tag, selected.includes(tag), "styleTags"));
       });
     }
 
-    async function loadVendors() {
-      const snapshot = await getDocs(collection(db, "vendors"));
-      const list = [];
+    function renderCategoryOptions(selected = []) {
+      categoryOptions.innerHTML = "";
+      CATEGORY_GROUPS.forEach(group => {
+        const heading = document.createElement("div");
+        heading.className = "category-group-title";
+        heading.textContent = group.title;
+        categoryOptions.appendChild(heading);
 
-      snapshot.forEach((doc) => {
-        list.push({
-          ...doc.data(),
-          docId: doc.id
+        group.items.forEach(([value, label]) => {
+          categoryOptions.appendChild(createPillCheckbox(value, label, selected.includes(value), "categories"));
+        });
+      });
+    }
+
+    function renderCountries(selectedCountries = []) {
+      countryOptions.innerHTML = "";
+      const countries = Object.keys(LOCATION_DATA).sort((a, b) => a.localeCompare(b));
+
+      if (!countries.length) {
+        countryOptions.innerHTML = '<p class="small-text">No countries found.</p>';
+        return;
+      }
+
+      countries.forEach(country => {
+        countryOptions.appendChild(createPillCheckbox(country, country, selectedCountries.includes(country), "countries"));
+      });
+
+      countryOptions.querySelectorAll("input").forEach(input => {
+        input.addEventListener("change", () => {
+          renderStates([]);
+          renderRegions([]);
+        });
+      });
+    }
+
+    function renderStates(selectedStates = []) {
+      const selectedCountries = getCheckedValues(countryOptions);
+      stateOptions.innerHTML = "";
+      regionOptions.innerHTML = '<p class="small-text">Select states, provinces or territories first.</p>';
+
+      if (!selectedCountries.length) {
+        stateOptions.innerHTML = '<p class="small-text">Select countries first.</p>';
+        return;
+      }
+
+      let hasStates = false;
+
+      selectedCountries.forEach(country => {
+        const countryData = LOCATION_DATA[country];
+        if (!countryData) return;
+
+        const heading = document.createElement("div");
+        heading.className = "region-heading";
+        heading.textContent = country;
+        stateOptions.appendChild(heading);
+
+        Object.keys(countryData).sort((a, b) => a.localeCompare(b)).forEach(state => {
+          hasStates = true;
+          stateOptions.appendChild(createPillCheckbox(state, state, selectedStates.includes(state), "states"));
         });
       });
 
-      renderVendors(list);
+      if (!hasStates) {
+        stateOptions.innerHTML = '<p class="small-text">No states, provinces or territories found.</p>';
+        return;
+      }
+
+      stateOptions.querySelectorAll("input").forEach(input => {
+        input.addEventListener("change", () => {
+          renderRegions(getCheckedValues(regionOptions));
+        });
+      });
     }
 
-    loadVendors();
+    function renderRegions(previouslyChecked = []) {
+      const selectedCountries = getCheckedValues(countryOptions);
+      const selectedStates = getCheckedValues(stateOptions);
+
+      regionOptions.innerHTML = "";
+
+      if (!selectedCountries.length || !selectedStates.length) {
+        regionOptions.innerHTML = '<p class="small-text">Select states, provinces or territories first.</p>';
+        return;
+      }
+
+      let hasRegions = false;
+
+      selectedCountries.forEach(country => {
+        const countryData = LOCATION_DATA[country];
+        if (!countryData) return;
+
+        selectedStates.forEach(state => {
+          const regions = countryData[state];
+          if (!regions || !regions.length) return;
+
+          hasRegions = true;
+
+          const heading = document.createElement("div");
+          heading.className = "region-heading";
+          heading.textContent = `${country} — ${state}`;
+          regionOptions.appendChild(heading);
+
+          regions.forEach(region => {
+            regionOptions.appendChild(createPillCheckbox(region, region, previouslyChecked.includes(region), "regions"));
+          });
+        });
+      });
+
+      if (!hasRegions) {
+        regionOptions.innerHTML = '<p class="small-text">No regions or cities found for the selected areas.</p>';
+      }
+    }
+
+    function setSingleImagePreview(url, imgEl, emptyEl) {
+      if (url) {
+        imgEl.src = url;
+        imgEl.style.display = "block";
+        emptyEl.style.display = "none";
+      } else {
+        imgEl.removeAttribute("src");
+        imgEl.style.display = "none";
+        emptyEl.style.display = "block";
+      }
+    }
+
+    function buildMediaCard(type, url, onRemove) {
+      const wrap = document.createElement("div");
+      wrap.className = "media-preview-item";
+
+      if (type === "image") {
+        const img = document.createElement("img");
+        img.src = url;
+        img.alt = "Vendor image preview";
+        img.loading = "lazy";
+        wrap.appendChild(img);
+      } else {
+        const video = document.createElement("video");
+        video.src = url;
+        video.controls = true;
+        video.preload = "metadata";
+        wrap.appendChild(video);
+      }
+
+      const removeBtn = document.createElement("button");
+      removeBtn.type = "button";
+      removeBtn.className = "remove-media-btn";
+      removeBtn.textContent = "Remove";
+      removeBtn.addEventListener("click", onRemove);
+      wrap.appendChild(removeBtn);
+
+      return wrap;
+    }
+
+    function setImagePreview() {
+      imagePreview.innerHTML = "";
+      currentGalleryImages.slice(0, 12).forEach(imgUrl => {
+        imagePreview.appendChild(buildMediaCard("image", imgUrl, () => removeImageUrl(imgUrl)));
+      });
+    }
+
+    function setVideoPreview() {
+      videoPreview.innerHTML = "";
+      currentGalleryVideos.slice(0, 8).forEach(url => {
+        videoPreview.appendChild(buildMediaCard("video", url, () => removeVideoUrl(url)));
+      });
+    }
+
+    function removeImageUrl(urlToRemove) {
+      currentGalleryImages = currentGalleryImages.filter(url => url !== urlToRemove);
+      setImagePreview();
+    }
+
+    function removeVideoUrl(urlToRemove) {
+      currentGalleryVideos = currentGalleryVideos.filter(url => url !== urlToRemove);
+      setVideoPreview();
+    }
+
+    function showSelectedFileNames(input, targetEl, multiple = false) {
+      const files = Array.from(input.files || []);
+      if (!files.length) {
+        targetEl.textContent = "";
+        return;
+      }
+
+      if (multiple) {
+        targetEl.textContent = `${files.length} file${files.length === 1 ? "" : "s"} selected`;
+      } else {
+        targetEl.textContent = files[0].name;
+      }
+    }
+
+    function previewLocalSingleImage(file, previewEl, emptyEl) {
+      if (!file) return;
+      const localUrl = URL.createObjectURL(file);
+      previewEl.src = localUrl;
+      previewEl.style.display = "block";
+      emptyEl.style.display = "none";
+    }
+
+    function formatDateForDisplay(dateString) {
+      if (!dateString) return "";
+      const date = new Date(dateString + "T00:00:00");
+      return date.toLocaleDateString("en-AU", {
+        day: "numeric",
+        month: "short",
+        year: "numeric"
+      });
+    }
+
+    function toLocalDateString(dateObj) {
+      const y = dateObj.getFullYear();
+      const m = String(dateObj.getMonth() + 1).padStart(2, "0");
+      const d = String(dateObj.getDate()).padStart(2, "0");
+      return `${y}-${m}-${d}`;
+    }
+
+    function renderBlockedDates() {
+      blockedDateList.innerHTML = "";
+
+      if (!currentBlockedDates.length) {
+        blockedDateList.innerHTML = '<p class="small-text">No unavailable dates added yet.</p>';
+        return;
+      }
+
+      currentBlockedDates
+        .slice()
+        .sort()
+        .forEach(dateValue => {
+          const chip = document.createElement("div");
+          chip.className = "date-chip";
+
+          const text = document.createElement("span");
+          text.textContent = formatDateForDisplay(dateValue);
+
+          const removeBtn = document.createElement("button");
+          removeBtn.type = "button";
+          removeBtn.className = "date-remove-btn";
+          removeBtn.textContent = "Remove";
+          removeBtn.addEventListener("click", () => {
+            currentBlockedDates = currentBlockedDates.filter(d => d !== dateValue);
+            renderBlockedDates();
+          });
+
+          chip.appendChild(text);
+          chip.appendChild(removeBtn);
+          blockedDateList.appendChild(chip);
+        });
+    }
+
+    function addBlockedDate() {
+      const dateValue = blockedDateInput.value;
+      if (!dateValue) return;
+
+      if (!currentBlockedDates.includes(dateValue)) {
+        currentBlockedDates.push(dateValue);
+      }
+
+      currentBlockedDates = [...new Set(currentBlockedDates)].sort();
+      blockedDateInput.value = "";
+      renderBlockedDates();
+    }
+
+    function getSelectedWeekdays() {
+      return Array.from(weekdayOptions.querySelectorAll("input:checked")).map(input => Number(input.value));
+    }
+
+    function addMonthsToDate(dateObj, months) {
+      const copy = new Date(dateObj);
+      copy.setMonth(copy.getMonth() + months);
+      return copy;
+    }
+
+    function applyBulkWeekdayBlock() {
+      const selectedWeekdays = getSelectedWeekdays();
+
+      if (!selectedWeekdays.length) {
+        message.textContent = "Please choose at least one weekday to bulk block.";
+        return;
+      }
+
+      let startValue = bulkStartDate.value;
+      let endValue = bulkEndDate.value;
+      const presetMonths = bulkMonthsPreset.value;
+
+      const today = new Date();
+      const todayString = toLocalDateString(today);
+
+      if (!startValue) {
+        startValue = todayString;
+        bulkStartDate.value = startValue;
+      }
+
+      if (!endValue && presetMonths) {
+        const presetEnd = addMonthsToDate(new Date(startValue + "T00:00:00"), Number(presetMonths));
+        endValue = toLocalDateString(presetEnd);
+        bulkEndDate.value = endValue;
+      }
+
+      if (!endValue) {
+        message.textContent = "Please choose an end date or use a quick range.";
+        return;
+      }
+
+      if (endValue < startValue) {
+        message.textContent = "The end date must be after the start date.";
+        return;
+      }
+
+      const startDate = new Date(startValue + "T00:00:00");
+      const endDate = new Date(endValue + "T00:00:00");
+
+      let addedCount = 0;
+      const existing = new Set(currentBlockedDates);
+
+      for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
+        if (selectedWeekdays.includes(d.getDay())) {
+          const dateString = toLocalDateString(d);
+          if (!existing.has(dateString)) {
+            existing.add(dateString);
+            addedCount += 1;
+          }
+        }
+      }
+
+      currentBlockedDates = Array.from(existing).sort();
+      renderBlockedDates();
+      message.textContent = addedCount
+        ? `${addedCount} unavailable date${addedCount === 1 ? "" : "s"} added.`
+        : "No new unavailable dates were added.";
+    }
+
+    profileImageFile.addEventListener("change", (e) => {
+      const file = e.target.files?.[0];
+      showSelectedFileNames(profileImageFile, profileImageFileName, false);
+      if (file) previewLocalSingleImage(file, profileImagePreview, profileImageEmpty);
+    });
+
+    logoFile.addEventListener("change", (e) => {
+      const file = e.target.files?.[0];
+      showSelectedFileNames(logoFile, logoFileName, false);
+      if (file) previewLocalSingleImage(file, logoPreview, logoEmpty);
+    });
+
+    galleryImageFiles.addEventListener("change", () => {
+      showSelectedFileNames(galleryImageFiles, galleryImageFileName, true);
+    });
+
+    galleryVideoFiles.addEventListener("change", () => {
+      showSelectedFileNames(galleryVideoFiles, galleryVideoFileName, true);
+    });
+
+    profileLive.addEventListener("change", () => {
+      updateViewProfileVisibility(currentVendorAccess);
+    });
+
+    addBlockedDateBtn.addEventListener("click", addBlockedDate);
+    blockedDateInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        addBlockedDate();
+      }
+    });
+
+    bulkAddBtn.addEventListener("click", applyBulkWeekdayBlock);
+
+    bulkMonthsPreset.addEventListener("change", () => {
+      const presetMonths = bulkMonthsPreset.value;
+      if (!presetMonths) return;
+
+      const baseDate = bulkStartDate.value
+        ? new Date(bulkStartDate.value + "T00:00:00")
+        : new Date();
+
+      if (!bulkStartDate.value) {
+        bulkStartDate.value = toLocalDateString(baseDate);
+      }
+
+      const computedEnd = addMonthsToDate(baseDate, Number(presetMonths));
+      bulkEndDate.value = toLocalDateString(computedEnd);
+    });
+
+    async function uploadFileToStorage(file, folder, uid) {
+      const safeName = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9._-]/g, "_")}`;
+      const storageRef = ref(storage, `${folder}/${uid}/${safeName}`);
+      await uploadBytes(storageRef, file);
+      return await getDownloadURL(storageRef);
+    }
+
+    async function loadVendorData(uid) {
+      const userSnap = await getDoc(doc(db, "users", uid));
+
+      if (!userSnap.exists() || userSnap.data().role !== "vendor") {
+        window.location.href = "login.html";
+        return;
+      }
+
+      const userData = userSnap.data();
+      const vendorRef = doc(db, "vendors", uid);
+      const vendorSnap = await getDoc(vendorRef);
+      const vendorData = vendorSnap.exists() ? vendorSnap.data() : {};
+
+      currentVendorAccess = {
+        subscriptionActive: vendorData.subscriptionActive === true,
+        paidSetupFee: vendorData.paidSetupFee === true,
+        complimentaryPlan: vendorData.complimentaryPlan === true,
+        accountStatus: vendorData.accountStatus || "active"
+      };
+
+      businessName.value = vendorData.businessName || "";
+      email.value = vendorData.email || currentUser.email || "";
+      accountName.value = userData.name || "";
+      accountEmail.value = userData.email || currentUser.email || "";
+      phone.value = vendorData.phone || "";
+      instagram.value = vendorData.instagram || "";
+      website.value = vendorData.website || "";
+      facebook.value = vendorData.facebook || "";
+      tiktok.value = vendorData.tiktok || "";
+      youtube.value = vendorData.youtube || "";
+      pinterest.value = vendorData.pinterest || "";
+      linkedin.value = vendorData.linkedin || "";
+      x.value = vendorData.x || "";
+      serviceAreas.value = vendorData.serviceAreas || "";
+      displayLocation.value = vendorData.displayLocation || "";
+      bookingLink.value = vendorData.bookingLink || "";
+      availabilityStatus.value = vendorData.availabilityStatus || "";
+      bookingNotes.value = vendorData.bookingNotes || "";
+      bio.value = vendorData.bio || "";
+
+      currentBlockedDates = Array.isArray(vendorData.blockedDates)
+        ? vendorData.blockedDates.filter(Boolean)
+        : [];
+
+      currentProfileImageUrl = vendorData.profileImageUrl || "";
+      currentLogoUrl = vendorData.logoUrl || "";
+      currentGalleryImages = Array.isArray(vendorData.images) ? [...vendorData.images] : [];
+      currentGalleryVideos = Array.isArray(vendorData.videos) ? [...vendorData.videos] : [];
+
+      profileLive.checked = vendorData.profileVisible === true;
+
+      accountStatusText.textContent = `Account status: ${vendorData.accountStatus || "active"}`;
+      subscriptionStatusText.textContent = `Plan access: ${getPlanAccessLabel(vendorData)}`;
+      viewsStatusText.textContent = `Profile views: ${getProfileViews(vendorData)}`;
+
+      renderStyleTags(Array.isArray(vendorData.styleTags) ? vendorData.styleTags : []);
+      renderCategoryOptions(Array.isArray(vendorData.categories) ? vendorData.categories : []);
+
+      const selectedCountries =
+        Array.isArray(vendorData.countries) && vendorData.countries.length
+          ? vendorData.countries
+          : vendorData.country
+            ? [vendorData.country]
+            : ["Australia"];
+
+      renderCountries(selectedCountries);
+      renderStates(Array.isArray(vendorData.states) ? vendorData.states : []);
+      renderRegions(Array.isArray(vendorData.regions) ? vendorData.regions : []);
+
+      viewProfileBtn.href = `vendor.html?id=${uid}`;
+
+      setSingleImagePreview(currentProfileImageUrl, profileImagePreview, profileImageEmpty);
+      setSingleImagePreview(currentLogoUrl, logoPreview, logoEmpty);
+      setImagePreview();
+      setVideoPreview();
+      renderBlockedDates();
+      updateViewProfileVisibility(currentVendorAccess);
+    }
+
+    async function saveAccountSettings() {
+      if (!currentUser) return;
+
+      accountMessage.textContent = "Updating account...";
+
+      try {
+        const newName = accountName.value.trim();
+        const newEmail = accountEmail.value.trim().toLowerCase();
+        const newPassword = accountPassword.value.trim();
+
+        await setDoc(doc(db, "users", currentUser.uid), {
+          name: newName,
+          email: newEmail,
+          role: "vendor",
+          updatedAt: serverTimestamp()
+        }, { merge: true });
+
+        if (newEmail && newEmail !== currentUser.email) {
+          await updateEmail(currentUser, newEmail);
+        }
+
+        if (newPassword) {
+          if (newPassword.length < 6) {
+            accountMessage.textContent = "Password must be at least 6 characters.";
+            return;
+          }
+          await updatePassword(currentUser, newPassword);
+        }
+
+        await setDoc(doc(db, "vendors", currentUser.uid), {
+          email: newEmail
+        }, { merge: true });
+
+        email.value = newEmail;
+        accountPassword.value = "";
+        accountMessage.textContent = "Account details updated successfully.";
+      } catch (error) {
+        console.error(error);
+        accountMessage.textContent = "Could not update account details. You may need to log in again before changing email or password.";
+      }
+    }
+
+    async function saveVendorData() {
+      if (!currentUser) return;
+
+      message.textContent = "Saving...";
+
+      try {
+        const vendorSnap = await getDoc(doc(db, "vendors", currentUser.uid));
+        const existingVendorData = vendorSnap.exists() ? vendorSnap.data() : {};
+
+        currentVendorAccess = {
+          subscriptionActive: existingVendorData.subscriptionActive === true,
+          paidSetupFee: existingVendorData.paidSetupFee === true,
+          complimentaryPlan: existingVendorData.complimentaryPlan === true,
+          accountStatus: existingVendorData.accountStatus || "active"
+        };
+
+        const selectedStyleTags = getCheckedValues(styleTagOptions);
+        const selectedCategories = getCheckedValues(categoryOptions);
+        const selectedCountries = getCheckedValues(countryOptions);
+        const selectedStates = getCheckedValues(stateOptions);
+        const selectedRegions = getCheckedValues(regionOptions);
+
+        let finalProfileImageUrl = currentProfileImageUrl;
+        let finalLogoUrl = currentLogoUrl;
+        let galleryImages = [...currentGalleryImages];
+        let galleryVideos = [...currentGalleryVideos];
+
+        if (profileImageFile.files?.[0]) {
+          finalProfileImageUrl = await uploadFileToStorage(profileImageFile.files[0], "vendor-profile-images", currentUser.uid);
+        }
+
+        if (logoFile.files?.[0]) {
+          finalLogoUrl = await uploadFileToStorage(logoFile.files[0], "vendor-logos", currentUser.uid);
+        }
+
+        if (galleryImageFiles.files?.length) {
+          const uploadedImageUrls = [];
+          for (const file of Array.from(galleryImageFiles.files)) {
+            const url = await uploadFileToStorage(file, "vendor-gallery-images", currentUser.uid);
+            uploadedImageUrls.push(url);
+          }
+          galleryImages = [...galleryImages, ...uploadedImageUrls];
+        }
+
+        if (galleryVideoFiles.files?.length) {
+          const uploadedVideoUrls = [];
+          for (const file of Array.from(galleryVideoFiles.files)) {
+            const url = await uploadFileToStorage(file, "vendor-gallery-videos", currentUser.uid);
+            uploadedVideoUrls.push(url);
+          }
+          galleryVideos = [...galleryVideos, ...uploadedVideoUrls];
+        }
+
+        galleryImages = [...new Set(galleryImages)];
+        galleryVideos = [...new Set(galleryVideos)];
+        currentBlockedDates = [...new Set(currentBlockedDates)].sort();
+
+        const finalCoverImageUrl = galleryImages[0] || "";
+
+        await setDoc(doc(db, "vendors", currentUser.uid), {
+          uid: currentUser.uid,
+          businessName: businessName.value.trim(),
+          email: email.value.trim().toLowerCase(),
+          phone: phone.value.trim(),
+          instagram: instagram.value.trim(),
+          website: website.value.trim(),
+          facebook: facebook.value.trim(),
+          tiktok: tiktok.value.trim(),
+          youtube: youtube.value.trim(),
+          pinterest: pinterest.value.trim(),
+          linkedin: linkedin.value.trim(),
+          x: x.value.trim(),
+          serviceAreas: serviceAreas.value.trim(),
+          displayLocation: displayLocation.value.trim(),
+          bookingLink: bookingLink.value.trim(),
+          availabilityStatus: availabilityStatus.value.trim(),
+          bookingNotes: bookingNotes.value.trim(),
+          blockedDates: currentBlockedDates,
+          bio: bio.value.trim(),
+          profileImageUrl: finalProfileImageUrl,
+          logoUrl: finalLogoUrl,
+          coverImageUrl: finalCoverImageUrl,
+          images: galleryImages,
+          videos: galleryVideos,
+          styleTags: selectedStyleTags,
+          categories: selectedCategories,
+          countries: selectedCountries,
+          country: selectedCountries[0] || "",
+          states: selectedStates,
+          regions: selectedRegions,
+          profileVisible: profileLive.checked,
+          published: profileLive.checked,
+          updatedAt: serverTimestamp()
+        }, { merge: true });
+
+        currentProfileImageUrl = finalProfileImageUrl;
+        currentLogoUrl = finalLogoUrl;
+        currentGalleryImages = galleryImages;
+        currentGalleryVideos = galleryVideos;
+
+        profileImageFile.value = "";
+        logoFile.value = "";
+        galleryImageFiles.value = "";
+        galleryVideoFiles.value = "";
+
+        profileImageFileName.textContent = "";
+        logoFileName.textContent = "";
+        galleryImageFileName.textContent = "";
+        galleryVideoFileName.textContent = "";
+
+        setSingleImagePreview(currentProfileImageUrl, profileImagePreview, profileImageEmpty);
+        setSingleImagePreview(currentLogoUrl, logoPreview, logoEmpty);
+        setImagePreview();
+        setVideoPreview();
+        renderBlockedDates();
+        updateViewProfileVisibility(currentVendorAccess);
+
+        message.textContent = "Your changes have been saved.";
+      } catch (error) {
+        console.error(error);
+        message.textContent = "There was a problem saving your changes.";
+      }
+    }
+
+    saveBtn.addEventListener("click", saveVendorData);
+    saveTopBtn.addEventListener("click", saveVendorData);
+    saveAccountBtn.addEventListener("click", saveAccountSettings);
+
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        window.location.href = "login.html";
+        return;
+      }
+
+      currentUser = user;
+      await loadVendorData(user.uid);
+    });
   </script>
 
+  <script type="module" src="nav.js"></script>
 </body>
 </html>
