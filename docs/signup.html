@@ -159,6 +159,26 @@
     </div>
   </footer>
 
+  <script>
+    function startVendorCheckout(plan) {
+      const links = {
+        classic: "https://buy.stripe.com/bJe28reSg8FF4H70XodnW00",
+        signature: "https://buy.stripe.com/eVq6oH39y5ttehH5dEdnW01",
+        elite: "https://buy.stripe.com/7sY4gz6lKcVV5Lb21sdnW02",
+        platinum: "https://buy.stripe.com/cNibJ1eSg099flL49AdnW03"
+      };
+
+      const url = links[plan];
+
+      if (!url) {
+        alert("Something went wrong. Please try again.");
+        return;
+      }
+
+      window.location.href = url;
+    }
+  </script>
+
   <script type="module">
     import {
       auth,
@@ -182,9 +202,15 @@
     const urlParams = new URLSearchParams(window.location.search);
     const inviteCode = urlParams.get('invite');
     const isPaid = urlParams.get('paid') === 'true';
+    const selectedPlan = urlParams.get('plan') || '';
+    const presetType = urlParams.get('type') || '';
 
     const complimentaryInviteCode = 'foundingvendor2026';
     const vendorHasAccess = isPaid || inviteCode === complimentaryInviteCode;
+
+    if (presetType === 'vendor') {
+      typeSelect.value = 'vendor';
+    }
 
     function updateVendorUI() {
       const isVendor = typeSelect.value === 'vendor';
@@ -220,7 +246,7 @@
       }
 
       if (type === 'vendor' && !vendorHasAccess) {
-        message.textContent = 'Please choose your vendor plan above first.';
+        message.textContent = 'Please complete checkout first, then return here to create your vendor account.';
         return;
       }
 
@@ -235,6 +261,12 @@
           email,
           name,
           role: type,
+          plan: type === 'vendor'
+            ? (inviteCode === complimentaryInviteCode ? 'complimentary' : selectedPlan)
+            : 'free',
+          accessType: type === 'vendor'
+            ? (inviteCode === complimentaryInviteCode ? 'complimentary-invite' : 'paid')
+            : 'couple',
           favorites: [],
           createdAt: serverTimestamp()
         });
@@ -244,6 +276,8 @@
             uid: user.uid,
             businessName: name,
             email,
+            plan: inviteCode === complimentaryInviteCode ? 'complimentary' : selectedPlan,
+            accessType: inviteCode === complimentaryInviteCode ? 'complimentary-invite' : 'paid',
             categories: [],
             countries: [],
             states: [],
