@@ -488,6 +488,21 @@
       renderDots(vendors);
     }
 
+    function hasVendorAccess(vendor) {
+      const hasPaidAccess =
+        vendor.subscriptionActive === true || vendor.paidSetupFee === true;
+
+      const hasComplimentaryAccess =
+        vendor.complimentaryPlan === true ||
+        vendor.plan === "complimentary" ||
+        vendor.accessType === "complimentary-invite";
+
+      const isApprovedAccount =
+        !vendor.accountStatus || vendor.accountStatus === "active";
+
+      return isApprovedAccount && (hasPaidAccess || hasComplimentaryAccess);
+    }
+
     async function loadVendors() {
       try {
         const snapshot = await getDocs(collection(db, "vendors"));
@@ -499,21 +514,11 @@
           const hasLiveProfile =
             vendor.profileVisible === true && vendor.published === true;
 
-          const hasPaidAccess =
-            vendor.subscriptionActive === true || vendor.paidSetupFee === true;
-
-          const hasComplimentaryAccess =
-            vendor.complimentaryPlan === true;
-
-          const isApprovedAccount =
-            !vendor.accountStatus || vendor.accountStatus === "active";
-
           if (
             vendor &&
             vendor.uid &&
             hasLiveProfile &&
-            isApprovedAccount &&
-            (hasPaidAccess || hasComplimentaryAccess)
+            hasVendorAccess(vendor)
           ) {
             liveVendors.push({
               ...vendor,
