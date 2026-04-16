@@ -210,11 +210,11 @@
       text-align: center;
     }
 
-.asset-preview-circle {
-  width: 140px;
-  height: 140px;
-  margin: 0 auto 12px;
-  border-radius: 24px;
+    .asset-preview-circle {
+      width: 140px;
+      height: 140px;
+      margin: 0 auto 12px;
+      border-radius: 24px;
       overflow: hidden;
       background: #f6eee7;
       border: 1px solid #eadfd6;
@@ -229,11 +229,11 @@
       object-fit: cover;
     }
 
-.asset-preview-square {
-  width: 140px;
-  height: 140px;
-  margin: 0 auto 12px;
-  border-radius: 24px;
+    .asset-preview-square {
+      width: 140px;
+      height: 140px;
+      margin: 0 auto 12px;
+      border-radius: 24px;
       overflow: hidden;
       background: #f6eee7;
       border: 1px solid #eadfd6;
@@ -960,7 +960,11 @@
       subscriptionActive: false,
       paidSetupFee: false,
       complimentaryPlan: false,
-      accountStatus: "active"
+      plan: "",
+      accessType: "",
+      accountStatus: "active",
+      profileVisible: false,
+      published: false
     };
 
     const STYLE_TAGS = [
@@ -1212,32 +1216,32 @@
       return label;
     }
 
-function hasVendorAccess(vendorData) {
-  const hasPaidAccess =
-    vendorData.subscriptionActive === true || vendorData.paidSetupFee === true;
+    function hasVendorAccess(vendorData) {
+      const hasPaidAccess =
+        vendorData.subscriptionActive === true || vendorData.paidSetupFee === true;
 
-  const hasComplimentaryAccess =
-    vendorData.complimentaryPlan === true ||
-    vendorData.plan === "complimentary" ||
-    vendorData.accessType === "complimentary-invite";
+      const hasComplimentaryAccess =
+        vendorData.complimentaryPlan === true ||
+        vendorData.plan === "complimentary" ||
+        vendorData.accessType === "complimentary-invite";
 
-  const isApprovedAccount =
-    !vendorData.accountStatus || vendorData.accountStatus === "active";
+      const isApprovedAccount =
+        !vendorData.accountStatus || vendorData.accountStatus === "active";
 
-  return isApprovedAccount && (hasPaidAccess || hasComplimentaryAccess);
-}
+      return isApprovedAccount && (hasPaidAccess || hasComplimentaryAccess);
+    }
 
-function getPlanAccessLabel(vendorData) {
-  if (
-    vendorData.complimentaryPlan === true ||
-    vendorData.plan === "complimentary" ||
-    vendorData.accessType === "complimentary-invite"
-  ) return "complimentary";
+    function getPlanAccessLabel(vendorData) {
+      if (
+        vendorData.complimentaryPlan === true ||
+        vendorData.plan === "complimentary" ||
+        vendorData.accessType === "complimentary-invite"
+      ) return "complimentary";
 
-  if (vendorData.subscriptionActive === true) return "active subscription";
-  if (vendorData.paidSetupFee === true) return "setup paid";
-  return "inactive";
-}
+      if (vendorData.subscriptionActive === true) return "active subscription";
+      if (vendorData.paidSetupFee === true) return "setup paid";
+      return "inactive";
+    }
 
     function getProfileViews(vendorData) {
       if (typeof vendorData.profileViews === "number") return vendorData.profileViews;
@@ -1247,7 +1251,11 @@ function getPlanAccessLabel(vendorData) {
     }
 
     function updateViewProfileVisibility(vendorData) {
-      const isLive = profileLive.checked === true;
+      const isLive =
+        profileLive.checked === true ||
+        vendorData.profileVisible === true ||
+        vendorData.published === true;
+
       const canBeShown = hasVendorAccess(vendorData);
       viewProfileBtn.style.display = isLive && canBeShown ? "inline-block" : "none";
     }
@@ -1611,6 +1619,8 @@ function getPlanAccessLabel(vendorData) {
     });
 
     profileLive.addEventListener("change", () => {
+      currentVendorAccess.profileVisible = profileLive.checked;
+      currentVendorAccess.published = profileLive.checked;
       updateViewProfileVisibility(currentVendorAccess);
     });
 
@@ -1664,7 +1674,11 @@ function getPlanAccessLabel(vendorData) {
         subscriptionActive: vendorData.subscriptionActive === true,
         paidSetupFee: vendorData.paidSetupFee === true,
         complimentaryPlan: vendorData.complimentaryPlan === true,
-        accountStatus: vendorData.accountStatus || "active"
+        plan: vendorData.plan || "",
+        accessType: vendorData.accessType || "",
+        accountStatus: vendorData.accountStatus || "active",
+        profileVisible: vendorData.profileVisible === true,
+        published: vendorData.published === true
       };
 
       businessName.value = vendorData.businessName || "";
@@ -1696,7 +1710,7 @@ function getPlanAccessLabel(vendorData) {
       currentGalleryImages = Array.isArray(vendorData.images) ? [...vendorData.images] : [];
       currentGalleryVideos = Array.isArray(vendorData.videos) ? [...vendorData.videos] : [];
 
-      profileLive.checked = vendorData.profileVisible === true;
+      profileLive.checked = vendorData.profileVisible === true || vendorData.published === true;
 
       accountStatusText.textContent = `Account status: ${vendorData.accountStatus || "active"}`;
       subscriptionStatusText.textContent = `Plan access: ${getPlanAccessLabel(vendorData)}`;
@@ -1781,7 +1795,11 @@ function getPlanAccessLabel(vendorData) {
           subscriptionActive: existingVendorData.subscriptionActive === true,
           paidSetupFee: existingVendorData.paidSetupFee === true,
           complimentaryPlan: existingVendorData.complimentaryPlan === true,
-          accountStatus: existingVendorData.accountStatus || "active"
+          plan: existingVendorData.plan || "",
+          accessType: existingVendorData.accessType || "",
+          accountStatus: existingVendorData.accountStatus || "active",
+          profileVisible: existingVendorData.profileVisible === true,
+          published: existingVendorData.published === true
         };
 
         const selectedStyleTags = getCheckedValues(styleTagOptions);
@@ -1867,6 +1885,17 @@ function getPlanAccessLabel(vendorData) {
         currentLogoUrl = finalLogoUrl;
         currentGalleryImages = galleryImages;
         currentGalleryVideos = galleryVideos;
+
+        currentVendorAccess = {
+          subscriptionActive: existingVendorData.subscriptionActive === true,
+          paidSetupFee: existingVendorData.paidSetupFee === true,
+          complimentaryPlan: existingVendorData.complimentaryPlan === true,
+          plan: existingVendorData.plan || "",
+          accessType: existingVendorData.accessType || "",
+          accountStatus: existingVendorData.accountStatus || "active",
+          profileVisible: profileLive.checked,
+          published: profileLive.checked
+        };
 
         profileImageFile.value = "";
         logoFile.value = "";
