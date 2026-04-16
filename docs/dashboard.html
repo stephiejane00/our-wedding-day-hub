@@ -1212,18 +1212,20 @@
       return label;
     }
 
-    function hasVendorAccess(vendorData) {
-      const hasPaidAccess =
-        vendorData.subscriptionActive === true || vendorData.paidSetupFee === true;
+function hasVendorAccess(vendorData) {
+  const hasPaidAccess =
+    vendorData.subscriptionActive === true || vendorData.paidSetupFee === true;
 
-      const hasComplimentaryAccess =
-        vendorData.complimentaryPlan === true;
+  const hasComplimentaryAccess =
+    vendorData.complimentaryPlan === true ||
+    vendorData.plan === "complimentary" ||
+    vendorData.accessType === "complimentary-invite";
 
-      const isApprovedAccount =
-        !vendorData.accountStatus || vendorData.accountStatus === "active";
+  const isApprovedAccount =
+    !vendorData.accountStatus || vendorData.accountStatus === "active";
 
-      return isApprovedAccount && (hasPaidAccess || hasComplimentaryAccess);
-    }
+  return isApprovedAccount && (hasPaidAccess || hasComplimentaryAccess);
+}
 
     function getPlanAccessLabel(vendorData) {
       if (vendorData.complimentaryPlan === true) return "complimentary";
