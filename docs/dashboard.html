@@ -1227,12 +1227,17 @@ function hasVendorAccess(vendorData) {
   return isApprovedAccount && (hasPaidAccess || hasComplimentaryAccess);
 }
 
-    function getPlanAccessLabel(vendorData) {
-      if (vendorData.complimentaryPlan === true) return "complimentary";
-      if (vendorData.subscriptionActive === true) return "active subscription";
-      if (vendorData.paidSetupFee === true) return "setup paid";
-      return "inactive";
-    }
+function getPlanAccessLabel(vendorData) {
+  if (
+    vendorData.complimentaryPlan === true ||
+    vendorData.plan === "complimentary" ||
+    vendorData.accessType === "complimentary-invite"
+  ) return "complimentary";
+
+  if (vendorData.subscriptionActive === true) return "active subscription";
+  if (vendorData.paidSetupFee === true) return "setup paid";
+  return "inactive";
+}
 
     function getProfileViews(vendorData) {
       if (typeof vendorData.profileViews === "number") return vendorData.profileViews;
