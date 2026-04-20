@@ -290,6 +290,14 @@ button {
   object-fit: cover;
 }
 
+.vendor-card img.profile-pic {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  aspect-ratio: 1 / 1;
+  margin-bottom: 0;
+}
+
 .vendor-card h3 {
   margin: 0 0 6px;
   font-size: 1.2rem;
@@ -851,6 +859,11 @@ input[type="checkbox"] {
 
   .vendors-growing-note {
     font-size: 0.9rem;
+  }
+
+  .vendor-card img.profile-pic {
+    width: 140px;
+    height: 140px;
   }
 }
 
