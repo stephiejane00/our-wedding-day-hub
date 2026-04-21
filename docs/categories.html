@@ -85,6 +85,84 @@
       border-color: #dcc4b4;
     }
 
+    .categories-search-panel {
+      max-width: 1180px;
+      margin: 26px auto 0;
+      padding: 18px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid rgba(227, 219, 212, 0.9);
+    }
+
+    .categories-search-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1.1fr auto;
+      gap: 12px;
+      align-items: end;
+    }
+
+    .categories-search-field label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text);
+      text-align: left;
+    }
+
+    .categories-search-field select,
+    .categories-search-field input {
+      width: 100%;
+      min-height: 48px;
+      border-radius: 16px;
+      border: 1px solid rgba(227, 219, 212, 0.95);
+      background: #fffdfb;
+      padding: 12px 14px;
+      font-size: 0.95rem;
+      color: var(--text);
+      box-sizing: border-box;
+    }
+
+    .categories-search-field select:focus,
+    .categories-search-field input:focus {
+      outline: none;
+      border-color: #d9c2b2;
+      box-shadow: 0 0 0 3px rgba(217, 194, 178, 0.18);
+    }
+
+    .categories-search-btn {
+      min-height: 48px;
+      border: none;
+      border-radius: 999px;
+      padding: 0 22px;
+      background: #111;
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .categories-search-btn:hover {
+      opacity: 0.94;
+      transform: translateY(-1px);
+    }
+
+    .categories-clear-row {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 12px;
+    }
+
+    .categories-clear-btn {
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      font-size: 0.92rem;
+      text-decoration: underline;
+      cursor: pointer;
+      padding: 0;
+    }
+
     .categories-results {
       background: var(--surface-2);
       border-radius: 32px;
@@ -202,6 +280,12 @@
       text-align: center;
     }
 
+    @media (max-width: 1100px) {
+      .categories-search-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
     @media (max-width: 980px) {
       .categories-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -214,7 +298,8 @@
       }
 
       .categories-hero,
-      .categories-results {
+      .categories-results,
+      .categories-search-panel {
         border-radius: 24px;
       }
 
@@ -232,6 +317,10 @@
 
       .category-vendor-btn {
         width: 100%;
+      }
+
+      .categories-search-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -259,16 +348,39 @@
         Discover trusted wedding vendors and explore beautiful businesses for every part of your day.
       </p>
 
-      <div class="categories-filter-bar">
-        <a href="categories.html?type=florists" class="categories-filter-pill" data-type="florists">Florists</a>
-        <a href="categories.html?type=venues" class="categories-filter-pill" data-type="venues">Venues</a>
-        <a href="categories.html?type=photography" class="categories-filter-pill" data-type="photography">Photography</a>
-        <a href="categories.html?type=beauty" class="categories-filter-pill" data-type="beauty">Beauty &amp; Hair</a>
-        <a href="categories.html?type=cakes" class="categories-filter-pill" data-type="cakes">Cakes</a>
-        <a href="categories.html?type=entertainment" class="categories-filter-pill" data-type="entertainment">Entertainment</a>
-        <a href="categories.html?type=cars" class="categories-filter-pill" data-type="cars">Wedding Cars</a>
-        <a href="categories.html?type=celebrants" class="categories-filter-pill" data-type="celebrants">Celebrants</a>
-        <a href="categories.html?type=all" class="categories-filter-pill" data-type="all">All</a>
+      <div class="categories-filter-bar" id="categoriesFilterBar"></div>
+
+      <div class="categories-search-panel">
+        <div class="categories-search-grid">
+          <div class="categories-search-field">
+            <label for="mainCategorySelect">Category</label>
+            <select id="mainCategorySelect">
+              <option value="all">All Categories</option>
+            </select>
+          </div>
+
+          <div class="categories-search-field">
+            <label for="subCategorySelect">Subcategory</label>
+            <select id="subCategorySelect">
+              <option value="all">All Subcategories</option>
+            </select>
+          </div>
+
+          <div class="categories-search-field">
+            <label for="locationSearch">Location</label>
+            <input
+              type="text"
+              id="locationSearch"
+              placeholder="Search suburb, city, region, state, province or country"
+            >
+          </div>
+
+          <button type="button" id="searchBtn" class="categories-search-btn">Search</button>
+        </div>
+
+        <div class="categories-clear-row">
+          <button type="button" id="clearFiltersBtn" class="categories-clear-btn">Clear filters</button>
+        </div>
       </div>
     </section>
 
@@ -282,7 +394,7 @@
       <section id="categoriesGrid" class="categories-grid"></section>
 
       <p id="categoriesEmpty" class="categories-empty" style="display:none;">
-        No vendors found in this category yet. More beautiful businesses are joining soon.
+        No vendors found for this search yet. Try another category or location.
       </p>
     </section>
   </main>
@@ -325,6 +437,13 @@
     const resultsCount = document.getElementById("resultsCount");
     const categoryPageTitle = document.getElementById("categoryPageTitle");
     const categoryPageSubtitle = document.getElementById("categoryPageSubtitle");
+    const categoriesFilterBar = document.getElementById("categoriesFilterBar");
+
+    const mainCategorySelect = document.getElementById("mainCategorySelect");
+    const subCategorySelect = document.getElementById("subCategorySelect");
+    const locationSearch = document.getElementById("locationSearch");
+    const searchBtn = document.getElementById("searchBtn");
+    const clearFiltersBtn = document.getElementById("clearFiltersBtn");
 
     const joinLink = document.getElementById("joinLink");
     const loginLink = document.getElementById("loginLink");
@@ -333,328 +452,261 @@
 
     const params = new URLSearchParams(window.location.search);
     const selectedType = (params.get("type") || "all").toLowerCase();
+    const selectedSubcategory = (params.get("subcategory") || "all").toLowerCase();
+    const selectedLocation = (params.get("location") || "").trim();
 
-  const categoryConfig = {
-  florists: {
-    title: "Florists",
-    subtitle: "Beautiful floral designers and florists to bring your wedding vision to life.",
-    match: [
-      "florist",
-      "floral",
-      "flowers",
-      "flower",
-      "bouquet",
-      "bouquets",
-      "buttonholes",
-      "buttonhole",
-      "arbour flowers",
-      "arbor flowers",
-      "table flowers",
-      "wedding flowers",
-      "flower wall",
-      "flower styling",
-      "ceremony flowers",
-      "reception flowers",
-      "petals",
-      "rose wall",
-      "aisle flowers"
-    ]
-  },
+    let allLiveVendors = [];
 
-  venues: {
-    title: "Venues",
-    subtitle: "Explore beautiful ceremony and reception spaces for your perfect day.",
-    match: [
-      "venue",
-      "venues",
-      "ceremony venue",
-      "reception venue",
-      "wedding venue",
-      "estate",
-      "garden venue",
-      "barn venue",
-      "beach venue",
-      "chapel",
-      "winery",
-      "restaurant venue",
-      "hotel venue",
-      "resort",
-      "farm venue",
-      "elopement venue",
-      "private property",
-      "function centre",
-      "function center"
-    ]
-  },
+    const CATEGORY_GROUPS = {
+      photo_video: {
+        title: "Photo & Video",
+        subtitle: "Photographers, videographers and content creators to capture every beautiful moment.",
+        items: [
+          ["wedding_photographer", "Photographer"],
+          ["wedding_videographer", "Videographer"],
+          ["wedding_content_creator", "Content Creator"],
+          ["photo_and_video_team", "Photo & Video Team"],
+          ["engagement_photographer", "Engagement Photographer"],
+          ["drone_operator", "Drone Operator"]
+        ]
+      },
+      beauty: {
+        title: "Beauty",
+        subtitle: "Makeup, hair, nails, tanning and beauty professionals for your wedding day look.",
+        items: [
+          ["wedding_makeup_artist", "Makeup Artist"],
+          ["wedding_hair_stylist", "Hair Stylist"],
+          ["nail_artist", "Nail Artist"],
+          ["beauty_salon", "Beauty Salon"],
+          ["spray_tan", "Tanning"],
+          ["skin_aesthetics", "Skin & Aesthetics"],
+          ["brow_artist", "Brow Artist"],
+          ["lash_artist", "Lash Artist"],
+          ["barber_grooming", "Barber / Grooming"]
+        ]
+      },
+      entertainment: {
+        title: "Entertainment",
+        subtitle: "Singers, DJs, bands and performers to create the perfect atmosphere.",
+        items: [
+          ["wedding_singer", "Singer"],
+          ["wedding_band", "Band"],
+          ["wedding_dj", "DJ"],
+          ["acoustic_musician", "Acoustic Musician"],
+          ["violinist", "Violinist"],
+          ["saxophonist", "Saxophonist"],
+          ["harpist", "Harpist"],
+          ["wedding_mc", "MC"],
+          ["string_quartet", "String Quartet"],
+          ["live_entertainment", "Live Entertainment"]
+        ]
+      },
+      styling_florals: {
+        title: "Styling & Florals",
+        subtitle: "Florists, stylists and designers to shape the look and feel of your day.",
+        items: [
+          ["wedding_florist", "Florist"],
+          ["wedding_stylist", "Wedding Stylist"],
+          ["event_designer", "Event Designer"],
+          ["balloon_stylist", "Balloon Stylist"],
+          ["backdrops_arches", "Backdrops & Arches"],
+          ["ceremony_styling", "Ceremony Styling"],
+          ["reception_styling", "Reception Styling"]
+        ]
+      },
+      food_drink: {
+        title: "Food & Drink",
+        subtitle: "Caterers, cake designers, dessert vendors and drinks services for every celebration style.",
+        items: [
+          ["wedding_caterer", "Caterer"],
+          ["wedding_cake_designer", "Wedding Cake Designer"],
+          ["dessert_bar", "Dessert Bar"],
+          ["mobile_bar", "Mobile Bar"],
+          ["coffee_cart", "Coffee Cart"],
+          ["food_truck", "Food Truck"],
+          ["grazing_tables", "Grazing Tables"],
+          ["cocktail_catering", "Cocktail Catering"],
+          ["ice_cream_cart", "Ice Cream Cart"]
+        ]
+      },
+      venues: {
+        title: "Venues",
+        subtitle: "Beautiful spaces for ceremonies, receptions, elopements and unforgettable celebrations.",
+        items: [
+          ["wedding_venue", "Wedding Venue"],
+          ["ceremony_venue", "Ceremony Venue"],
+          ["reception_venue", "Reception Venue"],
+          ["elopement_location", "Elopement Location"],
+          ["outdoor_venue", "Outdoor Venue"],
+          ["church_ceremony_venue", "Church / Ceremony Venue"],
+          ["garden_venue", "Garden Venue"],
+          ["winery_venue", "Winery Venue"],
+          ["beach_venue", "Beach Venue"]
+        ]
+      },
+      stationery_signage: {
+        title: "Stationery & Signage",
+        subtitle: "Invitations, signage and paper details to complete your wedding styling.",
+        items: [
+          ["wedding_invitations", "Invitations"],
+          ["wedding_stationery", "Wedding Stationery"],
+          ["wedding_signage", "Signage"],
+          ["calligraphy", "Calligraphy"],
+          ["place_cards", "Place Cards"],
+          ["seating_charts", "Seating Charts"]
+        ]
+      },
+      fashion: {
+        title: "Fashion",
+        subtitle: "Bridal boutiques, formal wear and accessories for every wedding wardrobe.",
+        items: [
+          ["bridal_boutique", "Bridal Boutique"],
+          ["bridesmaid_dresses", "Bridesmaid Dresses"],
+          ["formal_wear", "Formal Wear"],
+          ["suit_hire", "Suit Hire"],
+          ["custom_designer", "Custom Designer"],
+          ["wedding_dress_alterations", "Wedding Dress Alterations"],
+          ["bridal_accessories", "Bridal Accessories"],
+          ["bridal_shoes", "Bridal Shoes"],
+          ["veils_headpieces", "Veils & Headpieces"]
+        ]
+      },
+      jewellery: {
+        title: "Jewellery",
+        subtitle: "Wedding rings, engagement rings and custom jewellery for lasting memories.",
+        items: [
+          ["wedding_rings", "Wedding Rings"],
+          ["engagement_rings", "Engagement Rings"],
+          ["custom_jewellery", "Custom Jewellery"],
+          ["permanent_jewellery", "Permanent Jewellery"]
+        ]
+      },
+      transport: {
+        title: "Transport",
+        subtitle: "Wedding cars, guest transport and elegant arrival options.",
+        items: [
+          ["wedding_cars", "Wedding Cars"],
+          ["luxury_cars", "Luxury Cars"],
+          ["vintage_cars", "Vintage Cars"],
+          ["limousine", "Limousine"],
+          ["guest_transport", "Guest Transport"],
+          ["bus_charter", "Bus Charter"],
+          ["horse_carriage", "Horse & Carriage"]
+        ]
+      },
+      experiences_unique_services: {
+        title: "Experiences & Unique Services",
+        subtitle: "Special extra touches to make your day feel unforgettable and personal.",
+        items: [
+          ["live_wedding_painter", "Live Wedding Painter"],
+          ["photo_booth", "Photo Booth"],
+          ["audio_guestbook", "Audio Guestbook"],
+          ["wedding_content_creator_unique", "Wedding Content Creator"],
+          ["fireworks_special_effects", "Fireworks / Special Effects"],
+          ["dance_lessons", "Dance Lessons"],
+          ["caricature_artist", "Caricature Artist"],
+          ["tarot_reader", "Tarot Reader"]
+        ]
+      },
+      ceremony_services: {
+        title: "Ceremony Services",
+        subtitle: "Celebrants and ceremony support to help create a meaningful moment.",
+        items: [
+          ["wedding_celebrant", "Celebrant"],
+          ["ceremony_music", "Ceremony Music"],
+          ["wedding_vows_speech_writer", "Vow / Speech Writer"]
+        ]
+      },
+      planning_support: {
+        title: "Planning & Support",
+        subtitle: "Wedding planners, coordinators and support professionals to help everything run smoothly.",
+        items: [
+          ["wedding_planner", "Wedding Planner"],
+          ["wedding_coordinator", "Wedding Coordinator"],
+          ["on_the_day_coordinator", "On-the-day Coordinator"],
+          ["honeymoon_planner", "Honeymoon Planner"],
+          ["wedding_consultant", "Wedding Consultant"]
+        ]
+      },
+      care_services: {
+        title: "Care Services",
+        subtitle: "Helpful support services for pets and children on your wedding day.",
+        items: [
+          ["pet_attendant", "Pet Attendant"],
+          ["child_minder_wedding_nanny", "Child Minder / Wedding Nanny"]
+        ]
+      },
+      hire_rentals: {
+        title: "Hire & Rentals",
+        subtitle: "Furniture, decor, lighting and event hire items for weddings of every style.",
+        items: [
+          ["furniture_hire", "Furniture Hire"],
+          ["decor_hire", "Decor Hire"],
+          ["tableware_hire", "Tableware Hire"],
+          ["lighting_hire", "Lighting Hire"],
+          ["marquee_hire", "Marquee Hire"],
+          ["styling_hire", "Styling Hire"],
+          ["dance_floor_hire", "Dance Floor Hire"],
+          ["linen_hire", "Linen Hire"],
+          ["prop_hire", "Prop Hire"]
+        ]
+      },
+      gifts_favours: {
+        title: "Gifts & Favours",
+        subtitle: "Thoughtful gifts, hampers and bomboniere for your guests and wedding party.",
+        items: [
+          ["wedding_favours", "Wedding Favours"],
+          ["personalised_gifts", "Personalised Gifts"],
+          ["hampers", "Hampers"],
+          ["bomboniere", "Bomboniere"]
+        ]
+      },
+      health_wellness: {
+        title: "Health & Wellness",
+        subtitle: "Fitness, massage and wellness services to help you feel your best.",
+        items: [
+          ["bridal_fitness", "Bridal Fitness"],
+          ["massage_therapist", "Massage Therapist"],
+          ["wellness_services", "Wellness Services"]
+        ]
+      },
+      accommodation: {
+        title: "Accommodation",
+        subtitle: "Stays and accommodation options for wedding nights, guests and honeymoons.",
+        items: [
+          ["guest_accommodation", "Guest Accommodation"],
+          ["bridal_suite", "Bridal Suite"],
+          ["honeymoon_stay", "Honeymoon Stay"]
+        ]
+      },
+      all: {
+        title: "All Categories",
+        subtitle: "Discover trusted wedding vendors and explore beautiful businesses for every part of your day.",
+        items: []
+      }
+    };
 
-  photography: {
-    title: "Photography",
-    subtitle: "Find photographers and visual storytellers to capture every unforgettable moment.",
-    match: [
-      "photography",
-      "photographer",
-      "wedding photographer",
-      "elopement photographer",
-      "videography",
-      "videographer",
-      "wedding videographer",
-      "content creator",
-      "content creation",
-      "wedding content creator",
-      "photo",
-      "video",
-      "films",
-      "cinematography",
-      "cinematic",
-      "camera",
-      "highlight film",
-      "wedding film",
-      "drone",
-      "drone footage"
-    ]
-  },
-
-  beauty: {
-    title: "Beauty & Hair",
-    subtitle: "Discover talented beauty artists and hairstylists for your wedding day look.",
-    match: [
+    const MAIN_CATEGORY_ORDER = [
+      "photo_video",
       "beauty",
-      "hair",
-      "hair stylist",
-      "hairstylist",
-      "bridal hair",
-      "makeup",
-      "make-up",
-      "makeup artist",
-      "make-up artist",
-      "beauty & hair",
-      "nails",
-      "nail",
-      "nail artist",
-      "nail tech",
-      "manicure",
-      "pedicure",
-      "lashes",
-      "lash artist",
-      "brows",
-      "brow artist",
-      "spray tan",
-      "tan",
-      "tanning",
-      "skin prep",
-      "facial",
-      "beautician"
-    ]
-  },
-
-  cakes: {
-    title: "Cakes",
-    subtitle: "Browse wedding cake designers and dessert specialists for something truly delicious.",
-    match: [
-      "cake",
-      "cakes",
-      "wedding cake",
-      "cake designer",
-      "cake maker",
-      "dessert",
-      "desserts",
-      "bakery",
-      "baker",
-      "cookies",
-      "cupcakes",
-      "donuts",
-      "doughnuts",
-      "macarons",
-      "sweet table",
-      "dessert table",
-      "gelato cart",
-      "ice cream cart",
-      "treats",
-      "sweets"
-    ]
-  },
-
-  entertainment: {
-    title: "Entertainment",
-    subtitle: "Live singers, DJs and entertainers to create the perfect atmosphere.",
-    match: [
       "entertainment",
-      "dj",
-      "dj hire",
-      "music",
-      "musician",
-      "band",
-      "live band",
-      "singer",
-      "live singer",
-      "acoustic",
-      "acoustic duo",
-      "mc",
-      "master of ceremonies",
-      "performer",
-      "dance floor",
-      "string quartet",
-      "violinist",
-      "harpist",
-      "saxophone",
-      "pianist",
-      "roaming band",
-      "wedding entertainment"
-    ]
-  },
-
-  cars: {
-    title: "Wedding Cars",
-    subtitle: "Elegant transport and wedding car vendors to help you arrive in style.",
-    match: [
-      "car",
-      "cars",
-      "wedding cars",
-      "car hire",
-      "chauffeur",
-      "transport",
-      "wedding transport",
-      "limousine",
-      "limo",
-      "luxury car",
-      "classic car",
-      "vintage car",
-      "bridal car",
-      "bus hire",
-      "shuttle",
-      "getaway car",
-      "coach hire",
-      "driver"
-    ]
-  },
-
-  celebrants: {
-    title: "Celebrants",
-    subtitle: "Find experienced celebrants for meaningful and memorable ceremonies.",
-    match: [
-      "celebrant",
-      "celebrants",
-      "marriage celebrant",
-      "officiant",
-      "ceremony",
-      "ceremony officiant",
-      "wedding officiant",
-      "vow ceremony",
-      "elopement celebrant",
-      "mc celebrant",
-      "civil celebrant"
-    ]
-  },
-
-  styling: {
-    title: "Styling & Decor",
-    subtitle: "Find beautiful stylists and decor vendors to bring your wedding vision together.",
-    match: [
-      "styling",
-      "stylist",
-      "wedding stylist",
-      "decor",
-      "decoration",
-      "decorations",
-      "event styling",
-      "tablescape",
-      "table styling",
-      "signage",
-      "neon sign",
-      "welcome sign",
-      "backdrop",
-      "arbour",
-      "arbor",
-      "prop hire",
-      "hire items",
-      "decor hire",
-      "ceremony styling",
-      "reception styling"
-    ]
-  },
-
-  stationery: {
-    title: "Stationery",
-    subtitle: "Discover invitations, signage and paper goods designed for your special day.",
-    match: [
-      "stationery",
-      "stationary",
-      "invitation",
-      "invitations",
-      "paper goods",
-      "menus",
-      "place cards",
-      "seating chart",
-      "welcome sign",
-      "save the date",
-      "save-the-date",
-      "wedding signage",
-      "calligraphy",
-      "calligrapher",
-      "name cards",
-      "paperie"
-    ]
-  },
-
-  catering: {
-    title: "Catering & Drinks",
-    subtitle: "Explore caterers, mobile bars and beverage services for weddings of every style.",
-    match: [
-      "catering",
-      "caterer",
-      "food",
-      "mobile bar",
-      "bar service",
-      "cocktail cart",
-      "bartender",
-      "bar staff",
-      "grazing table",
-      "grazing",
-      "charcuterie",
-      "coffee cart",
-      "coffee van",
-      "pizza van",
-      "food truck",
-      "canapes",
-      "canapés",
-      "drinks",
-      "beverages"
-    ]
-  },
-
-  fashion: {
-    title: "Fashion & Attire",
-    subtitle: "Find gowns, suits and wedding fashion services for the whole celebration.",
-    match: [
-      "dress",
-      "dresses",
-      "gown",
-      "gowns",
-      "bridal gown",
-      "bridal boutique",
-      "bridal wear",
-      "wedding dress",
-      "formal wear",
-      "suit",
-      "suits",
-      "menswear",
-      "alterations",
-      "tailor",
-      "veil",
-      "accessories",
-      "bridal accessories",
+      "styling_florals",
+      "food_drink",
+      "venues",
+      "stationery_signage",
+      "fashion",
       "jewellery",
-      "jewelry",
-      "shoes"
-    ]
-  },
-
-  all: {
-    title: "All Categories",
-    subtitle: "Discover trusted wedding vendors and explore beautiful businesses for every part of your day.",
-    match: []
-  }
-};
+      "transport",
+      "experiences_unique_services",
+      "ceremony_services",
+      "planning_support",
+      "care_services",
+      "hire_rentals",
+      "gifts_favours",
+      "health_wellness",
+      "accommodation",
+      "all"
+    ];
 
     function cleanArray(arr) {
       return Array.isArray(arr) ? arr.filter(Boolean) : [];
@@ -668,6 +720,15 @@
         .replace(/\s+/g, " ")
         .trim()
         .replace(/\b\w/g, char => char.toUpperCase());
+    }
+
+    function slugify(value) {
+      return String(value || "")
+        .toLowerCase()
+        .trim()
+        .replace(/&/g, "and")
+        .replace(/[^a-z0-9]+/g, "_")
+        .replace(/^_+|_+$/g, "");
     }
 
     function getCardImage(vendor) {
@@ -747,44 +808,129 @@
       window.location.href = `vendor.html?id=${vendor.docId}`;
     }
 
-    function normalizeCategoryText(vendor) {
+    function getVendorCategories(vendor) {
       const rawCategories = Array.isArray(vendor.categories) && vendor.categories.length
         ? vendor.categories
         : vendor.category
           ? [vendor.category]
           : [];
 
-      return rawCategories.map(cat => String(cat).toLowerCase().trim());
+      return rawCategories
+        .map(cat => String(cat).trim().toLowerCase())
+        .filter(Boolean);
     }
 
-    function vendorMatchesCategory(vendor, type) {
-      if (type === "all") return true;
+    function getMainCategoryForSubcategory(subcategorySlug) {
+      for (const [mainKey, config] of Object.entries(CATEGORY_GROUPS)) {
+        if (mainKey === "all") continue;
+        const found = config.items.some(([value]) => value === subcategorySlug);
+        if (found) return mainKey;
+      }
+      return "";
+    }
 
-      const config = categoryConfig[type];
-      if (!config) return true;
+    function buildMainCategoryOptions() {
+      mainCategorySelect.innerHTML = '<option value="all">All Categories</option>';
 
-      const categoryText = normalizeCategoryText(vendor).join(" ");
-      const bioText = `
-        ${vendor.businessName || ""}
-        ${vendor.bio || ""}
-        ${vendor.shortBio || ""}
-        ${vendor.description || ""}
-        ${vendor.tagline || ""}
-      `.toLowerCase();
+      MAIN_CATEGORY_ORDER.forEach(key => {
+        if (key === "all") return;
+        const config = CATEGORY_GROUPS[key];
+        if (!config) return;
 
-      const combined = `${categoryText} ${bioText}`;
-      return config.match.some(keyword => combined.includes(keyword));
+        const option = document.createElement("option");
+        option.value = key;
+        option.textContent = config.title;
+        mainCategorySelect.appendChild(option);
+      });
+    }
+
+    function buildSubcategoryOptions(mainKey = "all") {
+      subCategorySelect.innerHTML = '<option value="all">All Subcategories</option>';
+
+      const groupsToUse =
+        mainKey === "all"
+          ? MAIN_CATEGORY_ORDER.filter(key => key !== "all")
+          : [mainKey];
+
+      groupsToUse.forEach(groupKey => {
+        const config = CATEGORY_GROUPS[groupKey];
+        if (!config) return;
+
+        config.items.forEach(([value, label]) => {
+          const option = document.createElement("option");
+          option.value = value;
+          option.textContent = label;
+          subCategorySelect.appendChild(option);
+        });
+      });
+    }
+
+    function buildFilterPills() {
+      categoriesFilterBar.innerHTML = "";
+
+      MAIN_CATEGORY_ORDER.forEach(key => {
+        const config = CATEGORY_GROUPS[key];
+        if (!config) return;
+
+        const pill = document.createElement("a");
+        pill.className = "categories-filter-pill";
+        pill.dataset.type = key;
+        pill.href = key === "all" ? "categories.html" : `categories.html?type=${key}`;
+        pill.textContent = config.title;
+
+        if ((selectedType || "all") === key) {
+          pill.classList.add("active");
+        }
+
+        categoriesFilterBar.appendChild(pill);
+      });
+    }
+
+    function getSelectedMainCategoryConfig() {
+      return CATEGORY_GROUPS[selectedType] || CATEGORY_GROUPS.all;
     }
 
     function renderPageHeader() {
-      const config = categoryConfig[selectedType] || categoryConfig.all;
+      const config = getSelectedMainCategoryConfig();
       categoryPageTitle.textContent = config.title;
       categoryPageSubtitle.textContent = config.subtitle;
+    }
 
-      document.querySelectorAll(".categories-filter-pill").forEach((pill) => {
-        const pillType = pill.dataset.type;
-        pill.classList.toggle("active", pillType === selectedType);
-      });
+    function normalizeLocationText(vendor) {
+      const parts = [
+        vendor.serviceAreas || "",
+        vendor.displayLocation || "",
+        ...(Array.isArray(vendor.regions) ? vendor.regions : []),
+        ...(Array.isArray(vendor.states) ? vendor.states : []),
+        ...(Array.isArray(vendor.countries) ? vendor.countries : []),
+        vendor.country || ""
+      ];
+
+      return parts
+        .join(" ")
+        .toLowerCase()
+        .replace(/\s+/g, " ")
+        .trim();
+    }
+
+    function vendorMatchesMainCategory(vendor, mainCategory) {
+      if (mainCategory === "all") return true;
+
+      const categories = getVendorCategories(vendor);
+      return categories.some(category => getMainCategoryForSubcategory(category) === mainCategory);
+    }
+
+    function vendorMatchesSubcategory(vendor, subcategory) {
+      if (subcategory === "all") return true;
+      return getVendorCategories(vendor).includes(subcategory);
+    }
+
+    function vendorMatchesLocation(vendor, locationValue) {
+      const query = String(locationValue || "").trim().toLowerCase();
+      if (!query) return true;
+
+      const locationText = normalizeLocationText(vendor);
+      return locationText.includes(query);
     }
 
     function renderVendors(vendors) {
@@ -833,6 +979,57 @@
       });
     }
 
+    function updateUrlFromFilters() {
+      const mainCategory = mainCategorySelect.value || "all";
+      const subcategory = subCategorySelect.value || "all";
+      const location = locationSearch.value.trim();
+
+      const nextParams = new URLSearchParams();
+
+      if (mainCategory !== "all") {
+        nextParams.set("type", mainCategory);
+      }
+
+      if (subcategory !== "all") {
+        nextParams.set("subcategory", subcategory);
+      }
+
+      if (location) {
+        nextParams.set("location", location);
+      }
+
+      const nextUrl = nextParams.toString()
+        ? `${window.location.pathname}?${nextParams.toString()}`
+        : window.location.pathname;
+
+      window.history.replaceState({}, "", nextUrl);
+    }
+
+    function applyFilters() {
+      const mainCategory = mainCategorySelect.value || "all";
+      const subcategory = subCategorySelect.value || "all";
+      const location = locationSearch.value.trim();
+
+      const headerConfig = CATEGORY_GROUPS[mainCategory] || CATEGORY_GROUPS.all;
+      categoryPageTitle.textContent = headerConfig.title;
+      categoryPageSubtitle.textContent = headerConfig.subtitle;
+
+      document.querySelectorAll(".categories-filter-pill").forEach((pill) => {
+        pill.classList.toggle("active", pill.dataset.type === mainCategory);
+      });
+
+      const filtered = allLiveVendors.filter(vendor => {
+        return (
+          vendorMatchesMainCategory(vendor, mainCategory) &&
+          vendorMatchesSubcategory(vendor, subcategory) &&
+          vendorMatchesLocation(vendor, location)
+        );
+      });
+
+      renderVendors(filtered);
+      updateUrlFromFilters();
+    }
+
     async function loadVendors() {
       try {
         const snapshot = await getDocs(collection(db, "vendors"));
@@ -857,14 +1054,52 @@
           }
         });
 
-        const filtered = liveVendors.filter(vendor => vendorMatchesCategory(vendor, selectedType));
-        renderVendors(filtered);
+        allLiveVendors = liveVendors;
+        applyFilters();
       } catch (error) {
         console.error("Vendor load error:", error);
         categoriesEmpty.style.display = "block";
         categoriesEmpty.textContent = "There was a problem loading vendors.";
       }
     }
+
+    function syncInitialFilters() {
+      buildMainCategoryOptions();
+      buildSubcategoryOptions(selectedType === "all" ? "all" : selectedType);
+
+      mainCategorySelect.value = CATEGORY_GROUPS[selectedType] ? selectedType : "all";
+
+      const currentSubcategoryExists = Array.from(subCategorySelect.options).some(
+        option => option.value === selectedSubcategory
+      );
+      subCategorySelect.value = currentSubcategoryExists ? selectedSubcategory : "all";
+
+      locationSearch.value = selectedLocation;
+    }
+
+    mainCategorySelect.addEventListener("change", () => {
+      buildSubcategoryOptions(mainCategorySelect.value);
+      subCategorySelect.value = "all";
+      applyFilters();
+    });
+
+    subCategorySelect.addEventListener("change", applyFilters);
+    searchBtn.addEventListener("click", applyFilters);
+
+    locationSearch.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        applyFilters();
+      }
+    });
+
+    clearFiltersBtn.addEventListener("click", () => {
+      mainCategorySelect.value = "all";
+      buildSubcategoryOptions("all");
+      subCategorySelect.value = "all";
+      locationSearch.value = "";
+      applyFilters();
+    });
 
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -889,7 +1124,9 @@
       }
     });
 
+    buildFilterPills();
     renderPageHeader();
+    syncInitialFilters();
     loadVendors();
   </script>
 
