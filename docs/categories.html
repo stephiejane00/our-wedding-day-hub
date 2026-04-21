@@ -334,53 +334,327 @@
     const params = new URLSearchParams(window.location.search);
     const selectedType = (params.get("type") || "all").toLowerCase();
 
-    const categoryConfig = {
-      florists: {
-        title: "Florists",
-        subtitle: "Beautiful floral designers and florists to bring your wedding vision to life.",
-        match: ["florist", "floral", "flowers"]
-      },
-      venues: {
-        title: "Venues",
-        subtitle: "Explore beautiful ceremony and reception spaces for your perfect day.",
-        match: ["venue", "venues", "ceremony venue", "reception venue"]
-      },
-      photography: {
-        title: "Photography",
-        subtitle: "Find photographers and visual storytellers to capture every unforgettable moment.",
-        match: ["photography", "photographer", "videography", "videographer", "photo", "video"]
-      },
-      beauty: {
-        title: "Beauty & Hair",
-        subtitle: "Discover talented beauty artists and hairstylists for your wedding day look.",
-        match: ["beauty", "hair", "makeup", "make-up", "makeup artist", "hair stylist", "beauty & hair"]
-      },
-      cakes: {
-        title: "Cakes",
-        subtitle: "Browse wedding cake designers and dessert specialists for something truly delicious.",
-        match: ["cake", "cakes", "dessert", "desserts", "bakery"]
-      },
-      entertainment: {
-        title: "Entertainment",
-        subtitle: "Live singers, DJs and entertainers to create the perfect atmosphere.",
-        match: ["entertainment", "dj", "music", "musician", "band", "singer", "live music"]
-      },
-      cars: {
-        title: "Wedding Cars",
-        subtitle: "Elegant transport and wedding car vendors to help you arrive in style.",
-        match: ["car", "cars", "transport", "wedding cars", "car hire", "chauffeur"]
-      },
-      celebrants: {
-        title: "Celebrants",
-        subtitle: "Find experienced celebrants for meaningful and memorable ceremonies.",
-        match: ["celebrant", "celebrants", "officiant", "ceremony"]
-      },
-      all: {
-        title: "All Categories",
-        subtitle: "Discover trusted wedding vendors and explore beautiful businesses for every part of your day.",
-        match: []
-      }
-    };
+  const categoryConfig = {
+  florists: {
+    title: "Florists",
+    subtitle: "Beautiful floral designers and florists to bring your wedding vision to life.",
+    match: [
+      "florist",
+      "floral",
+      "flowers",
+      "flower",
+      "bouquet",
+      "bouquets",
+      "buttonholes",
+      "buttonhole",
+      "arbour flowers",
+      "arbor flowers",
+      "table flowers",
+      "wedding flowers",
+      "flower wall",
+      "flower styling",
+      "ceremony flowers",
+      "reception flowers",
+      "petals",
+      "rose wall",
+      "aisle flowers"
+    ]
+  },
+
+  venues: {
+    title: "Venues",
+    subtitle: "Explore beautiful ceremony and reception spaces for your perfect day.",
+    match: [
+      "venue",
+      "venues",
+      "ceremony venue",
+      "reception venue",
+      "wedding venue",
+      "estate",
+      "garden venue",
+      "barn venue",
+      "beach venue",
+      "chapel",
+      "winery",
+      "restaurant venue",
+      "hotel venue",
+      "resort",
+      "farm venue",
+      "elopement venue",
+      "private property",
+      "function centre",
+      "function center"
+    ]
+  },
+
+  photography: {
+    title: "Photography",
+    subtitle: "Find photographers and visual storytellers to capture every unforgettable moment.",
+    match: [
+      "photography",
+      "photographer",
+      "wedding photographer",
+      "elopement photographer",
+      "videography",
+      "videographer",
+      "wedding videographer",
+      "content creator",
+      "content creation",
+      "wedding content creator",
+      "photo",
+      "video",
+      "films",
+      "cinematography",
+      "cinematic",
+      "camera",
+      "highlight film",
+      "wedding film",
+      "drone",
+      "drone footage"
+    ]
+  },
+
+  beauty: {
+    title: "Beauty & Hair",
+    subtitle: "Discover talented beauty artists and hairstylists for your wedding day look.",
+    match: [
+      "beauty",
+      "hair",
+      "hair stylist",
+      "hairstylist",
+      "bridal hair",
+      "makeup",
+      "make-up",
+      "makeup artist",
+      "make-up artist",
+      "beauty & hair",
+      "nails",
+      "nail",
+      "nail artist",
+      "nail tech",
+      "manicure",
+      "pedicure",
+      "lashes",
+      "lash artist",
+      "brows",
+      "brow artist",
+      "spray tan",
+      "tan",
+      "tanning",
+      "skin prep",
+      "facial",
+      "beautician"
+    ]
+  },
+
+  cakes: {
+    title: "Cakes",
+    subtitle: "Browse wedding cake designers and dessert specialists for something truly delicious.",
+    match: [
+      "cake",
+      "cakes",
+      "wedding cake",
+      "cake designer",
+      "cake maker",
+      "dessert",
+      "desserts",
+      "bakery",
+      "baker",
+      "cookies",
+      "cupcakes",
+      "donuts",
+      "doughnuts",
+      "macarons",
+      "sweet table",
+      "dessert table",
+      "gelato cart",
+      "ice cream cart",
+      "treats",
+      "sweets"
+    ]
+  },
+
+  entertainment: {
+    title: "Entertainment",
+    subtitle: "Live singers, DJs and entertainers to create the perfect atmosphere.",
+    match: [
+      "entertainment",
+      "dj",
+      "dj hire",
+      "music",
+      "musician",
+      "band",
+      "live band",
+      "singer",
+      "live singer",
+      "acoustic",
+      "acoustic duo",
+      "mc",
+      "master of ceremonies",
+      "performer",
+      "dance floor",
+      "string quartet",
+      "violinist",
+      "harpist",
+      "saxophone",
+      "pianist",
+      "roaming band",
+      "wedding entertainment"
+    ]
+  },
+
+  cars: {
+    title: "Wedding Cars",
+    subtitle: "Elegant transport and wedding car vendors to help you arrive in style.",
+    match: [
+      "car",
+      "cars",
+      "wedding cars",
+      "car hire",
+      "chauffeur",
+      "transport",
+      "wedding transport",
+      "limousine",
+      "limo",
+      "luxury car",
+      "classic car",
+      "vintage car",
+      "bridal car",
+      "bus hire",
+      "shuttle",
+      "getaway car",
+      "coach hire",
+      "driver"
+    ]
+  },
+
+  celebrants: {
+    title: "Celebrants",
+    subtitle: "Find experienced celebrants for meaningful and memorable ceremonies.",
+    match: [
+      "celebrant",
+      "celebrants",
+      "marriage celebrant",
+      "officiant",
+      "ceremony",
+      "ceremony officiant",
+      "wedding officiant",
+      "vow ceremony",
+      "elopement celebrant",
+      "mc celebrant",
+      "civil celebrant"
+    ]
+  },
+
+  styling: {
+    title: "Styling & Decor",
+    subtitle: "Find beautiful stylists and decor vendors to bring your wedding vision together.",
+    match: [
+      "styling",
+      "stylist",
+      "wedding stylist",
+      "decor",
+      "decoration",
+      "decorations",
+      "event styling",
+      "tablescape",
+      "table styling",
+      "signage",
+      "neon sign",
+      "welcome sign",
+      "backdrop",
+      "arbour",
+      "arbor",
+      "prop hire",
+      "hire items",
+      "decor hire",
+      "ceremony styling",
+      "reception styling"
+    ]
+  },
+
+  stationery: {
+    title: "Stationery",
+    subtitle: "Discover invitations, signage and paper goods designed for your special day.",
+    match: [
+      "stationery",
+      "stationary",
+      "invitation",
+      "invitations",
+      "paper goods",
+      "menus",
+      "place cards",
+      "seating chart",
+      "welcome sign",
+      "save the date",
+      "save-the-date",
+      "wedding signage",
+      "calligraphy",
+      "calligrapher",
+      "name cards",
+      "paperie"
+    ]
+  },
+
+  catering: {
+    title: "Catering & Drinks",
+    subtitle: "Explore caterers, mobile bars and beverage services for weddings of every style.",
+    match: [
+      "catering",
+      "caterer",
+      "food",
+      "mobile bar",
+      "bar service",
+      "cocktail cart",
+      "bartender",
+      "bar staff",
+      "grazing table",
+      "grazing",
+      "charcuterie",
+      "coffee cart",
+      "coffee van",
+      "pizza van",
+      "food truck",
+      "canapes",
+      "canapés",
+      "drinks",
+      "beverages"
+    ]
+  },
+
+  fashion: {
+    title: "Fashion & Attire",
+    subtitle: "Find gowns, suits and wedding fashion services for the whole celebration.",
+    match: [
+      "dress",
+      "dresses",
+      "gown",
+      "gowns",
+      "bridal gown",
+      "bridal boutique",
+      "bridal wear",
+      "wedding dress",
+      "formal wear",
+      "suit",
+      "suits",
+      "menswear",
+      "alterations",
+      "tailor",
+      "veil",
+      "accessories",
+      "bridal accessories",
+      "jewellery",
+      "jewelry",
+      "shoes"
+    ]
+  },
+
+  all: {
+    title: "All Categories",
+    subtitle: "Discover trusted wedding vendors and explore beautiful businesses for every part of your day.",
+    match: []
+  }
+};
 
     function cleanArray(arr) {
       return Array.isArray(arr) ? arr.filter(Boolean) : [];
