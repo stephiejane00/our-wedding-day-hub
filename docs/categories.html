@@ -96,7 +96,7 @@
 
     .categories-search-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr 1.1fr auto;
+      grid-template-columns: 1fr 1fr 1.1fr 1.1fr auto;
       gap: 12px;
       align-items: end;
     }
@@ -280,7 +280,7 @@
       text-align: center;
     }
 
-    @media (max-width: 1100px) {
+    @media (max-width: 1180px) {
       .categories-search-grid {
         grid-template-columns: 1fr 1fr;
       }
@@ -375,6 +375,15 @@
             >
           </div>
 
+          <div class="categories-search-field">
+            <label for="keywordSearch">Search</label>
+            <input
+              type="text"
+              id="keywordSearch"
+              placeholder="Search vendor, service, style or keyword"
+            >
+          </div>
+
           <button type="button" id="searchBtn" class="categories-search-btn">Search</button>
         </div>
 
@@ -394,7 +403,7 @@
       <section id="categoriesGrid" class="categories-grid"></section>
 
       <p id="categoriesEmpty" class="categories-empty" style="display:none;">
-        No vendors found for this search yet. Try another category or location.
+        No vendors found for this search yet. Try another category, location or keyword.
       </p>
     </section>
   </main>
@@ -442,6 +451,7 @@
     const mainCategorySelect = document.getElementById("mainCategorySelect");
     const subCategorySelect = document.getElementById("subCategorySelect");
     const locationSearch = document.getElementById("locationSearch");
+    const keywordSearch = document.getElementById("keywordSearch");
     const searchBtn = document.getElementById("searchBtn");
     const clearFiltersBtn = document.getElementById("clearFiltersBtn");
 
@@ -454,6 +464,7 @@
     const selectedType = (params.get("type") || "all").toLowerCase();
     const selectedSubcategory = (params.get("subcategory") || "all").toLowerCase();
     const selectedLocation = (params.get("location") || "").trim();
+    const selectedSearch = (params.get("search") || "").trim();
 
     let allLiveVendors = [];
 
@@ -722,15 +733,6 @@
         .replace(/\b\w/g, char => char.toUpperCase());
     }
 
-    function slugify(value) {
-      return String(value || "")
-        .toLowerCase()
-        .trim()
-        .replace(/&/g, "and")
-        .replace(/[^a-z0-9]+/g, "_")
-        .replace(/^_+|_+$/g, "");
-    }
-
     function getCardImage(vendor) {
       if (vendor.coverImageUrl && String(vendor.coverImageUrl).trim()) return vendor.coverImageUrl;
       if (Array.isArray(vendor.images) && vendor.images.length > 0) return vendor.images[0];
@@ -913,6 +915,31 @@
         .trim();
     }
 
+    function getKeywordSearchText(vendor) {
+      return `
+        ${vendor.businessName || ""}
+        ${vendor.bio || ""}
+        ${vendor.shortBio || ""}
+        ${vendor.description || ""}
+        ${vendor.tagline || ""}
+        ${vendor.serviceAreas || ""}
+        ${vendor.displayLocation || ""}
+        ${vendor.instagram || ""}
+        ${vendor.facebook || ""}
+        ${vendor.tiktok || ""}
+        ${vendor.youtube || ""}
+        ${vendor.pinterest || ""}
+        ${vendor.linkedin || ""}
+        ${vendor.x || ""}
+        ${vendor.website || ""}
+        ${cleanArray(vendor.categories).join(" ")}
+        ${cleanArray(vendor.regions).join(" ")}
+        ${cleanArray(vendor.states).join(" ")}
+        ${cleanArray(vendor.countries).join(" ")}
+        ${cleanArray(vendor.styleTags).join(" ")}
+      `.toLowerCase();
+    }
+
     function vendorMatchesMainCategory(vendor, mainCategory) {
       if (mainCategory === "all") return true;
 
@@ -930,7 +957,91 @@
       if (!query) return true;
 
       const locationText = normalizeLocationText(vendor);
+
+      if (query === "australia & new zealand") {
+        return locationText.includes("australia") || locationText.includes("new zealand");
+      }
+
+      if (query === "united kingdom & ireland") {
+        return (
+          locationText.includes("united kingdom") ||
+          locationText.includes("uk") ||
+          locationText.includes("ireland")
+        );
+      }
+
+      if (query === "north america") {
+        return (
+          locationText.includes("united states") ||
+          locationText.includes("usa") ||
+          locationText.includes("canada") ||
+          locationText.includes("mexico") ||
+          locationText.includes("north america")
+        );
+      }
+
+      if (query === "south america") {
+        return (
+          locationText.includes("south america") ||
+          locationText.includes("brazil") ||
+          locationText.includes("argentina") ||
+          locationText.includes("chile") ||
+          locationText.includes("colombia") ||
+          locationText.includes("peru") ||
+          locationText.includes("uruguay") ||
+          locationText.includes("paraguay") ||
+          locationText.includes("ecuador") ||
+          locationText.includes("bolivia") ||
+          locationText.includes("venezuela")
+        );
+      }
+
+      if (query === "asia") {
+        return (
+          locationText.includes("asia") ||
+          locationText.includes("philippines") ||
+          locationText.includes("singapore") ||
+          locationText.includes("indonesia") ||
+          locationText.includes("thailand") ||
+          locationText.includes("malaysia") ||
+          locationText.includes("japan") ||
+          locationText.includes("india") ||
+          locationText.includes("china") ||
+          locationText.includes("vietnam") ||
+          locationText.includes("bali")
+        );
+      }
+
+      if (query === "europe") {
+        return (
+          locationText.includes("europe") ||
+          locationText.includes("england") ||
+          locationText.includes("scotland") ||
+          locationText.includes("wales") ||
+          locationText.includes("france") ||
+          locationText.includes("italy") ||
+          locationText.includes("spain") ||
+          locationText.includes("greece") ||
+          locationText.includes("portugal") ||
+          locationText.includes("germany") ||
+          locationText.includes("netherlands") ||
+          locationText.includes("switzerland")
+        );
+      }
+
+      if (query === "worldwide") {
+        return true;
+      }
+
       return locationText.includes(query);
+    }
+
+    function vendorMatchesKeyword(vendor, keywordValue) {
+      const query = String(keywordValue || "").trim().toLowerCase();
+      if (!query) return true;
+
+      const keywordText = getKeywordSearchText(vendor);
+      return keywordText.includes(query);
     }
 
     function renderVendors(vendors) {
@@ -983,6 +1094,7 @@
       const mainCategory = mainCategorySelect.value || "all";
       const subcategory = subCategorySelect.value || "all";
       const location = locationSearch.value.trim();
+      const keyword = keywordSearch.value.trim();
 
       const nextParams = new URLSearchParams();
 
@@ -998,6 +1110,10 @@
         nextParams.set("location", location);
       }
 
+      if (keyword) {
+        nextParams.set("search", keyword);
+      }
+
       const nextUrl = nextParams.toString()
         ? `${window.location.pathname}?${nextParams.toString()}`
         : window.location.pathname;
@@ -1009,6 +1125,7 @@
       const mainCategory = mainCategorySelect.value || "all";
       const subcategory = subCategorySelect.value || "all";
       const location = locationSearch.value.trim();
+      const keyword = keywordSearch.value.trim();
 
       const headerConfig = CATEGORY_GROUPS[mainCategory] || CATEGORY_GROUPS.all;
       categoryPageTitle.textContent = headerConfig.title;
@@ -1022,7 +1139,8 @@
         return (
           vendorMatchesMainCategory(vendor, mainCategory) &&
           vendorMatchesSubcategory(vendor, subcategory) &&
-          vendorMatchesLocation(vendor, location)
+          vendorMatchesLocation(vendor, location) &&
+          vendorMatchesKeyword(vendor, keyword)
         );
       });
 
@@ -1075,6 +1193,7 @@
       subCategorySelect.value = currentSubcategoryExists ? selectedSubcategory : "all";
 
       locationSearch.value = selectedLocation;
+      keywordSearch.value = selectedSearch;
     }
 
     mainCategorySelect.addEventListener("change", () => {
@@ -1093,11 +1212,19 @@
       }
     });
 
+    keywordSearch.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        applyFilters();
+      }
+    });
+
     clearFiltersBtn.addEventListener("click", () => {
       mainCategorySelect.value = "all";
       buildSubcategoryOptions("all");
       subCategorySelect.value = "all";
       locationSearch.value = "";
+      keywordSearch.value = "";
       applyFilters();
     });
 
