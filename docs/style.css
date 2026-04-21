@@ -387,22 +387,22 @@ button {
   max-width: 1520px;
   margin: 0 auto;
   background: var(--surface-2);
-  padding-top: 0;
+  padding: 0 0 26px;
 }
 
 .vendors-grid {
   max-width: 1320px;
-  margin: 0 auto 10px;
-  padding: 0 16px;
+  margin: 0 auto;
+  padding: 0 10px;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 22px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
 }
 
 .vendor-card {
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 22px;
-  padding: 16px;
+  background: rgba(255, 255, 255, 0.58);
+  border-radius: 24px;
+  padding: 16px 16px 18px;
   text-align: left;
   box-shadow: 0 10px 24px rgba(42, 28, 22, 0.06);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
@@ -411,6 +411,7 @@ button {
   flex-direction: column;
   height: 100%;
   border: 1px solid rgba(227, 219, 212, 0.9);
+  backdrop-filter: blur(2px);
 }
 
 .vendor-card:hover {
@@ -420,10 +421,9 @@ button {
 
 .vendor-card img {
   width: 100%;
-  border-radius: 14px;
-  margin-bottom: 14px;
-  display: block;
-  aspect-ratio: 1.4 / 1;
+  border-radius: 16px;
+  margin-bottom: 16px;
+  aspect-ratio: 1.32 / 1;
   object-fit: cover;
 }
 
@@ -439,12 +439,13 @@ button {
   margin: 0 0 8px;
   font-family: "Cormorant Garamond", serif;
   font-weight: 500;
-  font-size: 2rem;
-  line-height: 1;
+  font-size: 2.05rem;
+  line-height: 0.98;
+  letter-spacing: -0.02em;
 }
 
 .vendor-card p {
-  font-size: 1rem;
+  font-size: 0.98rem;
   color: var(--muted);
   line-height: 1.55;
   margin: 0;
@@ -452,7 +453,7 @@ button {
 
 .vendor-category-line,
 .vendor-location-line {
-  font-size: 0.96rem;
+  font-size: 0.94rem;
   color: var(--muted);
   margin-bottom: 6px;
 }
@@ -464,24 +465,25 @@ button {
 
 .vendor-profile-btn {
   border: none;
-  background: var(--accent-soft);
-  color: var(--text);
+  background: #e3cec0;
+  color: #2d2521;
   padding: 12px 18px;
   border-radius: 999px;
-  font-size: 14px;
+  font-size: 0.95rem;
   font-weight: 600;
   line-height: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease, background 0.2s ease;
   box-shadow: none;
   outline: none;
 }
 
 .vendor-profile-btn:hover {
-  opacity: 0.92;
+  opacity: 0.95;
   transform: translateY(-1px);
+  background: #dcc4b4;
 }
 
 .vendor-profile-btn:focus,
@@ -496,7 +498,7 @@ button {
   line-height: 1.7;
   color: #8f847c;
   max-width: 760px;
-  margin: 22px auto 8px;
+  margin: 26px auto 8px;
   padding: 0 20px 8px;
 }
 
@@ -572,11 +574,6 @@ button {
   max-width: 620px;
   margin: 0 auto;
   padding: 32px;
-}
-
-.auth-card.spiced {
-  position: relative;
-  overflow: hidden;
 }
 
 .auth-card.spiced::before {
@@ -702,7 +699,7 @@ button {
 }
 
 .signup-dropdown summary::after {
-  content: '+';
+  content: "+";
   position: absolute;
   right: 16px;
   top: 50%;
@@ -712,7 +709,7 @@ button {
 }
 
 .signup-dropdown[open] summary::after {
-  content: '–';
+  content: "–";
 }
 
 .dropdown-content-form {
