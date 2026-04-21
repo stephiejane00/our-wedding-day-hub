@@ -492,7 +492,7 @@
         <p class="eyebrow">vendor dashboard</p>
         <h1 class="page-title">Manage Your Vendor Profile</h1>
         <p class="page-subtitle">
-          Update your business details, upload your brand assets and media, choose your style tags and service locations, and control when your profile appears.
+          Update your business details, upload your brand assets and media, choose your categories and service locations, and control when your profile appears.
         </p>
         <div class="dashboard-actions">
           <a href="#" id="viewProfileBtn" class="apply-button" style="display:none;">View Public Profile</a>
@@ -625,14 +625,18 @@
           <div class="dashboard-two-col" style="margin-top: 14px;">
             <div class="dashboard-field">
               <label for="serviceAreas">Service Areas Summary</label>
-              <input type="text" id="serviceAreas" placeholder="Brisbane, Gold Coast, Sunshine Coast">
+              <input type="text" id="serviceAreas" placeholder="Brisbane, Gold Coast, Sunshine Coast or Manila, Philippines">
             </div>
 
             <div class="dashboard-field">
               <label for="displayLocation">Display Location</label>
-              <input type="text" id="displayLocation" placeholder="Brisbane, Queensland">
+              <input type="text" id="displayLocation" placeholder="Brisbane, Queensland or Manila, Philippines">
             </div>
           </div>
+
+          <p class="dashboard-help">
+            Use clear location wording here so couples can find you more easily in search results.
+          </p>
 
           <div class="dashboard-field" style="margin-top: 14px;">
             <label for="bio">Bio</label>
@@ -807,6 +811,9 @@
         <h2 class="dashboard-section-title">Categories</h2>
         <div class="dashboard-card-soft">
           <div id="categoryOptions" class="dropdown-content-form"></div>
+          <p class="dashboard-help">
+            Choose the specific services you offer. These match the categories couples browse on the website.
+          </p>
         </div>
       </section>
 
@@ -814,6 +821,9 @@
         <h2 class="dashboard-section-title">Countries You Service</h2>
         <div class="dashboard-card-soft">
           <div id="countryOptions" class="dropdown-content-form"></div>
+          <p class="dashboard-help">
+            Select the countries you genuinely service. This helps your profile appear in country and broader region searches like Asia, Europe, North America and more.
+          </p>
         </div>
       </section>
 
@@ -823,6 +833,9 @@
           <div id="stateOptions" class="dropdown-content-form">
             <p class="small-text">Select countries first.</p>
           </div>
+          <p class="dashboard-help">
+            Add your main states, provinces or territories so couples can narrow their search more easily.
+          </p>
         </div>
       </section>
 
@@ -832,6 +845,9 @@
           <div id="regionOptions" class="dropdown-content-form">
             <p class="small-text">Select states, provinces or territories first.</p>
           </div>
+          <p class="dashboard-help">
+            Choose the cities, regions or local areas you service. The more accurate this is, the easier it is for couples to find you.
+          </p>
         </div>
       </section>
 
@@ -1309,7 +1325,7 @@
     function renderStates(selectedStates = []) {
       const selectedCountries = getCheckedValues(countryOptions);
       stateOptions.innerHTML = "";
-      regionOptions.innerHTML = '<p class="small-text">Select states, provinces or territories first.</p>';
+      regionOptions.innerHTML = '<p class="small-text">Select countries first.</p>';
 
       if (!selectedCountries.length) {
         stateOptions.innerHTML = '<p class="small-text">Select countries first.</p>';
