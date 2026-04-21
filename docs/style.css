@@ -537,14 +537,16 @@ button {
 }
 
 .category-card {
-  background: rgba(255, 255, 255, 0.72);
-  border: 1px solid rgba(227, 219, 212, 0.9);
+  background: rgba(255, 255, 255, 0.76);
+  border: 1px solid rgba(227, 219, 212, 0.92);
   border-radius: 24px;
   overflow: hidden;
   box-shadow: 0 10px 24px rgba(42, 28, 22, 0.06);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
   text-align: left;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
 }
 
 .category-card:hover {
@@ -554,7 +556,7 @@ button {
 
 .category-card img {
   width: 100%;
-  aspect-ratio: 1.15 / 1;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
 }
 
@@ -565,7 +567,7 @@ button {
 .category-card-content h3 {
   margin: 0 0 8px;
   font-family: "Cormorant Garamond", serif;
-  font-size: 2rem;
+  font-size: 1.9rem;
   font-weight: 500;
   line-height: 1;
 }
@@ -573,8 +575,8 @@ button {
 .category-card-content p {
   margin: 0;
   color: var(--muted);
-  font-size: 0.98rem;
-  line-height: 1.55;
+  font-size: 0.95rem;
+  line-height: 1.5;
 }
 
 .location-pills {
