@@ -639,19 +639,17 @@
       }
     }
 
-    function runSearch() {
-      const term = searchInput.value.trim().toLowerCase();
+    function goToSearchResults() {
+      const term = searchInput.value.trim();
 
       if (!term) {
-        filteredVendors = [...allVendors];
-      } else {
-        filteredVendors = allVendors.filter((vendor) =>
-          getSearchText(vendor).includes(term)
-        );
+        window.location.href = "categories.html";
+        return;
       }
 
-      currentSlide = 0;
-      renderVendors(filteredVendors);
+      const params = new URLSearchParams();
+      params.set("search", term);
+      window.location.href = `categories.html?${params.toString()}`;
     }
 
     prevVendorsBtn.addEventListener("click", () => {
@@ -704,8 +702,13 @@
       }
     });
 
-    searchBtn.addEventListener("click", runSearch);
-    searchInput.addEventListener("input", runSearch);
+    searchBtn.addEventListener("click", goToSearchResults);
+    searchInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        goToSearchResults();
+      }
+    });
 
     loadVendors();
   </script>
