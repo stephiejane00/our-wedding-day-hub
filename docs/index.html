@@ -7,16 +7,19 @@
   <link rel="stylesheet" href="style.css">
   <style>
     .vendors-carousel-section {
-      width: min(1120px, calc(100% - 32px));
+      width: min(1520px, calc(100% - 44px));
       margin: 0 auto;
-      padding-bottom: 10px;
+      padding: 0 0 18px;
+      background: #ece7e2;
+      border-radius: 0 0 32px 32px;
     }
 
     .vendors-carousel-shell {
       display: flex;
       align-items: center;
       gap: 16px;
-      margin-top: 10px;
+      margin-top: 0;
+      padding: 0 20px 0;
     }
 
     .vendors-arrow {
@@ -24,7 +27,7 @@
       height: 48px;
       border: none;
       border-radius: 999px;
-      background: #ead8cb;
+      background: #e3cec0;
       color: #3d342f;
       font-size: 1.6rem;
       cursor: pointer;
@@ -38,7 +41,7 @@
 
     .vendors-arrow:hover {
       transform: translateY(-1px);
-      background: #e2cec0;
+      background: #dbc4b4;
     }
 
     .vendors-arrow:disabled {
@@ -56,65 +59,12 @@
     .vendors-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 20px;
+      gap: 24px;
       align-items: stretch;
     }
 
     .vendor-card {
-      background: #fff;
-      border-radius: 22px;
-      padding: 18px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-      cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
       min-height: 100%;
-    }
-
-    .vendor-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.08);
-    }
-
-    .vendor-card img {
-      width: 100%;
-      aspect-ratio: 1 / 0.8;
-      object-fit: cover;
-      border-radius: 16px;
-      display: block;
-      margin-bottom: 14px;
-    }
-
-    .vendor-card h3 {
-      margin: 0 0 8px;
-    }
-
-    .vendor-card p {
-      margin: 0 0 10px;
-    }
-
-    .vendor-category-line,
-    .vendor-location-line {
-      color: #7d6f67;
-    }
-
-    .vendor-card-actions {
-      margin-top: 14px;
-    }
-
-    .vendor-profile-btn {
-      border: none;
-      border-radius: 999px;
-      background: #ead8cb;
-      color: #3d342f;
-      padding: 12px 20px;
-      font: inherit;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.2s ease;
-    }
-
-    .vendor-profile-btn:hover {
-      background: #e2cec0;
     }
 
     .vendors-dots {
@@ -155,11 +105,13 @@
 
     @media (max-width: 700px) {
       .vendors-carousel-section {
-        width: min(100%, calc(100% - 24px));
+        width: min(100%, calc(100% - 20px));
+        border-radius: 0 0 24px 24px;
       }
 
       .vendors-carousel-shell {
         gap: 8px;
+        padding: 0 10px;
       }
 
       .vendors-grid {
@@ -171,26 +123,6 @@
         height: 42px;
         flex-basis: 42px;
         font-size: 1.35rem;
-      }
-
-      .vendor-card {
-        padding: 16px;
-        border-radius: 18px;
-      }
-
-      .vendor-card h3 {
-        font-size: 1.1rem;
-      }
-
-      .vendor-card p,
-      .vendor-category-line,
-      .vendor-location-line {
-        font-size: 0.92rem;
-        line-height: 1.55;
-      }
-
-      .vendor-profile-btn {
-        width: 100%;
       }
     }
 
@@ -221,9 +153,9 @@
 
   <div class="page-auth">
     <a href="categories.html" id="categoriesLink" class="auth-link">Categories</a>
-    <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
-    <a href="login.html" id="loginLink" class="auth-link">Log In</a>
     <a href="dashboard.html" id="dashboardLink" class="auth-link" style="display:none;">Dashboard</a>
+    <a href="login.html" id="loginLink" class="auth-link">Log In</a>
+    <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join as Vendor</a>
     <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
   </div>
 
@@ -232,21 +164,23 @@
       <div class="lux-hero-inner">
         <div class="lux-hero-copy">
           <a href="index.html" class="lux-logo-wrap" aria-label="Go to homepage">
-            <img src="images/1.png" alt="Our Wedding Day Hub" class="lux-logo">
+            <img src="images/logo.png" alt="Our Wedding Day Hub" class="lux-logo">
           </a>
 
           <p class="lux-kicker">Trusted wedding vendors worldwide</p>
 
           <h1 class="lux-title">
-            The world’s wedding vendor directory
+            The world’s <br>
+            wedding vendor directory
           </h1>
 
           <p class="lux-script">
-            all in one place. ♡
+            all in one place ♡
           </p>
 
           <div class="search-wrap hero-search-wrap">
             <div class="search-bar">
+              <span class="search-icon" aria-hidden="true">⌕</span>
               <input type="text" id="searchInput" placeholder="Search by vendor, location, category...">
               <button type="button" id="searchBtn">Search</button>
             </div>
@@ -254,8 +188,17 @@
         </div>
 
         <div class="lux-hero-image-wrap">
-          <img src="images/hero.jpg" alt="Elegant couple wedding image" class="lux-hero-image">
+          <img src="images/hero.jpg" alt="Elegant wedding couple" class="lux-hero-image">
         </div>
+      </div>
+    </section>
+
+    <section class="category-intro">
+      <p class="category-kicker">Browse by category</p>
+      <div class="category-divider">
+        <span></span>
+        <span class="heart">♡</span>
+        <span></span>
       </div>
     </section>
 
@@ -347,7 +290,7 @@
       if (vendor.logoUrl && String(vendor.logoUrl).trim()) return vendor.logoUrl;
       if (vendor.coverImage && String(vendor.coverImage).trim()) return vendor.coverImage;
       if (vendor.profileImage && String(vendor.profileImage).trim()) return vendor.profileImage;
-      return "images/header4.png";
+      return "images/bouquet.jpg";
     }
 
     function getShortBio(vendor) {
@@ -492,6 +435,7 @@
         return;
       }
 
+      emptyMessage.style.display = "block";
       emptyMessage.style.display = "none";
       prevVendorsBtn.style.display = "inline-flex";
       nextVendorsBtn.style.display = "inline-flex";
