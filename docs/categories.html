@@ -3,31 +3,622 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Categories | Our Wedding Day Hub</title>
+  <title>Browse Categories | Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    .categories-page {
+      max-width: 1520px;
+      margin: 0 auto;
+      padding: 18px 22px 50px;
+    }
+
+    .categories-hero {
+      background: var(--surface);
+      border: 1px solid rgba(227, 219, 212, 0.8);
+      border-radius: 32px;
+      padding: 42px 28px 30px;
+      margin-bottom: 26px;
+    }
+
+    .categories-logo {
+      width: 96px;
+      margin: 0 auto 18px;
+      display: block;
+    }
+
+    .categories-kicker {
+      margin: 0 0 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.24em;
+      font-size: 0.8rem;
+      color: var(--accent-strong);
+    }
+
+    .categories-title {
+      margin: 0;
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(2.8rem, 5vw, 4.6rem);
+      font-weight: 500;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+    }
+
+    .categories-subtitle {
+      max-width: 720px;
+      margin: 18px auto 0;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 1rem;
+    }
+
+    .categories-filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin: 28px auto 0;
+      max-width: 1100px;
+    }
+
+    .categories-filter-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 13px 20px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(227, 219, 212, 0.95);
+      color: var(--text);
+      font-size: 0.96rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .categories-filter-pill:hover {
+      transform: translateY(-1px);
+      background: #f8f3ef;
+    }
+
+    .categories-filter-pill.active {
+      background: #e3cec0;
+      border-color: #dcc4b4;
+    }
+
+    .categories-results {
+      background: var(--surface-2);
+      border-radius: 32px;
+      padding: 28px 22px 34px;
+    }
+
+    .categories-results-top {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .categories-results-label {
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .categories-results-label strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .category-vendor-card {
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(227, 219, 212, 0.9);
+      border-radius: 24px;
+      padding: 16px 16px 18px;
+      text-align: left;
+      box-shadow: 0 10px 24px rgba(42, 28, 22, 0.06);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+    }
+
+    .category-vendor-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 28px rgba(42, 28, 22, 0.08);
+    }
+
+    .category-vendor-card img {
+      width: 100%;
+      border-radius: 16px;
+      margin-bottom: 16px;
+      aspect-ratio: 1.32 / 1;
+      object-fit: cover;
+    }
+
+    .category-vendor-card h3 {
+      margin: 0 0 8px;
+      font-family: "Cormorant Garamond", serif;
+      font-weight: 500;
+      font-size: 2rem;
+      line-height: 0.98;
+      letter-spacing: -0.02em;
+    }
+
+    .category-vendor-card p {
+      font-size: 0.98rem;
+      color: var(--muted);
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    .category-vendor-meta,
+    .category-vendor-location {
+      font-size: 0.94rem;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .category-vendor-actions {
+      margin-top: auto;
+      padding-top: 16px;
+    }
+
+    .category-vendor-btn {
+      border: none;
+      background: #e3cec0;
+      color: #2d2521;
+      padding: 12px 18px;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.2s ease, transform 0.2s ease, background 0.2s ease;
+    }
+
+    .category-vendor-btn:hover {
+      opacity: 0.95;
+      transform: translateY(-1px);
+      background: #dcc4b4;
+    }
+
+    .categories-empty {
+      max-width: 700px;
+      margin: 24px auto 0;
+      color: var(--muted);
+      line-height: 1.7;
+      text-align: center;
+    }
+
+    @media (max-width: 980px) {
+      .categories-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 700px) {
+      .categories-page {
+        padding: 10px 10px 40px;
+      }
+
+      .categories-hero,
+      .categories-results {
+        border-radius: 24px;
+      }
+
+      .categories-hero {
+        padding: 28px 18px 22px;
+      }
+
+      .categories-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .categories-filter-pill {
+        width: 100%;
+      }
+
+      .category-vendor-btn {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
 <body>
 
   <div class="page-auth">
-    <a href="categories.html" id="categoriesLink" class="auth-link">Categories</a>
-    <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
-    <a href="login.html" id="loginLink" class="auth-link">Log In</a>
+    <a href="index.html" class="auth-link">Home</a>
+    <a href="categories.html" class="auth-link">Categories</a>
     <a href="dashboard.html" id="dashboardLink" class="auth-link" style="display:none;">Dashboard</a>
+    <a href="login.html" id="loginLink" class="auth-link">Log In</a>
+    <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join as Vendor</a>
     <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
   </div>
 
-  <header class="hero">
-    <a href="index.html" aria-label="Go to homepage">
-      <img src="images/1.png" alt="Our Wedding Day Hub" class="header-image">
-    </a>
-    <p class="hero-subheading">Browse wedding vendors by category.</p>
-  </header>
+  <main class="categories-page">
+    <section class="categories-hero">
+      <a href="index.html" aria-label="Go to homepage">
+        <img src="images/logo.png" alt="Our Wedding Day Hub" class="categories-logo">
+      </a>
 
-  <main>
-    <section class="search-wrap">
-      <h1>Categories</h1>
-      <p>Categories page coming soon.</p>
+      <p class="categories-kicker">Browse wedding vendors</p>
+      <h1 class="categories-title" id="categoryPageTitle">All Categories</h1>
+      <p class="categories-subtitle" id="categoryPageSubtitle">
+        Discover trusted wedding vendors and explore beautiful businesses for every part of your day.
+      </p>
+
+      <div class="categories-filter-bar">
+        <a href="categories.html?type=florists" class="categories-filter-pill" data-type="florists">Florists</a>
+        <a href="categories.html?type=venues" class="categories-filter-pill" data-type="venues">Venues</a>
+        <a href="categories.html?type=photography" class="categories-filter-pill" data-type="photography">Photography</a>
+        <a href="categories.html?type=beauty" class="categories-filter-pill" data-type="beauty">Beauty &amp; Hair</a>
+        <a href="categories.html?type=cakes" class="categories-filter-pill" data-type="cakes">Cakes</a>
+        <a href="categories.html?type=entertainment" class="categories-filter-pill" data-type="entertainment">Entertainment</a>
+        <a href="categories.html?type=cars" class="categories-filter-pill" data-type="cars">Wedding Cars</a>
+        <a href="categories.html?type=celebrants" class="categories-filter-pill" data-type="celebrants">Celebrants</a>
+        <a href="categories.html?type=all" class="categories-filter-pill" data-type="all">All</a>
+      </div>
+    </section>
+
+    <section class="categories-results">
+      <div class="categories-results-top">
+        <p class="categories-results-label">
+          Showing <strong id="resultsCount">0</strong> vendor(s)
+        </p>
+      </div>
+
+      <section id="categoriesGrid" class="categories-grid"></section>
+
+      <p id="categoriesEmpty" class="categories-empty" style="display:none;">
+        No vendors found in this category yet. More beautiful businesses are joining soon.
+      </p>
     </section>
   </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p class="footer-eyebrow">wedding vendor directory</p>
+      <h2 class="footer-title">Everything you need for your wedding, all in one place.</h2>
+      <p class="footer-text">
+        Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.
+      </p>
+
+      <div class="footer-links">
+        <a href="about.html">About Us</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="refund-policy.html">Refund Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="contact.html">Enquiries</a>
+      </div>
+
+      <p class="footer-abn">© 2026 Our Wedding Day Hub</p>
+      <p class="footer-abn">ABN 76 688 637 041 • Australia</p>
+    </div>
+  </footer>
+
+  <script type="module">
+    import {
+      db,
+      auth,
+      collection,
+      getDocs,
+      onAuthStateChanged,
+      signOut
+    } from "./firebase.js";
+
+    const categoriesGrid = document.getElementById("categoriesGrid");
+    const categoriesEmpty = document.getElementById("categoriesEmpty");
+    const resultsCount = document.getElementById("resultsCount");
+    const categoryPageTitle = document.getElementById("categoryPageTitle");
+    const categoryPageSubtitle = document.getElementById("categoryPageSubtitle");
+
+    const joinLink = document.getElementById("joinLink");
+    const loginLink = document.getElementById("loginLink");
+    const dashboardLink = document.getElementById("dashboardLink");
+    const logoutLink = document.getElementById("logoutLink");
+
+    const params = new URLSearchParams(window.location.search);
+    const selectedType = (params.get("type") || "all").toLowerCase();
+
+    const categoryConfig = {
+      florists: {
+        title: "Florists",
+        subtitle: "Beautiful floral designers and florists to bring your wedding vision to life.",
+        match: ["florist", "floral", "flowers"]
+      },
+      venues: {
+        title: "Venues",
+        subtitle: "Explore beautiful ceremony and reception spaces for your perfect day.",
+        match: ["venue", "venues", "ceremony venue", "reception venue"]
+      },
+      photography: {
+        title: "Photography",
+        subtitle: "Find photographers and visual storytellers to capture every unforgettable moment.",
+        match: ["photography", "photographer", "videography", "videographer", "photo", "video"]
+      },
+      beauty: {
+        title: "Beauty & Hair",
+        subtitle: "Discover talented beauty artists and hairstylists for your wedding day look.",
+        match: ["beauty", "hair", "makeup", "make-up", "makeup artist", "hair stylist", "beauty & hair"]
+      },
+      cakes: {
+        title: "Cakes",
+        subtitle: "Browse wedding cake designers and dessert specialists for something truly delicious.",
+        match: ["cake", "cakes", "dessert", "desserts", "bakery"]
+      },
+      entertainment: {
+        title: "Entertainment",
+        subtitle: "Live singers, DJs and entertainers to create the perfect atmosphere.",
+        match: ["entertainment", "dj", "music", "musician", "band", "singer", "live music"]
+      },
+      cars: {
+        title: "Wedding Cars",
+        subtitle: "Elegant transport and wedding car vendors to help you arrive in style.",
+        match: ["car", "cars", "transport", "wedding cars", "car hire", "chauffeur"]
+      },
+      celebrants: {
+        title: "Celebrants",
+        subtitle: "Find experienced celebrants for meaningful and memorable ceremonies.",
+        match: ["celebrant", "celebrants", "officiant", "ceremony"]
+      },
+      all: {
+        title: "All Categories",
+        subtitle: "Discover trusted wedding vendors and explore beautiful businesses for every part of your day.",
+        match: []
+      }
+    };
+
+    function cleanArray(arr) {
+      return Array.isArray(arr) ? arr.filter(Boolean) : [];
+    }
+
+    function formatText(value) {
+      if (!value) return "";
+      return String(value)
+        .replace(/_/g, " ")
+        .replace(/-/g, " ")
+        .replace(/\s+/g, " ")
+        .trim()
+        .replace(/\b\w/g, char => char.toUpperCase());
+    }
+
+    function getCardImage(vendor) {
+      if (vendor.coverImageUrl && String(vendor.coverImageUrl).trim()) return vendor.coverImageUrl;
+      if (Array.isArray(vendor.images) && vendor.images.length > 0) return vendor.images[0];
+      if (vendor.profileImageUrl && String(vendor.profileImageUrl).trim()) return vendor.profileImageUrl;
+      if (vendor.logoUrl && String(vendor.logoUrl).trim()) return vendor.logoUrl;
+      if (vendor.coverImage && String(vendor.coverImage).trim()) return vendor.coverImage;
+      if (vendor.profileImage && String(vendor.profileImage).trim()) return vendor.profileImage;
+      return "images/hero.png";
+    }
+
+    function getShortBio(vendor) {
+      const source =
+        (vendor.shortBio || "").trim() ||
+        (vendor.tagline || "").trim() ||
+        (vendor.bio || "").trim() ||
+        (vendor.description || "").trim();
+
+      if (!source) return "Beautiful vendor profile coming soon.";
+      return source.length > 88 ? source.slice(0, 88).trim() + "..." : source;
+    }
+
+    function getCategoryLine(vendor) {
+      const categories = Array.isArray(vendor.categories) && vendor.categories.length
+        ? vendor.categories
+        : vendor.category
+          ? [vendor.category]
+          : [];
+
+      const cleaned = cleanArray(categories);
+      if (!cleaned.length) return "";
+      return cleaned.slice(0, 3).map(formatText).join(" • ");
+    }
+
+    function getLocationLine(vendor) {
+      if (vendor.serviceAreas && String(vendor.serviceAreas).trim()) {
+        return formatText(vendor.serviceAreas.trim());
+      }
+
+      const regions = cleanArray(vendor.regions);
+      if (regions.length) return regions.slice(0, 3).map(formatText).join(" • ");
+
+      const states = cleanArray(vendor.states);
+      if (states.length) return states.map(formatText).join(" • ");
+
+      const countries = cleanArray(vendor.countries);
+      if (countries.length) return countries.map(formatText).join(" • ");
+
+      if (vendor.displayLocation && String(vendor.displayLocation).trim()) {
+        return formatText(vendor.displayLocation.trim());
+      }
+
+      return "";
+    }
+
+    function hasVendorAccess(vendor) {
+      const hasPaidAccess =
+        vendor.subscriptionActive === true || vendor.paidSetupFee === true;
+
+      const hasComplimentaryAccess =
+        vendor.complimentaryPlan === true ||
+        vendor.plan === "complimentary" ||
+        vendor.accessType === "complimentary-invite";
+
+      const isApprovedAccount =
+        !vendor.accountStatus || vendor.accountStatus === "active";
+
+      return isApprovedAccount && (hasPaidAccess || hasComplimentaryAccess);
+    }
+
+    function goToVendor(vendor) {
+      sessionStorage.setItem("selectedVendorId", vendor.docId);
+      if (vendor.uid) {
+        sessionStorage.setItem("selectedVendorUid", vendor.uid);
+      }
+      window.location.href = `vendor.html?id=${vendor.docId}`;
+    }
+
+    function normalizeCategoryText(vendor) {
+      const rawCategories = Array.isArray(vendor.categories) && vendor.categories.length
+        ? vendor.categories
+        : vendor.category
+          ? [vendor.category]
+          : [];
+
+      return rawCategories.map(cat => String(cat).toLowerCase().trim());
+    }
+
+    function vendorMatchesCategory(vendor, type) {
+      if (type === "all") return true;
+
+      const config = categoryConfig[type];
+      if (!config) return true;
+
+      const categoryText = normalizeCategoryText(vendor).join(" ");
+      const bioText = `
+        ${vendor.businessName || ""}
+        ${vendor.bio || ""}
+        ${vendor.shortBio || ""}
+        ${vendor.description || ""}
+        ${vendor.tagline || ""}
+      `.toLowerCase();
+
+      const combined = `${categoryText} ${bioText}`;
+      return config.match.some(keyword => combined.includes(keyword));
+    }
+
+    function renderPageHeader() {
+      const config = categoryConfig[selectedType] || categoryConfig.all;
+      categoryPageTitle.textContent = config.title;
+      categoryPageSubtitle.textContent = config.subtitle;
+
+      document.querySelectorAll(".categories-filter-pill").forEach((pill) => {
+        const pillType = pill.dataset.type;
+        pill.classList.toggle("active", pillType === selectedType);
+      });
+    }
+
+    function renderVendors(vendors) {
+      categoriesGrid.innerHTML = "";
+      resultsCount.textContent = String(vendors.length);
+
+      if (!vendors.length) {
+        categoriesEmpty.style.display = "block";
+        return;
+      }
+
+      categoriesEmpty.style.display = "none";
+
+      vendors.forEach((vendor) => {
+        const card = document.createElement("article");
+        card.className = "category-vendor-card";
+
+        const image = getCardImage(vendor);
+        const name = formatText(vendor.businessName || "Vendor");
+        const categoryLine = getCategoryLine(vendor);
+        const locationLine = getLocationLine(vendor);
+        const bio = getShortBio(vendor);
+
+        card.innerHTML = `
+          <img src="${image}" alt="${name}" loading="lazy">
+          <h3>${name}</h3>
+          ${categoryLine ? `<p class="category-vendor-meta">${categoryLine}</p>` : ""}
+          ${locationLine ? `<p class="category-vendor-location">${locationLine}</p>` : ""}
+          <p>${bio}</p>
+          <div class="category-vendor-actions">
+            <button type="button" class="category-vendor-btn">View Profile</button>
+          </div>
+        `;
+
+        card.addEventListener("click", () => {
+          goToVendor(vendor);
+        });
+
+        const btn = card.querySelector(".category-vendor-btn");
+        btn.addEventListener("click", (event) => {
+          event.stopPropagation();
+          goToVendor(vendor);
+        });
+
+        categoriesGrid.appendChild(card);
+      });
+    }
+
+    async function loadVendors() {
+      try {
+        const snapshot = await getDocs(collection(db, "vendors"));
+        const liveVendors = [];
+
+        snapshot.forEach((docSnap) => {
+          const vendor = docSnap.data();
+
+          const hasLiveProfile =
+            vendor.profileVisible === true && vendor.published === true;
+
+          if (
+            vendor &&
+            vendor.uid &&
+            hasLiveProfile &&
+            hasVendorAccess(vendor)
+          ) {
+            liveVendors.push({
+              ...vendor,
+              docId: docSnap.id
+            });
+          }
+        });
+
+        const filtered = liveVendors.filter(vendor => vendorMatchesCategory(vendor, selectedType));
+        renderVendors(filtered);
+      } catch (error) {
+        console.error("Vendor load error:", error);
+        categoriesEmpty.style.display = "block";
+        categoriesEmpty.textContent = "There was a problem loading vendors.";
+      }
+    }
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        joinLink.style.display = "none";
+        loginLink.style.display = "none";
+        dashboardLink.style.display = "inline-block";
+        logoutLink.style.display = "inline-block";
+      } else {
+        joinLink.style.display = "inline-flex";
+        loginLink.style.display = "inline-block";
+        dashboardLink.style.display = "none";
+        logoutLink.style.display = "none";
+      }
+    });
+
+    logoutLink.addEventListener("click", async () => {
+      try {
+        await signOut(auth);
+        window.location.href = "index.html";
+      } catch (error) {
+        console.error("Logout failed:", error);
+      }
+    });
+
+    renderPageHeader();
+    loadVendors();
+  </script>
+
+  <script type="module" src="nav.js"></script>
 </body>
 </html>
