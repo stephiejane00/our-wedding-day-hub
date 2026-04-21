@@ -50,6 +50,7 @@
     .vendors-carousel-viewport {
       flex: 1;
       overflow: hidden;
+      min-width: 0;
     }
 
     .vendors-grid {
@@ -153,8 +154,12 @@
     }
 
     @media (max-width: 700px) {
+      .vendors-carousel-section {
+        width: min(100%, calc(100% - 24px));
+      }
+
       .vendors-carousel-shell {
-        gap: 10px;
+        gap: 8px;
       }
 
       .vendors-grid {
@@ -167,21 +172,52 @@
         flex-basis: 42px;
         font-size: 1.35rem;
       }
+
+      .vendor-card {
+        padding: 16px;
+        border-radius: 18px;
+      }
+
+      .vendor-card h3 {
+        font-size: 1.1rem;
+      }
+
+      .vendor-card p,
+      .vendor-category-line,
+      .vendor-location-line {
+        font-size: 0.92rem;
+        line-height: 1.55;
+      }
+
+      .vendor-profile-btn {
+        width: 100%;
+      }
     }
 
     @media (max-width: 520px) {
+      .vendors-carousel-section {
+        width: min(100%, calc(100% - 16px));
+      }
+
       .vendors-carousel-shell {
         align-items: stretch;
       }
 
       .vendors-arrow {
+        width: 38px;
+        height: 38px;
+        flex-basis: 38px;
+        font-size: 1.1rem;
         align-self: center;
+      }
+
+      .vendors-dots {
+        margin-top: 14px;
       }
     }
   </style>
 </head>
 <body>
-
 
   <div class="page-auth">
     <a href="categories.html" id="categoriesLink" class="auth-link">Categories</a>
@@ -223,7 +259,7 @@
     </section>
   </main>
 
-   <footer class="site-footer">
+  <footer class="site-footer">
     <div class="footer-content">
       <p class="footer-eyebrow">wedding vendor directory</p>
       <h2 class="footer-title">Everything you need for your wedding, all in one place.</h2>
@@ -240,9 +276,9 @@
         <a href="privacy.html">Privacy Policy</a>
         <a href="contact.html">Enquiries</a>
       </div>
-  <footer class="site-footer">
-    <p>© 2026 Our Wedding Day Hub</p>
-    <p>ABN 76 688 637 041 • Australia</p>
+
+      <p class="footer-abn">© 2026 Our Wedding Day Hub</p>
+      <p class="footer-abn">ABN 76 688 637 041 • Australia</p>
     </div>
   </footer>
 
