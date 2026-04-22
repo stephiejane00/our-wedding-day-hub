@@ -5,10 +5,280 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>How It Works | Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    .how-page {
+      max-width: 1200px;
+      margin: 0 auto 50px;
+      padding: 10px 20px 0;
+    }
+
+    .how-stack {
+      display: grid;
+      gap: 24px;
+    }
+
+    .how-hero-card {
+      overflow: hidden;
+      padding: 0;
+    }
+
+    .how-hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      align-items: stretch;
+      min-height: 540px;
+    }
+
+    .how-hero-copy {
+      padding: 52px 42px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: left;
+    }
+
+    .how-logo-wrap {
+      display: inline-block;
+      margin-bottom: 24px;
+    }
+
+    .how-logo {
+      width: 170px;
+      max-width: 100%;
+      display: block;
+    }
+
+    .how-kicker {
+      margin: 0 0 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      font-size: 0.78rem;
+      color: #c8a892;
+    }
+
+    .how-hero-copy .eyebrow {
+      margin-bottom: 10px;
+    }
+
+    .how-hero-copy .page-title {
+      text-align: left;
+      font-size: clamp(2.3rem, 5vw, 4.2rem);
+      line-height: 0.96;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+
+    .how-hero-copy .page-subtitle {
+      text-align: left;
+      max-width: 540px;
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .how-hero-image-wrap {
+      min-height: 100%;
+      background: #f4ece6;
+    }
+
+    .how-hero-image {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .how-steps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .how-step-card {
+      text-align: left;
+    }
+
+    .how-step-number {
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      background: #ead8cd;
+      color: #3a2a22;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      margin-bottom: 14px;
+      font-size: 0.95rem;
+    }
+
+    .how-step-card h3 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 1.3rem;
+    }
+
+    .how-step-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .how-two-col {
+      display: grid;
+      grid-template-columns: minmax(0, 1.02fr) minmax(320px, 0.98fr);
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .how-copy-card {
+      text-align: left;
+    }
+
+    .how-copy-card h2 {
+      margin-top: 0;
+      margin-bottom: 12px;
+      text-align: left;
+    }
+
+    .how-copy-card p {
+      margin-top: 0;
+      margin-bottom: 14px;
+      line-height: 1.8;
+    }
+
+    .how-copy-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .how-image-card {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .how-image-card img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .how-image-card.tall img {
+      aspect-ratio: 0.96 / 1;
+    }
+
+    .how-benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .how-benefit-card {
+      text-align: left;
+    }
+
+    .how-benefit-card h3 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 1.3rem;
+    }
+
+    .how-benefit-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .how-cta-grid {
+      display: grid;
+      grid-template-columns: 0.94fr 1.06fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .how-cta-image {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .how-cta-image img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      aspect-ratio: 1 / 1;
+    }
+
+    .how-cta-copy {
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .how-cta-copy h2 {
+      margin-top: 0;
+      margin-bottom: 12px;
+      text-align: left;
+    }
+
+    .how-cta-copy p {
+      margin-top: 0;
+      margin-bottom: 14px;
+      line-height: 1.8;
+    }
+
+    .how-cta-copy p:last-child {
+      margin-bottom: 0;
+    }
+
+    .how-cta-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 980px) {
+      .how-hero-grid,
+      .how-steps-grid,
+      .how-two-col,
+      .how-benefits-grid,
+      .how-cta-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .how-page {
+        padding: 6px 16px 0;
+      }
+
+      .how-hero-copy {
+        padding: 34px 24px;
+      }
+
+      .how-hero-image {
+        max-height: 520px;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .how-page {
+        padding: 0 10px 0;
+      }
+
+      .how-hero-copy {
+        padding: 28px 20px;
+      }
+
+      .how-logo {
+        width: 145px;
+      }
+    }
+  </style>
 </head>
 
 <body>
-
 
   <div class="page-auth">
     <a href="categories.html" id="categoriesLink" class="auth-link">Categories</a>
@@ -18,60 +288,142 @@
     <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
   </div>
 
-  <header class="hero">
-    <a href="index.html" aria-label="Go to homepage">
-      <img src="images/1.png" alt="Our Wedding Day Hub" class="header-image">
-    </a>
-  </header>
+  <main class="how-page">
+    <div class="how-stack">
 
-  <main class="page-wrap">
-    <section class="card hero-card">
-      <p class="eyebrow">how it works</p>
-      <h1 class="page-title">A simple way to connect couples and wedding vendors</h1>
-      <p class="page-subtitle">
-        Our Wedding Day Hub helps couples discover beautiful wedding businesses in one place, while giving vendors a lovely way to be seen by people actively planning their day.
-      </p>
-    </section>
+      <section class="card how-hero-card">
+        <div class="how-hero-grid">
+          <div class="how-hero-copy">
+            <a href="index.html" class="how-logo-wrap" aria-label="Go to homepage">
+              <img src="images/logo.png" alt="Our Wedding Day Hub" class="how-logo">
+            </a>
 
-    <section class="card">
-      <h2>For Couples</h2>
-      <p class="page-subtitle">
-        Browse wedding vendors by category and location, all in one place. Explore profiles, discover local favourites, and connect directly with the businesses that feel like the right fit for your wedding.
-      </p>
-      <p class="page-subtitle">
-        It is designed to make the search feel simpler, calmer, and far less overwhelming.
-      </p>
-    </section>
+            <p class="how-kicker">Trusted wedding vendors worldwide</p>
 
-    <section class="card">
-      <h2>For Vendors</h2>
-      <p class="page-subtitle">
-        Create your profile, choose the listing level that suits your business, and showcase what you offer to couples who are actively searching for wedding services.
-      </p>
-      <p class="page-subtitle">
-        Your profile gives couples a clear place to view your business, learn more about your services, and decide if you feel like the right fit for their day.
-      </p>
-    </section>
+            <p class="eyebrow">how it works</p>
+            <h1 class="page-title">A simple way to connect couples and wedding vendors</h1>
+            <p class="page-subtitle">
+              Our Wedding Day Hub helps couples discover beautiful wedding businesses in one place, while giving vendors a lovely way to be seen by people actively planning their day.
+            </p>
+          </div>
 
-    <section class="card">
-      <h2>Getting Started</h2>
-      <p class="page-subtitle">
-        Sign up, select your preferred tier, and complete your business profile with your details, imagery, and information.
-      </p>
-      <p class="page-subtitle">
-        Once your profile is ready and live, couples can begin discovering your business through the platform.
-      </p>
-    </section>
+          <div class="how-hero-image-wrap">
+            <img src="images/modern-couple-sunglasses.png" alt="Modern wedding couple portrait" class="how-hero-image">
+          </div>
+        </div>
+      </section>
 
-    <section class="card">
-      <h2>Why Join</h2>
-      <p class="page-subtitle">
-        Whether you are planning your wedding or growing your business, Our Wedding Day Hub is designed to feel elegant, easy to use, and thoughtfully curated.
-      </p>
-      <p class="page-subtitle">
-        It is a simple way to bring the right people together in one beautiful space.
-      </p>
-    </section>
+      <section class="how-steps-grid">
+        <article class="card how-step-card">
+          <div class="how-step-number">1</div>
+          <h3>Browse</h3>
+          <p>
+            Couples can explore vendors by category and location in one beautifully organised place.
+          </p>
+        </article>
+
+        <article class="card how-step-card">
+          <div class="how-step-number">2</div>
+          <h3>Discover</h3>
+          <p>
+            View profiles, explore imagery, and find businesses that align with the style and feel of the day.
+          </p>
+        </article>
+
+        <article class="card how-step-card">
+          <div class="how-step-number">3</div>
+          <h3>Connect</h3>
+          <p>
+            Couples can reach out directly to vendors they love, making the process feel simpler and more personal.
+          </p>
+        </article>
+
+        <article class="card how-step-card">
+          <div class="how-step-number">4</div>
+          <h3>Be Seen</h3>
+          <p>
+            Vendors can showcase their work and services to couples who are actively searching for what they offer.
+          </p>
+        </article>
+      </section>
+
+      <section class="how-two-col">
+        <article class="card how-copy-card">
+          <h2>For Couples</h2>
+          <p>
+            Browse wedding vendors by category and location, all in one place. Explore profiles, discover local favourites, and connect directly with the businesses that feel like the right fit for your wedding.
+          </p>
+          <p>
+            It is designed to make the search feel simpler, calmer, and far less overwhelming.
+          </p>
+        </article>
+
+        <section class="card how-image-card tall">
+          <img src="images/cta.png" alt="Elegant bridal bouquet detail">
+        </section>
+      </section>
+
+      <section class="how-two-col">
+        <section class="card how-image-card tall">
+          <img src="images/couple-modern.png" alt="Modern wedding couple portrait">
+        </section>
+
+        <article class="card how-copy-card">
+          <h2>For Vendors</h2>
+          <p>
+            Create your profile, choose the listing level that suits your business, and showcase what you offer to couples who are actively searching for wedding services.
+          </p>
+          <p>
+            Your profile gives couples a clear place to view your business, learn more about your services, and decide if you feel like the right fit for their day.
+          </p>
+        </article>
+      </section>
+
+      <section class="how-benefits-grid">
+        <article class="card how-benefit-card">
+          <h3>Getting started</h3>
+          <p>
+            Sign up, select your preferred tier, and complete your business profile with your details, imagery, and information.
+          </p>
+        </article>
+
+        <article class="card how-benefit-card">
+          <h3>Go live</h3>
+          <p>
+            Once your profile is ready and live, couples can begin discovering your business through the platform.
+          </p>
+        </article>
+
+        <article class="card how-benefit-card">
+          <h3>Why join</h3>
+          <p>
+            It is a simple, elegant way to bring the right people together in one beautiful space.
+          </p>
+        </article>
+      </section>
+
+      <section class="how-cta-grid">
+        <section class="card how-cta-image">
+          <img src="images/couple-garden.png" alt="Romantic garden wedding couple">
+        </section>
+
+        <section class="card how-cta-copy">
+          <h2>Thoughtfully designed for both sides</h2>
+          <p>
+            Whether you are planning your wedding or growing your business, Our Wedding Day Hub is designed to feel elegant, easy to use, and thoughtfully curated.
+          </p>
+          <p>
+            Couples get a more inspiring way to search. Vendors get a beautiful place to be seen. And the whole experience feels more refined from start to finish.
+          </p>
+
+          <div class="how-cta-actions">
+            <a href="categories.html" class="apply-button">Browse Categories</a>
+            <a href="signup.html" class="pretty-button">Join as Vendor</a>
+          </div>
+        </section>
+      </section>
+
+    </div>
   </main>
 
   <footer class="site-footer">
@@ -91,9 +443,9 @@
         <a href="privacy.html">Privacy Policy</a>
         <a href="contact.html">Enquiries</a>
       </div>
-  <footer class="site-footer">
-    <p>© 2026 Our Wedding Day Hub</p>
-    <p>ABN 76 688 637 041 • Australia</p>
+
+      <p class="footer-abn">© 2026 Our Wedding Day Hub</p>
+      <p class="footer-abn">ABN 76 688 637 041 • Australia</p>
     </div>
   </footer>
 
