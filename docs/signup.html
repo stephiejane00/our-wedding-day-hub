@@ -5,6 +5,276 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Join | Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    .signup-page {
+      max-width: 1200px;
+      margin: 0 auto 60px;
+      padding: 18px 20px 0;
+    }
+
+    .signup-stack {
+      display: grid;
+      gap: 24px;
+    }
+
+    .signup-hero-card {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .signup-hero-grid {
+      display: grid;
+      grid-template-columns: 1.02fr 0.98fr;
+      align-items: stretch;
+      min-height: 540px;
+    }
+
+    .signup-hero-copy {
+      padding: 46px 42px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: left;
+    }
+
+    .signup-logo-wrap {
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-start;
+      margin-bottom: 18px;
+    }
+
+    .signup-logo {
+      width: 108px;
+      display: block;
+    }
+
+    .signup-hero-copy .eyebrow {
+      margin-bottom: 12px;
+      text-align: left;
+    }
+
+    .signup-title {
+      margin: 0 0 16px;
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(3rem, 5vw, 4.4rem);
+      font-weight: 500;
+      line-height: 0.94;
+      letter-spacing: -0.03em;
+      color: var(--text);
+    }
+
+    .signup-intro {
+      margin: 0 0 14px;
+      max-width: 560px;
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 1rem;
+    }
+
+    .signup-hero-image-wrap {
+      min-height: 100%;
+      background: #f4ece6;
+    }
+
+    .signup-hero-image {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .signup-content-grid {
+      display: grid;
+      grid-template-columns: 0.92fr 1.08fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .signup-info-card,
+    .signup-form-card {
+      text-align: left;
+    }
+
+    .signup-info-card h2,
+    .signup-form-card h2 {
+      margin-top: 0;
+      margin-bottom: 12px;
+      text-align: left;
+    }
+
+    .signup-info-card p,
+    .signup-form-card p {
+      margin-top: 0;
+      line-height: 1.8;
+    }
+
+    .signup-info-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .signup-points {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .signup-point {
+      padding: 16px 18px;
+      border-radius: 20px;
+      background: #fffaf7;
+      border: 1px solid var(--border);
+      color: var(--text);
+      line-height: 1.75;
+    }
+
+    .signup-point strong {
+      color: var(--text);
+    }
+
+    .signup-mini-note {
+      display: inline-block;
+      margin-bottom: 10px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: #f4e5da;
+      color: #5b4540;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .signup-form-card {
+      background: linear-gradient(180deg, #fffdfb 0%, #fff8f3 100%);
+    }
+
+    .signup-form {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .signup-form label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #3b2d25;
+    }
+
+    .signup-form input,
+    .signup-form select {
+      width: 100%;
+      border: 1px solid #eadfd6;
+      border-radius: 16px;
+      background: #fffdfb;
+      padding: 14px 16px;
+      font-size: 0.96rem;
+      color: #2d221c;
+      box-sizing: border-box;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .signup-form input:focus,
+    .signup-form select:focus {
+      outline: none;
+      border-color: #d9c2b2;
+      box-shadow: 0 0 0 3px rgba(217, 194, 178, 0.18);
+      background: #ffffff;
+    }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .field-soft {
+      padding: 16px 18px;
+      border-radius: 20px;
+      background: #fffaf7;
+      border: 1px solid var(--border);
+    }
+
+    .auth-switch-note,
+    .small-text {
+      color: var(--muted);
+      font-size: 0.94rem;
+      line-height: 1.8;
+      margin: 0;
+    }
+
+    .signup-plan-box {
+      display: none;
+      margin: 4px 0 8px;
+      padding: 18px;
+      border-radius: 22px;
+      background: #fffaf7;
+      border: 1px solid var(--border);
+    }
+
+    .signup-plan-grid {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .pricing-link-box {
+      text-align: center;
+      margin: 4px 0 0;
+      text-decoration: none;
+    }
+
+    .form-message {
+      margin-top: 14px;
+    }
+
+    .auth-footer-text {
+      margin: 16px 0 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .auth-footer-text a {
+      color: var(--text);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .auth-footer-text a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 980px) {
+      .signup-hero-grid,
+      .signup-content-grid,
+      .field-row {
+        grid-template-columns: 1fr;
+      }
+
+      .signup-hero-copy {
+        padding: 34px 24px;
+      }
+
+      .signup-hero-image {
+        max-height: 520px;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .signup-page {
+        padding: 10px 10px 0;
+      }
+
+      .signup-hero-copy {
+        padding: 28px 20px;
+      }
+
+      .signup-title {
+        font-size: 2.7rem;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -16,130 +286,147 @@
     <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
   </div>
 
-  <header class="hero">
-    <a href="index.html" aria-label="Go to homepage">
-      <img src="images/1.png" alt="Our Wedding Day Hub" class="header-image">
-    </a>
-  </header>
+  <main class="signup-page">
+    <div class="signup-stack">
 
-  <main class="page-shell">
-    <section class="card hero-card">
-      <p class="eyebrow">join the hub</p>
-      <h1 class="page-title">Create Your Account</h1>
-      <p class="page-subtitle">
-        Welcome to Our Wedding Day Hub, a beautiful space where couples can explore inspiration and trusted vendors,
-        and where vendors can create their own profile and grow their presence online.
-      </p>
-    </section>
+      <section class="card signup-hero-card">
+        <div class="signup-hero-grid">
+          <div class="signup-hero-copy">
+            <a href="index.html" class="signup-logo-wrap" aria-label="Go to homepage">
+              <img src="images/logo.png" alt="Our Wedding Day Hub" class="signup-logo">
+            </a>
 
-    <section class="auth-layout">
-      <section class="auth-intro">
-        <div class="auth-points">
-          <div class="auth-point">
-            <strong>For vendors</strong><br>
-            Create your account and set up your full profile inside your dashboard.
-          </div>
+            <p class="eyebrow">join the hub</p>
+            <h1 class="signup-title">Create Your Account</h1>
 
-          <div class="auth-point">
-            <strong>For couples</strong><br>
-            Sign up free to save favourite vendors and start building your inspiration space.
-          </div>
+            <p class="signup-intro">
+              Welcome to Our Wedding Day Hub, a beautiful space where couples can explore inspiration and trusted vendors, and where vendors can create their own profile and grow their presence online.
+            </p>
 
-          <div class="auth-point">
-            <strong>Simple setup</strong><br>
-            Get started in just a few steps with a soft, easy-to-use experience designed especially for weddings.
-          </div>
-
-          <div class="auth-point">
-            <strong>Finish later</strong><br>
-            Add your categories, locations and details inside your dashboard after joining.
-          </div>
-        </div>
-      </section>
-
-      <section class="auth-card spiced">
-        <h2>Join</h2>
-        <p class="auth-mini-text">Choose your account type below to get started.</p>
-
-        <div class="auth-point" style="margin-bottom: 18px;">
-          <strong>Vendors</strong><br>
-          View pricing and plan options before continuing to payment and account setup.
-        </div>
-
-        <a href="pricing.html" id="pricingLinkBox" class="pretty-button wide-glow" style="display:block; text-align:center; margin-bottom:16px;">
-          View Vendor Pricing
-        </a>
-
-        <form id="signupForm" class="pretty-form">
-          <label for="type">I am a:</label>
-          <select id="type" required>
-            <option value="">Select</option>
-            <option value="vendor">Vendor</option>
-            <option value="couple">Couple</option>
-          </select>
-
-          <p id="vendorNotice" class="auth-switch-note">
-            Couples can join free. Vendors complete a secure checkout before finalising their account setup.
-            Subscriptions can be cancelled at any time, with up to 60 days of fees refundable.
-            The one-time setup fee is non-refundable.
-          </p>
-
-          <div id="vendorPlanBox" style="display:none; margin: 18px 0 22px;">
-            <div class="auth-point" style="margin-bottom: 14px;">
-              <strong>Vendor Launch Experience</strong><br>
-              $50 one-time setup fee, charged together with your selected monthly plan at checkout.
-            </div>
-
-            <div class="auth-point" style="margin-bottom: 10px;">
-              <strong>Choose your monthly plan</strong>
-            </div>
-
-            <div style="display:grid; gap:10px;">
-              <button type="button" class="pretty-button wide-glow" onclick="startVendorCheckout('classic')">
-                Classic Listing · $4.75/month
-              </button>
-              <button type="button" class="pretty-button wide-glow" onclick="startVendorCheckout('signature')">
-                Signature Spotlight · $5.95/month
-              </button>
-              <button type="button" class="pretty-button wide-glow" onclick="startVendorCheckout('elite')">
-                Elite Feature · $7.25/month
-              </button>
-              <button type="button" class="pretty-button wide-glow" onclick="startVendorCheckout('platinum')">
-                Platinum Prestige · $9.95/month
-              </button>
-            </div>
-          </div>
-
-          <label for="name">Name / Business Name:</label>
-          <input type="text" id="name" required>
-
-          <div class="field-row">
-            <div>
-              <label for="email">Email:</label>
-              <input type="email" id="email" required>
-            </div>
-            <div>
-              <label for="password">Password:</label>
-              <input type="password" id="password" minlength="6" required>
-            </div>
-          </div>
-
-          <div id="vendorFields" class="field-soft" style="display:none;">
-            <p id="vendorSetupNote" class="small-text" style="margin-bottom: 14px;">
-              Once payment is completed, you’ll return here to finish creating your vendor account.
+            <p class="signup-intro">
+              Choose your account type below and get started with a soft, simple setup designed especially for weddings.
             </p>
           </div>
 
-          <button type="submit" class="pretty-button wide-glow">Create Account</button>
-        </form>
-
-        <p id="message" class="form-message"></p>
-
-        <p class="auth-footer-text">
-          Already have an account? <a href="login.html">Log in here</a>
-        </p>
+          <div class="signup-hero-image-wrap">
+            <img src="images/beauty-bride-editorial.png" alt="Editorial bride portrait" class="signup-hero-image">
+          </div>
+        </div>
       </section>
-    </section>
+
+      <section class="signup-content-grid">
+        <section class="card signup-info-card">
+          <span class="signup-mini-note">Getting started</span>
+          <h2>Who is joining?</h2>
+          <p>
+            Whether you are building your wedding business presence or saving beautiful inspiration for your own day, creating an account is the first step.
+          </p>
+
+          <div class="signup-points">
+            <div class="signup-point">
+              <strong>For vendors</strong><br>
+              Create your account and set up your full profile inside your dashboard.
+            </div>
+
+            <div class="signup-point">
+              <strong>For couples</strong><br>
+              Sign up free to save favourite vendors and start building your inspiration space.
+            </div>
+
+            <div class="signup-point">
+              <strong>Simple setup</strong><br>
+              Get started in just a few steps with an easy-to-use experience designed especially for weddings.
+            </div>
+
+            <div class="signup-point">
+              <strong>Finish later</strong><br>
+              Add your categories, locations and details inside your dashboard after joining.
+            </div>
+          </div>
+        </section>
+
+        <section class="card signup-form-card">
+          <h2>Join</h2>
+          <p class="small-text">Choose your account type below to get started.</p>
+
+          <a href="pricing.html" id="pricingLinkBox" class="pretty-button wide-glow pricing-link-box" style="display:block;">
+            View Vendor Pricing
+          </a>
+
+          <form id="signupForm" class="signup-form">
+            <div>
+              <label for="type">I am a:</label>
+              <select id="type" required>
+                <option value="">Select</option>
+                <option value="vendor">Vendor</option>
+                <option value="couple">Couple</option>
+              </select>
+            </div>
+
+            <p id="vendorNotice" class="auth-switch-note">
+              Couples can join free. Vendors complete a secure checkout before finalising their account setup. Subscriptions can be cancelled at any time, with up to 60 days of fees refundable. The one-time setup fee is non-refundable.
+            </p>
+
+            <div id="vendorPlanBox" class="signup-plan-box">
+              <div class="signup-point" style="margin-bottom: 14px;">
+                <strong>Vendor Launch Experience</strong><br>
+                $50 one-time setup fee, charged together with your selected monthly plan at checkout.
+              </div>
+
+              <div class="small-text" style="margin-bottom: 10px;">
+                <strong>Choose your monthly plan</strong>
+              </div>
+
+              <div class="signup-plan-grid">
+                <button type="button" class="pretty-button wide-glow" onclick="startVendorCheckout('classic')">
+                  Classic Listing · $4.75/month
+                </button>
+                <button type="button" class="pretty-button wide-glow" onclick="startVendorCheckout('signature')">
+                  Signature Spotlight · $5.95/month
+                </button>
+                <button type="button" class="pretty-button wide-glow" onclick="startVendorCheckout('elite')">
+                  Elite Feature · $7.25/month
+                </button>
+                <button type="button" class="pretty-button wide-glow" onclick="startVendorCheckout('platinum')">
+                  Platinum Prestige · $9.95/month
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <label for="name">Name / Business Name:</label>
+              <input type="text" id="name" required>
+            </div>
+
+            <div class="field-row">
+              <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" required>
+              </div>
+              <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" minlength="6" required>
+              </div>
+            </div>
+
+            <div id="vendorFields" class="field-soft" style="display:none;">
+              <p id="vendorSetupNote" class="small-text">
+                Once payment is completed, you’ll return here to finish creating your vendor account.
+              </p>
+            </div>
+
+            <button type="submit" class="pretty-button wide-glow">Create Account</button>
+          </form>
+
+          <p id="message" class="form-message"></p>
+
+          <p class="auth-footer-text">
+            Already have an account? <a href="login.html">Log in here</a>
+          </p>
+        </section>
+      </section>
+
+    </div>
   </main>
 
   <footer class="site-footer">
@@ -159,7 +446,7 @@
         <a href="contact.html">Enquiries</a>
       </div>
 
-      <p class="footer-abn">ABN: 76688637041</p>
+      <p class="footer-abn">ABN 76 688 637 041 • Australia</p>
     </div>
   </footer>
 
@@ -223,7 +510,7 @@
       vendorPlanBox.style.display = isVendor && !vendorHasAccess ? 'block' : 'none';
 
       if (vendorNotice) vendorNotice.style.display = isVendor && !vendorHasAccess ? 'block' : 'none';
-      if (pricingLinkBox) pricingLinkBox.style.display = isVendor && !vendorHasAccess ? 'block' : 'none';
+      if (pricingLinkBox) pricingLinkBox.style.display = isVendor && !vendorHasAccess ? 'block' : 'block';
 
       if (vendorSetupNote) {
         vendorSetupNote.textContent = vendorHasAccess
