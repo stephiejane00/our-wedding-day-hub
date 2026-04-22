@@ -7,38 +7,65 @@
   <link rel="stylesheet" href="style.css">
   <style>
     .couple-topbar {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      gap: 12px;
-      padding: 18px 24px 10px;
       max-width: 1180px;
-      margin: 0 auto;
+      margin: 10px auto 24px;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
       flex-wrap: wrap;
     }
 
-    .couple-topbar .auth-link,
-    .couple-topbar .auth-button {
+    .couple-topbar-home {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-    }
-
-    .couple-topbar .auth-link {
       text-decoration: none;
+      flex: 0 0 auto;
     }
 
-    .couple-dashboard-page header {
-      text-align: center;
-      padding: 2px 20px 0;
-    }
-
-    .couple-dashboard-page header img {
-      max-width: 620px;
-      width: 100%;
-      height: auto;
+    .couple-topbar-logo {
+      width: 98px;
+      height: 98px;
+      object-fit: contain;
       display: block;
-      margin: 0 auto;
+    }
+
+    .couple-topbar-text {
+      flex: 1;
+      text-align: left;
+    }
+
+    .couple-topbar-kicker {
+      margin: 0 0 6px;
+      font-size: 0.76rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #b59b8d;
+    }
+
+    .couple-topbar-title {
+      margin: 0;
+      font-size: clamp(1.7rem, 3vw, 2.5rem);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: #3f2d28;
+    }
+
+    .couple-topbar-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .couple-topbar-actions .auth-link,
+    .couple-topbar-actions .auth-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
     }
 
     .couple-page-shell {
@@ -750,16 +777,11 @@
       line-height: 1;
     }
 
-    .site-footer {
-      text-align: center;
-      padding: 6px 20px 44px;
-    }
-
-    .site-footer p {
-      color: #544641;
-    }
-
     @media (max-width: 920px) {
+      .couple-topbar {
+        padding: 0 20px;
+      }
+
       .couple-hero-grid,
       .vision-layout,
       .planning-layout,
@@ -780,20 +802,41 @@
       .hero-actions {
         justify-content: center;
       }
+
+      .couple-topbar-text {
+        text-align: center;
+        width: 100%;
+      }
+
+      .couple-topbar {
+        justify-content: center;
+      }
     }
 
     @media (max-width: 640px) {
       .couple-topbar {
-        padding: 14px 14px 8px;
+        padding: 0 14px;
+        margin: 6px auto 18px;
+        gap: 14px;
+      }
+
+      .couple-topbar-logo {
+        width: 78px;
+        height: 78px;
+      }
+
+      .couple-topbar-title {
+        font-size: 1.35rem;
+      }
+
+      .couple-topbar-kicker {
+        font-size: 0.72rem;
+        letter-spacing: 0.16em;
       }
 
       .couple-page-shell {
         padding-left: 14px;
         padding-right: 14px;
-      }
-
-      .couple-dashboard-page header {
-        padding: 0 14px;
       }
 
       .couple-hero-card,
@@ -809,20 +852,30 @@
       .board-overlay {
         opacity: 1;
       }
+
+      .couple-topbar-actions {
+        width: 100%;
+        justify-content: center;
+      }
     }
   </style>
 </head>
 <body class="couple-dashboard-page">
 
-  <div class="couple-topbar">
-    <a href="index.html" class="auth-link auth-pill">Home</a>
-    <button id="logoutBtn" class="auth-button" type="button">Log Out</button>
-  </div>
-
-  <header class="hero">
-    <a href="index.html" aria-label="Go to homepage">
-      <img src="images/1.png" alt="Our Wedding Day Hub" class="header-image">
+  <header class="couple-topbar">
+    <a href="index.html" class="couple-topbar-home" aria-label="Go to homepage">
+      <img src="images/logo.png" alt="Our Wedding Day Hub" class="couple-topbar-logo">
     </a>
+
+    <div class="couple-topbar-text">
+      <p class="couple-topbar-kicker">Couple Dashboard</p>
+      <h1 class="couple-topbar-title">Your Wedding Planning Space</h1>
+    </div>
+
+    <div class="couple-topbar-actions">
+      <a href="index.html" class="auth-link auth-pill">Home</a>
+      <button id="logoutBtn" class="auth-button" type="button">Log Out</button>
+    </div>
   </header>
 
   <main class="couple-page-shell">
@@ -844,7 +897,7 @@
           <p>Your favourite vendors, saved inspiration, planning notes, and wedding ideas can all live together here in one lovely space.</p>
 
           <div class="hero-actions">
-            <a href="vendors.html" class="soft-pill-button">Find Vendors</a>
+            <a href="categories.html" class="soft-pill-button">Find Vendors</a>
           </div>
         </div>
       </div>
@@ -968,6 +1021,29 @@
       </p>
     </section>
   </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p class="footer-eyebrow">wedding vendor directory</p>
+      <h2 class="footer-title">Everything you need for your wedding, all in one place.</h2>
+      <p class="footer-text">
+        Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.
+      </p>
+
+      <div class="footer-links">
+        <a href="about.html">About Us</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="refund-policy.html">Refund Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="contact.html">Enquiries</a>
+      </div>
+
+      <p>© 2026 Our Wedding Day Hub</p>
+      <p>ABN 76 688 637 041 • Australia</p>
+    </div>
+  </footer>
 
   <script type="module">
     import {
@@ -1186,11 +1262,12 @@
 
       const cardImage =
         vendor.profileImageUrl ||
-        vendor.profileImage ||
         vendor.coverImageUrl ||
         vendor.coverImage ||
         (Array.isArray(vendor.images) && vendor.images.length ? vendor.images[0] : '') ||
-        (Array.isArray(vendor.galleryImages) && vendor.galleryImages.length ? vendor.galleryImages[0] : '');
+        (Array.isArray(vendor.galleryImages) && vendor.galleryImages.length ? vendor.galleryImages[0] : '') ||
+        vendor.profileImage ||
+        '';
 
       card.innerHTML = `
         ${cardImage ? `
@@ -1216,7 +1293,7 @@
           </div>
 
           <div class="vendor-card-links">
-            <a class="pretty-button small-button" href="Vendor.html?id=${encodeURIComponent(vendor.id || vendor.uid || '')}">
+            <a class="pretty-button small-button" href="vendor.html?id=${encodeURIComponent(vendor.id || vendor.uid || '')}">
               View Profile
             </a>
             <button class="remove-favourite-btn" type="button">Remove from favourites</button>
@@ -1735,26 +1812,5 @@
       await loadCoupleDashboard(user);
     });
   </script>
-    
-   <footer class="site-footer">
-    <div class="footer-content">
-      <p class="footer-eyebrow">wedding vendor directory</p>
-      <h2 class="footer-title">Everything you need for your wedding, all in one place.</h2>
-      <p class="footer-text">
-        Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.
-      </p>
-
-      <div class="footer-links">
-        <a href="about.html">About Us</a>
-        <a href="how-it-works.html">How It Works</a>
-        <a href="pricing.html">Pricing</a>
-        <a href="refund-policy.html">Refund Policy</a>
-        <a href="terms.html">Terms &amp; Conditions</a>
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="contact.html">Enquiries</a>
-      </div>
-  <footer class="site-footer">
-    <p>© 2026 Our Wedding Day Hub</p>
-    <p>ABN 76 688 637 041 • Australia</p>
-    </div>
-  </footer>
+</body>
+</html>
