@@ -164,18 +164,7 @@
     }
 
     .vendor-header-top {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-      flex-wrap: wrap;
       margin-bottom: 14px;
-    }
-
-    .vendor-brandmark {
-      width: 120px;
-      max-width: 100%;
-      display: block;
-      flex: 0 0 auto;
     }
 
     .vendor-kicker {
@@ -451,10 +440,6 @@
         max-width: 140px;
         max-height: 76px;
       }
-
-      .vendor-brandmark {
-        width: 95px;
-      }
     }
   </style>
 </head>
@@ -501,9 +486,6 @@
 
         <section class="vendor-card vendor-header-card">
           <div class="vendor-header-top">
-            <a href="index.html" aria-label="Go to homepage">
-              <img src="images/logo.png" alt="Our Wedding Day Hub" class="vendor-brandmark">
-            </a>
             <p class="vendor-kicker">Trusted Wedding Vendors Worldwide</p>
           </div>
 
@@ -629,7 +611,6 @@
     const nextMediaBtn = document.getElementById("nextMediaBtn");
     const galleryDots = document.getElementById("galleryDots");
 
-    const enquiriesCard = document.getElementById("enquiriesCard");
     const vendorEnquiriesText = document.getElementById("vendorEnquiriesText");
     const enquiryForm = document.getElementById("enquiryForm");
     const enquiryName = document.getElementById("enquiryName");
@@ -746,13 +727,6 @@
       updateFavoriteButton(vendorId);
     });
 
-    function getVideoType(url) {
-      const lower = String(url).toLowerCase();
-      if (lower.includes(".webm")) return "video/webm";
-      if (lower.includes(".ogg")) return "video/ogg";
-      return "video/mp4";
-    }
-
     function buildGalleryItems(vendor) {
       const items = [];
 
@@ -777,10 +751,6 @@
           items.push({ type: "video", src: video });
         }
       });
-
-      if (vendor.profileImageUrl && !items.some(item => item.src === vendor.profileImageUrl)) {
-        items.push({ type: "image", src: vendor.profileImageUrl });
-      }
 
       if (!items.length) {
         items.push({ type: "image", src: "images/header4.png" });
@@ -967,8 +937,8 @@
 
         const profileImage =
           v.profileImageUrl ||
-          v.coverImageUrl ||
-          (Array.isArray(v.images) && v.images.length ? v.images[0] : "");
+          v.profileImage ||
+          "";
 
         const logo = v.logoUrl || v.logo || "";
 
