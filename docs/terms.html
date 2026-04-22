@@ -5,9 +5,202 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Terms & Conditions | Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    .terms-page {
+      max-width: 1200px;
+      margin: 0 auto 60px;
+      padding: 18px 20px 0;
+    }
+
+    .terms-stack {
+      display: grid;
+      gap: 24px;
+    }
+
+    .terms-hero-card {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .terms-hero-grid {
+      display: grid;
+      grid-template-columns: 1.02fr 0.98fr;
+      align-items: stretch;
+      min-height: 520px;
+    }
+
+    .terms-hero-copy {
+      padding: 46px 42px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: left;
+    }
+
+    .terms-logo-wrap {
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-start;
+      margin-bottom: 18px;
+    }
+
+    .terms-logo {
+      width: 108px;
+      display: block;
+    }
+
+    .terms-hero-copy .eyebrow {
+      margin-bottom: 12px;
+      text-align: left;
+    }
+
+    .terms-title {
+      margin: 0 0 16px;
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(3rem, 5vw, 4.3rem);
+      font-weight: 500;
+      line-height: 0.94;
+      letter-spacing: -0.03em;
+      color: var(--text);
+    }
+
+    .terms-intro {
+      margin: 0 0 14px;
+      max-width: 560px;
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 1rem;
+    }
+
+    .terms-hero-image-wrap {
+      min-height: 100%;
+      background: #f4ece6;
+    }
+
+    .terms-hero-image {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .terms-policy-card {
+      text-align: left;
+    }
+
+    .terms-policy-meta {
+      display: inline-block;
+      margin-bottom: 16px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: #f4e5da;
+      color: #5b4540;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .terms-policy-card h3 {
+      margin: 24px 0 10px;
+      font-size: 1.22rem;
+      color: var(--text);
+    }
+
+    .terms-policy-card p {
+      margin-top: 0;
+      margin-bottom: 14px;
+      color: var(--text);
+      line-height: 1.85;
+    }
+
+    .terms-policy-card ul {
+      margin: 0 0 18px 20px;
+      padding: 0;
+      color: var(--text);
+      line-height: 1.85;
+    }
+
+    .terms-policy-card li {
+      margin-bottom: 6px;
+    }
+
+    .terms-highlight {
+      padding: 18px;
+      border-radius: 20px;
+      background: linear-gradient(180deg, #fffdfb 0%, #fff7f2 100%);
+      border: 1px solid #f0dfd2;
+      margin: 18px 0 20px;
+    }
+
+    .terms-highlight p:last-child {
+      margin-bottom: 0;
+    }
+
+    .terms-contact-card {
+      text-align: left;
+      background: linear-gradient(180deg, #fffaf7 0%, #fff3ec 100%);
+    }
+
+    .terms-contact-card h2 {
+      margin-top: 0;
+      margin-bottom: 12px;
+      text-align: left;
+    }
+
+    .terms-contact-card p {
+      margin-top: 0;
+      margin-bottom: 14px;
+      line-height: 1.8;
+      color: var(--muted);
+    }
+
+    .terms-contact-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .terms-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .terms-cta-row .pretty-button,
+    .terms-cta-row .apply-button {
+      text-decoration: none;
+    }
+
+    @media (max-width: 980px) {
+      .terms-hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .terms-hero-copy {
+        padding: 34px 24px;
+      }
+
+      .terms-hero-image {
+        max-height: 500px;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .terms-page {
+        padding: 10px 10px 0;
+      }
+
+      .terms-hero-copy {
+        padding: 28px 20px;
+      }
+
+      .terms-title {
+        font-size: 2.7rem;
+      }
+    }
+  </style>
 </head>
 <body>
-
 
   <div class="page-auth">
     <a href="categories.html" id="categoriesLink" class="auth-link">Categories</a>
@@ -17,159 +210,192 @@
     <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
   </div>
 
-  <header class="hero">
-    <a href="index.html" aria-label="Go to homepage">
-      <img src="images/1.png" alt="Our Wedding Day Hub" class="header-image">
-    </a>
-  </header>
+  <main class="terms-page">
+    <div class="terms-stack">
 
-  <main class="page-shell">
-    <section class="card">
-      <p class="eyebrow">terms and conditions</p>
-      <h1 class="page-title">Terms &amp; Conditions</h1>
-      <p class="page-subtitle">
-        Please read these Terms &amp; Conditions carefully before using Our Wedding Day Hub.
-      </p>
-    </section>
+      <section class="card terms-hero-card">
+        <div class="terms-hero-grid">
+          <div class="terms-hero-copy">
+            <a href="index.html" class="terms-logo-wrap" aria-label="Go to homepage">
+              <img src="images/logo.png" alt="Our Wedding Day Hub" class="terms-logo">
+            </a>
 
-    <section class="card" style="text-align:left;">
-      <p><strong>Effective Date:</strong> 20 March 2026</p>
+            <p class="eyebrow">terms and conditions</p>
+            <h1 class="terms-title">Terms &amp; Conditions</h1>
 
-      <h2>1. Overview</h2>
-      <p>
-        Our Wedding Day Hub is an online platform designed to connect couples with wedding-related vendors and services.
-        By accessing or using this website, you agree to be bound by these Terms &amp; Conditions.
-        If you do not agree, please do not use the website.
-      </p>
+            <p class="terms-intro">
+              Please read these Terms &amp; Conditions carefully before using Our Wedding Day Hub.
+            </p>
 
-      <h2>2. Who Can Use This Website</h2>
-      <p>
-        This website may be used by couples seeking wedding vendors and services, and vendors who wish to promote their business and services through a paid or approved listing.
-      </p>
+            <p class="terms-intro">
+              These terms explain how the platform may be used by couples and vendors, and outline the responsibilities that apply when using the website.
+            </p>
+          </div>
 
-      <h2>3. Vendor Accounts and Listings</h2>
-      <p>
-        Vendors may be required to pay a setup fee and or subscription fee to access certain features of the platform.
-        By signing up as a vendor, you agree that all information you provide is accurate, current, and not misleading.
-      </p>
-      <p>
-        Vendors are responsible for maintaining the accuracy of their listing information, including their business name,
-        categories, service areas, contact details, pricing information, and any uploaded content.
-      </p>
-      <p>
-        We reserve the right to edit, reject, suspend, or remove any vendor listing that we believe is inaccurate,
-        inappropriate, misleading, unlawful, or not aligned with the purpose or standards of Our Wedding Day Hub.
-      </p>
+          <div class="terms-hero-image-wrap">
+            <img src="images/cta.png" alt="Wedding couple portrait" class="terms-hero-image">
+          </div>
+        </div>
+      </section>
 
-      <h2>4. Payments and Fees</h2>
-      <p>
-        Vendor fees, including setup fees and subscription fees, are payable as listed on the website or payment page.
-      </p>
-      <p>
-        The one-off vendor account setup fee is non-refundable once paid.
-      </p>
-      <p>
-        Vendors may cancel their subscription at any time. Upon cancellation, we may refund up to 60 days, or 2 months, of subscription fees.
-      </p>
-      <p>
-        If a vendor subscription applies, the vendor is responsible for managing their subscription and ensuring payment details remain current.
-      </p>
-      <p>
-        We may change pricing, inclusions, or available features at any time. Any changes will apply going forward and will not affect services already paid for unless clearly stated.
-      </p>
+      <section class="card terms-policy-card">
+        <span class="terms-policy-meta">Effective Date: 20 March 2026</span>
 
-      <h2>5. Couples Using the Platform</h2>
-      <p>
-        Couples may browse vendor listings, create accounts, and use available search or dashboard features free of charge unless otherwise stated.
-      </p>
-      <p>
-        Our Wedding Day Hub does not guarantee the availability, quality, pricing, conduct, suitability, or outcomes of any vendor listed on the platform.
-        Couples are responsible for making their own enquiries and decisions before booking or engaging any vendor.
-      </p>
+        <h3>1. Overview</h3>
+        <p>
+          Our Wedding Day Hub is an online platform designed to connect couples with wedding-related vendors and services.
+          By accessing or using this website, you agree to be bound by these Terms &amp; Conditions.
+          If you do not agree, please do not use the website.
+        </p>
 
-      <h2>6. No Guarantee of Bookings or Results</h2>
-      <p>
-        Vendor listings on Our Wedding Day Hub are intended to increase visibility and connection opportunities.
-        However, we do not guarantee enquiries, leads, bookings, sales, revenue, or business outcomes for any vendor.
-      </p>
+        <h3>2. Who Can Use This Website</h3>
+        <p>
+          This website may be used by couples seeking wedding vendors and services, and vendors who wish to promote their business and services through a paid or approved listing.
+        </p>
 
-      <h2>7. User Content</h2>
-      <p>
-        By submitting, uploading, or displaying any text, images, logos, business information, or other content on the platform,
-        you confirm that you own that content or have permission to use it.
-      </p>
-      <p>
-        You grant Our Wedding Day Hub a non-exclusive right to display, reproduce, and use that content for the operation,
-        promotion, and improvement of the website and related services.
-      </p>
+        <h3>3. Vendor Accounts and Listings</h3>
+        <p>
+          Vendors may be required to pay a setup fee and or subscription fee to access certain features of the platform.
+          By signing up as a vendor, you agree that all information you provide is accurate, current, and not misleading.
+        </p>
+        <p>
+          Vendors are responsible for maintaining the accuracy of their listing information, including their business name,
+          categories, service areas, contact details, pricing information, and any uploaded content.
+        </p>
+        <p>
+          We reserve the right to edit, reject, suspend, or remove any vendor listing that we believe is inaccurate,
+          inappropriate, misleading, unlawful, or not aligned with the purpose or standards of Our Wedding Day Hub.
+        </p>
 
-      <h2>8. Acceptable Use</h2>
-      <p>You agree not to:</p>
-      <p>
-        use the website for unlawful purposes;<br>
-        submit false, misleading, or deceptive information;<br>
-        impersonate another person or business;<br>
-        upload content you do not have permission to use;<br>
-        interfere with the operation or security of the website; or<br>
-        attempt to access accounts, data, or systems without authorisation.
-      </p>
+        <h3>4. Payments and Fees</h3>
+        <p>
+          Vendor fees, including setup fees and subscription fees, are payable as listed on the website or payment page.
+        </p>
 
-      <h2>9. Account Security</h2>
-      <p>
-        If you create an account, you are responsible for maintaining the confidentiality of your login details and for all activity that occurs under your account.
-        You must notify us promptly if you believe your account has been accessed without permission.
-      </p>
+        <div class="terms-highlight">
+          <p>
+            The one-off vendor account setup fee is non-refundable once paid.
+          </p>
+          <p>
+            Vendors may cancel their subscription at any time. Upon cancellation, we may refund up to 60 days, or 2 months, of subscription fees.
+          </p>
+          <p>
+            If a vendor subscription applies, the vendor is responsible for managing their subscription and ensuring payment details remain current.
+          </p>
+          <p>
+            We may change pricing, inclusions, or available features at any time. Any changes will apply going forward and will not affect services already paid for unless clearly stated.
+          </p>
+        </div>
 
-      <h2>10. Third-Party Services and Links</h2>
-      <p>
-        Our Wedding Day Hub may contain links to third-party websites, payment services, social media pages, or external booking or contact methods.
-        We are not responsible for the content, policies, availability, or practices of third-party services.
-      </p>
+        <h3>5. Couples Using the Platform</h3>
+        <p>
+          Couples may browse vendor listings, create accounts, and use available search or dashboard features free of charge unless otherwise stated.
+        </p>
+        <p>
+          Our Wedding Day Hub does not guarantee the availability, quality, pricing, conduct, suitability, or outcomes of any vendor listed on the platform.
+          Couples are responsible for making their own enquiries and decisions before booking or engaging any vendor.
+        </p>
 
-      <h2>11. Platform Availability</h2>
-      <p>
-        We aim to keep the website available and functioning smoothly, but we do not guarantee uninterrupted access.
-        We may update, suspend, modify, or discontinue parts of the platform at any time without notice.
-      </p>
+        <h3>6. No Guarantee of Bookings or Results</h3>
+        <p>
+          Vendor listings on Our Wedding Day Hub are intended to increase visibility and connection opportunities.
+          However, we do not guarantee enquiries, leads, bookings, sales, revenue, or business outcomes for any vendor.
+        </p>
 
-      <h2>12. Limitation of Liability</h2>
-      <p>
-        To the maximum extent permitted by law, Our Wedding Day Hub is not liable for any indirect, incidental, special,
-        consequential, or business-related loss arising from your use of the platform, including loss of data, revenue,
-        bookings, profits, reputation, or opportunities.
-      </p>
-      <p>
-        We provide the website on an as is and as available basis, without warranties of any kind except where required by law.
-      </p>
+        <h3>7. User Content</h3>
+        <p>
+          By submitting, uploading, or displaying any text, images, logos, business information, or other content on the platform,
+          you confirm that you own that content or have permission to use it.
+        </p>
+        <p>
+          You grant Our Wedding Day Hub a non-exclusive right to display, reproduce, and use that content for the operation,
+          promotion, and improvement of the website and related services.
+        </p>
 
-      <h2>13. Consumer Law</h2>
-      <p>
-        Nothing in these Terms excludes, restricts, or modifies any rights you may have under applicable Australian consumer law where those rights cannot legally be excluded.
-      </p>
+        <h3>8. Acceptable Use</h3>
+        <p>You agree not to:</p>
+        <ul>
+          <li>use the website for unlawful purposes;</li>
+          <li>submit false, misleading, or deceptive information;</li>
+          <li>impersonate another person or business;</li>
+          <li>upload content you do not have permission to use;</li>
+          <li>interfere with the operation or security of the website; or</li>
+          <li>attempt to access accounts, data, or systems without authorisation.</li>
+        </ul>
 
-      <h2>14. Termination or Suspension</h2>
-      <p>
-        We may suspend or terminate access to the platform, remove listings, or cancel accounts at our discretion if these Terms are breached,
-        if payment is not made, or if we believe it is necessary to protect the integrity, safety, or reputation of the platform.
-      </p>
+        <h3>9. Account Security</h3>
+        <p>
+          If you create an account, you are responsible for maintaining the confidentiality of your login details and for all activity that occurs under your account.
+          You must notify us promptly if you believe your account has been accessed without permission.
+        </p>
 
-      <h2>15. Changes to These Terms</h2>
-      <p>
-        We may update these Terms &amp; Conditions from time to time. Updated terms will take effect once published on this page.
-        Continued use of the website after changes are published means you accept the updated terms.
-      </p>
+        <h3>10. Third-Party Services and Links</h3>
+        <p>
+          Our Wedding Day Hub may contain links to third-party websites, payment services, social media pages, or external booking or contact methods.
+          We are not responsible for the content, policies, availability, or practices of third-party services.
+        </p>
 
-      <h2>16. Privacy</h2>
-      <p>
-        Your use of the platform is also subject to our Privacy Policy. If you collect or receive personal information through the platform,
-        you are responsible for handling it appropriately and lawfully.
-      </p>
+        <h3>11. Platform Availability</h3>
+        <p>
+          We aim to keep the website available and functioning smoothly, but we do not guarantee uninterrupted access.
+          We may update, suspend, modify, or discontinue parts of the platform at any time without notice.
+        </p>
 
-      <h2>17. Contact</h2>
-      <p>
-        If you have questions about these Terms &amp; Conditions, please contact us through the contact page on the website.
-      </p>
-    </section>
+        <h3>12. Limitation of Liability</h3>
+        <p>
+          To the maximum extent permitted by law, Our Wedding Day Hub is not liable for any indirect, incidental, special,
+          consequential, or business-related loss arising from your use of the platform, including loss of data, revenue,
+          bookings, profits, reputation, or opportunities.
+        </p>
+        <p>
+          We provide the website on an as is and as available basis, without warranties of any kind except where required by law.
+        </p>
+
+        <h3>13. Consumer Law</h3>
+        <p>
+          Nothing in these Terms excludes, restricts, or modifies any rights you may have under applicable Australian consumer law where those rights cannot legally be excluded.
+        </p>
+
+        <h3>14. Termination or Suspension</h3>
+        <p>
+          We may suspend or terminate access to the platform, remove listings, or cancel accounts at our discretion if these Terms are breached,
+          if payment is not made, or if we believe it is necessary to protect the integrity, safety, or reputation of the platform.
+        </p>
+
+        <h3>15. Changes to These Terms</h3>
+        <p>
+          We may update these Terms &amp; Conditions from time to time. Updated terms will take effect once published on this page.
+          Continued use of the website after changes are published means you accept the updated terms.
+        </p>
+
+        <h3>16. Privacy</h3>
+        <p>
+          Your use of the platform is also subject to our Privacy Policy. If you collect or receive personal information through the platform,
+          you are responsible for handling it appropriately and lawfully.
+        </p>
+
+        <h3>17. Contact</h3>
+        <p>
+          If you have questions about these Terms &amp; Conditions, please contact us through the contact page on the website.
+        </p>
+      </section>
+
+      <section class="card terms-contact-card">
+        <h2>Questions about these terms?</h2>
+        <p>
+          If you have any questions about these Terms &amp; Conditions, please contact us and we’ll do our best to help.
+        </p>
+        <p>
+          We want the platform to feel clear, thoughtful, and easy to understand for both couples and vendors.
+        </p>
+
+        <div class="terms-cta-row">
+          <a href="contact.html" class="pretty-button">Contact Us</a>
+          <a href="privacy.html" class="apply-button">View Privacy Policy</a>
+        </div>
+      </section>
+
+    </div>
   </main>
 
   <footer class="site-footer">
@@ -189,9 +415,9 @@
         <a href="privacy.html">Privacy Policy</a>
         <a href="contact.html">Enquiries</a>
       </div>
-  <footer class="site-footer">
-    <p>© 2026 Our Wedding Day Hub</p>
-    <p>ABN 76 688 637 041 • Australia</p>
+
+      <p class="footer-abn">© 2026 Our Wedding Day Hub</p>
+      <p class="footer-abn">ABN 76 688 637 041 • Australia</p>
     </div>
   </footer>
 
