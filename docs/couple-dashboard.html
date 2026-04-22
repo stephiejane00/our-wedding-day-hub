@@ -35,6 +35,7 @@
     .couple-topbar-text {
       flex: 1;
       text-align: left;
+      min-width: 220px;
     }
 
     .couple-topbar-kicker {
@@ -83,7 +84,8 @@
     .vendor-card-public,
     .board-item,
     .account-card-inner,
-    .planning-card-inner {
+    .planning-card-inner,
+    .security-card-inner {
       border: 1px solid rgba(216, 197, 189, 0.45);
       box-shadow: 0 16px 40px rgba(74, 49, 42, 0.06);
     }
@@ -165,7 +167,8 @@
     .todo-add-btn:hover,
     .todo-delete-btn:hover,
     .calendar-nav:hover,
-    .favourite-filter:hover {
+    .favourite-filter:hover,
+    .security-save-btn:hover {
       transform: translateY(-1px);
     }
 
@@ -239,7 +242,8 @@
     }
 
     .account-card-inner,
-    .planning-card-inner {
+    .planning-card-inner,
+    .security-card-inner {
       max-width: 760px;
       margin: 0 auto;
       background: #fffdfb;
@@ -248,7 +252,8 @@
     }
 
     .account-form,
-    .planning-form-grid {
+    .planning-form-grid,
+    .security-form {
       display: grid;
       gap: 14px;
     }
@@ -264,7 +269,8 @@
     .planning-form-grid input,
     .vision-form textarea,
     .todo-input,
-    .favourite-filter {
+    .favourite-filter,
+    .security-form input {
       width: 100%;
       border-radius: 18px;
       border: 1px solid rgba(212, 194, 186, 0.8);
@@ -279,7 +285,8 @@
     .planning-form-grid input:focus,
     .vision-form textarea:focus,
     .todo-input:focus,
-    .favourite-filter:focus {
+    .favourite-filter:focus,
+    .security-form input:focus {
       outline: none;
       border-color: #caaea2;
       box-shadow: 0 0 0 4px rgba(234, 215, 206, 0.45);
@@ -287,7 +294,8 @@
 
     .account-save-btn,
     .todo-add-btn,
-    .board-upload-button {
+    .board-upload-button,
+    .security-save-btn {
       border: none;
       background: #ead7ce;
       color: #3f2d28;
@@ -299,12 +307,21 @@
     }
 
     .account-status,
-    .todo-status {
+    .todo-status,
+    .security-status {
       margin: 0;
       min-height: 24px;
       color: #8f746a;
       font-size: 0.93rem;
       line-height: 1.6;
+      text-align: center;
+    }
+
+    .security-help {
+      margin: 0;
+      color: #8f746a;
+      font-size: 0.93rem;
+      line-height: 1.7;
       text-align: center;
     }
 
@@ -658,6 +675,7 @@
       font-size: 0.92rem;
       line-height: 1.6;
       min-height: 22px;
+      word-break: break-word;
     }
 
     .upload-status {
@@ -798,10 +816,11 @@
     @media (max-width: 920px) {
       .couple-topbar {
         padding: 0 20px;
+        justify-content: center;
       }
 
-      .couple-topbar {
-        justify-content: center;
+      .couple-topbar-home {
+        width: 100%;
       }
 
       .couple-topbar-text {
@@ -864,11 +883,25 @@
       .couple-page-shell {
         padding-left: 14px;
         padding-right: 14px;
+        gap: 18px;
       }
 
       .couple-hero-card,
       .dashboard-card {
         padding: 22px 18px;
+        border-radius: 22px;
+      }
+
+      .account-card-inner,
+      .planning-card-inner,
+      .security-card-inner,
+      .vision-upload-card,
+      .mini-panel,
+      .profile-card,
+      .calendar-box,
+      .todo-box,
+      .vendor-card-public {
+        border-radius: 20px;
       }
 
       .profile-photo-wrap {
@@ -876,12 +909,73 @@
         height: 142px;
       }
 
+      .hero-copy h1 {
+        font-size: 1.8rem;
+      }
+
+      .hero-copy p,
+      .dashboard-subtext,
+      .mini-panel-soft,
+      .vision-upload-card p,
+      .calendar-note,
+      .vendor-card-bio {
+        font-size: 0.96rem;
+        line-height: 1.7;
+      }
+
+      .calendar-grid,
+      .calendar-weekdays {
+        gap: 6px;
+      }
+
+      .calendar-day {
+        min-height: 48px;
+        padding: 7px 8px;
+        border-radius: 12px;
+      }
+
+      .calendar-day .calendar-number {
+        font-size: 0.84rem;
+      }
+
+      .calendar-heart {
+        font-size: 0.7rem;
+        left: 8px;
+        bottom: 8px;
+      }
+
       .vision-board-grid {
         columns: 1 220px;
       }
 
+      .vendors-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .vendor-card-public-inner {
+        padding: 18px;
+      }
+
       .board-overlay {
         opacity: 1;
+      }
+
+      .hero-actions,
+      .couple-topbar-actions {
+        gap: 10px;
+      }
+
+      .soft-pill-button,
+      .upload-label,
+      .account-save-btn,
+      .security-save-btn,
+      .todo-add-btn,
+      .board-upload-button {
+        width: 100%;
+      }
+
+      .favourites-topbar {
+        max-width: 100%;
       }
     }
   </style>
@@ -931,7 +1025,7 @@
 
     <section class="dashboard-card">
       <h2>Your Account</h2>
-      <p class="dashboard-subtext">Update your names, email, or password whenever you need to.</p>
+      <p class="dashboard-subtext">Update your names and email here.</p>
 
       <div class="account-card-inner">
         <form id="accountForm" class="account-form">
@@ -940,9 +1034,22 @@
             <input id="partnerTwo" type="text" placeholder="Name two">
           </div>
           <input id="accountEmail" type="email" placeholder="Your email">
-          <input id="accountPassword" type="password" placeholder="New password (optional)">
           <button type="submit" class="account-save-btn">Update Details</button>
           <p id="accountStatus" class="account-status"></p>
+        </form>
+      </div>
+    </section>
+
+    <section class="dashboard-card">
+      <h2>Security Settings</h2>
+      <p class="dashboard-subtext">Keep your account secure by updating your password here.</p>
+
+      <div class="security-card-inner">
+        <form id="securityForm" class="security-form">
+          <input id="accountPassword" type="password" placeholder="New password">
+          <button type="submit" class="security-save-btn">Update Password</button>
+          <p id="securityStatus" class="security-status"></p>
+          <p class="security-help">If password changes do not go through, Firebase may ask you to log in again first.</p>
         </form>
       </div>
     </section>
@@ -1127,8 +1234,11 @@
     const partnerOne = document.getElementById('partnerOne');
     const partnerTwo = document.getElementById('partnerTwo');
     const accountEmail = document.getElementById('accountEmail');
-    const accountPassword = document.getElementById('accountPassword');
     const accountStatus = document.getElementById('accountStatus');
+
+    const securityForm = document.getElementById('securityForm');
+    const accountPassword = document.getElementById('accountPassword');
+    const securityStatus = document.getElementById('securityStatus');
 
     const weddingDateInput = document.getElementById('weddingDateInput');
     const calendarPrevBtn = document.getElementById('calendarPrevBtn');
@@ -1728,7 +1838,6 @@
         const one = partnerOne.value.trim();
         const two = partnerTwo.value.trim();
         const newEmail = accountEmail.value.trim();
-        const newPassword = accountPassword.value.trim();
         const combinedName = [one, two].filter(Boolean).join(' & ');
 
         await updateDoc(doc(db, 'users', auth.currentUser.uid), {
@@ -1742,14 +1851,6 @@
           await updateEmail(auth.currentUser, newEmail);
         }
 
-        if (newPassword) {
-          if (newPassword.length < 6) {
-            accountStatus.textContent = 'Password must be at least 6 characters.';
-            return;
-          }
-          await updatePassword(auth.currentUser, newPassword);
-        }
-
         currentUserData = {
           ...(currentUserData || {}),
           partnerOne: one,
@@ -1759,11 +1860,39 @@
         };
 
         welcomeMessage.textContent = `Welcome, ${combinedName || one || 'Lovely'}!`;
-        accountPassword.value = '';
         accountStatus.textContent = 'Details updated successfully.';
       } catch (error) {
         console.error(error);
-        accountStatus.textContent = 'Could not update your details right now. You may need to log in again before changing email or password.';
+        accountStatus.textContent = 'Could not update your details right now. You may need to log in again before changing email.';
+      }
+    });
+
+    securityForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      if (!auth.currentUser) return;
+
+      securityStatus.textContent = 'Updating password...';
+
+      try {
+        const newPassword = accountPassword.value.trim();
+
+        if (!newPassword) {
+          securityStatus.textContent = 'Please enter a new password.';
+          return;
+        }
+
+        if (newPassword.length < 6) {
+          securityStatus.textContent = 'Password must be at least 6 characters.';
+          return;
+        }
+
+        await updatePassword(auth.currentUser, newPassword);
+        accountPassword.value = '';
+        securityStatus.textContent = 'Password updated successfully.';
+      } catch (error) {
+        console.error(error);
+        securityStatus.textContent = 'Could not update your password right now. You may need to log in again first.';
       }
     });
 
