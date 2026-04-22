@@ -6,6 +6,50 @@
   <title>Vendor Profile | Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css"/>
   <style>
+    .vendor-topbar {
+      max-width: 1200px;
+      margin: 10px auto 24px;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .vendor-topbar-home {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+    }
+
+    .vendor-topbar-logo {
+      width: 110px;
+      height: 110px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .vendor-topbar-text {
+      flex: 1;
+      text-align: right;
+    }
+
+    .vendor-topbar-kicker {
+      margin: 0 0 6px;
+      font-size: 0.78rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #b59b8d;
+    }
+
+    .vendor-topbar-title {
+      margin: 0;
+      font-size: clamp(1.7rem, 3vw, 2.6rem);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+
     .vendor-page {
       max-width: 1200px;
       margin: 0 auto;
@@ -336,6 +380,10 @@
     }
 
     @media (max-width: 920px) {
+      .vendor-topbar {
+        padding: 0 20px;
+      }
+
       .vendor-layout {
         grid-template-columns: 1fr;
       }
@@ -350,6 +398,27 @@
     }
 
     @media (max-width: 620px) {
+      .vendor-topbar {
+        padding: 0 14px;
+        margin: 6px auto 18px;
+        gap: 14px;
+        align-items: center;
+      }
+
+      .vendor-topbar-logo {
+        width: 78px;
+        height: 78px;
+      }
+
+      .vendor-topbar-title {
+        font-size: 1.35rem;
+      }
+
+      .vendor-topbar-kicker {
+        font-size: 0.72rem;
+        letter-spacing: 0.16em;
+      }
+
       .vendor-page {
         padding: 18px 14px 40px;
       }
@@ -398,16 +467,17 @@
     <a href="dashboard.html" id="dashboardLink" class="auth-link" style="display:none;">Dashboard</a>
     <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
   </div>
-<header class="vendor-topbar">
-  <a href="index.html" class="vendor-topbar-home" aria-label="Go to homepage">
-    <img src="images/logo.png" alt="Our Wedding Day Hub" class="vendor-topbar-logo">
-  </a>
 
-  <div class="vendor-topbar-text">
-    <p class="vendor-topbar-kicker">Vendor Profile</p>
-    <h1 id="topbarBusinessName" class="vendor-topbar-title">Loading vendor...</h1>
-  </div>
-</header>
+  <header class="vendor-topbar">
+    <a href="index.html" class="vendor-topbar-home" aria-label="Go to homepage">
+      <img src="images/logo.png" alt="Our Wedding Day Hub" class="vendor-topbar-logo">
+    </a>
+
+    <div class="vendor-topbar-text">
+      <p class="vendor-topbar-kicker">Vendor Profile</p>
+      <h1 id="topbarBusinessName" class="vendor-topbar-title">Loading vendor...</h1>
+    </div>
+  </header>
 
   <main class="vendor-page">
     <div class="vendor-layout">
@@ -548,6 +618,7 @@
     const vendorId = params.get("id");
 
     const businessNameEl = document.getElementById("businessName");
+    const topbarBusinessName = document.getElementById("topbarBusinessName");
     const vendorCategoryEl = document.getElementById("vendorCategory");
     const vendorTaglineEl = document.getElementById("vendorTagline");
     const vendorAboutEl = document.getElementById("vendorAbout");
@@ -752,7 +823,6 @@
         mainImage.style.display = "none";
         mainVideo.style.display = "block";
         mainVideo.src = currentItem.src;
-        mainVideo.type = getVideoType(currentItem.src);
       } else {
         mainVideo.pause();
         mainVideo.removeAttribute("src");
@@ -869,6 +939,7 @@
       if (!vendorId) {
         businessNameEl.textContent = "Vendor not found";
         sidebarBusinessNameEl.textContent = "Vendor not found";
+        topbarBusinessName.textContent = "Vendor not found";
         return;
       }
 
@@ -878,6 +949,7 @@
         if (!snap.exists()) {
           businessNameEl.textContent = "Vendor not found";
           sidebarBusinessNameEl.textContent = "Vendor not found";
+          topbarBusinessName.textContent = "Vendor not found";
           return;
         }
 
@@ -903,8 +975,9 @@
         vendorEmailAddress = v.email || v.contactEmail || "";
 
         businessNameEl.textContent = name;
-        vendorAboutEl.textContent = about;
         sidebarBusinessNameEl.textContent = name;
+        topbarBusinessName.textContent = name;
+        vendorAboutEl.textContent = about;
 
         setTextOrHide(vendorCategoryEl, category);
         setTextOrHide(vendorTaglineEl, tagline);
@@ -949,6 +1022,7 @@
         console.error("Error loading vendor:", error);
         businessNameEl.textContent = "There was a problem loading this vendor";
         sidebarBusinessNameEl.textContent = "Vendor profile";
+        topbarBusinessName.textContent = "Vendor profile";
       }
     }
 
