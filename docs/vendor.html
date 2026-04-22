@@ -9,7 +9,7 @@
     .vendor-page {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 24px 20px 50px;
+      padding: 10px 20px 50px;
     }
 
     .vendor-layout {
@@ -31,16 +31,85 @@
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
     }
 
+    .vendor-intro-card {
+      overflow: hidden;
+      padding: 0;
+    }
+
+    .vendor-intro-grid {
+      display: grid;
+      grid-template-columns: 1.02fr 0.98fr;
+      min-height: 500px;
+      align-items: stretch;
+    }
+
+    .vendor-intro-copy {
+      padding: 42px 34px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: left;
+    }
+
+    .vendor-intro-logo-wrap {
+      display: inline-block;
+      margin-bottom: 18px;
+    }
+
+    .vendor-intro-logo {
+      width: 140px;
+      max-width: 100%;
+      display: block;
+    }
+
+    .vendor-intro-kicker {
+      margin: 0 0 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      font-size: 0.75rem;
+      color: #c8a892;
+    }
+
+    .vendor-title {
+      margin: 0 0 12px;
+      font-size: clamp(2rem, 3vw, 2.9rem);
+      line-height: 0.98;
+      letter-spacing: -0.03em;
+    }
+
+    .vendor-category,
+    .vendor-tagline {
+      margin: 0 0 10px;
+      color: #6d6058;
+      line-height: 1.65;
+    }
+
+    .vendor-about {
+      margin: 8px 0 0;
+      line-height: 1.8;
+      white-space: pre-wrap;
+      color: var(--text);
+    }
+
+    .vendor-intro-media {
+      position: relative;
+      background: #f8f3ef;
+      min-height: 100%;
+    }
+
     .vendor-gallery-stage {
       position: relative;
-      border-radius: 20px;
+      border-radius: 0;
       overflow: hidden;
       background: #f8f3ef;
+      height: 100%;
+      min-height: 500px;
     }
 
     .vendor-gallery-media {
       width: 100%;
-      height: 520px;
+      height: 100%;
+      min-height: 500px;
       display: block;
       background: #f8f3ef;
     }
@@ -109,33 +178,20 @@
       transform: scale(1.1);
     }
 
-    .vendor-title {
-      margin: 0 0 10px;
-      font-size: clamp(1.8rem, 2.6vw, 2.4rem);
-      line-height: 1.1;
-    }
-
-    .vendor-category,
-    .vendor-tagline {
-      margin: 0 0 10px;
-      color: #6d6058;
-    }
-
-    .vendor-about {
-      margin: 0;
-      line-height: 1.7;
-      white-space: pre-wrap;
-    }
-
     .vendor-section-title {
       margin: 0 0 14px;
       font-size: 1.2rem;
+      text-align: left;
     }
 
     .sidebar-card {
       position: sticky;
       top: 20px;
       text-align: center;
+      background: #fff;
+      border-radius: 24px;
+      padding: 22px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
     }
 
     .profile-pic-wrap {
@@ -299,7 +355,8 @@
     }
 
     @media (max-width: 920px) {
-      .vendor-layout {
+      .vendor-layout,
+      .vendor-intro-grid {
         grid-template-columns: 1fr;
       }
 
@@ -307,23 +364,30 @@
         position: static;
       }
 
+      .vendor-gallery-stage,
       .vendor-gallery-media {
-        height: 400px;
+        min-height: 400px;
       }
     }
 
     @media (max-width: 620px) {
       .vendor-page {
-        padding: 18px 14px 40px;
+        padding: 0 14px 40px;
       }
 
-      .vendor-card {
+      .vendor-card,
+      .sidebar-card {
         padding: 16px;
         border-radius: 18px;
       }
 
+      .vendor-intro-copy {
+        padding: 28px 20px;
+      }
+
+      .vendor-gallery-stage,
       .vendor-gallery-media {
-        height: 280px;
+        min-height: 280px;
       }
 
       .vendor-gallery-arrow {
@@ -341,12 +405,16 @@
         max-width: 140px;
         max-height: 76px;
       }
+
+      .vendor-intro-logo {
+        width: 120px;
+      }
     }
   </style>
 </head>
 
 <body>
-<div class="page-auth">
+  <div class="page-auth">
     <a href="categories.html" id="categoriesLink" class="auth-link">Categories</a>
     <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
     <a href="login.html" id="loginLink" class="auth-link">Log In</a>
@@ -354,37 +422,41 @@
     <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
   </div>
 
-  <header class="hero">
-    <a href="index.html" aria-label="Go to homepage">
-      <img src="images/1.png" alt="Our Wedding Day Hub" class="header-image">
-    </a>
-  </header>
-
   <main class="vendor-page">
     <div class="vendor-layout">
 
       <section class="vendor-left">
-        <div class="vendor-card">
-          <div class="vendor-gallery-stage">
-            <button type="button" id="prevMediaBtn" class="vendor-gallery-arrow left" aria-label="Previous gallery item">‹</button>
+        <section class="vendor-card vendor-intro-card">
+          <div class="vendor-intro-grid">
+            <div class="vendor-intro-copy">
+              <a href="index.html" class="vendor-intro-logo-wrap" aria-label="Go to homepage">
+                <img src="images/logo.png" alt="Our Wedding Day Hub" class="vendor-intro-logo">
+              </a>
 
-            <div class="vendor-gallery-media">
-              <img id="mainImage" src="images/header4.png" alt="Vendor gallery image">
-              <video id="mainVideo" controls playsinline style="display:none;"></video>
+              <p class="vendor-intro-kicker">Trusted wedding vendors worldwide</p>
+
+              <h1 id="businessName" class="vendor-title">Loading vendor...</h1>
+              <p id="vendorCategory" class="vendor-category"></p>
+              <p id="vendorTagline" class="vendor-tagline"></p>
+              <p id="vendorAbout" class="vendor-about"></p>
             </div>
 
-            <button type="button" id="nextMediaBtn" class="vendor-gallery-arrow right" aria-label="Next gallery item">›</button>
+            <div class="vendor-intro-media">
+              <div class="vendor-gallery-stage">
+                <button type="button" id="prevMediaBtn" class="vendor-gallery-arrow left" aria-label="Previous gallery item">‹</button>
+
+                <div class="vendor-gallery-media">
+                  <img id="mainImage" src="images/header4.png" alt="Vendor gallery image">
+                  <video id="mainVideo" controls playsinline style="display:none;"></video>
+                </div>
+
+                <button type="button" id="nextMediaBtn" class="vendor-gallery-arrow right" aria-label="Next gallery item">›</button>
+              </div>
+            </div>
           </div>
 
           <div id="galleryDots" class="vendor-gallery-dots"></div>
-        </div>
-
-        <div class="vendor-card">
-          <h1 id="businessName" class="vendor-title">Loading vendor...</h1>
-          <p id="vendorCategory" class="vendor-category"></p>
-          <p id="vendorTagline" class="vendor-tagline"></p>
-          <p id="vendorAbout" class="vendor-about"></p>
-        </div>
+        </section>
 
         <div class="vendor-card" id="bookingCard">
           <h2 class="vendor-section-title">Booking Calendar</h2>
@@ -415,7 +487,7 @@
         </div>
       </section>
 
-      <aside class="vendor-card sidebar-card">
+      <aside class="sidebar-card">
         <div class="profile-pic-wrap">
           <img id="profilePic" class="profile-pic" src="" alt="Vendor profile picture">
         </div>
@@ -453,6 +525,7 @@
 
     </div>
   </main>
+
   <footer class="site-footer">
     <div class="footer-content">
       <p class="footer-eyebrow">wedding vendor directory</p>
@@ -470,9 +543,9 @@
         <a href="privacy.html">Privacy Policy</a>
         <a href="contact.html">Enquiries</a>
       </div>
-  <footer class="site-footer">
-    <p>© 2026 Our Wedding Day Hub</p>
-    <p>ABN 76 688 637 041 • Australia</p>
+
+      <p class="footer-abn">© 2026 Our Wedding Day Hub</p>
+      <p class="footer-abn">ABN 76 688 637 041 • Australia</p>
     </div>
   </footer>
 
@@ -901,7 +974,7 @@
         dashboardLink.style.display = "inline-block";
         logoutLink.style.display = "inline-block";
       } else {
-        joinLink.style.display = "inline-block";
+        joinLink.style.display = "inline-flex";
         loginLink.style.display = "inline-block";
         dashboardLink.style.display = "none";
         logoutLink.style.display = "none";
