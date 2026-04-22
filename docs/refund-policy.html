@@ -5,9 +5,208 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Refund Policy | Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    .refund-page {
+      max-width: 1200px;
+      margin: 0 auto 60px;
+      padding: 18px 20px 0;
+    }
+
+    .refund-stack {
+      display: grid;
+      gap: 24px;
+    }
+
+    .refund-hero-card {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .refund-hero-grid {
+      display: grid;
+      grid-template-columns: 1.02fr 0.98fr;
+      align-items: stretch;
+      min-height: 520px;
+    }
+
+    .refund-hero-copy {
+      padding: 46px 42px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: left;
+    }
+
+    .refund-logo-wrap {
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-start;
+      margin-bottom: 18px;
+    }
+
+    .refund-logo {
+      width: 108px;
+      display: block;
+    }
+
+    .refund-hero-copy .eyebrow {
+      margin-bottom: 12px;
+      text-align: left;
+    }
+
+    .refund-title {
+      margin: 0 0 16px;
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(3rem, 5vw, 4.3rem);
+      font-weight: 500;
+      line-height: 0.94;
+      letter-spacing: -0.03em;
+      color: var(--text);
+    }
+
+    .refund-intro {
+      margin: 0 0 14px;
+      max-width: 560px;
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 1rem;
+    }
+
+    .refund-hero-image-wrap {
+      min-height: 100%;
+      background: #f4ece6;
+    }
+
+    .refund-hero-image {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .refund-policy-card {
+      text-align: left;
+    }
+
+    .refund-policy-meta {
+      display: inline-block;
+      margin-bottom: 16px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: #f4e5da;
+      color: #5b4540;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .refund-policy-card h2 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      text-align: left;
+    }
+
+    .refund-policy-card h3 {
+      margin: 24px 0 10px;
+      font-size: 1.22rem;
+      color: var(--text);
+    }
+
+    .refund-policy-card p {
+      margin-top: 0;
+      margin-bottom: 14px;
+      color: var(--text);
+      line-height: 1.85;
+    }
+
+    .refund-policy-card ul {
+      margin: 0 0 18px 20px;
+      padding: 0;
+      color: var(--text);
+      line-height: 1.85;
+    }
+
+    .refund-policy-card li {
+      margin-bottom: 6px;
+    }
+
+    .refund-highlight {
+      padding: 18px 18px;
+      border-radius: 20px;
+      background: linear-gradient(180deg, #fffdfb 0%, #fff7f2 100%);
+      border: 1px solid #f0dfd2;
+      margin: 18px 0 20px;
+    }
+
+    .refund-highlight p:last-child {
+      margin-bottom: 0;
+    }
+
+    .refund-contact-card {
+      text-align: left;
+      background: linear-gradient(180deg, #fffaf7 0%, #fff3ec 100%);
+    }
+
+    .refund-contact-card h2 {
+      margin-top: 0;
+      margin-bottom: 12px;
+      text-align: left;
+    }
+
+    .refund-contact-card p {
+      margin-top: 0;
+      margin-bottom: 14px;
+      line-height: 1.8;
+      color: var(--muted);
+    }
+
+    .refund-contact-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .refund-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .refund-cta-row .pretty-button,
+    .refund-cta-row .apply-button {
+      text-decoration: none;
+    }
+
+    @media (max-width: 980px) {
+      .refund-hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .refund-hero-copy {
+        padding: 34px 24px;
+      }
+
+      .refund-hero-image {
+        max-height: 500px;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .refund-page {
+        padding: 10px 10px 0;
+      }
+
+      .refund-hero-copy {
+        padding: 28px 20px;
+      }
+
+      .refund-title {
+        font-size: 2.7rem;
+      }
+    }
+  </style>
 </head>
 <body>
-
 
   <div class="page-auth">
     <a href="categories.html" id="categoriesLink" class="auth-link">Categories</a>
@@ -17,98 +216,129 @@
     <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
   </div>
 
-  <header class="hero">
-    <a href="index.html" aria-label="Go to homepage">
-      <img src="images/1.png" alt="Our Wedding Day Hub" class="header-image">
-    </a>
-  </header>
+  <main class="refund-page">
+    <div class="refund-stack">
 
-  <main class="page-shell">
-    <section class="card">
-      <p class="eyebrow">refund policy</p>
-      <h1 class="page-title">Refund Policy</h1>
-      <p class="page-subtitle">
-        This policy outlines how refunds are handled for Our Wedding Day Hub services.
-      </p>
-    </section>
+      <section class="card refund-hero-card">
+        <div class="refund-hero-grid">
+          <div class="refund-hero-copy">
+            <a href="index.html" class="refund-logo-wrap" aria-label="Go to homepage">
+              <img src="images/logo.png" alt="Our Wedding Day Hub" class="refund-logo">
+            </a>
 
-    <section class="card" style="text-align:left;">
-      <p><strong>Effective Date:</strong> 20 March 2026</p>
+            <p class="eyebrow">refund policy</p>
+            <h1 class="refund-title">Refund Policy</h1>
 
-      <h2>1. Overview</h2>
-      <p>
-        This Refund Policy applies to all payments made to Our Wedding Day Hub, including vendor setup fees and subscription fees.
-        By making a payment, you agree to this policy.
-      </p>
+            <p class="refund-intro">
+              This policy outlines how refunds are handled for Our Wedding Day Hub services, including vendor setup fees and subscription payments.
+            </p>
 
-      <h2>2. Vendor Setup Fee</h2>
-      <p>
-        The one-time setup fee, such as the $50 vendor setup fee, covers the creation and activation of your vendor account,
-        access to the platform, and the ability to build and manage your listing.
-      </p>
-      <p>
-        <strong>The account setup fee is non-refundable</strong> once payment has been made, including if:
-      </p>
-      <p>
-        you change your mind;<br>
-        you decide not to use the platform;<br>
-        you do not complete your profile; or<br>
-        you do not receive enquiries or bookings.
-      </p>
+            <p class="refund-intro">
+              We want our policies to feel clear, fair, and easy to understand before you make a payment.
+            </p>
+          </div>
 
-      <h2>3. Subscription Fees</h2>
-      <p>
-        If your plan includes a recurring subscription, you will be billed according to your selected plan.
-      </p>
-      <p>
-        Vendors may cancel their subscription at any time.
-      </p>
-      <p>
-        If a vendor chooses to cancel, we offer a refund of up to 60 days, or 2 months, of subscription fees.
-      </p>
-      <p>
-        This refund applies to subscription fees only and does not apply to the one-time account setup fee.
-      </p>
-      <p>
-        Any refund will be processed back to the original payment method where possible.
-      </p>
+          <div class="refund-hero-image-wrap">
+            <img src="images/bouquet.png" alt="White bridal bouquet" class="refund-hero-image">
+          </div>
+        </div>
+      </section>
 
-      <h2>4. Exceptional Circumstances</h2>
-      <p>
-        In rare cases, we may also consider an additional refund or adjustment at our discretion, including:
-      </p>
-      <p>
-        duplicate payments;<br>
-        technical errors that prevent access to the platform; or<br>
-        other situations we deem reasonable.
-      </p>
-      <p>
-        Any additional approved refunds will be assessed on a case-by-case basis and are not guaranteed.
-      </p>
+      <section class="card refund-policy-card">
+        <span class="refund-policy-meta">Effective Date: 20 March 2026</span>
 
-      <h2>5. No Guarantee of Results</h2>
-      <p>
-        Our Wedding Day Hub is a platform designed to increase visibility and connection opportunities.
-        We do not guarantee enquiries, leads, bookings, or business outcomes.
-      </p>
-      <p>
-        Lack of results does not qualify for a refund.
-      </p>
+        <h3>1. Overview</h3>
+        <p>
+          This Refund Policy applies to all payments made to Our Wedding Day Hub, including vendor setup fees and subscription fees.
+          By making a payment, you agree to this policy.
+        </p>
 
-      <h2>6. Payment Providers</h2>
-      <p>
-        Payments may be processed through third-party providers such as Stripe or similar platforms.
-        Refunds, if approved, will be issued via the original payment method where possible.
-      </p>
+        <h3>2. Vendor Setup Fee</h3>
+        <p>
+          The one-time setup fee, such as the $50 vendor setup fee, covers the creation and activation of your vendor account,
+          access to the platform, and the ability to build and manage your listing.
+        </p>
 
-      <h2>7. Contact</h2>
-      <p>
-        If you believe you are eligible for a refund under this policy, please contact us through the website with your account details and reason for the request.
-      </p>
-    </section>
+        <div class="refund-highlight">
+          <p><strong>The account setup fee is non-refundable</strong> once payment has been made, including if:</p>
+          <ul>
+            <li>you change your mind;</li>
+            <li>you decide not to use the platform;</li>
+            <li>you do not complete your profile; or</li>
+            <li>you do not receive enquiries or bookings.</li>
+          </ul>
+        </div>
+
+        <h3>3. Subscription Fees</h3>
+        <p>
+          If your plan includes a recurring subscription, you will be billed according to your selected plan.
+        </p>
+        <p>
+          Vendors may cancel their subscription at any time.
+        </p>
+        <p>
+          If a vendor chooses to cancel, we offer a refund of up to 60 days, or 2 months, of subscription fees.
+        </p>
+        <p>
+          This refund applies to subscription fees only and does not apply to the one-time account setup fee.
+        </p>
+        <p>
+          Any refund will be processed back to the original payment method where possible.
+        </p>
+
+        <h3>4. Exceptional Circumstances</h3>
+        <p>
+          In rare cases, we may also consider an additional refund or adjustment at our discretion, including:
+        </p>
+        <ul>
+          <li>duplicate payments;</li>
+          <li>technical errors that prevent access to the platform; or</li>
+          <li>other situations we deem reasonable.</li>
+        </ul>
+        <p>
+          Any additional approved refunds will be assessed on a case-by-case basis and are not guaranteed.
+        </p>
+
+        <h3>5. No Guarantee of Results</h3>
+        <p>
+          Our Wedding Day Hub is a platform designed to increase visibility and connection opportunities.
+          We do not guarantee enquiries, leads, bookings, or business outcomes.
+        </p>
+        <p>
+          Lack of results does not qualify for a refund.
+        </p>
+
+        <h3>6. Payment Providers</h3>
+        <p>
+          Payments may be processed through third-party providers such as Stripe or similar platforms.
+          Refunds, if approved, will be issued via the original payment method where possible.
+        </p>
+
+        <h3>7. Contact</h3>
+        <p>
+          If you believe you are eligible for a refund under this policy, please contact us through the website with your account details and reason for the request.
+        </p>
+      </section>
+
+      <section class="card refund-contact-card">
+        <h2>Need help with a refund question?</h2>
+        <p>
+          If you are unsure whether your situation falls under this policy, please contact us and include your account details and the reason for your request.
+        </p>
+        <p>
+          We will review eligible requests in line with this policy and respond as soon as possible.
+        </p>
+
+        <div class="refund-cta-row">
+          <a href="contact.html" class="pretty-button">Contact Us</a>
+          <a href="pricing.html" class="apply-button">View Pricing</a>
+        </div>
+      </section>
+
+    </div>
   </main>
 
-    <footer class="site-footer">
+  <footer class="site-footer">
     <div class="footer-content">
       <p class="footer-eyebrow">wedding vendor directory</p>
       <h2 class="footer-title">Everything you need for your wedding, all in one place.</h2>
@@ -125,9 +355,9 @@
         <a href="privacy.html">Privacy Policy</a>
         <a href="contact.html">Enquiries</a>
       </div>
-  <footer class="site-footer">
-    <p>© 2026 Our Wedding Day Hub</p>
-    <p>ABN 76 688 637 041 • Australia</p>
+
+      <p class="footer-abn">© 2026 Our Wedding Day Hub</p>
+      <p class="footer-abn">ABN 76 688 637 041 • Australia</p>
     </div>
   </footer>
 
