@@ -8,80 +8,129 @@
 
   <style>
     .pricing-page {
-      max-width: 1180px;
+      max-width: 1280px;
       margin: 0 auto 60px;
-      padding: 0 20px;
+      padding: 18px 20px 0;
     }
 
-    .pricing-intro-wrap {
-      max-width: 860px;
-      margin: 0 auto 34px;
-      text-align: center;
+    .pricing-stack {
+      display: grid;
+      gap: 24px;
     }
 
-    .pricing-intro-wrap .page-subtitle {
-      margin-bottom: 14px;
+    .pricing-hero-card {
+      padding: 0;
+      overflow: hidden;
     }
 
-    .pricing-note-soft {
-      color: var(--muted);
-      line-height: 1.8;
-      max-width: 760px;
-      margin: 0 auto;
+    .pricing-hero-grid {
+      display: grid;
+      grid-template-columns: 1.02fr 0.98fr;
+      align-items: stretch;
+      min-height: 540px;
     }
 
-    .setup-fee-wrap {
-      margin: 10px auto 38px;
-      text-align: center;
+    .pricing-hero-copy {
+      padding: 46px 42px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: left;
     }
 
-    .setup-fee-eyebrow {
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      font-size: 12px;
-      color: var(--muted);
-      margin-bottom: 10px;
+    .pricing-logo-wrap {
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-start;
+      margin-bottom: 18px;
     }
 
-    .setup-fee-box {
-      max-width: 520px;
-      margin: 0 auto;
-      padding: 6px 0 0;
-      background: transparent;
-      box-shadow: none;
-      border: none;
+    .pricing-logo {
+      width: 108px;
+      display: block;
     }
 
-    .setup-fee-box h2 {
-      margin-bottom: 10px;
+    .pricing-hero-copy .eyebrow {
+      margin-bottom: 12px;
+      text-align: left;
     }
 
-    .setup-fee-price {
-      font-family: "Prata", serif;
-      font-size: 2.5rem;
-      line-height: 1;
-      margin-bottom: 14px;
+    .pricing-hero-title {
+      margin: 0 0 16px;
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(3rem, 5vw, 4.6rem);
+      font-weight: 500;
+      line-height: 0.94;
+      letter-spacing: -0.03em;
       color: var(--text);
     }
 
-    .setup-fee-box p {
-      margin: 0 auto;
-      max-width: 500px;
+    .pricing-hero-text {
+      margin: 0 0 14px;
+      max-width: 560px;
       color: var(--muted);
       line-height: 1.8;
-      font-size: 0.98rem;
+      font-size: 1rem;
     }
 
-    .setup-fee-box p + p {
-      margin-top: 12px;
+    .pricing-hero-image-wrap {
+      min-height: 100%;
+      background: #f4ece6;
+    }
+
+    .pricing-hero-image {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .pricing-setup-card {
+      text-align: center;
+      padding: 30px 24px;
+      background: linear-gradient(180deg, #fffdfb 0%, #fff7f2 100%);
+    }
+
+    .pricing-setup-eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      font-size: 0.76rem;
+      color: var(--muted);
+      margin: 0 0 10px;
+    }
+
+    .pricing-setup-card h2 {
+      margin: 0 0 10px;
+    }
+
+    .pricing-setup-price {
+      font-family: "Prata", serif;
+      font-size: clamp(2.2rem, 4vw, 3rem);
+      line-height: 1;
+      color: var(--text);
+      margin: 0 0 14px;
+    }
+
+    .pricing-setup-copy {
+      max-width: 780px;
+      margin: 0 auto;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .pricing-setup-copy p {
+      margin: 0;
+    }
+
+    .pricing-setup-copy p + p {
+      margin-top: 10px;
     }
 
     .pricing-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 22px;
       align-items: stretch;
-      margin-top: 8px;
     }
 
     .pricing-card {
@@ -89,34 +138,37 @@
       background: #fff;
       border-radius: 24px;
       padding: 28px 22px 24px;
-      text-align: center;
+      text-align: left;
       box-shadow: 0 12px 28px rgba(0, 0, 0, 0.05);
       border: 1px solid var(--border);
       transition: transform 0.22s ease, box-shadow 0.22s ease;
       display: flex;
       flex-direction: column;
+      min-height: 100%;
     }
 
     .pricing-card:hover {
       transform: translateY(-4px);
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.07);
     }
 
     .pricing-card h2 {
-      font-size: 1.35rem;
-      margin-bottom: 10px;
+      font-size: 1.4rem;
+      margin: 0 0 10px;
+      text-align: left;
     }
 
     .pricing-price {
       font-family: "Prata", serif;
-      font-size: 2.15rem;
+      font-size: 2.25rem;
       line-height: 1;
-      margin: 10px 0 14px;
+      margin: 8px 0 14px;
       color: var(--text);
     }
 
     .pricing-price small {
       font-family: "Manrope", sans-serif;
-      font-size: 0.92rem;
+      font-size: 0.94rem;
       color: var(--muted);
     }
 
@@ -125,6 +177,30 @@
       font-size: 0.95rem;
       line-height: 1.75;
       margin: 0 0 18px;
+    }
+
+    .pricing-highlights {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .pricing-highlight {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      color: var(--text);
+      line-height: 1.65;
+      font-size: 0.94rem;
+    }
+
+    .pricing-highlight-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #d7b8a5;
+      flex: 0 0 8px;
+      margin-top: 9px;
     }
 
     .pricing-includes {
@@ -193,7 +269,97 @@
       white-space: nowrap;
     }
 
-    @media (max-width: 980px) {
+    .pricing-visual-grid {
+      display: grid;
+      grid-template-columns: 0.94fr 1.06fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .pricing-image-card,
+    .pricing-copy-card,
+    .pricing-refund-card,
+    .pricing-cta-card {
+      overflow: hidden;
+    }
+
+    .pricing-image-card {
+      padding: 0;
+    }
+
+    .pricing-image-card img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      aspect-ratio: 1 / 1;
+    }
+
+    .pricing-copy-card {
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .pricing-copy-card h2,
+    .pricing-refund-card h2,
+    .pricing-cta-card h2 {
+      margin-top: 0;
+      margin-bottom: 12px;
+      text-align: left;
+    }
+
+    .pricing-copy-card p,
+    .pricing-refund-card p,
+    .pricing-cta-card p {
+      margin-top: 0;
+      line-height: 1.8;
+      color: var(--muted);
+    }
+
+    .pricing-copy-card p:last-child,
+    .pricing-refund-card p:last-child,
+    .pricing-cta-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .pricing-refund-card {
+      text-align: left;
+      background: linear-gradient(180deg, #fffdfb 0%, #fff7f2 100%);
+    }
+
+    .pricing-refund-label {
+      display: inline-block;
+      margin-bottom: 10px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: #f4e5da;
+      color: #5b4540;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .pricing-cta-card {
+      text-align: left;
+      background: linear-gradient(180deg, #fffaf7 0%, #fff3ec 100%);
+    }
+
+    .pricing-cta-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .pricing-cta-actions .pretty-button,
+    .pricing-cta-actions .apply-button {
+      text-decoration: none;
+    }
+
+    @media (max-width: 1100px) {
       .pricing-grid {
         grid-template-columns: repeat(2, 1fr);
       }
@@ -205,22 +371,42 @@
       .pricing-platinum:hover {
         transform: translateY(-4px);
       }
+
+      .pricing-visual-grid,
+      .pricing-hero-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
-    @media (max-width: 640px) {
+    @media (max-width: 700px) {
+      .pricing-page {
+        padding: 10px 10px 0;
+      }
+
+      .pricing-hero-copy {
+        padding: 30px 20px;
+      }
+
       .pricing-grid {
         grid-template-columns: 1fr;
       }
 
-      .setup-fee-price {
+      .pricing-setup-price {
         font-size: 2.2rem;
+      }
+
+      .pricing-hero-image {
+        max-height: 460px;
+      }
+
+      .pricing-image-card img {
+        aspect-ratio: 1.08 / 1;
       }
     }
   </style>
 </head>
 
 <body>
-
 
   <div class="page-auth">
     <a href="categories.html" id="categoriesLink" class="auth-link">Categories</a>
@@ -237,100 +423,183 @@
   </header>
 
   <main class="pricing-page">
+    <div class="pricing-stack">
 
-    <section class="card hero-card">
-      <div class="pricing-intro-wrap">
-        <p class="page-subtitle">
-          Choose the listing level that feels right for your business and the way you would like to appear on the platform.
-        </p>
-        <p class="pricing-note-soft">
-          Each tier gives your business a stronger presence, with higher levels designed to make your profile more noticeable and help you stand out more clearly to couples who are actively searching.
-        </p>
-        <p class="pricing-note-soft">
-          You can select your tier during sign up and upgrade at any time as your business grows.
-        </p>
-      </div>
-    </section>
+      <section class="card pricing-hero-card">
+        <div class="pricing-hero-grid">
+          <div class="pricing-hero-copy">
+            <a href="index.html" class="pricing-logo-wrap" aria-label="Go to homepage">
+              <img src="images/logo.png" alt="Our Wedding Day Hub" class="pricing-logo">
+            </a>
 
-    <section class="setup-fee-wrap">
-      <p class="setup-fee-eyebrow">one off</p>
-      <div class="setup-fee-box">
+            <p class="eyebrow">pricing</p>
+            <h1 class="pricing-hero-title">Choose the listing level that suits your business best</h1>
+
+            <p class="pricing-hero-text">
+              Create a beautiful presence on the platform and choose the level of visibility that feels right for your business.
+            </p>
+
+            <p class="pricing-hero-text">
+              Each tier is designed to help your profile feel stronger, more noticeable, and more refined for couples actively searching for wedding vendors.
+            </p>
+
+            <p class="pricing-hero-text">
+              You can select your tier during sign up and upgrade at any time as your business grows.
+            </p>
+          </div>
+
+          <div class="pricing-hero-image-wrap">
+            <img src="images/modern-couple-sunglasses.png" alt="Modern wedding couple portrait" class="pricing-hero-image">
+          </div>
+        </div>
+      </section>
+
+      <section class="card pricing-setup-card">
+        <p class="pricing-setup-eyebrow">one off</p>
         <h2>Setup Fee</h2>
-        <div class="setup-fee-price">$50 aud</div>
+        <div class="pricing-setup-price">$50 aud</div>
+
+        <div class="pricing-setup-copy">
+          <p>
+            A one-time onboarding fee to create and activate your account, set up your profile space, and get your business ready to be shown on the platform.
+          </p>
+          <p>
+            With our 60 day satisfaction guarantee, your first two months of subscription can be refunded if you choose not to continue.
+          </p>
+        </div>
+      </section>
+
+      <section class="pricing-grid">
+
+        <article class="pricing-card pricing-classic">
+          <h2>Classic Listing</h2>
+          <div class="pricing-price">$4.75 aud <small>/ month</small></div>
+          <p class="pricing-subtext">
+            A simple starting point for vendors wanting a polished and affordable presence.
+          </p>
+
+          <div class="pricing-highlights">
+            <div class="pricing-highlight"><span class="pricing-highlight-dot"></span><span>Affordable starting point</span></div>
+            <div class="pricing-highlight"><span class="pricing-highlight-dot"></span><span>Clean public profile</span></div>
+            <div class="pricing-highlight"><span class="pricing-highlight-dot"></span><span>Visible in selected categories and locations</span></div>
+          </div>
+
+          <div class="pricing-includes">
+            <p><strong>Your own public profile page</strong> with your business name, bio, contact details, and core business information so couples can view your business in one dedicated place.</p>
+            <p><strong>Shown in your chosen categories and locations</strong> so your business can be discovered when couples are browsing the platform for services in their area.</p>
+            <p><strong>A clear and professional way to be visible online</strong> without needing the higher levels of profile presence.</p>
+            <p class="pricing-best-for"><strong>Best for:</strong> vendors who want a simple and affordable way to be seen.</p>
+          </div>
+        </article>
+
+        <article class="pricing-card pricing-signature">
+          <h2>Signature Spotlight</h2>
+          <div class="pricing-price">$5.95 aud <small>/ month</small></div>
+          <p class="pricing-subtext">
+            For vendors who want a little more presence and a stronger first impression.
+          </p>
+
+          <div class="pricing-highlights">
+            <div class="pricing-highlight"><span class="pricing-highlight-dot"></span><span>Stronger first impression</span></div>
+            <div class="pricing-highlight"><span class="pricing-highlight-dot"></span><span>More noticeable profile feel</span></div>
+            <div class="pricing-highlight"><span class="pricing-highlight-dot"></span><span>Affordable step up from Classic</span></div>
+          </div>
+
+          <div class="pricing-includes">
+            <p><strong>Everything in Classic Listing</strong>, with a stronger profile presence that gives your business a little more impact when couples are browsing their options.</p>
+            <p><strong>More room to showcase your business</strong> so couples can get a better feel for what you offer and what makes your brand special.</p>
+            <p><strong>A more established overall presentation</strong> for vendors who want their profile to feel more noticeable than an entry-level listing.</p>
+            <p class="pricing-best-for"><strong>Best for:</strong> vendors who want to stand out a little more while keeping things affordable.</p>
+          </div>
+        </article>
+
+        <article class="pricing-card pricing-elite">
+          <h2>Elite Feature</h2>
+          <div class="pricing-price">$7.25 aud <small>/ month</small></div>
+          <p class="pricing-subtext">
+            A stronger showcase for vendors ready to grow their visibility on the platform.
+          </p>
+
+          <div class="pricing-highlights">
+            <div class="pricing-highlight"><span class="pricing-highlight-dot"></span><span>More elevated profile presence</span></div>
+            <div class="pricing-highlight"><span class="pricing-highlight-dot"></span><span>Refined and fuller presentation</span></div>
+            <div class="pricing-highlight"><span class="pricing-highlight-dot"></span><span>Built for stronger visibility</span></div>
+          </div>
+
+          <div class="pricing-includes">
+            <p><strong>Everything in Signature Spotlight</strong>, with a more elevated profile presence that helps your business feel fuller, stronger, and more refined.</p>
+            <p><strong>More opportunity to capture attention</strong> when couples are comparing vendors and deciding who feels like the right fit for their wedding.</p>
+            <p><strong>A more noticeable place on the platform</strong> for businesses wanting their profile to work harder for them and create a stronger impression.</p>
+            <p class="pricing-best-for"><strong>Best for:</strong> vendors who want greater visibility and a more elevated business presence.</p>
+          </div>
+        </article>
+
+        <article class="pricing-card pricing-platinum">
+          <div class="popular-badge">MOST POPULAR</div>
+          <h2>Platinum Prestige</h2>
+          <div class="pricing-price">$9.95 aud <small>/ month</small></div>
+          <p class="pricing-subtext">
+            Our most premium listing for vendors wanting the strongest and most complete presentation.
+          </p>
+
+          <div class="pricing-highlights">
+            <div class="pricing-highlight"><span class="pricing-highlight-dot"></span><span>Highest level of profile presence</span></div>
+            <div class="pricing-highlight"><span class="pricing-highlight-dot"></span><span>Most polished and premium impression</span></div>
+            <div class="pricing-highlight"><span class="pricing-highlight-dot"></span><span>Strongest chance to stand out clearly</span></div>
+          </div>
+
+          <div class="pricing-includes">
+            <p><strong>Everything in Elite Feature</strong>, with the highest level of profile presence available on the platform.</p>
+            <p><strong>The most polished and premium impression</strong> for couples viewing your business, helping your profile feel especially full, refined, and memorable.</p>
+            <p><strong>The strongest opportunity to stand out clearly</strong> for vendors who want to give couples the clearest and most confident picture of what they offer.</p>
+            <p class="pricing-best-for"><strong>Best for:</strong> vendors who want their business to have the highest level of presence on the platform.</p>
+          </div>
+        </article>
+
+      </section>
+
+      <section class="pricing-visual-grid">
+        <section class="card pricing-image-card">
+          <img src="images/bride.png" alt="Editorial bridal portrait">
+        </section>
+
+        <section class="card pricing-copy-card">
+          <h2>Designed to help your business feel seen</h2>
+          <p>
+            Our Wedding Day Hub is built to feel elegant, simple, and beautiful to use. Your profile is designed to give couples a clear sense of your business, your style, and what you offer.
+          </p>
+          <p>
+            As you move through the tiers, your business presentation becomes stronger, helping your listing feel more established and more noticeable when couples are exploring their options.
+          </p>
+          <p>
+            Whether you want a simple presence or a more premium showcase, each level is designed to help your business appear polished and professional.
+          </p>
+        </section>
+      </section>
+
+      <section class="card pricing-refund-card">
+        <span class="pricing-refund-label">Refunds & Satisfaction</span>
+        <h2>60 Day Satisfaction Guarantee</h2>
         <p>
-          A one-time onboarding fee to create and activate your account, set up your profile space, and get your business ready to be shown on the platform.
+          We want you to feel confident when joining the platform. If you decide within your first 60 days that the subscription is not right for you, your first two months of subscription can be refunded.
         </p>
         <p>
-          With our 60 day satisfaction guarantee, your first two months of subscription can be refunded if you choose not to continue.
+          The one-time setup fee covers onboarding and account activation, so it is separate from the monthly subscription. For full details, you can still keep a dedicated refund policy page linked in your footer.
         </p>
-      </div>
-    </section>
+      </section>
 
-    <section class="pricing-grid">
-
-      <article class="pricing-card pricing-classic">
-        <h2>Classic Listing</h2>
-        <div class="pricing-price">$4.75 aud <small>/ month</small></div>
-        <p class="pricing-subtext">
-          A simple starting point for vendors wanting a polished and affordable presence.
+      <section class="card pricing-cta-card">
+        <h2>Ready to join?</h2>
+        <p>
+          Create your account, choose the listing level that suits your business, and start building a beautiful presence on the hub.
         </p>
-
-        <div class="pricing-includes">
-          <p><strong>Your own public profile page</strong> with your business name, bio, contact details, and core business information so couples can view your business in one dedicated place.</p>
-          <p><strong>Shown in your chosen categories and locations</strong> so your business can be discovered when couples are browsing the platform for services in their area.</p>
-          <p><strong>A clear and professional way to be visible online</strong> without needing the higher levels of profile presence.</p>
-          <p class="pricing-best-for"><strong>Best for:</strong> vendors who want a simple and affordable way to be seen.</p>
+        <div class="pricing-cta-actions">
+          <a href="signup.html" class="pretty-button">Join as Vendor</a>
+          <a href="contact.html" class="apply-button">Ask a Question</a>
         </div>
-      </article>
+      </section>
 
-      <article class="pricing-card pricing-signature">
-        <h2>Signature Spotlight</h2>
-        <div class="pricing-price">$5.95 aud <small>/ month</small></div>
-        <p class="pricing-subtext">
-          For vendors who want a little more presence and a stronger first impression.
-        </p>
-
-        <div class="pricing-includes">
-          <p><strong>Everything in Classic Listing</strong>, with a stronger profile presence that gives your business a little more impact when couples are browsing their options.</p>
-          <p><strong>More room to showcase your business</strong> so couples can get a better feel for what you offer and what makes your brand special.</p>
-          <p><strong>A more established overall presentation</strong> for vendors who want their profile to feel more noticeable than an entry-level listing.</p>
-          <p class="pricing-best-for"><strong>Best for:</strong> vendors who want to stand out a little more while keeping things affordable.</p>
-        </div>
-      </article>
-
-      <article class="pricing-card pricing-elite">
-        <h2>Elite Feature</h2>
-        <div class="pricing-price">$7.25 aud <small>/ month</small></div>
-        <p class="pricing-subtext">
-          A stronger showcase for vendors ready to grow their visibility on the platform.
-        </p>
-
-        <div class="pricing-includes">
-          <p><strong>Everything in Signature Spotlight</strong>, with a more elevated profile presence that helps your business feel fuller, stronger, and more refined.</p>
-          <p><strong>More opportunity to capture attention</strong> when couples are comparing vendors and deciding who feels like the right fit for their wedding.</p>
-          <p><strong>A more noticeable place on the platform</strong> for businesses wanting their profile to work harder for them and create a stronger impression.</p>
-          <p class="pricing-best-for"><strong>Best for:</strong> vendors who want greater visibility and a more elevated business presence.</p>
-        </div>
-      </article>
-
-      <article class="pricing-card pricing-platinum">
-        <div class="popular-badge">MOST POPULAR</div>
-        <h2>Platinum Prestige</h2>
-        <div class="pricing-price">$9.95 aud <small>/ month</small></div>
-        <p class="pricing-subtext">
-          Our most premium listing for vendors wanting the strongest and most complete presentation.
-        </p>
-
-        <div class="pricing-includes">
-          <p><strong>Everything in Elite Feature</strong>, with the highest level of profile presence available on the platform.</p>
-          <p><strong>The most polished and premium impression</strong> for couples viewing your business, helping your profile feel especially full, refined, and memorable.</p>
-          <p><strong>The strongest opportunity to stand out clearly</strong> for vendors who want to give couples the clearest and most confident picture of what they offer.</p>
-          <p class="pricing-best-for"><strong>Best for:</strong> vendors who want their business to have the highest level of presence on the platform.</p>
-        </div>
-      </article>
-
-    </section>
-
+    </div>
   </main>
 
   <footer class="site-footer">
@@ -350,9 +619,9 @@
         <a href="privacy.html">Privacy Policy</a>
         <a href="contact.html">Enquiries</a>
       </div>
-  <footer class="site-footer">
-    <p>© 2026 Our Wedding Day Hub</p>
-    <p>ABN 76 688 637 041 • Australia</p>
+
+      <p class="footer-abn">© 2026 Our Wedding Day Hub</p>
+      <p class="footer-abn">ABN 76 688 637 041 • Australia</p>
     </div>
   </footer>
 
