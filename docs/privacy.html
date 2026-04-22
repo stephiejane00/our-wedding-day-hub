@@ -5,6 +5,200 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Privacy Policy | Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    .privacy-page {
+      max-width: 1200px;
+      margin: 0 auto 60px;
+      padding: 18px 20px 0;
+    }
+
+    .privacy-stack {
+      display: grid;
+      gap: 24px;
+    }
+
+    .privacy-hero-card {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .privacy-hero-grid {
+      display: grid;
+      grid-template-columns: 1.02fr 0.98fr;
+      align-items: stretch;
+      min-height: 520px;
+    }
+
+    .privacy-hero-copy {
+      padding: 46px 42px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: left;
+    }
+
+    .privacy-logo-wrap {
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-start;
+      margin-bottom: 18px;
+    }
+
+    .privacy-logo {
+      width: 108px;
+      display: block;
+    }
+
+    .privacy-hero-copy .eyebrow {
+      margin-bottom: 12px;
+      text-align: left;
+    }
+
+    .privacy-title {
+      margin: 0 0 16px;
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(3rem, 5vw, 4.3rem);
+      font-weight: 500;
+      line-height: 0.94;
+      letter-spacing: -0.03em;
+      color: var(--text);
+    }
+
+    .privacy-intro {
+      margin: 0 0 14px;
+      max-width: 560px;
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 1rem;
+    }
+
+    .privacy-hero-image-wrap {
+      min-height: 100%;
+      background: #f4ece6;
+    }
+
+    .privacy-hero-image {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .privacy-policy-card {
+      text-align: left;
+    }
+
+    .privacy-policy-meta {
+      display: inline-block;
+      margin-bottom: 16px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: #f4e5da;
+      color: #5b4540;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .privacy-policy-card h3 {
+      margin: 24px 0 10px;
+      font-size: 1.22rem;
+      color: var(--text);
+    }
+
+    .privacy-policy-card p {
+      margin-top: 0;
+      margin-bottom: 14px;
+      color: var(--text);
+      line-height: 1.85;
+    }
+
+    .privacy-policy-card ul {
+      margin: 0 0 18px 20px;
+      padding: 0;
+      color: var(--text);
+      line-height: 1.85;
+    }
+
+    .privacy-policy-card li {
+      margin-bottom: 6px;
+    }
+
+    .privacy-highlight {
+      padding: 18px;
+      border-radius: 20px;
+      background: linear-gradient(180deg, #fffdfb 0%, #fff7f2 100%);
+      border: 1px solid #f0dfd2;
+      margin: 18px 0 20px;
+    }
+
+    .privacy-highlight p:last-child {
+      margin-bottom: 0;
+    }
+
+    .privacy-contact-card {
+      text-align: left;
+      background: linear-gradient(180deg, #fffaf7 0%, #fff3ec 100%);
+    }
+
+    .privacy-contact-card h2 {
+      margin-top: 0;
+      margin-bottom: 12px;
+      text-align: left;
+    }
+
+    .privacy-contact-card p {
+      margin-top: 0;
+      margin-bottom: 14px;
+      line-height: 1.8;
+      color: var(--muted);
+    }
+
+    .privacy-contact-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .privacy-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .privacy-cta-row .pretty-button,
+    .privacy-cta-row .apply-button {
+      text-decoration: none;
+    }
+
+    @media (max-width: 980px) {
+      .privacy-hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .privacy-hero-copy {
+        padding: 34px 24px;
+      }
+
+      .privacy-hero-image {
+        max-height: 500px;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .privacy-page {
+        padding: 10px 10px 0;
+      }
+
+      .privacy-hero-copy {
+        padding: 28px 20px;
+      }
+
+      .privacy-title {
+        font-size: 2.7rem;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -16,123 +210,155 @@
     <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
   </div>
 
-  <header class="hero">
-    <a href="index.html" aria-label="Go to homepage">
-      <img src="images/1.png" alt="Our Wedding Day Hub" class="header-image">
-    </a>
-  </header>
+  <main class="privacy-page">
+    <div class="privacy-stack">
 
-  <main class="page-shell">
-    <section class="card">
-      <p class="eyebrow">privacy policy</p>
-      <h1 class="page-title">Privacy Policy</h1>
-      <p class="page-subtitle">
-        Your privacy matters to us. This policy explains how we collect, use, and protect your information.
-      </p>
-    </section>
+      <section class="card privacy-hero-card">
+        <div class="privacy-hero-grid">
+          <div class="privacy-hero-copy">
+            <a href="index.html" class="privacy-logo-wrap" aria-label="Go to homepage">
+              <img src="images/logo.png" alt="Our Wedding Day Hub" class="privacy-logo">
+            </a>
 
-    <section class="card" style="text-align:left;">
-      <p><strong>Effective Date:</strong> 20 March 2026</p>
+            <p class="eyebrow">privacy policy</p>
+            <h1 class="privacy-title">Privacy Policy</h1>
 
-      <h2>1. Overview</h2>
-      <p>
-        Our Wedding Day Hub respects your privacy and is committed to protecting your personal information.
-        This Privacy Policy explains how we collect, use, store, and disclose your information when you use our website.
-      </p>
+            <p class="privacy-intro">
+              Your privacy matters to us. This policy explains how we collect, use, store, and protect your information when you use Our Wedding Day Hub.
+            </p>
 
-      <h2>2. Information We Collect</h2>
-      <p>We may collect the following types of information:</p>
+            <p class="privacy-intro">
+              We want our platform to feel clear, trustworthy, and respectful of your information at every step.
+            </p>
+          </div>
 
-      <p><strong>Account Information:</strong><br>
-      Name, email address, password secured through Firebase, and account type such as vendor or couple.</p>
+          <div class="privacy-hero-image-wrap">
+            <img src="images/couple-modern.png" alt="Modern wedding couple portrait" class="privacy-hero-image">
+          </div>
+        </div>
+      </section>
 
-      <p><strong>Vendor Information:</strong><br>
-      Business name, service categories, service locations, contact details, and any content you upload.</p>
+      <section class="card privacy-policy-card">
+        <span class="privacy-policy-meta">Effective Date: 20 March 2026</span>
 
-      <p><strong>Couple Information:</strong><br>
-      Names, wedding date, notes, and preferences entered into your dashboard.</p>
+        <h3>1. Overview</h3>
+        <p>
+          Our Wedding Day Hub respects your privacy and is committed to protecting your personal information.
+          This Privacy Policy explains how we collect, use, store, and disclose your information when you use our website.
+        </p>
 
-      <p><strong>Usage Information:</strong><br>
-      Basic data about how you interact with the website, such as pages visited, which helps us improve the platform.</p>
+        <h3>2. Information We Collect</h3>
+        <p>We may collect the following types of information:</p>
 
-      <h2>3. How We Use Your Information</h2>
-      <p>Your information is used to:</p>
-      <p>
-        create and manage your account;<br>
-        display vendor listings publicly on the platform;<br>
-        allow couples to find and contact vendors;<br>
-        provide dashboard functionality;<br>
-        improve the website and user experience; and<br>
-        communicate with you about your account or services.
-      </p>
+        <div class="privacy-highlight">
+          <p><strong>Account Information:</strong><br>
+          Name, email address, password secured through Firebase, and account type such as vendor or couple.</p>
 
-      <h2>4. Vendor Listings Are Public</h2>
-      <p>
-        If you sign up as a vendor, your business information, such as name, category, service areas, and contact details,
-        may be displayed publicly on Our Wedding Day Hub.
-      </p>
+          <p><strong>Vendor Information:</strong><br>
+          Business name, service categories, service locations, contact details, and any content you upload.</p>
 
-      <h2>5. Payments</h2>
-      <p>
-        Vendor payments may be processed through third-party providers such as Stripe or other payment platforms.
-        We do not store your full payment details.
-      </p>
+          <p><strong>Couple Information:</strong><br>
+          Names, wedding date, notes, and preferences entered into your dashboard.</p>
 
-      <h2>6. Third-Party Services</h2>
-      <p>
-        We use trusted third-party services to operate the platform, including:
-      </p>
-      <p>
-        Firebase for authentication and database services;<br>
-        hosting providers such as GitHub Pages or AWS; and<br>
-        payment providers for vendor subscriptions.
-      </p>
-      <p>
-        These services may store or process your data in accordance with their own privacy policies.
-      </p>
+          <p><strong>Usage Information:</strong><br>
+          Basic data about how you interact with the website, such as pages visited, which helps us improve the platform.</p>
+        </div>
 
-      <h2>7. Data Storage and Security</h2>
-      <p>
-        We take reasonable steps to protect your personal information from unauthorised access, misuse, or disclosure.
-        However, no system is completely secure, and we cannot guarantee absolute security.
-      </p>
+        <h3>3. How We Use Your Information</h3>
+        <p>Your information is used to:</p>
+        <ul>
+          <li>create and manage your account;</li>
+          <li>display vendor listings publicly on the platform;</li>
+          <li>allow couples to find and contact vendors;</li>
+          <li>provide dashboard functionality;</li>
+          <li>improve the website and user experience; and</li>
+          <li>communicate with you about your account or services.</li>
+        </ul>
 
-      <h2>8. Your Responsibilities</h2>
-      <p>You are responsible for:</p>
-      <p>
-        keeping your login details secure;<br>
-        ensuring any information you provide is accurate; and<br>
-        only uploading content you have permission to use.
-      </p>
+        <h3>4. Vendor Listings Are Public</h3>
+        <p>
+          If you sign up as a vendor, your business information, such as name, category, service areas, and contact details,
+          may be displayed publicly on Our Wedding Day Hub.
+        </p>
 
-      <h2>9. Access and Updates</h2>
-      <p>
-        You can update your information at any time through your dashboard.
-        If you would like your account deleted, you may contact us and request removal.
-      </p>
+        <h3>5. Payments</h3>
+        <p>
+          Vendor payments may be processed through third-party providers such as Stripe or other payment platforms.
+          We do not store your full payment details.
+        </p>
 
-      <h2>10. Cookies and Tracking</h2>
-      <p>
-        We may use basic cookies or similar technologies to improve your browsing experience.
-        These help us understand how users interact with the site.
-      </p>
+        <h3>6. Third-Party Services</h3>
+        <p>
+          We use trusted third-party services to operate the platform, including:
+        </p>
+        <ul>
+          <li>Firebase for authentication and database services;</li>
+          <li>hosting providers such as GitHub Pages or AWS; and</li>
+          <li>payment providers for vendor subscriptions.</li>
+        </ul>
+        <p>
+          These services may store or process your data in accordance with their own privacy policies.
+        </p>
 
-      <h2>11. Australian Privacy Law</h2>
-      <p>
-        We aim to comply with applicable Australian privacy laws, including the Privacy Act 1988, where applicable.
-      </p>
+        <h3>7. Data Storage and Security</h3>
+        <p>
+          We take reasonable steps to protect your personal information from unauthorised access, misuse, or disclosure.
+          However, no system is completely secure, and we cannot guarantee absolute security.
+        </p>
 
-      <h2>12. Changes to This Policy</h2>
-      <p>
-        We may update this Privacy Policy from time to time.
-        Changes will take effect once published on this page.
-      </p>
+        <h3>8. Your Responsibilities</h3>
+        <p>You are responsible for:</p>
+        <ul>
+          <li>keeping your login details secure;</li>
+          <li>ensuring any information you provide is accurate; and</li>
+          <li>only uploading content you have permission to use.</li>
+        </ul>
 
-      <h2>13. Contact</h2>
-      <p>
-        If you have any questions about this Privacy Policy, please contact us through the website.
-      </p>
-    </section>
+        <h3>9. Access and Updates</h3>
+        <p>
+          You can update your information at any time through your dashboard.
+          If you would like your account deleted, you may contact us and request removal.
+        </p>
+
+        <h3>10. Cookies and Tracking</h3>
+        <p>
+          We may use basic cookies or similar technologies to improve your browsing experience.
+          These help us understand how users interact with the site.
+        </p>
+
+        <h3>11. Australian Privacy Law</h3>
+        <p>
+          We aim to comply with applicable Australian privacy laws, including the Privacy Act 1988, where applicable.
+        </p>
+
+        <h3>12. Changes to This Policy</h3>
+        <p>
+          We may update this Privacy Policy from time to time.
+          Changes will take effect once published on this page.
+        </p>
+
+        <h3>13. Contact</h3>
+        <p>
+          If you have any questions about this Privacy Policy, please contact us through the website.
+        </p>
+      </section>
+
+      <section class="card privacy-contact-card">
+        <h2>Questions about privacy?</h2>
+        <p>
+          If you have any questions about how your information is handled on Our Wedding Day Hub, please contact us and we’ll do our best to help.
+        </p>
+        <p>
+          We want the platform to feel thoughtful, transparent, and respectful of your privacy.
+        </p>
+
+        <div class="privacy-cta-row">
+          <a href="contact.html" class="pretty-button">Contact Us</a>
+          <a href="terms.html" class="apply-button">View Terms</a>
+        </div>
+      </section>
+
+    </div>
   </main>
 
   <footer class="site-footer">
@@ -152,9 +378,9 @@
         <a href="privacy.html">Privacy Policy</a>
         <a href="contact.html">Enquiries</a>
       </div>
-  <footer class="site-footer">
-    <p>© 2026 Our Wedding Day Hub</p>
-    <p>ABN 76 688 637 041 • Australia</p>
+
+      <p class="footer-abn">© 2026 Our Wedding Day Hub</p>
+      <p class="footer-abn">ABN 76 688 637 041 • Australia</p>
     </div>
   </footer>
 
