@@ -26,8 +26,8 @@
     }
 
     .couple-topbar-logo {
-      width: 98px;
-      height: 98px;
+      width: 96px;
+      height: 96px;
       object-fit: contain;
       display: block;
     }
@@ -286,7 +286,8 @@
     }
 
     .account-save-btn,
-    .todo-add-btn {
+    .todo-add-btn,
+    .board-upload-button {
       border: none;
       background: #ead7ce;
       color: #3f2d28;
@@ -631,15 +632,32 @@
       gap: 14px;
     }
 
-    .board-upload-button {
-      border: none;
-      background: #ead7ce;
-      color: #3f2d28;
-      border-radius: 999px;
-      padding: 12px 16px;
-      cursor: pointer;
-      font: inherit;
-      transition: 0.18s ease;
+    .vision-preview-wrap {
+      display: none;
+      background: #fff8f4;
+      border: 1px solid #eadfd6;
+      border-radius: 20px;
+      padding: 12px;
+    }
+
+    .vision-preview-wrap.active {
+      display: block;
+    }
+
+    .vision-preview-wrap img {
+      width: 100%;
+      display: block;
+      border-radius: 16px;
+      max-height: 260px;
+      object-fit: cover;
+    }
+
+    .vision-file-note {
+      margin: 0;
+      color: #8f746a;
+      font-size: 0.92rem;
+      line-height: 1.6;
+      min-height: 22px;
     }
 
     .upload-status {
@@ -782,6 +800,20 @@
         padding: 0 20px;
       }
 
+      .couple-topbar {
+        justify-content: center;
+      }
+
+      .couple-topbar-text {
+        text-align: center;
+        width: 100%;
+      }
+
+      .couple-topbar-actions {
+        width: 100%;
+        justify-content: center;
+      }
+
       .couple-hero-grid,
       .vision-layout,
       .planning-layout,
@@ -803,13 +835,8 @@
         justify-content: center;
       }
 
-      .couple-topbar-text {
-        text-align: center;
-        width: 100%;
-      }
-
-      .couple-topbar {
-        justify-content: center;
+      .vision-board-grid {
+        columns: 2 220px;
       }
     }
 
@@ -849,13 +876,12 @@
         height: 142px;
       }
 
-      .board-overlay {
-        opacity: 1;
+      .vision-board-grid {
+        columns: 1 220px;
       }
 
-      .couple-topbar-actions {
-        width: 100%;
-        justify-content: center;
+      .board-overlay {
+        opacity: 1;
       }
     }
   </style>
@@ -978,9 +1004,15 @@
 
             <form id="visionUploadForm" class="vision-form">
               <label for="visionImageInput" class="upload-label">Choose Image</label>
-              <input id="visionImageInput" class="hidden-input" type="file" accept="image/*" required>
+              <input id="visionImageInput" class="hidden-input" type="file" accept="image/*">
 
-              <textarea id="visionCaptionInput" placeholder="Add a little note if you like... soft florals, candlelit reception, modern white cake, romantic textures..."></textarea>
+              <p id="visionFileNote" class="vision-file-note"></p>
+
+              <div id="visionPreviewWrap" class="vision-preview-wrap">
+                <img id="visionPreviewImage" alt="Selected inspiration preview">
+              </div>
+
+              <textarea id="visionCaptionInput" rows="4" placeholder="Add a little note if you like... soft florals, candlelit reception, modern white cake, romantic textures..."></textarea>
 
               <button type="submit" class="board-upload-button">Add To Board</button>
               <p id="visionUploadStatus" class="upload-status"></p>
@@ -1117,6 +1149,9 @@
     const visionUploadStatus = document.getElementById('visionUploadStatus');
     const visionBoardGrid = document.getElementById('visionBoardGrid');
     const emptyVisionBoard = document.getElementById('emptyVisionBoard');
+    const visionFileNote = document.getElementById('visionFileNote');
+    const visionPreviewWrap = document.getElementById('visionPreviewWrap');
+    const visionPreviewImage = document.getElementById('visionPreviewImage');
 
     const storage = getStorage();
 
@@ -1261,11 +1296,11 @@
         : 'This vendor has not added their bio yet.';
 
       const cardImage =
-        vendor.profileImageUrl ||
         vendor.coverImageUrl ||
         vendor.coverImage ||
         (Array.isArray(vendor.images) && vendor.images.length ? vendor.images[0] : '') ||
         (Array.isArray(vendor.galleryImages) && vendor.galleryImages.length ? vendor.galleryImages[0] : '') ||
+        vendor.profileImageUrl ||
         vendor.profileImage ||
         '';
 
@@ -1665,6 +1700,23 @@
       }
     });
 
+    visionImageInput.addEventListener('change', () => {
+      const file = visionImageInput.files?.[0];
+
+      if (!file) {
+        visionFileNote.textContent = '';
+        visionPreviewWrap.classList.remove('active');
+        visionPreviewImage.removeAttribute('src');
+        return;
+      }
+
+      visionFileNote.textContent = file.name;
+
+      const previewUrl = URL.createObjectURL(file);
+      visionPreviewImage.src = previewUrl;
+      visionPreviewWrap.classList.add('active');
+    });
+
     accountForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
@@ -1789,6 +1841,10 @@
 
         visionImageInput.value = '';
         visionCaptionInput.value = '';
+        visionFileNote.textContent = '';
+        visionPreviewWrap.classList.remove('active');
+        visionPreviewImage.removeAttribute('src');
+
         visionUploadStatus.textContent = 'Added to your board.';
         await loadVisionBoard(auth.currentUser);
       } catch (error) {
