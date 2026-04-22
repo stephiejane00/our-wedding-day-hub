@@ -7,14 +7,81 @@
   <link rel="stylesheet" href="style.css">
   <style>
     .dashboard-page {
-      max-width: 1120px;
+      max-width: 1200px;
       margin: 0 auto 40px;
-      padding: 20px;
+      padding: 18px 20px 0;
     }
 
     .dashboard-stack {
       display: grid;
       gap: 24px;
+    }
+
+    .dashboard-hero-card {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .dashboard-hero-grid {
+      display: grid;
+      grid-template-columns: 1.02fr 0.98fr;
+      align-items: stretch;
+      min-height: 520px;
+    }
+
+    .dashboard-hero-copy {
+      padding: 46px 42px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: left;
+    }
+
+    .dashboard-logo-wrap {
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-start;
+      margin-bottom: 18px;
+    }
+
+    .dashboard-logo {
+      width: 108px;
+      display: block;
+    }
+
+    .dashboard-hero-copy .eyebrow {
+      margin-bottom: 12px;
+      text-align: left;
+    }
+
+    .dashboard-hero-title {
+      margin: 0 0 16px;
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(3rem, 5vw, 4.3rem);
+      font-weight: 500;
+      line-height: 0.94;
+      letter-spacing: -0.03em;
+      color: var(--text);
+    }
+
+    .dashboard-hero-text {
+      margin: 0;
+      max-width: 560px;
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 1rem;
+    }
+
+    .dashboard-hero-image-wrap {
+      min-height: 100%;
+      background: #f4ece6;
+    }
+
+    .dashboard-hero-image {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
     }
 
     .dashboard-actions {
@@ -458,6 +525,7 @@
     }
 
     @media (max-width: 980px) {
+      .dashboard-hero-grid,
       .dashboard-two-col,
       .dashboard-three-col,
       .media-uploader-grid,
@@ -465,11 +533,32 @@
       .bulk-date-grid {
         grid-template-columns: 1fr;
       }
+
+      .dashboard-hero-copy {
+        padding: 34px 24px;
+      }
+
+      .dashboard-hero-image {
+        max-height: 500px;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .dashboard-page {
+        padding: 10px 10px 0;
+      }
+
+      .dashboard-hero-copy {
+        padding: 28px 20px;
+      }
+
+      .dashboard-hero-title {
+        font-size: 2.7rem;
+      }
     }
   </style>
 </head>
 <body>
-
 
   <div class="page-auth">
     <a href="categories.html" id="categoriesLink" class="auth-link">Categories</a>
@@ -479,24 +568,31 @@
     <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
   </div>
 
-  <header class="hero">
-    <a href="index.html" aria-label="Go to homepage">
-      <img src="images/1.png" alt="Our Wedding Day Hub" class="header-image">
-    </a>
-  </header>
-
   <main class="dashboard-page">
     <div class="dashboard-stack">
 
-      <section class="card hero-card">
-        <p class="eyebrow">vendor dashboard</p>
-        <h1 class="page-title">Manage Your Vendor Profile</h1>
-        <p class="page-subtitle">
-          Update your business details, upload your brand assets and media, choose your categories and service locations, and control when your profile appears.
-        </p>
-        <div class="dashboard-actions">
-          <a href="#" id="viewProfileBtn" class="apply-button" style="display:none;">View Public Profile</a>
-          <button type="button" id="saveTopBtn" class="pretty-button">Save Changes</button>
+      <section class="card dashboard-hero-card">
+        <div class="dashboard-hero-grid">
+          <div class="dashboard-hero-copy">
+            <a href="index.html" class="dashboard-logo-wrap" aria-label="Go to homepage">
+              <img src="images/logo.png" alt="Our Wedding Day Hub" class="dashboard-logo">
+            </a>
+
+            <p class="eyebrow">vendor dashboard</p>
+            <h1 class="dashboard-hero-title">Manage Your Vendor Profile</h1>
+            <p class="dashboard-hero-text">
+              Update your business details, upload your brand assets and media, choose your categories and service locations, and control when your profile appears.
+            </p>
+
+            <div class="dashboard-actions">
+              <a href="#" id="viewProfileBtn" class="apply-button" style="display:none;">View Public Profile</a>
+              <button type="button" id="saveTopBtn" class="pretty-button">Save Changes</button>
+            </div>
+          </div>
+
+          <div class="dashboard-hero-image-wrap">
+            <img src="images/modern-couple-sunglasses.png" alt="Modern wedding couple portrait" class="dashboard-hero-image">
+          </div>
         </div>
       </section>
 
