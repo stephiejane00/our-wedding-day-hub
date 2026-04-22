@@ -148,6 +148,47 @@
       color: var(--text);
     }
 
+    .contact-socials-wrap {
+      margin-top: 22px;
+    }
+
+    .contact-socials-title {
+      margin: 0 0 10px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #8a6f63;
+    }
+
+    .contact-socials {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .contact-social-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: #fffaf7;
+      border: 1px solid var(--border);
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 600;
+      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+    }
+
+    .contact-social-link:hover {
+      background: #f4e5da;
+      border-color: #e4cec2;
+      transform: translateY(-1px);
+      opacity: 0.98;
+    }
+
     .contact-form {
       display: grid;
       gap: 14px;
@@ -263,6 +304,14 @@
       .contact-submit {
         width: 100%;
       }
+
+      .contact-socials {
+        flex-direction: column;
+      }
+
+      .contact-social-link {
+        width: 100%;
+      }
     }
   </style>
 </head>
@@ -290,11 +339,11 @@
             <h1 class="contact-title">We’d love to hear from you</h1>
 
             <p class="contact-intro">
-              Have a question, need support, or want to know more about Our Wedding Day Hub? Send us a message and we’ll be in touch as soon as we can.
+              Have a question, need support, or want to learn more about Our Wedding Day Hub? Send us a message and we’ll get back to you as soon as we can.
             </p>
 
             <p class="contact-intro">
-              Whether you’re a couple exploring the platform or a vendor wanting to join, we’re always happy to help.
+              Whether you’re a couple discovering vendors or a business wanting to join the platform, we’re always happy to help.
             </p>
           </div>
 
@@ -308,27 +357,38 @@
         <section class="card contact-info-card">
           <span class="contact-mini-note">Get in touch</span>
           <h2>We’re here to help</h2>
+
           <p>
-            We want every part of the experience to feel warm, easy, and beautifully simple. If you have a question about the platform, vendor listings, or anything else, just reach out.
+            We want every part of Our Wedding Day Hub to feel warm, simple, and easy to use. If you have a question about the platform, vendor profiles, or getting started, just reach out.
           </p>
+
           <p>
-            We’ll do our best to respond as soon as possible and point you in the right direction.
+            We’ll do our best to point you in the right direction and respond as soon as possible.
           </p>
 
           <div class="contact-details">
             <div class="contact-detail">
               <strong>For couples</strong>
-              Questions about finding vendors, browsing categories, or using the platform.
+              Questions about finding vendors, browsing categories, and discovering the right fit for your day.
             </div>
 
             <div class="contact-detail">
               <strong>For vendors</strong>
-              Questions about joining, pricing, profile setup, visibility, or your account.
+              Questions about joining, creating your profile, visibility, account support, or founding vendor access.
             </div>
 
             <div class="contact-detail">
               <strong>General support</strong>
               Help with enquiries, platform information, or anything else you need.
+            </div>
+          </div>
+
+          <div class="contact-socials-wrap">
+            <p class="contact-socials-title">Follow along</p>
+            <div class="contact-socials">
+              <a href="https://www.instagram.com/ourweddingdayhub/?hl=en" target="_blank" rel="noopener noreferrer" class="contact-social-link">Instagram</a>
+              <a href="https://www.facebook.com/profile.php?id=61572140110179" target="_blank" rel="noopener noreferrer" class="contact-social-link">Facebook</a>
+              <a href="https://www.tiktok.com/@ourweddingdayhub" target="_blank" rel="noopener noreferrer" class="contact-social-link">TikTok</a>
             </div>
           </div>
         </section>
