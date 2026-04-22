@@ -5,992 +5,407 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Vendor Profile | Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css"/>
+
   <style>
-    .vendor-page {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 10px 20px 50px;
+    .vendor-page{
+      max-width:1200px;
+      margin:0 auto;
+      padding:24px 20px 50px;
     }
 
-    .vendor-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1.65fr) minmax(300px, 0.95fr);
-      gap: 24px;
-      align-items: start;
+    .vendor-layout{
+      display:grid;
+      grid-template-columns:minmax(0,1.65fr) minmax(300px,0.95fr);
+      gap:24px;
+      align-items:start;
     }
 
-    .vendor-left {
-      display: grid;
-      gap: 24px;
+    .vendor-left{
+      display:grid;
+      gap:24px;
     }
 
-    .vendor-card {
-      background: #fff;
-      border-radius: 24px;
-      padding: 22px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+    .vendor-card{
+      background:#fff;
+      border-radius:24px;
+      padding:22px;
+      box-shadow:0 10px 30px rgba(0,0,0,.06);
     }
 
-    .vendor-intro-card {
-      overflow: hidden;
-      padding: 0;
+    /* UPDATED HERO AREA */
+    .vendor-intro-card{
+      padding:0;
+      overflow:hidden;
     }
 
-    .vendor-intro-grid {
-      display: grid;
-      grid-template-columns: 1.02fr 0.98fr;
-      min-height: 500px;
-      align-items: stretch;
+    .vendor-intro-grid{
+      display:grid;
+      grid-template-columns:minmax(300px,0.82fr) minmax(0,1.18fr);
+      min-height:520px;
+      align-items:stretch;
     }
 
-    .vendor-intro-copy {
-      padding: 42px 34px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      text-align: left;
+    .vendor-intro-copy{
+      padding:28px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      text-align:left;
     }
 
-    .vendor-intro-logo-wrap {
-      display: inline-block;
-      margin-bottom: 18px;
+    .vendor-brandmark{
+      width:210px;
+      max-width:100%;
+      margin-bottom:20px;
     }
 
-    .vendor-intro-logo {
-      width: 140px;
-      max-width: 100%;
-      display: block;
+    .vendor-kicker{
+      font-size:.82rem;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      color:#b59b8d;
+      margin:0 0 16px;
+      line-height:1.6;
     }
 
-    .vendor-intro-kicker {
-      margin: 0 0 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      font-size: 0.75rem;
-      color: #c8a892;
-    }
-
-    .vendor-title {
-      margin: 0 0 12px;
-      font-size: clamp(2rem, 3vw, 2.9rem);
-      line-height: 0.98;
-      letter-spacing: -0.03em;
+    .vendor-title{
+      margin:0 0 10px;
+      font-size:clamp(2rem,4vw,3.2rem);
+      line-height:.95;
     }
 
     .vendor-category,
-    .vendor-tagline {
-      margin: 0 0 10px;
-      color: #6d6058;
-      line-height: 1.65;
+    .vendor-tagline{
+      margin:0 0 12px;
+      color:#6d6058;
+      line-height:1.6;
     }
 
-    .vendor-about {
-      margin: 8px 0 0;
-      line-height: 1.8;
-      white-space: pre-wrap;
-      color: var(--text);
+    .vendor-about{
+      margin:10px 0 0;
+      line-height:1.8;
+      color:#4f4641;
+      white-space:pre-wrap;
     }
 
-    .vendor-intro-media {
-      position: relative;
-      background: #f8f3ef;
-      min-height: 100%;
+    .vendor-gallery-stage{
+      position:relative;
+      overflow:hidden;
+      background:#f8f3ef;
+      min-height:520px;
+      height:100%;
     }
 
-    .vendor-gallery-stage {
-      position: relative;
-      border-radius: 0;
-      overflow: hidden;
-      background: #f8f3ef;
-      height: 100%;
-      min-height: 500px;
-    }
-
-    .vendor-gallery-media {
-      width: 100%;
-      height: 100%;
-      min-height: 500px;
-      display: block;
-      background: #f8f3ef;
+    .vendor-gallery-media{
+      width:100%;
+      height:100%;
+      min-height:520px;
     }
 
     .vendor-gallery-media img,
-    .vendor-gallery-media video {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover;
-      background: #f8f3ef;
+    .vendor-gallery-media video{
+      width:100%;
+      height:100%;
+      display:block;
+      object-fit:cover;
+      object-position:center;
     }
 
-    .vendor-gallery-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 46px;
-      height: 46px;
-      border: none;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.92);
-      color: #3d342f;
-      font-size: 28px;
-      line-height: 1;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
-      z-index: 2;
+    .vendor-gallery-arrow{
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      width:46px;
+      height:46px;
+      border:none;
+      border-radius:999px;
+      background:rgba(255,255,255,.92);
+      font-size:28px;
+      cursor:pointer;
+      box-shadow:0 8px 22px rgba(0,0,0,.12);
+      z-index:2;
     }
 
-    .vendor-gallery-arrow.left {
-      left: 14px;
+    .vendor-gallery-arrow.left{left:14px;}
+    .vendor-gallery-arrow.right{right:14px;}
+
+    .vendor-gallery-arrow[hidden]{
+      display:none!important;
     }
 
-    .vendor-gallery-arrow.right {
-      right: 14px;
+    .vendor-gallery-dots{
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      margin-top:16px;
     }
 
-    .vendor-gallery-arrow[hidden] {
-      display: none !important;
+    .vendor-gallery-dot{
+      width:10px;
+      height:10px;
+      border-radius:50%;
+      border:none;
+      cursor:pointer;
+      background:rgba(160,135,123,.25);
     }
 
-    .vendor-gallery-dots {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-      margin-top: 16px;
+    .vendor-gallery-dot.active{
+      background:#c9ab97;
+      transform:scale(1.1);
     }
 
-    .vendor-gallery-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
-      border: none;
-      background: rgba(160, 135, 123, 0.25);
-      cursor: pointer;
-      padding: 0;
+    .vendor-section-title{
+      margin:0 0 14px;
+      font-size:1.2rem;
     }
 
-    .vendor-gallery-dot.active {
-      background: #c9ab97;
-      transform: scale(1.1);
+    .sidebar-card{
+      position:sticky;
+      top:20px;
+      text-align:center;
     }
 
-    .vendor-section-title {
-      margin: 0 0 14px;
-      font-size: 1.2rem;
-      text-align: left;
+    .profile-pic{
+      width:180px;
+      height:180px;
+      border-radius:50%;
+      object-fit:cover;
+      margin:0 auto 14px;
+      display:block;
+      background:#f3ece6;
     }
 
-    .sidebar-card {
-      position: sticky;
-      top: 20px;
-      text-align: center;
-      background: #fff;
-      border-radius: 24px;
-      padding: 22px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+    .sidebar-business-name{
+      margin:0 0 10px;
+      font-size:1.5rem;
     }
 
-    .profile-pic-wrap {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      margin-bottom: 14px;
+    .sidebar-copy{
+      color:#6d6058;
+      line-height:1.5;
+      margin:0 0 10px;
     }
 
-    .profile-pic {
-      width: 180px;
-      height: 180px;
-      border-radius: 999px;
-      object-fit: cover;
-      display: block;
-      background: #f3ece6;
+    .vendor-logo{
+      max-width:170px;
+      max-height:90px;
+      margin:14px auto 18px;
+      display:block;
+      object-fit:contain;
+      border-radius:16px;
+      background:#fff8f4;
+      padding:10px 14px;
+      box-shadow:0 6px 18px rgba(0,0,0,.05);
     }
 
-    .sidebar-business-name {
-      margin: 0 0 10px;
-      font-size: 1.5rem;
+    .favorite-btn,
+    .stack-btn{
+      width:100%;
+      border:none;
+      border-radius:999px;
+      padding:14px 18px;
+      font:inherit;
+      font-weight:600;
+      cursor:pointer;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:48px;
     }
 
-    .sidebar-copy {
-      margin: 0 0 10px;
-      color: #6d6058;
-      line-height: 1.5;
+    .favorite-btn{
+      background:#ead8cb;
+      margin:10px 0 16px;
     }
 
-    .vendor-logo-wrap {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 14px 0 18px;
+    .stack-btn{
+      background:#efd3d7;
+      color:#5b4046;
     }
 
-    .vendor-logo {
-      max-width: 170px;
-      max-height: 90px;
-      width: auto;
-      height: auto;
-      object-fit: contain;
-      display: block;
-      border-radius: 16px;
-      background: #fff8f4;
-      padding: 10px 14px;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+    .contact-stack{
+      display:grid;
+      gap:12px;
     }
 
-    .favorite-btn {
-      width: 100%;
-      border: none;
-      border-radius: 999px;
-      padding: 14px 18px;
-      font: inherit;
-      font-weight: 600;
-      cursor: pointer;
-      background: #ead8cb;
-      color: #3d342f;
-      margin: 10px 0 16px;
-    }
-
-    .favorite-btn.saved {
-      background: #d9c0b0;
-    }
-
-    .contact-stack {
-      display: grid;
-      gap: 12px;
-      margin-top: 8px;
-    }
-
-    .stack-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      text-decoration: none;
-      border-radius: 999px;
-      padding: 13px 16px;
-      background: #efd3d7;
-      color: #5b4046;
-      font-weight: 600;
-      min-height: 48px;
-      border: none;
-      cursor: pointer;
-    }
-
-    .stack-btn[hidden] {
-      display: none !important;
-    }
-
-    .sidebar-locations {
-      margin-top: 20px;
-      padding-top: 18px;
-      border-top: 1px solid #f0e3dc;
-      text-align: left;
-    }
-
-    .sidebar-locations h3 {
-      margin: 0 0 12px;
-      font-size: 1rem;
-      color: #5b4046;
-      text-align: center;
-    }
-
-    .sidebar-location-item {
-      margin: 0 0 10px;
-      color: #6d6058;
-      line-height: 1.5;
-      text-align: center;
-    }
-
-    #statusMessage {
-      margin-top: 12px;
-      min-height: 22px;
-      color: #6d6058;
-      font-size: 0.95rem;
-    }
-
-    .booking-frame {
-      width: 100%;
-      min-height: 720px;
-      border: 0;
-      border-radius: 16px;
-      background: #fff;
-    }
-
-    .empty-block {
-      color: #6d6058;
-      margin: 0;
-      line-height: 1.6;
-    }
-
-    .enquiry-form {
-      display: grid;
-      gap: 12px;
-      margin-top: 16px;
+    .enquiry-form{
+      display:grid;
+      gap:12px;
+      margin-top:16px;
     }
 
     .enquiry-form input,
-    .enquiry-form textarea {
-      width: 100%;
-      border: 1px solid #ead8cb;
-      border-radius: 16px;
-      padding: 14px 16px;
-      font: inherit;
-      background: #fffaf8;
-      color: #2f2a27;
-      box-sizing: border-box;
+    .enquiry-form textarea{
+      width:100%;
+      border:1px solid #ead8cb;
+      border-radius:16px;
+      padding:14px 16px;
+      font:inherit;
+      background:#fffaf8;
     }
 
-    .enquiry-form textarea {
-      min-height: 150px;
-      resize: vertical;
+    .enquiry-form textarea{
+      min-height:150px;
+      resize:vertical;
     }
 
-    .enquiry-form button {
-      justify-self: start;
-      min-width: 180px;
-    }
-
-    @media (max-width: 920px) {
-      .vendor-layout,
-      .vendor-intro-grid {
-        grid-template-columns: 1fr;
+    @media(max-width:920px){
+      .vendor-layout{
+        grid-template-columns:1fr;
       }
 
-      .sidebar-card {
-        position: static;
+      .sidebar-card{
+        position:static;
+      }
+
+      .vendor-intro-grid{
+        grid-template-columns:1fr;
       }
 
       .vendor-gallery-stage,
-      .vendor-gallery-media {
-        min-height: 400px;
+      .vendor-gallery-media{
+        min-height:420px;
       }
     }
 
-    @media (max-width: 620px) {
-      .vendor-page {
-        padding: 0 14px 40px;
+    @media(max-width:620px){
+      .vendor-page{
+        padding:18px 14px 40px;
       }
 
-      .vendor-card,
-      .sidebar-card {
-        padding: 16px;
-        border-radius: 18px;
+      .vendor-card{
+        padding:16px;
+        border-radius:18px;
       }
 
-      .vendor-intro-copy {
-        padding: 28px 20px;
+      .vendor-intro-copy{
+        padding:22px;
       }
 
       .vendor-gallery-stage,
-      .vendor-gallery-media {
-        min-height: 280px;
+      .vendor-gallery-media{
+        min-height:320px;
       }
 
-      .vendor-gallery-arrow {
-        width: 40px;
-        height: 40px;
-        font-size: 24px;
-      }
-
-      .profile-pic {
-        width: 140px;
-        height: 140px;
-      }
-
-      .vendor-logo {
-        max-width: 140px;
-        max-height: 76px;
-      }
-
-      .vendor-intro-logo {
-        width: 120px;
+      .profile-pic{
+        width:140px;
+        height:140px;
       }
     }
   </style>
 </head>
 
 <body>
-  <div class="page-auth">
-    <a href="categories.html" id="categoriesLink" class="auth-link">Categories</a>
-    <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
-    <a href="login.html" id="loginLink" class="auth-link">Log In</a>
-    <a href="dashboard.html" id="dashboardLink" class="auth-link" style="display:none;">Dashboard</a>
-    <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
-  </div>
 
-  <main class="vendor-page">
-    <div class="vendor-layout">
+<div class="page-auth">
+  <a href="categories.html" class="auth-link">Categories</a>
+  <a href="signup.html" class="auth-link auth-pill">Join</a>
+  <a href="login.html" class="auth-link">Log In</a>
+  <a href="dashboard.html" class="auth-link">Dashboard</a>
+</div>
 
-      <section class="vendor-left">
-        <section class="vendor-card vendor-intro-card">
-          <div class="vendor-intro-grid">
-            <div class="vendor-intro-copy">
-              <a href="index.html" class="vendor-intro-logo-wrap" aria-label="Go to homepage">
-                <img src="images/logo.png" alt="Our Wedding Day Hub" class="vendor-intro-logo">
-              </a>
+<header class="hero">
+  <a href="index.html">
+    <img src="images/1.png" alt="Our Wedding Day Hub" class="header-image">
+  </a>
+</header>
 
-              <p class="vendor-intro-kicker">Trusted wedding vendors worldwide</p>
+<main class="vendor-page">
+  <div class="vendor-layout">
 
-              <h1 id="businessName" class="vendor-title">Loading vendor...</h1>
-              <p id="vendorCategory" class="vendor-category"></p>
-              <p id="vendorTagline" class="vendor-tagline"></p>
-              <p id="vendorAbout" class="vendor-about"></p>
-            </div>
+    <section class="vendor-left">
 
-            <div class="vendor-intro-media">
-              <div class="vendor-gallery-stage">
-                <button type="button" id="prevMediaBtn" class="vendor-gallery-arrow left" aria-label="Previous gallery item">‹</button>
+      <section class="vendor-card vendor-intro-card">
+        <div class="vendor-intro-grid">
 
-                <div class="vendor-gallery-media">
-                  <img id="mainImage" src="images/header4.png" alt="Vendor gallery image">
-                  <video id="mainVideo" controls playsinline style="display:none;"></video>
-                </div>
+          <div class="vendor-intro-copy">
+            <img src="images/logo.png" class="vendor-brandmark" alt="Our Wedding Day Hub">
 
-                <button type="button" id="nextMediaBtn" class="vendor-gallery-arrow right" aria-label="Next gallery item">›</button>
-              </div>
-            </div>
+            <p class="vendor-kicker">Trusted Wedding Vendors Worldwide</p>
+
+            <h1 id="businessName" class="vendor-title">Vendor Name</h1>
+
+            <p id="vendorCategory" class="vendor-category">Category</p>
+            <p id="vendorTagline" class="vendor-tagline">Tagline</p>
+
+            <p id="vendorAbout" class="vendor-about">
+              Vendor description goes here.
+            </p>
           </div>
 
-          <div id="galleryDots" class="vendor-gallery-dots"></div>
-        </section>
+          <div class="vendor-gallery-stage">
+            <button class="vendor-gallery-arrow left">‹</button>
 
-        <div class="vendor-card" id="bookingCard">
-          <h2 class="vendor-section-title">Booking Calendar</h2>
-          <p id="bookingIntro" class="empty-block">Check availability or make a booking enquiry below.</p>
-
-          <div id="bookingEmbedWrap" style="margin-top:16px;">
-            <iframe id="bookingFrame" class="booking-frame" title="Vendor booking calendar" src="" loading="lazy"></iframe>
-          </div>
-
-          <div id="bookingFallback" style="display:none; margin-top:16px;">
-            <p class="empty-block">This vendor has not added an embeddable live calendar yet.</p>
-            <div class="contact-stack" style="margin-top:16px;">
-              <a id="bookingFallbackBtn" class="stack-btn" target="_blank" rel="noopener noreferrer">Open Booking Link</a>
+            <div class="vendor-gallery-media">
+              <img src="images/header4.png" alt="">
             </div>
+
+            <button class="vendor-gallery-arrow right">›</button>
           </div>
+
         </div>
 
-        <div class="vendor-card" id="enquiriesCard">
-          <h2 class="vendor-section-title">Enquiries</h2>
-          <p id="vendorEnquiriesText" class="empty-block">Send an enquiry directly to this vendor.</p>
-
-          <form id="enquiryForm" class="enquiry-form">
-            <input type="text" id="enquiryName" placeholder="Your name" required>
-            <input type="email" id="enquiryEmail" placeholder="Your email" required>
-            <textarea id="enquiryMessage" placeholder="Your message" required></textarea>
-            <button type="submit" class="stack-btn">Send Enquiry</button>
-          </form>
+        <div class="vendor-gallery-dots">
+          <button class="vendor-gallery-dot active"></button>
+          <button class="vendor-gallery-dot"></button>
+          <button class="vendor-gallery-dot"></button>
         </div>
       </section>
 
-      <aside class="sidebar-card">
-        <div class="profile-pic-wrap">
-          <img id="profilePic" class="profile-pic" src="" alt="Vendor profile picture">
-        </div>
+      <section class="vendor-card">
+        <h2 class="vendor-section-title">Enquiries</h2>
 
-        <h2 id="sidebarBusinessName" class="sidebar-business-name">Loading vendor...</h2>
+        <form class="enquiry-form">
+          <input type="text" placeholder="Your name">
+          <input type="email" placeholder="Your email">
+          <textarea placeholder="Your message"></textarea>
+          <button class="stack-btn">Send Enquiry</button>
+        </form>
+      </section>
 
-        <div id="logoWrap" class="vendor-logo-wrap" style="display:none;">
-          <img id="logoImage" class="vendor-logo" src="" alt="Vendor logo">
-        </div>
+    </section>
 
-        <p id="sidebarCategory" class="sidebar-copy"></p>
+    <aside class="vendor-card sidebar-card">
+      <img src="images/header4.png" class="profile-pic">
 
-        <button id="favoriteBtn" class="favorite-btn">♡ Save to favourites</button>
+      <h2 class="sidebar-business-name">Vendor Name</h2>
 
-        <div class="contact-stack">
-          <a id="websiteBtn" class="stack-btn" target="_blank" rel="noopener noreferrer">Website</a>
-          <a id="emailBtn" class="stack-btn">Email</a>
-          <a id="instagramBtn" class="stack-btn" target="_blank" rel="noopener noreferrer">Instagram</a>
-          <a id="facebookBtn" class="stack-btn" target="_blank" rel="noopener noreferrer">Facebook</a>
-          <a id="tiktokBtn" class="stack-btn" target="_blank" rel="noopener noreferrer">TikTok</a>
-          <a id="youtubeBtn" class="stack-btn" target="_blank" rel="noopener noreferrer">YouTube</a>
-        </div>
+      <img src="images/logo.png" class="vendor-logo">
 
-        <div id="sidebarLocations" class="sidebar-locations" style="display:none;">
-          <h3>Locations</h3>
-          <p id="sidebarLocation" class="sidebar-location-item"></p>
-          <p id="sidebarServiceAreas" class="sidebar-location-item"></p>
-          <p id="sidebarCountries" class="sidebar-location-item"></p>
-          <p id="sidebarStates" class="sidebar-location-item"></p>
-          <p id="sidebarRegions" class="sidebar-location-item"></p>
-        </div>
+      <p class="sidebar-copy">Category</p>
 
-        <div id="statusMessage"></div>
-      </aside>
+      <button class="favorite-btn">♡ Save to favourites</button>
 
-    </div>
-  </main>
-
-  <footer class="site-footer">
-    <div class="footer-content">
-      <p class="footer-eyebrow">wedding vendor directory</p>
-      <h2 class="footer-title">Everything you need for your wedding, all in one place.</h2>
-      <p class="footer-text">
-        Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.
-      </p>
-
-      <div class="footer-links">
-        <a href="about.html">About Us</a>
-        <a href="how-it-works.html">How It Works</a>
-        <a href="pricing.html">Pricing</a>
-        <a href="refund-policy.html">Refund Policy</a>
-        <a href="terms.html">Terms &amp; Conditions</a>
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="contact.html">Enquiries</a>
+      <div class="contact-stack">
+        <a href="#" class="stack-btn">Website</a>
+        <a href="#" class="stack-btn">Email</a>
+        <a href="#" class="stack-btn">Instagram</a>
       </div>
+    </aside>
 
-      <p class="footer-abn">© 2026 Our Wedding Day Hub</p>
-      <p class="footer-abn">ABN 76 688 637 041 • Australia</p>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-content">
+    <p class="footer-eyebrow">wedding vendor directory</p>
+    <h2 class="footer-title">Everything you need for your wedding, all in one place.</h2>
+    <p class="footer-text">
+      Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.
+    </p>
+
+    <div class="footer-links">
+      <a href="about.html">About Us</a>
+      <a href="how-it-works.html">How It Works</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="contact.html">Enquiries</a>
     </div>
-  </footer>
 
-  <script type="module">
-    import {
-      db,
-      auth,
-      doc,
-      getDoc,
-      onAuthStateChanged,
-      signOut
-    } from "./firebase.js";
+    <p class="footer-abn">© 2026 Our Wedding Day Hub</p>
+    <p class="footer-abn">ABN 76 688 637 041 • Australia</p>
+  </div>
+</footer>
 
-    const params = new URLSearchParams(window.location.search);
-    const vendorId = params.get("id");
-
-    const businessNameEl = document.getElementById("businessName");
-    const vendorCategoryEl = document.getElementById("vendorCategory");
-    const vendorTaglineEl = document.getElementById("vendorTagline");
-    const vendorAboutEl = document.getElementById("vendorAbout");
-
-    const mainImage = document.getElementById("mainImage");
-    const mainVideo = document.getElementById("mainVideo");
-    const prevMediaBtn = document.getElementById("prevMediaBtn");
-    const nextMediaBtn = document.getElementById("nextMediaBtn");
-    const galleryDots = document.getElementById("galleryDots");
-
-    const enquiriesCard = document.getElementById("enquiriesCard");
-    const vendorEnquiriesText = document.getElementById("vendorEnquiriesText");
-    const enquiryForm = document.getElementById("enquiryForm");
-    const enquiryName = document.getElementById("enquiryName");
-    const enquiryEmail = document.getElementById("enquiryEmail");
-    const enquiryMessage = document.getElementById("enquiryMessage");
-
-    const bookingCard = document.getElementById("bookingCard");
-    const bookingFrame = document.getElementById("bookingFrame");
-    const bookingEmbedWrap = document.getElementById("bookingEmbedWrap");
-    const bookingFallback = document.getElementById("bookingFallback");
-    const bookingFallbackBtn = document.getElementById("bookingFallbackBtn");
-
-    const profilePicEl = document.getElementById("profilePic");
-    const sidebarBusinessNameEl = document.getElementById("sidebarBusinessName");
-    const sidebarCategoryEl = document.getElementById("sidebarCategory");
-
-    const logoWrap = document.getElementById("logoWrap");
-    const logoImage = document.getElementById("logoImage");
-
-    const websiteBtn = document.getElementById("websiteBtn");
-    const emailBtn = document.getElementById("emailBtn");
-    const instagramBtn = document.getElementById("instagramBtn");
-    const facebookBtn = document.getElementById("facebookBtn");
-    const tiktokBtn = document.getElementById("tiktokBtn");
-    const youtubeBtn = document.getElementById("youtubeBtn");
-
-    const sidebarLocations = document.getElementById("sidebarLocations");
-    const sidebarLocationEl = document.getElementById("sidebarLocation");
-    const sidebarServiceAreasEl = document.getElementById("sidebarServiceAreas");
-    const sidebarRegionsEl = document.getElementById("sidebarRegions");
-    const sidebarStatesEl = document.getElementById("sidebarStates");
-    const sidebarCountriesEl = document.getElementById("sidebarCountries");
-
-    const favoriteBtn = document.getElementById("favoriteBtn");
-    const statusMessage = document.getElementById("statusMessage");
-
-    const joinLink = document.getElementById("joinLink");
-    const loginLink = document.getElementById("loginLink");
-    const dashboardLink = document.getElementById("dashboardLink");
-    const logoutLink = document.getElementById("logoutLink");
-
-    const favoritesKey = "favoriteVendors";
-
-    let galleryItems = [];
-    let currentMediaIndex = 0;
-    let vendorEmailAddress = "";
-    let vendorBusinessName = "Vendor";
-
-    function cleanArray(arr) {
-      return Array.isArray(arr) ? arr.filter(Boolean) : [];
-    }
-
-    function formatText(value) {
-      if (!value) return "";
-      return String(value)
-        .replace(/_/g, " ")
-        .replace(/-/g, " ")
-        .replace(/\s+/g, " ")
-        .trim()
-        .replace(/\b\w/g, c => c.toUpperCase());
-    }
-
-    function hideElement(el) {
-      if (el) el.style.display = "none";
-    }
-
-    function showElement(el, displayValue = "") {
-      if (el) el.style.display = displayValue;
-    }
-
-    function setTextOrHide(el, value, prefix = "") {
-      if (!value) {
-        hideElement(el);
-        return false;
-      }
-      el.textContent = prefix ? `${prefix}${value}` : value;
-      showElement(el);
-      return true;
-    }
-
-    function getFavorites() {
-      return JSON.parse(localStorage.getItem(favoritesKey)) || [];
-    }
-
-    function saveFavorites(favs) {
-      localStorage.setItem(favoritesKey, JSON.stringify(favs));
-    }
-
-    function updateFavoriteButton(id) {
-      const favs = getFavorites();
-      if (favs.includes(id)) {
-        favoriteBtn.textContent = "♥ Saved";
-        favoriteBtn.classList.add("saved");
-      } else {
-        favoriteBtn.textContent = "♡ Save to favourites";
-        favoriteBtn.classList.remove("saved");
-      }
-    }
-
-    favoriteBtn.addEventListener("click", () => {
-      if (!vendorId) return;
-
-      let favs = getFavorites();
-
-      if (favs.includes(vendorId)) {
-        favs = favs.filter(id => id !== vendorId);
-        statusMessage.textContent = "Removed from favourites.";
-      } else {
-        favs.push(vendorId);
-        statusMessage.textContent = "Saved to favourites.";
-      }
-
-      saveFavorites(favs);
-      updateFavoriteButton(vendorId);
-    });
-
-    function getVideoType(url) {
-      const lower = String(url).toLowerCase();
-      if (lower.includes(".webm")) return "video/webm";
-      if (lower.includes(".ogg")) return "video/ogg";
-      return "video/mp4";
-    }
-
-    function buildGalleryItems(vendor) {
-      const items = [];
-
-      if (vendor.coverImageUrl && String(vendor.coverImageUrl).trim()) {
-        items.push({ type: "image", src: vendor.coverImageUrl });
-      }
-
-      cleanArray(vendor.images).forEach((img) => {
-        if (img && !items.some(item => item.src === img)) {
-          items.push({ type: "image", src: img });
-        }
-      });
-
-      cleanArray(vendor.videos).forEach((video) => {
-        if (video && !items.some(item => item.src === video)) {
-          items.push({ type: "video", src: video });
-        }
-      });
-
-      cleanArray(vendor.videoUrls).forEach((video) => {
-        if (video && !items.some(item => item.src === video)) {
-          items.push({ type: "video", src: video });
-        }
-      });
-
-      if (vendor.profileImageUrl && !items.some(item => item.src === vendor.profileImageUrl)) {
-        items.push({ type: "image", src: vendor.profileImageUrl });
-      }
-
-      if (!items.length) {
-        items.push({ type: "image", src: "images/header4.png" });
-      }
-
-      return items;
-    }
-
-    function renderGalleryDots() {
-      galleryDots.innerHTML = "";
-
-      if (galleryItems.length <= 1) {
-        galleryDots.style.display = "none";
-        return;
-      }
-
-      galleryDots.style.display = "flex";
-
-      galleryItems.forEach((item, index) => {
-        const dot = document.createElement("button");
-        dot.type = "button";
-        dot.className = index === currentMediaIndex ? "vendor-gallery-dot active" : "vendor-gallery-dot";
-        dot.setAttribute("aria-label", `Go to gallery item ${index + 1}`);
-        dot.addEventListener("click", () => {
-          currentMediaIndex = index;
-          updateGalleryUI();
-        });
-        galleryDots.appendChild(dot);
-      });
-    }
-
-    function updateGalleryUI() {
-      if (!galleryItems.length) {
-        galleryItems = [{ type: "image", src: "images/header4.png" }];
-      }
-
-      const currentItem = galleryItems[currentMediaIndex];
-
-      if (currentItem.type === "video") {
-        mainImage.style.display = "none";
-        mainVideo.style.display = "block";
-        mainVideo.src = currentItem.src;
-        mainVideo.type = getVideoType(currentItem.src);
-      } else {
-        mainVideo.pause();
-        mainVideo.removeAttribute("src");
-        mainVideo.load();
-        mainVideo.style.display = "none";
-
-        mainImage.style.display = "block";
-        mainImage.src = currentItem.src;
-      }
-
-      const hasMultiple = galleryItems.length > 1;
-      prevMediaBtn.hidden = !hasMultiple;
-      nextMediaBtn.hidden = !hasMultiple;
-
-      renderGalleryDots();
-    }
-
-    prevMediaBtn.addEventListener("click", () => {
-      if (galleryItems.length <= 1) return;
-      currentMediaIndex = (currentMediaIndex - 1 + galleryItems.length) % galleryItems.length;
-      updateGalleryUI();
-    });
-
-    nextMediaBtn.addEventListener("click", () => {
-      if (galleryItems.length <= 1) return;
-      currentMediaIndex = (currentMediaIndex + 1) % galleryItems.length;
-      updateGalleryUI();
-    });
-
-    function renderGallery(vendor) {
-      galleryItems = buildGalleryItems(vendor);
-      currentMediaIndex = 0;
-      updateGalleryUI();
-    }
-
-    function renderBooking(v) {
-      const bookingLink =
-        v.bookingLink ||
-        v.bookingUrl ||
-        v.calendly ||
-        v.calendlyUrl ||
-        v.calendarLink ||
-        v.calendarUrl ||
-        "";
-
-      if (!bookingLink) {
-        hideElement(bookingCard);
-        return;
-      }
-
-      const lower = bookingLink.toLowerCase();
-      const embeddable =
-        lower.includes("calendly.com") ||
-        lower.includes("tidycal.com");
-
-      if (embeddable) {
-        bookingFrame.src = bookingLink;
-        showElement(bookingEmbedWrap);
-        hideElement(bookingFallback);
-      } else {
-        hideElement(bookingEmbedWrap);
-        showElement(bookingFallback);
-        bookingFallbackBtn.href = bookingLink;
-      }
-    }
-
-    function setLinkOrHide(el, href) {
-      if (!href) {
-        hideElement(el);
-        return;
-      }
-      el.href = href;
-      showElement(el, "inline-flex");
-    }
-
-    function renderSidebarLocations(v) {
-      const displayLocation = formatText(v.displayLocation || "");
-      const serviceAreas = formatText(v.serviceAreas || "");
-      const regions = cleanArray(v.regions).map(formatText).join(" • ");
-      const states = cleanArray(v.states).map(formatText).join(" • ");
-      const countries = cleanArray(v.countries).map(formatText).join(" • ");
-
-      const hasAny =
-        setTextOrHide(sidebarLocationEl, displayLocation, "Location: ") |
-        setTextOrHide(sidebarServiceAreasEl, serviceAreas, "Service Areas: ") |
-        setTextOrHide(sidebarRegionsEl, regions, "Regions: ") |
-        setTextOrHide(sidebarStatesEl, states, "States: ") |
-        setTextOrHide(sidebarCountriesEl, countries, "Countries: ");
-
-      if (hasAny) {
-        showElement(sidebarLocations, "block");
-      } else {
-        hideElement(sidebarLocations);
-      }
-    }
-
-    enquiryForm.addEventListener("submit", (event) => {
-      event.preventDefault();
-
-      if (!vendorEmailAddress) {
-        statusMessage.textContent = "This vendor has not added an enquiry email yet.";
-        return;
-      }
-
-      const subject = encodeURIComponent(`Enquiry for ${vendorBusinessName}`);
-      const body = encodeURIComponent(
-        `Name: ${enquiryName.value}\nEmail: ${enquiryEmail.value}\n\nMessage:\n${enquiryMessage.value}`
-      );
-
-      window.location.href = `mailto:${vendorEmailAddress}?subject=${subject}&body=${body}`;
-    });
-
-    async function loadVendor() {
-      if (!vendorId) {
-        businessNameEl.textContent = "Vendor not found";
-        sidebarBusinessNameEl.textContent = "Vendor not found";
-        return;
-      }
-
-      try {
-        const snap = await getDoc(doc(db, "vendors", vendorId));
-
-        if (!snap.exists()) {
-          businessNameEl.textContent = "Vendor not found";
-          sidebarBusinessNameEl.textContent = "Vendor not found";
-          return;
-        }
-
-        const v = snap.data();
-
-        const name = v.businessName || "Vendor";
-        vendorBusinessName = name;
-
-        const category = Array.isArray(v.categories) && v.categories.length
-          ? v.categories.map(formatText).join(" • ")
-          : formatText(v.category || "");
-
-        const tagline = formatText(v.tagline || "");
-        const about = v.bio || v.shortBio || v.description || "Beautiful vendor profile coming soon.";
-
-        const profileImage =
-          v.profileImageUrl ||
-          v.coverImageUrl ||
-          (Array.isArray(v.images) && v.images.length ? v.images[0] : "");
-
-        const logo = v.logoUrl || v.logo || "";
-
-        vendorEmailAddress = v.email || v.contactEmail || "";
-
-        businessNameEl.textContent = name;
-        vendorAboutEl.textContent = about;
-        sidebarBusinessNameEl.textContent = name;
-
-        setTextOrHide(vendorCategoryEl, category);
-        setTextOrHide(vendorTaglineEl, tagline);
-        setTextOrHide(sidebarCategoryEl, category);
-
-        if (profileImage) {
-          profilePicEl.src = profileImage;
-          showElement(profilePicEl, "block");
-        } else {
-          hideElement(profilePicEl);
-        }
-
-        if (logo) {
-          logoImage.src = logo;
-          showElement(logoWrap, "flex");
-        } else {
-          hideElement(logoWrap);
-        }
-
-        renderGallery(v);
-        renderBooking(v);
-        renderSidebarLocations(v);
-
-        if (v.enquiriesNote) {
-          vendorEnquiriesText.textContent = v.enquiriesNote;
-        }
-
-        if (!vendorEmailAddress) {
-          vendorEnquiriesText.textContent = "This vendor has not added a direct enquiry email yet.";
-          enquiryForm.style.display = "none";
-        }
-
-        setLinkOrHide(websiteBtn, v.website || "");
-        setLinkOrHide(emailBtn, vendorEmailAddress ? `mailto:${vendorEmailAddress}` : "");
-        setLinkOrHide(instagramBtn, v.instagram || "");
-        setLinkOrHide(facebookBtn, v.facebook || "");
-        setLinkOrHide(tiktokBtn, v.tiktok || "");
-        setLinkOrHide(youtubeBtn, v.youtube || "");
-
-        updateFavoriteButton(vendorId);
-      } catch (error) {
-        console.error("Error loading vendor:", error);
-        businessNameEl.textContent = "There was a problem loading this vendor";
-        sidebarBusinessNameEl.textContent = "Vendor profile";
-      }
-    }
-
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        joinLink.style.display = "none";
-        loginLink.style.display = "none";
-        dashboardLink.style.display = "inline-block";
-        logoutLink.style.display = "inline-block";
-      } else {
-        joinLink.style.display = "inline-flex";
-        loginLink.style.display = "inline-block";
-        dashboardLink.style.display = "none";
-        logoutLink.style.display = "none";
-      }
-    });
-
-    logoutLink.addEventListener("click", async () => {
-      try {
-        await signOut(auth);
-        window.location.href = "index.html";
-      } catch (error) {
-        console.error("Logout failed:", error);
-      }
-    });
-
-    loadVendor();
-  </script>
 </body>
 </html>
