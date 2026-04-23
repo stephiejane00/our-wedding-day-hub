@@ -137,7 +137,7 @@
       position: relative;
       background: #fff;
       border-radius: 24px;
-      padding: 28px 22px 24px;
+      padding: 26px 20px 22px;
       text-align: left;
       box-shadow: 0 12px 28px rgba(0, 0, 0, 0.05);
       border: 1px solid var(--border);
@@ -145,6 +145,7 @@
       display: flex;
       flex-direction: column;
       min-height: 100%;
+      gap: 14px;
     }
 
     .pricing-card:hover {
@@ -154,15 +155,16 @@
 
     .pricing-card h2 {
       font-size: 1.4rem;
-      margin: 0 0 10px;
+      margin: 0;
       text-align: left;
+      line-height: 1.2;
     }
 
     .pricing-price {
       font-family: "Prata", serif;
-      font-size: 2.25rem;
-      line-height: 1;
-      margin: 8px 0 14px;
+      font-size: 2.15rem;
+      line-height: 1.05;
+      margin: 0;
       color: var(--text);
     }
 
@@ -175,14 +177,16 @@
     .pricing-subtext {
       color: var(--muted);
       font-size: 0.95rem;
-      line-height: 1.75;
-      margin: 0 0 18px;
+      line-height: 1.72;
+      margin: 0;
+      min-height: 82px;
     }
 
     .pricing-highlights {
       display: grid;
       gap: 10px;
-      margin-bottom: 18px;
+      margin: 0;
+      min-height: 110px;
     }
 
     .pricing-highlight {
@@ -190,8 +194,8 @@
       gap: 10px;
       align-items: flex-start;
       color: var(--text);
-      line-height: 1.65;
-      font-size: 0.94rem;
+      line-height: 1.6;
+      font-size: 0.93rem;
     }
 
     .pricing-highlight-dot {
@@ -200,29 +204,29 @@
       border-radius: 999px;
       background: #d7b8a5;
       flex: 0 0 8px;
-      margin-top: 9px;
+      margin-top: 8px;
     }
 
     .pricing-includes {
-      margin-top: auto;
-      padding-top: 18px;
+      margin-top: 0;
+      padding-top: 16px;
       border-top: 1px solid var(--border);
       text-align: left;
+      display: grid;
+      gap: 12px;
+      flex: 1;
+      align-content: start;
     }
 
     .pricing-includes p {
-      margin: 0 0 12px;
+      margin: 0;
       color: var(--text);
-      line-height: 1.72;
-      font-size: 0.94rem;
-    }
-
-    .pricing-includes p:last-child {
-      margin-bottom: 0;
+      line-height: 1.68;
+      font-size: 0.93rem;
     }
 
     .pricing-best-for {
-      margin-top: 14px;
+      margin-top: auto !important;
       padding-top: 14px;
       border-top: 1px solid rgba(0, 0, 0, 0.05);
       color: var(--muted) !important;
@@ -267,6 +271,43 @@
       padding: 7px 12px;
       border-radius: 999px;
       white-space: nowrap;
+    }
+
+    .pricing-feature-callout {
+      margin: 2px 0 0;
+      padding: 14px 14px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, #fff7f1 0%, #fff3ec 100%);
+      border: 1px solid #e8cdbd;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.7);
+    }
+
+    .pricing-feature-label {
+      display: inline-block;
+      margin-bottom: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #111;
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .pricing-feature-callout p {
+      margin: 0;
+      font-size: 0.92rem;
+      line-height: 1.65;
+      color: var(--text);
+    }
+
+    .pricing-platinum .pricing-highlight-dot {
+      background: #c79d89;
+    }
+
+    .pricing-platinum .pricing-price {
+      color: #2d221c;
     }
 
     .pricing-visual-grid {
@@ -401,6 +442,11 @@
 
       .pricing-image-card img {
         aspect-ratio: 1.08 / 1;
+      }
+
+      .pricing-subtext,
+      .pricing-highlights {
+        min-height: 0;
       }
     }
   </style>
@@ -547,10 +593,16 @@
             <div class="pricing-highlight"><span class="pricing-highlight-dot"></span><span>Includes boutique access</span></div>
           </div>
 
+          <div class="pricing-feature-callout">
+            <span class="pricing-feature-label">Premium Feature</span>
+            <p>
+              <strong>Boutique access included</strong> giving your business eligibility for our premium boutique feature release and future product listing opportunities.
+            </p>
+          </div>
+
           <div class="pricing-includes">
             <p><strong>Everything in Elite Feature</strong>, with the highest level of profile presence available on the platform.</p>
             <p><strong>The most polished and premium impression</strong> for couples viewing your business, helping your profile feel especially full, refined, and memorable.</p>
-            <p><strong>Boutique access included</strong> giving your business eligibility for our premium boutique feature release and future product listing opportunities.</p>
             <p><strong>The strongest opportunity to stand out clearly</strong> for vendors who want to give couples the clearest and most confident picture of what they offer.</p>
             <p class="pricing-best-for"><strong>Best for:</strong> vendors who want their business to have the highest level of presence on the platform, with access to premium boutique features.</p>
           </div>
