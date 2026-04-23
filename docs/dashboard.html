@@ -745,6 +745,45 @@
 
     <section class="dashboard-panel" style="text-align:left;">
       <div class="dashboard-card-header">
+        <h2 class="dashboard-section-title">Boutique Access</h2>
+        <p class="dashboard-subtitle">Premium boutique listings for selected vendor tiers.</p>
+      </div>
+
+      <div class="dashboard-card-soft">
+
+        <div id="boutiqueAccessAllowed" style="display:none;">
+          <p class="dashboard-help" style="margin-top:0;">
+            Your account includes Boutique Access as part of your membership. This premium feature is launching soon, and eligible partners will receive priority early access.
+          </p>
+
+          <div class="calendar-tip-box" style="margin-top:14px;">
+            You’re already on the priority access list for boutique features.
+          </div>
+
+          <div class="dashboard-actions" style="justify-content:flex-start; margin-top:16px;">
+            <a href="shop.html" class="pretty-button">Boutique Coming Soon</a>
+          </div>
+        </div>
+
+        <div id="boutiqueAccessLocked" style="display:none;">
+          <p class="dashboard-help" style="margin-top:0;">
+            Boutique access is reserved for Complimentary Founding Vendors and Platinum Prestige Partners.
+          </p>
+
+          <div class="calendar-tip-box" style="margin-top:14px;">
+            If you'd like to upgrade your tier and unlock boutique access, please contact us and we’ll happily assist.
+          </div>
+
+          <div class="dashboard-actions" style="justify-content:flex-start; margin-top:16px;">
+            <a href="contact.html" class="pretty-button">Upgrade My Tier</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="dashboard-panel" style="text-align:left;">
+      <div class="dashboard-card-header">
         <h2 class="dashboard-section-title">Business Details</h2>
         <p class="dashboard-subtitle">Share the core information couples need to know about your business.</p>
       </div>
@@ -1241,6 +1280,9 @@
   const saveAccountBtn = document.getElementById("saveAccountBtn");
   const accountMessage = document.getElementById("accountMessage");
 
+  const boutiqueAccessAllowed = document.getElementById("boutiqueAccessAllowed");
+  const boutiqueAccessLocked = document.getElementById("boutiqueAccessLocked");
+
   let currentUser = null;
   let currentProfileImageUrl = "";
   let currentLogoUrl = "";
@@ -1253,6 +1295,9 @@
     complimentaryPlan: false,
     plan: "",
     accessType: "",
+    membershipTier: "",
+    tier: "",
+    shopAccess: false,
     accountStatus: "active",
     profileVisible: false,
     published: false
@@ -1521,6 +1566,30 @@
     return isApprovedAccount && (hasPaidAccess || hasComplimentaryAccess);
   }
 
+  function hasShopAccess(vendorData) {
+    const isComplimentary =
+      vendorData.complimentaryPlan === true ||
+      vendorData.plan === "complimentary" ||
+      vendorData.accessType === "complimentary-invite";
+
+    const isPlatinumPrestige =
+      vendorData.plan === "platinum_prestige" ||
+      vendorData.plan === "platinum-prestige" ||
+      vendorData.plan === "platinum prestige" ||
+      vendorData.membershipTier === "platinum_prestige" ||
+      vendorData.membershipTier === "platinum-prestige" ||
+      vendorData.membershipTier === "platinum prestige" ||
+      vendorData.tier === "platinum_prestige" ||
+      vendorData.tier === "platinum-prestige" ||
+      vendorData.tier === "platinum prestige" ||
+      vendorData.shopAccess === true;
+
+    const isApprovedAccount =
+      !vendorData.accountStatus || vendorData.accountStatus === "active";
+
+    return isApprovedAccount && (isComplimentary || isPlatinumPrestige);
+  }
+
   function getPlanAccessLabel(vendorData) {
     if (
       vendorData.complimentaryPlan === true ||
@@ -1548,6 +1617,12 @@
 
     const canBeShown = hasVendorAccess(vendorData);
     viewProfileBtn.style.display = isLive && canBeShown ? "inline-block" : "none";
+  }
+
+  function updateBoutiqueAccessVisibility(vendorData) {
+    const allowed = hasShopAccess(vendorData);
+    boutiqueAccessAllowed.style.display = allowed ? "block" : "none";
+    boutiqueAccessLocked.style.display = allowed ? "none" : "block";
   }
 
   function renderStyleTags(selected = []) {
@@ -1963,6 +2038,9 @@
       complimentaryPlan: vendorData.complimentaryPlan === true,
       plan: vendorData.plan || "",
       accessType: vendorData.accessType || "",
+      membershipTier: vendorData.membershipTier || "",
+      tier: vendorData.tier || "",
+      shopAccess: vendorData.shopAccess === true,
       accountStatus: vendorData.accountStatus || "active",
       profileVisible: vendorData.profileVisible === true,
       published: vendorData.published === true
@@ -2025,6 +2103,7 @@
     setVideoPreview();
     renderBlockedDates();
     updateViewProfileVisibility(currentVendorAccess);
+    updateBoutiqueAccessVisibility(vendorData);
   }
 
   async function saveAccountSettings() {
@@ -2084,6 +2163,9 @@
         complimentaryPlan: existingVendorData.complimentaryPlan === true,
         plan: existingVendorData.plan || "",
         accessType: existingVendorData.accessType || "",
+        membershipTier: existingVendorData.membershipTier || "",
+        tier: existingVendorData.tier || "",
+        shopAccess: existingVendorData.shopAccess === true,
         accountStatus: existingVendorData.accountStatus || "active",
         profileVisible: existingVendorData.profileVisible === true,
         published: existingVendorData.published === true
@@ -2131,6 +2213,7 @@
       currentBlockedDates = [...new Set(currentBlockedDates)].sort();
 
       const finalCoverImageUrl = galleryImages[0] || "";
+      const shopAccess = hasShopAccess(currentVendorAccess);
 
       await setDoc(doc(db, "vendors", currentUser.uid), {
         uid: currentUser.uid,
@@ -2165,6 +2248,7 @@
         regions: selectedRegions,
         profileVisible: profileLive.checked,
         published: profileLive.checked,
+        shopAccess: shopAccess,
         updatedAt: serverTimestamp()
       }, { merge: true });
 
@@ -2179,6 +2263,9 @@
         complimentaryPlan: existingVendorData.complimentaryPlan === true,
         plan: existingVendorData.plan || "",
         accessType: existingVendorData.accessType || "",
+        membershipTier: existingVendorData.membershipTier || "",
+        tier: existingVendorData.tier || "",
+        shopAccess: shopAccess,
         accountStatus: existingVendorData.accountStatus || "active",
         profileVisible: profileLive.checked,
         published: profileLive.checked
@@ -2200,6 +2287,7 @@
       setVideoPreview();
       renderBlockedDates();
       updateViewProfileVisibility(currentVendorAccess);
+      updateBoutiqueAccessVisibility(currentVendorAccess);
 
       message.textContent = "Your changes have been saved.";
     } catch (error) {
