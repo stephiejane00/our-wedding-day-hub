@@ -130,7 +130,7 @@
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 22px;
-      align-items: stretch;
+      align-items: start;
     }
 
     .pricing-card {
@@ -144,8 +144,10 @@
       transition: transform 0.22s ease, box-shadow 0.22s ease;
       display: flex;
       flex-direction: column;
-      min-height: 100%;
       gap: 14px;
+      min-height: 0;
+      height: fit-content;
+      align-self: start;
     }
 
     .pricing-card:hover {
@@ -179,14 +181,12 @@
       font-size: 0.95rem;
       line-height: 1.72;
       margin: 0;
-      min-height: 82px;
     }
 
     .pricing-highlights {
       display: grid;
       gap: 10px;
       margin: 0;
-      min-height: 110px;
     }
 
     .pricing-highlight {
@@ -214,8 +214,6 @@
       text-align: left;
       display: grid;
       gap: 12px;
-      flex: 1;
-      align-content: start;
     }
 
     .pricing-includes p {
@@ -226,7 +224,7 @@
     }
 
     .pricing-best-for {
-      margin-top: auto !important;
+      margin-top: 6px !important;
       padding-top: 14px;
       border-top: 1px solid rgba(0, 0, 0, 0.05);
       color: var(--muted) !important;
@@ -274,12 +272,12 @@
     }
 
     .pricing-feature-callout {
-      margin: 2px 0 0;
-      padding: 14px 14px;
+      margin: 4px 0 2px;
+      padding: 15px 15px;
       border-radius: 18px;
-      background: linear-gradient(180deg, #fff7f1 0%, #fff3ec 100%);
-      border: 1px solid #e8cdbd;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.7);
+      background: linear-gradient(180deg, #fff6ef 0%, #ffefe4 100%);
+      border: 1px solid #dfbea8;
+      box-shadow: 0 8px 18px rgba(199, 157, 137, 0.12);
     }
 
     .pricing-feature-label {
@@ -287,8 +285,8 @@
       margin-bottom: 8px;
       padding: 6px 10px;
       border-radius: 999px;
-      background: #111;
-      color: #fff;
+      background: #c79d89;
+      color: #2b211b;
       font-size: 0.72rem;
       font-weight: 700;
       letter-spacing: 0.08em;
@@ -442,11 +440,6 @@
 
       .pricing-image-card img {
         aspect-ratio: 1.08 / 1;
-      }
-
-      .pricing-subtext,
-      .pricing-highlights {
-        min-height: 0;
       }
     }
   </style>
