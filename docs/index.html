@@ -14,6 +14,43 @@
       border-radius: 0 0 32px 32px;
     }
 
+    .vendors-carousel-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 0 24px 12px;
+      flex-wrap: wrap;
+    }
+
+    .vendors-carousel-note {
+      margin: 0;
+      color: #7d6d64;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .vendors-all-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #fffaf7;
+      border: 1px solid #dfd2c8;
+      color: #3b312d;
+      text-decoration: none;
+      font-weight: 600;
+      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .vendors-all-link:hover {
+      background: #f5e7de;
+      border-color: #d8c3b6;
+      transform: translateY(-1px);
+    }
+
     .vendors-carousel-shell {
       display: flex;
       align-items: center;
@@ -23,15 +60,15 @@
     }
 
     .vendors-arrow {
-      width: 48px;
-      height: 48px;
+      width: 54px;
+      height: 54px;
       border: none;
       border-radius: 999px;
       background: #e3cec0;
       color: #3d342f;
       font-size: 1.6rem;
       cursor: pointer;
-      flex: 0 0 48px;
+      flex: 0 0 54px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -65,6 +102,7 @@
 
     .vendor-card {
       min-height: 100%;
+      cursor: pointer;
     }
 
     .vendors-dots {
@@ -77,8 +115,8 @@
     }
 
     .vendors-dot {
-      width: 10px;
-      height: 10px;
+      width: 12px;
+      height: 12px;
       border-radius: 999px;
       background: rgba(120, 104, 95, 0.25);
       border: none;
@@ -92,13 +130,66 @@
       transform: scale(1.15);
     }
 
+    .vendors-slide-status {
+      margin: 12px 0 0;
+      text-align: center;
+      color: #8a7770;
+      font-size: 0.92rem;
+      letter-spacing: 0.03em;
+    }
+
     .empty-message {
       text-align: center;
       margin-top: 20px;
     }
 
+    .category-cards-grid.category-cards-grid-home {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .category-card.category-card-more {
+      background: linear-gradient(180deg, #fffaf7 0%, #f4e7df 100%);
+      border: 1px solid #eadccf;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100%;
+    }
+
+    .category-card-more .category-card-content {
+      padding: 26px 24px;
+      text-align: left;
+    }
+
+    .category-card-more h3 {
+      margin-bottom: 10px;
+    }
+
+    .category-card-more p {
+      margin-bottom: 16px;
+    }
+
+    .category-card-more-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: #e3cec0;
+      color: #2f2622;
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+
     @media (max-width: 980px) {
       .vendors-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .category-cards-grid.category-cards-grid-home {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
@@ -107,6 +198,10 @@
       .vendors-carousel-section {
         width: min(100%, calc(100% - 20px));
         border-radius: 0 0 24px 24px;
+      }
+
+      .vendors-carousel-topbar {
+        padding: 0 14px 12px;
       }
 
       .vendors-carousel-shell {
@@ -119,10 +214,14 @@
       }
 
       .vendors-arrow {
-        width: 42px;
-        height: 42px;
-        flex-basis: 42px;
-        font-size: 1.35rem;
+        width: 44px;
+        height: 44px;
+        flex-basis: 44px;
+        font-size: 1.3rem;
+      }
+
+      .category-cards-grid.category-cards-grid-home {
+        grid-template-columns: 1fr;
       }
     }
 
@@ -136,10 +235,10 @@
       }
 
       .vendors-arrow {
-        width: 38px;
-        height: 38px;
-        flex-basis: 38px;
-        font-size: 1.1rem;
+        width: 40px;
+        height: 40px;
+        flex-basis: 40px;
+        font-size: 1.05rem;
         align-self: center;
       }
 
@@ -188,7 +287,7 @@
         </div>
 
         <div class="lux-hero-image-wrap">
-          <img src="images/hero.png" alt="Elegant wedding couple" class="lux-hero-image">
+          <img id="heroImage" src="images/hero.png" alt="Elegant wedding couple" class="lux-hero-image">
         </div>
       </div>
     </section>
@@ -203,6 +302,13 @@
     </section>
 
     <section class="vendors-carousel-section">
+      <div class="vendors-carousel-topbar">
+        <p class="vendors-carousel-note">
+          Showing a selection of featured vendors • use the arrows or dots below to see more
+        </p>
+        <a href="categories.html" class="vendors-all-link">Browse All Vendors</a>
+      </div>
+
       <div class="vendors-carousel-shell">
         <button type="button" id="prevVendorsBtn" class="vendors-arrow" aria-label="Previous vendors">&#8249;</button>
 
@@ -214,86 +320,71 @@
       </div>
 
       <div id="vendorsDots" class="vendors-dots"></div>
+      <p id="vendorsSlideStatus" class="vendors-slide-status"></p>
       <p class="vendors-growing-note">We’re growing, and new vendors are joining. Be one of the first to be seen.</p>
       <p id="emptyMessage" class="empty-message" style="display:none;">No live vendors found yet.</p>
     </section>
 
-<section class="homepage-section">
-  <div class="section-heading">
-    <p class="section-kicker">Browse by Category</p>
-    <div class="category-divider">
-      <span></span>
-      <span class="heart">♡</span>
-      <span></span>
-    </div>
-  </div>
-
-  <div class="category-cards-grid">
-    <a href="categories.html?type=venues" class="category-card">
-      <img src="images/cta.png" alt="Venues">
-      <div class="category-card-content">
-        <h3>Venues</h3>
-        <p>Discover stunning spaces for ceremonies and receptions.</p>
+    <section class="homepage-section">
+      <div class="section-heading">
+        <p class="section-kicker">Browse by Category</p>
+        <div class="category-divider">
+          <span></span>
+          <span class="heart">♡</span>
+          <span></span>
+        </div>
       </div>
-    </a>
 
-    <a href="categories.html?type=styling_florals&subcategory=wedding_florist" class="category-card">
-      <img src="images/bouquet.png" alt="Florists">
-      <div class="category-card-content">
-        <h3>Florists</h3>
-        <p>Beautiful blooms and floral styling for your day.</p>
-      </div>
-    </a>
+      <div class="category-cards-grid category-cards-grid-home">
+        <a href="categories.html?type=venues" class="category-card">
+          <img id="categoryVenuesImage" src="images/cta.png" alt="Venues">
+          <div class="category-card-content">
+            <h3>Venues</h3>
+            <p>Discover stunning spaces for ceremonies and receptions.</p>
+          </div>
+        </a>
 
-    <a href="categories.html?type=photo_video" class="category-card">
-      <img src="images/videographer.png" alt="Photography and Video">
-      <div class="category-card-content">
-        <h3>Photo &amp; Video</h3>
-        <p>Capture every beautiful moment with trusted creatives.</p>
-      </div>
-    </a>
+        <a href="categories.html?type=styling_florals&subcategory=wedding_florist" class="category-card">
+          <img id="categoryFloristsImage" src="images/bouquet.png" alt="Florists">
+          <div class="category-card-content">
+            <h3>Florists</h3>
+            <p>Beautiful blooms and floral styling for your day.</p>
+          </div>
+        </a>
 
-    <a href="categories.html?type=beauty" class="category-card">
-      <img src="images/beauty-hair.png" alt="Beauty">
-      <div class="category-card-content">
-        <h3>Beauty</h3>
-        <p>Makeup, hair, nails, tanning and beauty experts for your wedding day.</p>
-      </div>
-    </a>
+        <a href="categories.html?type=photo_video" class="category-card">
+          <img id="categoryPhotoImage" src="images/videographer.png" alt="Photography and Video">
+          <div class="category-card-content">
+            <h3>Photo &amp; Video</h3>
+            <p>Capture every beautiful moment with trusted creatives.</p>
+          </div>
+        </a>
 
-    <a href="categories.html?type=food_drink&subcategory=wedding_cake_designer" class="category-card">
-      <img src="images/cakes.png" alt="Cakes">
-      <div class="category-card-content">
-        <h3>Cakes</h3>
-        <p>From timeless elegance to statement desserts, find your perfect cake designer.</p>
-      </div>
-    </a>
+        <a href="categories.html?type=beauty" class="category-card">
+          <img id="categoryBeautyImage" src="images/beauty-hair.png" alt="Beauty">
+          <div class="category-card-content">
+            <h3>Beauty</h3>
+            <p>Makeup, hair, nails, tanning and beauty experts for your wedding day.</p>
+          </div>
+        </a>
 
-    <a href="categories.html?type=entertainment" class="category-card">
-      <img src="images/entertainment.png" alt="Entertainment">
-      <div class="category-card-content">
-        <h3>Entertainment</h3>
-        <p>Live singers, DJs and performers to set the perfect mood.</p>
-      </div>
-    </a>
+        <a href="categories.html?type=ceremony_services&subcategory=wedding_celebrant" class="category-card">
+          <img id="categoryCelebrantsImage" src="images/celebrants.png" alt="Celebrants">
+          <div class="category-card-content">
+            <h3>Ceremonies</h3>
+            <p>Find celebrants and ceremony services to make your day feel personal and meaningful.</p>
+          </div>
+        </a>
 
-    <a href="categories.html?type=transport&subcategory=wedding_cars" class="category-card">
-      <img src="images/wedding-cars.png" alt="Wedding Cars">
-      <div class="category-card-content">
-        <h3>Wedding Cars</h3>
-        <p>Arrive in style with beautiful transport for your wedding day.</p>
+        <a href="categories.html" class="category-card category-card-more">
+          <div class="category-card-content">
+            <h3>Explore Everything</h3>
+            <p>Browse all wedding categories including cakes, entertainment, transport, styling and more.</p>
+            <span class="category-card-more-badge">See All Categories</span>
+          </div>
+        </a>
       </div>
-    </a>
-
-    <a href="categories.html?type=ceremony_services&subcategory=wedding_celebrant" class="category-card">
-      <img src="images/celebrants.png" alt="Celebrants">
-      <div class="category-card-content">
-        <h3>Celebrants</h3>
-        <p>Create meaningful ceremonies with experienced celebrants.</p>
-      </div>
-    </a>
-  </div>
-</section>
+    </section>
 
     <section class="homepage-section location-section">
       <div class="section-heading">
@@ -317,39 +408,40 @@
     </section>
   </main>
 
-<footer class="site-footer">
-  <div class="footer-content">
-    <p class="footer-eyebrow">wedding vendor directory</p>
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p class="footer-eyebrow">wedding vendor directory</p>
 
-    <h2 class="footer-title">
-      Everything you need for your wedding, all in one place.
-    </h2>
+      <h2 class="footer-title">
+        Everything you need for your wedding, all in one place.
+      </h2>
 
-    <p class="footer-text">
-      Browse trusted wedding businesses, discover local favourites, and connect
-      with the people who can bring your day to life.
-    </p>
+      <p class="footer-text">
+        Browse trusted wedding businesses, discover local favourites, and connect
+        with the people who can bring your day to life.
+      </p>
 
-    <div class="footer-links">
-      <a href="about.html">About Us</a>
-      <a href="how-it-works.html">How It Works</a>
-      <a href="pricing.html">Pricing</a>
-      <a href="contact.html">Contact Us</a>
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="terms.html">Terms &amp; Conditions</a>
-      <a href="refund-policy.html">Refund Policy</a>
-      <a href="https://www.equaldex.com/equality-index" target="_blank" rel="noopener noreferrer">Global Equality Index</a>
-      <a href="#" onclick="return false;">Events4Us (Coming Soon)</a>
+      <div class="footer-links">
+        <a href="about.html">About Us</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="refund-policy.html">Refund Policy</a>
+        <a href="https://www.equaldex.com/equality-index" target="_blank" rel="noopener noreferrer">Global Equality Index</a>
+        <a href="#" onclick="return false;">Events4Us (Coming Soon)</a>
+      </div>
+
+      <p class="footer-tagline">
+        Proudly inclusive • Worldwide • Built with heart
+      </p>
+
+      <p class="footer-abn">© 2026 Our Wedding Day Hub</p>
+      <p class="footer-abn">ABN 76 688 637 041 • Australia</p>
     </div>
+  </footer>
 
-    <p class="footer-tagline">
-      Proudly inclusive • Worldwide • Built with heart
-    </p>
-
-    <p class="footer-abn">© 2026 Our Wedding Day Hub</p>
-    <p class="footer-abn">ABN 76 688 637 041 • Australia</p>
-  </div>
-</footer>
   <script type="module">
     import {
       db,
@@ -367,6 +459,7 @@
     const prevVendorsBtn = document.getElementById("prevVendorsBtn");
     const nextVendorsBtn = document.getElementById("nextVendorsBtn");
     const vendorsDots = document.getElementById("vendorsDots");
+    const vendorsSlideStatus = document.getElementById("vendorsSlideStatus");
 
     const joinLink = document.getElementById("joinLink");
     const loginLink = document.getElementById("loginLink");
@@ -445,29 +538,6 @@
       return "";
     }
 
-    function getSearchText(vendor) {
-      return `
-        ${vendor.businessName || ""}
-        ${vendor.bio || ""}
-        ${vendor.shortBio || ""}
-        ${vendor.instagram || ""}
-        ${vendor.facebook || ""}
-        ${vendor.tiktok || ""}
-        ${vendor.youtube || ""}
-        ${vendor.pinterest || ""}
-        ${vendor.linkedin || ""}
-        ${vendor.x || ""}
-        ${vendor.website || ""}
-        ${vendor.serviceAreas || ""}
-        ${vendor.displayLocation || ""}
-        ${cleanArray(vendor.categories).join(" ")}
-        ${cleanArray(vendor.regions).join(" ")}
-        ${cleanArray(vendor.states).join(" ")}
-        ${cleanArray(vendor.countries).join(" ")}
-        ${cleanArray(vendor.styleTags).join(" ")}
-      `.toLowerCase();
-    }
-
     function sortVendors(vendors) {
       return vendors.sort((a, b) => {
         const aPriority = a.priorityPlacement === true ? 1 : 0;
@@ -532,6 +602,17 @@
       }
     }
 
+    function updateSlideStatus(vendors) {
+      const totalSlides = getTotalSlides(vendors);
+
+      if (!vendors.length || vendors.length <= getCardsPerSlide()) {
+        vendorsSlideStatus.textContent = "";
+        return;
+      }
+
+      vendorsSlideStatus.textContent = `Viewing ${currentSlide + 1} of ${totalSlides}`;
+    }
+
     function renderVendors(vendors) {
       vendorsGrid.innerHTML = "";
 
@@ -540,6 +621,7 @@
         prevVendorsBtn.style.display = "none";
         nextVendorsBtn.style.display = "none";
         vendorsDots.innerHTML = "";
+        vendorsSlideStatus.textContent = "";
         return;
       }
 
@@ -594,6 +676,7 @@
 
       updateArrowState(vendors);
       renderDots(vendors);
+      updateSlideStatus(vendors);
     }
 
     function hasVendorAccess(vendor) {
@@ -646,6 +729,7 @@
         prevVendorsBtn.style.display = "none";
         nextVendorsBtn.style.display = "none";
         vendorsDots.innerHTML = "";
+        vendorsSlideStatus.textContent = "";
       }
     }
 
@@ -660,6 +744,88 @@
       const params = new URLSearchParams();
       params.set("search", term);
       window.location.href = `categories.html?${params.toString()}`;
+    }
+
+    function getRandomItem(array) {
+      return array[Math.floor(Math.random() * array.length)];
+    }
+
+    function getRandomUniqueItems(array, count) {
+      const shuffled = [...array].sort(() => Math.random() - 0.5);
+      return shuffled.slice(0, count);
+    }
+
+    function setRefreshImages() {
+      const heroImage = document.getElementById("heroImage");
+      const categoryVenuesImage = document.getElementById("categoryVenuesImage");
+      const categoryFloristsImage = document.getElementById("categoryFloristsImage");
+      const categoryPhotoImage = document.getElementById("categoryPhotoImage");
+      const categoryBeautyImage = document.getElementById("categoryBeautyImage");
+      const categoryCelebrantsImage = document.getElementById("categoryCelebrantsImage");
+
+      const heroImages = [
+        "images/hero-main.png",
+        "images/classic-romance.png",
+        "images/timeless-love.png",
+        "images/modern-love.png",
+        "images/city-modern.png"
+      ];
+
+      const venueImages = [
+        "images/classic-romance.png",
+        "images/timeless-love.png",
+        "images/garden-romance-01.png"
+      ];
+
+      const floristImages = [
+        "images/bouquet-01.png",
+        "images/white-tulip-bouquet-1.png",
+        "images/bouquet-clean.png"
+      ];
+
+      const photoImages = [
+        "images/hero-main.png",
+        "images/timeless-love.png",
+        "images/city-style-01.png",
+        "images/asian-couple-studio-1.png"
+      ];
+
+      const beautyImages = [
+        "images/bride-01.png",
+        "images/bridal-elegance.png",
+        "images/modern-couple-sunglasses-1.png"
+      ];
+
+      const ceremonyImages = [
+        "images/timeless-love.png",
+        "images/romance-white.png",
+        "images/asian-couple-garden-1.png",
+        "images/lesbian-garden-1.png"
+      ];
+
+      if (heroImage) {
+        heroImage.src = getRandomItem(heroImages);
+      }
+
+      if (categoryVenuesImage) {
+        categoryVenuesImage.src = getRandomItem(venueImages);
+      }
+
+      if (categoryFloristsImage) {
+        categoryFloristsImage.src = getRandomItem(floristImages);
+      }
+
+      if (categoryPhotoImage) {
+        categoryPhotoImage.src = getRandomItem(photoImages);
+      }
+
+      if (categoryBeautyImage) {
+        categoryBeautyImage.src = getRandomItem(beautyImages);
+      }
+
+      if (categoryCelebrantsImage) {
+        categoryCelebrantsImage.src = getRandomItem(ceremonyImages);
+      }
     }
 
     prevVendorsBtn.addEventListener("click", () => {
@@ -720,6 +886,7 @@
       }
     });
 
+    setRefreshImages();
     loadVendors();
   </script>
 
