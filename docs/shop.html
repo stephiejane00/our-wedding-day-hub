@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boutique | Our Wedding Day Hub</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .boutique-page {
+      max-width: 1520px;
+      margin: 0 auto 60px;
+      padding: 18px 20px 0;
+    }
+
+    .boutique-stack {
+      display: grid;
+      gap: 28px;
+    }
+
+    .boutique-hero-card {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .boutique-hero-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      align-items: stretch;
+      min-height: 700px;
+    }
+
+    .boutique-hero-copy {
+      padding: 54px 46px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: left;
+      background: linear-gradient(180deg, rgba(255,250,247,0.96) 0%, rgba(249,243,238,0.96) 100%);
+    }
+
+    .boutique-logo-wrap {
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-start;
+      margin-bottom: 20px;
+    }
+
+    .boutique-logo {
+      width: 108px;
+      display: block;
+    }
+
+    .boutique-eyebrow {
+      margin: 0 0 16px;
+      color: #b79a8a;
+      font-size: 0.84rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .boutique-title {
+      margin: 0;
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(3.2rem, 6vw, 5.3rem);
+      font-weight: 500;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      color: var(--text);
+    }
+
+    .boutique-script {
+      margin: 0 0 18px;
+      font-family: "Cormorant Garamond", serif;
+      font-style: italic;
+      font-size: clamp(2.6rem, 5vw, 4.2rem);
+      line-height: 0.95;
+      color: #b8947f;
+      font-weight: 400;
+    }
+
+    .boutique-heart {
+      margin: 4px 0 20px;
+      font-size: 2rem;
+      color: #ccb09e;
+      line-height: 1;
+    }
+
+    .boutique-intro,
+    .boutique-subtext {
+      max-width: 460px;
+      color: var(--muted);
+      line-height: 1.9;
+      font-size: 1.02rem;
+    }
+
+    .boutique-intro {
+      margin: 0 0 18px;
+    }
+
+    .boutique-divider {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 16px 0 18px;
+      max-width: 280px;
+      color: #c8ad9c;
+    }
+
+    .boutique-divider span {
+      display: block;
+      height: 1px;
+      flex: 1;
+      background: #decfc5;
+    }
+
+    .boutique-divider .divider-heart {
+      flex: 0 0 auto;
+      height: auto;
+      background: transparent;
+      font-size: 1rem;
+      line-height: 1;
+    }
+
+    .boutique-subtext {
+      margin: 0;
+    }
+
+    .boutique-hero-image-wrap {
+      min-height: 100%;
+      background: #f1e8e1;
+    }
+
+    .boutique-hero-image {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .boutique-coming-card {
+      text-align: center;
+      padding: 44px 28px;
+    }
+
+    .boutique-coming-icon {
+      width: 78px;
+      height: 78px;
+      margin: 0 auto 18px;
+      border-radius: 999px;
+      border: 1px solid #e7d8ce;
+      background: #fffaf7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.9rem;
+      color: #c1a693;
+    }
+
+    .boutique-coming-card h2 {
+      margin: 0 0 12px;
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(2.2rem, 4vw, 3.1rem);
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .boutique-coming-card p {
+      margin: 0 auto;
+      max-width: 650px;
+      color: var(--muted);
+      line-height: 1.85;
+      font-size: 1rem;
+    }
+
+    .boutique-pill-row {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+
+    .boutique-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: #fffaf7;
+      border: 1px solid #e2d3c8;
+      color: #5b4a43;
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+
+    .boutique-feature-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0;
+      overflow: hidden;
+    }
+
+    .boutique-feature-card {
+      padding: 34px 26px;
+      text-align: center;
+      border-right: 1px solid #eadfd7;
+    }
+
+    .boutique-feature-card:last-child {
+      border-right: none;
+    }
+
+    .boutique-feature-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 16px;
+      border-radius: 999px;
+      border: 1px solid #e6d7cd;
+      background: #fffaf7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: #c1a693;
+    }
+
+    .boutique-feature-card h3 {
+      margin: 0 0 10px;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1.9rem;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .boutique-feature-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 0.98rem;
+    }
+
+    @media (max-width: 1100px) {
+      .boutique-hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .boutique-hero-copy {
+        padding: 40px 28px;
+      }
+
+      .boutique-hero-image {
+        max-height: 620px;
+      }
+
+      .boutique-feature-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .boutique-feature-card:nth-child(2) {
+        border-right: none;
+      }
+
+      .boutique-feature-card:nth-child(-n+2) {
+        border-bottom: 1px solid #eadfd7;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .boutique-page {
+        padding: 10px 10px 0;
+      }
+
+      .boutique-hero-copy {
+        padding: 32px 22px;
+      }
+
+      .boutique-coming-card {
+        padding: 34px 20px;
+      }
+
+      .boutique-feature-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .boutique-feature-card {
+        border-right: none;
+        border-bottom: 1px solid #eadfd7;
+      }
+
+      .boutique-feature-card:last-child {
+        border-bottom: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-auth">
+    <a href="categories.html" id="categoriesLink" class="auth-link">Categories</a>
+    <a href="shop.html" id="shopLink" class="auth-link">Boutique</a>
+    <a href="dashboard.html" id="dashboardLink" class="auth-link" style="display:none;">Dashboard</a>
+    <a href="login.html" id="loginLink" class="auth-link">Log In</a>
+    <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
+    <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
+  </div>
+
+  <main class="boutique-page">
+    <div class="boutique-stack">
+
+      <section class="card boutique-hero-card">
+        <div class="boutique-hero-grid">
+          <div class="boutique-hero-copy">
+            <a href="index.html" class="boutique-logo-wrap" aria-label="Go to homepage">
+              <img src="images/logo.png" alt="Our Wedding Day Hub" class="boutique-logo">
+            </a>
+
+            <p class="boutique-eyebrow">our boutique</p>
+
+            <h1 class="boutique-title">Boutique</h1>
+            <p class="boutique-script">Coming Soon</p>
+            <div class="boutique-heart">♡</div>
+
+            <p class="boutique-intro">
+              We’re creating a carefully curated collection of beautiful wedding pieces, thoughtful gifts and planning essentials, all chosen with love.
+            </p>
+
+            <div class="boutique-divider">
+              <span></span>
+              <span class="divider-heart">♡</span>
+              <span></span>
+            </div>
+
+            <p class="boutique-subtext">
+              Thank you for your patience. We can’t wait to share it with you.
+            </p>
+          </div>
+
+          <div class="boutique-hero-image-wrap">
+            <img src="images/hero-2.png" alt="Elegant bride wearing sunglasses" class="boutique-hero-image">
+          </div>
+        </div>
+      </section>
+
+      <section class="card boutique-coming-card">
+        <div class="boutique-coming-icon">♡</div>
+        <h2>Something beautiful is on the way</h2>
+        <p>
+          Our boutique will feature curated wedding finds, gifting ideas, keepsakes and beautiful extras designed to complement your celebration.
+        </p>
+
+        <div class="boutique-pill-row">
+          <span class="boutique-pill">Curated with love</span>
+          <span class="boutique-pill">Thoughtful gifts</span>
+          <span class="boutique-pill">Planning essentials</span>
+          <span class="boutique-pill">For every love story</span>
+        </div>
+      </section>
+
+      <section class="card boutique-feature-grid">
+        <article class="boutique-feature-card">
+          <div class="boutique-feature-icon">♡</div>
+          <h3>Curated</h3>
+          <p>Handpicked pieces for beautiful weddings and meaningful moments.</p>
+        </article>
+
+        <article class="boutique-feature-card">
+          <div class="boutique-feature-icon">✦</div>
+          <h3>Giftable</h3>
+          <p>Thoughtful finds for engagements, weddings, bridal parties and beyond.</p>
+        </article>
+
+        <article class="boutique-feature-card">
+          <div class="boutique-feature-icon">✿</div>
+          <h3>Useful</h3>
+          <p>Planning extras and lovely details to help make the journey feel easier.</p>
+        </article>
+
+        <article class="boutique-feature-card">
+          <div class="boutique-feature-icon">✧</div>
+          <h3>Inclusive</h3>
+          <p>Chosen with care for couples, celebrations and love stories of all kinds.</p>
+        </article>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p class="footer-eyebrow">wedding vendor directory</p>
+
+      <h2 class="footer-title">
+        Everything you need for your wedding, all in one place.
+      </h2>
+
+      <p class="footer-text">
+        Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.
+      </p>
+
+      <div class="footer-links">
+        <a href="about.html">About Us</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="refund-policy.html">Refund Policy</a>
+        <a href="https://www.equaldex.com/equality-index" target="_blank" rel="noopener noreferrer">Global Equality Index</a>
+        <a href="#" onclick="return false;">Events4Us (Coming Soon)</a>
+      </div>
+
+      <p class="footer-tagline">
+        Proudly inclusive • Worldwide • Built with heart
+      </p>
+
+      <p class="footer-abn">© 2026 Our Wedding Day Hub</p>
+      <p class="footer-abn">ABN 76 688 637 041 • Australia</p>
+    </div>
+  </footer>
+
+  <script type="module">
+    import {
+      auth,
+      onAuthStateChanged,
+      signOut
+    } from "./firebase.js";
+
+    const joinLink = document.getElementById("joinLink");
+    const loginLink = document.getElementById("loginLink");
+    const dashboardLink = document.getElementById("dashboardLink");
+    const logoutLink = document.getElementById("logoutLink");
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        joinLink.style.display = "none";
+        loginLink.style.display = "none";
+        dashboardLink.style.display = "inline-block";
+        logoutLink.style.display = "inline-block";
+      } else {
+        joinLink.style.display = "inline-flex";
+        loginLink.style.display = "inline-block";
+        dashboardLink.style.display = "none";
+        logoutLink.style.display = "none";
+      }
+    });
+
+    logoutLink.addEventListener("click", async () => {
+      try {
+        await signOut(auth);
+        window.location.href = "index.html";
+      } catch (error) {
+        console.error("Logout failed:", error);
+      }
+    });
+  </script>
+
+  <script type="module" src="nav.js"></script>
+</body>
+</html>
