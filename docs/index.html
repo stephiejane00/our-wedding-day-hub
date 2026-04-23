@@ -9,7 +9,7 @@
     .vendors-carousel-section {
       width: min(1520px, calc(100% - 44px));
       margin: 0 auto;
-      padding: 0 0 18px;
+      padding: 0 0 22px;
       background: #ece7e2;
       border-radius: 0 0 32px 32px;
     }
@@ -23,11 +23,24 @@
       flex-wrap: wrap;
     }
 
+    .vendors-carousel-note-wrap {
+      display: grid;
+      gap: 4px;
+    }
+
     .vendors-carousel-note {
       margin: 0;
       color: #7d6d64;
-      font-size: 0.95rem;
+      font-size: 0.97rem;
       line-height: 1.6;
+      font-weight: 600;
+    }
+
+    .vendors-carousel-subnote {
+      margin: 0;
+      color: #8c7a71;
+      font-size: 0.9rem;
+      line-height: 1.5;
     }
 
     .vendors-all-link {
@@ -56,19 +69,19 @@
       align-items: center;
       gap: 16px;
       margin-top: 0;
-      padding: 0 20px 0;
+      padding: 0 20px;
     }
 
     .vendors-arrow {
-      width: 54px;
-      height: 54px;
+      width: 56px;
+      height: 56px;
       border: none;
       border-radius: 999px;
       background: #e3cec0;
       color: #3d342f;
-      font-size: 1.6rem;
+      font-size: 1.7rem;
       cursor: pointer;
-      flex: 0 0 54px;
+      flex: 0 0 56px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -130,12 +143,59 @@
       transform: scale(1.15);
     }
 
-    .vendors-slide-status {
-      margin: 12px 0 0;
-      text-align: center;
+    .vendors-meta {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin: 14px 0 0;
+      padding: 0 18px;
       color: #8a7770;
       font-size: 0.92rem;
-      letter-spacing: 0.03em;
+      letter-spacing: 0.02em;
+      text-align: center;
+    }
+
+    .vendors-slide-status,
+    .vendors-total-count,
+    .vendors-mobile-tip {
+      margin: 0;
+    }
+
+    .vendors-mobile-tip {
+      display: none;
+    }
+
+    .vendors-bottom-actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+      padding: 0 16px;
+    }
+
+    .vendors-secondary-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      border: 1px solid #d9c6b9;
+      background: #fffaf7;
+      color: #352d29;
+      text-decoration: none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .vendors-secondary-btn:hover {
+      background: #f5e7de;
+      border-color: #d8c3b6;
+      transform: translateY(-1px);
     }
 
     .empty-message {
@@ -184,6 +244,22 @@
       font-size: 0.92rem;
     }
 
+    .lux-hero-image {
+      opacity: 0;
+      animation: heroFadeIn 0.9s ease forwards;
+    }
+
+    @keyframes heroFadeIn {
+      from {
+        opacity: 0;
+        transform: scale(1.01);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
     @media (max-width: 980px) {
       .vendors-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -218,6 +294,10 @@
         height: 44px;
         flex-basis: 44px;
         font-size: 1.3rem;
+      }
+
+      .vendors-mobile-tip {
+        display: block;
       }
 
       .category-cards-grid.category-cards-grid-home {
@@ -303,9 +383,10 @@
 
     <section class="vendors-carousel-section">
       <div class="vendors-carousel-topbar">
-        <p class="vendors-carousel-note">
-          Showing a selection of featured vendors • use the arrows or dots below to see more
-        </p>
+        <div class="vendors-carousel-note-wrap">
+          <p class="vendors-carousel-note">Discover featured vendors handpicked from our growing directory</p>
+          <p class="vendors-carousel-subnote">Use the arrows, dots, or button below to see more profiles</p>
+        </div>
         <a href="categories.html" class="vendors-all-link">Browse All Vendors</a>
       </div>
 
@@ -320,7 +401,18 @@
       </div>
 
       <div id="vendorsDots" class="vendors-dots"></div>
-      <p id="vendorsSlideStatus" class="vendors-slide-status"></p>
+
+      <div class="vendors-meta">
+        <p id="vendorsSlideStatus" class="vendors-slide-status"></p>
+        <p id="vendorsTotalCount" class="vendors-total-count"></p>
+        <p class="vendors-mobile-tip">Swipe or tap the arrows to browse more</p>
+      </div>
+
+      <div class="vendors-bottom-actions">
+        <button type="button" id="nextFeaturedBtn" class="vendors-secondary-btn">Next Featured Vendors</button>
+        <a href="categories.html" class="vendors-secondary-btn">See Full Directory</a>
+      </div>
+
       <p class="vendors-growing-note">We’re growing, and new vendors are joining. Be one of the first to be seen.</p>
       <p id="emptyMessage" class="empty-message" style="display:none;">No live vendors found yet.</p>
     </section>
@@ -458,8 +550,10 @@
     const searchBtn = document.getElementById("searchBtn");
     const prevVendorsBtn = document.getElementById("prevVendorsBtn");
     const nextVendorsBtn = document.getElementById("nextVendorsBtn");
+    const nextFeaturedBtn = document.getElementById("nextFeaturedBtn");
     const vendorsDots = document.getElementById("vendorsDots");
     const vendorsSlideStatus = document.getElementById("vendorsSlideStatus");
+    const vendorsTotalCount = document.getElementById("vendorsTotalCount");
 
     const joinLink = document.getElementById("joinLink");
     const loginLink = document.getElementById("loginLink");
@@ -469,6 +563,8 @@
     let allVendors = [];
     let filteredVendors = [];
     let currentSlide = 0;
+    let autoSlideInterval = null;
+    let autoSlideRestartTimeout = null;
 
     function cleanArray(arr) {
       return Array.isArray(arr) ? arr.filter(Boolean) : [];
@@ -579,6 +675,15 @@
 
       prevVendorsBtn.disabled = disableControls || currentSlide <= 0;
       nextVendorsBtn.disabled = disableControls || currentSlide >= totalSlides - 1;
+      nextFeaturedBtn.disabled = disableControls;
+
+      if (disableControls) {
+        nextFeaturedBtn.style.opacity = "0.6";
+        nextFeaturedBtn.style.cursor = "default";
+      } else {
+        nextFeaturedBtn.style.opacity = "1";
+        nextFeaturedBtn.style.cursor = "pointer";
+      }
     }
 
     function renderDots(vendors) {
@@ -596,21 +701,29 @@
         dot.addEventListener("click", () => {
           currentSlide = i;
           renderVendors(filteredVendors);
+          restartAutoSlide();
         });
 
         vendorsDots.appendChild(dot);
       }
     }
 
-    function updateSlideStatus(vendors) {
+    function updateMeta(vendors) {
       const totalSlides = getTotalSlides(vendors);
 
-      if (!vendors.length || vendors.length <= getCardsPerSlide()) {
+      if (!vendors.length) {
         vendorsSlideStatus.textContent = "";
+        vendorsTotalCount.textContent = "";
         return;
       }
 
-      vendorsSlideStatus.textContent = `Viewing ${currentSlide + 1} of ${totalSlides}`;
+      if (vendors.length <= getCardsPerSlide()) {
+        vendorsSlideStatus.textContent = "Showing featured vendors";
+      } else {
+        vendorsSlideStatus.textContent = `Page ${currentSlide + 1} of ${totalSlides}`;
+      }
+
+      vendorsTotalCount.textContent = `${vendors.length} featured vendor${vendors.length === 1 ? "" : "s"}`;
     }
 
     function renderVendors(vendors) {
@@ -622,12 +735,15 @@
         nextVendorsBtn.style.display = "none";
         vendorsDots.innerHTML = "";
         vendorsSlideStatus.textContent = "";
+        vendorsTotalCount.textContent = "";
+        nextFeaturedBtn.style.display = "none";
         return;
       }
 
       emptyMessage.style.display = "none";
       prevVendorsBtn.style.display = "inline-flex";
       nextVendorsBtn.style.display = "inline-flex";
+      nextFeaturedBtn.style.display = "inline-flex";
 
       const cardsPerSlide = getCardsPerSlide();
       const totalSlides = getTotalSlides(vendors);
@@ -676,7 +792,7 @@
 
       updateArrowState(vendors);
       renderDots(vendors);
-      updateSlideStatus(vendors);
+      updateMeta(vendors);
     }
 
     function hasVendorAccess(vendor) {
@@ -722,14 +838,18 @@
         filteredVendors = [...allVendors];
         currentSlide = 0;
         renderVendors(filteredVendors);
+        startAutoSlide();
       } catch (error) {
         console.error("Vendor load error:", error);
         emptyMessage.style.display = "block";
         emptyMessage.textContent = "There was a problem loading vendors.";
         prevVendorsBtn.style.display = "none";
         nextVendorsBtn.style.display = "none";
+        nextFeaturedBtn.style.display = "none";
         vendorsDots.innerHTML = "";
         vendorsSlideStatus.textContent = "";
+        vendorsTotalCount.textContent = "";
+        stopAutoSlide();
       }
     }
 
@@ -822,20 +942,71 @@
       }
     }
 
+    function goNextSlide() {
+      const totalSlides = getTotalSlides(filteredVendors);
+      if (totalSlides <= 1) return;
+
+      if (currentSlide < totalSlides - 1) {
+        currentSlide++;
+      } else {
+        currentSlide = 0;
+      }
+
+      renderVendors(filteredVendors);
+    }
+
+    function startAutoSlide() {
+      stopAutoSlide();
+
+      if (filteredVendors.length <= getCardsPerSlide()) return;
+
+      autoSlideInterval = setInterval(() => {
+        goNextSlide();
+      }, 6000);
+    }
+
+    function stopAutoSlide() {
+      if (autoSlideInterval) {
+        clearInterval(autoSlideInterval);
+        autoSlideInterval = null;
+      }
+      if (autoSlideRestartTimeout) {
+        clearTimeout(autoSlideRestartTimeout);
+        autoSlideRestartTimeout = null;
+      }
+    }
+
+    function restartAutoSlide() {
+      stopAutoSlide();
+      autoSlideRestartTimeout = setTimeout(() => {
+        startAutoSlide();
+      }, 8000);
+    }
+
     prevVendorsBtn.addEventListener("click", () => {
       if (currentSlide > 0) {
         currentSlide--;
         renderVendors(filteredVendors);
+        restartAutoSlide();
       }
     });
 
     nextVendorsBtn.addEventListener("click", () => {
-      const totalSlides = getTotalSlides(filteredVendors);
-      if (currentSlide < totalSlides - 1) {
-        currentSlide++;
-        renderVendors(filteredVendors);
-      }
+      goNextSlide();
+      restartAutoSlide();
     });
+
+    nextFeaturedBtn.addEventListener("click", () => {
+      goNextSlide();
+      restartAutoSlide();
+    });
+
+    const vendorsSection = document.querySelector(".vendors-carousel-section");
+
+    vendorsSection.addEventListener("mouseenter", stopAutoSlide);
+    vendorsSection.addEventListener("mouseleave", startAutoSlide);
+    vendorsSection.addEventListener("touchstart", stopAutoSlide, { passive: true });
+    vendorsSection.addEventListener("touchend", restartAutoSlide, { passive: true });
 
     let resizeTimeout;
     window.addEventListener("resize", () => {
@@ -846,6 +1017,7 @@
           currentSlide = Math.max(0, totalSlides - 1);
         }
         renderVendors(filteredVendors);
+        startAutoSlide();
       }, 120);
     });
 
