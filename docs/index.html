@@ -15,17 +15,26 @@
     }
 
     .vendors-carousel-topbar {
+      position: relative;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-end;
       gap: 16px;
       padding: 0 24px 14px;
+      min-height: 44px;
       flex-wrap: wrap;
     }
 
     .vendors-carousel-note-wrap {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
       display: grid;
       gap: 2px;
+      text-align: center;
+      width: max-content;
+      max-width: calc(100% - 220px);
+      pointer-events: none;
     }
 
     .vendors-carousel-note {
@@ -223,6 +232,15 @@
       .category-cards-grid.category-cards-grid-home {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
+
+      .vendors-carousel-topbar {
+        justify-content: center;
+        padding-top: 46px;
+      }
+
+      .vendors-carousel-note-wrap {
+        max-width: calc(100% - 40px);
+      }
     }
 
     @media (max-width: 700px) {
@@ -232,7 +250,18 @@
       }
 
       .vendors-carousel-topbar {
-        padding: 0 14px 12px;
+        justify-content: center;
+        padding: 42px 14px 12px;
+      }
+
+      .vendors-carousel-note-wrap {
+        position: static;
+        left: auto;
+        transform: none;
+        width: 100%;
+        max-width: 100%;
+        order: -1;
+        pointer-events: auto;
       }
 
       .vendors-carousel-shell {
@@ -278,6 +307,7 @@
 
   <div class="page-auth">
     <a href="categories.html" id="categoriesLink" class="auth-link">Categories</a>
+    <a href="shop.html" id="shopLink" class="auth-link">Shop</a>
     <a href="dashboard.html" id="dashboardLink" class="auth-link" style="display:none;">Dashboard</a>
     <a href="login.html" id="loginLink" class="auth-link">Log In</a>
     <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
@@ -665,7 +695,6 @@
         return;
       }
 
-      emptyMessage.style.display = "block";
       emptyMessage.style.display = "none";
       prevVendorsBtn.style.display = "inline-flex";
       nextVendorsBtn.style.display = "inline-flex";
