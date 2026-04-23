@@ -287,7 +287,7 @@
         </div>
 
         <div class="lux-hero-image-wrap">
-          <img id="heroImage" src="images/hero.png" alt="Elegant wedding couple" class="lux-hero-image">
+          <img id="heroImage" src="images/hero-1.png" alt="Elegant wedding couple" class="lux-hero-image">
         </div>
       </div>
     </section>
@@ -337,7 +337,7 @@
 
       <div class="category-cards-grid category-cards-grid-home">
         <a href="categories.html?type=venues" class="category-card">
-          <img id="categoryVenuesImage" src="images/cta.png" alt="Venues">
+          <img id="categoryVenuesImage" src="images/hero-1.png" alt="Venues">
           <div class="category-card-content">
             <h3>Venues</h3>
             <p>Discover stunning spaces for ceremonies and receptions.</p>
@@ -353,7 +353,7 @@
         </a>
 
         <a href="categories.html?type=photo_video" class="category-card">
-          <img id="categoryPhotoImage" src="images/videographer.png" alt="Photography and Video">
+          <img id="categoryPhotoImage" src="images/hero-4.png" alt="Photography and Video">
           <div class="category-card-content">
             <h3>Photo &amp; Video</h3>
             <p>Capture every beautiful moment with trusted creatives.</p>
@@ -361,7 +361,7 @@
         </a>
 
         <a href="categories.html?type=beauty" class="category-card">
-          <img id="categoryBeautyImage" src="images/beauty-hair.png" alt="Beauty">
+          <img id="categoryBeautyImage" src="images/hero-3.png" alt="Beauty">
           <div class="category-card-content">
             <h3>Beauty</h3>
             <p>Makeup, hair, nails, tanning and beauty experts for your wedding day.</p>
@@ -369,7 +369,7 @@
         </a>
 
         <a href="categories.html?type=ceremony_services&subcategory=wedding_celebrant" class="category-card">
-          <img id="categoryCelebrantsImage" src="images/celebrants.png" alt="Celebrants">
+          <img id="categoryCelebrantsImage" src="images/hero-6.png" alt="Celebrants">
           <div class="category-card-content">
             <h3>Ceremonies</h3>
             <p>Find celebrants and ceremony services to make your day feel personal and meaningful.</p>
@@ -750,11 +750,6 @@
       return array[Math.floor(Math.random() * array.length)];
     }
 
-    function getRandomUniqueItems(array, count) {
-      const shuffled = [...array].sort(() => Math.random() - 0.5);
-      return shuffled.slice(0, count);
-    }
-
     function setRefreshImages() {
       const heroImage = document.getElementById("heroImage");
       const categoryVenuesImage = document.getElementById("categoryVenuesImage");
@@ -764,43 +759,42 @@
       const categoryCelebrantsImage = document.getElementById("categoryCelebrantsImage");
 
       const heroImages = [
-        "images/hero-main.png",
-        "images/classic-romance.png",
-        "images/timeless-love.png",
-        "images/modern-love.png",
-        "images/city-modern.png"
+        "images/hero-1.png",
+        "images/hero-2.png",
+        "images/hero-3.png",
+        "images/hero-4.png",
+        "images/hero-5.png",
+        "images/hero-6.png",
+        "images/hero-7.png"
       ];
 
       const venueImages = [
-        "images/classic-romance.png",
-        "images/timeless-love.png",
-        "images/garden-romance-01.png"
+        "images/hero-1.png",
+        "images/hero-5.png",
+        "images/hero-7.png"
       ];
 
       const floristImages = [
-        "images/bouquet-01.png",
-        "images/white-tulip-bouquet-1.png",
-        "images/bouquet-clean.png"
+        "images/bouquet.png"
       ];
 
       const photoImages = [
-        "images/hero-main.png",
-        "images/timeless-love.png",
-        "images/city-style-01.png",
-        "images/asian-couple-studio-1.png"
+        "images/hero-1.png",
+        "images/hero-4.png",
+        "images/hero-5.png",
+        "images/hero-6.png"
       ];
 
       const beautyImages = [
-        "images/bride-01.png",
-        "images/bridal-elegance.png",
-        "images/modern-couple-sunglasses-1.png"
+        "images/hero-2.png",
+        "images/hero-3.png"
       ];
 
       const ceremonyImages = [
-        "images/timeless-love.png",
-        "images/romance-white.png",
-        "images/asian-couple-garden-1.png",
-        "images/lesbian-garden-1.png"
+        "images/hero-1.png",
+        "images/hero-5.png",
+        "images/hero-6.png",
+        "images/hero-7.png"
       ];
 
       if (heroImage) {
