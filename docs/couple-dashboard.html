@@ -6,6 +6,10 @@
   <title>Couple Dashboard | Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css">
   <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
     .couple-topbar {
       max-width: 1180px;
       margin: 10px auto 24px;
@@ -75,6 +79,34 @@
       padding: 0 20px 60px;
       display: grid;
       gap: 22px;
+    }
+
+    .dashboard-jump-nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: -4px;
+    }
+
+    .dashboard-jump-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 16px;
+      border-radius: 999px;
+      text-decoration: none;
+      background: #fffaf8;
+      border: 1px solid rgba(216, 197, 189, 0.65);
+      color: #6e5a52;
+      font-size: 0.92rem;
+      transition: 0.18s ease;
+      box-shadow: 0 10px 24px rgba(74, 49, 42, 0.04);
+    }
+
+    .dashboard-jump-link:hover {
+      transform: translateY(-1px);
+      background: #f6ece7;
     }
 
     .couple-hero-card,
@@ -850,7 +882,8 @@
         margin-right: auto;
       }
 
-      .hero-actions {
+      .hero-actions,
+      .dashboard-jump-nav {
         justify-content: center;
       }
 
@@ -970,7 +1003,8 @@
       .account-save-btn,
       .security-save-btn,
       .todo-add-btn,
-      .board-upload-button {
+      .board-upload-button,
+      .dashboard-jump-link {
         width: 100%;
       }
 
@@ -1023,40 +1057,17 @@
       </div>
     </section>
 
-    <section class="dashboard-card">
-      <h2>Your Account</h2>
-      <p class="dashboard-subtext">Update your names and email here.</p>
+    <nav class="dashboard-jump-nav" aria-label="Dashboard sections">
+      <a href="#planningSection" class="dashboard-jump-link">Planning</a>
+      <a href="#visionBoardSection" class="dashboard-jump-link">Inspiration</a>
+      <a href="#favouritesSection" class="dashboard-jump-link">Favourites</a>
+      <a href="#accountSection" class="dashboard-jump-link">Account</a>
+      <a href="#securitySection" class="dashboard-jump-link">Password</a>
+    </nav>
 
-      <div class="account-card-inner">
-        <form id="accountForm" class="account-form">
-          <div class="account-two-col">
-            <input id="partnerOne" type="text" placeholder="Name one">
-            <input id="partnerTwo" type="text" placeholder="Name two">
-          </div>
-          <input id="accountEmail" type="email" placeholder="Your email">
-          <button type="submit" class="account-save-btn">Update Details</button>
-          <p id="accountStatus" class="account-status"></p>
-        </form>
-      </div>
-    </section>
-
-    <section class="dashboard-card">
-      <h2>Security Settings</h2>
-      <p class="dashboard-subtext">Keep your account secure by updating your password here.</p>
-
-      <div class="security-card-inner">
-        <form id="securityForm" class="security-form">
-          <input id="accountPassword" type="password" placeholder="New password">
-          <button type="submit" class="security-save-btn">Update Password</button>
-          <p id="securityStatus" class="security-status"></p>
-          <p class="security-help">If password changes do not go through, Firebase may ask you to log in again first.</p>
-        </form>
-      </div>
-    </section>
-
-    <section class="dashboard-card">
+    <section class="dashboard-card" id="planningSection">
       <h2>Your Planning Space</h2>
-      <p class="dashboard-subtext">Keep your date and your next little jobs together in one easy spot.</p>
+      <p class="dashboard-subtext">Keep your wedding date and your next little jobs together in one easy spot.</p>
 
       <div class="planning-card-inner">
         <div class="planning-layout">
@@ -1143,7 +1154,7 @@
       </div>
     </section>
 
-    <section class="dashboard-card">
+    <section class="dashboard-card" id="favouritesSection">
       <h2>Your Favourite Vendors</h2>
       <p class="dashboard-subtext">Browse your saved vendors by category whenever you come back.</p>
 
@@ -1159,41 +1170,72 @@
         You have not saved any vendors yet.
       </p>
     </section>
+
+    <section class="dashboard-card" id="accountSection">
+      <h2>Your Account Details</h2>
+      <p class="dashboard-subtext">Update your names and email here.</p>
+
+      <div class="account-card-inner">
+        <form id="accountForm" class="account-form">
+          <div class="account-two-col">
+            <input id="partnerOne" type="text" placeholder="Name one">
+            <input id="partnerTwo" type="text" placeholder="Name two">
+          </div>
+          <input id="accountEmail" type="email" placeholder="Your email">
+          <button type="submit" class="account-save-btn">Update Details</button>
+          <p id="accountStatus" class="account-status"></p>
+        </form>
+      </div>
+    </section>
+
+    <section class="dashboard-card" id="securitySection">
+      <h2>Password & Security</h2>
+      <p class="dashboard-subtext">Keep your account secure by updating your password here.</p>
+
+      <div class="security-card-inner">
+        <form id="securityForm" class="security-form">
+          <input id="accountPassword" type="password" placeholder="New password">
+          <button type="submit" class="security-save-btn">Update Password</button>
+          <p id="securityStatus" class="security-status"></p>
+          <p class="security-help">If password changes do not go through, Firebase may ask you to log in again first.</p>
+        </form>
+      </div>
+    </section>
   </main>
 
-<footer class="site-footer">
-  <div class="footer-content">
-    <p class="footer-eyebrow">wedding vendor directory</p>
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p class="footer-eyebrow">wedding vendor directory</p>
 
-    <h2 class="footer-title">
-      Everything you need for your wedding, all in one place.
-    </h2>
+      <h2 class="footer-title">
+        Everything you need for your wedding, all in one place.
+      </h2>
 
-    <p class="footer-text">
-      Browse trusted wedding businesses, discover local favourites, and connect
-      with the people who can bring your day to life.
-    </p>
+      <p class="footer-text">
+        Browse trusted wedding businesses, discover local favourites, and connect
+        with the people who can bring your day to life.
+      </p>
 
-    <div class="footer-links">
-      <a href="about.html">About Us</a>
-      <a href="how-it-works.html">How It Works</a>
-      <a href="pricing.html">Pricing</a>
-      <a href="contact.html">Contact Us</a>
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="terms.html">Terms &amp; Conditions</a>
-      <a href="refund-policy.html">Refund Policy</a>
-      <a href="https://www.equaldex.com/equality-index" target="_blank" rel="noopener noreferrer">Global Equality Index</a>
-      <a href="#" onclick="return false;">Events4Us (Coming Soon)</a>
+      <div class="footer-links">
+        <a href="about.html">About Us</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="refund-policy.html">Refund Policy</a>
+        <a href="https://www.equaldex.com/equality-index" target="_blank" rel="noopener noreferrer">Global Equality Index</a>
+        <a href="#" onclick="return false;">Events4Us (Coming Soon)</a>
+      </div>
+
+      <p class="footer-tagline">
+        Proudly inclusive • Worldwide • Built with heart
+      </p>
+
+      <p class="footer-abn">© 2026 Our Wedding Day Hub</p>
+      <p class="footer-abn">ABN 76 688 637 041 • Australia</p>
     </div>
-
-    <p class="footer-tagline">
-      Proudly inclusive • Worldwide • Built with heart
-    </p>
-
-    <p class="footer-abn">© 2026 Our Wedding Day Hub</p>
-    <p class="footer-abn">ABN 76 688 637 041 • Australia</p>
-  </div>
-</footer>
+  </footer>
 
   <script type="module">
     import {
