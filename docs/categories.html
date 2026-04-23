@@ -9,20 +9,25 @@
     .categories-page {
       max-width: 1520px;
       margin: 0 auto;
-      padding: 18px 22px 50px;
+      padding: 18px 20px 56px;
     }
 
     .categories-hero {
-      background: var(--surface);
-      border: 1px solid rgba(227, 219, 212, 0.8);
-      border-radius: 32px;
-      padding: 42px 28px 30px;
+      position: relative;
+      background:
+        radial-gradient(circle at top, rgba(232, 214, 201, 0.28), transparent 38%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 250, 247, 0.88));
+      border: 1px solid rgba(227, 219, 212, 0.9);
+      border-radius: 34px;
+      padding: 46px 30px 30px;
       margin-bottom: 26px;
       text-align: center;
+      box-shadow: 0 18px 40px rgba(59, 43, 35, 0.045);
+      overflow: hidden;
     }
 
     .categories-logo {
-      width: 96px;
+      width: 88px;
       margin: 0 auto 18px;
       display: block;
     }
@@ -30,26 +35,32 @@
     .categories-kicker {
       margin: 0 0 14px;
       text-transform: uppercase;
-      letter-spacing: 0.24em;
-      font-size: 0.8rem;
+      letter-spacing: 0.26em;
+      font-size: 0.76rem;
       color: var(--accent-strong);
     }
 
     .categories-title {
       margin: 0;
       font-family: "Cormorant Garamond", serif;
-      font-size: clamp(2.8rem, 5vw, 4.6rem);
+      font-size: clamp(2.6rem, 5vw, 4.8rem);
       font-weight: 500;
-      line-height: 0.95;
+      line-height: 0.96;
       letter-spacing: -0.03em;
+      color: var(--text);
     }
 
     .categories-subtitle {
-      max-width: 720px;
-      margin: 18px auto 0;
+      max-width: 760px;
+      margin: 16px auto 0;
       color: var(--muted);
-      line-height: 1.7;
+      line-height: 1.75;
       font-size: 1rem;
+    }
+
+    .categories-filter-wrap {
+      max-width: 1220px;
+      margin: 28px auto 0;
     }
 
     .categories-filter-bar {
@@ -57,42 +68,47 @@
       flex-wrap: wrap;
       justify-content: center;
       gap: 12px;
-      margin: 28px auto 0;
-      max-width: 1140px;
     }
 
     .categories-filter-pill {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 13px 20px;
+      padding: 12px 18px;
+      min-height: 46px;
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.85);
+      background: rgba(255, 255, 255, 0.88);
       border: 1px solid rgba(227, 219, 212, 0.95);
       color: var(--text);
-      font-size: 0.96rem;
+      font-size: 0.95rem;
       font-weight: 500;
       text-decoration: none;
-      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+      white-space: nowrap;
+      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
     }
 
     .categories-filter-pill:hover {
       transform: translateY(-1px);
-      background: #f8f3ef;
+      background: #fbf6f2;
+      border-color: #dfcbbf;
+      box-shadow: 0 8px 20px rgba(60, 40, 30, 0.05);
     }
 
     .categories-filter-pill.active {
-      background: #e3cec0;
+      background: #e6d2c5;
       border-color: #dcc4b4;
+      color: #2f2723;
+      box-shadow: inset 0 0 0 1px rgba(220, 196, 180, 0.35);
     }
 
     .categories-search-panel {
-      max-width: 1180px;
+      max-width: 1200px;
       margin: 26px auto 0;
       padding: 18px;
-      border-radius: 24px;
-      background: rgba(255, 255, 255, 0.78);
+      border-radius: 26px;
+      background: rgba(255, 255, 255, 0.84);
       border: 1px solid rgba(227, 219, 212, 0.9);
+      box-shadow: 0 12px 28px rgba(59, 43, 35, 0.04);
     }
 
     .categories-search-grid {
@@ -105,7 +121,7 @@
     .categories-search-field label {
       display: block;
       margin-bottom: 8px;
-      font-size: 0.88rem;
+      font-size: 0.86rem;
       font-weight: 600;
       color: var(--text);
       text-align: left;
@@ -114,7 +130,7 @@
     .categories-search-field select,
     .categories-search-field input {
       width: 100%;
-      min-height: 48px;
+      min-height: 50px;
       border-radius: 16px;
       border: 1px solid rgba(227, 219, 212, 0.95);
       background: #fffdfb;
@@ -122,30 +138,34 @@
       font-size: 0.95rem;
       color: var(--text);
       box-sizing: border-box;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
     }
 
     .categories-search-field select:focus,
     .categories-search-field input:focus {
       outline: none;
       border-color: #d9c2b2;
-      box-shadow: 0 0 0 3px rgba(217, 194, 178, 0.18);
+      box-shadow: 0 0 0 3px rgba(217, 194, 178, 0.16);
+      background: #fff;
     }
 
     .categories-search-btn {
-      min-height: 48px;
+      min-height: 50px;
       border: none;
       border-radius: 999px;
-      padding: 0 22px;
+      padding: 0 24px;
       background: #111;
       color: #fff;
       font-weight: 600;
+      font-size: 0.95rem;
       cursor: pointer;
-      transition: transform 0.2s ease, opacity 0.2s ease;
+      transition: transform 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease;
     }
 
     .categories-search-btn:hover {
-      opacity: 0.94;
+      opacity: 0.95;
       transform: translateY(-1px);
+      box-shadow: 0 8px 18px rgba(17, 17, 17, 0.12);
     }
 
     .categories-clear-row {
@@ -165,8 +185,9 @@
     }
 
     .categories-results {
-      background: var(--surface-2);
-      border-radius: 32px;
+      background: linear-gradient(180deg, rgba(250, 246, 243, 0.8), rgba(247, 241, 237, 0.92));
+      border: 1px solid rgba(227, 219, 212, 0.75);
+      border-radius: 34px;
       padding: 28px 22px 34px;
     }
 
@@ -180,7 +201,7 @@
     }
 
     .categories-results-label {
-      font-size: 0.95rem;
+      font-size: 0.96rem;
       color: var(--muted);
       margin: 0;
     }
@@ -198,13 +219,13 @@
     }
 
     .category-vendor-card {
-      background: rgba(255, 255, 255, 0.72);
-      border: 1px solid rgba(227, 219, 212, 0.9);
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(227, 219, 212, 0.92);
       border-radius: 24px;
-      padding: 16px 16px 18px;
+      padding: 14px 14px 16px;
       text-align: left;
-      box-shadow: 0 10px 24px rgba(42, 28, 22, 0.06);
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      box-shadow: 0 10px 24px rgba(42, 28, 22, 0.05);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
       cursor: pointer;
       display: flex;
       flex-direction: column;
@@ -213,40 +234,42 @@
 
     .category-vendor-card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 14px 28px rgba(42, 28, 22, 0.08);
+      box-shadow: 0 16px 34px rgba(42, 28, 22, 0.08);
+      border-color: rgba(219, 199, 186, 1);
     }
 
     .category-vendor-card img {
       width: 100%;
-      border-radius: 16px;
+      border-radius: 18px;
       margin-bottom: 16px;
-      aspect-ratio: 1.32 / 1;
+      aspect-ratio: 1.25 / 1;
       object-fit: cover;
       background: #f6eee8;
+      display: block;
     }
 
     .category-vendor-card h3 {
       margin: 0 0 8px;
       font-family: "Cormorant Garamond", serif;
       font-weight: 500;
-      font-size: 2rem;
+      font-size: clamp(1.8rem, 2vw, 2.2rem);
       line-height: 0.98;
       letter-spacing: -0.02em;
       color: var(--text);
     }
 
     .category-vendor-card p {
-      font-size: 0.98rem;
+      font-size: 0.96rem;
       color: var(--muted);
-      line-height: 1.55;
+      line-height: 1.58;
       margin: 0;
     }
 
     .category-vendor-meta,
     .category-vendor-location {
-      font-size: 0.94rem;
+      font-size: 0.92rem;
       color: var(--muted);
-      margin-bottom: 6px;
+      margin-bottom: 7px;
     }
 
     .category-vendor-actions {
@@ -260,7 +283,7 @@
       color: #2d2521;
       padding: 12px 18px;
       border-radius: 999px;
-      font-size: 0.95rem;
+      font-size: 0.94rem;
       font-weight: 600;
       line-height: 1;
       display: inline-flex;
@@ -270,14 +293,14 @@
     }
 
     .category-vendor-btn:hover {
-      opacity: 0.95;
+      opacity: 0.96;
       transform: translateY(-1px);
       background: #dcc4b4;
     }
 
     .categories-empty {
       max-width: 700px;
-      margin: 24px auto 0;
+      margin: 26px auto 0;
       color: var(--muted);
       line-height: 1.7;
       text-align: center;
@@ -287,11 +310,20 @@
       .categories-search-grid {
         grid-template-columns: 1fr 1fr;
       }
+
+      .categories-search-btn {
+        width: 100%;
+      }
     }
 
     @media (max-width: 980px) {
+      .categories-page {
+        padding: 16px 16px 48px;
+      }
+
       .categories-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px;
       }
     }
 
@@ -307,23 +339,100 @@
       }
 
       .categories-hero {
-        padding: 28px 18px 22px;
+        padding: 28px 16px 20px;
       }
 
-      .categories-grid {
-        grid-template-columns: 1fr;
+      .categories-logo {
+        width: 74px;
+        margin-bottom: 16px;
+      }
+
+      .categories-title {
+        font-size: clamp(2.3rem, 9vw, 3.2rem);
+        line-height: 0.98;
+      }
+
+      .categories-subtitle {
+        font-size: 0.95rem;
+        line-height: 1.65;
+        margin-top: 14px;
+      }
+
+      .categories-filter-wrap {
+        margin-top: 22px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding-bottom: 4px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+
+      .categories-filter-wrap::-webkit-scrollbar {
+        display: none;
+      }
+
+      .categories-filter-bar {
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        width: max-content;
+        min-width: 100%;
+        padding-bottom: 2px;
       }
 
       .categories-filter-pill {
-        width: 100%;
+        width: auto;
+        flex: 0 0 auto;
+        min-height: 42px;
+        padding: 11px 16px;
+        font-size: 0.92rem;
       }
 
-      .category-vendor-btn {
-        width: 100%;
+      .categories-search-panel {
+        margin-top: 20px;
+        padding: 14px;
       }
 
       .categories-search-grid {
         grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .categories-clear-row {
+        justify-content: center;
+        margin-top: 14px;
+      }
+
+      .categories-results {
+        padding: 20px 14px 24px;
+      }
+
+      .categories-results-top {
+        margin-bottom: 14px;
+      }
+
+      .categories-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .category-vendor-card {
+        padding: 12px 12px 14px;
+        border-radius: 22px;
+      }
+
+      .category-vendor-card img {
+        border-radius: 16px;
+        aspect-ratio: 1.2 / 1;
+        margin-bottom: 14px;
+      }
+
+      .category-vendor-card h3 {
+        font-size: 2rem;
+      }
+
+      .category-vendor-btn,
+      .categories-search-btn {
+        width: 100%;
       }
     }
   </style>
@@ -356,7 +465,9 @@
         Discover trusted wedding vendors and explore beautiful businesses for every part of your day.
       </p>
 
-      <div class="categories-filter-bar" id="categoriesFilterBar"></div>
+      <div class="categories-filter-wrap">
+        <div class="categories-filter-bar" id="categoriesFilterBar"></div>
+      </div>
 
       <div class="categories-search-panel">
         <div class="categories-search-grid">
@@ -379,7 +490,7 @@
             <input
               type="text"
               id="locationSearch"
-              placeholder="Search suburb, city, region, state, province or country"
+              placeholder="Search suburb, city, state or country"
             >
           </div>
 
@@ -388,7 +499,7 @@
             <input
               type="text"
               id="keywordSearch"
-              placeholder="Search vendor, service, style or keyword"
+              placeholder="Search vendor or keyword"
             >
           </div>
 
@@ -411,7 +522,7 @@
       <section id="categoriesGrid" class="categories-grid"></section>
 
       <p id="categoriesEmpty" class="categories-empty" style="display:none;">
-        No vendors found for this search yet. Try another category, location or keyword.
+        No vendors found just yet for this search. Try another category, subcategory, location or keyword.
       </p>
     </section>
   </main>
@@ -449,6 +560,7 @@
     <p class="footer-abn">ABN 76 688 637 041 • Australia</p>
   </div>
 </footer>
+
   <script type="module">
     import {
       db,
@@ -690,6 +802,21 @@
           ["bomboniere", "Bomboniere"]
         ]
       },
+      keepsakes: {
+        title: "Keepsakes",
+        subtitle: "Meaningful pieces and personalised keepsakes to help couples remember their day forever.",
+        items: [
+          ["wedding_album", "Wedding Album"],
+          ["photo_book", "Photo Book"],
+          ["guestbook_keepsake", "Guestbook Keepsake"],
+          ["framed_prints", "Framed Prints"],
+          ["engraved_keepsakes", "Engraved Keepsakes"],
+          ["bridal_boxes", "Bridal Boxes"],
+          ["preserved_flowers", "Preserved Flowers"],
+          ["wedding_memory_box", "Wedding Memory Box"],
+          ["custom_illustration", "Custom Illustration"]
+        ]
+      },
       health_wellness: {
         title: "Health & Wellness",
         subtitle: "Fitness, massage and wellness services to help you feel your best.",
@@ -732,6 +859,7 @@
       "care_services",
       "hire_rentals",
       "gifts_favours",
+      "keepsakes",
       "health_wellness",
       "accommodation",
       "all"
@@ -1078,7 +1206,7 @@
         card.className = "category-vendor-card";
 
         const image = getCardImage(vendor);
-        const name = formatText(vendor.businessName || "Vendor");
+        const name = (vendor.businessName || "Vendor").trim();
         const categoryLine = getCategoryLine(vendor);
         const locationLine = getLocationLine(vendor);
         const bio = getShortBio(vendor);
