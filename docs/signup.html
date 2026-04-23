@@ -384,16 +384,16 @@
               </div>
 
               <div class="signup-plan-grid">
-                <button type="button" class="pretty-button wide-glow" onclick="startVendorCheckout('classic')">
+                <button type="button" class="pretty-button wide-glow" onclick="startVendorCheckout('classic_listing')">
                   Classic Listing · $4.75/month
                 </button>
-                <button type="button" class="pretty-button wide-glow" onclick="startVendorCheckout('signature')">
+                <button type="button" class="pretty-button wide-glow" onclick="startVendorCheckout('signature_spotlight')">
                   Signature Spotlight · $5.95/month
                 </button>
-                <button type="button" class="pretty-button wide-glow" onclick="startVendorCheckout('elite')">
+                <button type="button" class="pretty-button wide-glow" onclick="startVendorCheckout('elite_feature')">
                   Elite Feature · $7.25/month
                 </button>
-                <button type="button" class="pretty-button wide-glow" onclick="startVendorCheckout('platinum')">
+                <button type="button" class="pretty-button wide-glow" onclick="startVendorCheckout('platinum_prestige')">
                   Platinum Prestige · $9.95/month
                 </button>
               </div>
@@ -472,10 +472,10 @@
   <script>
     function startVendorCheckout(plan) {
       const links = {
-        classic: "https://buy.stripe.com/cNibJ1eSg099flL49AdnW03",
-        signature: "https://buy.stripe.com/7sY4gz6lKcVV5Lb21sdnW02",
-        elite: "https://buy.stripe.com/eVq6oH39y5ttehH5dEdnW01",
-        platinum: "https://buy.stripe.com/bJe28reSg8FF4H70XodnW00"
+        classic_listing: "https://buy.stripe.com/cNibJ1eSg099flL49AdnW03",
+        signature_spotlight: "https://buy.stripe.com/7sY4gz6lKcVV5Lb21sdnW02",
+        elite_feature: "https://buy.stripe.com/eVq6oH39y5ttehH5dEdnW01",
+        platinum_prestige: "https://buy.stripe.com/bJe28reSg8FF4H70XodnW00"
       };
 
       const url = links[plan];
@@ -516,7 +516,23 @@
     const presetType = urlParams.get('type') || '';
 
     const complimentaryInviteCode = 'foundingvendor2026';
-    const vendorHasAccess = isPaid || inviteCode === complimentaryInviteCode;
+    const isComplimentaryInvite = inviteCode === complimentaryInviteCode;
+    const vendorHasAccess = isPaid || isComplimentaryInvite;
+
+    function normalizePlan(plan) {
+      const value = String(plan || '').trim().toLowerCase();
+
+      if (value === 'classic' || value === 'classic_listing') return 'classic_listing';
+      if (value === 'signature' || value === 'signature_spotlight') return 'signature_spotlight';
+      if (value === 'elite' || value === 'elite_feature') return 'elite_feature';
+      if (value === 'platinum' || value === 'platinum prestige' || value === 'platinum-prestige' || value === 'platinum_prestige') return 'platinum_prestige';
+
+      return value;
+    }
+
+    function shouldHaveShopAccess(plan, isComplimentary) {
+      return isComplimentary || normalizePlan(plan) === 'platinum_prestige';
+    }
 
     if (presetType === 'vendor') {
       typeSelect.value = 'vendor';
@@ -529,7 +545,7 @@
       vendorPlanBox.style.display = isVendor && !vendorHasAccess ? 'block' : 'none';
 
       if (vendorNotice) vendorNotice.style.display = isVendor && !vendorHasAccess ? 'block' : 'none';
-      if (pricingLinkBox) pricingLinkBox.style.display = isVendor && !vendorHasAccess ? 'block' : 'block';
+      if (pricingLinkBox) pricingLinkBox.style.display = 'block';
 
       if (vendorSetupNote) {
         vendorSetupNote.textContent = vendorHasAccess
@@ -566,17 +582,21 @@
 
         await sendEmailVerification(user);
 
+        const normalizedSelectedPlan = normalizePlan(selectedPlan);
+        const finalVendorPlan = isComplimentaryInvite ? 'complimentary' : normalizedSelectedPlan;
+        const finalAccessType = isComplimentaryInvite ? 'complimentary-invite' : 'paid';
+        const finalShopAccess = shouldHaveShopAccess(finalVendorPlan, isComplimentaryInvite);
+
         await setDoc(doc(db, 'users', user.uid), {
           uid: user.uid,
           email,
           name,
           role: type,
-          plan: type === 'vendor'
-            ? (inviteCode === complimentaryInviteCode ? 'complimentary' : selectedPlan)
-            : 'free',
-          accessType: type === 'vendor'
-            ? (inviteCode === complimentaryInviteCode ? 'complimentary-invite' : 'paid')
-            : 'couple',
+          plan: type === 'vendor' ? finalVendorPlan : 'free',
+          accessType: type === 'vendor' ? finalAccessType : 'couple',
+          membershipTier: type === 'vendor' ? finalVendorPlan : '',
+          tier: type === 'vendor' ? finalVendorPlan : '',
+          shopAccess: type === 'vendor' ? finalShopAccess : false,
           favorites: [],
           createdAt: serverTimestamp()
         });
@@ -586,8 +606,12 @@
             uid: user.uid,
             businessName: name,
             email,
-            plan: inviteCode === complimentaryInviteCode ? 'complimentary' : selectedPlan,
-            accessType: inviteCode === complimentaryInviteCode ? 'complimentary-invite' : 'paid',
+            plan: finalVendorPlan,
+            accessType: finalAccessType,
+            membershipTier: finalVendorPlan,
+            tier: finalVendorPlan,
+            complimentaryPlan: isComplimentaryInvite,
+            shopAccess: finalShopAccess,
             categories: [],
             countries: [],
             states: [],
