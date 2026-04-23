@@ -9,7 +9,7 @@
     .vendors-carousel-section {
       width: min(1520px, calc(100% - 44px));
       margin: 0 auto;
-      padding: 0 0 22px;
+      padding: 0 0 24px;
       background: #ece7e2;
       border-radius: 0 0 32px 32px;
     }
@@ -19,27 +19,19 @@
       align-items: center;
       justify-content: space-between;
       gap: 16px;
-      padding: 0 24px 12px;
+      padding: 0 24px 14px;
       flex-wrap: wrap;
     }
 
     .vendors-carousel-note-wrap {
       display: grid;
-      gap: 4px;
+      gap: 2px;
     }
 
     .vendors-carousel-note {
       margin: 0;
       color: #7d6d64;
-      font-size: 0.97rem;
-      line-height: 1.6;
-      font-weight: 600;
-    }
-
-    .vendors-carousel-subnote {
-      margin: 0;
-      color: #8c7a71;
-      font-size: 0.9rem;
+      font-size: 0.96rem;
       line-height: 1.5;
     }
 
@@ -68,30 +60,29 @@
       display: flex;
       align-items: center;
       gap: 16px;
-      margin-top: 0;
       padding: 0 20px;
     }
 
     .vendors-arrow {
-      width: 56px;
-      height: 56px;
+      width: 52px;
+      height: 52px;
       border: none;
       border-radius: 999px;
-      background: #e3cec0;
+      background: #f6ede7;
       color: #3d342f;
-      font-size: 1.7rem;
+      font-size: 1.55rem;
       cursor: pointer;
-      flex: 0 0 56px;
+      flex: 0 0 52px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
       transition: transform 0.2s ease, opacity 0.2s ease, background 0.2s ease;
     }
 
     .vendors-arrow:hover {
       transform: translateY(-1px);
-      background: #dbc4b4;
+      background: #ead9cd;
     }
 
     .vendors-arrow:disabled {
@@ -109,7 +100,7 @@
     .vendors-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 24px;
+      gap: 22px;
       align-items: stretch;
     }
 
@@ -128,10 +119,10 @@
     }
 
     .vendors-dot {
-      width: 12px;
-      height: 12px;
+      width: 10px;
+      height: 10px;
       border-radius: 999px;
-      background: rgba(120, 104, 95, 0.25);
+      background: rgba(120, 104, 95, 0.22);
       border: none;
       padding: 0;
       cursor: pointer;
@@ -147,9 +138,9 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 18px;
+      gap: 16px;
       flex-wrap: wrap;
-      margin: 14px 0 0;
+      margin: 12px 0 0;
       padding: 0 18px;
       color: #8a7770;
       font-size: 0.92rem;
@@ -158,44 +149,8 @@
     }
 
     .vendors-slide-status,
-    .vendors-total-count,
-    .vendors-mobile-tip {
+    .vendors-total-count {
       margin: 0;
-    }
-
-    .vendors-mobile-tip {
-      display: none;
-    }
-
-    .vendors-bottom-actions {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 18px;
-      padding: 0 16px;
-    }
-
-    .vendors-secondary-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 46px;
-      padding: 12px 18px;
-      border-radius: 999px;
-      border: 1px solid #d9c6b9;
-      background: #fffaf7;
-      color: #352d29;
-      text-decoration: none;
-      font-weight: 600;
-      cursor: pointer;
-      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
-    }
-
-    .vendors-secondary-btn:hover {
-      background: #f5e7de;
-      border-color: #d8c3b6;
-      transform: translateY(-1px);
     }
 
     .empty-message {
@@ -290,14 +245,10 @@
       }
 
       .vendors-arrow {
-        width: 44px;
-        height: 44px;
-        flex-basis: 44px;
-        font-size: 1.3rem;
-      }
-
-      .vendors-mobile-tip {
-        display: block;
+        width: 42px;
+        height: 42px;
+        flex-basis: 42px;
+        font-size: 1.2rem;
       }
 
       .category-cards-grid.category-cards-grid-home {
@@ -310,16 +261,11 @@
         width: min(100%, calc(100% - 16px));
       }
 
-      .vendors-carousel-shell {
-        align-items: stretch;
-      }
-
       .vendors-arrow {
-        width: 40px;
-        height: 40px;
-        flex-basis: 40px;
-        font-size: 1.05rem;
-        align-self: center;
+        width: 38px;
+        height: 38px;
+        flex-basis: 38px;
+        font-size: 1rem;
       }
 
       .vendors-dots {
@@ -334,7 +280,7 @@
     <a href="categories.html" id="categoriesLink" class="auth-link">Categories</a>
     <a href="dashboard.html" id="dashboardLink" class="auth-link" style="display:none;">Dashboard</a>
     <a href="login.html" id="loginLink" class="auth-link">Log In</a>
-    <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join as Vendor</a>
+    <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
     <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
   </div>
 
@@ -384,8 +330,7 @@
     <section class="vendors-carousel-section">
       <div class="vendors-carousel-topbar">
         <div class="vendors-carousel-note-wrap">
-          <p class="vendors-carousel-note">Discover featured vendors handpicked from our growing directory</p>
-          <p class="vendors-carousel-subnote">Use the arrows, dots, or button below to see more profiles</p>
+          <p class="vendors-carousel-note">Handpicked vendors from our growing directory</p>
         </div>
         <a href="categories.html" class="vendors-all-link">Browse All Vendors</a>
       </div>
@@ -405,12 +350,6 @@
       <div class="vendors-meta">
         <p id="vendorsSlideStatus" class="vendors-slide-status"></p>
         <p id="vendorsTotalCount" class="vendors-total-count"></p>
-        <p class="vendors-mobile-tip">Swipe or tap the arrows to browse more</p>
-      </div>
-
-      <div class="vendors-bottom-actions">
-        <button type="button" id="nextFeaturedBtn" class="vendors-secondary-btn">Next Featured Vendors</button>
-        <a href="categories.html" class="vendors-secondary-btn">See Full Directory</a>
       </div>
 
       <p class="vendors-growing-note">We’re growing, and new vendors are joining. Be one of the first to be seen.</p>
@@ -429,7 +368,7 @@
 
       <div class="category-cards-grid category-cards-grid-home">
         <a href="categories.html?type=venues" class="category-card">
-          <img id="categoryVenuesImage" src="images/hero-1.png" alt="Venues">
+          <img src="images/hero-1.png" alt="Venues">
           <div class="category-card-content">
             <h3>Venues</h3>
             <p>Discover stunning spaces for ceremonies and receptions.</p>
@@ -437,7 +376,7 @@
         </a>
 
         <a href="categories.html?type=styling_florals&subcategory=wedding_florist" class="category-card">
-          <img id="categoryFloristsImage" src="images/bouquet.png" alt="Florists">
+          <img src="images/bouquet.png" alt="Florists">
           <div class="category-card-content">
             <h3>Florists</h3>
             <p>Beautiful blooms and floral styling for your day.</p>
@@ -445,7 +384,7 @@
         </a>
 
         <a href="categories.html?type=photo_video" class="category-card">
-          <img id="categoryPhotoImage" src="images/hero-4.png" alt="Photography and Video">
+          <img src="images/hero-5.png" alt="Photography and Video">
           <div class="category-card-content">
             <h3>Photo &amp; Video</h3>
             <p>Capture every beautiful moment with trusted creatives.</p>
@@ -453,7 +392,7 @@
         </a>
 
         <a href="categories.html?type=beauty" class="category-card">
-          <img id="categoryBeautyImage" src="images/hero-3.png" alt="Beauty">
+          <img src="images/hero-3.png" alt="Beauty">
           <div class="category-card-content">
             <h3>Beauty</h3>
             <p>Makeup, hair, nails, tanning and beauty experts for your wedding day.</p>
@@ -461,7 +400,7 @@
         </a>
 
         <a href="categories.html?type=ceremony_services&subcategory=wedding_celebrant" class="category-card">
-          <img id="categoryCelebrantsImage" src="images/hero-6.png" alt="Celebrants">
+          <img src="images/hero-7.png" alt="Celebrants">
           <div class="category-card-content">
             <h3>Ceremonies</h3>
             <p>Find celebrants and ceremony services to make your day feel personal and meaningful.</p>
@@ -550,7 +489,6 @@
     const searchBtn = document.getElementById("searchBtn");
     const prevVendorsBtn = document.getElementById("prevVendorsBtn");
     const nextVendorsBtn = document.getElementById("nextVendorsBtn");
-    const nextFeaturedBtn = document.getElementById("nextFeaturedBtn");
     const vendorsDots = document.getElementById("vendorsDots");
     const vendorsSlideStatus = document.getElementById("vendorsSlideStatus");
     const vendorsTotalCount = document.getElementById("vendorsTotalCount");
@@ -563,8 +501,6 @@
     let allVendors = [];
     let filteredVendors = [];
     let currentSlide = 0;
-    let autoSlideInterval = null;
-    let autoSlideRestartTimeout = null;
 
     function cleanArray(arr) {
       return Array.isArray(arr) ? arr.filter(Boolean) : [];
@@ -675,15 +611,6 @@
 
       prevVendorsBtn.disabled = disableControls || currentSlide <= 0;
       nextVendorsBtn.disabled = disableControls || currentSlide >= totalSlides - 1;
-      nextFeaturedBtn.disabled = disableControls;
-
-      if (disableControls) {
-        nextFeaturedBtn.style.opacity = "0.6";
-        nextFeaturedBtn.style.cursor = "default";
-      } else {
-        nextFeaturedBtn.style.opacity = "1";
-        nextFeaturedBtn.style.cursor = "pointer";
-      }
     }
 
     function renderDots(vendors) {
@@ -701,7 +628,6 @@
         dot.addEventListener("click", () => {
           currentSlide = i;
           renderVendors(filteredVendors);
-          restartAutoSlide();
         });
 
         vendorsDots.appendChild(dot);
@@ -736,14 +662,13 @@
         vendorsDots.innerHTML = "";
         vendorsSlideStatus.textContent = "";
         vendorsTotalCount.textContent = "";
-        nextFeaturedBtn.style.display = "none";
         return;
       }
 
+      emptyMessage.style.display = "block";
       emptyMessage.style.display = "none";
       prevVendorsBtn.style.display = "inline-flex";
       nextVendorsBtn.style.display = "inline-flex";
-      nextFeaturedBtn.style.display = "inline-flex";
 
       const cardsPerSlide = getCardsPerSlide();
       const totalSlides = getTotalSlides(vendors);
@@ -838,18 +763,15 @@
         filteredVendors = [...allVendors];
         currentSlide = 0;
         renderVendors(filteredVendors);
-        startAutoSlide();
       } catch (error) {
         console.error("Vendor load error:", error);
         emptyMessage.style.display = "block";
         emptyMessage.textContent = "There was a problem loading vendors.";
         prevVendorsBtn.style.display = "none";
         nextVendorsBtn.style.display = "none";
-        nextFeaturedBtn.style.display = "none";
         vendorsDots.innerHTML = "";
         vendorsSlideStatus.textContent = "";
         vendorsTotalCount.textContent = "";
-        stopAutoSlide();
       }
     }
 
@@ -872,11 +794,6 @@
 
     function setRefreshImages() {
       const heroImage = document.getElementById("heroImage");
-      const categoryVenuesImage = document.getElementById("categoryVenuesImage");
-      const categoryFloristsImage = document.getElementById("categoryFloristsImage");
-      const categoryPhotoImage = document.getElementById("categoryPhotoImage");
-      const categoryBeautyImage = document.getElementById("categoryBeautyImage");
-      const categoryCelebrantsImage = document.getElementById("categoryCelebrantsImage");
 
       const heroImages = [
         "images/hero-1.png",
@@ -888,125 +805,27 @@
         "images/hero-7.png"
       ];
 
-      const venueImages = [
-        "images/hero-1.png",
-        "images/hero-5.png",
-        "images/hero-7.png"
-      ];
-
-      const floristImages = [
-        "images/bouquet.png"
-      ];
-
-      const photoImages = [
-        "images/hero-1.png",
-        "images/hero-4.png",
-        "images/hero-5.png",
-        "images/hero-6.png"
-      ];
-
-      const beautyImages = [
-        "images/hero-2.png",
-        "images/hero-3.png"
-      ];
-
-      const ceremonyImages = [
-        "images/hero-1.png",
-        "images/hero-5.png",
-        "images/hero-6.png",
-        "images/hero-7.png"
-      ];
-
       if (heroImage) {
         heroImage.src = getRandomItem(heroImages);
       }
-
-      if (categoryVenuesImage) {
-        categoryVenuesImage.src = getRandomItem(venueImages);
-      }
-
-      if (categoryFloristsImage) {
-        categoryFloristsImage.src = getRandomItem(floristImages);
-      }
-
-      if (categoryPhotoImage) {
-        categoryPhotoImage.src = getRandomItem(photoImages);
-      }
-
-      if (categoryBeautyImage) {
-        categoryBeautyImage.src = getRandomItem(beautyImages);
-      }
-
-      if (categoryCelebrantsImage) {
-        categoryCelebrantsImage.src = getRandomItem(ceremonyImages);
-      }
-    }
-
-    function goNextSlide() {
-      const totalSlides = getTotalSlides(filteredVendors);
-      if (totalSlides <= 1) return;
-
-      if (currentSlide < totalSlides - 1) {
-        currentSlide++;
-      } else {
-        currentSlide = 0;
-      }
-
-      renderVendors(filteredVendors);
-    }
-
-    function startAutoSlide() {
-      stopAutoSlide();
-
-      if (filteredVendors.length <= getCardsPerSlide()) return;
-
-      autoSlideInterval = setInterval(() => {
-        goNextSlide();
-      }, 6000);
-    }
-
-    function stopAutoSlide() {
-      if (autoSlideInterval) {
-        clearInterval(autoSlideInterval);
-        autoSlideInterval = null;
-      }
-      if (autoSlideRestartTimeout) {
-        clearTimeout(autoSlideRestartTimeout);
-        autoSlideRestartTimeout = null;
-      }
-    }
-
-    function restartAutoSlide() {
-      stopAutoSlide();
-      autoSlideRestartTimeout = setTimeout(() => {
-        startAutoSlide();
-      }, 8000);
     }
 
     prevVendorsBtn.addEventListener("click", () => {
       if (currentSlide > 0) {
         currentSlide--;
         renderVendors(filteredVendors);
-        restartAutoSlide();
       }
     });
 
     nextVendorsBtn.addEventListener("click", () => {
-      goNextSlide();
-      restartAutoSlide();
+      const totalSlides = getTotalSlides(filteredVendors);
+      if (currentSlide < totalSlides - 1) {
+        currentSlide++;
+      } else {
+        currentSlide = 0;
+      }
+      renderVendors(filteredVendors);
     });
-
-    nextFeaturedBtn.addEventListener("click", () => {
-      goNextSlide();
-      restartAutoSlide();
-    });
-
-    const vendorsSection = document.querySelector(".vendors-carousel-section");
-
-    vendorsSection.addEventListener("mouseenter", stopAutoSlide);
-    vendorsSection.addEventListener("mouseleave", startAutoSlide);
-    vendorsSection.addEventListener("touchstart", stopAutoSlide, { passive: true });
-    vendorsSection.addEventListener("touchend", restartAutoSlide, { passive: true });
 
     let resizeTimeout;
     window.addEventListener("resize", () => {
@@ -1017,7 +836,6 @@
           currentSlide = Math.max(0, totalSlides - 1);
         }
         renderVendors(filteredVendors);
-        startAutoSlide();
       }, 120);
     });
 
