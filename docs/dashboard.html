@@ -446,14 +446,6 @@
       margin-top: 0;
     }
 
-    .date-manager-wrap {
-      margin-top: 0;
-      padding: 0;
-      border: none;
-      border-radius: 0;
-      background: transparent;
-    }
-
     .date-manager-top {
       display: flex;
       gap: 12px;
@@ -463,12 +455,6 @@
 
     .date-manager-top .dashboard-field {
       flex: 1 1 220px;
-    }
-
-    .bulk-block-wrap {
-      margin-top: 18px;
-      padding-top: 18px;
-      border-top: 1px solid #efe3d9;
     }
 
     .weekday-pill-grid {
@@ -524,6 +510,11 @@
       line-height: 1.6;
     }
 
+    .account-settings-card {
+      border: 1px solid #eadfd6;
+      background: linear-gradient(180deg, #fff8f4 0%, #fffdfb 100%);
+    }
+
     @media (max-width: 980px) {
       .dashboard-hero-grid,
       .dashboard-two-col,
@@ -562,404 +553,399 @@
 
 <div class="page-auth">
   <a href="categories.html" id="categoriesLink" class="auth-link">Categories</a>
-
   <a href="shop.html" id="shopLink" class="auth-link">Boutique</a>
-
   <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
-
   <a href="login.html" id="loginLink" class="auth-link">Log In</a>
-
   <a href="dashboard.html" id="dashboardLink" class="auth-link" style="display:none;">Dashboard</a>
-
   <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
 </div>
 
-  <main class="dashboard-page">
-    <div class="dashboard-stack">
+<main class="dashboard-page">
+  <div class="dashboard-stack">
 
-      <section class="card dashboard-hero-card">
-        <div class="dashboard-hero-grid">
-          <div class="dashboard-hero-copy">
-            <a href="index.html" class="dashboard-logo-wrap" aria-label="Go to homepage">
-              <img src="images/logo.png" alt="Our Wedding Day Hub" class="dashboard-logo">
-            </a>
+    <section class="card dashboard-hero-card">
+      <div class="dashboard-hero-grid">
+        <div class="dashboard-hero-copy">
+          <a href="index.html" class="dashboard-logo-wrap" aria-label="Go to homepage">
+            <img src="images/logo.png" alt="Our Wedding Day Hub" class="dashboard-logo">
+          </a>
 
-            <p class="eyebrow">vendor dashboard</p>
-            <h1 class="dashboard-hero-title">Manage Your Vendor Profile</h1>
-            <p class="dashboard-hero-text">
-              Update your business details, upload your brand assets and media, choose your categories and service locations, and control when your profile appears.
-            </p>
+          <p class="eyebrow">vendor dashboard</p>
+          <h1 class="dashboard-hero-title">Manage Your Vendor Profile</h1>
+          <p class="dashboard-hero-text">
+            Update your business details, upload your brand assets and media, choose your categories and service locations, and control when your profile appears.
+          </p>
 
-            <div class="dashboard-actions">
-              <a href="#" id="viewProfileBtn" class="apply-button" style="display:none;">View Public Profile</a>
-              <button type="button" id="saveTopBtn" class="pretty-button">Save Changes</button>
-            </div>
-          </div>
-
-          <div class="dashboard-hero-image-wrap">
-            <img src="images/modern-couple-sunglasses.png" alt="Modern wedding couple portrait" class="dashboard-hero-image">
+          <div class="dashboard-actions">
+            <a href="#" id="viewProfileBtn" class="apply-button" style="display:none;">View Public Profile</a>
+            <button type="button" id="saveTopBtn" class="pretty-button">Save Changes</button>
           </div>
         </div>
-      </section>
 
-      <section class="card">
-        <h2>Status</h2>
+        <div class="dashboard-hero-image-wrap">
+          <img src="images/modern-couple-sunglasses.png" alt="Modern wedding couple portrait" class="dashboard-hero-image">
+        </div>
+      </div>
+    </section>
 
-        <div class="status-wrap">
-          <span class="status-pill" id="accountStatusText">Account status: loading...</span>
-          <span class="status-pill" id="subscriptionStatusText">Plan access: loading...</span>
-          <span class="status-pill" id="viewsStatusText">Profile views: 0</span>
+    <section class="card">
+      <h2>Status</h2>
+
+      <div class="status-wrap">
+        <span class="status-pill" id="accountStatusText">Account status: loading...</span>
+        <span class="status-pill" id="subscriptionStatusText">Plan access: loading...</span>
+        <span class="status-pill" id="viewsStatusText">Profile views: 0</span>
+      </div>
+
+      <div class="inline-toggle" style="margin-top: 18px;">
+        <input type="checkbox" id="profileLive">
+        <label for="profileLive" style="margin:0;">Make my profile live on the hub</label>
+      </div>
+
+      <p class="dashboard-help" style="text-align:center; margin-top:16px;">
+        Turn this on when you are ready for couples to see your profile. Your listing can appear when your account is active and you have either a paid plan or complimentary vendor access.
+      </p>
+    </section>
+
+    <section class="card" style="text-align:left;">
+      <h2 class="dashboard-section-title">Business Details</h2>
+
+      <div class="dashboard-card-soft">
+        <div class="dashboard-two-col">
+          <div class="dashboard-field">
+            <label for="businessName">Business Name</label>
+            <input type="text" id="businessName">
+          </div>
+
+          <div class="dashboard-field">
+            <label for="email">Business Email</label>
+            <input type="email" id="email">
+          </div>
         </div>
 
-        <div class="inline-toggle" style="margin-top: 18px;">
-          <input type="checkbox" id="profileLive">
-          <label for="profileLive" style="margin:0;">Make my profile live on the hub</label>
+        <div class="dashboard-three-col" style="margin-top: 14px;">
+          <div class="dashboard-field">
+            <label for="phone">Phone</label>
+            <input type="text" id="phone">
+          </div>
+
+          <div class="dashboard-field">
+            <label for="instagram">Instagram</label>
+            <input type="text" id="instagram" placeholder="@yourhandle or full link">
+          </div>
+
+          <div class="dashboard-field">
+            <label for="website">Website</label>
+            <input type="text" id="website" placeholder="https://yourwebsite.com">
+          </div>
         </div>
 
-        <p class="dashboard-help" style="text-align:center; margin-top:16px;">
-          Turn this on when you are ready for couples to see your profile. Your listing can appear when your account is active and you have either a paid plan or complimentary vendor access.
+        <div class="dashboard-three-col" style="margin-top: 14px;">
+          <div class="dashboard-field">
+            <label for="facebook">Facebook</label>
+            <input type="text" id="facebook" placeholder="https://facebook.com/...">
+          </div>
+
+          <div class="dashboard-field">
+            <label for="tiktok">TikTok</label>
+            <input type="text" id="tiktok" placeholder="https://tiktok.com/...">
+          </div>
+
+          <div class="dashboard-field">
+            <label for="youtube">YouTube</label>
+            <input type="text" id="youtube" placeholder="https://youtube.com/...">
+          </div>
+        </div>
+
+        <div class="dashboard-three-col" style="margin-top: 14px;">
+          <div class="dashboard-field">
+            <label for="pinterest">Pinterest</label>
+            <input type="text" id="pinterest" placeholder="https://pinterest.com/...">
+          </div>
+
+          <div class="dashboard-field">
+            <label for="linkedin">LinkedIn</label>
+            <input type="text" id="linkedin" placeholder="https://linkedin.com/...">
+          </div>
+
+          <div class="dashboard-field">
+            <label for="x">X (Twitter)</label>
+            <input type="text" id="x" placeholder="https://x.com/...">
+          </div>
+        </div>
+
+        <p class="dashboard-help">
+          Only the links you fill in will appear on your public profile.
         </p>
-      </section>
 
-      <section class="card" style="text-align:left;">
-        <h2 class="dashboard-section-title">Account Settings</h2>
-
-        <div class="dashboard-card-soft">
-          <div class="dashboard-two-col">
-            <div class="dashboard-field">
-              <label for="accountName">Your Name</label>
-              <input type="text" id="accountName" placeholder="Your name">
-            </div>
-
-            <div class="dashboard-field">
-              <label for="accountEmail">Login Email</label>
-              <input type="email" id="accountEmail" placeholder="you@example.com">
-            </div>
+        <div class="dashboard-two-col" style="margin-top: 14px;">
+          <div class="dashboard-field">
+            <label for="serviceAreas">Service Areas Summary</label>
+            <input type="text" id="serviceAreas" placeholder="Brisbane, Gold Coast, Sunshine Coast or Manila, Philippines">
           </div>
 
-          <div class="dashboard-field" style="margin-top:14px;">
-            <label for="accountPassword">New Password</label>
-            <input type="password" id="accountPassword" placeholder="Leave blank if not changing">
+          <div class="dashboard-field">
+            <label for="displayLocation">Display Location</label>
+            <input type="text" id="displayLocation" placeholder="Brisbane, Queensland or Manila, Philippines">
           </div>
-
-          <div class="dashboard-actions" style="justify-content:flex-start; margin-top:16px;">
-            <button type="button" id="saveAccountBtn" class="pretty-button">Update Account</button>
-          </div>
-
-          <p id="accountMessage" class="dashboard-help"></p>
-          <p class="dashboard-help">
-            If changing your email or password does not work, Firebase may ask you to log in again first.
-          </p>
         </div>
-      </section>
 
-      <section class="card" style="text-align:left;">
-        <h2 class="dashboard-section-title">Business Details</h2>
+        <p class="dashboard-help">
+          Use clear location wording here so couples can find you more easily in search results.
+        </p>
 
-        <div class="dashboard-card-soft">
+        <div class="dashboard-field" style="margin-top: 14px;">
+          <label for="bio">Bio</label>
+          <textarea id="bio" rows="6" placeholder="Tell couples about your business..."></textarea>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" style="text-align:left;">
+      <h2 class="dashboard-section-title">Booking & Availability</h2>
+
+      <div class="dashboard-card-soft booking-layout">
+        <div class="booking-subcard">
+          <h3>Booking Link & Availability</h3>
+          <p class="dashboard-help">
+            Add your booking page and a short status update so couples know whether you are taking enquiries right now.
+          </p>
+
           <div class="dashboard-two-col">
             <div class="dashboard-field">
-              <label for="businessName">Business Name</label>
-              <input type="text" id="businessName">
+              <label for="bookingLink">Booking Link</label>
+              <input type="text" id="bookingLink" placeholder="https://calendly.com/... or your booking page">
             </div>
 
             <div class="dashboard-field">
-              <label for="email">Email</label>
-              <input type="email" id="email">
+              <label for="availabilityStatus">Availability Status</label>
+              <input type="text" id="availabilityStatus" placeholder="Now booking 2026 weddings">
             </div>
           </div>
-
-          <div class="dashboard-three-col" style="margin-top: 14px;">
-            <div class="dashboard-field">
-              <label for="phone">Phone</label>
-              <input type="text" id="phone">
-            </div>
-
-            <div class="dashboard-field">
-              <label for="instagram">Instagram</label>
-              <input type="text" id="instagram" placeholder="@yourhandle or full link">
-            </div>
-
-            <div class="dashboard-field">
-              <label for="website">Website</label>
-              <input type="text" id="website" placeholder="https://yourwebsite.com">
-            </div>
-          </div>
-
-          <div class="dashboard-three-col" style="margin-top: 14px;">
-            <div class="dashboard-field">
-              <label for="facebook">Facebook</label>
-              <input type="text" id="facebook" placeholder="https://facebook.com/...">
-            </div>
-
-            <div class="dashboard-field">
-              <label for="tiktok">TikTok</label>
-              <input type="text" id="tiktok" placeholder="https://tiktok.com/...">
-            </div>
-
-            <div class="dashboard-field">
-              <label for="youtube">YouTube</label>
-              <input type="text" id="youtube" placeholder="https://youtube.com/...">
-            </div>
-          </div>
-
-          <div class="dashboard-three-col" style="margin-top: 14px;">
-            <div class="dashboard-field">
-              <label for="pinterest">Pinterest</label>
-              <input type="text" id="pinterest" placeholder="https://pinterest.com/...">
-            </div>
-
-            <div class="dashboard-field">
-              <label for="linkedin">LinkedIn</label>
-              <input type="text" id="linkedin" placeholder="https://linkedin.com/...">
-            </div>
-
-            <div class="dashboard-field">
-              <label for="x">X (Twitter)</label>
-              <input type="text" id="x" placeholder="https://x.com/...">
-            </div>
-          </div>
-
-          <p class="dashboard-help">
-            Only the links you fill in will appear on your public profile.
-          </p>
-
-          <div class="dashboard-two-col" style="margin-top: 14px;">
-            <div class="dashboard-field">
-              <label for="serviceAreas">Service Areas Summary</label>
-              <input type="text" id="serviceAreas" placeholder="Brisbane, Gold Coast, Sunshine Coast or Manila, Philippines">
-            </div>
-
-            <div class="dashboard-field">
-              <label for="displayLocation">Display Location</label>
-              <input type="text" id="displayLocation" placeholder="Brisbane, Queensland or Manila, Philippines">
-            </div>
-          </div>
-
-          <p class="dashboard-help">
-            Use clear location wording here so couples can find you more easily in search results.
-          </p>
 
           <div class="dashboard-field" style="margin-top: 14px;">
-            <label for="bio">Bio</label>
-            <textarea id="bio" rows="6" placeholder="Tell couples about your business..."></textarea>
+            <label for="bookingNotes">Booking Notes</label>
+            <textarea id="bookingNotes" rows="4" placeholder="Share anything couples should know before booking, like weekday availability, lead times, travel details, or busy seasons."></textarea>
           </div>
         </div>
-      </section>
 
-      <section class="card" style="text-align:left;">
-        <h2 class="dashboard-section-title">Booking & Availability</h2>
-
-        <div class="dashboard-card-soft booking-layout">
-          <div class="booking-subcard">
-            <h3>Booking Link & Availability</h3>
-            <p class="dashboard-help">
-              Add your booking page and a short status update so couples know whether you are taking enquiries right now.
-            </p>
-
-            <div class="dashboard-two-col">
-              <div class="dashboard-field">
-                <label for="bookingLink">Booking Link</label>
-                <input type="text" id="bookingLink" placeholder="https://calendly.com/... or your booking page">
-              </div>
-
-              <div class="dashboard-field">
-                <label for="availabilityStatus">Availability Status</label>
-                <input type="text" id="availabilityStatus" placeholder="Now booking 2026 weddings">
-              </div>
-            </div>
-
-            <div class="dashboard-field" style="margin-top: 14px;">
-              <label for="bookingNotes">Booking Notes</label>
-              <textarea id="bookingNotes" rows="4" placeholder="Share anything couples should know before booking, like weekday availability, lead times, travel details, or busy seasons."></textarea>
-            </div>
-          </div>
-
-          <div class="booking-subcard">
-            <h3>Block One Unavailable Date</h3>
-            <p class="dashboard-help">
-              Add a single date when you are already booked or not available.
-            </p>
-
-            <div class="date-manager-top">
-              <div class="dashboard-field">
-                <label for="blockedDateInput">Unavailable Date</label>
-                <input type="date" id="blockedDateInput">
-              </div>
-              <button type="button" id="addBlockedDateBtn" class="date-add-btn">Add Date</button>
-            </div>
-          </div>
-
-          <div class="booking-subcard">
-            <h3>Bulk Block Weekdays</h3>
-            <p class="dashboard-help">
-              Great for vendors who never work certain days, like every Sunday or every Monday and Tuesday.
-            </p>
-
-            <div id="weekdayOptions" class="weekday-pill-grid">
-              <label><input type="checkbox" value="0"><span>Sunday</span></label>
-              <label><input type="checkbox" value="1"><span>Monday</span></label>
-              <label><input type="checkbox" value="2"><span>Tuesday</span></label>
-              <label><input type="checkbox" value="3"><span>Wednesday</span></label>
-              <label><input type="checkbox" value="4"><span>Thursday</span></label>
-              <label><input type="checkbox" value="5"><span>Friday</span></label>
-              <label><input type="checkbox" value="6"><span>Saturday</span></label>
-            </div>
-
-            <div class="bulk-date-grid">
-              <div class="dashboard-field">
-                <label for="bulkStartDate">Start Date</label>
-                <input type="date" id="bulkStartDate">
-              </div>
-
-              <div class="dashboard-field">
-                <label for="bulkEndDate">End Date</label>
-                <input type="date" id="bulkEndDate">
-              </div>
-
-              <div class="dashboard-field">
-                <label for="bulkMonthsPreset">Quick Range</label>
-                <select id="bulkMonthsPreset">
-                  <option value="">Custom dates</option>
-                  <option value="3">Next 3 months</option>
-                  <option value="6">Next 6 months</option>
-                  <option value="12">Next 12 months</option>
-                </select>
-              </div>
-
-              <button type="button" id="bulkAddBtn" class="bulk-add-btn">Block Selected Days</button>
-            </div>
-          </div>
-
-          <div class="booking-subcard">
-            <h3>Unavailable Dates</h3>
-            <p class="dashboard-help">
-              These dates will be treated as unavailable on your public profile calendar and enquiry form.
-            </p>
-
-            <div id="blockedDateList" class="date-chip-list"></div>
-
-            <div class="calendar-tip-box">
-              Your booking link will show as a Book Now button on your public profile if filled in. Couples will also be able to choose a preferred date using the enquiry form, and unavailable dates will be checked before they send it.
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="card" style="text-align:left;">
-        <h2 class="dashboard-section-title">Profile Picture & Logo</h2>
-
-        <div class="dashboard-card-soft">
-          <div class="brand-assets-grid">
-            <div class="asset-box">
-              <div class="asset-preview-circle">
-                <div class="asset-empty" id="profileImageEmpty">No profile image yet</div>
-                <img id="profileImagePreview" style="display:none;" alt="Profile image preview">
-              </div>
-
-              <input type="file" id="profileImageFile" class="pretty-upload-input" accept="image/*">
-              <label for="profileImageFile" class="pretty-upload-label">Upload Profile Picture</label>
-              <div id="profileImageFileName" class="selected-file-note"></div>
-            </div>
-
-            <div class="asset-box">
-              <div class="asset-preview-square">
-                <div class="asset-empty" id="logoEmpty">No logo yet</div>
-                <img id="logoPreview" style="display:none;" alt="Logo preview">
-              </div>
-
-              <input type="file" id="logoFile" class="pretty-upload-input" accept="image/*">
-              <label for="logoFile" class="pretty-upload-label">Upload Logo</label>
-              <div id="logoFileName" class="selected-file-note"></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="card" style="text-align:left;">
-        <h2 class="dashboard-section-title">Media Uploads</h2>
-
-        <div class="dashboard-card-soft">
-          <div class="media-uploader-grid">
-            <div class="upload-box">
-              <h3>Upload Photos</h3>
-              <input type="file" id="galleryImageFiles" class="pretty-upload-input" accept="image/*" multiple>
-              <label for="galleryImageFiles" class="pretty-upload-label">Choose Photos</label>
-              <div id="galleryImageFileName" class="selected-file-note"></div>
-            </div>
-
-            <div class="upload-box">
-              <h3>Upload Videos</h3>
-              <input type="file" id="galleryVideoFiles" class="pretty-upload-input" accept="video/*" multiple>
-              <label for="galleryVideoFiles" class="pretty-upload-label">Choose Videos</label>
-              <div id="galleryVideoFileName" class="selected-file-note"></div>
-            </div>
-          </div>
-
-          <div id="imagePreview" class="media-preview-grid"></div>
-          <div id="videoPreview" class="media-preview-grid"></div>
-        </div>
-      </section>
-
-      <section class="card" style="text-align:left;">
-        <h2 class="dashboard-section-title">Style Tags</h2>
-
-        <div class="dashboard-card-soft">
-          <div id="styleTagOptions" class="mini-pill-grid"></div>
-        </div>
-      </section>
-
-      <section class="card" style="text-align:left;">
-        <h2 class="dashboard-section-title">Categories</h2>
-        <div class="dashboard-card-soft">
-          <div id="categoryOptions" class="dropdown-content-form"></div>
+        <div class="booking-subcard">
+          <h3>Block One Unavailable Date</h3>
           <p class="dashboard-help">
-            Choose the specific services you offer. These match the categories couples browse on the website.
+            Add a single date when you are already booked or not available.
           </p>
-        </div>
-      </section>
 
-      <section class="card" style="text-align:left;">
-        <h2 class="dashboard-section-title">Countries You Service</h2>
-        <div class="dashboard-card-soft">
-          <div id="countryOptions" class="dropdown-content-form"></div>
-          <p class="dashboard-help">
-            Select the countries you genuinely service. This helps your profile appear in country and broader region searches like Asia, Europe, North America and more.
-          </p>
-        </div>
-      </section>
-
-      <section class="card" style="text-align:left;">
-        <h2 class="dashboard-section-title">States / Provinces / Territories</h2>
-        <div class="dashboard-card-soft">
-          <div id="stateOptions" class="dropdown-content-form">
-            <p class="small-text">Select countries first.</p>
+          <div class="date-manager-top">
+            <div class="dashboard-field">
+              <label for="blockedDateInput">Unavailable Date</label>
+              <input type="date" id="blockedDateInput">
+            </div>
+            <button type="button" id="addBlockedDateBtn" class="date-add-btn">Add Date</button>
           </div>
-          <p class="dashboard-help">
-            Add your main states, provinces or territories so couples can narrow their search more easily.
-          </p>
         </div>
-      </section>
 
-      <section class="card" style="text-align:left;">
-        <h2 class="dashboard-section-title">Regions / Cities / Areas</h2>
-        <div class="dashboard-card-soft">
-          <div id="regionOptions" class="dropdown-content-form">
-            <p class="small-text">Select states, provinces or territories first.</p>
+        <div class="booking-subcard">
+          <h3>Bulk Block Weekdays</h3>
+          <p class="dashboard-help">
+            Great for vendors who never work certain days, like every Sunday or every Monday and Tuesday.
+          </p>
+
+          <div id="weekdayOptions" class="weekday-pill-grid">
+            <label><input type="checkbox" value="0"><span>Sunday</span></label>
+            <label><input type="checkbox" value="1"><span>Monday</span></label>
+            <label><input type="checkbox" value="2"><span>Tuesday</span></label>
+            <label><input type="checkbox" value="3"><span>Wednesday</span></label>
+            <label><input type="checkbox" value="4"><span>Thursday</span></label>
+            <label><input type="checkbox" value="5"><span>Friday</span></label>
+            <label><input type="checkbox" value="6"><span>Saturday</span></label>
           </div>
-          <p class="dashboard-help">
-            Choose the cities, regions or local areas you service. The more accurate this is, the easier it is for couples to find you.
-          </p>
+
+          <div class="bulk-date-grid">
+            <div class="dashboard-field">
+              <label for="bulkStartDate">Start Date</label>
+              <input type="date" id="bulkStartDate">
+            </div>
+
+            <div class="dashboard-field">
+              <label for="bulkEndDate">End Date</label>
+              <input type="date" id="bulkEndDate">
+            </div>
+
+            <div class="dashboard-field">
+              <label for="bulkMonthsPreset">Quick Range</label>
+              <select id="bulkMonthsPreset">
+                <option value="">Custom dates</option>
+                <option value="3">Next 3 months</option>
+                <option value="6">Next 6 months</option>
+                <option value="12">Next 12 months</option>
+              </select>
+            </div>
+
+            <button type="button" id="bulkAddBtn" class="bulk-add-btn">Block Selected Days</button>
+          </div>
         </div>
-      </section>
 
-      <section class="card">
-        <button type="button" id="saveBtn" class="pretty-button wide-glow">Save Changes</button>
-        <p id="message" class="form-message"></p>
-      </section>
+        <div class="booking-subcard">
+          <h3>Unavailable Dates</h3>
+          <p class="dashboard-help">
+            These dates will be treated as unavailable on your public profile calendar and enquiry form.
+          </p>
 
-    </div>
-  </main>
+          <div id="blockedDateList" class="date-chip-list"></div>
+
+          <div class="calendar-tip-box">
+            Your booking link will show as a Book Now button on your public profile if filled in. Couples will also be able to choose a preferred date using the enquiry form, and unavailable dates will be checked before they send it.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" style="text-align:left;">
+      <h2 class="dashboard-section-title">Profile Picture & Logo</h2>
+
+      <div class="dashboard-card-soft">
+        <div class="brand-assets-grid">
+          <div class="asset-box">
+            <div class="asset-preview-circle">
+              <div class="asset-empty" id="profileImageEmpty">No profile image yet</div>
+              <img id="profileImagePreview" style="display:none;" alt="Profile image preview">
+            </div>
+
+            <input type="file" id="profileImageFile" class="pretty-upload-input" accept="image/*">
+            <label for="profileImageFile" class="pretty-upload-label">Upload Profile Picture</label>
+            <div id="profileImageFileName" class="selected-file-note"></div>
+          </div>
+
+          <div class="asset-box">
+            <div class="asset-preview-square">
+              <div class="asset-empty" id="logoEmpty">No logo yet</div>
+              <img id="logoPreview" style="display:none;" alt="Logo preview">
+            </div>
+
+            <input type="file" id="logoFile" class="pretty-upload-input" accept="image/*">
+            <label for="logoFile" class="pretty-upload-label">Upload Logo</label>
+            <div id="logoFileName" class="selected-file-note"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" style="text-align:left;">
+      <h2 class="dashboard-section-title">Media Uploads</h2>
+
+      <div class="dashboard-card-soft">
+        <div class="media-uploader-grid">
+          <div class="upload-box">
+            <h3>Upload Photos</h3>
+            <input type="file" id="galleryImageFiles" class="pretty-upload-input" accept="image/*" multiple>
+            <label for="galleryImageFiles" class="pretty-upload-label">Choose Photos</label>
+            <div id="galleryImageFileName" class="selected-file-note"></div>
+          </div>
+
+          <div class="upload-box">
+            <h3>Upload Videos</h3>
+            <input type="file" id="galleryVideoFiles" class="pretty-upload-input" accept="video/*" multiple>
+            <label for="galleryVideoFiles" class="pretty-upload-label">Choose Videos</label>
+            <div id="galleryVideoFileName" class="selected-file-note"></div>
+          </div>
+        </div>
+
+        <div id="imagePreview" class="media-preview-grid"></div>
+        <div id="videoPreview" class="media-preview-grid"></div>
+      </div>
+    </section>
+
+    <section class="card" style="text-align:left;">
+      <h2 class="dashboard-section-title">Style Tags</h2>
+
+      <div class="dashboard-card-soft">
+        <div id="styleTagOptions" class="mini-pill-grid"></div>
+      </div>
+    </section>
+
+    <section class="card" style="text-align:left;">
+      <h2 class="dashboard-section-title">Categories</h2>
+      <div class="dashboard-card-soft">
+        <div id="categoryOptions" class="dropdown-content-form"></div>
+        <p class="dashboard-help">
+          Choose the specific services you offer. These match the categories couples browse on the website.
+        </p>
+      </div>
+    </section>
+
+    <section class="card" style="text-align:left;">
+      <h2 class="dashboard-section-title">Countries You Service</h2>
+      <div class="dashboard-card-soft">
+        <div id="countryOptions" class="dropdown-content-form"></div>
+        <p class="dashboard-help">
+          Select the countries you genuinely service. This helps your profile appear in country and broader region searches like Asia, Europe, North America and more.
+        </p>
+      </div>
+    </section>
+
+    <section class="card" style="text-align:left;">
+      <h2 class="dashboard-section-title">States / Provinces / Territories</h2>
+      <div class="dashboard-card-soft">
+        <div id="stateOptions" class="dropdown-content-form">
+          <p class="small-text">Select countries first.</p>
+        </div>
+        <p class="dashboard-help">
+          Add your main states, provinces or territories so couples can narrow their search more easily.
+        </p>
+      </div>
+    </section>
+
+    <section class="card" style="text-align:left;">
+      <h2 class="dashboard-section-title">Regions / Cities / Areas</h2>
+      <div class="dashboard-card-soft">
+        <div id="regionOptions" class="dropdown-content-form">
+          <p class="small-text">Select states, provinces or territories first.</p>
+        </div>
+        <p class="dashboard-help">
+          Choose the cities, regions or local areas you service. The more accurate this is, the easier it is for couples to find you.
+        </p>
+      </div>
+    </section>
+
+    <section class="card account-settings-card" style="text-align:left;">
+      <h2 class="dashboard-section-title">Account Settings</h2>
+
+      <div class="dashboard-card-soft">
+        <div class="dashboard-two-col">
+          <div class="dashboard-field">
+            <label for="accountName">Your Name</label>
+            <input type="text" id="accountName" placeholder="Your name">
+          </div>
+
+          <div class="dashboard-field">
+            <label for="accountEmail">Login Email</label>
+            <input type="email" id="accountEmail" placeholder="you@example.com">
+          </div>
+        </div>
+
+        <div class="dashboard-field" style="margin-top:14px;">
+          <label for="accountPassword">New Password</label>
+          <input type="password" id="accountPassword" placeholder="Leave blank if not changing">
+        </div>
+
+        <div class="dashboard-actions" style="justify-content:flex-start; margin-top:16px;">
+          <button type="button" id="saveAccountBtn" class="pretty-button">Update Account</button>
+        </div>
+
+        <p id="accountMessage" class="dashboard-help"></p>
+        <p class="dashboard-help">
+          If changing your email or password does not work, Firebase may ask you to log in again first.
+        </p>
+      </div>
+    </section>
+
+    <section class="card">
+      <button type="button" id="saveBtn" class="pretty-button wide-glow">Save Changes</button>
+      <p id="message" class="form-message"></p>
+    </section>
+
+  </div>
+</main>
 
 <footer class="site-footer">
   <div class="footer-content">
@@ -995,875 +981,1032 @@
   </div>
 </footer>
 
-  <script type="module">
-    import {
-      auth,
-      db,
-      storage,
-      onAuthStateChanged,
-      doc,
-      getDoc,
-      setDoc,
-      serverTimestamp,
-      ref,
-      uploadBytes,
-      getDownloadURL
-    } from "./firebase.js";
+<script type="module">
+  import {
+    auth,
+    db,
+    storage,
+    onAuthStateChanged,
+    doc,
+    getDoc,
+    setDoc,
+    serverTimestamp,
+    ref,
+    uploadBytes,
+    getDownloadURL
+  } from "./firebase.js";
 
-    import {
-      updateEmail,
-      updatePassword
-    } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+  import {
+    updateEmail,
+    updatePassword
+  } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
-    import { LOCATION_DATA } from "./locations.js";
+  import { LOCATION_DATA } from "./locations.js";
 
-    const categoryOptions = document.getElementById("categoryOptions");
-    const styleTagOptions = document.getElementById("styleTagOptions");
-    const countryOptions = document.getElementById("countryOptions");
-    const stateOptions = document.getElementById("stateOptions");
-    const regionOptions = document.getElementById("regionOptions");
+  const categoryOptions = document.getElementById("categoryOptions");
+  const styleTagOptions = document.getElementById("styleTagOptions");
+  const countryOptions = document.getElementById("countryOptions");
+  const stateOptions = document.getElementById("stateOptions");
+  const regionOptions = document.getElementById("regionOptions");
 
-    const businessName = document.getElementById("businessName");
-    const email = document.getElementById("email");
-    const phone = document.getElementById("phone");
-    const instagram = document.getElementById("instagram");
-    const website = document.getElementById("website");
-    const facebook = document.getElementById("facebook");
-    const tiktok = document.getElementById("tiktok");
-    const youtube = document.getElementById("youtube");
-    const pinterest = document.getElementById("pinterest");
-    const linkedin = document.getElementById("linkedin");
-    const x = document.getElementById("x");
-    const serviceAreas = document.getElementById("serviceAreas");
-    const displayLocation = document.getElementById("displayLocation");
-    const bookingLink = document.getElementById("bookingLink");
-    const availabilityStatus = document.getElementById("availabilityStatus");
-    const bookingNotes = document.getElementById("bookingNotes");
-    const blockedDateInput = document.getElementById("blockedDateInput");
-    const addBlockedDateBtn = document.getElementById("addBlockedDateBtn");
-    const blockedDateList = document.getElementById("blockedDateList");
-    const weekdayOptions = document.getElementById("weekdayOptions");
-    const bulkStartDate = document.getElementById("bulkStartDate");
-    const bulkEndDate = document.getElementById("bulkEndDate");
-    const bulkMonthsPreset = document.getElementById("bulkMonthsPreset");
-    const bulkAddBtn = document.getElementById("bulkAddBtn");
-    const bio = document.getElementById("bio");
+  const businessName = document.getElementById("businessName");
+  const email = document.getElementById("email");
+  const phone = document.getElementById("phone");
+  const instagram = document.getElementById("instagram");
+  const website = document.getElementById("website");
+  const facebook = document.getElementById("facebook");
+  const tiktok = document.getElementById("tiktok");
+  const youtube = document.getElementById("youtube");
+  const pinterest = document.getElementById("pinterest");
+  const linkedin = document.getElementById("linkedin");
+  const x = document.getElementById("x");
+  const serviceAreas = document.getElementById("serviceAreas");
+  const displayLocation = document.getElementById("displayLocation");
+  const bookingLink = document.getElementById("bookingLink");
+  const availabilityStatus = document.getElementById("availabilityStatus");
+  const bookingNotes = document.getElementById("bookingNotes");
+  const blockedDateInput = document.getElementById("blockedDateInput");
+  const addBlockedDateBtn = document.getElementById("addBlockedDateBtn");
+  const blockedDateList = document.getElementById("blockedDateList");
+  const weekdayOptions = document.getElementById("weekdayOptions");
+  const bulkStartDate = document.getElementById("bulkStartDate");
+  const bulkEndDate = document.getElementById("bulkEndDate");
+  const bulkMonthsPreset = document.getElementById("bulkMonthsPreset");
+  const bulkAddBtn = document.getElementById("bulkAddBtn");
+  const bio = document.getElementById("bio");
 
-    const profileImageFile = document.getElementById("profileImageFile");
-    const logoFile = document.getElementById("logoFile");
-    const galleryImageFiles = document.getElementById("galleryImageFiles");
-    const galleryVideoFiles = document.getElementById("galleryVideoFiles");
+  const profileImageFile = document.getElementById("profileImageFile");
+  const logoFile = document.getElementById("logoFile");
+  const galleryImageFiles = document.getElementById("galleryImageFiles");
+  const galleryVideoFiles = document.getElementById("galleryVideoFiles");
 
-    const profileImageFileName = document.getElementById("profileImageFileName");
-    const logoFileName = document.getElementById("logoFileName");
-    const galleryImageFileName = document.getElementById("galleryImageFileName");
-    const galleryVideoFileName = document.getElementById("galleryVideoFileName");
+  const profileImageFileName = document.getElementById("profileImageFileName");
+  const logoFileName = document.getElementById("logoFileName");
+  const galleryImageFileName = document.getElementById("galleryImageFileName");
+  const galleryVideoFileName = document.getElementById("galleryVideoFileName");
 
-    const profileImagePreview = document.getElementById("profileImagePreview");
-    const profileImageEmpty = document.getElementById("profileImageEmpty");
-    const logoPreview = document.getElementById("logoPreview");
-    const logoEmpty = document.getElementById("logoEmpty");
+  const profileImagePreview = document.getElementById("profileImagePreview");
+  const profileImageEmpty = document.getElementById("profileImageEmpty");
+  const logoPreview = document.getElementById("logoPreview");
+  const logoEmpty = document.getElementById("logoEmpty");
 
-    const profileLive = document.getElementById("profileLive");
+  const profileLive = document.getElementById("profileLive");
 
-    const saveBtn = document.getElementById("saveBtn");
-    const saveTopBtn = document.getElementById("saveTopBtn");
-    const viewProfileBtn = document.getElementById("viewProfileBtn");
-    const message = document.getElementById("message");
+  const saveBtn = document.getElementById("saveBtn");
+  const saveTopBtn = document.getElementById("saveTopBtn");
+  const viewProfileBtn = document.getElementById("viewProfileBtn");
+  const message = document.getElementById("message");
 
-    const accountStatusText = document.getElementById("accountStatusText");
-    const subscriptionStatusText = document.getElementById("subscriptionStatusText");
-    const viewsStatusText = document.getElementById("viewsStatusText");
-    const imagePreview = document.getElementById("imagePreview");
-    const videoPreview = document.getElementById("videoPreview");
+  const accountStatusText = document.getElementById("accountStatusText");
+  const subscriptionStatusText = document.getElementById("subscriptionStatusText");
+  const viewsStatusText = document.getElementById("viewsStatusText");
+  const imagePreview = document.getElementById("imagePreview");
+  const videoPreview = document.getElementById("videoPreview");
 
-    const accountName = document.getElementById("accountName");
-    const accountEmail = document.getElementById("accountEmail");
-    const accountPassword = document.getElementById("accountPassword");
-    const saveAccountBtn = document.getElementById("saveAccountBtn");
-    const accountMessage = document.getElementById("accountMessage");
+  const accountName = document.getElementById("accountName");
+  const accountEmail = document.getElementById("accountEmail");
+  const accountPassword = document.getElementById("accountPassword");
+  const saveAccountBtn = document.getElementById("saveAccountBtn");
+  const accountMessage = document.getElementById("accountMessage");
 
-    let currentUser = null;
-    let currentProfileImageUrl = "";
-    let currentLogoUrl = "";
-    let currentGalleryImages = [];
-    let currentGalleryVideos = [];
-    let currentBlockedDates = [];
-    let currentVendorAccess = {
-      subscriptionActive: false,
-      paidSetupFee: false,
-      complimentaryPlan: false,
-      plan: "",
-      accessType: "",
-      accountStatus: "active",
-      profileVisible: false,
-      published: false
-    };
+  let currentUser = null;
+  let currentProfileImageUrl = "";
+  let currentLogoUrl = "";
+  let currentGalleryImages = [];
+  let currentGalleryVideos = [];
+  let currentBlockedDates = [];
+  let currentVendorAccess = {
+    subscriptionActive: false,
+    paidSetupFee: false,
+    complimentaryPlan: false,
+    plan: "",
+    accessType: "",
+    accountStatus: "active",
+    profileVisible: false,
+    published: false
+  };
 
-    const STYLE_TAGS = [
-      "Indoor",
-      "Outdoor",
-      "Luxury",
-      "Modern",
-      "Romantic",
-      "Coastal",
-      "Boho",
-      "Minimal",
-      "Classic",
-      "Editorial",
-      "Garden",
-      "Rustic",
-      "Elegant",
-      "Destination",
-      "Intimate",
-      "Bold",
-      "Timeless",
-      "Whimsical"
-    ];
+  const STYLE_TAGS = [
+    "Indoor","Outdoor","Luxury","Modern","Romantic","Coastal","Boho","Minimal",
+    "Classic","Editorial","Garden","Rustic","Elegant","Destination","Intimate",
+    "Bold","Timeless","Whimsical"
+  ];
 
-    const CATEGORY_GROUPS = [
-      {
-        title: "Photo & Video",
-        items: [
-          ["wedding_photographer", "Photographer"],
-          ["wedding_videographer", "Videographer"],
-          ["wedding_content_creator", "Content Creator"],
-          ["photo_and_video_team", "Photo & Video Team"],
-          ["engagement_photographer", "Engagement Photographer"],
-          ["drone_operator", "Drone Operator"]
-        ]
-      },
-      {
-        title: "Beauty",
-        items: [
-          ["wedding_makeup_artist", "Makeup Artist"],
-          ["wedding_hair_stylist", "Hair Stylist"],
-          ["nail_artist", "Nail Artist"],
-          ["beauty_salon", "Beauty Salon"],
-          ["spray_tan", "Tanning"],
-          ["skin_aesthetics", "Skin & Aesthetics"],
-          ["brow_artist", "Brow Artist"],
-          ["lash_artist", "Lash Artist"],
-          ["barber_grooming", "Barber / Grooming"]
-        ]
-      },
-      {
-        title: "Entertainment",
-        items: [
-          ["wedding_singer", "Singer"],
-          ["wedding_band", "Band"],
-          ["wedding_dj", "DJ"],
-          ["acoustic_musician", "Acoustic Musician"],
-          ["violinist", "Violinist"],
-          ["saxophonist", "Saxophonist"],
-          ["harpist", "Harpist"],
-          ["wedding_mc", "MC"],
-          ["string_quartet", "String Quartet"],
-          ["live_entertainment", "Live Entertainment"]
-        ]
-      },
-      {
-        title: "Styling & Florals",
-        items: [
-          ["wedding_florist", "Florist"],
-          ["wedding_stylist", "Wedding Stylist"],
-          ["event_designer", "Event Designer"],
-          ["balloon_stylist", "Balloon Stylist"],
-          ["backdrops_arches", "Backdrops & Arches"],
-          ["ceremony_styling", "Ceremony Styling"],
-          ["reception_styling", "Reception Styling"]
-        ]
-      },
-      {
-        title: "Food & Drink",
-        items: [
-          ["wedding_caterer", "Caterer"],
-          ["wedding_cake_designer", "Wedding Cake Designer"],
-          ["dessert_bar", "Dessert Bar"],
-          ["mobile_bar", "Mobile Bar"],
-          ["coffee_cart", "Coffee Cart"],
-          ["food_truck", "Food Truck"],
-          ["grazing_tables", "Grazing Tables"],
-          ["cocktail_catering", "Cocktail Catering"],
-          ["ice_cream_cart", "Ice Cream Cart"]
-        ]
-      },
-      {
-        title: "Venues",
-        items: [
-          ["wedding_venue", "Wedding Venue"],
-          ["ceremony_venue", "Ceremony Venue"],
-          ["reception_venue", "Reception Venue"],
-          ["elopement_location", "Elopement Location"],
-          ["outdoor_venue", "Outdoor Venue"],
-          ["church_ceremony_venue", "Church / Ceremony Venue"],
-          ["garden_venue", "Garden Venue"],
-          ["winery_venue", "Winery Venue"],
-          ["beach_venue", "Beach Venue"]
-        ]
-      },
-      {
-        title: "Stationery & Signage",
-        items: [
-          ["wedding_invitations", "Invitations"],
-          ["wedding_stationery", "Wedding Stationery"],
-          ["wedding_signage", "Signage"],
-          ["calligraphy", "Calligraphy"],
-          ["place_cards", "Place Cards"],
-          ["seating_charts", "Seating Charts"]
-        ]
-      },
-      {
-        title: "Fashion",
-        items: [
-          ["bridal_boutique", "Bridal Boutique"],
-          ["bridesmaid_dresses", "Bridesmaid Dresses"],
-          ["formal_wear", "Formal Wear"],
-          ["suit_hire", "Suit Hire"],
-          ["custom_designer", "Custom Designer"],
-          ["wedding_dress_alterations", "Wedding Dress Alterations"],
-          ["bridal_accessories", "Bridal Accessories"],
-          ["bridal_shoes", "Bridal Shoes"],
-          ["veils_headpieces", "Veils & Headpieces"]
-        ]
-      },
-      {
-        title: "Jewellery",
-        items: [
-          ["wedding_rings", "Wedding Rings"],
-          ["engagement_rings", "Engagement Rings"],
-          ["custom_jewellery", "Custom Jewellery"],
-          ["permanent_jewellery", "Permanent Jewellery"]
-        ]
-      },
-      {
-        title: "Transport",
-        items: [
-          ["wedding_cars", "Wedding Cars"],
-          ["luxury_cars", "Luxury Cars"],
-          ["vintage_cars", "Vintage Cars"],
-          ["limousine", "Limousine"],
-          ["guest_transport", "Guest Transport"],
-          ["bus_charter", "Bus Charter"],
-          ["horse_carriage", "Horse & Carriage"]
-        ]
-      },
-      {
-        title: "Experiences & Unique Services",
-        items: [
-          ["live_wedding_painter", "Live Wedding Painter"],
-          ["photo_booth", "Photo Booth"],
-          ["audio_guestbook", "Audio Guestbook"],
-          ["wedding_content_creator_unique", "Wedding Content Creator"],
-          ["fireworks_special_effects", "Fireworks / Special Effects"],
-          ["dance_lessons", "Dance Lessons"],
-          ["caricature_artist", "Caricature Artist"],
-          ["tarot_reader", "Tarot Reader"]
-        ]
-      },
-      {
-        title: "Ceremony Services",
-        items: [
-          ["wedding_celebrant", "Celebrant"],
-          ["ceremony_music", "Ceremony Music"],
-          ["wedding_vows_speech_writer", "Vow / Speech Writer"]
-        ]
-      },
-      {
-        title: "Planning & Support",
-        items: [
-          ["wedding_planner", "Wedding Planner"],
-          ["wedding_coordinator", "Wedding Coordinator"],
-          ["on_the_day_coordinator", "On-the-day Coordinator"],
-          ["honeymoon_planner", "Honeymoon Planner"],
-          ["wedding_consultant", "Wedding Consultant"]
-        ]
-      },
-      {
-        title: "Care Services",
-        items: [
-          ["pet_attendant", "Pet Attendant"],
-          ["child_minder_wedding_nanny", "Child Minder / Wedding Nanny"]
-        ]
-      },
-      {
-        title: "Hire & Rentals",
-        items: [
-          ["furniture_hire", "Furniture Hire"],
-          ["decor_hire", "Decor Hire"],
-          ["tableware_hire", "Tableware Hire"],
-          ["lighting_hire", "Lighting Hire"],
-          ["marquee_hire", "Marquee Hire"],
-          ["styling_hire", "Styling Hire"],
-          ["dance_floor_hire", "Dance Floor Hire"],
-          ["linen_hire", "Linen Hire"],
-          ["prop_hire", "Prop Hire"]
-        ]
-      },
-      {
-        title: "Gifts & Favours",
-        items: [
-          ["wedding_favours", "Wedding Favours"],
-          ["personalised_gifts", "Personalised Gifts"],
-          ["hampers", "Hampers"],
-          ["bomboniere", "Bomboniere"]
-        ]
-      },
-      {
-        title: "Health & Wellness",
-        items: [
-          ["bridal_fitness", "Bridal Fitness"],
-          ["massage_therapist", "Massage Therapist"],
-          ["wellness_services", "Wellness Services"]
-        ]
-      },
-      {
-        title: "Accommodation",
-        items: [
-          ["guest_accommodation", "Guest Accommodation"],
-          ["bridal_suite", "Bridal Suite"],
-          ["honeymoon_stay", "Honeymoon Stay"]
-        ]
-      }
-    ];
-
-    function getCheckedValues(container) {
-      return Array.from(container.querySelectorAll("input:checked")).map(input => input.value);
+  const CATEGORY_GROUPS = [
+    {
+      title: "Photo & Video",
+      items: [
+        ["wedding_photographer", "Photographer"],
+        ["wedding_videographer", "Videographer"],
+        ["wedding_content_creator", "Content Creator"],
+        ["photo_and_video_team", "Photo & Video Team"],
+        ["engagement_photographer", "Engagement Photographer"],
+        ["drone_operator", "Drone Operator"]
+      ]
+    },
+    {
+      title: "Beauty",
+      items: [
+        ["wedding_makeup_artist", "Makeup Artist"],
+        ["wedding_hair_stylist", "Hair Stylist"],
+        ["nail_artist", "Nail Artist"],
+        ["beauty_salon", "Beauty Salon"],
+        ["spray_tan", "Tanning"],
+        ["skin_aesthetics", "Skin & Aesthetics"],
+        ["brow_artist", "Brow Artist"],
+        ["lash_artist", "Lash Artist"],
+        ["barber_grooming", "Barber / Grooming"]
+      ]
+    },
+    {
+      title: "Entertainment",
+      items: [
+        ["wedding_singer", "Singer"],
+        ["wedding_band", "Band"],
+        ["wedding_dj", "DJ"],
+        ["acoustic_musician", "Acoustic Musician"],
+        ["violinist", "Violinist"],
+        ["saxophonist", "Saxophonist"],
+        ["harpist", "Harpist"],
+        ["wedding_mc", "MC"],
+        ["string_quartet", "String Quartet"],
+        ["live_entertainment", "Live Entertainment"]
+      ]
+    },
+    {
+      title: "Styling & Florals",
+      items: [
+        ["wedding_florist", "Florist"],
+        ["wedding_stylist", "Wedding Stylist"],
+        ["event_designer", "Event Designer"],
+        ["balloon_stylist", "Balloon Stylist"],
+        ["backdrops_arches", "Backdrops & Arches"],
+        ["ceremony_styling", "Ceremony Styling"],
+        ["reception_styling", "Reception Styling"]
+      ]
+    },
+    {
+      title: "Food & Drink",
+      items: [
+        ["wedding_caterer", "Caterer"],
+        ["wedding_cake_designer", "Wedding Cake Designer"],
+        ["dessert_bar", "Dessert Bar"],
+        ["mobile_bar", "Mobile Bar"],
+        ["coffee_cart", "Coffee Cart"],
+        ["food_truck", "Food Truck"],
+        ["grazing_tables", "Grazing Tables"],
+        ["cocktail_catering", "Cocktail Catering"],
+        ["ice_cream_cart", "Ice Cream Cart"]
+      ]
+    },
+    {
+      title: "Venues",
+      items: [
+        ["wedding_venue", "Wedding Venue"],
+        ["ceremony_venue", "Ceremony Venue"],
+        ["reception_venue", "Reception Venue"],
+        ["elopement_location", "Elopement Location"],
+        ["outdoor_venue", "Outdoor Venue"],
+        ["church_ceremony_venue", "Church / Ceremony Venue"],
+        ["garden_venue", "Garden Venue"],
+        ["winery_venue", "Winery Venue"],
+        ["beach_venue", "Beach Venue"]
+      ]
+    },
+    {
+      title: "Stationery & Signage",
+      items: [
+        ["wedding_invitations", "Invitations"],
+        ["wedding_stationery", "Wedding Stationery"],
+        ["wedding_signage", "Signage"],
+        ["calligraphy", "Calligraphy"],
+        ["place_cards", "Place Cards"],
+        ["seating_charts", "Seating Charts"]
+      ]
+    },
+    {
+      title: "Fashion",
+      items: [
+        ["bridal_boutique", "Bridal Boutique"],
+        ["bridesmaid_dresses", "Bridesmaid Dresses"],
+        ["formal_wear", "Formal Wear"],
+        ["suit_hire", "Suit Hire"],
+        ["custom_designer", "Custom Designer"],
+        ["wedding_dress_alterations", "Wedding Dress Alterations"],
+        ["bridal_accessories", "Bridal Accessories"],
+        ["bridal_shoes", "Bridal Shoes"],
+        ["veils_headpieces", "Veils & Headpieces"]
+      ]
+    },
+    {
+      title: "Jewellery",
+      items: [
+        ["wedding_rings", "Wedding Rings"],
+        ["engagement_rings", "Engagement Rings"],
+        ["custom_jewellery", "Custom Jewellery"],
+        ["permanent_jewellery", "Permanent Jewellery"]
+      ]
+    },
+    {
+      title: "Transport",
+      items: [
+        ["wedding_cars", "Wedding Cars"],
+        ["luxury_cars", "Luxury Cars"],
+        ["vintage_cars", "Vintage Cars"],
+        ["limousine", "Limousine"],
+        ["guest_transport", "Guest Transport"],
+        ["bus_charter", "Bus Charter"],
+        ["horse_carriage", "Horse & Carriage"]
+      ]
+    },
+    {
+      title: "Experiences & Unique Services",
+      items: [
+        ["live_wedding_painter", "Live Wedding Painter"],
+        ["photo_booth", "Photo Booth"],
+        ["audio_guestbook", "Audio Guestbook"],
+        ["wedding_content_creator_unique", "Wedding Content Creator"],
+        ["fireworks_special_effects", "Fireworks / Special Effects"],
+        ["dance_lessons", "Dance Lessons"],
+        ["caricature_artist", "Caricature Artist"],
+        ["tarot_reader", "Tarot Reader"]
+      ]
+    },
+    {
+      title: "Ceremony Services",
+      items: [
+        ["wedding_celebrant", "Celebrant"],
+        ["ceremony_music", "Ceremony Music"],
+        ["wedding_vows_speech_writer", "Vow / Speech Writer"]
+      ]
+    },
+    {
+      title: "Planning & Support",
+      items: [
+        ["wedding_planner", "Wedding Planner"],
+        ["wedding_coordinator", "Wedding Coordinator"],
+        ["on_the_day_coordinator", "On-the-day Coordinator"],
+        ["honeymoon_planner", "Honeymoon Planner"],
+        ["wedding_consultant", "Wedding Consultant"]
+      ]
+    },
+    {
+      title: "Care Services",
+      items: [
+        ["pet_attendant", "Pet Attendant"],
+        ["child_minder_wedding_nanny", "Child Minder / Wedding Nanny"]
+      ]
+    },
+    {
+      title: "Hire & Rentals",
+      items: [
+        ["furniture_hire", "Furniture Hire"],
+        ["decor_hire", "Decor Hire"],
+        ["tableware_hire", "Tableware Hire"],
+        ["lighting_hire", "Lighting Hire"],
+        ["marquee_hire", "Marquee Hire"],
+        ["styling_hire", "Styling Hire"],
+        ["dance_floor_hire", "Dance Floor Hire"],
+        ["linen_hire", "Linen Hire"],
+        ["prop_hire", "Prop Hire"]
+      ]
+    },
+    {
+      title: "Gifts & Favours",
+      items: [
+        ["wedding_favours", "Wedding Favours"],
+        ["personalised_gifts", "Personalised Gifts"],
+        ["hampers", "Hampers"],
+        ["bomboniere", "Bomboniere"]
+      ]
+    },
+    {
+      title: "Health & Wellness",
+      items: [
+        ["bridal_fitness", "Bridal Fitness"],
+        ["massage_therapist", "Massage Therapist"],
+        ["wellness_services", "Wellness Services"]
+      ]
+    },
+    {
+      title: "Accommodation",
+      items: [
+        ["guest_accommodation", "Guest Accommodation"],
+        ["bridal_suite", "Bridal Suite"],
+        ["honeymoon_stay", "Honeymoon Stay"]
+      ]
     }
+  ];
 
-    function createPillCheckbox(value, labelText, checked = false, name = "") {
-      const label = document.createElement("label");
-      const input = document.createElement("input");
-      const span = document.createElement("span");
+  function getCheckedValues(container) {
+    return Array.from(container.querySelectorAll("input:checked")).map(input => input.value);
+  }
 
-      input.type = "checkbox";
-      input.value = value;
-      if (name) input.name = name;
-      input.checked = checked;
+  function createPillCheckbox(value, labelText, checked = false, name = "") {
+    const label = document.createElement("label");
+    const input = document.createElement("input");
+    const span = document.createElement("span");
 
-      span.textContent = labelText;
+    input.type = "checkbox";
+    input.value = value;
+    if (name) input.name = name;
+    input.checked = checked;
 
-      label.appendChild(input);
-      label.appendChild(span);
+    span.textContent = labelText;
 
-      return label;
-    }
+    label.appendChild(input);
+    label.appendChild(span);
 
-    function hasVendorAccess(vendorData) {
-      const hasPaidAccess =
-        vendorData.subscriptionActive === true || vendorData.paidSetupFee === true;
+    return label;
+  }
 
-      const hasComplimentaryAccess =
-        vendorData.complimentaryPlan === true ||
-        vendorData.plan === "complimentary" ||
-        vendorData.accessType === "complimentary-invite";
+  function hasVendorAccess(vendorData) {
+    const hasPaidAccess =
+      vendorData.subscriptionActive === true || vendorData.paidSetupFee === true;
 
-      const isApprovedAccount =
-        !vendorData.accountStatus || vendorData.accountStatus === "active";
+    const hasComplimentaryAccess =
+      vendorData.complimentaryPlan === true ||
+      vendorData.plan === "complimentary" ||
+      vendorData.accessType === "complimentary-invite";
 
-      return isApprovedAccount && (hasPaidAccess || hasComplimentaryAccess);
-    }
+    const isApprovedAccount =
+      !vendorData.accountStatus || vendorData.accountStatus === "active";
 
-    function getPlanAccessLabel(vendorData) {
-      if (
-        vendorData.complimentaryPlan === true ||
-        vendorData.plan === "complimentary" ||
-        vendorData.accessType === "complimentary-invite"
-      ) return "complimentary";
+    return isApprovedAccount && (hasPaidAccess || hasComplimentaryAccess);
+  }
 
-      if (vendorData.subscriptionActive === true) return "active subscription";
-      if (vendorData.paidSetupFee === true) return "setup paid";
-      return "inactive";
-    }
+  function getPlanAccessLabel(vendorData) {
+    if (
+      vendorData.complimentaryPlan === true ||
+      vendorData.plan === "complimentary" ||
+      vendorData.accessType === "complimentary-invite"
+    ) return "complimentary";
 
-    function getProfileViews(vendorData) {
-      if (typeof vendorData.profileViews === "number") return vendorData.profileViews;
-      if (typeof vendorData.viewCount === "number") return vendorData.viewCount;
-      if (typeof vendorData.views === "number") return vendorData.views;
-      return 0;
-    }
+    if (vendorData.subscriptionActive === true) return "active subscription";
+    if (vendorData.paidSetupFee === true) return "setup paid";
+    return "inactive";
+  }
 
-    function updateViewProfileVisibility(vendorData) {
-      const isLive =
-        profileLive.checked === true ||
-        vendorData.profileVisible === true ||
-        vendorData.published === true;
+  function getProfileViews(vendorData) {
+    if (typeof vendorData.profileViews === "number") return vendorData.profileViews;
+    if (typeof vendorData.viewCount === "number") return vendorData.viewCount;
+    if (typeof vendorData.views === "number") return vendorData.views;
+    return 0;
+  }
 
-      const canBeShown = hasVendorAccess(vendorData);
-      viewProfileBtn.style.display = isLive && canBeShown ? "inline-block" : "none";
-    }
+  function updateViewProfileVisibility(vendorData) {
+    const isLive =
+      profileLive.checked === true ||
+      vendorData.profileVisible === true ||
+      vendorData.published === true;
 
-    function renderStyleTags(selected = []) {
-      styleTagOptions.innerHTML = "";
-      STYLE_TAGS.forEach(tag => {
-        styleTagOptions.appendChild(createPillCheckbox(tag, tag, selected.includes(tag), "styleTags"));
+    const canBeShown = hasVendorAccess(vendorData);
+    viewProfileBtn.style.display = isLive && canBeShown ? "inline-block" : "none";
+  }
+
+  function renderStyleTags(selected = []) {
+    styleTagOptions.innerHTML = "";
+    STYLE_TAGS.forEach(tag => {
+      styleTagOptions.appendChild(createPillCheckbox(tag, tag, selected.includes(tag), "styleTags"));
+    });
+  }
+
+  function renderCategoryOptions(selected = []) {
+    categoryOptions.innerHTML = "";
+    CATEGORY_GROUPS.forEach(group => {
+      const heading = document.createElement("div");
+      heading.className = "category-group-title";
+      heading.textContent = group.title;
+      categoryOptions.appendChild(heading);
+
+      group.items.forEach(([value, label]) => {
+        categoryOptions.appendChild(createPillCheckbox(value, label, selected.includes(value), "categories"));
       });
+    });
+  }
+
+  function renderCountries(selectedCountries = []) {
+    countryOptions.innerHTML = "";
+    const countries = Object.keys(LOCATION_DATA).sort((a, b) => a.localeCompare(b));
+
+    if (!countries.length) {
+      countryOptions.innerHTML = '<p class="small-text">No countries found.</p>';
+      return;
     }
 
-    function renderCategoryOptions(selected = []) {
-      categoryOptions.innerHTML = "";
-      CATEGORY_GROUPS.forEach(group => {
-        const heading = document.createElement("div");
-        heading.className = "category-group-title";
-        heading.textContent = group.title;
-        categoryOptions.appendChild(heading);
+    countries.forEach(country => {
+      countryOptions.appendChild(createPillCheckbox(country, country, selectedCountries.includes(country), "countries"));
+    });
 
-        group.items.forEach(([value, label]) => {
-          categoryOptions.appendChild(createPillCheckbox(value, label, selected.includes(value), "categories"));
-        });
+    countryOptions.querySelectorAll("input").forEach(input => {
+      input.addEventListener("change", () => {
+        renderStates([]);
+        renderRegions([]);
       });
+    });
+  }
+
+  function renderStates(selectedStates = []) {
+    const selectedCountries = getCheckedValues(countryOptions);
+    stateOptions.innerHTML = "";
+    regionOptions.innerHTML = '<p class="small-text">Select countries first.</p>';
+
+    if (!selectedCountries.length) {
+      stateOptions.innerHTML = '<p class="small-text">Select countries first.</p>';
+      return;
     }
 
-    function renderCountries(selectedCountries = []) {
-      countryOptions.innerHTML = "";
-      const countries = Object.keys(LOCATION_DATA).sort((a, b) => a.localeCompare(b));
+    let hasStates = false;
 
-      if (!countries.length) {
-        countryOptions.innerHTML = '<p class="small-text">No countries found.</p>';
-        return;
-      }
+    selectedCountries.forEach(country => {
+      const countryData = LOCATION_DATA[country];
+      if (!countryData) return;
 
-      countries.forEach(country => {
-        countryOptions.appendChild(createPillCheckbox(country, country, selectedCountries.includes(country), "countries"));
+      const heading = document.createElement("div");
+      heading.className = "region-heading";
+      heading.textContent = country;
+      stateOptions.appendChild(heading);
+
+      Object.keys(countryData).sort((a, b) => a.localeCompare(b)).forEach(state => {
+        hasStates = true;
+        stateOptions.appendChild(createPillCheckbox(state, state, selectedStates.includes(state), "states"));
       });
+    });
 
-      countryOptions.querySelectorAll("input").forEach(input => {
-        input.addEventListener("change", () => {
-          renderStates([]);
-          renderRegions([]);
-        });
-      });
+    if (!hasStates) {
+      stateOptions.innerHTML = '<p class="small-text">No states, provinces or territories found.</p>';
+      return;
     }
 
-    function renderStates(selectedStates = []) {
-      const selectedCountries = getCheckedValues(countryOptions);
-      stateOptions.innerHTML = "";
-      regionOptions.innerHTML = '<p class="small-text">Select countries first.</p>';
+    stateOptions.querySelectorAll("input").forEach(input => {
+      input.addEventListener("change", () => {
+        renderRegions(getCheckedValues(regionOptions));
+      });
+    });
+  }
 
-      if (!selectedCountries.length) {
-        stateOptions.innerHTML = '<p class="small-text">Select countries first.</p>';
-        return;
-      }
+  function renderRegions(previouslyChecked = []) {
+    const selectedCountries = getCheckedValues(countryOptions);
+    const selectedStates = getCheckedValues(stateOptions);
 
-      let hasStates = false;
+    regionOptions.innerHTML = "";
 
-      selectedCountries.forEach(country => {
-        const countryData = LOCATION_DATA[country];
-        if (!countryData) return;
+    if (!selectedCountries.length || !selectedStates.length) {
+      regionOptions.innerHTML = '<p class="small-text">Select states, provinces or territories first.</p>';
+      return;
+    }
+
+    let hasRegions = false;
+
+    selectedCountries.forEach(country => {
+      const countryData = LOCATION_DATA[country];
+      if (!countryData) return;
+
+      selectedStates.forEach(state => {
+        const regions = countryData[state];
+        if (!regions || !regions.length) return;
+
+        hasRegions = true;
 
         const heading = document.createElement("div");
         heading.className = "region-heading";
-        heading.textContent = country;
-        stateOptions.appendChild(heading);
+        heading.textContent = `${country} — ${state}`;
+        regionOptions.appendChild(heading);
 
-        Object.keys(countryData).sort((a, b) => a.localeCompare(b)).forEach(state => {
-          hasStates = true;
-          stateOptions.appendChild(createPillCheckbox(state, state, selectedStates.includes(state), "states"));
+        regions.forEach(region => {
+          regionOptions.appendChild(createPillCheckbox(region, region, previouslyChecked.includes(region), "regions"));
         });
       });
+    });
 
-      if (!hasStates) {
-        stateOptions.innerHTML = '<p class="small-text">No states, provinces or territories found.</p>';
-        return;
-      }
+    if (!hasRegions) {
+      regionOptions.innerHTML = '<p class="small-text">No regions or cities found for the selected areas.</p>';
+    }
+  }
 
-      stateOptions.querySelectorAll("input").forEach(input => {
-        input.addEventListener("change", () => {
-          renderRegions(getCheckedValues(regionOptions));
-        });
-      });
+  function setSingleImagePreview(url, imgEl, emptyEl) {
+    if (url) {
+      imgEl.src = url;
+      imgEl.style.display = "block";
+      emptyEl.style.display = "none";
+    } else {
+      imgEl.removeAttribute("src");
+      imgEl.style.display = "none";
+      emptyEl.style.display = "block";
+    }
+  }
+
+  function buildMediaCard(type, url, onRemove) {
+    const wrap = document.createElement("div");
+    wrap.className = "media-preview-item";
+
+    if (type === "image") {
+      const img = document.createElement("img");
+      img.src = url;
+      img.alt = "Vendor image preview";
+      img.loading = "lazy";
+      wrap.appendChild(img);
+    } else {
+      const video = document.createElement("video");
+      video.src = url;
+      video.controls = true;
+      video.preload = "metadata";
+      wrap.appendChild(video);
     }
 
-    function renderRegions(previouslyChecked = []) {
-      const selectedCountries = getCheckedValues(countryOptions);
-      const selectedStates = getCheckedValues(stateOptions);
+    const removeBtn = document.createElement("button");
+    removeBtn.type = "button";
+    removeBtn.className = "remove-media-btn";
+    removeBtn.textContent = "Remove";
+    removeBtn.addEventListener("click", onRemove);
+    wrap.appendChild(removeBtn);
 
-      regionOptions.innerHTML = "";
+    return wrap;
+  }
 
-      if (!selectedCountries.length || !selectedStates.length) {
-        regionOptions.innerHTML = '<p class="small-text">Select states, provinces or territories first.</p>';
-        return;
-      }
+  function setImagePreview() {
+    imagePreview.innerHTML = "";
+    currentGalleryImages.slice(0, 12).forEach(imgUrl => {
+      imagePreview.appendChild(buildMediaCard("image", imgUrl, () => removeImageUrl(imgUrl)));
+    });
+  }
 
-      let hasRegions = false;
+  function setVideoPreview() {
+    videoPreview.innerHTML = "";
+    currentGalleryVideos.slice(0, 8).forEach(url => {
+      videoPreview.appendChild(buildMediaCard("video", url, () => removeVideoUrl(url)));
+    });
+  }
 
-      selectedCountries.forEach(country => {
-        const countryData = LOCATION_DATA[country];
-        if (!countryData) return;
+  function removeImageUrl(urlToRemove) {
+    currentGalleryImages = currentGalleryImages.filter(url => url !== urlToRemove);
+    setImagePreview();
+  }
 
-        selectedStates.forEach(state => {
-          const regions = countryData[state];
-          if (!regions || !regions.length) return;
+  function removeVideoUrl(urlToRemove) {
+    currentGalleryVideos = currentGalleryVideos.filter(url => url !== urlToRemove);
+    setVideoPreview();
+  }
 
-          hasRegions = true;
-
-          const heading = document.createElement("div");
-          heading.className = "region-heading";
-          heading.textContent = `${country} — ${state}`;
-          regionOptions.appendChild(heading);
-
-          regions.forEach(region => {
-            regionOptions.appendChild(createPillCheckbox(region, region, previouslyChecked.includes(region), "regions"));
-          });
-        });
-      });
-
-      if (!hasRegions) {
-        regionOptions.innerHTML = '<p class="small-text">No regions or cities found for the selected areas.</p>';
-      }
+  function showSelectedFileNames(input, targetEl, multiple = false) {
+    const files = Array.from(input.files || []);
+    if (!files.length) {
+      targetEl.textContent = "";
+      return;
     }
 
-    function setSingleImagePreview(url, imgEl, emptyEl) {
-      if (url) {
-        imgEl.src = url;
-        imgEl.style.display = "block";
-        emptyEl.style.display = "none";
-      } else {
-        imgEl.removeAttribute("src");
-        imgEl.style.display = "none";
-        emptyEl.style.display = "block";
-      }
+    if (multiple) {
+      targetEl.textContent = `${files.length} file${files.length === 1 ? "" : "s"} selected`;
+    } else {
+      targetEl.textContent = files[0].name;
+    }
+  }
+
+  function previewLocalSingleImage(file, previewEl, emptyEl) {
+    if (!file) return;
+    const localUrl = URL.createObjectURL(file);
+    previewEl.src = localUrl;
+    previewEl.style.display = "block";
+    emptyEl.style.display = "none";
+  }
+
+  function formatDateForDisplay(dateString) {
+    if (!dateString) return "";
+    const date = new Date(dateString + "T00:00:00");
+    return date.toLocaleDateString("en-AU", {
+      day: "numeric",
+      month: "short",
+      year: "numeric"
+    });
+  }
+
+  function toLocalDateString(dateObj) {
+    const y = dateObj.getFullYear();
+    const m = String(dateObj.getMonth() + 1).padStart(2, "0");
+    const d = String(dateObj.getDate()).padStart(2, "0");
+    return `${y}-${m}-${d}`;
+  }
+
+  function renderBlockedDates() {
+    blockedDateList.innerHTML = "";
+
+    if (!currentBlockedDates.length) {
+      blockedDateList.innerHTML = '<p class="small-text">No unavailable dates added yet.</p>';
+      return;
     }
 
-    function buildMediaCard(type, url, onRemove) {
-      const wrap = document.createElement("div");
-      wrap.className = "media-preview-item";
+    currentBlockedDates.slice().sort().forEach(dateValue => {
+      const chip = document.createElement("div");
+      chip.className = "date-chip";
 
-      if (type === "image") {
-        const img = document.createElement("img");
-        img.src = url;
-        img.alt = "Vendor image preview";
-        img.loading = "lazy";
-        wrap.appendChild(img);
-      } else {
-        const video = document.createElement("video");
-        video.src = url;
-        video.controls = true;
-        video.preload = "metadata";
-        wrap.appendChild(video);
-      }
+      const text = document.createElement("span");
+      text.textContent = formatDateForDisplay(dateValue);
 
       const removeBtn = document.createElement("button");
       removeBtn.type = "button";
-      removeBtn.className = "remove-media-btn";
+      removeBtn.className = "date-remove-btn";
       removeBtn.textContent = "Remove";
-      removeBtn.addEventListener("click", onRemove);
-      wrap.appendChild(removeBtn);
-
-      return wrap;
-    }
-
-    function setImagePreview() {
-      imagePreview.innerHTML = "";
-      currentGalleryImages.slice(0, 12).forEach(imgUrl => {
-        imagePreview.appendChild(buildMediaCard("image", imgUrl, () => removeImageUrl(imgUrl)));
+      removeBtn.addEventListener("click", () => {
+        currentBlockedDates = currentBlockedDates.filter(d => d !== dateValue);
+        renderBlockedDates();
       });
+
+      chip.appendChild(text);
+      chip.appendChild(removeBtn);
+      blockedDateList.appendChild(chip);
+    });
+  }
+
+  function addBlockedDate() {
+    const dateValue = blockedDateInput.value;
+    if (!dateValue) return;
+
+    if (!currentBlockedDates.includes(dateValue)) {
+      currentBlockedDates.push(dateValue);
     }
 
-    function setVideoPreview() {
-      videoPreview.innerHTML = "";
-      currentGalleryVideos.slice(0, 8).forEach(url => {
-        videoPreview.appendChild(buildMediaCard("video", url, () => removeVideoUrl(url)));
-      });
+    currentBlockedDates = [...new Set(currentBlockedDates)].sort();
+    blockedDateInput.value = "";
+    renderBlockedDates();
+  }
+
+  function getSelectedWeekdays() {
+    return Array.from(weekdayOptions.querySelectorAll("input:checked")).map(input => Number(input.value));
+  }
+
+  function addMonthsToDate(dateObj, months) {
+    const copy = new Date(dateObj);
+    copy.setMonth(copy.getMonth() + months);
+    return copy;
+  }
+
+  function applyBulkWeekdayBlock() {
+    const selectedWeekdays = getSelectedWeekdays();
+
+    if (!selectedWeekdays.length) {
+      message.textContent = "Please choose at least one weekday to bulk block.";
+      return;
     }
 
-    function removeImageUrl(urlToRemove) {
-      currentGalleryImages = currentGalleryImages.filter(url => url !== urlToRemove);
-      setImagePreview();
+    let startValue = bulkStartDate.value;
+    let endValue = bulkEndDate.value;
+    const presetMonths = bulkMonthsPreset.value;
+
+    const today = new Date();
+    const todayString = toLocalDateString(today);
+
+    if (!startValue) {
+      startValue = todayString;
+      bulkStartDate.value = startValue;
     }
 
-    function removeVideoUrl(urlToRemove) {
-      currentGalleryVideos = currentGalleryVideos.filter(url => url !== urlToRemove);
-      setVideoPreview();
+    if (!endValue && presetMonths) {
+      const presetEnd = addMonthsToDate(new Date(startValue + "T00:00:00"), Number(presetMonths));
+      endValue = toLocalDateString(presetEnd);
+      bulkEndDate.value = endValue;
     }
 
-    function showSelectedFileNames(input, targetEl, multiple = false) {
-      const files = Array.from(input.files || []);
-      if (!files.length) {
-        targetEl.textContent = "";
-        return;
-      }
-
-      if (multiple) {
-        targetEl.textContent = `${files.length} file${files.length === 1 ? "" : "s"} selected`;
-      } else {
-        targetEl.textContent = files[0].name;
-      }
+    if (!endValue) {
+      message.textContent = "Please choose an end date or use a quick range.";
+      return;
     }
 
-    function previewLocalSingleImage(file, previewEl, emptyEl) {
-      if (!file) return;
-      const localUrl = URL.createObjectURL(file);
-      previewEl.src = localUrl;
-      previewEl.style.display = "block";
-      emptyEl.style.display = "none";
+    if (endValue < startValue) {
+      message.textContent = "The end date must be after the start date.";
+      return;
     }
 
-    function formatDateForDisplay(dateString) {
-      if (!dateString) return "";
-      const date = new Date(dateString + "T00:00:00");
-      return date.toLocaleDateString("en-AU", {
-        day: "numeric",
-        month: "short",
-        year: "numeric"
-      });
-    }
+    const startDate = new Date(startValue + "T00:00:00");
+    const endDate = new Date(endValue + "T00:00:00");
 
-    function toLocalDateString(dateObj) {
-      const y = dateObj.getFullYear();
-      const m = String(dateObj.getMonth() + 1).padStart(2, "0");
-      const d = String(dateObj.getDate()).padStart(2, "0");
-      return `${y}-${m}-${d}`;
-    }
+    let addedCount = 0;
+    const existing = new Set(currentBlockedDates);
 
-    function renderBlockedDates() {
-      blockedDateList.innerHTML = "";
-
-      if (!currentBlockedDates.length) {
-        blockedDateList.innerHTML = '<p class="small-text">No unavailable dates added yet.</p>';
-        return;
-      }
-
-      currentBlockedDates
-        .slice()
-        .sort()
-        .forEach(dateValue => {
-          const chip = document.createElement("div");
-          chip.className = "date-chip";
-
-          const text = document.createElement("span");
-          text.textContent = formatDateForDisplay(dateValue);
-
-          const removeBtn = document.createElement("button");
-          removeBtn.type = "button";
-          removeBtn.className = "date-remove-btn";
-          removeBtn.textContent = "Remove";
-          removeBtn.addEventListener("click", () => {
-            currentBlockedDates = currentBlockedDates.filter(d => d !== dateValue);
-            renderBlockedDates();
-          });
-
-          chip.appendChild(text);
-          chip.appendChild(removeBtn);
-          blockedDateList.appendChild(chip);
-        });
-    }
-
-    function addBlockedDate() {
-      const dateValue = blockedDateInput.value;
-      if (!dateValue) return;
-
-      if (!currentBlockedDates.includes(dateValue)) {
-        currentBlockedDates.push(dateValue);
-      }
-
-      currentBlockedDates = [...new Set(currentBlockedDates)].sort();
-      blockedDateInput.value = "";
-      renderBlockedDates();
-    }
-
-    function getSelectedWeekdays() {
-      return Array.from(weekdayOptions.querySelectorAll("input:checked")).map(input => Number(input.value));
-    }
-
-    function addMonthsToDate(dateObj, months) {
-      const copy = new Date(dateObj);
-      copy.setMonth(copy.getMonth() + months);
-      return copy;
-    }
-
-    function applyBulkWeekdayBlock() {
-      const selectedWeekdays = getSelectedWeekdays();
-
-      if (!selectedWeekdays.length) {
-        message.textContent = "Please choose at least one weekday to bulk block.";
-        return;
-      }
-
-      let startValue = bulkStartDate.value;
-      let endValue = bulkEndDate.value;
-      const presetMonths = bulkMonthsPreset.value;
-
-      const today = new Date();
-      const todayString = toLocalDateString(today);
-
-      if (!startValue) {
-        startValue = todayString;
-        bulkStartDate.value = startValue;
-      }
-
-      if (!endValue && presetMonths) {
-        const presetEnd = addMonthsToDate(new Date(startValue + "T00:00:00"), Number(presetMonths));
-        endValue = toLocalDateString(presetEnd);
-        bulkEndDate.value = endValue;
-      }
-
-      if (!endValue) {
-        message.textContent = "Please choose an end date or use a quick range.";
-        return;
-      }
-
-      if (endValue < startValue) {
-        message.textContent = "The end date must be after the start date.";
-        return;
-      }
-
-      const startDate = new Date(startValue + "T00:00:00");
-      const endDate = new Date(endValue + "T00:00:00");
-
-      let addedCount = 0;
-      const existing = new Set(currentBlockedDates);
-
-      for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
-        if (selectedWeekdays.includes(d.getDay())) {
-          const dateString = toLocalDateString(d);
-          if (!existing.has(dateString)) {
-            existing.add(dateString);
-            addedCount += 1;
-          }
+    for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
+      if (selectedWeekdays.includes(d.getDay())) {
+        const dateString = toLocalDateString(d);
+        if (!existing.has(dateString)) {
+          existing.add(dateString);
+          addedCount += 1;
         }
       }
-
-      currentBlockedDates = Array.from(existing).sort();
-      renderBlockedDates();
-      message.textContent = addedCount
-        ? `${addedCount} unavailable date${addedCount === 1 ? "" : "s"} added.`
-        : "No new unavailable dates were added.";
     }
 
-    profileImageFile.addEventListener("change", (e) => {
-      const file = e.target.files?.[0];
-      showSelectedFileNames(profileImageFile, profileImageFileName, false);
-      if (file) previewLocalSingleImage(file, profileImagePreview, profileImageEmpty);
-    });
+    currentBlockedDates = Array.from(existing).sort();
+    renderBlockedDates();
+    message.textContent = addedCount
+      ? `${addedCount} unavailable date${addedCount === 1 ? "" : "s"} added.`
+      : "No new unavailable dates were added.";
+  }
 
-    logoFile.addEventListener("change", (e) => {
-      const file = e.target.files?.[0];
-      showSelectedFileNames(logoFile, logoFileName, false);
-      if (file) previewLocalSingleImage(file, logoPreview, logoEmpty);
-    });
+  profileImageFile.addEventListener("change", (e) => {
+    const file = e.target.files?.[0];
+    showSelectedFileNames(profileImageFile, profileImageFileName, false);
+    if (file) previewLocalSingleImage(file, profileImagePreview, profileImageEmpty);
+  });
 
-    galleryImageFiles.addEventListener("change", () => {
-      showSelectedFileNames(galleryImageFiles, galleryImageFileName, true);
-    });
+  logoFile.addEventListener("change", (e) => {
+    const file = e.target.files?.[0];
+    showSelectedFileNames(logoFile, logoFileName, false);
+    if (file) previewLocalSingleImage(file, logoPreview, logoEmpty);
+  });
 
-    galleryVideoFiles.addEventListener("change", () => {
-      showSelectedFileNames(galleryVideoFiles, galleryVideoFileName, true);
-    });
+  galleryImageFiles.addEventListener("change", () => {
+    showSelectedFileNames(galleryImageFiles, galleryImageFileName, true);
+  });
 
-    profileLive.addEventListener("change", () => {
-      currentVendorAccess.profileVisible = profileLive.checked;
-      currentVendorAccess.published = profileLive.checked;
-      updateViewProfileVisibility(currentVendorAccess);
-    });
+  galleryVideoFiles.addEventListener("change", () => {
+    showSelectedFileNames(galleryVideoFiles, galleryVideoFileName, true);
+  });
 
-    addBlockedDateBtn.addEventListener("click", addBlockedDate);
-    blockedDateInput.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") {
-        e.preventDefault();
-        addBlockedDate();
-      }
-    });
+  profileLive.addEventListener("change", () => {
+    currentVendorAccess.profileVisible = profileLive.checked;
+    currentVendorAccess.published = profileLive.checked;
+    updateViewProfileVisibility(currentVendorAccess);
+  });
 
-    bulkAddBtn.addEventListener("click", applyBulkWeekdayBlock);
+  addBlockedDateBtn.addEventListener("click", addBlockedDate);
+  blockedDateInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      addBlockedDate();
+    }
+  });
 
-    bulkMonthsPreset.addEventListener("change", () => {
-      const presetMonths = bulkMonthsPreset.value;
-      if (!presetMonths) return;
+  bulkAddBtn.addEventListener("click", applyBulkWeekdayBlock);
 
-      const baseDate = bulkStartDate.value
-        ? new Date(bulkStartDate.value + "T00:00:00")
-        : new Date();
+  bulkMonthsPreset.addEventListener("change", () => {
+    const presetMonths = bulkMonthsPreset.value;
+    if (!presetMonths) return;
 
-      if (!bulkStartDate.value) {
-        bulkStartDate.value = toLocalDateString(baseDate);
-      }
+    const baseDate = bulkStartDate.value
+      ? new Date(bulkStartDate.value + "T00:00:00")
+      : new Date();
 
-      const computedEnd = addMonthsToDate(baseDate, Number(presetMonths));
-      bulkEndDate.value = toLocalDateString(computedEnd);
-    });
-
-    async function uploadFileToStorage(file, folder, uid) {
-      const safeName = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9._-]/g, "_")}`;
-      const storageRef = ref(storage, `${folder}/${uid}/${safeName}`);
-      await uploadBytes(storageRef, file);
-      return await getDownloadURL(storageRef);
+    if (!bulkStartDate.value) {
+      bulkStartDate.value = toLocalDateString(baseDate);
     }
 
-    async function loadVendorData(uid) {
-      const userSnap = await getDoc(doc(db, "users", uid));
+    const computedEnd = addMonthsToDate(baseDate, Number(presetMonths));
+    bulkEndDate.value = toLocalDateString(computedEnd);
+  });
 
-      if (!userSnap.exists() || userSnap.data().role !== "vendor") {
-        window.location.href = "login.html";
-        return;
+  async function uploadFileToStorage(file, folder, uid) {
+    const safeName = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9._-]/g, "_")}`;
+    const storageRef = ref(storage, `${folder}/${uid}/${safeName}`);
+    await uploadBytes(storageRef, file);
+    return await getDownloadURL(storageRef);
+  }
+
+  async function loadVendorData(uid) {
+    const userSnap = await getDoc(doc(db, "users", uid));
+
+    if (!userSnap.exists() || userSnap.data().role !== "vendor") {
+      window.location.href = "login.html";
+      return;
+    }
+
+    const userData = userSnap.data();
+    const vendorRef = doc(db, "vendors", uid);
+    const vendorSnap = await getDoc(vendorRef);
+    const vendorData = vendorSnap.exists() ? vendorSnap.data() : {};
+
+    currentVendorAccess = {
+      subscriptionActive: vendorData.subscriptionActive === true,
+      paidSetupFee: vendorData.paidSetupFee === true,
+      complimentaryPlan: vendorData.complimentaryPlan === true,
+      plan: vendorData.plan || "",
+      accessType: vendorData.accessType || "",
+      accountStatus: vendorData.accountStatus || "active",
+      profileVisible: vendorData.profileVisible === true,
+      published: vendorData.published === true
+    };
+
+    businessName.value = vendorData.businessName || "";
+    email.value = vendorData.email || currentUser.email || "";
+    accountName.value = userData.name || "";
+    accountEmail.value = userData.email || currentUser.email || "";
+    phone.value = vendorData.phone || "";
+    instagram.value = vendorData.instagram || "";
+    website.value = vendorData.website || "";
+    facebook.value = vendorData.facebook || "";
+    tiktok.value = vendorData.tiktok || "";
+    youtube.value = vendorData.youtube || "";
+    pinterest.value = vendorData.pinterest || "";
+    linkedin.value = vendorData.linkedin || "";
+    x.value = vendorData.x || "";
+    serviceAreas.value = vendorData.serviceAreas || "";
+    displayLocation.value = vendorData.displayLocation || "";
+    bookingLink.value = vendorData.bookingLink || "";
+    availabilityStatus.value = vendorData.availabilityStatus || "";
+    bookingNotes.value = vendorData.bookingNotes || "";
+    bio.value = vendorData.bio || "";
+
+    currentBlockedDates = Array.isArray(vendorData.blockedDates)
+      ? vendorData.blockedDates.filter(Boolean)
+      : [];
+
+    currentProfileImageUrl = vendorData.profileImageUrl || "";
+    currentLogoUrl = vendorData.logoUrl || "";
+    currentGalleryImages = Array.isArray(vendorData.images) ? [...vendorData.images] : [];
+    currentGalleryVideos = Array.isArray(vendorData.videos) ? [...vendorData.videos] : [];
+
+    profileLive.checked = vendorData.profileVisible === true || vendorData.published === true;
+
+    accountStatusText.textContent = `Account status: ${vendorData.accountStatus || "active"}`;
+    subscriptionStatusText.textContent = `Plan access: ${getPlanAccessLabel(vendorData)}`;
+    viewsStatusText.textContent = `Profile views: ${getProfileViews(vendorData)}`;
+
+    renderStyleTags(Array.isArray(vendorData.styleTags) ? vendorData.styleTags : []);
+    renderCategoryOptions(Array.isArray(vendorData.categories) ? vendorData.categories : []);
+
+    const selectedCountries =
+      Array.isArray(vendorData.countries) && vendorData.countries.length
+        ? vendorData.countries
+        : vendorData.country
+          ? [vendorData.country]
+          : ["Australia"];
+
+    renderCountries(selectedCountries);
+    renderStates(Array.isArray(vendorData.states) ? vendorData.states : []);
+    renderRegions(Array.isArray(vendorData.regions) ? vendorData.regions : []);
+
+    viewProfileBtn.href = `vendor.html?id=${uid}`;
+
+    setSingleImagePreview(currentProfileImageUrl, profileImagePreview, profileImageEmpty);
+    setSingleImagePreview(currentLogoUrl, logoPreview, logoEmpty);
+    setImagePreview();
+    setVideoPreview();
+    renderBlockedDates();
+    updateViewProfileVisibility(currentVendorAccess);
+  }
+
+  async function saveAccountSettings() {
+    if (!currentUser) return;
+
+    accountMessage.textContent = "Updating account...";
+
+    try {
+      const newName = accountName.value.trim();
+      const newEmail = accountEmail.value.trim().toLowerCase();
+      const newPassword = accountPassword.value.trim();
+
+      await setDoc(doc(db, "users", currentUser.uid), {
+        name: newName,
+        email: newEmail,
+        role: "vendor",
+        updatedAt: serverTimestamp()
+      }, { merge: true });
+
+      if (newEmail && newEmail !== currentUser.email) {
+        await updateEmail(currentUser, newEmail);
       }
 
-      const userData = userSnap.data();
-      const vendorRef = doc(db, "vendors", uid);
-      const vendorSnap = await getDoc(vendorRef);
-      const vendorData = vendorSnap.exists() ? vendorSnap.data() : {};
+      if (newPassword) {
+        if (newPassword.length < 6) {
+          accountMessage.textContent = "Password must be at least 6 characters.";
+          return;
+        }
+        await updatePassword(currentUser, newPassword);
+      }
+
+      await setDoc(doc(db, "vendors", currentUser.uid), {
+        email: newEmail
+      }, { merge: true });
+
+      email.value = newEmail;
+      accountPassword.value = "";
+      accountMessage.textContent = "Account details updated successfully.";
+    } catch (error) {
+      console.error(error);
+      accountMessage.textContent = "Could not update account details. You may need to log in again before changing email or password.";
+    }
+  }
+
+  async function saveVendorData() {
+    if (!currentUser) return;
+
+    message.textContent = "Saving...";
+
+    try {
+      const vendorSnap = await getDoc(doc(db, "vendors", currentUser.uid));
+      const existingVendorData = vendorSnap.exists() ? vendorSnap.data() : {};
 
       currentVendorAccess = {
-        subscriptionActive: vendorData.subscriptionActive === true,
-        paidSetupFee: vendorData.paidSetupFee === true,
-        complimentaryPlan: vendorData.complimentaryPlan === true,
-        plan: vendorData.plan || "",
-        accessType: vendorData.accessType || "",
-        accountStatus: vendorData.accountStatus || "active",
-        profileVisible: vendorData.profileVisible === true,
-        published: vendorData.published === true
+        subscriptionActive: existingVendorData.subscriptionActive === true,
+        paidSetupFee: existingVendorData.paidSetupFee === true,
+        complimentaryPlan: existingVendorData.complimentaryPlan === true,
+        plan: existingVendorData.plan || "",
+        accessType: existingVendorData.accessType || "",
+        accountStatus: existingVendorData.accountStatus || "active",
+        profileVisible: existingVendorData.profileVisible === true,
+        published: existingVendorData.published === true
       };
 
-      businessName.value = vendorData.businessName || "";
-      email.value = vendorData.email || currentUser.email || "";
-      accountName.value = userData.name || "";
-      accountEmail.value = userData.email || currentUser.email || "";
-      phone.value = vendorData.phone || "";
-      instagram.value = vendorData.instagram || "";
-      website.value = vendorData.website || "";
-      facebook.value = vendorData.facebook || "";
-      tiktok.value = vendorData.tiktok || "";
-      youtube.value = vendorData.youtube || "";
-      pinterest.value = vendorData.pinterest || "";
-      linkedin.value = vendorData.linkedin || "";
-      x.value = vendorData.x || "";
-      serviceAreas.value = vendorData.serviceAreas || "";
-      displayLocation.value = vendorData.displayLocation || "";
-      bookingLink.value = vendorData.bookingLink || "";
-      availabilityStatus.value = vendorData.availabilityStatus || "";
-      bookingNotes.value = vendorData.bookingNotes || "";
-      bio.value = vendorData.bio || "";
+      const selectedStyleTags = getCheckedValues(styleTagOptions);
+      const selectedCategories = getCheckedValues(categoryOptions);
+      const selectedCountries = getCheckedValues(countryOptions);
+      const selectedStates = getCheckedValues(stateOptions);
+      const selectedRegions = getCheckedValues(regionOptions);
 
-      currentBlockedDates = Array.isArray(vendorData.blockedDates)
-        ? vendorData.blockedDates.filter(Boolean)
-        : [];
+      let finalProfileImageUrl = currentProfileImageUrl;
+      let finalLogoUrl = currentLogoUrl;
+      let galleryImages = [...currentGalleryImages];
+      let galleryVideos = [...currentGalleryVideos];
 
-      currentProfileImageUrl = vendorData.profileImageUrl || "";
-      currentLogoUrl = vendorData.logoUrl || "";
-      currentGalleryImages = Array.isArray(vendorData.images) ? [...vendorData.images] : [];
-      currentGalleryVideos = Array.isArray(vendorData.videos) ? [...vendorData.videos] : [];
+      if (profileImageFile.files?.[0]) {
+        finalProfileImageUrl = await uploadFileToStorage(profileImageFile.files[0], "vendor-profile-images", currentUser.uid);
+      }
 
-      profileLive.checked = vendorData.profileVisible === true || vendorData.published === true;
+      if (logoFile.files?.[0]) {
+        finalLogoUrl = await uploadFileToStorage(logoFile.files[0], "vendor-logos", currentUser.uid);
+      }
 
-      accountStatusText.textContent = `Account status: ${vendorData.accountStatus || "active"}`;
-      subscriptionStatusText.textContent = `Plan access: ${getPlanAccessLabel(vendorData)}`;
-      viewsStatusText.textContent = `Profile views: ${getProfileViews(vendorData)}`;
+      if (galleryImageFiles.files?.length) {
+        const uploadedImageUrls = [];
+        for (const file of Array.from(galleryImageFiles.files)) {
+          const url = await uploadFileToStorage(file, "vendor-gallery-images", currentUser.uid);
+          uploadedImageUrls.push(url);
+        }
+        galleryImages = [...galleryImages, ...uploadedImageUrls];
+      }
 
-      renderStyleTags(Array.isArray(vendorData.styleTags) ? vendorData.styleTags : []);
-      renderCategoryOptions(Array.isArray(vendorData.categories) ? vendorData.categories : []);
+      if (galleryVideoFiles.files?.length) {
+        const uploadedVideoUrls = [];
+        for (const file of Array.from(galleryVideoFiles.files)) {
+          const url = await uploadFileToStorage(file, "vendor-gallery-videos", currentUser.uid);
+          uploadedVideoUrls.push(url);
+        }
+        galleryVideos = [...galleryVideos, ...uploadedVideoUrls];
+      }
 
-      const selectedCountries =
-        Array.isArray(vendorData.countries) && vendorData.countries.length
-          ? vendorData.countries
-          : vendorData.country
-            ? [vendorData.country]
-            : ["Australia"];
+      galleryImages = [...new Set(galleryImages)];
+      galleryVideos = [...new Set(galleryVideos)];
+      currentBlockedDates = [...new Set(currentBlockedDates)].sort();
 
-      renderCountries(selectedCountries);
-      renderStates(Array.isArray(vendorData.states) ? vendorData.states : []);
-      renderRegions(Array.isArray(vendorData.regions) ? vendorData.regions : []);
+      const finalCoverImageUrl = galleryImages[0] || "";
 
-      viewProfileBtn.href = `vendor.html?id=${uid}`;
+      await setDoc(doc(db, "vendors", currentUser.uid), {
+        uid: currentUser.uid,
+        businessName: businessName.value.trim(),
+        email: email.value.trim().toLowerCase(),
+        phone: phone.value.trim(),
+        instagram: instagram.value.trim(),
+        website: website.value.trim(),
+        facebook: facebook.value.trim(),
+        tiktok: tiktok.value.trim(),
+        youtube: youtube.value.trim(),
+        pinterest: pinterest.value.trim(),
+        linkedin: linkedin.value.trim(),
+        x: x.value.trim(),
+        serviceAreas: serviceAreas.value.trim(),
+        displayLocation: displayLocation.value.trim(),
+        bookingLink: bookingLink.value.trim(),
+        availabilityStatus: availabilityStatus.value.trim(),
+        bookingNotes: bookingNotes.value.trim(),
+        blockedDates: currentBlockedDates,
+        bio: bio.value.trim(),
+        profileImageUrl: finalProfileImageUrl,
+        logoUrl: finalLogoUrl,
+        coverImageUrl: finalCoverImageUrl,
+        images: galleryImages,
+        videos: galleryVideos,
+        styleTags: selectedStyleTags,
+        categories: selectedCategories,
+        countries: selectedCountries,
+        country: selectedCountries[0] || "",
+        states: selectedStates,
+        regions: selectedRegions,
+        profileVisible: profileLive.checked,
+        published: profileLive.checked,
+        updatedAt: serverTimestamp()
+      }, { merge: true });
+
+      currentProfileImageUrl = finalProfileImageUrl;
+      currentLogoUrl = finalLogoUrl;
+      currentGalleryImages = galleryImages;
+      currentGalleryVideos = galleryVideos;
+
+      currentVendorAccess = {
+        subscriptionActive: existingVendorData.subscriptionActive === true,
+        paidSetupFee: existingVendorData.paidSetupFee === true,
+        complimentaryPlan: existingVendorData.complimentaryPlan === true,
+        plan: existingVendorData.plan || "",
+        accessType: existingVendorData.accessType || "",
+        accountStatus: existingVendorData.accountStatus || "active",
+        profileVisible: profileLive.checked,
+        published: profileLive.checked
+      };
+
+      profileImageFile.value = "";
+      logoFile.value = "";
+      galleryImageFiles.value = "";
+      galleryVideoFiles.value = "";
+
+      profileImageFileName.textContent = "";
+      logoFileName.textContent = "";
+      galleryImageFileName.textContent = "";
+      galleryVideoFileName.textContent = "";
 
       setSingleImagePreview(currentProfileImageUrl, profileImagePreview, profileImageEmpty);
       setSingleImagePreview(currentLogoUrl, logoPreview, logoEmpty);
@@ -1871,204 +2014,29 @@
       setVideoPreview();
       renderBlockedDates();
       updateViewProfileVisibility(currentVendorAccess);
+
+      message.textContent = "Your changes have been saved.";
+    } catch (error) {
+      console.error(error);
+      message.textContent = "There was a problem saving your changes.";
+    }
+  }
+
+  saveBtn.addEventListener("click", saveVendorData);
+  saveTopBtn.addEventListener("click", saveVendorData);
+  saveAccountBtn.addEventListener("click", saveAccountSettings);
+
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) {
+      window.location.href = "login.html";
+      return;
     }
 
-    async function saveAccountSettings() {
-      if (!currentUser) return;
+    currentUser = user;
+    await loadVendorData(user.uid);
+  });
+</script>
 
-      accountMessage.textContent = "Updating account...";
-
-      try {
-        const newName = accountName.value.trim();
-        const newEmail = accountEmail.value.trim().toLowerCase();
-        const newPassword = accountPassword.value.trim();
-
-        await setDoc(doc(db, "users", currentUser.uid), {
-          name: newName,
-          email: newEmail,
-          role: "vendor",
-          updatedAt: serverTimestamp()
-        }, { merge: true });
-
-        if (newEmail && newEmail !== currentUser.email) {
-          await updateEmail(currentUser, newEmail);
-        }
-
-        if (newPassword) {
-          if (newPassword.length < 6) {
-            accountMessage.textContent = "Password must be at least 6 characters.";
-            return;
-          }
-          await updatePassword(currentUser, newPassword);
-        }
-
-        await setDoc(doc(db, "vendors", currentUser.uid), {
-          email: newEmail
-        }, { merge: true });
-
-        email.value = newEmail;
-        accountPassword.value = "";
-        accountMessage.textContent = "Account details updated successfully.";
-      } catch (error) {
-        console.error(error);
-        accountMessage.textContent = "Could not update account details. You may need to log in again before changing email or password.";
-      }
-    }
-
-    async function saveVendorData() {
-      if (!currentUser) return;
-
-      message.textContent = "Saving...";
-
-      try {
-        const vendorSnap = await getDoc(doc(db, "vendors", currentUser.uid));
-        const existingVendorData = vendorSnap.exists() ? vendorSnap.data() : {};
-
-        currentVendorAccess = {
-          subscriptionActive: existingVendorData.subscriptionActive === true,
-          paidSetupFee: existingVendorData.paidSetupFee === true,
-          complimentaryPlan: existingVendorData.complimentaryPlan === true,
-          plan: existingVendorData.plan || "",
-          accessType: existingVendorData.accessType || "",
-          accountStatus: existingVendorData.accountStatus || "active",
-          profileVisible: existingVendorData.profileVisible === true,
-          published: existingVendorData.published === true
-        };
-
-        const selectedStyleTags = getCheckedValues(styleTagOptions);
-        const selectedCategories = getCheckedValues(categoryOptions);
-        const selectedCountries = getCheckedValues(countryOptions);
-        const selectedStates = getCheckedValues(stateOptions);
-        const selectedRegions = getCheckedValues(regionOptions);
-
-        let finalProfileImageUrl = currentProfileImageUrl;
-        let finalLogoUrl = currentLogoUrl;
-        let galleryImages = [...currentGalleryImages];
-        let galleryVideos = [...currentGalleryVideos];
-
-        if (profileImageFile.files?.[0]) {
-          finalProfileImageUrl = await uploadFileToStorage(profileImageFile.files[0], "vendor-profile-images", currentUser.uid);
-        }
-
-        if (logoFile.files?.[0]) {
-          finalLogoUrl = await uploadFileToStorage(logoFile.files[0], "vendor-logos", currentUser.uid);
-        }
-
-        if (galleryImageFiles.files?.length) {
-          const uploadedImageUrls = [];
-          for (const file of Array.from(galleryImageFiles.files)) {
-            const url = await uploadFileToStorage(file, "vendor-gallery-images", currentUser.uid);
-            uploadedImageUrls.push(url);
-          }
-          galleryImages = [...galleryImages, ...uploadedImageUrls];
-        }
-
-        if (galleryVideoFiles.files?.length) {
-          const uploadedVideoUrls = [];
-          for (const file of Array.from(galleryVideoFiles.files)) {
-            const url = await uploadFileToStorage(file, "vendor-gallery-videos", currentUser.uid);
-            uploadedVideoUrls.push(url);
-          }
-          galleryVideos = [...galleryVideos, ...uploadedVideoUrls];
-        }
-
-        galleryImages = [...new Set(galleryImages)];
-        galleryVideos = [...new Set(galleryVideos)];
-        currentBlockedDates = [...new Set(currentBlockedDates)].sort();
-
-        const finalCoverImageUrl = galleryImages[0] || "";
-
-        await setDoc(doc(db, "vendors", currentUser.uid), {
-          uid: currentUser.uid,
-          businessName: businessName.value.trim(),
-          email: email.value.trim().toLowerCase(),
-          phone: phone.value.trim(),
-          instagram: instagram.value.trim(),
-          website: website.value.trim(),
-          facebook: facebook.value.trim(),
-          tiktok: tiktok.value.trim(),
-          youtube: youtube.value.trim(),
-          pinterest: pinterest.value.trim(),
-          linkedin: linkedin.value.trim(),
-          x: x.value.trim(),
-          serviceAreas: serviceAreas.value.trim(),
-          displayLocation: displayLocation.value.trim(),
-          bookingLink: bookingLink.value.trim(),
-          availabilityStatus: availabilityStatus.value.trim(),
-          bookingNotes: bookingNotes.value.trim(),
-          blockedDates: currentBlockedDates,
-          bio: bio.value.trim(),
-          profileImageUrl: finalProfileImageUrl,
-          logoUrl: finalLogoUrl,
-          coverImageUrl: finalCoverImageUrl,
-          images: galleryImages,
-          videos: galleryVideos,
-          styleTags: selectedStyleTags,
-          categories: selectedCategories,
-          countries: selectedCountries,
-          country: selectedCountries[0] || "",
-          states: selectedStates,
-          regions: selectedRegions,
-          profileVisible: profileLive.checked,
-          published: profileLive.checked,
-          updatedAt: serverTimestamp()
-        }, { merge: true });
-
-        currentProfileImageUrl = finalProfileImageUrl;
-        currentLogoUrl = finalLogoUrl;
-        currentGalleryImages = galleryImages;
-        currentGalleryVideos = galleryVideos;
-
-        currentVendorAccess = {
-          subscriptionActive: existingVendorData.subscriptionActive === true,
-          paidSetupFee: existingVendorData.paidSetupFee === true,
-          complimentaryPlan: existingVendorData.complimentaryPlan === true,
-          plan: existingVendorData.plan || "",
-          accessType: existingVendorData.accessType || "",
-          accountStatus: existingVendorData.accountStatus || "active",
-          profileVisible: profileLive.checked,
-          published: profileLive.checked
-        };
-
-        profileImageFile.value = "";
-        logoFile.value = "";
-        galleryImageFiles.value = "";
-        galleryVideoFiles.value = "";
-
-        profileImageFileName.textContent = "";
-        logoFileName.textContent = "";
-        galleryImageFileName.textContent = "";
-        galleryVideoFileName.textContent = "";
-
-        setSingleImagePreview(currentProfileImageUrl, profileImagePreview, profileImageEmpty);
-        setSingleImagePreview(currentLogoUrl, logoPreview, logoEmpty);
-        setImagePreview();
-        setVideoPreview();
-        renderBlockedDates();
-        updateViewProfileVisibility(currentVendorAccess);
-
-        message.textContent = "Your changes have been saved.";
-      } catch (error) {
-        console.error(error);
-        message.textContent = "There was a problem saving your changes.";
-      }
-    }
-
-    saveBtn.addEventListener("click", saveVendorData);
-    saveTopBtn.addEventListener("click", saveVendorData);
-    saveAccountBtn.addEventListener("click", saveAccountSettings);
-
-    onAuthStateChanged(auth, async (user) => {
-      if (!user) {
-        window.location.href = "login.html";
-        return;
-      }
-
-      currentUser = user;
-      await loadVendorData(user.uid);
-    });
-  </script>
-
-  <script type="module" src="nav.js"></script>
+<script type="module" src="nav.js"></script>
 </body>
 </html>
