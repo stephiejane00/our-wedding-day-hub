@@ -541,6 +541,10 @@
       return Array.isArray(arr) ? arr.filter(Boolean) : [];
     }
 
+    function normalise(value) {
+      return String(value || "").toLowerCase().trim();
+    }
+
     function formatText(value) {
       if (!value) return "";
       return String(value)
@@ -615,8 +619,8 @@
         const bFeatured = b.featuredPlacement === true ? 1 : 0;
         if (bFeatured !== aFeatured) return bFeatured - aFeatured;
 
-        const aUpdated = a.updatedAt?.seconds || 0;
-        const bUpdated = b.updatedAt?.seconds || 0;
+        const aUpdated = a.updatedAt?.seconds || a.createdAt?.seconds || 0;
+        const bUpdated = b.updatedAt?.seconds || b.createdAt?.seconds || 0;
         return bUpdated - aUpdated;
       });
     }
@@ -755,16 +759,30 @@
     }
 
     function hasVendorAccess(vendor) {
+      const plan = normalise(vendor.plan);
+      const accessType = normalise(vendor.accessType);
+      const accountStatus = normalise(vendor.accountStatus);
+
       const hasPaidAccess =
         vendor.subscriptionActive === true || vendor.paidSetupFee === true;
 
       const hasComplimentaryAccess =
         vendor.complimentaryPlan === true ||
+        vendor.foundingVendor === true ||
         vendor.plan === "complimentary" ||
-        vendor.accessType === "complimentary-invite";
+        vendor.plan === "free" ||
+        vendor.plan === "founding" ||
+        plan === "complimentary" ||
+        plan === "free" ||
+        plan === "founding" ||
+        accessType === "complimentary-invite" ||
+        accessType === "founding-vendor";
 
       const isApprovedAccount =
-        !vendor.accountStatus || vendor.accountStatus === "active";
+        !accountStatus ||
+        accountStatus === "active" ||
+        accountStatus === "approved" ||
+        accountStatus === "live";
 
       return isApprovedAccount && (hasPaidAccess || hasComplimentaryAccess);
     }
@@ -778,11 +796,13 @@
           const vendor = docSnap.data();
 
           const hasLiveProfile =
-            vendor.profileVisible === true && vendor.published === true;
+            vendor &&
+            vendor.businessName &&
+            vendor.profileVisible !== false &&
+            vendor.published !== false;
 
           if (
             vendor &&
-            vendor.uid &&
             hasLiveProfile &&
             hasVendorAccess(vendor)
           ) {
