@@ -620,7 +620,7 @@
         for (const file of files) {
           if (!file.type.startsWith("image/")) continue;
 
-          const filePath = `vendors/${selectedVendorId}/gallery/${Date.now()}-${safeFileName(file.name)}`;
+          const filePath = `vendor-gallery-images/${selectedVendorId}/${Date.now()}-${safeFileName(file.name)}`;
           const fileRef = ref(storage, filePath);
 
           await uploadBytes(fileRef, file);
