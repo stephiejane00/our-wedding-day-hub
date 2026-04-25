@@ -150,6 +150,22 @@
       margin-top: 14px;
     }
 
+    .upload-box {
+      margin-top: 16px;
+      border: 1px dashed #d9c0b0;
+      border-radius: 18px;
+      padding: 16px;
+      background: #fffaf8;
+    }
+
+    .upload-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-top: 12px;
+    }
+
     .status {
       margin-top: 12px;
       color: #866f66;
@@ -181,7 +197,7 @@
     <section class="admin-card">
       <h1 class="admin-title">Vendor Admin</h1>
       <p class="admin-muted">
-        Search vendors, remove broken gallery links, update details, and save changes.
+        Search vendors, upload gallery images, check subscription type, remove broken gallery links, update details, and save changes.
       </p>
       <p id="authStatus" class="admin-muted">Checking admin access...</p>
     </section>
@@ -211,12 +227,25 @@
           <input id="tiktokInput" class="admin-input" type="url" placeholder="TikTok">
         </div>
 
-        <div style="margin-top:14px;">
-          <label class="admin-muted">Published / visible</label>
-          <select id="publishedInput" class="admin-select">
-            <option value="true">Visible</option>
-            <option value="false">Hidden</option>
-          </select>
+        <div class="edit-grid">
+          <div>
+            <label class="admin-muted">Published / visible</label>
+            <select id="publishedInput" class="admin-select">
+              <option value="true">Visible</option>
+              <option value="false">Hidden</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="admin-muted">Subscription</label>
+            <select id="subscriptionInput" class="admin-select">
+              <option value="complimentary">Complimentary</option>
+              <option value="paid">Paid</option>
+              <option value="free">Free</option>
+              <option value="trial">Trial</option>
+              <option value="unknown">Unknown</option>
+            </select>
+          </div>
         </div>
 
         <div style="margin-top:18px; display:flex; gap:10px; flex-wrap:wrap;">
@@ -231,8 +260,18 @@
       <section id="galleryCard" class="admin-card hidden">
         <h2>Gallery Images</h2>
         <p class="admin-muted">
-          Broken images can be removed here. This removes the link from Firestore, not the original Storage file.
+          Upload images for this vendor or remove broken image links. Uploaded images are saved to Firebase Storage and added to this vendor’s Firestore gallery.
         </p>
+
+        <div class="upload-box">
+          <label class="admin-muted">Upload new gallery images</label>
+          <input id="imageUploadInput" class="admin-input" type="file" accept="image/*" multiple>
+          <div class="upload-actions">
+            <button id="uploadImagesBtn" class="admin-btn save" type="button">Upload Images</button>
+            <span id="uploadStatus" class="admin-muted"></span>
+          </div>
+        </div>
+
         <div id="imageList" class="media-list"></div>
       </section>
 
@@ -247,11 +286,15 @@
     import {
       db,
       auth,
+      storage,
       collection,
       getDocs,
       doc,
       updateDoc,
-      onAuthStateChanged
+      onAuthStateChanged,
+      ref,
+      uploadBytes,
+      getDownloadURL
     } from "./firebase.js";
 
     const ADMIN_EMAILS = ["stephanie@ourweddingdayhub.com"];
@@ -276,11 +319,16 @@
     const facebookInput = document.getElementById("facebookInput");
     const tiktokInput = document.getElementById("tiktokInput");
     const publishedInput = document.getElementById("publishedInput");
+    const subscriptionInput = document.getElementById("subscriptionInput");
 
     const saveDetailsBtn = document.getElementById("saveDetailsBtn");
     const removeAllImagesBtn = document.getElementById("removeAllImagesBtn");
     const removeAllVideosBtn = document.getElementById("removeAllVideosBtn");
     const saveStatus = document.getElementById("saveStatus");
+
+    const imageUploadInput = document.getElementById("imageUploadInput");
+    const uploadImagesBtn = document.getElementById("uploadImagesBtn");
+    const uploadStatus = document.getElementById("uploadStatus");
 
     const imageList = document.getElementById("imageList");
     const videoList = document.getElementById("videoList");
@@ -313,6 +361,23 @@
       saveStatus.textContent = message;
     }
 
+    function getSubscription(vendor) {
+      return vendor.subscriptionType || vendor.subscription || vendor.plan || vendor.planType || "unknown";
+    }
+
+    function prettySubscription(value) {
+      const text = String(value || "unknown").trim();
+      if (!text) return "Unknown";
+      return text.charAt(0).toUpperCase() + text.slice(1);
+    }
+
+    function safeFileName(name) {
+      return String(name || "image")
+        .toLowerCase()
+        .replace(/[^a-z0-9.\-_]/g, "-")
+        .replace(/-+/g, "-");
+    }
+
     async function loadVendors() {
       vendorList.innerHTML = "<p class='admin-muted'>Loading vendors...</p>";
 
@@ -337,6 +402,7 @@
           v.businessName,
           v.email,
           v.category,
+          getSubscription(v),
           cleanArray(v.categories).join(" ")
         ].join(" ").toLowerCase();
 
@@ -357,7 +423,11 @@
         const info = document.createElement("div");
         info.innerHTML = `
           <h3>${vendor.businessName || "Unnamed vendor"}</h3>
-          <p>${vendor.email || "No email"} • ${vendor.published === false ? "Hidden" : "Visible"}</p>
+          <p>
+            ${vendor.email || "No email"} • 
+            ${vendor.published === false ? "Hidden" : "Visible"} • 
+            Subscription: ${prettySubscription(getSubscription(vendor))}
+          </p>
         `;
 
         const button = document.createElement("button");
@@ -388,6 +458,14 @@
       facebookInput.value = selectedVendor.facebook || "";
       tiktokInput.value = selectedVendor.tiktok || "";
       publishedInput.value = selectedVendor.published === false ? "false" : "true";
+      subscriptionInput.value = getSubscription(selectedVendor);
+
+      if (![...subscriptionInput.options].some((option) => option.value === subscriptionInput.value)) {
+        subscriptionInput.value = "unknown";
+      }
+
+      imageUploadInput.value = "";
+      uploadStatus.textContent = "";
 
       renderImages();
       renderVideos();
@@ -522,6 +600,63 @@
       }
     }
 
+    uploadImagesBtn.addEventListener("click", async () => {
+      if (!selectedVendorId || !selectedVendor) return;
+
+      const files = Array.from(imageUploadInput.files || []);
+
+      if (!files.length) {
+        uploadStatus.textContent = "Please choose at least one image.";
+        return;
+      }
+
+      try {
+        uploadImagesBtn.disabled = true;
+        uploadStatus.textContent = "Uploading images...";
+
+        const currentImages = cleanArray(selectedVendor.images);
+        const uploadedUrls = [];
+
+        for (const file of files) {
+          if (!file.type.startsWith("image/")) continue;
+
+          const filePath = `vendors/${selectedVendorId}/gallery/${Date.now()}-${safeFileName(file.name)}`;
+          const fileRef = ref(storage, filePath);
+
+          await uploadBytes(fileRef, file);
+          const downloadUrl = await getDownloadURL(fileRef);
+
+          uploadedUrls.push(downloadUrl);
+        }
+
+        if (!uploadedUrls.length) {
+          uploadStatus.textContent = "No valid image files selected.";
+          return;
+        }
+
+        const updatedImages = [...currentImages, ...uploadedUrls];
+
+        const updates = {
+          images: updatedImages
+        };
+
+        if (!selectedVendor.coverImageUrl) {
+          updates.coverImageUrl = updatedImages[0] || "";
+        }
+
+        await saveVendorUpdates(updates);
+
+        imageUploadInput.value = "";
+        uploadStatus.textContent = "Images uploaded successfully.";
+        renderImages();
+      } catch (error) {
+        console.error(error);
+        uploadStatus.textContent = "Upload failed. Check Firebase Storage rules and firebase.js exports.";
+      } finally {
+        uploadImagesBtn.disabled = false;
+      }
+    });
+
     saveDetailsBtn.addEventListener("click", async () => {
       await saveVendorUpdates({
         businessName: businessNameInput.value.trim(),
@@ -531,7 +666,9 @@
         facebook: facebookInput.value.trim(),
         tiktok: tiktokInput.value.trim(),
         published: publishedInput.value === "true",
-        profileVisible: publishedInput.value === "true"
+        profileVisible: publishedInput.value === "true",
+        subscriptionType: subscriptionInput.value,
+        subscription: subscriptionInput.value
       });
     });
 
@@ -585,7 +722,7 @@
         await loadVendors();
       } catch (error) {
         console.error(error);
-        authStatus.textContent = "Could not load vendors. Check your Firestore rules and firebase.js exports.";
+        authStatus.textContent = "Could not load vendors. Check your Firestore rules, Storage rules, and firebase.js exports.";
       }
     });
   </script>
