@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Vendors | Our Wedding Day Hub</title>
+  <link rel="stylesheet" href="style.css"/>
+
+  <style>
+    body {
+      background: #fffdfb;
+      color: #342b27;
+    }
+
+    .admin-page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 28px 20px 60px;
+    }
+
+    .admin-card {
+      background: #fff;
+      border: 1px solid #eee3db;
+      border-radius: 24px;
+      padding: 22px;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.06);
+      margin-bottom: 18px;
+      text-align: left;
+    }
+
+    .admin-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin: 0 0 8px;
+    }
+
+    .admin-muted {
+      color: #866f66;
+      line-height: 1.6;
+    }
+
+    .admin-input,
+    .admin-select {
+      width: 100%;
+      border: 1px solid #ead8cb;
+      border-radius: 16px;
+      padding: 13px 15px;
+      font: inherit;
+      background: #fffaf8;
+      color: #342b27;
+      box-sizing: border-box;
+    }
+
+    .admin-grid {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .admin-btn {
+      border: none;
+      border-radius: 999px;
+      padding: 13px 18px;
+      background: #ead8cb;
+      color: #3d342f;
+      font-weight: 700;
+      cursor: pointer;
+      min-height: 48px;
+    }
+
+    .admin-btn.danger {
+      background: #f3d1d1;
+      color: #723636;
+    }
+
+    .admin-btn.save {
+      background: #d9c0b0;
+    }
+
+    .admin-btn.small {
+      padding: 9px 13px;
+      min-height: auto;
+      font-size: 0.9rem;
+    }
+
+    .vendor-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .vendor-row {
+      border: 1px solid #f0e3dc;
+      border-radius: 18px;
+      padding: 14px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: center;
+      background: #fffaf8;
+    }
+
+    .vendor-row h3 {
+      margin: 0 0 4px;
+      font-size: 1.05rem;
+    }
+
+    .vendor-row p {
+      margin: 0;
+      color: #866f66;
+      font-size: 0.92rem;
+    }
+
+    .media-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .media-item {
+      border: 1px solid #f0e3dc;
+      border-radius: 18px;
+      padding: 12px;
+      background: #fffaf8;
+      display: grid;
+      grid-template-columns: 96px 1fr auto;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .media-thumb {
+      width: 96px;
+      height: 76px;
+      object-fit: cover;
+      border-radius: 12px;
+      background: #f3ece6;
+    }
+
+    .media-url {
+      word-break: break-all;
+      color: #6d6058;
+      font-size: 0.86rem;
+      line-height: 1.45;
+    }
+
+    .edit-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .status {
+      margin-top: 12px;
+      color: #866f66;
+      min-height: 24px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @media (max-width: 760px) {
+      .admin-grid,
+      .vendor-row,
+      .media-item,
+      .edit-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .media-thumb {
+        width: 100%;
+        height: 180px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="admin-page">
+    <section class="admin-card">
+      <h1 class="admin-title">Vendor Admin</h1>
+      <p class="admin-muted">
+        Search vendors, remove broken gallery links, update details, and save changes.
+      </p>
+      <p id="authStatus" class="admin-muted">Checking admin access...</p>
+    </section>
+
+    <section id="adminTools" class="hidden">
+      <section class="admin-card">
+        <h2>Find Vendor</h2>
+
+        <div class="admin-grid">
+          <input id="searchInput" class="admin-input" type="text" placeholder="Search by business name, email, category or ID">
+          <button id="refreshBtn" class="admin-btn">Refresh</button>
+        </div>
+
+        <div id="vendorList" class="vendor-list"></div>
+      </section>
+
+      <section id="editorCard" class="admin-card hidden">
+        <h2 id="editorTitle">Edit Vendor</h2>
+        <p id="vendorIdText" class="admin-muted"></p>
+
+        <div class="edit-grid">
+          <input id="businessNameInput" class="admin-input" type="text" placeholder="Business name">
+          <input id="emailInput" class="admin-input" type="email" placeholder="Email">
+          <input id="websiteInput" class="admin-input" type="url" placeholder="Website">
+          <input id="instagramInput" class="admin-input" type="text" placeholder="Instagram">
+          <input id="facebookInput" class="admin-input" type="url" placeholder="Facebook">
+          <input id="tiktokInput" class="admin-input" type="url" placeholder="TikTok">
+        </div>
+
+        <div style="margin-top:14px;">
+          <label class="admin-muted">Published / visible</label>
+          <select id="publishedInput" class="admin-select">
+            <option value="true">Visible</option>
+            <option value="false">Hidden</option>
+          </select>
+        </div>
+
+        <div style="margin-top:18px; display:flex; gap:10px; flex-wrap:wrap;">
+          <button id="saveDetailsBtn" class="admin-btn save">Save Details</button>
+          <button id="removeAllImagesBtn" class="admin-btn danger">Remove All Gallery Images</button>
+          <button id="removeAllVideosBtn" class="admin-btn danger">Remove All Gallery Videos</button>
+        </div>
+
+        <p id="saveStatus" class="status"></p>
+      </section>
+
+      <section id="galleryCard" class="admin-card hidden">
+        <h2>Gallery Images</h2>
+        <p class="admin-muted">
+          Broken images can be removed here. This removes the link from Firestore, not the original Storage file.
+        </p>
+        <div id="imageList" class="media-list"></div>
+      </section>
+
+      <section id="videoCard" class="admin-card hidden">
+        <h2>Gallery Videos</h2>
+        <div id="videoList" class="media-list"></div>
+      </section>
+    </section>
+  </main>
+
+  <script type="module">
+    import {
+      db,
+      auth,
+      collection,
+      getDocs,
+      doc,
+      updateDoc,
+      onAuthStateChanged
+    } from "./firebase.js";
+
+    const ADMIN_EMAILS = ["youremail@example.com"];
+
+    const authStatus = document.getElementById("authStatus");
+    const adminTools = document.getElementById("adminTools");
+    const searchInput = document.getElementById("searchInput");
+    const refreshBtn = document.getElementById("refreshBtn");
+    const vendorList = document.getElementById("vendorList");
+
+    const editorCard = document.getElementById("editorCard");
+    const galleryCard = document.getElementById("galleryCard");
+    const videoCard = document.getElementById("videoCard");
+
+    const editorTitle = document.getElementById("editorTitle");
+    const vendorIdText = document.getElementById("vendorIdText");
+
+    const businessNameInput = document.getElementById("businessNameInput");
+    const emailInput = document.getElementById("emailInput");
+    const websiteInput = document.getElementById("websiteInput");
+    const instagramInput = document.getElementById("instagramInput");
+    const facebookInput = document.getElementById("facebookInput");
+    const tiktokInput = document.getElementById("tiktokInput");
+    const publishedInput = document.getElementById("publishedInput");
+
+    const saveDetailsBtn = document.getElementById("saveDetailsBtn");
+    const removeAllImagesBtn = document.getElementById("removeAllImagesBtn");
+    const removeAllVideosBtn = document.getElementById("removeAllVideosBtn");
+    const saveStatus = document.getElementById("saveStatus");
+
+    const imageList = document.getElementById("imageList");
+    const videoList = document.getElementById("videoList");
+
+    let vendors = [];
+    let selectedVendorId = "";
+    let selectedVendor = null;
+
+    function isAdmin(user) {
+      return user && ADMIN_EMAILS.includes(user.email);
+    }
+
+    function cleanArray(value) {
+      return Array.isArray(value) ? value.filter(Boolean) : [];
+    }
+
+    function normalise(value) {
+      return String(value || "").toLowerCase().trim();
+    }
+
+    function show(el) {
+      el.classList.remove("hidden");
+    }
+
+    function hide(el) {
+      el.classList.add("hidden");
+    }
+
+    function setStatus(message) {
+      saveStatus.textContent = message;
+    }
+
+    async function loadVendors() {
+      vendorList.innerHTML = "<p class='admin-muted'>Loading vendors...</p>";
+
+      const snap = await getDocs(collection(db, "vendors"));
+
+      vendors = snap.docs.map((item) => ({
+        id: item.id,
+        ...item.data()
+      }));
+
+      vendors.sort((a, b) => String(a.businessName || "").localeCompare(String(b.businessName || "")));
+
+      renderVendorList();
+    }
+
+    function renderVendorList() {
+      const term = normalise(searchInput.value);
+
+      const filtered = vendors.filter((v) => {
+        const haystack = [
+          v.id,
+          v.businessName,
+          v.email,
+          v.category,
+          cleanArray(v.categories).join(" ")
+        ].join(" ").toLowerCase();
+
+        return haystack.includes(term);
+      });
+
+      if (!filtered.length) {
+        vendorList.innerHTML = "<p class='admin-muted'>No vendors found.</p>";
+        return;
+      }
+
+      vendorList.innerHTML = "";
+
+      filtered.forEach((vendor) => {
+        const row = document.createElement("div");
+        row.className = "vendor-row";
+
+        const info = document.createElement("div");
+        info.innerHTML = `
+          <h3>${vendor.businessName || "Unnamed vendor"}</h3>
+          <p>${vendor.email || "No email"} • ${vendor.published === false ? "Hidden" : "Visible"}</p>
+        `;
+
+        const button = document.createElement("button");
+        button.className = "admin-btn small";
+        button.type = "button";
+        button.textContent = "Open";
+        button.addEventListener("click", () => openVendor(vendor.id));
+
+        row.appendChild(info);
+        row.appendChild(button);
+        vendorList.appendChild(row);
+      });
+    }
+
+    function openVendor(vendorId) {
+      selectedVendorId = vendorId;
+      selectedVendor = vendors.find((v) => v.id === vendorId);
+
+      if (!selectedVendor) return;
+
+      editorTitle.textContent = selectedVendor.businessName || "Edit Vendor";
+      vendorIdText.textContent = `Vendor ID: ${selectedVendorId}`;
+
+      businessNameInput.value = selectedVendor.businessName || "";
+      emailInput.value = selectedVendor.email || "";
+      websiteInput.value = selectedVendor.website || "";
+      instagramInput.value = selectedVendor.instagram || "";
+      facebookInput.value = selectedVendor.facebook || "";
+      tiktokInput.value = selectedVendor.tiktok || "";
+      publishedInput.value = selectedVendor.published === false ? "false" : "true";
+
+      renderImages();
+      renderVideos();
+
+      show(editorCard);
+      show(galleryCard);
+      show(videoCard);
+
+      setStatus("");
+      window.scrollTo({ top: editorCard.offsetTop - 20, behavior: "smooth" });
+    }
+
+    function makeMediaItem(url, index, type) {
+      const item = document.createElement("div");
+      item.className = "media-item";
+
+      const preview = document.createElement(type === "video" ? "video" : "img");
+      preview.className = "media-thumb";
+
+      if (type === "video") {
+        preview.src = url;
+        preview.controls = true;
+        preview.muted = true;
+      } else {
+        preview.src = url;
+        preview.alt = `Gallery image ${index + 1}`;
+        preview.onerror = () => {
+          preview.style.objectFit = "contain";
+          preview.src = "images/logo.png";
+        };
+      }
+
+      const text = document.createElement("div");
+      text.className = "media-url";
+      text.textContent = url;
+
+      const actions = document.createElement("div");
+
+      const removeBtn = document.createElement("button");
+      removeBtn.className = "admin-btn danger small";
+      removeBtn.type = "button";
+      removeBtn.textContent = "Remove";
+      removeBtn.addEventListener("click", () => removeMediaUrl(type, url));
+
+      actions.appendChild(removeBtn);
+
+      item.appendChild(preview);
+      item.appendChild(text);
+      item.appendChild(actions);
+
+      return item;
+    }
+
+    function renderImages() {
+      const images = cleanArray(selectedVendor.images);
+
+      imageList.innerHTML = "";
+
+      if (!images.length) {
+        imageList.innerHTML = "<p class='admin-muted'>No gallery images saved.</p>";
+        return;
+      }
+
+      images.forEach((url, index) => {
+        imageList.appendChild(makeMediaItem(url, index, "image"));
+      });
+    }
+
+    function renderVideos() {
+      const videos = cleanArray(selectedVendor.videos);
+
+      videoList.innerHTML = "";
+
+      if (!videos.length) {
+        videoList.innerHTML = "<p class='admin-muted'>No gallery videos saved.</p>";
+        return;
+      }
+
+      videos.forEach((url, index) => {
+        videoList.appendChild(makeMediaItem(url, index, "video"));
+      });
+    }
+
+    async function saveVendorUpdates(updates) {
+      if (!selectedVendorId) return;
+
+      setStatus("Saving...");
+
+      await updateDoc(doc(db, "vendors", selectedVendorId), {
+        ...updates,
+        updatedAt: new Date()
+      });
+
+      selectedVendor = {
+        ...selectedVendor,
+        ...updates,
+        updatedAt: new Date()
+      };
+
+      vendors = vendors.map((vendor) => {
+        if (vendor.id === selectedVendorId) {
+          return selectedVendor;
+        }
+        return vendor;
+      });
+
+      setStatus("Saved successfully.");
+      renderVendorList();
+    }
+
+    async function removeMediaUrl(type, url) {
+      if (!selectedVendor) return;
+
+      const field = type === "video" ? "videos" : "images";
+      const current = cleanArray(selectedVendor[field]);
+      const updated = current.filter((item) => item !== url);
+
+      const updates = {
+        [field]: updated
+      };
+
+      if (type === "image" && selectedVendor.coverImageUrl === url) {
+        updates.coverImageUrl = updated[0] || "";
+      }
+
+      await saveVendorUpdates(updates);
+
+      if (type === "video") {
+        renderVideos();
+      } else {
+        renderImages();
+      }
+    }
+
+    saveDetailsBtn.addEventListener("click", async () => {
+      await saveVendorUpdates({
+        businessName: businessNameInput.value.trim(),
+        email: emailInput.value.trim(),
+        website: websiteInput.value.trim(),
+        instagram: instagramInput.value.trim(),
+        facebook: facebookInput.value.trim(),
+        tiktok: tiktokInput.value.trim(),
+        published: publishedInput.value === "true",
+        profileVisible: publishedInput.value === "true"
+      });
+    });
+
+    removeAllImagesBtn.addEventListener("click", async () => {
+      if (!selectedVendor) return;
+
+      const ok = confirm("Remove all gallery image links for this vendor?");
+      if (!ok) return;
+
+      await saveVendorUpdates({
+        images: [],
+        coverImageUrl: ""
+      });
+
+      renderImages();
+    });
+
+    removeAllVideosBtn.addEventListener("click", async () => {
+      if (!selectedVendor) return;
+
+      const ok = confirm("Remove all gallery video links for this vendor?");
+      if (!ok) return;
+
+      await saveVendorUpdates({
+        videos: []
+      });
+
+      renderVideos();
+    });
+
+    searchInput.addEventListener("input", renderVendorList);
+    refreshBtn.addEventListener("click", loadVendors);
+
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        authStatus.innerHTML = `Please log in first: <a href="login.html">Log in</a>`;
+        hide(adminTools);
+        return;
+      }
+
+      if (!isAdmin(user)) {
+        authStatus.textContent = "You are logged in, but this account is not approved for admin access.";
+        hide(adminTools);
+        return;
+      }
+
+      authStatus.textContent = `Admin access approved: ${user.email}`;
+      show(adminTools);
+
+      try {
+        await loadVendors();
+      } catch (error) {
+        console.error(error);
+        authStatus.textContent = "Could not load vendors. Check your Firestore rules and firebase.js exports.";
+      }
+    });
+  </script>
+</body>
+</html>
