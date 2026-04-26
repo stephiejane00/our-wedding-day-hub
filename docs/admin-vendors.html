@@ -39,7 +39,8 @@
     }
 
     .admin-input,
-    .admin-select {
+    .admin-select,
+    .admin-textarea {
       width: 100%;
       border: 1px solid #ead8cb;
       border-radius: 16px;
@@ -50,11 +51,23 @@
       box-sizing: border-box;
     }
 
+    .admin-textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
     .admin-grid {
       display: grid;
       grid-template-columns: 1fr auto;
       gap: 12px;
       align-items: center;
+    }
+
+    .filter-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
     }
 
     .admin-btn {
@@ -83,6 +96,31 @@
       font-size: 0.9rem;
     }
 
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .stat-box {
+      background: #fffaf8;
+      border: 1px solid #f0e3dc;
+      border-radius: 18px;
+      padding: 14px;
+      text-align: center;
+    }
+
+    .stat-box strong {
+      display: block;
+      font-size: 1.5rem;
+    }
+
+    .stat-box span {
+      color: #866f66;
+      font-size: 0.86rem;
+    }
+
     .vendor-list {
       display: grid;
       gap: 10px;
@@ -109,6 +147,49 @@
       margin: 0;
       color: #866f66;
       font-size: 0.92rem;
+    }
+
+    .badge-row {
+      display: flex;
+      gap: 7px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      background: #f0e7df;
+      color: #5f4b42;
+    }
+
+    .badge.paid {
+      background: #dbeedc;
+      color: #315c37;
+    }
+
+    .badge.free {
+      background: #f5dfc8;
+      color: #704419;
+    }
+
+    .badge.hidden-badge {
+      background: #f3d1d1;
+      color: #723636;
+    }
+
+    .badge.visible-badge {
+      background: #e5efe2;
+      color: #3f633d;
+    }
+
+    .badge.featured {
+      background: #ead8cb;
+      color: #4b352b;
     }
 
     .media-list {
@@ -150,6 +231,20 @@
       margin-top: 14px;
     }
 
+    .admin-info-box {
+      background: #fffaf8;
+      border: 1px solid #f0e3dc;
+      border-radius: 18px;
+      padding: 14px;
+      margin-top: 14px;
+    }
+
+    .admin-info-box p {
+      margin: 6px 0;
+      color: #6d6058;
+      word-break: break-word;
+    }
+
     .upload-box {
       margin-top: 16px;
       border: 1px dashed #d9c0b0;
@@ -176,6 +271,12 @@
       display: none !important;
     }
 
+    @media (max-width: 860px) {
+      .stats-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
     @media (max-width: 760px) {
       .admin-grid,
       .vendor-row,
@@ -188,6 +289,10 @@
         width: 100%;
         height: 180px;
       }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -197,17 +302,40 @@
     <section class="admin-card">
       <h1 class="admin-title">Vendor Admin</h1>
       <p class="admin-muted">
-        Search vendors, upload gallery images, check subscription type, remove broken gallery links, update details, and save changes.
+        Search vendors, check if they joined with the free link or paid, update profile details, manage gallery media, add admin notes, and feature vendors.
       </p>
       <p id="authStatus" class="admin-muted">Checking admin access...</p>
     </section>
 
     <section id="adminTools" class="hidden">
       <section class="admin-card">
+        <h2>Vendor Overview</h2>
+
+        <div id="statsGrid" class="stats-grid"></div>
+
+        <div class="filter-row">
+          <select id="filterInput" class="admin-select">
+            <option value="all">All vendors</option>
+            <option value="free-link">Used free link</option>
+            <option value="paid">Paid customers</option>
+            <option value="visible">Visible</option>
+            <option value="hidden">Hidden</option>
+            <option value="featured">Featured</option>
+          </select>
+
+          <select id="sortInput" class="admin-select">
+            <option value="name">Sort by business name</option>
+            <option value="newest">Sort by newest</option>
+            <option value="subscription">Sort by subscription</option>
+          </select>
+        </div>
+      </section>
+
+      <section class="admin-card">
         <h2>Find Vendor</h2>
 
         <div class="admin-grid">
-          <input id="searchInput" class="admin-input" type="text" placeholder="Search by business name, email, category or ID">
+          <input id="searchInput" class="admin-input" type="text" placeholder="Search by business name, email, category, ID, subscription, invite code or Stripe ID">
           <button id="refreshBtn" class="admin-btn">Refresh</button>
         </div>
 
@@ -218,9 +346,13 @@
         <h2 id="editorTitle">Edit Vendor</h2>
         <p id="vendorIdText" class="admin-muted"></p>
 
+        <div id="signupInfoBox" class="admin-info-box"></div>
+
         <div class="edit-grid">
           <input id="businessNameInput" class="admin-input" type="text" placeholder="Business name">
           <input id="emailInput" class="admin-input" type="email" placeholder="Email">
+          <input id="categoryInput" class="admin-input" type="text" placeholder="Main category">
+          <input id="locationInput" class="admin-input" type="text" placeholder="Location">
           <input id="websiteInput" class="admin-input" type="url" placeholder="Website">
           <input id="instagramInput" class="admin-input" type="text" placeholder="Instagram">
           <input id="facebookInput" class="admin-input" type="url" placeholder="Facebook">
@@ -237,15 +369,42 @@
           </div>
 
           <div>
+            <label class="admin-muted">Featured vendor</label>
+            <select id="featuredInput" class="admin-select">
+              <option value="false">Not featured</option>
+              <option value="true">Featured</option>
+            </select>
+          </div>
+
+          <div>
             <label class="admin-muted">Subscription</label>
             <select id="subscriptionInput" class="admin-select">
               <option value="complimentary">Complimentary</option>
               <option value="paid">Paid</option>
               <option value="free">Free</option>
               <option value="trial">Trial</option>
+              <option value="cancelled">Cancelled</option>
               <option value="unknown">Unknown</option>
             </select>
           </div>
+
+          <div>
+            <label class="admin-muted">Payment status</label>
+            <select id="paymentStatusInput" class="admin-select">
+              <option value="unknown">Unknown</option>
+              <option value="active">Active</option>
+              <option value="paid">Paid</option>
+              <option value="free_link">Free link</option>
+              <option value="trialing">Trialing</option>
+              <option value="past_due">Past due</option>
+              <option value="cancelled">Cancelled</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="margin-top:14px;">
+          <label class="admin-muted">Admin notes</label>
+          <textarea id="adminNotesInput" class="admin-textarea" placeholder="Add private notes about this vendor, such as follow up needed, image issue, onboarding status, etc."></textarea>
         </div>
 
         <div style="margin-top:18px; display:flex; gap:10px; flex-wrap:wrap;">
@@ -260,7 +419,7 @@
       <section id="galleryCard" class="admin-card hidden">
         <h2>Gallery Images</h2>
         <p class="admin-muted">
-          Upload images for this vendor or remove broken image links. Uploaded images are saved to Firebase Storage and added to this vendor’s Firestore gallery.
+          Upload images for this vendor or remove broken image links.
         </p>
 
         <div class="upload-box">
@@ -301,7 +460,10 @@
 
     const authStatus = document.getElementById("authStatus");
     const adminTools = document.getElementById("adminTools");
+    const statsGrid = document.getElementById("statsGrid");
     const searchInput = document.getElementById("searchInput");
+    const filterInput = document.getElementById("filterInput");
+    const sortInput = document.getElementById("sortInput");
     const refreshBtn = document.getElementById("refreshBtn");
     const vendorList = document.getElementById("vendorList");
 
@@ -311,15 +473,21 @@
 
     const editorTitle = document.getElementById("editorTitle");
     const vendorIdText = document.getElementById("vendorIdText");
+    const signupInfoBox = document.getElementById("signupInfoBox");
 
     const businessNameInput = document.getElementById("businessNameInput");
     const emailInput = document.getElementById("emailInput");
+    const categoryInput = document.getElementById("categoryInput");
+    const locationInput = document.getElementById("locationInput");
     const websiteInput = document.getElementById("websiteInput");
     const instagramInput = document.getElementById("instagramInput");
     const facebookInput = document.getElementById("facebookInput");
     const tiktokInput = document.getElementById("tiktokInput");
     const publishedInput = document.getElementById("publishedInput");
+    const featuredInput = document.getElementById("featuredInput");
     const subscriptionInput = document.getElementById("subscriptionInput");
+    const paymentStatusInput = document.getElementById("paymentStatusInput");
+    const adminNotesInput = document.getElementById("adminNotesInput");
 
     const saveDetailsBtn = document.getElementById("saveDetailsBtn");
     const removeAllImagesBtn = document.getElementById("removeAllImagesBtn");
@@ -365,10 +533,69 @@
       return vendor.subscriptionType || vendor.subscription || vendor.plan || vendor.planType || "unknown";
     }
 
-    function prettySubscription(value) {
+    function getPaymentStatus(vendor) {
+      return vendor.paymentStatus || vendor.stripeStatus || vendor.subscriptionStatus || "unknown";
+    }
+
+    function getInviteCode(vendor) {
+      return vendor.inviteCode || vendor.invite || vendor.signupInvite || vendor.referralCode || vendor.joinCode || "";
+    }
+
+    function usedFreeLink(vendor) {
+      const invite = normalise(getInviteCode(vendor));
+      const subscription = normalise(getSubscription(vendor));
+      const paymentStatus = normalise(getPaymentStatus(vendor));
+
+      return Boolean(
+        vendor.usedFreeLink ||
+        vendor.foundingVendor ||
+        vendor.freeForever ||
+        vendor.complimentaryAccess ||
+        invite.includes("foundingvendor") ||
+        invite.includes("free") ||
+        subscription === "complimentary" ||
+        subscription === "free" ||
+        paymentStatus === "free_link"
+      );
+    }
+
+    function isPaidCustomer(vendor) {
+      const subscription = normalise(getSubscription(vendor));
+      const paymentStatus = normalise(getPaymentStatus(vendor));
+
+      return Boolean(
+        subscription === "paid" ||
+        paymentStatus === "paid" ||
+        paymentStatus === "active" ||
+        vendor.stripeCustomerId ||
+        vendor.stripeSubscriptionId
+      ) && !usedFreeLink(vendor);
+    }
+
+    function getCustomerType(vendor) {
+      if (usedFreeLink(vendor)) return "Free link";
+      if (isPaidCustomer(vendor)) return "Paid customer";
+      return "Unknown";
+    }
+
+    function pretty(value) {
       const text = String(value || "unknown").trim();
       if (!text) return "Unknown";
-      return text.charAt(0).toUpperCase() + text.slice(1);
+      return text.replace(/_/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
+    }
+
+    function formatDate(value) {
+      if (!value) return "Not saved";
+
+      try {
+        if (value.toDate) {
+          return value.toDate().toLocaleString();
+        }
+
+        return new Date(value).toLocaleString();
+      } catch {
+        return "Not saved";
+      }
     }
 
     function safeFileName(name) {
@@ -376,6 +603,22 @@
         .toLowerCase()
         .replace(/[^a-z0-9.\-_]/g, "-")
         .replace(/-+/g, "-");
+    }
+
+    function renderStats() {
+      const total = vendors.length;
+      const free = vendors.filter(usedFreeLink).length;
+      const paid = vendors.filter(isPaidCustomer).length;
+      const visible = vendors.filter((v) => v.published !== false).length;
+      const hidden = vendors.filter((v) => v.published === false).length;
+
+      statsGrid.innerHTML = `
+        <div class="stat-box"><strong>${total}</strong><span>Total vendors</span></div>
+        <div class="stat-box"><strong>${free}</strong><span>Free link</span></div>
+        <div class="stat-box"><strong>${paid}</strong><span>Paid customers</span></div>
+        <div class="stat-box"><strong>${visible}</strong><span>Visible</span></div>
+        <div class="stat-box"><strong>${hidden}</strong><span>Hidden</span></div>
+      `;
     }
 
     async function loadVendors() {
@@ -388,26 +631,69 @@
         ...item.data()
       }));
 
-      vendors.sort((a, b) => String(a.businessName || "").localeCompare(String(b.businessName || "")));
-
+      renderStats();
       renderVendorList();
     }
 
-    function renderVendorList() {
+    function getFilteredVendors() {
       const term = normalise(searchInput.value);
+      const filter = filterInput.value;
 
-      const filtered = vendors.filter((v) => {
+      let filtered = vendors.filter((v) => {
         const haystack = [
           v.id,
           v.businessName,
           v.email,
           v.category,
+          v.location,
           getSubscription(v),
+          getPaymentStatus(v),
+          getInviteCode(v),
+          v.stripeCustomerId,
+          v.stripeSubscriptionId,
           cleanArray(v.categories).join(" ")
         ].join(" ").toLowerCase();
 
         return haystack.includes(term);
       });
+
+      if (filter === "free-link") {
+        filtered = filtered.filter(usedFreeLink);
+      }
+
+      if (filter === "paid") {
+        filtered = filtered.filter(isPaidCustomer);
+      }
+
+      if (filter === "visible") {
+        filtered = filtered.filter((v) => v.published !== false);
+      }
+
+      if (filter === "hidden") {
+        filtered = filtered.filter((v) => v.published === false);
+      }
+
+      if (filter === "featured") {
+        filtered = filtered.filter((v) => v.featured === true);
+      }
+
+      if (sortInput.value === "newest") {
+        filtered.sort((a, b) => {
+          const dateA = a.createdAt?.toDate ? a.createdAt.toDate().getTime() : new Date(a.createdAt || 0).getTime();
+          const dateB = b.createdAt?.toDate ? b.createdAt.toDate().getTime() : new Date(b.createdAt || 0).getTime();
+          return dateB - dateA;
+        });
+      } else if (sortInput.value === "subscription") {
+        filtered.sort((a, b) => getCustomerType(a).localeCompare(getCustomerType(b)));
+      } else {
+        filtered.sort((a, b) => String(a.businessName || "").localeCompare(String(b.businessName || "")));
+      }
+
+      return filtered;
+    }
+
+    function renderVendorList() {
+      const filtered = getFilteredVendors();
 
       if (!filtered.length) {
         vendorList.innerHTML = "<p class='admin-muted'>No vendors found.</p>";
@@ -420,14 +706,24 @@
         const row = document.createElement("div");
         row.className = "vendor-row";
 
+        const customerType = getCustomerType(vendor);
+        const customerClass = customerType === "Paid customer" ? "paid" : customerType === "Free link" ? "free" : "";
+
         const info = document.createElement("div");
         info.innerHTML = `
           <h3>${vendor.businessName || "Unnamed vendor"}</h3>
           <p>
             ${vendor.email || "No email"} • 
-            ${vendor.published === false ? "Hidden" : "Visible"} • 
-            Subscription: ${prettySubscription(getSubscription(vendor))}
+            ${vendor.category || "No category"} • 
+            ${vendor.location || "No location"}
           </p>
+          <div class="badge-row">
+            <span class="badge ${customerClass}">${customerType}</span>
+            <span class="badge ${vendor.published === false ? "hidden-badge" : "visible-badge"}">${vendor.published === false ? "Hidden" : "Visible"}</span>
+            ${vendor.featured === true ? `<span class="badge featured">Featured</span>` : ""}
+            <span class="badge">Images: ${cleanArray(vendor.images).length}</span>
+            <span class="badge">Videos: ${cleanArray(vendor.videos).length}</span>
+          </div>
         `;
 
         const button = document.createElement("button");
@@ -451,17 +747,37 @@
       editorTitle.textContent = selectedVendor.businessName || "Edit Vendor";
       vendorIdText.textContent = `Vendor ID: ${selectedVendorId}`;
 
+      signupInfoBox.innerHTML = `
+        <p><strong>Customer type:</strong> ${getCustomerType(selectedVendor)}</p>
+        <p><strong>Invite code / signup link used:</strong> ${getInviteCode(selectedVendor) || "Not saved"}</p>
+        <p><strong>Subscription:</strong> ${pretty(getSubscription(selectedVendor))}</p>
+        <p><strong>Payment status:</strong> ${pretty(getPaymentStatus(selectedVendor))}</p>
+        <p><strong>Stripe customer ID:</strong> ${selectedVendor.stripeCustomerId || "Not saved"}</p>
+        <p><strong>Stripe subscription ID:</strong> ${selectedVendor.stripeSubscriptionId || "Not saved"}</p>
+        <p><strong>Created:</strong> ${formatDate(selectedVendor.createdAt)}</p>
+        <p><strong>Last updated:</strong> ${formatDate(selectedVendor.updatedAt)}</p>
+      `;
+
       businessNameInput.value = selectedVendor.businessName || "";
       emailInput.value = selectedVendor.email || "";
+      categoryInput.value = selectedVendor.category || "";
+      locationInput.value = selectedVendor.location || "";
       websiteInput.value = selectedVendor.website || "";
       instagramInput.value = selectedVendor.instagram || "";
       facebookInput.value = selectedVendor.facebook || "";
       tiktokInput.value = selectedVendor.tiktok || "";
       publishedInput.value = selectedVendor.published === false ? "false" : "true";
+      featuredInput.value = selectedVendor.featured === true ? "true" : "false";
       subscriptionInput.value = getSubscription(selectedVendor);
+      paymentStatusInput.value = getPaymentStatus(selectedVendor);
+      adminNotesInput.value = selectedVendor.adminNotes || "";
 
       if (![...subscriptionInput.options].some((option) => option.value === subscriptionInput.value)) {
         subscriptionInput.value = "unknown";
+      }
+
+      if (![...paymentStatusInput.options].some((option) => option.value === paymentStatusInput.value)) {
+        paymentStatusInput.value = "unknown";
       }
 
       imageUploadInput.value = "";
@@ -569,11 +885,14 @@
         if (vendor.id === selectedVendorId) {
           return selectedVendor;
         }
+
         return vendor;
       });
 
       setStatus("Saved successfully.");
+      renderStats();
       renderVendorList();
+      openVendor(selectedVendorId);
     }
 
     async function removeMediaUrl(type, url) {
@@ -592,12 +911,6 @@
       }
 
       await saveVendorUpdates(updates);
-
-      if (type === "video") {
-        renderVideos();
-      } else {
-        renderImages();
-      }
     }
 
     uploadImagesBtn.addEventListener("click", async () => {
@@ -648,7 +961,6 @@
 
         imageUploadInput.value = "";
         uploadStatus.textContent = "Images uploaded successfully.";
-        renderImages();
       } catch (error) {
         console.error(error);
         uploadStatus.textContent = "Upload failed. Check Firebase Storage rules and firebase.js exports.";
@@ -661,14 +973,19 @@
       await saveVendorUpdates({
         businessName: businessNameInput.value.trim(),
         email: emailInput.value.trim(),
+        category: categoryInput.value.trim(),
+        location: locationInput.value.trim(),
         website: websiteInput.value.trim(),
         instagram: instagramInput.value.trim(),
         facebook: facebookInput.value.trim(),
         tiktok: tiktokInput.value.trim(),
         published: publishedInput.value === "true",
         profileVisible: publishedInput.value === "true",
+        featured: featuredInput.value === "true",
         subscriptionType: subscriptionInput.value,
-        subscription: subscriptionInput.value
+        subscription: subscriptionInput.value,
+        paymentStatus: paymentStatusInput.value,
+        adminNotes: adminNotesInput.value.trim()
       });
     });
 
@@ -682,8 +999,6 @@
         images: [],
         coverImageUrl: ""
       });
-
-      renderImages();
     });
 
     removeAllVideosBtn.addEventListener("click", async () => {
@@ -695,11 +1010,11 @@
       await saveVendorUpdates({
         videos: []
       });
-
-      renderVideos();
     });
 
     searchInput.addEventListener("input", renderVendorList);
+    filterInput.addEventListener("change", renderVendorList);
+    sortInput.addEventListener("change", renderVendorList);
     refreshBtn.addEventListener("click", loadVendors);
 
     onAuthStateChanged(auth, async (user) => {
