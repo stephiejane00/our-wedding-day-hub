@@ -724,7 +724,7 @@
         card.className = "vendor-card";
 
         const image = getCardImage(vendor);
-        const name = formatText(vendor.businessName || "Vendor");
+        const name = String(vendor.businessName || "Vendor").trim();
         const categoryLine = getCategoryLine(vendor);
         const locationLine = getLocationLine(vendor);
         const bio = getShortBio(vendor);
