@@ -1371,3 +1371,8 @@ input[type="checkbox"] {
   font-size: 0.95rem;
   letter-spacing: 0.03em;
 }
+.vendor-card h3,
+.vendor-card .vendor-name,
+.vendor-card-title {
+  text-transform: none !important;
+}
