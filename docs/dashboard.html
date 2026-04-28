@@ -542,7 +542,32 @@
     .remove-media-btn {
       width: 100%;
     }
+.media-order-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 10px;
+}
 
+.media-order-btn {
+  border: none;
+  border-radius: 14px;
+  padding: 10px 12px;
+  background: #fff7f2;
+  border: 1px solid #eadfd6;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.media-cover-label {
+  margin-bottom: 8px;
+  display: inline-block;
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: #111;
+  color: #fff;
+  font-size: 12px;
+}
     .remove-media-btn:hover,
     .date-add-btn:hover,
     .date-remove-btn:hover,
@@ -1882,12 +1907,15 @@ function renderCategoryOptions(selected = []) {
     return wrap;
   }
 
-  function setImagePreview() {
-    imagePreview.innerHTML = "";
-    currentGalleryImages.slice(0, 12).forEach(imgUrl => {
-      imagePreview.appendChild(buildMediaCard("image", imgUrl, () => removeImageUrl(imgUrl)));
-    });
-  }
+function setImagePreview() {
+  imagePreview.innerHTML = "";
+
+  currentGalleryImages.forEach((imgUrl, index) => {
+    imagePreview.appendChild(
+      buildMediaCard("image", imgUrl, () => removeImageUrl(imgUrl), index)
+    );
+  });
+}
 
   function setVideoPreview() {
     videoPreview.innerHTML = "";
