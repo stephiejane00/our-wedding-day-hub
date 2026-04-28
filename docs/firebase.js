@@ -1,5 +1,6 @@
 // firebase.js
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -8,6 +9,7 @@ import {
   onAuthStateChanged,
   sendEmailVerification
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
 import {
   getFirestore,
   doc,
@@ -16,11 +18,15 @@ import {
   updateDoc,
   increment,
   collection,
+  addDoc,
   getDocs,
   query,
   where,
+  orderBy,
+  deleteDoc,
   serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
 import {
   getStorage,
   ref,
@@ -47,21 +53,27 @@ export {
   auth,
   db,
   storage,
+
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
   sendEmailVerification,
+
   doc,
   setDoc,
   getDoc,
   updateDoc,
   increment,
   collection,
+  addDoc,
   getDocs,
   query,
   where,
+  orderBy,
+  deleteDoc,
   serverTimestamp,
+
   ref,
   uploadBytes,
   getDownloadURL
