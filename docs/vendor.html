@@ -604,14 +604,16 @@
 </footer>
 
   <script type="module">
-    import {
-      db,
-      auth,
-      doc,
-      getDoc,
-      onAuthStateChanged,
-      signOut
-    } from "./firebase.js";
+import {
+  db,
+  auth,
+  doc,
+  getDoc,
+  updateDoc,
+  increment,
+  onAuthStateChanged,
+  signOut
+} from "./firebase.js";
 
     const params = new URLSearchParams(window.location.search);
     const vendorId = params.get("id");
@@ -921,7 +923,15 @@
 
       window.location.href = `mailto:${vendorEmailAddress}?subject=${subject}&body=${body}`;
     });
-
+async function trackProfileView(id) {
+  try {
+    await updateDoc(doc(db, "vendors", id), {
+      profileViews: increment(1)
+    });
+  } catch (error) {
+    console.warn("Profile view was not tracked:", error);
+  }
+}
     async function loadVendor() {
       if (!vendorId) {
         businessNameEl.textContent = "Vendor not found";
@@ -941,7 +951,7 @@
         }
 
         const v = snap.data();
-
+trackProfileView(vendorId);
         const name = v.businessName || "Vendor";
         vendorBusinessName = name;
 
