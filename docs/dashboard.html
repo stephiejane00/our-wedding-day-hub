@@ -2259,7 +2259,9 @@ function setImagePreview() {
   galleryVideoFiles.addEventListener("change", () => {
     showSelectedFileNames(galleryVideoFiles, galleryVideoFileName, true);
   });
-
+productImageFiles.addEventListener("change", () => {
+  showSelectedFileNames(productImageFiles, productImageFileName, true);
+});
   profileLive.addEventListener("change", () => {
     currentVendorAccess.profileVisible = profileLive.checked;
     currentVendorAccess.published = profileLive.checked;
