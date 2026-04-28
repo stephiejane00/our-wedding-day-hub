@@ -1278,21 +1278,27 @@
     <p class="footer-abn">ABN 76 688 637 041 • Australia</p>
   </div>
 </footer>
-
-<script type="module">
-  import {
-    auth,
-    db,
-    storage,
-    onAuthStateChanged,
-    doc,
-    getDoc,
-    setDoc,
-    serverTimestamp,
-    ref,
-    uploadBytes,
-    getDownloadURL
-  } from "./firebase.js";
+import {
+  auth,
+  db,
+  storage,
+  onAuthStateChanged,
+  doc,
+  getDoc,
+  setDoc,
+  serverTimestamp,
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  collection,
+  addDoc,
+  getDocs,
+  query,
+  where,
+  orderBy,
+  deleteDoc,
+  updateDoc
+} from "./firebase.js";
 
   import {
     updateEmail,
