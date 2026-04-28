@@ -340,6 +340,7 @@
             <option value="visible">Visible</option>
             <option value="hidden">Hidden</option>
             <option value="featured">Featured</option>
+            <option value="boutique">Boutique access</option>
           </select>
 
           <select id="sortInput" class="admin-select">
@@ -439,7 +440,21 @@
             </select>
           </div>
         </div>
+<div>
+  <label class="admin-muted">Boutique access</label>
+  <select id="shopAccessInput" class="admin-select">
+    <option value="false">No boutique access</option>
+    <option value="true">Boutique access enabled</option>
+  </select>
+</div>
 
+<div>
+  <label class="admin-muted">Founding Vendor</label>
+  <select id="foundingVendorInput" class="admin-select">
+    <option value="false">Not founding vendor</option>
+    <option value="true">Founding vendor</option>
+  </select>
+</div>
         <div style="margin-top:14px;">
           <label class="admin-muted">Admin notes</label>
           <textarea id="adminNotesInput" class="admin-textarea" placeholder="Private notes only you/admin can see."></textarea>
