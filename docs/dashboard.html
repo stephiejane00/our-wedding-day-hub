@@ -2535,6 +2535,11 @@ async function saveBoutiqueProduct() {
     renderBlockedDates();
     updateViewProfileVisibility(currentVendorAccess);
     updateBoutiqueAccessVisibility(vendorData);
+    updateStripeStatus(vendorData);
+
+if (hasShopAccess(vendorData)) {
+  await loadBoutiqueProducts(uid);
+}
   }
 
   async function saveAccountSettings() {
