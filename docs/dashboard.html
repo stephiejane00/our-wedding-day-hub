@@ -1460,7 +1460,24 @@ import {
 
   const boutiqueAccessAllowed = document.getElementById("boutiqueAccessAllowed");
   const boutiqueAccessLocked = document.getElementById("boutiqueAccessLocked");
+const stripeStatusText = document.getElementById("stripeStatusText");
+const productCountText = document.getElementById("productCountText");
+const connectStripeBtn = document.getElementById("connectStripeBtn");
 
+const productName = document.getElementById("productName");
+const productPrice = document.getElementById("productPrice");
+const productCategory = document.getElementById("productCategory");
+const productStock = document.getElementById("productStock");
+const productDescription = document.getElementById("productDescription");
+const productShipping = document.getElementById("productShipping");
+const productStatus = document.getElementById("productStatus");
+const productImageFiles = document.getElementById("productImageFiles");
+const productImageFileName = document.getElementById("productImageFileName");
+const saveProductBtn = document.getElementById("saveProductBtn");
+const boutiqueMessage = document.getElementById("boutiqueMessage");
+const boutiqueProductList = document.getElementById("boutiqueProductList");
+
+let currentBoutiqueProducts = [];
   let currentUser = null;
   let currentProfileImageUrl = "";
   let currentLogoUrl = "";
