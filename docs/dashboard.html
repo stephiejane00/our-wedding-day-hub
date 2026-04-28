@@ -1878,34 +1878,81 @@ function renderCategoryOptions(selected = []) {
       emptyEl.style.display = "block";
     }
   }
+function buildMediaCard(type, url, onRemove, index = 0) {
+  const wrap = document.createElement("div");
+  wrap.className = "media-preview-item";
 
-  function buildMediaCard(type, url, onRemove) {
-    const wrap = document.createElement("div");
-    wrap.className = "media-preview-item";
-
-    if (type === "image") {
-      const img = document.createElement("img");
-      img.src = url;
-      img.alt = "Vendor image preview";
-      img.loading = "lazy";
-      wrap.appendChild(img);
-    } else {
-      const video = document.createElement("video");
-      video.src = url;
-      video.controls = true;
-      video.preload = "metadata";
-      wrap.appendChild(video);
-    }
-
-    const removeBtn = document.createElement("button");
-    removeBtn.type = "button";
-    removeBtn.className = "remove-media-btn";
-    removeBtn.textContent = "Remove";
-    removeBtn.addEventListener("click", onRemove);
-    wrap.appendChild(removeBtn);
-
-    return wrap;
+  if (type === "image" && index === 0) {
+    const coverBadge = document.createElement("div");
+    coverBadge.className = "cover-photo-badge";
+    coverBadge.textContent = "Cover photo";
+    wrap.appendChild(coverBadge);
   }
+
+  if (type === "image") {
+    const img = document.createElement("img");
+    img.src = url;
+    img.alt = "Vendor image preview";
+    img.loading = "lazy";
+    wrap.appendChild(img);
+
+    const controls = document.createElement("div");
+    controls.className = "media-order-controls";
+
+    const moveUpBtn = document.createElement("button");
+    moveUpBtn.type = "button";
+    moveUpBtn.className = "media-order-btn";
+    moveUpBtn.textContent = "Move Up";
+    moveUpBtn.disabled = index === 0;
+    moveUpBtn.addEventListener("click", () => moveImageUp(index));
+
+    const moveDownBtn = document.createElement("button");
+    moveDownBtn.type = "button";
+    moveDownBtn.className = "media-order-btn";
+    moveDownBtn.textContent = "Move Down";
+    moveDownBtn.disabled = index === currentGalleryImages.length - 1;
+    moveDownBtn.addEventListener("click", () => moveImageDown(index));
+
+    controls.appendChild(moveUpBtn);
+    controls.appendChild(moveDownBtn);
+    wrap.appendChild(controls);
+  } else {
+    const video = document.createElement("video");
+    video.src = url;
+    video.controls = true;
+    video.preload = "metadata";
+    wrap.appendChild(video);
+  }
+
+  const removeBtn = document.createElement("button");
+  removeBtn.type = "button";
+  removeBtn.className = "remove-media-btn";
+  removeBtn.textContent = "Remove";
+  removeBtn.addEventListener("click", onRemove);
+  wrap.appendChild(removeBtn);
+
+  return wrap;
+}
+
+function moveImageUp(index) {
+  if (index <= 0) return;
+
+  const temp = currentGalleryImages[index - 1];
+  currentGalleryImages[index - 1] = currentGalleryImages[index];
+  currentGalleryImages[index] = temp;
+
+  setImagePreview();
+}
+
+function moveImageDown(index) {
+  if (index >= currentGalleryImages.length - 1) return;
+
+  const temp = currentGalleryImages[index + 1];
+  currentGalleryImages[index + 1] = currentGalleryImages[index];
+  currentGalleryImages[index] = temp;
+
+  setImagePreview();
+}
 
 function setImagePreview() {
   imagePreview.innerHTML = "";
