@@ -52,7 +52,7 @@
     }
 
     .admin-textarea {
-      min-height: 110px;
+      min-height: 130px;
       resize: vertical;
     }
 
@@ -79,6 +79,15 @@
       font-weight: 700;
       cursor: pointer;
       min-height: 48px;
+    }
+
+    .admin-btn:hover {
+      opacity: 0.9;
+    }
+
+    .admin-btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
     }
 
     .admin-btn.danger {
@@ -224,6 +233,12 @@
       line-height: 1.45;
     }
 
+    .media-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
     .edit-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -285,6 +300,11 @@
         grid-template-columns: 1fr;
       }
 
+      .media-actions {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+
       .media-thumb {
         width: 100%;
         height: 180px;
@@ -302,7 +322,7 @@
     <section class="admin-card">
       <h1 class="admin-title">Vendor Admin</h1>
       <p class="admin-muted">
-        Search vendors, check if they joined with the free link or paid, update profile details, manage gallery media, add admin notes, and feature vendors.
+        Search vendors, edit their profile, bio, socials, gallery, admin notes, payment status and visibility.
       </p>
       <p id="authStatus" class="admin-muted">Checking admin access...</p>
     </section>
@@ -310,7 +330,6 @@
     <section id="adminTools" class="hidden">
       <section class="admin-card">
         <h2>Vendor Overview</h2>
-
         <div id="statsGrid" class="stats-grid"></div>
 
         <div class="filter-row">
@@ -335,7 +354,7 @@
         <h2>Find Vendor</h2>
 
         <div class="admin-grid">
-          <input id="searchInput" class="admin-input" type="text" placeholder="Search by business name, email, category, ID, subscription, invite code or Stripe ID">
+          <input id="searchInput" class="admin-input" type="text" placeholder="Search by business name, email, category, ID, invite code or Stripe ID">
           <button id="refreshBtn" class="admin-btn">Refresh</button>
         </div>
 
@@ -351,12 +370,31 @@
         <div class="edit-grid">
           <input id="businessNameInput" class="admin-input" type="text" placeholder="Business name">
           <input id="emailInput" class="admin-input" type="email" placeholder="Email">
+          <input id="phoneInput" class="admin-input" type="text" placeholder="Phone">
           <input id="categoryInput" class="admin-input" type="text" placeholder="Main category">
+          <input id="categoriesInput" class="admin-input" type="text" placeholder="Extra categories, comma separated">
           <input id="locationInput" class="admin-input" type="text" placeholder="Location">
+          <input id="priceInput" class="admin-input" type="text" placeholder="Price guide">
+          <input id="coverImageInput" class="admin-input" type="url" placeholder="Cover image URL">
           <input id="websiteInput" class="admin-input" type="url" placeholder="Website">
           <input id="instagramInput" class="admin-input" type="text" placeholder="Instagram">
           <input id="facebookInput" class="admin-input" type="url" placeholder="Facebook">
           <input id="tiktokInput" class="admin-input" type="url" placeholder="TikTok">
+        </div>
+
+        <div style="margin-top:14px;">
+          <label class="admin-muted">Short profile tagline</label>
+          <textarea id="taglineInput" class="admin-textarea" placeholder="A short intro line for their profile."></textarea>
+        </div>
+
+        <div style="margin-top:14px;">
+          <label class="admin-muted">Vendor bio / about section</label>
+          <textarea id="bioInput" class="admin-textarea" placeholder="Write or edit their vendor bio here."></textarea>
+        </div>
+
+        <div style="margin-top:14px;">
+          <label class="admin-muted">Services / packages</label>
+          <textarea id="servicesInput" class="admin-textarea" placeholder="Add their services, packages, inclusions, or notes that should show on their public profile."></textarea>
         </div>
 
         <div class="edit-grid">
@@ -404,7 +442,7 @@
 
         <div style="margin-top:14px;">
           <label class="admin-muted">Admin notes</label>
-          <textarea id="adminNotesInput" class="admin-textarea" placeholder="Add private notes about this vendor, such as follow up needed, image issue, onboarding status, etc."></textarea>
+          <textarea id="adminNotesInput" class="admin-textarea" placeholder="Private notes only you/admin can see."></textarea>
         </div>
 
         <div style="margin-top:18px; display:flex; gap:10px; flex-wrap:wrap;">
@@ -418,9 +456,7 @@
 
       <section id="galleryCard" class="admin-card hidden">
         <h2>Gallery Images</h2>
-        <p class="admin-muted">
-          Upload images for this vendor or remove broken image links.
-        </p>
+        <p class="admin-muted">Upload images, add image links manually, set a cover image, or remove broken links.</p>
 
         <div class="upload-box">
           <label class="admin-muted">Upload new gallery images</label>
@@ -431,11 +467,28 @@
           </div>
         </div>
 
+        <div class="upload-box">
+          <label class="admin-muted">Add image URL manually</label>
+          <input id="manualImageInput" class="admin-input" type="url" placeholder="Paste image URL">
+          <div class="upload-actions">
+            <button id="addImageUrlBtn" class="admin-btn save" type="button">Add Image URL</button>
+          </div>
+        </div>
+
         <div id="imageList" class="media-list"></div>
       </section>
 
       <section id="videoCard" class="admin-card hidden">
         <h2>Gallery Videos</h2>
+
+        <div class="upload-box">
+          <label class="admin-muted">Add video URL manually</label>
+          <input id="manualVideoInput" class="admin-input" type="url" placeholder="Paste video URL">
+          <div class="upload-actions">
+            <button id="addVideoUrlBtn" class="admin-btn save" type="button">Add Video URL</button>
+          </div>
+        </div>
+
         <div id="videoList" class="media-list"></div>
       </section>
     </section>
@@ -477,12 +530,19 @@
 
     const businessNameInput = document.getElementById("businessNameInput");
     const emailInput = document.getElementById("emailInput");
+    const phoneInput = document.getElementById("phoneInput");
     const categoryInput = document.getElementById("categoryInput");
+    const categoriesInput = document.getElementById("categoriesInput");
     const locationInput = document.getElementById("locationInput");
+    const priceInput = document.getElementById("priceInput");
+    const coverImageInput = document.getElementById("coverImageInput");
     const websiteInput = document.getElementById("websiteInput");
     const instagramInput = document.getElementById("instagramInput");
     const facebookInput = document.getElementById("facebookInput");
     const tiktokInput = document.getElementById("tiktokInput");
+    const taglineInput = document.getElementById("taglineInput");
+    const bioInput = document.getElementById("bioInput");
+    const servicesInput = document.getElementById("servicesInput");
     const publishedInput = document.getElementById("publishedInput");
     const featuredInput = document.getElementById("featuredInput");
     const subscriptionInput = document.getElementById("subscriptionInput");
@@ -497,6 +557,10 @@
     const imageUploadInput = document.getElementById("imageUploadInput");
     const uploadImagesBtn = document.getElementById("uploadImagesBtn");
     const uploadStatus = document.getElementById("uploadStatus");
+    const manualImageInput = document.getElementById("manualImageInput");
+    const addImageUrlBtn = document.getElementById("addImageUrlBtn");
+    const manualVideoInput = document.getElementById("manualVideoInput");
+    const addVideoUrlBtn = document.getElementById("addVideoUrlBtn");
 
     const imageList = document.getElementById("imageList");
     const videoList = document.getElementById("videoList");
@@ -511,6 +575,13 @@
 
     function cleanArray(value) {
       return Array.isArray(value) ? value.filter(Boolean) : [];
+    }
+
+    function arrayFromCommaText(value) {
+      return String(value || "")
+        .split(",")
+        .map((item) => item.trim())
+        .filter(Boolean);
     }
 
     function normalise(value) {
@@ -539,6 +610,18 @@
 
     function getInviteCode(vendor) {
       return vendor.inviteCode || vendor.invite || vendor.signupInvite || vendor.referralCode || vendor.joinCode || "";
+    }
+
+    function getBio(vendor) {
+      return vendor.bio || vendor.about || vendor.description || "";
+    }
+
+    function getTagline(vendor) {
+      return vendor.tagline || vendor.shortDescription || vendor.intro || "";
+    }
+
+    function getServices(vendor) {
+      return vendor.services || vendor.packages || vendor.inclusions || "";
     }
 
     function usedFreeLink(vendor) {
@@ -588,10 +671,7 @@
       if (!value) return "Not saved";
 
       try {
-        if (value.toDate) {
-          return value.toDate().toLocaleString();
-        }
-
+        if (value.toDate) return value.toDate().toLocaleString();
         return new Date(value).toLocaleString();
       } catch {
         return "Not saved";
@@ -605,12 +685,19 @@
         .replace(/-+/g, "-");
     }
 
+    function createText(tag, text, className = "") {
+      const el = document.createElement(tag);
+      if (className) el.className = className;
+      el.textContent = text;
+      return el;
+    }
+
     function renderStats() {
       const total = vendors.length;
       const free = vendors.filter(usedFreeLink).length;
       const paid = vendors.filter(isPaidCustomer).length;
-      const visible = vendors.filter((v) => v.published !== false).length;
-      const hidden = vendors.filter((v) => v.published === false).length;
+      const visible = vendors.filter((v) => v.published !== false && v.profileVisible !== false).length;
+      const hidden = vendors.filter((v) => v.published === false || v.profileVisible === false).length;
 
       statsGrid.innerHTML = `
         <div class="stat-box"><strong>${total}</strong><span>Total vendors</span></div>
@@ -633,6 +720,11 @@
 
       renderStats();
       renderVendorList();
+
+      if (selectedVendorId) {
+        const stillExists = vendors.find((vendor) => vendor.id === selectedVendorId);
+        if (stillExists) openVendor(selectedVendorId, false);
+      }
     }
 
     function getFilteredVendors() {
@@ -644,8 +736,11 @@
           v.id,
           v.businessName,
           v.email,
+          v.phone,
           v.category,
           v.location,
+          getBio(v),
+          getTagline(v),
           getSubscription(v),
           getPaymentStatus(v),
           getInviteCode(v),
@@ -657,25 +752,11 @@
         return haystack.includes(term);
       });
 
-      if (filter === "free-link") {
-        filtered = filtered.filter(usedFreeLink);
-      }
-
-      if (filter === "paid") {
-        filtered = filtered.filter(isPaidCustomer);
-      }
-
-      if (filter === "visible") {
-        filtered = filtered.filter((v) => v.published !== false);
-      }
-
-      if (filter === "hidden") {
-        filtered = filtered.filter((v) => v.published === false);
-      }
-
-      if (filter === "featured") {
-        filtered = filtered.filter((v) => v.featured === true);
-      }
+      if (filter === "free-link") filtered = filtered.filter(usedFreeLink);
+      if (filter === "paid") filtered = filtered.filter(isPaidCustomer);
+      if (filter === "visible") filtered = filtered.filter((v) => v.published !== false && v.profileVisible !== false);
+      if (filter === "hidden") filtered = filtered.filter((v) => v.published === false || v.profileVisible === false);
+      if (filter === "featured") filtered = filtered.filter((v) => v.featured === true);
 
       if (sortInput.value === "newest") {
         filtered.sort((a, b) => {
@@ -710,21 +791,34 @@
         const customerClass = customerType === "Paid customer" ? "paid" : customerType === "Free link" ? "free" : "";
 
         const info = document.createElement("div");
-        info.innerHTML = `
-          <h3>${vendor.businessName || "Unnamed vendor"}</h3>
-          <p>
-            ${vendor.email || "No email"} • 
-            ${vendor.category || "No category"} • 
-            ${vendor.location || "No location"}
-          </p>
-          <div class="badge-row">
-            <span class="badge ${customerClass}">${customerType}</span>
-            <span class="badge ${vendor.published === false ? "hidden-badge" : "visible-badge"}">${vendor.published === false ? "Hidden" : "Visible"}</span>
-            ${vendor.featured === true ? `<span class="badge featured">Featured</span>` : ""}
-            <span class="badge">Images: ${cleanArray(vendor.images).length}</span>
-            <span class="badge">Videos: ${cleanArray(vendor.videos).length}</span>
-          </div>
-        `;
+
+        info.appendChild(createText("h3", vendor.businessName || "Unnamed vendor"));
+        info.appendChild(createText(
+          "p",
+          `${vendor.email || "No email"} • ${vendor.category || "No category"} • ${vendor.location || "No location"}`
+        ));
+
+        const badgeRow = document.createElement("div");
+        badgeRow.className = "badge-row";
+
+        const customerBadge = createText("span", customerType, `badge ${customerClass}`);
+        const visibilityBadge = createText(
+          "span",
+          vendor.published === false || vendor.profileVisible === false ? "Hidden" : "Visible",
+          `badge ${vendor.published === false || vendor.profileVisible === false ? "hidden-badge" : "visible-badge"}`
+        );
+
+        badgeRow.appendChild(customerBadge);
+        badgeRow.appendChild(visibilityBadge);
+
+        if (vendor.featured === true) {
+          badgeRow.appendChild(createText("span", "Featured", "badge featured"));
+        }
+
+        badgeRow.appendChild(createText("span", `Images: ${cleanArray(vendor.images).length}`, "badge"));
+        badgeRow.appendChild(createText("span", `Videos: ${cleanArray(vendor.videos).length}`, "badge"));
+
+        info.appendChild(badgeRow);
 
         const button = document.createElement("button");
         button.className = "admin-btn small";
@@ -738,7 +832,7 @@
       });
     }
 
-    function openVendor(vendorId) {
+    function openVendor(vendorId, shouldScroll = true) {
       selectedVendorId = vendorId;
       selectedVendor = vendors.find((v) => v.id === vendorId);
 
@@ -760,13 +854,20 @@
 
       businessNameInput.value = selectedVendor.businessName || "";
       emailInput.value = selectedVendor.email || "";
+      phoneInput.value = selectedVendor.phone || "";
       categoryInput.value = selectedVendor.category || "";
+      categoriesInput.value = cleanArray(selectedVendor.categories).join(", ");
       locationInput.value = selectedVendor.location || "";
+      priceInput.value = selectedVendor.priceGuide || selectedVendor.price || "";
+      coverImageInput.value = selectedVendor.coverImageUrl || "";
       websiteInput.value = selectedVendor.website || "";
       instagramInput.value = selectedVendor.instagram || "";
       facebookInput.value = selectedVendor.facebook || "";
       tiktokInput.value = selectedVendor.tiktok || "";
-      publishedInput.value = selectedVendor.published === false ? "false" : "true";
+      taglineInput.value = getTagline(selectedVendor);
+      bioInput.value = getBio(selectedVendor);
+      servicesInput.value = getServices(selectedVendor);
+      publishedInput.value = selectedVendor.published === false || selectedVendor.profileVisible === false ? "false" : "true";
       featuredInput.value = selectedVendor.featured === true ? "true" : "false";
       subscriptionInput.value = getSubscription(selectedVendor);
       paymentStatusInput.value = getPaymentStatus(selectedVendor);
@@ -781,6 +882,8 @@
       }
 
       imageUploadInput.value = "";
+      manualImageInput.value = "";
+      manualVideoInput.value = "";
       uploadStatus.textContent = "";
 
       renderImages();
@@ -791,7 +894,10 @@
       show(videoCard);
 
       setStatus("");
-      window.scrollTo({ top: editorCard.offsetTop - 20, behavior: "smooth" });
+
+      if (shouldScroll) {
+        window.scrollTo({ top: editorCard.offsetTop - 20, behavior: "smooth" });
+      }
     }
 
     function makeMediaItem(url, index, type) {
@@ -819,6 +925,17 @@
       text.textContent = url;
 
       const actions = document.createElement("div");
+      actions.className = "media-actions";
+
+      if (type === "image") {
+        const coverBtn = document.createElement("button");
+        coverBtn.className = "admin-btn small";
+        coverBtn.type = "button";
+        coverBtn.textContent = selectedVendor.coverImageUrl === url ? "Current Cover" : "Set Cover";
+        coverBtn.disabled = selectedVendor.coverImageUrl === url;
+        coverBtn.addEventListener("click", () => saveVendorUpdates({ coverImageUrl: url }));
+        actions.appendChild(coverBtn);
+      }
 
       const removeBtn = document.createElement("button");
       removeBtn.className = "admin-btn danger small";
@@ -868,31 +985,37 @@
     async function saveVendorUpdates(updates) {
       if (!selectedVendorId) return;
 
-      setStatus("Saving...");
+      try {
+        saveDetailsBtn.disabled = true;
+        setStatus("Saving...");
 
-      await updateDoc(doc(db, "vendors", selectedVendorId), {
-        ...updates,
-        updatedAt: new Date()
-      });
+        const finalUpdates = {
+          ...updates,
+          updatedAt: new Date()
+        };
 
-      selectedVendor = {
-        ...selectedVendor,
-        ...updates,
-        updatedAt: new Date()
-      };
+        await updateDoc(doc(db, "vendors", selectedVendorId), finalUpdates);
 
-      vendors = vendors.map((vendor) => {
-        if (vendor.id === selectedVendorId) {
-          return selectedVendor;
-        }
+        selectedVendor = {
+          ...selectedVendor,
+          ...finalUpdates
+        };
 
-        return vendor;
-      });
+        vendors = vendors.map((vendor) => {
+          if (vendor.id === selectedVendorId) return selectedVendor;
+          return vendor;
+        });
 
-      setStatus("Saved successfully.");
-      renderStats();
-      renderVendorList();
-      openVendor(selectedVendorId);
+        renderStats();
+        renderVendorList();
+        openVendor(selectedVendorId, false);
+        setStatus("Saved successfully.");
+      } catch (error) {
+        console.error(error);
+        setStatus("Save failed. Check your Firestore rules and firebase.js exports.");
+      } finally {
+        saveDetailsBtn.disabled = false;
+      }
     }
 
     async function removeMediaUrl(type, url) {
@@ -969,18 +1092,98 @@
       }
     });
 
+    addImageUrlBtn.addEventListener("click", async () => {
+      if (!selectedVendor) return;
+
+      const url = manualImageInput.value.trim();
+
+      if (!url) {
+        setStatus("Please paste an image URL first.");
+        return;
+      }
+
+      const currentImages = cleanArray(selectedVendor.images);
+
+      if (currentImages.includes(url)) {
+        setStatus("That image is already saved.");
+        return;
+      }
+
+      const updatedImages = [...currentImages, url];
+
+      const updates = {
+        images: updatedImages
+      };
+
+      if (!selectedVendor.coverImageUrl) {
+        updates.coverImageUrl = url;
+      }
+
+      manualImageInput.value = "";
+      await saveVendorUpdates(updates);
+    });
+
+    addVideoUrlBtn.addEventListener("click", async () => {
+      if (!selectedVendor) return;
+
+      const url = manualVideoInput.value.trim();
+
+      if (!url) {
+        setStatus("Please paste a video URL first.");
+        return;
+      }
+
+      const currentVideos = cleanArray(selectedVendor.videos);
+
+      if (currentVideos.includes(url)) {
+        setStatus("That video is already saved.");
+        return;
+      }
+
+      manualVideoInput.value = "";
+      await saveVendorUpdates({
+        videos: [...currentVideos, url]
+      });
+    });
+
     saveDetailsBtn.addEventListener("click", async () => {
+      const visible = publishedInput.value === "true";
+      const categories = arrayFromCommaText(categoriesInput.value);
+      const mainCategory = categoryInput.value.trim();
+
+      if (mainCategory && !categories.includes(mainCategory)) {
+        categories.unshift(mainCategory);
+      }
+
       await saveVendorUpdates({
         businessName: businessNameInput.value.trim(),
         email: emailInput.value.trim(),
-        category: categoryInput.value.trim(),
+        phone: phoneInput.value.trim(),
+        category: mainCategory,
+        categories,
         location: locationInput.value.trim(),
+        priceGuide: priceInput.value.trim(),
+        price: priceInput.value.trim(),
+        coverImageUrl: coverImageInput.value.trim(),
         website: websiteInput.value.trim(),
         instagram: instagramInput.value.trim(),
         facebook: facebookInput.value.trim(),
         tiktok: tiktokInput.value.trim(),
-        published: publishedInput.value === "true",
-        profileVisible: publishedInput.value === "true",
+
+        tagline: taglineInput.value.trim(),
+        shortDescription: taglineInput.value.trim(),
+        intro: taglineInput.value.trim(),
+
+        bio: bioInput.value.trim(),
+        about: bioInput.value.trim(),
+        description: bioInput.value.trim(),
+
+        services: servicesInput.value.trim(),
+        packages: servicesInput.value.trim(),
+        inclusions: servicesInput.value.trim(),
+
+        published: visible,
+        profileVisible: visible,
         featured: featuredInput.value === "true",
         subscriptionType: subscriptionInput.value,
         subscription: subscriptionInput.value,
