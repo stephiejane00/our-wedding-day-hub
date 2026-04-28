@@ -1644,19 +1644,29 @@
     });
   }
 
-  function renderCategoryOptions(selected = []) {
-    categoryOptions.innerHTML = "";
-    CATEGORY_GROUPS.forEach(group => {
-      const heading = document.createElement("div");
-      heading.className = "category-group-title";
-      heading.textContent = group.title;
-      categoryOptions.appendChild(heading);
+function renderCategoryOptions(selected = []) {
+  categoryOptions.innerHTML = "";
 
-      group.items.forEach(([value, label]) => {
-        categoryOptions.appendChild(createPillCheckbox(value, label, selected.includes(value), "categories"));
-      });
+  CATEGORY_GROUPS.forEach(group => {
+    const details = document.createElement("details");
+    details.className = "category-dropdown";
+    details.open = group.items.some(([value]) => selected.includes(value));
+
+    const summary = document.createElement("summary");
+    summary.textContent = group.title;
+    details.appendChild(summary);
+
+    const inner = document.createElement("div");
+    inner.className = "category-dropdown-inner";
+
+    group.items.forEach(([value, label]) => {
+      inner.appendChild(createPillCheckbox(value, label, selected.includes(value), "categories"));
     });
-  }
+
+    details.appendChild(inner);
+    categoryOptions.appendChild(details);
+  });
+}
 
   function renderCountries(selectedCountries = []) {
     countryOptions.innerHTML = "";
