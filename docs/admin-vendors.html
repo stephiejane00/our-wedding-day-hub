@@ -1207,8 +1207,15 @@ adminNotesInput.value = selectedVendor.adminNotes || "";
         subscriptionType: subscriptionInput.value,
         subscription: subscriptionInput.value,
         paymentStatus: paymentStatusInput.value,
-        adminNotes: adminNotesInput.value.trim()
-      });
+
+shopAccess: shopAccessInput.value === "true",
+foundingVendor: foundingVendorInput.value === "true",
+complimentaryPlan: foundingVendorInput.value === "true",
+plan: foundingVendorInput.value === "true" ? "complimentary" : subscriptionInput.value,
+accessType: foundingVendorInput.value === "true" ? "complimentary-invite" : "",
+
+adminNotes: adminNotesInput.value.trim()
+              });
     });
 
     removeAllImagesBtn.addEventListener("click", async () => {
