@@ -2300,7 +2300,156 @@ productImageFiles.addEventListener("change", () => {
     await uploadBytes(storageRef, file);
     return await getDownloadURL(storageRef);
   }
+function updateStripeStatus(vendorData = {}) {
+  const connected =
+    vendorData.stripeConnected === true ||
+    vendorData.stripeChargesEnabled === true ||
+    vendorData.stripeAccountId;
 
+  if (stripeStatusText) {
+    stripeStatusText.textContent = connected ? "Stripe: connected" : "Stripe: not connected";
+  }
+}
+
+function clearProductForm() {
+  productName.value = "";
+  productPrice.value = "";
+  productCategory.value = "";
+  productStock.value = "";
+  productDescription.value = "";
+  productShipping.value = "";
+  productStatus.value = "draft";
+  productImageFiles.value = "";
+  productImageFileName.textContent = "";
+}
+
+function renderBoutiqueProducts() {
+  boutiqueProductList.innerHTML = "";
+
+  if (productCountText) {
+    productCountText.textContent = `Products: ${currentBoutiqueProducts.length}`;
+  }
+
+  if (!currentBoutiqueProducts.length) {
+    boutiqueProductList.innerHTML = '<p class="small-text">No boutique products added yet.</p>';
+    return;
+  }
+
+  currentBoutiqueProducts.forEach(product => {
+    const card = document.createElement("div");
+    card.className = "media-preview-item";
+
+    const imageUrl = Array.isArray(product.images) && product.images.length ? product.images[0] : "";
+
+    if (imageUrl) {
+      const img = document.createElement("img");
+      img.src = imageUrl;
+      img.alt = product.name || "Boutique product";
+      img.loading = "lazy";
+      card.appendChild(img);
+    }
+
+    const title = document.createElement("h3");
+    title.textContent = product.name || "Untitled product";
+
+    const price = document.createElement("p");
+    price.className = "small-text";
+    price.textContent = product.price ? `$${Number(product.price).toFixed(2)}` : "Price not set";
+
+    const status = document.createElement("p");
+    status.className = "small-text";
+    status.textContent = `Status: ${product.status || "draft"}`;
+
+    const stock = document.createElement("p");
+    stock.className = "small-text";
+    stock.textContent = `Stock: ${product.stock ?? 0}`;
+
+    card.appendChild(title);
+    card.appendChild(price);
+    card.appendChild(status);
+    card.appendChild(stock);
+
+    boutiqueProductList.appendChild(card);
+  });
+}
+
+async function loadBoutiqueProducts(uid) {
+  if (!uid) return;
+
+  const productsQuery = query(
+    collection(db, "boutiqueProducts"),
+    where("vendorId", "==", uid),
+    orderBy("createdAt", "desc")
+  );
+
+  const snap = await getDocs(productsQuery);
+
+  currentBoutiqueProducts = snap.docs.map(productDoc => ({
+    id: productDoc.id,
+    ...productDoc.data()
+  }));
+
+  renderBoutiqueProducts();
+}
+
+async function saveBoutiqueProduct() {
+  if (!currentUser) return;
+
+  if (!hasShopAccess(currentVendorAccess)) {
+    boutiqueMessage.textContent = "Boutique access is not active on this account.";
+    return;
+  }
+
+  const name = productName.value.trim();
+  const price = Number(productPrice.value || 0);
+
+  if (!name) {
+    boutiqueMessage.textContent = "Please add a product name.";
+    return;
+  }
+
+  if (!price || price < 0) {
+    boutiqueMessage.textContent = "Please add a valid product price.";
+    return;
+  }
+
+  boutiqueMessage.textContent = "Uploading product...";
+
+  try {
+    const imageUrls = [];
+
+    if (productImageFiles.files?.length) {
+      for (const file of Array.from(productImageFiles.files)) {
+        const url = await uploadFileToStorage(file, "boutique-product-images", currentUser.uid);
+        imageUrls.push(url);
+      }
+    }
+
+    await addDoc(collection(db, "boutiqueProducts"), {
+      vendorId: currentUser.uid,
+      vendorName: businessName.value.trim(),
+      name,
+      price,
+      category: productCategory.value,
+      stock: Number(productStock.value || 0),
+      description: productDescription.value.trim(),
+      shipping: productShipping.value.trim(),
+      status: productStatus.value || "draft",
+      images: imageUrls,
+      visible: productStatus.value === "live",
+      createdAt: serverTimestamp(),
+      updatedAt: serverTimestamp()
+    });
+
+    clearProductForm();
+    await loadBoutiqueProducts(currentUser.uid);
+
+    boutiqueMessage.textContent = "Product added successfully.";
+  } catch (error) {
+    console.error(error);
+    boutiqueMessage.textContent = "There was a problem adding this product.";
+  }
+}
   async function loadVendorData(uid) {
     const userSnap = await getDoc(doc(db, "users", uid));
 
