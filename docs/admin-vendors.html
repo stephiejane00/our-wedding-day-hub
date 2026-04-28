@@ -887,8 +887,10 @@ const adminNotesInput = document.getElementById("adminNotesInput");
       publishedInput.value = selectedVendor.published === false || selectedVendor.profileVisible === false ? "false" : "true";
       featuredInput.value = selectedVendor.featured === true ? "true" : "false";
       subscriptionInput.value = getSubscription(selectedVendor);
-      paymentStatusInput.value = getPaymentStatus(selectedVendor);
-      adminNotesInput.value = selectedVendor.adminNotes || "";
+paymentStatusInput.value = getPaymentStatus(selectedVendor);
+shopAccessInput.value = selectedVendor.shopAccess === true ? "true" : "false";
+foundingVendorInput.value = selectedVendor.complimentaryPlan === true ? "true" : "false";
+adminNotesInput.value = selectedVendor.adminNotes || "";
 
       if (![...subscriptionInput.options].some((option) => option.value === subscriptionInput.value)) {
         subscriptionInput.value = "unknown";
