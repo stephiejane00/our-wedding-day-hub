@@ -830,130 +830,6 @@
       </p>
     </section>
 
-<section class="dashboard-panel" style="text-align:left;">
-  <div class="dashboard-card-header">
-    <h2 class="dashboard-section-title">Boutique</h2>
-    <p class="dashboard-subtitle">Upload products, manage boutique listings and prepare your shop for future checkout.</p>
-  </div>
-
-  <div class="dashboard-card-soft">
-
-    <div id="boutiqueAccessAllowed" style="display:none;">
-      <div class="boutique-status-box">
-        <div>
-          <h3>Boutique Seller Access</h3>
-          <p class="dashboard-help" style="margin-top:4px;">
-            Your account includes Boutique access as a Founding Vendor or Platinum Prestige Partner.
-          </p>
-        </div>
-
-        <div class="status-wrap">
-          <span class="status-pill" id="stripeStatusText">Stripe: not connected</span>
-          <span class="status-pill" id="productCountText">Products: 0</span>
-        </div>
-      </div>
-
-      <div class="dashboard-actions" style="justify-content:flex-start; margin-top:16px;">
-        <button type="button" id="connectStripeBtn" class="pretty-button">Connect Stripe</button>
-        <a href="shop.html" class="apply-button">View Boutique</a>
-      </div>
-
-      <div class="calendar-tip-box">
-        Products can be uploaded now. Stripe checkout will only work after the secure Stripe setup is added.
-      </div>
-
-      <div class="dashboard-grid-2" style="margin-top:18px;">
-        <div class="dashboard-field">
-          <label for="productName">Product Name</label>
-          <input type="text" id="productName" placeholder="Bridal robe, favour box, cake sample box...">
-        </div>
-
-        <div class="dashboard-field">
-          <label for="productPrice">Price</label>
-          <input type="number" id="productPrice" min="0" step="0.01" placeholder="49.00">
-        </div>
-      </div>
-
-      <div class="dashboard-grid-2" style="margin-top:14px;">
-        <div class="dashboard-field">
-          <label for="productCategory">Boutique Category</label>
-          <select id="productCategory">
-            <option value="">Choose category</option>
-            <option value="bridal_accessories">Bridal Accessories</option>
-            <option value="bridesmaid_gifts">Bridesmaid Gifts</option>
-            <option value="wedding_favours">Wedding Favours</option>
-            <option value="stationery_signage">Stationery & Signage</option>
-            <option value="cakes_sweets">Cakes & Sweets</option>
-            <option value="decor">Decor</option>
-            <option value="keepsakes">Keepsakes</option>
-            <option value="wellness">Wellness</option>
-            <option value="other">Other</option>
-          </select>
-        </div>
-
-        <div class="dashboard-field">
-          <label for="productStock">Stock Quantity</label>
-          <input type="number" id="productStock" min="0" step="1" placeholder="10">
-        </div>
-      </div>
-
-      <div class="dashboard-field" style="margin-top:14px;">
-        <label for="productDescription">Product Description</label>
-        <textarea id="productDescription" rows="4" placeholder="Describe the product, inclusions, sizing, lead times or custom options."></textarea>
-      </div>
-
-      <div class="dashboard-grid-2" style="margin-top:14px;">
-        <div class="dashboard-field">
-          <label for="productShipping">Shipping / Pickup Details</label>
-          <input type="text" id="productShipping" placeholder="Ships Australia-wide, Brisbane pickup available...">
-        </div>
-
-        <div class="dashboard-field">
-          <label for="productStatus">Product Status</label>
-          <select id="productStatus">
-            <option value="draft">Draft</option>
-            <option value="live">Live</option>
-            <option value="sold_out">Sold Out</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="upload-box" style="margin-top:14px;">
-        <h3>Product Images</h3>
-        <input type="file" id="productImageFiles" class="pretty-upload-input" accept="image/*" multiple>
-        <label for="productImageFiles" class="pretty-upload-label">Choose Product Photos</label>
-        <div id="productImageFileName" class="selected-file-note"></div>
-      </div>
-
-      <div class="dashboard-actions" style="justify-content:flex-start; margin-top:16px;">
-        <button type="button" id="saveProductBtn" class="pretty-button">Add Product</button>
-      </div>
-
-      <p id="boutiqueMessage" class="dashboard-help"></p>
-
-      <div style="margin-top:22px;">
-        <h3 class="dashboard-section-title" style="font-size:1.25rem;">Your Products</h3>
-        <div id="boutiqueProductList" class="media-preview-grid"></div>
-      </div>
-    </div>
-
-    <div id="boutiqueAccessLocked" style="display:none;">
-      <p class="dashboard-help" style="margin-top:0;">
-        Boutique access is reserved for Founding Vendors and Platinum Prestige Partners.
-      </p>
-
-      <div class="calendar-tip-box" style="margin-top:14px;">
-        Founding Vendors receive full Boutique access as a thank you for supporting Our Wedding Day Hub early.
-      </div>
-
-      <div class="dashboard-actions" style="justify-content:flex-start; margin-top:16px;">
-        <a href="contact.html" class="pretty-button">Ask About Boutique Access</a>
-      </div>
-    </div>
-
-  </div>
-</section>
-
     <section class="dashboard-panel" style="text-align:left;">
       <div class="dashboard-card-header">
         <h2 class="dashboard-section-title">Business Details</h2>
@@ -1284,7 +1160,129 @@
         </p>
       </div>
     </section>
+<section class="dashboard-panel" style="text-align:left;">
+  <div class="dashboard-card-header">
+    <h2 class="dashboard-section-title">Boutique</h2>
+    <p class="dashboard-subtitle">Upload products, manage boutique listings and prepare your shop for future checkout.</p>
+  </div>
 
+  <div class="dashboard-card-soft">
+
+    <div id="boutiqueAccessAllowed" style="display:none;">
+      <div class="boutique-status-box">
+        <div>
+          <h3>Boutique Seller Access</h3>
+          <p class="dashboard-help" style="margin-top:4px;">
+            Your account includes Boutique access as a Founding Vendor or Platinum Prestige Partner.
+          </p>
+        </div>
+
+        <div class="status-wrap">
+          <span class="status-pill" id="stripeStatusText">Stripe: not connected</span>
+          <span class="status-pill" id="productCountText">Products: 0</span>
+        </div>
+      </div>
+
+      <div class="dashboard-actions" style="justify-content:flex-start; margin-top:16px;">
+        <button type="button" id="connectStripeBtn" class="pretty-button">Connect Stripe</button>
+        <a href="shop.html" class="apply-button">View Boutique</a>
+      </div>
+
+      <div class="calendar-tip-box">
+        Products can be uploaded now. Stripe checkout will only work after the secure Stripe setup is added.
+      </div>
+
+      <div class="dashboard-grid-2" style="margin-top:18px;">
+        <div class="dashboard-field">
+          <label for="productName">Product Name</label>
+          <input type="text" id="productName" placeholder="Bridal robe, favour box, cake sample box...">
+        </div>
+
+        <div class="dashboard-field">
+          <label for="productPrice">Price</label>
+          <input type="number" id="productPrice" min="0" step="0.01" placeholder="49.00">
+        </div>
+      </div>
+
+      <div class="dashboard-grid-2" style="margin-top:14px;">
+        <div class="dashboard-field">
+          <label for="productCategory">Boutique Category</label>
+          <select id="productCategory">
+            <option value="">Choose category</option>
+            <option value="bridal_accessories">Bridal Accessories</option>
+            <option value="bridesmaid_gifts">Bridesmaid Gifts</option>
+            <option value="wedding_favours">Wedding Favours</option>
+            <option value="stationery_signage">Stationery & Signage</option>
+            <option value="cakes_sweets">Cakes & Sweets</option>
+            <option value="decor">Decor</option>
+            <option value="keepsakes">Keepsakes</option>
+            <option value="wellness">Wellness</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div class="dashboard-field">
+          <label for="productStock">Stock Quantity</label>
+          <input type="number" id="productStock" min="0" step="1" placeholder="10">
+        </div>
+      </div>
+
+      <div class="dashboard-field" style="margin-top:14px;">
+        <label for="productDescription">Product Description</label>
+        <textarea id="productDescription" rows="4" placeholder="Describe the product, inclusions, sizing, lead times or custom options."></textarea>
+      </div>
+
+      <div class="dashboard-grid-2" style="margin-top:14px;">
+        <div class="dashboard-field">
+          <label for="productShipping">Shipping / Pickup Details</label>
+          <input type="text" id="productShipping" placeholder="Ships Australia-wide, Brisbane pickup available...">
+        </div>
+
+        <div class="dashboard-field">
+          <label for="productStatus">Product Status</label>
+          <select id="productStatus">
+            <option value="draft">Draft</option>
+            <option value="live">Live</option>
+            <option value="sold_out">Sold Out</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="upload-box" style="margin-top:14px;">
+        <h3>Product Images</h3>
+        <input type="file" id="productImageFiles" class="pretty-upload-input" accept="image/*" multiple>
+        <label for="productImageFiles" class="pretty-upload-label">Choose Product Photos</label>
+        <div id="productImageFileName" class="selected-file-note"></div>
+      </div>
+
+      <div class="dashboard-actions" style="justify-content:flex-start; margin-top:16px;">
+        <button type="button" id="saveProductBtn" class="pretty-button">Add Product</button>
+      </div>
+
+      <p id="boutiqueMessage" class="dashboard-help"></p>
+
+      <div style="margin-top:22px;">
+        <h3 class="dashboard-section-title" style="font-size:1.25rem;">Your Products</h3>
+        <div id="boutiqueProductList" class="media-preview-grid"></div>
+      </div>
+    </div>
+
+    <div id="boutiqueAccessLocked" style="display:none;">
+      <p class="dashboard-help" style="margin-top:0;">
+        Boutique access is reserved for Founding Vendors and Platinum Prestige Partners.
+      </p>
+
+      <div class="calendar-tip-box" style="margin-top:14px;">
+        Founding Vendors receive full Boutique access as a thank you for supporting Our Wedding Day Hub early.
+      </div>
+
+      <div class="dashboard-actions" style="justify-content:flex-start; margin-top:16px;">
+        <a href="contact.html" class="pretty-button">Ask About Boutique Access</a>
+      </div>
+    </div>
+
+  </div>
+</section>
     <section class="dashboard-panel account-settings-card" style="text-align:left;">
       <div class="dashboard-card-header">
         <h2 class="dashboard-section-title">Account Settings</h2>
