@@ -1170,37 +1170,23 @@
   </div>
 
   <div class="dashboard-card-soft">
-
     <div class="calendar-tip-box" style="margin-bottom:16px;">
-      <strong>Turn your services into extra income 💸</strong><br><br>
-      You can sell gift cards, vouchers, wedding offers, products, jewellery, favours, keepsakes and more.<br><br>
-      Couples and guests will browse and purchase through the <strong>Boutique</strong> link at the top of the website.
-    </div>
-
-    <div class="calendar-tip-box" style="margin-bottom:16px;">
-      <strong>Popular ideas 💡</strong><br><br>
-      • Gift cards for your service<br>
-      • Bridal trial vouchers<br>
-      • Engagement shoot offers<br>
-      • Cake tasting boxes<br>
-      • Wedding favour packs<br>
-      • Jewellery or accessories<br>
-      • Wellness or hens experiences
+      <strong>What can you list?</strong><br><br>
+      Gift cards, vouchers, special offers, jewellery, favours, keepsakes, bridal accessories, cake boxes, wellness experiences and wedding-related products.
+      <br><br>
+      Couples and guests can browse these through the <strong>Boutique</strong> link at the top of the website.
     </div>
 
     <div id="boutiqueAccessAllowed" style="display:none;">
-
       <div class="dashboard-actions" style="justify-content:flex-start; margin-bottom:14px;">
         <button type="button" id="connectStripeBtn" class="pretty-button">Connect Stripe</button>
         <a href="shop.html" class="apply-button">View Boutique Shop</a>
       </div>
 
       <div class="calendar-tip-box">
-        You can create listings now.  
-        You can either use your own payment method or connect Stripe for direct checkout.
+        You can use your own payment method, ask customers to enquire first, or connect Stripe later for direct checkout.
       </div>
 
-      <!-- BASIC INFO -->
       <div class="dashboard-grid-2" style="margin-top:18px;">
         <div class="dashboard-field">
           <label for="productName">Listing Name</label>
@@ -1221,6 +1207,10 @@
             <option value="gift_card">Gift Card</option>
             <option value="voucher">Voucher / Offer</option>
             <option value="product">Physical Product</option>
+            <option value="jewellery">Jewellery</option>
+            <option value="bridal_accessories">Bridal Accessories</option>
+            <option value="wedding_favours">Wedding Favours</option>
+            <option value="keepsakes">Keepsakes</option>
             <option value="experience">Experience</option>
             <option value="other">Other</option>
           </select>
@@ -1234,36 +1224,34 @@
 
       <div class="dashboard-field" style="margin-top:14px;">
         <label for="productDescription">What’s Included</label>
-        <textarea id="productDescription" rows="4" placeholder="Explain what they receive, how it works, inclusions, expiry (if voucher), lead times, etc."></textarea>
+        <textarea id="productDescription" rows="4" placeholder="Explain what they receive, how it works, inclusions, expiry dates for vouchers, lead times, sizing, colours or custom options."></textarea>
       </div>
 
-      <!-- PAYMENT -->
       <div class="dashboard-grid-2" style="margin-top:18px;">
         <div class="dashboard-field">
           <label for="paymentMethod">How do you want to get paid?</label>
           <select id="paymentMethod">
             <option value="own">Use my own payment method</option>
-            <option value="stripe">Sell through the hub (Stripe)</option>
+            <option value="stripe">Sell through the hub with Stripe</option>
             <option value="enquiry">Customer enquires first</option>
           </select>
         </div>
 
         <div class="dashboard-field">
           <label for="productPurchaseLink">Payment / Booking Link</label>
-          <input type="text" id="productPurchaseLink" placeholder="Your website, booking link, payment link or Instagram">
+          <input type="text" id="productPurchaseLink" placeholder="Website checkout, payment link, booking link or Instagram link">
         </div>
       </div>
 
       <p class="dashboard-help">
-        If using your own payment method, add your link or instructions so customers know how to purchase.
+        If you use your own payment method, add the link customers should use. If they need to enquire first, you can leave this blank.
       </p>
 
-      <!-- DELIVERY / FULFILMENT -->
       <div class="dashboard-grid-2" style="margin-top:14px;">
         <div class="dashboard-field">
           <label for="fulfilmentMethod">How will customers receive this?</label>
           <select id="fulfilmentMethod">
-            <option value="email">Email delivery (gift cards / vouchers)</option>
+            <option value="email">Email delivery</option>
             <option value="pickup">Local pickup</option>
             <option value="local_delivery">Local delivery</option>
             <option value="domestic_shipping">Ships within your country</option>
@@ -1273,47 +1261,42 @@
         </div>
 
         <div class="dashboard-field">
-          <label for="fulfilmentDetails">Delivery / Pickup Details</label>
-          <input type="text" id="fulfilmentDetails" placeholder="Brisbane pickup, ships Australia-wide, emailed within 24h, etc">
+          <label for="fulfilmentDetails">Delivery / Pickup / Redemption Details</label>
+          <input type="text" id="fulfilmentDetails" placeholder="Brisbane pickup, ships Australia-wide, emailed within 24 hours, redeem by contacting us...">
         </div>
       </div>
 
-      <!-- STATUS -->
       <div class="dashboard-grid-2" style="margin-top:14px;">
         <div class="dashboard-field">
           <label for="productStatus">Listing Visibility</label>
           <select id="productStatus">
-            <option value="draft">Draft</option>
-            <option value="live">Live in Boutique</option>
+            <option value="draft">Draft - not visible yet</option>
+            <option value="live">Live - show in Boutique</option>
             <option value="sold_out">Sold Out</option>
           </select>
         </div>
       </div>
 
-      <!-- IMAGES -->
       <div class="upload-box" style="margin-top:14px;">
         <h3>Listing Images</h3>
         <p class="dashboard-help" style="margin-top:0;">
-          Upload photos of the product, gift card design, or example of what customers receive.
+          Upload photos of the product, voucher, gift card design, or an example of what customers receive.
         </p>
         <input type="file" id="productImageFiles" class="pretty-upload-input" accept="image/*" multiple>
-        <label for="productImageFiles" class="pretty-upload-label">Choose Images</label>
+        <label for="productImageFiles" class="pretty-upload-label">Choose Listing Images</label>
         <div id="productImageFileName" class="selected-file-note"></div>
       </div>
 
-      <!-- ACTION -->
       <div class="dashboard-actions" style="justify-content:flex-start; margin-top:16px;">
-        <button type="button" id="saveProductBtn" class="pretty-button">Add Listing</button>
+        <button type="button" id="saveProductBtn" class="pretty-button">Add Boutique Listing</button>
       </div>
 
       <p id="boutiqueMessage" class="dashboard-help"></p>
 
-      <!-- LIST -->
       <div style="margin-top:22px;">
-        <h3 class="dashboard-section-title" style="font-size:1.25rem;">Your Listings</h3>
+        <h3 class="dashboard-section-title" style="font-size:1.25rem;">Your Boutique Listings</h3>
         <div id="boutiqueProductList" class="media-preview-grid"></div>
       </div>
-
     </div>
 
     <div id="boutiqueAccessLocked" style="display:none;">
@@ -1322,14 +1305,13 @@
       </p>
 
       <div class="calendar-tip-box" style="margin-top:14px;">
-        Founding Vendors can sell gift cards, vouchers and products directly through the Boutique shop.
+        Founding Vendors can sell gift cards, vouchers and products through the Boutique shop.
       </div>
 
       <div class="dashboard-actions" style="justify-content:flex-start; margin-top:16px;">
         <a href="contact.html" class="pretty-button">Ask About Access</a>
       </div>
     </div>
-
   </div>
 </section>
     
