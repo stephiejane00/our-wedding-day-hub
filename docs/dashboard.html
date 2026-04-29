@@ -1165,55 +1165,42 @@
   <div class="dashboard-card-header">
     <h2 class="dashboard-section-title">Sell Products, Gift Cards & Vouchers</h2>
     <p class="dashboard-subtitle">
-      Create listings that can appear in the Boutique shop at the top of the website.
+      Create listings that appear in the Boutique shop at the top of the website.
     </p>
   </div>
 
   <div class="dashboard-card-soft">
 
     <div class="calendar-tip-box" style="margin-bottom:16px;">
-      <strong>What can you sell here?</strong><br><br>
-      Add gift cards, vouchers, wedding offers, jewellery, favours, keepsakes, bridal accessories, sweet boxes, sample packs, decor, wellness gifts, and other wedding-related products.
-      <br><br>
-      Couples and guests will browse these through the <strong>Boutique</strong> link at the top of the website.
+      <strong>Turn your services into extra income 💸</strong><br><br>
+      You can sell gift cards, vouchers, wedding offers, products, jewellery, favours, keepsakes and more.<br><br>
+      Couples and guests will browse and purchase through the <strong>Boutique</strong> link at the top of the website.
     </div>
 
     <div class="calendar-tip-box" style="margin-bottom:16px;">
-      <strong>Listing ideas:</strong><br><br>
-      • Gift card for your service<br>
-      • Voucher for a bridal trial<br>
-      • Engagement shoot offer<br>
-      • Cake tasting box<br>
+      <strong>Popular ideas 💡</strong><br><br>
+      • Gift cards for your service<br>
+      • Bridal trial vouchers<br>
+      • Engagement shoot offers<br>
+      • Cake tasting boxes<br>
       • Wedding favour packs<br>
-      • Jewellery or bridal accessories<br>
-      • Preserved flower keepsakes<br>
-      • Hens party or bridal wellness experience
+      • Jewellery or accessories<br>
+      • Wellness or hens experiences
     </div>
 
     <div id="boutiqueAccessAllowed" style="display:none;">
-      <div class="boutique-status-box">
-        <div>
-          <h3>Boutique Seller Access</h3>
-          <p class="dashboard-help" style="margin-top:4px;">
-            Your account includes Boutique access. Add listings here so they can be shown in the Boutique shop.
-          </p>
-        </div>
 
-        <div class="status-wrap">
-          <span class="status-pill" id="stripeStatusText">Stripe: not connected</span>
-          <span class="status-pill" id="productCountText">Listings: 0</span>
-        </div>
-      </div>
-
-      <div class="dashboard-actions" style="justify-content:flex-start; margin-top:16px;">
+      <div class="dashboard-actions" style="justify-content:flex-start; margin-bottom:14px;">
         <button type="button" id="connectStripeBtn" class="pretty-button">Connect Stripe</button>
         <a href="shop.html" class="apply-button">View Boutique Shop</a>
       </div>
 
       <div class="calendar-tip-box">
-        You can create Boutique listings now. Secure checkout will work once Stripe setup is connected.
+        You can create listings now.  
+        You can either use your own payment method or connect Stripe for direct checkout.
       </div>
 
+      <!-- BASIC INFO -->
       <div class="dashboard-grid-2" style="margin-top:18px;">
         <div class="dashboard-field">
           <label for="productName">Listing Name</label>
@@ -1221,7 +1208,7 @@
         </div>
 
         <div class="dashboard-field">
-          <label for="productPrice">Price / Gift Card Value</label>
+          <label for="productPrice">Price / Value</label>
           <input type="number" id="productPrice" min="0" step="0.01" placeholder="49.00">
         </div>
       </div>
@@ -1230,18 +1217,11 @@
         <div class="dashboard-field">
           <label for="productCategory">Listing Type</label>
           <select id="productCategory">
-            <option value="">Choose listing type</option>
+            <option value="">Choose type</option>
             <option value="gift_card">Gift Card</option>
-            <option value="voucher">Voucher / Special Offer</option>
-            <option value="bridal_accessories">Bridal Accessories</option>
-            <option value="jewellery">Jewellery</option>
-            <option value="bridesmaid_gifts">Bridesmaid Gifts</option>
-            <option value="wedding_favours">Wedding Favours</option>
-            <option value="stationery_signage">Stationery & Signage</option>
-            <option value="cakes_sweets">Cakes & Sweets</option>
-            <option value="decor">Decor</option>
-            <option value="keepsakes">Keepsakes</option>
-            <option value="wellness">Wellness</option>
+            <option value="voucher">Voucher / Offer</option>
+            <option value="product">Physical Product</option>
+            <option value="experience">Experience</option>
             <option value="other">Other</option>
           </select>
         </div>
@@ -1254,58 +1234,99 @@
 
       <div class="dashboard-field" style="margin-top:14px;">
         <label for="productDescription">What’s Included</label>
-        <textarea id="productDescription" rows="4" placeholder="Explain what the couple or guest receives, how it works, custom options, expiry dates for vouchers, sizing, colours, inclusions or lead times."></textarea>
+        <textarea id="productDescription" rows="4" placeholder="Explain what they receive, how it works, inclusions, expiry (if voucher), lead times, etc."></textarea>
       </div>
 
-      <div class="dashboard-grid-2" style="margin-top:14px;">
+      <!-- PAYMENT -->
+      <div class="dashboard-grid-2" style="margin-top:18px;">
         <div class="dashboard-field">
-          <label for="productShipping">Delivery / Pickup / Redemption Details</label>
-          <input type="text" id="productShipping" placeholder="Email delivery, Brisbane pickup, ships Australia-wide, redeem by contacting us...">
+          <label for="paymentMethod">How do you want to get paid?</label>
+          <select id="paymentMethod">
+            <option value="own">Use my own payment method</option>
+            <option value="stripe">Sell through the hub (Stripe)</option>
+            <option value="enquiry">Customer enquires first</option>
+          </select>
         </div>
 
         <div class="dashboard-field">
+          <label for="productPurchaseLink">Payment / Booking Link</label>
+          <input type="text" id="productPurchaseLink" placeholder="Your website, booking link, payment link or Instagram">
+        </div>
+      </div>
+
+      <p class="dashboard-help">
+        If using your own payment method, add your link or instructions so customers know how to purchase.
+      </p>
+
+      <!-- DELIVERY / FULFILMENT -->
+      <div class="dashboard-grid-2" style="margin-top:14px;">
+        <div class="dashboard-field">
+          <label for="fulfilmentMethod">How will customers receive this?</label>
+          <select id="fulfilmentMethod">
+            <option value="email">Email delivery (gift cards / vouchers)</option>
+            <option value="pickup">Local pickup</option>
+            <option value="local_delivery">Local delivery</option>
+            <option value="domestic_shipping">Ships within your country</option>
+            <option value="international_shipping">Ships internationally</option>
+            <option value="enquiry">Arrange after enquiry</option>
+          </select>
+        </div>
+
+        <div class="dashboard-field">
+          <label for="fulfilmentDetails">Delivery / Pickup Details</label>
+          <input type="text" id="fulfilmentDetails" placeholder="Brisbane pickup, ships Australia-wide, emailed within 24h, etc">
+        </div>
+      </div>
+
+      <!-- STATUS -->
+      <div class="dashboard-grid-2" style="margin-top:14px;">
+        <div class="dashboard-field">
           <label for="productStatus">Listing Visibility</label>
           <select id="productStatus">
-            <option value="draft">Draft - not visible yet</option>
-            <option value="live">Live - show in Boutique</option>
+            <option value="draft">Draft</option>
+            <option value="live">Live in Boutique</option>
             <option value="sold_out">Sold Out</option>
           </select>
         </div>
       </div>
 
+      <!-- IMAGES -->
       <div class="upload-box" style="margin-top:14px;">
         <h3>Listing Images</h3>
         <p class="dashboard-help" style="margin-top:0;">
-          Add clear photos of the product, gift card design, voucher graphic, or an example of what they receive.
+          Upload photos of the product, gift card design, or example of what customers receive.
         </p>
         <input type="file" id="productImageFiles" class="pretty-upload-input" accept="image/*" multiple>
-        <label for="productImageFiles" class="pretty-upload-label">Choose Listing Photos</label>
+        <label for="productImageFiles" class="pretty-upload-label">Choose Images</label>
         <div id="productImageFileName" class="selected-file-note"></div>
       </div>
 
+      <!-- ACTION -->
       <div class="dashboard-actions" style="justify-content:flex-start; margin-top:16px;">
-        <button type="button" id="saveProductBtn" class="pretty-button">Add Boutique Listing</button>
+        <button type="button" id="saveProductBtn" class="pretty-button">Add Listing</button>
       </div>
 
       <p id="boutiqueMessage" class="dashboard-help"></p>
 
+      <!-- LIST -->
       <div style="margin-top:22px;">
-        <h3 class="dashboard-section-title" style="font-size:1.25rem;">Your Boutique Listings</h3>
+        <h3 class="dashboard-section-title" style="font-size:1.25rem;">Your Listings</h3>
         <div id="boutiqueProductList" class="media-preview-grid"></div>
       </div>
+
     </div>
 
     <div id="boutiqueAccessLocked" style="display:none;">
       <p class="dashboard-help" style="margin-top:0;">
-        Boutique access is reserved for Founding Vendors and Platinum Prestige Partners.
+        Boutique access is available for Founding Vendors and premium partners.
       </p>
 
       <div class="calendar-tip-box" style="margin-top:14px;">
-        Founding Vendors receive full Boutique access, so they can offer gift cards, vouchers and products through the Boutique shop.
+        Founding Vendors can sell gift cards, vouchers and products directly through the Boutique shop.
       </div>
 
       <div class="dashboard-actions" style="justify-content:flex-start; margin-top:16px;">
-        <a href="contact.html" class="pretty-button">Ask About Boutique Access</a>
+        <a href="contact.html" class="pretty-button">Ask About Access</a>
       </div>
     </div>
 
