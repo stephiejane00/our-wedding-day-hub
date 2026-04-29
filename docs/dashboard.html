@@ -1160,56 +1160,81 @@
         </p>
       </div>
     </section>
+
 <section class="dashboard-panel" style="text-align:left;">
   <div class="dashboard-card-header">
-    <h2 class="dashboard-section-title">Boutique</h2>
-    <p class="dashboard-subtitle">Upload products, manage boutique listings and prepare your shop for future checkout.</p>
+    <h2 class="dashboard-section-title">Sell Products, Gift Cards & Vouchers</h2>
+    <p class="dashboard-subtitle">
+      Create listings that can appear in the Boutique shop at the top of the website.
+    </p>
   </div>
 
   <div class="dashboard-card-soft">
+
+    <div class="calendar-tip-box" style="margin-bottom:16px;">
+      <strong>What can you sell here?</strong><br><br>
+      Add gift cards, vouchers, wedding offers, jewellery, favours, keepsakes, bridal accessories, sweet boxes, sample packs, decor, wellness gifts, and other wedding-related products.
+      <br><br>
+      Couples and guests will browse these through the <strong>Boutique</strong> link at the top of the website.
+    </div>
+
+    <div class="calendar-tip-box" style="margin-bottom:16px;">
+      <strong>Listing ideas:</strong><br><br>
+      • Gift card for your service<br>
+      • Voucher for a bridal trial<br>
+      • Engagement shoot offer<br>
+      • Cake tasting box<br>
+      • Wedding favour packs<br>
+      • Jewellery or bridal accessories<br>
+      • Preserved flower keepsakes<br>
+      • Hens party or bridal wellness experience
+    </div>
 
     <div id="boutiqueAccessAllowed" style="display:none;">
       <div class="boutique-status-box">
         <div>
           <h3>Boutique Seller Access</h3>
           <p class="dashboard-help" style="margin-top:4px;">
-            Your account includes Boutique access as a Founding Vendor or Platinum Prestige Partner.
+            Your account includes Boutique access. Add listings here so they can be shown in the Boutique shop.
           </p>
         </div>
 
         <div class="status-wrap">
           <span class="status-pill" id="stripeStatusText">Stripe: not connected</span>
-          <span class="status-pill" id="productCountText">Products: 0</span>
+          <span class="status-pill" id="productCountText">Listings: 0</span>
         </div>
       </div>
 
       <div class="dashboard-actions" style="justify-content:flex-start; margin-top:16px;">
         <button type="button" id="connectStripeBtn" class="pretty-button">Connect Stripe</button>
-        <a href="shop.html" class="apply-button">View Boutique</a>
+        <a href="shop.html" class="apply-button">View Boutique Shop</a>
       </div>
 
       <div class="calendar-tip-box">
-        Products can be uploaded now. Stripe checkout will only work after the secure Stripe setup is added.
+        You can create Boutique listings now. Secure checkout will work once Stripe setup is connected.
       </div>
 
       <div class="dashboard-grid-2" style="margin-top:18px;">
         <div class="dashboard-field">
-          <label for="productName">Product Name</label>
-          <input type="text" id="productName" placeholder="Bridal robe, favour box, cake sample box...">
+          <label for="productName">Listing Name</label>
+          <input type="text" id="productName" placeholder="Gift card, bridal voucher, jewellery set, favour box...">
         </div>
 
         <div class="dashboard-field">
-          <label for="productPrice">Price</label>
+          <label for="productPrice">Price / Gift Card Value</label>
           <input type="number" id="productPrice" min="0" step="0.01" placeholder="49.00">
         </div>
       </div>
 
       <div class="dashboard-grid-2" style="margin-top:14px;">
         <div class="dashboard-field">
-          <label for="productCategory">Boutique Category</label>
+          <label for="productCategory">Listing Type</label>
           <select id="productCategory">
-            <option value="">Choose category</option>
+            <option value="">Choose listing type</option>
+            <option value="gift_card">Gift Card</option>
+            <option value="voucher">Voucher / Special Offer</option>
             <option value="bridal_accessories">Bridal Accessories</option>
+            <option value="jewellery">Jewellery</option>
             <option value="bridesmaid_gifts">Bridesmaid Gifts</option>
             <option value="wedding_favours">Wedding Favours</option>
             <option value="stationery_signage">Stationery & Signage</option>
@@ -1222,47 +1247,50 @@
         </div>
 
         <div class="dashboard-field">
-          <label for="productStock">Stock Quantity</label>
+          <label for="productStock">Quantity Available</label>
           <input type="number" id="productStock" min="0" step="1" placeholder="10">
         </div>
       </div>
 
       <div class="dashboard-field" style="margin-top:14px;">
-        <label for="productDescription">Product Description</label>
-        <textarea id="productDescription" rows="4" placeholder="Describe the product, inclusions, sizing, lead times or custom options."></textarea>
+        <label for="productDescription">What’s Included</label>
+        <textarea id="productDescription" rows="4" placeholder="Explain what the couple or guest receives, how it works, custom options, expiry dates for vouchers, sizing, colours, inclusions or lead times."></textarea>
       </div>
 
       <div class="dashboard-grid-2" style="margin-top:14px;">
         <div class="dashboard-field">
-          <label for="productShipping">Shipping / Pickup Details</label>
-          <input type="text" id="productShipping" placeholder="Ships Australia-wide, Brisbane pickup available...">
+          <label for="productShipping">Delivery / Pickup / Redemption Details</label>
+          <input type="text" id="productShipping" placeholder="Email delivery, Brisbane pickup, ships Australia-wide, redeem by contacting us...">
         </div>
 
         <div class="dashboard-field">
-          <label for="productStatus">Product Status</label>
+          <label for="productStatus">Listing Visibility</label>
           <select id="productStatus">
-            <option value="draft">Draft</option>
-            <option value="live">Live</option>
+            <option value="draft">Draft - not visible yet</option>
+            <option value="live">Live - show in Boutique</option>
             <option value="sold_out">Sold Out</option>
           </select>
         </div>
       </div>
 
       <div class="upload-box" style="margin-top:14px;">
-        <h3>Product Images</h3>
+        <h3>Listing Images</h3>
+        <p class="dashboard-help" style="margin-top:0;">
+          Add clear photos of the product, gift card design, voucher graphic, or an example of what they receive.
+        </p>
         <input type="file" id="productImageFiles" class="pretty-upload-input" accept="image/*" multiple>
-        <label for="productImageFiles" class="pretty-upload-label">Choose Product Photos</label>
+        <label for="productImageFiles" class="pretty-upload-label">Choose Listing Photos</label>
         <div id="productImageFileName" class="selected-file-note"></div>
       </div>
 
       <div class="dashboard-actions" style="justify-content:flex-start; margin-top:16px;">
-        <button type="button" id="saveProductBtn" class="pretty-button">Add Product</button>
+        <button type="button" id="saveProductBtn" class="pretty-button">Add Boutique Listing</button>
       </div>
 
       <p id="boutiqueMessage" class="dashboard-help"></p>
 
       <div style="margin-top:22px;">
-        <h3 class="dashboard-section-title" style="font-size:1.25rem;">Your Products</h3>
+        <h3 class="dashboard-section-title" style="font-size:1.25rem;">Your Boutique Listings</h3>
         <div id="boutiqueProductList" class="media-preview-grid"></div>
       </div>
     </div>
@@ -1273,7 +1301,7 @@
       </p>
 
       <div class="calendar-tip-box" style="margin-top:14px;">
-        Founding Vendors receive full Boutique access as a thank you for supporting Our Wedding Day Hub early.
+        Founding Vendors receive full Boutique access, so they can offer gift cards, vouchers and products through the Boutique shop.
       </div>
 
       <div class="dashboard-actions" style="justify-content:flex-start; margin-top:16px;">
@@ -1283,6 +1311,7 @@
 
   </div>
 </section>
+    
     <section class="dashboard-panel account-settings-card" style="text-align:left;">
       <div class="dashboard-card-header">
         <h2 class="dashboard-section-title">Account Settings</h2>
