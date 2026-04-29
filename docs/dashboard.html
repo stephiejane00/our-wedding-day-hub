@@ -2352,7 +2352,10 @@ function clearProductForm() {
   productCategory.value = "";
   productStock.value = "";
   productDescription.value = "";
-  productShipping.value = "";
+  paymentMethod.value = "own";
+productPurchaseLink.value = "";
+fulfilmentMethod.value = "email";
+fulfilmentDetails.value = "";
   productStatus.value = "draft";
   productImageFiles.value = "";
   productImageFileName.textContent = "";
@@ -2468,7 +2471,10 @@ async function saveBoutiqueProduct() {
       category: productCategory.value,
       stock: Number(productStock.value || 0),
       description: productDescription.value.trim(),
-      shipping: productShipping.value.trim(),
+      paymentMethod: paymentMethod.value,
+purchaseLink: productPurchaseLink.value.trim(),
+fulfilmentMethod: fulfilmentMethod.value,
+fulfilmentDetails: fulfilmentDetails.value.trim(),
       status: productStatus.value || "draft",
       images: imageUrls,
       visible: productStatus.value === "live",
