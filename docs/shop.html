@@ -26,7 +26,7 @@
       display: grid;
       grid-template-columns: 0.9fr 1.1fr;
       align-items: stretch;
-      min-height: 700px;
+      min-height: 640px;
     }
 
     .boutique-hero-copy {
@@ -73,7 +73,7 @@
       margin: 0 0 18px;
       font-family: "Cormorant Garamond", serif;
       font-style: italic;
-      font-size: clamp(2.6rem, 5vw, 4.2rem);
+      font-size: clamp(2.4rem, 5vw, 4rem);
       line-height: 0.95;
       color: #b8947f;
       font-weight: 400;
@@ -88,7 +88,7 @@
 
     .boutique-intro,
     .boutique-subtext {
-      max-width: 460px;
+      max-width: 500px;
       color: var(--muted);
       line-height: 1.9;
       font-size: 1.02rem;
@@ -138,39 +138,24 @@
       object-fit: cover;
     }
 
-    .boutique-coming-card {
+    .boutique-filter-card {
+      padding: 24px;
       text-align: center;
-      padding: 44px 28px;
     }
 
-    .boutique-coming-icon {
-      width: 78px;
-      height: 78px;
-      margin: 0 auto 18px;
-      border-radius: 999px;
-      border: 1px solid #e7d8ce;
-      background: #fffaf7;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.9rem;
-      color: #c1a693;
-    }
-
-    .boutique-coming-card h2 {
-      margin: 0 0 12px;
+    .boutique-filter-title {
+      margin: 0 0 10px;
       font-family: "Cormorant Garamond", serif;
-      font-size: clamp(2.2rem, 4vw, 3.1rem);
+      font-size: clamp(2rem, 4vw, 3rem);
       font-weight: 500;
       color: var(--text);
     }
 
-    .boutique-coming-card p {
+    .boutique-filter-text {
       margin: 0 auto;
-      max-width: 650px;
+      max-width: 720px;
       color: var(--muted);
-      line-height: 1.85;
-      font-size: 1rem;
+      line-height: 1.8;
     }
 
     .boutique-pill-row {
@@ -178,7 +163,7 @@
       justify-content: center;
       gap: 12px;
       flex-wrap: wrap;
-      margin-top: 24px;
+      margin-top: 22px;
     }
 
     .boutique-pill {
@@ -195,50 +180,201 @@
       font-size: 0.92rem;
     }
 
-    .boutique-feature-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 0;
-      overflow: hidden;
+    .boutique-products-card {
+      padding: 28px;
     }
 
-    .boutique-feature-card {
-      padding: 34px 26px;
-      text-align: center;
-      border-right: 1px solid #eadfd7;
-    }
-
-    .boutique-feature-card:last-child {
-      border-right: none;
-    }
-
-    .boutique-feature-icon {
-      width: 64px;
-      height: 64px;
-      margin: 0 auto 16px;
-      border-radius: 999px;
-      border: 1px solid #e6d7cd;
-      background: #fffaf7;
+    .boutique-products-top {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      color: #c1a693;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+      text-align: left;
     }
 
-    .boutique-feature-card h3 {
-      margin: 0 0 10px;
+    .boutique-products-top h2 {
+      margin: 0;
       font-family: "Cormorant Garamond", serif;
-      font-size: 1.9rem;
+      font-size: clamp(2.1rem, 4vw, 3.3rem);
       font-weight: 500;
       color: var(--text);
     }
 
-    .boutique-feature-card p {
+    .boutique-products-top p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .boutique-product-count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 15px;
+      border-radius: 999px;
+      background: #fff7f2;
+      border: 1px solid #ead9cd;
+      color: #6d5549;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .boutique-product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 22px;
+    }
+
+    .boutique-product-card {
+      overflow: hidden;
+      border-radius: 28px;
+      border: 1px solid #eadfd7;
+      background: linear-gradient(180deg, #fffdfb 0%, #fff8f4 100%);
+      box-shadow: 0 14px 34px rgba(45, 31, 24, 0.045);
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+    }
+
+    .boutique-product-image-wrap {
+      position: relative;
+      background: #f4ece6;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+    }
+
+    .boutique-product-image {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .boutique-product-placeholder {
+      width: 100%;
+      height: 100%;
+      display: grid;
+      place-items: center;
+      color: #b89c8a;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 2.8rem;
+      background:
+        radial-gradient(circle at top left, rgba(220, 196, 181, 0.28), transparent 36%),
+        linear-gradient(180deg, #fff8f4, #f2e7df);
+    }
+
+    .boutique-product-type {
+      position: absolute;
+      left: 14px;
+      top: 14px;
+      display: inline-flex;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 250, 247, 0.92);
+      border: 1px solid rgba(234, 217, 205, 0.95);
+      color: #5b4a43;
+      font-size: 0.8rem;
+      font-weight: 700;
+      backdrop-filter: blur(6px);
+    }
+
+    .boutique-product-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+    }
+
+    .boutique-product-body h3 {
+      margin: 0;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1.75rem;
+      font-weight: 500;
+      line-height: 1.1;
+      color: var(--text);
+    }
+
+    .boutique-vendor {
+      margin: 0;
+      color: #9b7e6d;
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    .boutique-price {
+      margin: 0;
+      color: #2d221c;
+      font-size: 1.15rem;
+      font-weight: 800;
+    }
+
+    .boutique-description,
+    .boutique-small-detail {
       margin: 0;
       color: var(--muted);
+      line-height: 1.7;
+      font-size: 0.95rem;
+    }
+
+    .boutique-small-detail strong {
+      color: #5f4c42;
+    }
+
+    .boutique-product-actions {
+      display: grid;
+      gap: 10px;
+      margin-top: auto;
+      padding-top: 8px;
+    }
+
+    .boutique-button {
+      min-height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 16px;
+      border-radius: 999px;
+      background: #111;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.18s ease, opacity 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .boutique-button:hover {
+      opacity: 0.94;
+      transform: translateY(-1px);
+      box-shadow: 0 10px 22px rgba(17,17,17,0.12);
+    }
+
+    .boutique-button-soft {
+      background: #f1e4db;
+      color: #3a2a22;
+    }
+
+    .boutique-empty {
+      padding: 42px 24px;
+      text-align: center;
+      border-radius: 28px;
+      border: 1px dashed #dccabe;
+      background: #fffaf7;
+      color: var(--muted);
       line-height: 1.8;
-      font-size: 0.98rem;
+    }
+
+    .boutique-empty h3 {
+      margin: 0 0 10px;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 2rem;
+      font-weight: 500;
+      color: var(--text);
     }
 
     @media (max-width: 1100px) {
@@ -253,18 +389,6 @@
       .boutique-hero-image {
         max-height: 620px;
       }
-
-      .boutique-feature-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .boutique-feature-card:nth-child(2) {
-        border-right: none;
-      }
-
-      .boutique-feature-card:nth-child(-n+2) {
-        border-bottom: 1px solid #eadfd7;
-      }
     }
 
     @media (max-width: 700px) {
@@ -272,25 +396,18 @@
         padding: 10px 10px 0;
       }
 
-      .boutique-hero-copy {
+      .boutique-hero-copy,
+      .boutique-products-card,
+      .boutique-filter-card {
         padding: 32px 22px;
       }
 
-      .boutique-coming-card {
-        padding: 34px 20px;
+      .boutique-products-top {
+        align-items: flex-start;
       }
 
-      .boutique-feature-grid {
+      .boutique-product-grid {
         grid-template-columns: 1fr;
-      }
-
-      .boutique-feature-card {
-        border-right: none;
-        border-bottom: 1px solid #eadfd7;
-      }
-
-      .boutique-feature-card:last-child {
-        border-bottom: none;
       }
     }
   </style>
@@ -319,11 +436,11 @@
             <p class="boutique-eyebrow">our boutique</p>
 
             <h1 class="boutique-title">Boutique</h1>
-            <p class="boutique-script">Coming Soon</p>
+            <p class="boutique-script">Wedding finds, gifts & vouchers</p>
             <div class="boutique-heart">♡</div>
 
             <p class="boutique-intro">
-              We’re creating a carefully curated collection of beautiful wedding pieces, thoughtful gifts and planning essentials, all chosen with love.
+              Discover beautiful wedding pieces, thoughtful gifts, vouchers, jewellery, favours, keepsakes and special offers from vendors inside Our Wedding Day Hub.
             </p>
 
             <div class="boutique-divider">
@@ -333,7 +450,7 @@
             </div>
 
             <p class="boutique-subtext">
-              Thank you for your patience. We can’t wait to share it with you.
+              Some items can be purchased through a vendor’s own link, while others may ask you to enquire first.
             </p>
           </div>
 
@@ -343,45 +460,32 @@
         </div>
       </section>
 
-      <section class="card boutique-coming-card">
-        <div class="boutique-coming-icon">♡</div>
-        <h2>Something beautiful is on the way</h2>
-        <p>
-          Our boutique will feature curated wedding finds, gifting ideas, keepsakes and beautiful extras designed to complement your celebration.
+      <section class="card boutique-filter-card">
+        <h2 class="boutique-filter-title">Shop wedding extras with heart</h2>
+        <p class="boutique-filter-text">
+          Browse gift cards, vouchers, products, accessories, keepsakes and thoughtful add-ons from wedding businesses around the world.
         </p>
 
         <div class="boutique-pill-row">
-          <span class="boutique-pill">Curated with love</span>
-          <span class="boutique-pill">Thoughtful gifts</span>
-          <span class="boutique-pill">Planning essentials</span>
-          <span class="boutique-pill">For every love story</span>
+          <span class="boutique-pill">Gift cards</span>
+          <span class="boutique-pill">Vouchers</span>
+          <span class="boutique-pill">Jewellery</span>
+          <span class="boutique-pill">Wedding favours</span>
+          <span class="boutique-pill">Keepsakes</span>
+          <span class="boutique-pill">Experiences</span>
         </div>
       </section>
 
-      <section class="card boutique-feature-grid">
-        <article class="boutique-feature-card">
-          <div class="boutique-feature-icon">♡</div>
-          <h3>Curated</h3>
-          <p>Handpicked pieces for beautiful weddings and meaningful moments.</p>
-        </article>
+      <section class="card boutique-products-card">
+        <div class="boutique-products-top">
+          <div>
+            <h2>Browse the Boutique</h2>
+            <p>Live listings from our vendors will appear here.</p>
+          </div>
+          <span class="boutique-product-count" id="productCountText">Loading...</span>
+        </div>
 
-        <article class="boutique-feature-card">
-          <div class="boutique-feature-icon">✦</div>
-          <h3>Giftable</h3>
-          <p>Thoughtful finds for engagements, weddings, bridal parties and beyond.</p>
-        </article>
-
-        <article class="boutique-feature-card">
-          <div class="boutique-feature-icon">✿</div>
-          <h3>Useful</h3>
-          <p>Planning extras and lovely details to help make the journey feel easier.</p>
-        </article>
-
-        <article class="boutique-feature-card">
-          <div class="boutique-feature-icon">✧</div>
-          <h3>Inclusive</h3>
-          <p>Chosen with care for couples, celebrations and love stories of all kinds.</p>
-        </article>
+        <div id="boutiqueProductGrid" class="boutique-product-grid"></div>
       </section>
 
     </div>
@@ -423,14 +527,217 @@
   <script type="module">
     import {
       auth,
+      db,
       onAuthStateChanged,
-      signOut
+      signOut,
+      collection,
+      getDocs,
+      query,
+      where
     } from "./firebase.js";
 
     const joinLink = document.getElementById("joinLink");
     const loginLink = document.getElementById("loginLink");
     const dashboardLink = document.getElementById("dashboardLink");
     const logoutLink = document.getElementById("logoutLink");
+
+    const boutiqueProductGrid = document.getElementById("boutiqueProductGrid");
+    const productCountText = document.getElementById("productCountText");
+
+    function formatPrice(value) {
+      const number = Number(value || 0);
+      if (!number) return "Price on enquiry";
+      return `$${number.toFixed(2)}`;
+    }
+
+    function formatCategory(value) {
+      const labels = {
+        gift_card: "Gift Card",
+        voucher: "Voucher / Offer",
+        product: "Product",
+        jewellery: "Jewellery",
+        bridal_accessories: "Bridal Accessories",
+        wedding_favours: "Wedding Favours",
+        keepsakes: "Keepsake",
+        experience: "Experience",
+        other: "Boutique Listing"
+      };
+
+      return labels[value] || "Boutique Listing";
+    }
+
+    function formatFulfilment(value) {
+      const labels = {
+        email: "Email delivery",
+        pickup: "Local pickup",
+        local_delivery: "Local delivery",
+        domestic_shipping: "Ships within vendor country",
+        international_shipping: "Ships internationally",
+        enquiry: "Arrange after enquiry"
+      };
+
+      return labels[value] || "";
+    }
+
+    function getActionLabel(product) {
+      if (product.paymentMethod === "enquiry") return "Enquire with Vendor";
+      if (product.paymentMethod === "stripe") return "Checkout Coming Soon";
+      return "View Purchase Link";
+    }
+
+    function getActionHref(product) {
+      const link = product.purchaseLink || product.paymentLink || product.bookingLink || "";
+
+      if (link) return link;
+
+      if (product.vendorInstagram) return product.vendorInstagram;
+      if (product.vendorWebsite) return product.vendorWebsite;
+
+      return "contact.html";
+    }
+
+    function createProductCard(product) {
+      const card = document.createElement("article");
+      card.className = "boutique-product-card";
+
+      const imageWrap = document.createElement("div");
+      imageWrap.className = "boutique-product-image-wrap";
+
+      const imageUrl = Array.isArray(product.images) && product.images.length ? product.images[0] : "";
+
+      if (imageUrl) {
+        const img = document.createElement("img");
+        img.className = "boutique-product-image";
+        img.src = imageUrl;
+        img.alt = product.name || "Boutique listing";
+        img.loading = "lazy";
+        imageWrap.appendChild(img);
+      } else {
+        const placeholder = document.createElement("div");
+        placeholder.className = "boutique-product-placeholder";
+        placeholder.textContent = "♡";
+        imageWrap.appendChild(placeholder);
+      }
+
+      const type = document.createElement("span");
+      type.className = "boutique-product-type";
+      type.textContent = formatCategory(product.category);
+      imageWrap.appendChild(type);
+
+      const body = document.createElement("div");
+      body.className = "boutique-product-body";
+
+      const title = document.createElement("h3");
+      title.textContent = product.name || "Untitled Listing";
+
+      const vendor = document.createElement("p");
+      vendor.className = "boutique-vendor";
+      vendor.textContent = product.vendorName ? `By ${product.vendorName}` : "By a hub vendor";
+
+      const price = document.createElement("p");
+      price.className = "boutique-price";
+      price.textContent = formatPrice(product.price);
+
+      const description = document.createElement("p");
+      description.className = "boutique-description";
+      description.textContent = product.description || "More details available from the vendor.";
+
+      const fulfilmentText = formatFulfilment(product.fulfilmentMethod);
+      const fulfilment = document.createElement("p");
+      fulfilment.className = "boutique-small-detail";
+      fulfilment.innerHTML = fulfilmentText
+        ? `<strong>Delivery:</strong> ${fulfilmentText}`
+        : `<strong>Delivery:</strong> Details from vendor`;
+
+      const details = document.createElement("p");
+      details.className = "boutique-small-detail";
+      details.innerHTML = product.fulfilmentDetails
+        ? `<strong>Details:</strong> ${product.fulfilmentDetails}`
+        : "";
+
+      const actions = document.createElement("div");
+      actions.className = "boutique-product-actions";
+
+      const button = document.createElement("a");
+      button.className = product.paymentMethod === "stripe" ? "boutique-button boutique-button-soft" : "boutique-button";
+      button.href = product.paymentMethod === "stripe" ? "#" : getActionHref(product);
+      button.textContent = getActionLabel(product);
+
+      if (product.paymentMethod !== "stripe") {
+        button.target = "_blank";
+        button.rel = "noopener noreferrer";
+      } else {
+        button.addEventListener("click", (event) => {
+          event.preventDefault();
+          alert("Checkout for this listing is coming soon. Please contact the vendor directly for now.");
+        });
+      }
+
+      actions.appendChild(button);
+
+      body.appendChild(title);
+      body.appendChild(vendor);
+      body.appendChild(price);
+      body.appendChild(description);
+      body.appendChild(fulfilment);
+      if (product.fulfilmentDetails) body.appendChild(details);
+      body.appendChild(actions);
+
+      card.appendChild(imageWrap);
+      card.appendChild(body);
+
+      return card;
+    }
+
+    function renderEmptyState(message = "No boutique listings are live yet. Please check back soon.") {
+      boutiqueProductGrid.innerHTML = `
+        <div class="boutique-empty" style="grid-column: 1 / -1;">
+          <h3>Something beautiful is on the way</h3>
+          <p>${message}</p>
+        </div>
+      `;
+      productCountText.textContent = "0 listings";
+    }
+
+    async function loadBoutiqueProducts() {
+      boutiqueProductGrid.innerHTML = `
+        <div class="boutique-empty" style="grid-column: 1 / -1;">
+          <h3>Loading the Boutique...</h3>
+          <p>We’re finding the latest live listings for you.</p>
+        </div>
+      `;
+
+      try {
+        const productsQuery = query(
+          collection(db, "boutiqueProducts"),
+          where("visible", "==", true)
+        );
+
+        const snap = await getDocs(productsQuery);
+
+        const products = snap.docs
+          .map(doc => ({
+            id: doc.id,
+            ...doc.data()
+          }))
+          .filter(product => product.status === "live" || product.visible === true);
+
+        if (!products.length) {
+          renderEmptyState();
+          return;
+        }
+
+        boutiqueProductGrid.innerHTML = "";
+        productCountText.textContent = `${products.length} listing${products.length === 1 ? "" : "s"}`;
+
+        products.forEach(product => {
+          boutiqueProductGrid.appendChild(createProductCard(product));
+        });
+      } catch (error) {
+        console.error(error);
+        renderEmptyState("There was a problem loading the Boutique. Please refresh the page and try again.");
+      }
+    }
 
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -454,6 +761,8 @@
         console.error("Logout failed:", error);
       }
     });
+
+    loadBoutiqueProducts();
   </script>
 
   <script type="module" src="nav.js"></script>
