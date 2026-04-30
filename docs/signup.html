@@ -622,6 +622,17 @@
           });
         }
 
+        await fetch("https://us-central1-ourweddingdayhub.cloudfunctions.net/api/add-to-constant-contact", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    email,
+    name,
+    type
+  })
+});
         message.textContent = 'Account created! Please verify your email.';
         setTimeout(() => window.location.href = 'login.html', 2000);
 
