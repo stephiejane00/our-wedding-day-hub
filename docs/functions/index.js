@@ -6,6 +6,7 @@ const cors = require("cors");
 const Stripe = require("stripe");
 
 admin.initializeApp();
+
 const db = admin.firestore();
 
 const stripeSecret = defineSecret("STRIPE_SECRET_KEY");
@@ -18,6 +19,7 @@ const constantContactCoupleListId = defineSecret("CONSTANT_CONTACT_COUPLE_LIST_I
 const CONSTANT_CONTACT_CLIENT_ID = "b5586c07-4edd-442e-af03-cba30ffa9f1a";
 
 const app = express();
+
 app.use(cors({ origin: true }));
 app.use(express.json());
 
@@ -69,7 +71,7 @@ async function getConstantContactAccessToken() {
   const data = await response.json();
 
   if (!response.ok) {
-    console.error("Constant Contact refresh error:", data);
+    console.error("Constant Contact token refresh error:", data);
     throw new Error("Could not refresh Constant Contact token.");
   }
 
