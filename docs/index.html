@@ -113,12 +113,23 @@
   cursor: grabbing;
 }
 
-    .vendors-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 22px;
-      align-items: stretch;
-    }
+.vendors-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+  align-items: stretch;
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+.vendors-grid.is-sliding-left {
+  opacity: 0;
+  transform: translateX(-18px);
+}
+
+.vendors-grid.is-sliding-right {
+  opacity: 0;
+  transform: translateX(18px);
+}
 
     .vendor-card {
       min-height: 100%;
