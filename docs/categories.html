@@ -1364,15 +1364,16 @@
         snapshot.forEach((docSnap) => {
           const vendor = docSnap.data();
 
-          const hasLiveProfile =
-            vendor.profileVisible === true && vendor.published === true;
+const hasLiveProfile =
+  vendor &&
+  vendor.businessName &&
+  vendor.profileVisible !== false &&
+  vendor.published !== false;
 
-          if (
-            vendor &&
-            vendor.uid &&
-            hasLiveProfile &&
-            hasVendorAccess(vendor)
-          ) {
+if (
+  vendor &&
+  hasLiveProfile
+) {
             liveVendors.push({
               ...vendor,
               docId: docSnap.id
