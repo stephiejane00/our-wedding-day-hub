@@ -947,6 +947,30 @@ let isVendorDragging = false;
 
 const vendorsViewport = document.querySelector(".vendors-carousel-viewport");
 
+function glideVendorSlide(direction) {
+  const totalSlides = getTotalSlides(filteredVendors);
+
+  if (direction === "next" && currentSlide >= totalSlides - 1) return;
+  if (direction === "prev" && currentSlide <= 0) return;
+
+  vendorsGrid.classList.add(
+    direction === "next" ? "is-sliding-left" : "is-sliding-right"
+  );
+
+  setTimeout(() => {
+    if (direction === "next") {
+      currentSlide++;
+    } else {
+      currentSlide--;
+    }
+
+    renderVendors(filteredVendors);
+
+    requestAnimationFrame(() => {
+      vendorsGrid.classList.remove("is-sliding-left", "is-sliding-right");
+    });
+  }, 180);
+}
 function handleVendorSwipe() {
   const swipeDistance = swipeStartX - swipeEndX;
   const swipeThreshold = 50;
