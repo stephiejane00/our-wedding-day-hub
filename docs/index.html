@@ -100,11 +100,18 @@
       transform: none;
     }
 
-    .vendors-carousel-viewport {
-      flex: 1;
-      overflow: hidden;
-      min-width: 0;
-    }
+.vendors-carousel-viewport {
+  flex: 1;
+  overflow: hidden;
+  min-width: 0;
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+}
+
+.vendors-carousel-viewport:active {
+  cursor: grabbing;
+}
 
     .vendors-grid {
       display: grid;
@@ -922,9 +929,59 @@
         goToSearchResults();
       }
     });
+// Swipe / drag support for vendor carousel
+let swipeStartX = 0;
+let swipeEndX = 0;
+let isVendorDragging = false;
 
-    setRefreshImages();
-    loadVendors();
+const vendorsViewport = document.querySelector(".vendors-carousel-viewport");
+
+function handleVendorSwipe() {
+  const swipeDistance = swipeStartX - swipeEndX;
+  const swipeThreshold = 50;
+
+  if (Math.abs(swipeDistance) < swipeThreshold) return;
+
+  const totalSlides = getTotalSlides(filteredVendors);
+
+  if (swipeDistance > 0 && currentSlide < totalSlides - 1) {
+    currentSlide++;
+    renderVendors(filteredVendors);
+  } else if (swipeDistance < 0 && currentSlide > 0) {
+    currentSlide--;
+    renderVendors(filteredVendors);
+  }
+}
+
+if (vendorsViewport) {
+  vendorsViewport.addEventListener("touchstart", (event) => {
+    swipeStartX = event.touches[0].clientX;
+  }, { passive: true });
+
+  vendorsViewport.addEventListener("touchend", (event) => {
+    swipeEndX = event.changedTouches[0].clientX;
+    handleVendorSwipe();
+  });
+
+  vendorsViewport.addEventListener("mousedown", (event) => {
+    isVendorDragging = true;
+    swipeStartX = event.clientX;
+  });
+
+  vendorsViewport.addEventListener("mouseup", (event) => {
+    if (!isVendorDragging) return;
+    isVendorDragging = false;
+    swipeEndX = event.clientX;
+    handleVendorSwipe();
+  });
+
+  vendorsViewport.addEventListener("mouseleave", () => {
+    isVendorDragging = false;
+  });
+}
+
+setRefreshImages();
+loadVendors();
   </script>
 
   <script type="module" src="nav.js"></script>
