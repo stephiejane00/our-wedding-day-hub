@@ -919,6 +919,12 @@ body {
         const categoryLine = getCategoryLine(vendor);
         const locationLine = getLocationLine(vendor);
         const bio = getShortBio(vendor);
+        const badgeText =
+  vendor.priorityPlacement === true
+    ? "Editor’s Pick"
+    : vendor.featuredPlacement === true
+      ? "Featured"
+      : "Partner";
 
         card.innerHTML = `
           <img src="${image}" alt="${name}" loading="lazy">
