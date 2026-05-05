@@ -124,12 +124,17 @@ app.post("/add-to-constant-contact", async (req, res) => {
     if (!email || !type) {
       return res.status(400).json({ error: "Missing email or account type." });
     }
+    
+let listId;
 
-    const listId =
-      type === "vendor"
-        ? constantContactVendorListId.value()
-        : constantContactCoupleListId.value();
-
+if (type === "vendor") {
+  listId = constantContactVendorListId.value();
+} else if (type === "couple") {
+  listId = constantContactCoupleListId.value();
+} else {
+  return res.status(400).json({ error: "Invalid account type." });
+}
+    
     const accessToken = await getConstantContactAccessToken();
 
     const response = await fetch(
