@@ -414,6 +414,38 @@ body {
 .footer-eyebrow {
   color: #b08d7d;
 }
+
+    /* ✨ Hero luxury polish (SAFE) */
+.lux-title {
+  text-shadow: 0 10px 30px rgba(59, 47, 42, 0.08);
+}
+
+.lux-script {
+  opacity: 0.9;
+  letter-spacing: 0.02em;
+}
+
+.lux-hero-copy > * {
+  animation: fadeUp 0.8s ease forwards;
+  opacity: 0;
+}
+
+.lux-hero-copy > *:nth-child(1) { animation-delay: 0.05s; }
+.lux-hero-copy > *:nth-child(2) { animation-delay: 0.1s; }
+.lux-hero-copy > *:nth-child(3) { animation-delay: 0.2s; }
+.lux-hero-copy > *:nth-child(4) { animation-delay: 0.3s; }
+.lux-hero-copy > *:nth-child(5) { animation-delay: 0.4s; }
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
     
     @media (max-width: 980px) {
       .vendors-grid {
