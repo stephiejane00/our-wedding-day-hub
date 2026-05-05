@@ -354,6 +354,98 @@
       text-align: center;
     }
 
+    /* Categories aesthetic match */
+:root {
+  --lux-espresso: #3b2f2a;
+  --lux-rose: #c8a6a1;
+  --lux-champagne: #c6a77d;
+  --lux-cream: #fffaf7;
+}
+
+body {
+  background:
+    radial-gradient(circle at top left, rgba(200, 166, 161, 0.12), transparent 32%),
+    #f7f1ed;
+}
+
+.categories-hero {
+  background:
+    radial-gradient(circle at top left, rgba(200, 166, 161, 0.18), transparent 34%),
+    linear-gradient(135deg, #fffaf7, #f4ebe5);
+  box-shadow: 0 24px 70px rgba(59, 47, 42, 0.08);
+}
+
+.categories-kicker,
+.footer-eyebrow {
+  color: #b08d7d;
+  letter-spacing: 0.24em;
+}
+
+.categories-title,
+.category-vendor-card h3,
+.footer-title {
+  color: var(--lux-espresso);
+}
+
+.categories-filter-pill,
+.categories-search-panel,
+.categories-results,
+.category-vendor-card {
+  border-color: rgba(223, 210, 200, 0.92);
+}
+
+.categories-filter-pill.active,
+.categories-search-btn,
+.category-vendor-btn {
+  background: linear-gradient(135deg, #d8b59f, #b98f7a);
+  color: #fffaf7;
+  border-color: transparent;
+  box-shadow: 0 10px 24px rgba(185, 143, 122, 0.22);
+}
+
+.categories-search-btn:hover,
+.category-vendor-btn:hover,
+.categories-filter-pill.active:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.03);
+}
+
+.category-vendor-card {
+  background: rgba(255, 250, 247, 0.94);
+  box-shadow: 0 14px 38px rgba(59, 47, 42, 0.07);
+}
+
+.category-vendor-card:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 24px 60px rgba(59, 47, 42, 0.12);
+  border-color: rgba(198, 167, 125, 0.65);
+}
+
+.category-vendor-card img {
+  filter: brightness(0.98) contrast(0.95) saturate(0.92);
+  transition: transform 0.45s ease, filter 0.35s ease;
+}
+
+.category-vendor-card:hover img {
+  transform: scale(1.045);
+  filter: brightness(1) contrast(0.97) saturate(0.97);
+}
+
+.categories-results {
+  background:
+    linear-gradient(180deg, #eee7e1 0%, #e9ded7 100%);
+}
+
+.categories-search-field select,
+.categories-search-field input {
+  background: #fffdfb;
+}
+
+.site-footer {
+  background:
+    radial-gradient(circle at top, rgba(200, 166, 161, 0.16), transparent 36%),
+    linear-gradient(180deg, #f5eee9 0%, #eee5df 100%);
+}
     @media (max-width: 1180px) {
       .categories-search-grid {
         grid-template-columns: 1fr 1fr;
