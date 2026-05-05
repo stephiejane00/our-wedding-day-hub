@@ -673,6 +673,135 @@
       min-width: 220px;
     }
 
+    /* Dashboard aesthetic match */
+:root {
+  --lux-espresso: #3b2f2a;
+  --lux-rose: #c8a6a1;
+  --lux-champagne: #c6a77d;
+  --lux-cream: #fffaf7;
+}
+
+body {
+  background:
+    radial-gradient(circle at top left, rgba(200, 166, 161, 0.12), transparent 32%),
+    #f7f1ed;
+}
+
+.dashboard-hero-card,
+.dashboard-panel,
+.card {
+  box-shadow: 0 18px 46px rgba(59, 47, 42, 0.07);
+}
+
+.dashboard-hero-card {
+  background:
+    radial-gradient(circle at top left, rgba(200, 166, 161, 0.18), transparent 34%),
+    linear-gradient(135deg, #fffaf7, #f4ebe5);
+}
+
+.dashboard-hero-title,
+.dashboard-section-title,
+.footer-title {
+  color: var(--lux-espresso);
+  letter-spacing: -0.035em;
+}
+
+.dashboard-hero-copy .eyebrow,
+.footer-eyebrow {
+  color: #b08d7d;
+  letter-spacing: 0.24em;
+}
+
+.dashboard-hero-image-wrap {
+  overflow: hidden;
+}
+
+.dashboard-hero-image {
+  filter: brightness(0.98) contrast(0.94) saturate(0.92);
+  transition: transform 0.8s ease, filter 0.35s ease;
+}
+
+.dashboard-hero-image-wrap:hover .dashboard-hero-image {
+  transform: scale(1.035);
+  filter: brightness(1) contrast(0.96) saturate(0.96);
+}
+
+.pretty-button,
+.apply-button,
+.pretty-upload-label,
+.date-add-btn,
+.bulk-add-btn {
+  background: linear-gradient(135deg, #d8b59f, #b98f7a) !important;
+  color: #fffaf7 !important;
+  border: none;
+  box-shadow: 0 10px 24px rgba(185, 143, 122, 0.22);
+}
+
+.pretty-button:hover,
+.apply-button:hover,
+.pretty-upload-label:hover,
+.date-add-btn:hover,
+.bulk-add-btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.03);
+}
+
+.dashboard-card-soft,
+.booking-subcard,
+.upload-box,
+.asset-box,
+.media-preview-item,
+.category-dropdown {
+  background: rgba(255, 250, 247, 0.92);
+  border-color: rgba(223, 210, 200, 0.95);
+}
+
+.dashboard-field input,
+.dashboard-field textarea,
+.dashboard-field select {
+  background: #fffdfb;
+  border-color: #eadfd6;
+}
+
+.status-pill,
+.category-dropdown-count {
+  background: #f6eee8;
+  color: #5f493d;
+}
+
+.mini-pill-grid input:checked + span,
+.dropdown-content-form input:checked + span,
+.weekday-pill-grid input:checked + span,
+.media-cover-label,
+.cover-photo-badge {
+  background: linear-gradient(135deg, #d8b59f, #b98f7a);
+  color: #fffaf7;
+  border-color: transparent;
+}
+
+.cover-photo-badge {
+  display: inline-block;
+  margin-bottom: 8px;
+  padding: 7px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.media-preview-item {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.media-preview-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 38px rgba(59, 47, 42, 0.09);
+}
+
+.site-footer {
+  background:
+    radial-gradient(circle at top, rgba(200, 166, 161, 0.16), transparent 36%),
+    linear-gradient(180deg, #f5eee9 0%, #eee5df 100%);
+}
     @media (max-width: 1080px) {
       .dashboard-hero-grid,
       .dashboard-grid-2,
