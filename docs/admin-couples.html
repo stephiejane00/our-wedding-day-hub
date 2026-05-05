@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Couples | Our Wedding Day Hub</title>
+  <link rel="stylesheet" href="style.css"/>
+
+  <style>
+    body {
+      background: #fffdfb;
+      color: #342b27;
+    }
+
+    .admin-page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 28px 20px 60px;
+    }
+
+    .admin-card,
+    .couple-card {
+      background: #fff;
+      border: 1px solid #eee3db;
+      border-radius: 24px;
+      padding: 22px;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.06);
+      margin-bottom: 18px;
+      text-align: left;
+    }
+
+    .admin-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin: 0 0 8px;
+    }
+
+    .admin-subtitle,
+    .couple-meta,
+    .admin-message {
+      color: #7d6d64;
+    }
+
+    .admin-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .admin-search,
+    .admin-input,
+    .admin-select,
+    .admin-textarea {
+      width: 100%;
+      border: 1px solid #e6d8cf;
+      border-radius: 14px;
+      padding: 12px 14px;
+      font: inherit;
+      background: #fffaf7;
+      color: #342b27;
+      box-sizing: border-box;
+    }
+
+    .admin-search {
+      max-width: 420px;
+    }
+
+    .admin-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .admin-field.full {
+      grid-column: 1 / -1;
+    }
+
+    .admin-field label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+      color: #5f4d45;
+    }
+
+    .couple-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 10px;
+    }
+
+    .couple-name {
+      font-size: 1.25rem;
+      font-weight: 800;
+      margin: 0 0 4px;
+    }
+
+    .status-pill {
+      border-radius: 999px;
+      padding: 7px 11px;
+      background: #eadfd8;
+      color: #5f4d45;
+      font-size: 0.85rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .button-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    .admin-btn {
+      border: none;
+      border-radius: 999px;
+      padding: 11px 16px;
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+      background: #342b27;
+      color: #fff;
+    }
+
+    .admin-btn.secondary {
+      background: #eadfd8;
+      color: #342b27;
+    }
+
+    .admin-btn.danger {
+      background: #9b3d35;
+      color: #fff;
+    }
+
+    .empty-state {
+      padding: 24px;
+      text-align: center;
+      color: #7d6d64;
+      border: 1px dashed #e6d8cf;
+      border-radius: 20px;
+      background: #fffaf7;
+    }
+
+    @media (max-width: 760px) {
+      .admin-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .couple-head {
+        display: block;
+      }
+
+      .status-pill {
+        display: inline-flex;
+        margin-top: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="admin-page">
+    <section class="admin-card">
+      <h1 class="admin-title">Couples Admin</h1>
+      <p class="admin-subtitle">
+        View, search, edit and manage couple accounts for Our Wedding Day Hub.
+      </p>
+
+      <div class="admin-actions">
+        <input
+          id="searchInput"
+          class="admin-search"
+          type="search"
+          placeholder="Search by name, email, venue, date..."
+        />
+
+        <button id="refreshBtn" class="admin-btn secondary" type="button">
+          Refresh
+        </button>
+      </div>
+
+      <p id="adminMessage" class="admin-message">Loading...</p>
+    </section>
+
+    <section id="couplesList"></section>
+  </main>
+
+  <script type="module">
+    import {
+      auth,
+      db,
+      onAuthStateChanged,
+      collection,
+      getDocs,
+      doc,
+      updateDoc,
+      deleteDoc,
+      serverTimestamp
+    } from "./firebase.js";
+
+    const ADMIN_EMAIL = "stephanie@ourweddingdayhub.com";
+
+    const couplesList = document.getElementById("couplesList");
+    const searchInput = document.getElementById("searchInput");
+    const refreshBtn = document.getElementById("refreshBtn");
+    const adminMessage = document.getElementById("adminMessage");
+
+    let couples = [];
+
+    function setMessage(message) {
+      adminMessage.textContent = message || "";
+    }
+
+    function safe(value) {
+      return value ?? "";
+    }
+
+    function getDisplayName(user) {
+      const partnerOne =
+        user.partnerOneName ||
+        user.partner1Name ||
+        user.name ||
+        user.firstName ||
+        "";
+
+      const partnerTwo =
+        user.partnerTwoName ||
+        user.partner2Name ||
+        user.partnerName ||
+        "";
+
+      if (partnerOne && partnerTwo) return `${partnerOne} & ${partnerTwo}`;
+      return partnerOne || partnerTwo || user.email || "Unnamed couple";
+    }
+
+    function getSearchText(user) {
+      return [
+        getDisplayName(user),
+        user.email,
+        user.phone,
+        user.weddingDate,
+        user.venue,
+        user.location,
+        user.package,
+        user.status,
+        user.notes
+      ].filter(Boolean).join(" ").toLowerCase();
+    }
+
+    function renderCouples() {
+      const searchTerm = searchInput.value.trim().toLowerCase();
+
+      const filtered = couples.filter(({ data }) => {
+        if (!searchTerm) return true;
+        return getSearchText(data).includes(searchTerm);
+      });
+
+      if (!filtered.length) {
+        couplesList.innerHTML = `
+          <div class="empty-state">
+            No couples found.
+          </div>
+        `;
+        return;
+      }
+
+      couplesList.innerHTML = filtered.map(({ id, data }) => {
+        const displayName = getDisplayName(data);
+
+        return `
+          <article class="couple-card" data-id="${id}">
+            <div class="couple-head">
+              <div>
+                <h2 class="couple-name">${displayName}</h2>
+                <p class="couple-meta">${safe(data.email) || "No email saved"}</p>
+              </div>
+              <span class="status-pill">${safe(data.status) || "couple"}</span>
+            </div>
+
+            <div class="admin-grid">
+              <div class="admin-field">
+                <label>Partner one name</label>
+                <input class="admin-input" data-field="partnerOneName" value="${safe(data.partnerOneName || data.partner1Name || data.name || data.firstName)}">
+              </div>
+
+              <div class="admin-field">
+                <label>Partner two name</label>
+                <input class="admin-input" data-field="partnerTwoName" value="${safe(data.partnerTwoName || data.partner2Name || data.partnerName)}">
+              </div>
+
+              <div class="admin-field">
+                <label>Email</label>
+                <input class="admin-input" data-field="email" value="${safe(data.email)}">
+              </div>
+
+              <div class="admin-field">
+                <label>Phone</label>
+                <input class="admin-input" data-field="phone" value="${safe(data.phone)}">
+              </div>
+
+              <div class="admin-field">
+                <label>Wedding date</label>
+                <input class="admin-input" data-field="weddingDate" value="${safe(data.weddingDate)}">
+              </div>
+
+              <div class="admin-field">
+                <label>Venue</label>
+                <input class="admin-input" data-field="venue" value="${safe(data.venue)}">
+              </div>
+
+              <div class="admin-field">
+                <label>Location</label>
+                <input class="admin-input" data-field="location" value="${safe(data.location)}">
+              </div>
+
+              <div class="admin-field">
+                <label>Status</label>
+                <select class="admin-select" data-field="status">
+                  ${["couple", "new", "active", "planning", "booked", "inactive"].map(status => `
+                    <option value="${status}" ${data.status === status ? "selected" : ""}>${status}</option>
+                  `).join("")}
+                </select>
+              </div>
+
+              <div class="admin-field">
+                <label>Package</label>
+                <input class="admin-input" data-field="package" value="${safe(data.package)}">
+              </div>
+
+              <div class="admin-field">
+                <label>Budget</label>
+                <input class="admin-input" data-field="budget" value="${safe(data.budget)}">
+              </div>
+
+              <div class="admin-field full">
+                <label>Notes</label>
+                <textarea class="admin-textarea" data-field="notes" rows="4">${safe(data.notes)}</textarea>
+              </div>
+            </div>
+
+            <div class="button-row">
+              <button class="admin-btn save-btn" type="button">Save changes</button>
+              <button class="admin-btn danger delete-btn" type="button">Delete</button>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    async function loadCouples() {
+      setMessage("Loading users...");
+
+      try {
+        const snapshot = await getDocs(collection(db, "users"));
+
+        couples = snapshot.docs
+          .map(docSnap => ({
+            id: docSnap.id,
+            data: docSnap.data()
+          }))
+          .filter(({ data }) => {
+            const role = (data.role || data.accountType || data.type || "").toLowerCase();
+
+            return (
+              role === "couple" ||
+              role === "user" ||
+              !role
+            );
+          });
+
+        couples.sort((a, b) => {
+          return getDisplayName(a.data).localeCompare(getDisplayName(b.data));
+        });
+
+        renderCouples();
+        setMessage(`${couples.length} couple account${couples.length === 1 ? "" : "s"} loaded.`);
+      } catch (error) {
+        console.error(error);
+        setMessage("Could not load users. Check your Firebase rules and firebase.js exports.");
+      }
+    }
+
+    async function saveCouple(card) {
+      const id = card.dataset.id;
+      const fields = card.querySelectorAll("[data-field]");
+      const updates = {};
+
+      fields.forEach(field => {
+        updates[field.dataset.field] = field.value.trim();
+      });
+
+      updates.role = "couple";
+      updates.updatedAt = serverTimestamp();
+
+      try {
+        await updateDoc(doc(db, "users", id), updates);
+        setMessage("Saved successfully.");
+        await loadCouples();
+      } catch (error) {
+        console.error(error);
+        setMessage("Could not save this couple.");
+      }
+    }
+
+    async function deleteCouple(card) {
+      const id = card.dataset.id;
+      const name = card.querySelector(".couple-name")?.textContent || "this couple";
+
+      const confirmed = confirm(`Are you sure you want to delete ${name}? This only deletes their Firestore user record.`);
+
+      if (!confirmed) return;
+
+      try {
+        await deleteDoc(doc(db, "users", id));
+        setMessage("Couple deleted from Firestore.");
+        await loadCouples();
+      } catch (error) {
+        console.error(error);
+        setMessage("Could not delete this couple.");
+      }
+    }
+
+    couplesList.addEventListener("click", async (event) => {
+      const card = event.target.closest(".couple-card");
+      if (!card) return;
+
+      if (event.target.classList.contains("save-btn")) {
+        await saveCouple(card);
+      }
+
+      if (event.target.classList.contains("delete-btn")) {
+        await deleteCouple(card);
+      }
+    });
+
+    searchInput.addEventListener("input", renderCouples);
+    refreshBtn.addEventListener("click", loadCouples);
+
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        window.location.href = "login.html";
+        return;
+      }
+
+      if (user.email !== ADMIN_EMAIL) {
+        alert("You do not have permission to view this page.");
+        window.location.href = "index.html";
+        return;
+      }
+
+      await loadCouples();
+    });
+  </script>
+</body>
+</html>
