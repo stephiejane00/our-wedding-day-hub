@@ -647,93 +647,117 @@ body {
     typeSelect.addEventListener('change', updateVendorUI);
     updateVendorUI();
 
-    signupForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      message.textContent = '';
+signupForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  message.textContent = '';
 
-      const type = typeSelect.value;
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim().toLowerCase();
-      const password = document.getElementById('password').value;
+  const type = typeSelect.value;
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim().toLowerCase();
+  const password = document.getElementById('password').value;
 
-      if (!type) {
-        message.textContent = 'Please select Vendor or Couple.';
-        return;
-      }
+  let createdUser = null;
 
-      if (type === 'vendor' && !vendorHasAccess) {
-        message.textContent = 'Please complete checkout first, then return here to create your vendor account.';
-        return;
-      }
+  if (!type) {
+    message.textContent = 'Please select Vendor or Couple.';
+    return;
+  }
 
-      try {
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        const user = userCredential.user;
+  if (type === 'vendor' && !vendorHasAccess) {
+    message.textContent = 'Please complete checkout first, then return here to create your vendor account.';
+    return;
+  }
 
-        await sendEmailVerification(user);
+  try {
 
-        const normalizedSelectedPlan = normalizePlan(selectedPlan);
-        const finalVendorPlan = isComplimentaryInvite ? 'complimentary' : normalizedSelectedPlan;
-        const finalAccessType = isComplimentaryInvite ? 'complimentary-invite' : 'paid';
-        const finalShopAccess = shouldHaveShopAccess(finalVendorPlan, isComplimentaryInvite);
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    createdUser = userCredential.user;
 
-        await setDoc(doc(db, 'users', user.uid), {
-          uid: user.uid,
-          email,
-          name,
-          role: type,
-          plan: type === 'vendor' ? finalVendorPlan : 'free',
-          accessType: type === 'vendor' ? finalAccessType : 'couple',
-          membershipTier: type === 'vendor' ? finalVendorPlan : '',
-          tier: type === 'vendor' ? finalVendorPlan : '',
-          shopAccess: type === 'vendor' ? finalShopAccess : false,
-          favorites: [],
-          createdAt: serverTimestamp()
-        });
+    const normalizedSelectedPlan = normalizePlan(selectedPlan);
+    const finalVendorPlan = isComplimentaryInvite ? 'complimentary' : normalizedSelectedPlan;
+    const finalAccessType = isComplimentaryInvite ? 'complimentary-invite' : 'paid';
+    const finalShopAccess = shouldHaveShopAccess(finalVendorPlan, isComplimentaryInvite);
 
-        if (type === 'vendor') {
-          await setDoc(doc(db, 'vendors', user.uid), {
-            uid: user.uid,
-            businessName: name,
-            email,
-            plan: finalVendorPlan,
-            accessType: finalAccessType,
-            membershipTier: finalVendorPlan,
-            tier: finalVendorPlan,
-            complimentaryPlan: isComplimentaryInvite,
-            shopAccess: finalShopAccess,
-            categories: [],
-            countries: [],
-            states: [],
-            regions: [],
-            profileVisible: false,
-            accountStatus: 'active',
-            createdAt: serverTimestamp()
-          });
-        }
-try {
-  
-  await fetch("https://us-central1-ourweddingdayhub.cloudfunctions.net/api/add-to-constant-contact", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
+    await setDoc(doc(db, 'users', createdUser.uid), {
+      uid: createdUser.uid,
       email,
       name,
-      type
-    })
-  });
-} catch (ccError) {
-  console.warn("Constant Contact signup failed:", ccError);
-}
-        message.textContent = 'Account created! Please verify your email.';
-        setTimeout(() => window.location.href = 'login.html', 2000);
-
-      } catch (error) {
-        message.textContent = error.message;
-      }
+      role: type,
+      plan: type === 'vendor' ? finalVendorPlan : 'free',
+      accessType: type === 'vendor' ? finalAccessType : 'couple',
+      membershipTier: type === 'vendor' ? finalVendorPlan : '',
+      tier: type === 'vendor' ? finalVendorPlan : '',
+      shopAccess: type === 'vendor' ? finalShopAccess : false,
+      favorites: [],
+      createdAt: serverTimestamp()
     });
+
+    if (type === 'vendor') {
+      await setDoc(doc(db, 'vendors', createdUser.uid), {
+        uid: createdUser.uid,
+        businessName: name,
+        email,
+        plan: finalVendorPlan,
+        accessType: finalAccessType,
+        membershipTier: finalVendorPlan,
+        tier: finalVendorPlan,
+        complimentaryPlan: isComplimentaryInvite,
+        shopAccess: finalShopAccess,
+        categories: [],
+        countries: [],
+        states: [],
+        regions: [],
+        profileVisible: false,
+        accountStatus: 'active',
+        createdAt: serverTimestamp()
+      });
+    }
+
+    await sendEmailVerification(createdUser);
+
+    try {
+      await fetch("https://us-central1-ourweddingdayhub.cloudfunctions.net/api/add-to-constant-contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          email,
+          name,
+          type
+        })
+      });
+    } catch (ccError) {
+      console.warn("Constant Contact signup failed:", ccError);
+    }
+
+    message.textContent = 'Account created! Please verify your email and check your spam/junk folder just in case.';
+
+    setTimeout(() => {
+      window.location.href = 'login.html';
+    }, 2000);
+
+  } catch (error) {
+
+    console.error(error);
+
+    if (error.code === 'auth/email-already-in-use') {
+      message.textContent = 'This email is already registered. Please log in or reset your password.';
+      return;
+    }
+
+    if (createdUser) {
+      try {
+        await createdUser.delete();
+        console.log('Cleaned up incomplete auth user.');
+      } catch (deleteError) {
+        console.error('Could not clean up incomplete auth user:', deleteError);
+      }
+    }
+
+    message.textContent = 'Something went wrong while creating your account. Please try again.';
+  }
+});
   </script>
 
   <script type="module" src="nav.js"></script>
