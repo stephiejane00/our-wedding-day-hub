@@ -310,6 +310,17 @@ body {
 
 .search-bar {
   box-shadow: 0 18px 42px rgba(59, 47, 42, 0.12);
+  border-radius: 999px;
+  padding: 6px;
+  background: rgba(255, 250, 247, 0.9);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(223, 210, 200, 0.7);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.search-bar:focus-within {
+  box-shadow: 0 24px 60px rgba(59, 47, 42, 0.18);
+  transform: translateY(-2px);
 }
 
 .search-bar button,
