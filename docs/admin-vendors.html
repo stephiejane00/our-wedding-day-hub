@@ -377,6 +377,8 @@
           <input id="locationInput" class="admin-input" type="text" placeholder="Location">
           <input id="priceInput" class="admin-input" type="text" placeholder="Price guide">
           <input id="coverImageInput" class="admin-input" type="url" placeholder="Cover image URL">
+          <input id="profileImageInput" class="admin-input" type="url" placeholder="Profile picture URL">
+          <input id="logoInput" class="admin-input" type="url" placeholder="Logo URL">
           <input id="websiteInput" class="admin-input" type="url" placeholder="Website">
           <input id="instagramInput" class="admin-input" type="text" placeholder="Instagram">
           <input id="facebookInput" class="admin-input" type="url" placeholder="Facebook">
@@ -466,6 +468,22 @@
           <button id="removeAllVideosBtn" class="admin-btn danger">Remove All Gallery Videos</button>
         </div>
 
+        <div class="upload-box">
+  <label class="admin-muted">Upload profile picture</label>
+  <input id="profileUploadInput" class="admin-input" type="file" accept="image/*">
+  <div class="upload-actions">
+    <button id="uploadProfileBtn" class="admin-btn save" type="button">Upload Profile Picture</button>
+  </div>
+</div>
+
+<div class="upload-box">
+  <label class="admin-muted">Upload logo</label>
+  <input id="logoUploadInput" class="admin-input" type="file" accept="image/*">
+  <div class="upload-actions">
+    <button id="uploadLogoBtn" class="admin-btn save" type="button">Upload Logo</button>
+  </div>
+</div>
+        
         <p id="saveStatus" class="status"></p>
       </section>
 
@@ -495,6 +513,15 @@
 
       <section id="videoCard" class="admin-card hidden">
         <h2>Gallery Videos</h2>
+
+        <div class="upload-box">
+  <label class="admin-muted">Upload gallery videos</label>
+  <input id="videoUploadInput" class="admin-input" type="file" accept="video/*" multiple>
+  <div class="upload-actions">
+    <button id="uploadVideosBtn" class="admin-btn save" type="button">Upload Videos</button>
+    <span id="videoUploadStatus" class="admin-muted"></span>
+  </div>
+</div>
 
         <div class="upload-box">
           <label class="admin-muted">Add video URL manually</label>
@@ -551,6 +578,8 @@
     const locationInput = document.getElementById("locationInput");
     const priceInput = document.getElementById("priceInput");
     const coverImageInput = document.getElementById("coverImageInput");
+    const profileImageInput = document.getElementById("profileImageInput");
+    const logoInput = document.getElementById("logoInput");
     const websiteInput = document.getElementById("websiteInput");
     const instagramInput = document.getElementById("instagramInput");
     const facebookInput = document.getElementById("facebookInput");
@@ -578,6 +607,14 @@ const adminNotesInput = document.getElementById("adminNotesInput");
     const addImageUrlBtn = document.getElementById("addImageUrlBtn");
     const manualVideoInput = document.getElementById("manualVideoInput");
     const addVideoUrlBtn = document.getElementById("addVideoUrlBtn");
+    const videoUploadInput = document.getElementById("videoUploadInput");
+    const uploadVideosBtn = document.getElementById("uploadVideosBtn");
+    const videoUploadStatus = document.getElementById("videoUploadStatus");
+    const profileUploadInput = document.getElementById("profileUploadInput");
+const uploadProfileBtn = document.getElementById("uploadProfileBtn");
+
+const logoUploadInput = document.getElementById("logoUploadInput");
+const uploadLogoBtn = document.getElementById("uploadLogoBtn");
 
     const imageList = document.getElementById("imageList");
     const videoList = document.getElementById("videoList");
@@ -877,6 +914,8 @@ const adminNotesInput = document.getElementById("adminNotesInput");
       locationInput.value = selectedVendor.location || "";
       priceInput.value = selectedVendor.priceGuide || selectedVendor.price || "";
       coverImageInput.value = selectedVendor.coverImageUrl || "";
+      profileImageInput.value = selectedVendor.profileImageUrl || selectedVendor.profilePhotoUrl || "";
+      logoInput.value = selectedVendor.logoUrl || "";
       websiteInput.value = selectedVendor.website || "";
       instagramInput.value = selectedVendor.instagram || "";
       facebookInput.value = selectedVendor.facebook || "";
@@ -903,6 +942,10 @@ adminNotesInput.value = selectedVendor.adminNotes || "";
       imageUploadInput.value = "";
       manualImageInput.value = "";
       manualVideoInput.value = "";
+      videoUploadInput.value = "";
+      videoUploadStatus.textContent = "";
+      profileUploadInput.value = "";
+      logoUploadInput.value = "";
       uploadStatus.textContent = "";
 
       renderImages();
@@ -1142,6 +1185,127 @@ adminNotesInput.value = selectedVendor.adminNotes || "";
       await saveVendorUpdates(updates);
     });
 
+    async function uploadSingleVendorImage(file, folder, fieldNames) {
+  if (!selectedVendorId || !selectedVendor || !file) return;
+
+  if (!file.type.startsWith("image/")) {
+    setStatus("Please choose a valid image file.");
+    return;
+  }
+
+  const filePath = `${folder}/${selectedVendorId}/${Date.now()}-${safeFileName(file.name)}`;
+  const fileRef = ref(storage, filePath);
+
+  await uploadBytes(fileRef, file);
+  const downloadUrl = await getDownloadURL(fileRef);
+
+  const updates = {};
+
+  fieldNames.forEach((field) => {
+    updates[field] = downloadUrl;
+  });
+
+  await saveVendorUpdates(updates);
+}
+
+uploadProfileBtn.addEventListener("click", async () => {
+  const file = profileUploadInput.files?.[0];
+
+  if (!file) {
+    setStatus("Please choose a profile picture first.");
+    return;
+  }
+
+  try {
+    uploadProfileBtn.disabled = true;
+    setStatus("Uploading profile picture...");
+
+    await uploadSingleVendorImage(file, "vendor-profile-images", [
+      "profileImageUrl",
+      "profilePhotoUrl"
+    ]);
+
+    profileUploadInput.value = "";
+    setStatus("Profile picture uploaded successfully.");
+  } catch (error) {
+    console.error(error);
+    setStatus("Profile picture upload failed. Check Firebase Storage rules.");
+  } finally {
+    uploadProfileBtn.disabled = false;
+  }
+});
+
+uploadLogoBtn.addEventListener("click", async () => {
+  const file = logoUploadInput.files?.[0];
+
+  if (!file) {
+    setStatus("Please choose a logo first.");
+    return;
+  }
+
+  try {
+    uploadLogoBtn.disabled = true;
+    setStatus("Uploading logo...");
+
+    await uploadSingleVendorImage(file, "vendor-logos", ["logoUrl"]);
+
+    logoUploadInput.value = "";
+    setStatus("Logo uploaded successfully.");
+  } catch (error) {
+    console.error(error);
+    setStatus("Logo upload failed. Check Firebase Storage rules.");
+  } finally {
+    uploadLogoBtn.disabled = false;
+  }
+});
+    
+    uploadVideosBtn.addEventListener("click", async () => {
+  if (!selectedVendorId || !selectedVendor) return;
+
+  const files = Array.from(videoUploadInput.files || []);
+
+  if (!files.length) {
+    videoUploadStatus.textContent = "Please choose at least one video.";
+    return;
+  }
+
+  try {
+    uploadVideosBtn.disabled = true;
+    videoUploadStatus.textContent = "Uploading videos...";
+
+    const currentVideos = cleanArray(selectedVendor.videos);
+    const uploadedUrls = [];
+
+    for (const file of files) {
+      if (!file.type.startsWith("video/")) continue;
+
+      const filePath = `vendor-gallery-videos/${selectedVendorId}/${Date.now()}-${safeFileName(file.name)}`;
+      const fileRef = ref(storage, filePath);
+
+      await uploadBytes(fileRef, file);
+      const downloadUrl = await getDownloadURL(fileRef);
+
+      uploadedUrls.push(downloadUrl);
+    }
+
+    if (!uploadedUrls.length) {
+      videoUploadStatus.textContent = "No valid video files selected.";
+      return;
+    }
+
+    await saveVendorUpdates({
+      videos: [...currentVideos, ...uploadedUrls]
+    });
+
+    videoUploadInput.value = "";
+    videoUploadStatus.textContent = "Videos uploaded successfully.";
+  } catch (error) {
+    console.error(error);
+    videoUploadStatus.textContent = "Video upload failed. Check Firebase Storage rules.";
+  } finally {
+    uploadVideosBtn.disabled = false;
+  }
+});
     addVideoUrlBtn.addEventListener("click", async () => {
       if (!selectedVendor) return;
 
@@ -1184,6 +1348,9 @@ adminNotesInput.value = selectedVendor.adminNotes || "";
         priceGuide: priceInput.value.trim(),
         price: priceInput.value.trim(),
         coverImageUrl: coverImageInput.value.trim(),
+        profileImageUrl: profileImageInput.value.trim(),
+        profilePhotoUrl: profileImageInput.value.trim(),
+        logoUrl: logoInput.value.trim(),
         website: websiteInput.value.trim(),
         instagram: instagramInput.value.trim(),
         facebook: facebookInput.value.trim(),
