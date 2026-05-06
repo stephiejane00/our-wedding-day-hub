@@ -195,7 +195,20 @@
       background: #fffaf7;
       border: 1px solid var(--border);
     }
+.checkbox-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 6px 0 2px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
 
+.checkbox-row input {
+  width: auto !important;
+  margin-top: 5px;
+}
     .auth-switch-note,
     .small-text {
       color: var(--muted);
@@ -668,7 +681,8 @@ signupForm.addEventListener('submit', async (e) => {
   const name = document.getElementById('name').value.trim();
   const email = document.getElementById('email').value.trim().toLowerCase();
   const password = document.getElementById('password').value;
-
+const emailConsent = document.getElementById('emailConsent').checked;
+  
   let createdUser = null;
 
   if (!type) {
@@ -701,9 +715,11 @@ signupForm.addEventListener('submit', async (e) => {
       membershipTier: type === 'vendor' ? finalVendorPlan : '',
       tier: type === 'vendor' ? finalVendorPlan : '',
       shopAccess: type === 'vendor' ? finalShopAccess : false,
-      favorites: [],
-      createdAt: serverTimestamp()
-    });
+favorites: [],
+emailConsent,
+emailConsentAt: emailConsent ? serverTimestamp() : null,
+createdAt: serverTimestamp()
+  });
 
     if (type === 'vendor') {
       await setDoc(doc(db, 'vendors', createdUser.uid), {
