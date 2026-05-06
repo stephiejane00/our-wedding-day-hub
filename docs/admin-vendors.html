@@ -372,9 +372,6 @@
           <input id="businessNameInput" class="admin-input" type="text" placeholder="Business name">
           <input id="emailInput" class="admin-input" type="email" placeholder="Email">
           <input id="phoneInput" class="admin-input" type="text" placeholder="Phone">
-          <input id="categoryInput" class="admin-input" type="text" placeholder="Main category">
-          <input id="categoriesInput" class="admin-input" type="text" placeholder="Extra categories, comma separated">
-          <input id="locationInput" class="admin-input" type="text" placeholder="Location">
           <input id="priceInput" class="admin-input" type="text" placeholder="Price guide">
           <input id="coverImageInput" class="admin-input" type="url" placeholder="Cover image URL">
           <input id="profileImageInput" class="admin-input" type="url" placeholder="Profile picture URL">
@@ -464,8 +461,6 @@
 
         <div style="margin-top:18px; display:flex; gap:10px; flex-wrap:wrap;">
           <button id="saveDetailsBtn" class="admin-btn save">Save Details</button>
-          <button id="removeAllImagesBtn" class="admin-btn danger">Remove All Gallery Images</button>
-          <button id="removeAllVideosBtn" class="admin-btn danger">Remove All Gallery Videos</button>
         </div>
 
         <div class="upload-box">
@@ -501,12 +496,6 @@
         </div>
 
         <div class="upload-box">
-          <label class="admin-muted">Add image URL manually</label>
-          <input id="manualImageInput" class="admin-input" type="url" placeholder="Paste image URL">
-          <div class="upload-actions">
-            <button id="addImageUrlBtn" class="admin-btn save" type="button">Add Image URL</button>
-          </div>
-        </div>
 
         <div id="imageList" class="media-list"></div>
       </section>
@@ -524,13 +513,7 @@
 </div>
 
         <div class="upload-box">
-          <label class="admin-muted">Add video URL manually</label>
-          <input id="manualVideoInput" class="admin-input" type="url" placeholder="Paste video URL">
-          <div class="upload-actions">
-            <button id="addVideoUrlBtn" class="admin-btn save" type="button">Add Video URL</button>
-          </div>
-        </div>
-
+       
         <div id="videoList" class="media-list"></div>
       </section>
     </section>
