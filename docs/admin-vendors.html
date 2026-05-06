@@ -1137,7 +1137,7 @@ adminNotesInput.value = selectedVendor.adminNotes || "";
       }
     });
 
-    addImageUrlBtn.addEventListener("click", async () => {
+    addImageUrlBtn?.addEventListener("click", async () => {
       if (!selectedVendor) return;
 
       const url = manualImageInput.value.trim();
@@ -1289,7 +1289,7 @@ uploadLogoBtn.addEventListener("click", async () => {
     uploadVideosBtn.disabled = false;
   }
 });
-    addVideoUrlBtn.addEventListener("click", async () => {
+    addVideoUrlBtn?.addEventListener("click", async () => {
       if (!selectedVendor) return;
 
       const url = manualVideoInput.value.trim();
@@ -1368,7 +1368,7 @@ adminNotes: adminNotesInput.value.trim()
               });
     });
 
-    removeAllImagesBtn.addEventListener("click", async () => {
+    removeAllImagesBtn?.addEventListener("click", async () => {
       if (!selectedVendor) return;
 
       const ok = confirm("Remove all gallery image links for this vendor?");
@@ -1380,7 +1380,7 @@ adminNotes: adminNotesInput.value.trim()
       });
     });
 
-    removeAllVideosBtn.addEventListener("click", async () => {
+    removeAllVideosBtn?.addEventListener("click", async () => {
       if (!selectedVendor) return;
 
       const ok = confirm("Remove all gallery video links for this vendor?");
