@@ -750,11 +750,12 @@ createdAt: serverTimestamp()
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({
-          email,
-          name,
-          type
-        })
+body: JSON.stringify({
+  email,
+  name,
+  type,
+  emailConsent
+})
       });
     } catch (ccError) {
       console.warn("Constant Contact signup failed:", ccError);
