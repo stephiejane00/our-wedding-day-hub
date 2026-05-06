@@ -458,10 +458,6 @@ body {
           <h2>Join</h2>
           <p class="small-text">Choose your account type below to get started.</p>
 
-          <a href="pricing.html" id="pricingLinkBox" class="pretty-button wide-glow pricing-link-box" style="display:block;">
-            View Vendor Pricing
-          </a>
-
           <form id="signupForm" class="signup-form">
             <div>
               <label for="type">I am a:</label>
@@ -623,7 +619,6 @@ body {
     const vendorPlanBox = document.getElementById('vendorPlanBox');
     const vendorNotice = document.getElementById('vendorNotice');
     const vendorSetupNote = document.getElementById('vendorSetupNote');
-    const pricingLinkBox = document.getElementById('pricingLinkBox');
 
     const urlParams = new URLSearchParams(window.location.search);
     const inviteCode = urlParams.get('invite');
@@ -661,8 +656,7 @@ body {
       vendorPlanBox.style.display = isVendor && !vendorHasAccess ? 'block' : 'none';
 
       if (vendorNotice) vendorNotice.style.display = isVendor && !vendorHasAccess ? 'block' : 'none';
-      if (pricingLinkBox) pricingLinkBox.style.display = 'block';
-
+    
       if (vendorSetupNote) {
         vendorSetupNote.textContent = vendorHasAccess
           ? 'Complete your profile inside your dashboard after signup.'
