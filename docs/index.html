@@ -1127,8 +1127,8 @@ body {
           }
         });
 
-        allVendors = sortVendors(liveVendors);
-        filteredVendors = [...allVendors];
+ allVendors = sortVendors(liveVendors).sort(() => Math.random() - 0.5);
+filteredVendors = [...allVendors];
         currentSlide = 0;
         renderVendors(filteredVendors);
       } catch (error) {
