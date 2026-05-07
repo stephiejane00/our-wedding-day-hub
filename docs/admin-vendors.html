@@ -4,336 +4,527 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Admin Vendors | Our Wedding Day Hub</title>
-  <link rel="stylesheet" href="style.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    body {
-      background: #fffdfb;
-      color: #342b27;
+    :root {
+      --text: #3b2f2a;
+      --muted: #8c7f75;
+      --cream: #fffaf7;
+      --warm-white: #fff8f4;
+      --border: rgba(223, 210, 200, 0.95);
+      --border-soft: #f0e5dc;
+      --panel-bg: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,250,246,0.98));
+      --card-soft: linear-gradient(180deg, #fffdfa 0%, #fff8f4 100%);
+      --accent-gradient: linear-gradient(135deg, #d8b59f, #b98f7a);
+      --accent-hover: linear-gradient(135deg, #e0c0ab, #c49a85);
+      --pill-bg: #f6eee8;
+      --pill-border: #eadbcf;
+      --danger-bg: #f9e8e8;
+      --danger-color: #7a3535;
+      --success-bg: #e5ede4;
+      --success-color: #3a5e38;
     }
 
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(200, 166, 161, 0.12), transparent 32%),
+        #f7f1ed;
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── Layout ── */
     .admin-page {
       max-width: 1180px;
       margin: 0 auto;
-      padding: 28px 20px 60px;
+      padding: 28px 20px 80px;
+      display: grid;
+      gap: 22px;
     }
 
-    .admin-card {
-      background: #fff;
-      border: 1px solid #eee3db;
-      border-radius: 24px;
-      padding: 22px;
-      box-shadow: 0 12px 32px rgba(0,0,0,0.06);
-      margin-bottom: 18px;
-      text-align: left;
+    /* ── Hero card ── */
+    .admin-hero-card {
+      padding: 0;
+      overflow: hidden;
+      border-radius: 30px;
+      border: 1px solid var(--border);
+      background:
+        radial-gradient(circle at top left, rgba(200, 166, 161, 0.18), transparent 34%),
+        linear-gradient(135deg, #fffaf7, #f4ebe5);
+      box-shadow: 0 24px 50px rgba(41, 28, 22, 0.05);
     }
 
-    .admin-title {
-      font-size: clamp(2rem, 4vw, 3rem);
-      margin: 0 0 8px;
-    }
-
-    .admin-muted {
-      color: #866f66;
-      line-height: 1.6;
-    }
-
-    .admin-input,
-    .admin-select,
-    .admin-textarea {
-      width: 100%;
-      border: 1px solid #ead8cb;
-      border-radius: 16px;
-      padding: 13px 15px;
-      font: inherit;
-      background: #fffaf8;
-      color: #342b27;
-      box-sizing: border-box;
-    }
-
-    .admin-textarea {
-      min-height: 130px;
-      resize: vertical;
-    }
-
-    .admin-grid {
+    .admin-hero-grid {
       display: grid;
       grid-template-columns: 1fr auto;
-      gap: 12px;
       align-items: center;
+      padding: 40px 44px;
+      gap: 32px;
     }
 
-    .filter-row {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 14px;
+    .admin-hero-logo {
+      width: 90px;
+      display: block;
+      margin-bottom: 18px;
     }
 
-    .admin-btn {
-      border: none;
+    .admin-eyebrow {
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-size: 0.74rem;
+      color: #b08d7d;
+      margin-bottom: 10px;
+    }
+
+    .admin-hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.6rem, 4vw, 3.8rem);
+      font-weight: 500;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: 14px;
+    }
+
+    .admin-hero-text {
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: 0.97rem;
+      max-width: 560px;
+    }
+
+    .auth-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 18px;
+      padding: 10px 16px;
       border-radius: 999px;
-      padding: 13px 18px;
-      background: #ead8cb;
-      color: #3d342f;
-      font-weight: 700;
-      cursor: pointer;
-      min-height: 48px;
+      background: var(--pill-bg);
+      border: 1px solid var(--pill-border);
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text);
     }
 
-    .admin-btn:hover {
-      opacity: 0.9;
+    .auth-status.ok { background: var(--success-bg); color: var(--success-color); }
+    .auth-status.err { background: var(--danger-bg); color: var(--danger-color); }
+
+    /* ── Panel ── */
+    .panel {
+      border-radius: 28px;
+      border: 1px solid var(--border);
+      background: var(--panel-bg);
+      box-shadow: 0 14px 34px rgba(45, 31, 24, 0.04);
+      padding: 26px;
     }
 
-    .admin-btn:disabled {
-      opacity: 0.55;
-      cursor: not-allowed;
+    .panel-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
     }
 
-    .admin-btn.danger {
-      background: #f3d1d1;
-      color: #723636;
+    .panel-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.35rem, 2vw, 1.65rem);
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      color: var(--text);
     }
 
-    .admin-btn.save {
-      background: #d9c0b0;
+    .panel-subtitle {
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.6;
+      margin-top: 3px;
     }
 
-    .admin-btn.small {
-      padding: 9px 13px;
-      min-height: auto;
-      font-size: 0.9rem;
+    /* ── Inner soft card ── */
+    .soft-card {
+      background: var(--card-soft);
+      border: 1px solid var(--border-soft);
+      border-radius: 20px;
+      padding: 18px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
     }
 
+    /* ── Stats ── */
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
       gap: 12px;
-      margin-top: 16px;
     }
 
     .stat-box {
-      background: #fffaf8;
-      border: 1px solid #f0e3dc;
+      background: var(--card-soft);
+      border: 1px solid var(--border-soft);
       border-radius: 18px;
-      padding: 14px;
+      padding: 16px 14px;
       text-align: center;
     }
 
     .stat-box strong {
       display: block;
-      font-size: 1.5rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1;
     }
 
     .stat-box span {
-      color: #866f66;
-      font-size: 0.86rem;
+      color: var(--muted);
+      font-size: 0.82rem;
+      margin-top: 4px;
+      display: block;
     }
 
-    .vendor-list {
-      display: grid;
+    /* ── Filter row ── */
+    .filter-row {
+      display: flex;
       gap: 10px;
+      flex-wrap: wrap;
       margin-top: 16px;
+      align-items: center;
     }
 
-    .vendor-row {
-      border: 1px solid #f0e3dc;
-      border-radius: 18px;
-      padding: 14px;
+    /* ── Inputs ── */
+    .field-input,
+    .field-select,
+    .field-textarea {
+      width: 100%;
+      border: 1px solid #eadfd6;
+      border-radius: 14px;
+      padding: 12px 15px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.94rem;
+      background: #fffdfb;
+      color: var(--text);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .field-input:focus,
+    .field-select:focus,
+    .field-textarea:focus {
+      outline: none;
+      border-color: #d6bcad;
+      box-shadow: 0 0 0 4px rgba(217, 194, 178, 0.16);
+      background: #fff;
+    }
+
+    .field-textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    /* ── Search row ── */
+    .search-row {
       display: grid;
       grid-template-columns: 1fr auto;
       gap: 12px;
       align-items: center;
-      background: #fffaf8;
+    }
+
+    /* ── Buttons ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      border: none;
+      border-radius: 999px;
+      padding: 12px 20px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.18s ease, opacity 0.18s ease, box-shadow 0.18s ease;
+      white-space: nowrap;
+    }
+
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; }
+
+    .btn-primary {
+      background: var(--accent-gradient);
+      color: #fffaf7;
+      box-shadow: 0 10px 24px rgba(185, 143, 122, 0.22);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 28px rgba(185, 143, 122, 0.3);
+    }
+
+    .btn-ghost {
+      background: var(--pill-bg);
+      color: var(--text);
+      border: 1px solid var(--pill-border);
+    }
+
+    .btn-ghost:hover:not(:disabled) {
+      background: #eeddcf;
+      transform: translateY(-1px);
+    }
+
+    .btn-danger {
+      background: var(--danger-bg);
+      color: var(--danger-color);
+    }
+
+    .btn-danger:hover:not(:disabled) {
+      background: #f0d2d2;
+      transform: translateY(-1px);
+    }
+
+    .btn-sm { padding: 9px 14px; font-size: 0.84rem; }
+
+    /* ── Status pill ── */
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 13px;
+      border-radius: 999px;
+      background: var(--pill-bg);
+      border: 1px solid var(--pill-border);
+      color: var(--text);
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .pill-paid   { background: #dbeede; color: #2e5934; border-color: #c4dfc8; }
+    .pill-free   { background: #fdeedd; color: #7a4a18; border-color: #f4d9b8; }
+    .pill-hidden { background: var(--danger-bg); color: var(--danger-color); border-color: #f0c8c8; }
+    .pill-visible { background: var(--success-bg); color: var(--success-color); border-color: #c4d8c2; }
+    .pill-featured { background: #ead8cb; color: #4b352b; border-color: #d9c4b2; }
+
+    /* ── Vendor list ── */
+    .vendor-list { display: grid; gap: 10px; margin-top: 18px; }
+
+    .vendor-row {
+      border: 1px solid var(--border-soft);
+      border-radius: 18px;
+      padding: 16px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 14px;
+      align-items: center;
+      background: var(--card-soft);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .vendor-row:hover {
+      box-shadow: 0 8px 22px rgba(45, 31, 24, 0.06);
+      transform: translateY(-1px);
     }
 
     .vendor-row h3 {
-      margin: 0 0 4px;
-      font-size: 1.05rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 3px;
+      color: var(--text);
     }
 
     .vendor-row p {
-      margin: 0;
-      color: #866f66;
-      font-size: 0.92rem;
+      color: var(--muted);
+      font-size: 0.88rem;
+      margin-bottom: 9px;
     }
 
-    .badge-row {
-      display: flex;
-      gap: 7px;
-      flex-wrap: wrap;
-      margin-top: 8px;
-    }
+    .badge-row { display: flex; gap: 7px; flex-wrap: wrap; }
 
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      border-radius: 999px;
-      padding: 5px 10px;
-      font-size: 0.78rem;
-      font-weight: 700;
-      background: #f0e7df;
-      color: #5f4b42;
-    }
-
-    .badge.paid {
-      background: #dbeedc;
-      color: #315c37;
-    }
-
-    .badge.free {
-      background: #f5dfc8;
-      color: #704419;
-    }
-
-    .badge.hidden-badge {
-      background: #f3d1d1;
-      color: #723636;
-    }
-
-    .badge.visible-badge {
-      background: #e5efe2;
-      color: #3f633d;
-    }
-
-    .badge.featured {
-      background: #ead8cb;
-      color: #4b352b;
-    }
-
-    .media-list {
+    /* ── Editor layout ── */
+    .edit-grid-2 {
       display: grid;
-      gap: 12px;
-      margin-top: 16px;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
     }
+
+    .field-group { display: flex; flex-direction: column; gap: 6px; }
+
+    .field-label {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+    }
+
+    /* ── Info box ── */
+    .info-box {
+      background: var(--card-soft);
+      border: 1px solid var(--border-soft);
+      border-radius: 16px;
+      padding: 16px 18px;
+      margin-bottom: 18px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 20px;
+    }
+
+    .info-box p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .info-box p strong {
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    /* ── Upload box ── */
+    .upload-box {
+      border: 1px dashed #d7c6ba;
+      background: var(--card-soft);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .upload-box-title {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    .upload-row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    /* ── Media list ── */
+    .media-list { display: grid; gap: 12px; margin-top: 16px; }
 
     .media-item {
-      border: 1px solid #f0e3dc;
-      border-radius: 18px;
+      border: 1px solid var(--border-soft);
+      border-radius: 16px;
       padding: 12px;
-      background: #fffaf8;
+      background: var(--card-soft);
       display: grid;
-      grid-template-columns: 96px 1fr auto;
-      gap: 12px;
+      grid-template-columns: 100px 1fr auto;
+      gap: 14px;
       align-items: center;
     }
 
     .media-thumb {
-      width: 96px;
-      height: 76px;
+      width: 100px;
+      height: 78px;
       object-fit: cover;
-      border-radius: 12px;
+      border-radius: 11px;
       background: #f3ece6;
+      display: block;
+    }
+
+    video.media-thumb {
+      object-fit: contain;
     }
 
     .media-url {
       word-break: break-all;
-      color: #6d6058;
-      font-size: 0.86rem;
-      line-height: 1.45;
+      color: var(--muted);
+      font-size: 0.84rem;
+      line-height: 1.5;
     }
 
-    .media-actions {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
+    .media-actions { display: flex; flex-direction: column; gap: 8px; }
+
+    /* ── Section divider ── */
+    .section-divider {
+      height: 1px;
+      background: var(--border-soft);
+      margin: 20px 0;
     }
 
-    .edit-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
+    /* ── Status message ── */
+    .save-status {
+      font-size: 0.9rem;
+      color: var(--muted);
+      min-height: 22px;
       margin-top: 14px;
     }
 
-    .admin-info-box {
-      background: #fffaf8;
-      border: 1px solid #f0e3dc;
-      border-radius: 18px;
-      padding: 14px;
-      margin-top: 14px;
-    }
+    .save-status.ok { color: var(--success-color); }
+    .save-status.err { color: var(--danger-color); }
 
-    .admin-info-box p {
-      margin: 6px 0;
-      color: #6d6058;
-      word-break: break-word;
-    }
-
-    .upload-box {
-      margin-top: 16px;
-      border: 1px dashed #d9c0b0;
-      border-radius: 18px;
-      padding: 16px;
-      background: #fffaf8;
-    }
-
-    .upload-actions {
+    /* ── Action bar ── */
+    .action-bar {
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
-      align-items: center;
-      margin-top: 12px;
+      margin-top: 18px;
     }
 
-    .status {
-      margin-top: 12px;
-      color: #866f66;
-      min-height: 24px;
-    }
+    /* ── Hidden ── */
+    .hidden { display: none !important; }
 
-    .hidden {
-      display: none !important;
-    }
-
+    /* ── Responsive ── */
     @media (max-width: 860px) {
-      .stats-grid {
-        grid-template-columns: 1fr 1fr;
-      }
+      .stats-grid { grid-template-columns: repeat(3, 1fr); }
+      .admin-hero-grid { padding: 30px 28px; }
     }
 
-    @media (max-width: 760px) {
-      .admin-grid,
-      .vendor-row,
-      .media-item,
-      .edit-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .media-actions {
-        flex-direction: row;
-        flex-wrap: wrap;
-      }
-
-      .media-thumb {
-        width: 100%;
-        height: 180px;
-      }
-
-      .stats-grid {
-        grid-template-columns: 1fr;
-      }
+    @media (max-width: 660px) {
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .admin-hero-grid { grid-template-columns: 1fr; }
+      .edit-grid-2 { grid-template-columns: 1fr; }
+      .vendor-row { grid-template-columns: 1fr; }
+      .media-item { grid-template-columns: 1fr; }
+      .media-thumb { width: 100%; height: 180px; }
+      .media-actions { flex-direction: row; flex-wrap: wrap; }
+      .info-box { grid-template-columns: 1fr; }
+      .search-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 
 <body>
   <main class="admin-page">
-    <section class="admin-card">
-      <h1 class="admin-title">Vendor Admin</h1>
-      <p class="admin-muted">
-        Search vendors, edit their profile, bio, socials, gallery, admin notes, payment status and visibility.
-      </p>
-      <p id="authStatus" class="admin-muted">Checking admin access...</p>
+
+    <!-- ── Hero ── -->
+    <section class="admin-hero-card">
+      <div class="admin-hero-grid">
+        <div>
+          <a href="index.html" aria-label="Homepage">
+            <img src="images/logo.png" alt="Our Wedding Day Hub" class="admin-hero-logo">
+          </a>
+          <p class="admin-eyebrow">admin portal</p>
+          <h1 class="admin-hero-title">Vendor Admin</h1>
+          <p class="admin-hero-text">
+            Search vendors, edit profiles, update gallery media, manage payment status, visibility, and boutique access.
+          </p>
+          <div id="authStatus" class="auth-status">Checking admin access…</div>
+        </div>
+      </div>
     </section>
 
-    <section id="adminTools" class="hidden">
-      <section class="admin-card">
-        <h2>Vendor Overview</h2>
+    <!-- ── All tools (shown after auth) ── -->
+    <div id="adminTools" class="hidden">
+
+      <!-- Overview -->
+      <section class="panel">
+        <div class="panel-header">
+          <div>
+            <h2 class="panel-title">Overview</h2>
+            <p class="panel-subtitle">Live counts across all vendor accounts.</p>
+          </div>
+        </div>
         <div id="statsGrid" class="stats-grid"></div>
 
         <div class="filter-row">
-          <select id="filterInput" class="admin-select">
+          <select id="filterInput" class="field-select" style="max-width:240px;">
             <option value="all">All vendors</option>
             <option value="free-link">Used free link</option>
             <option value="paid">Paid customers</option>
@@ -343,7 +534,7 @@
             <option value="boutique">Boutique access</option>
           </select>
 
-          <select id="sortInput" class="admin-select">
+          <select id="sortInput" class="field-select" style="max-width:220px;">
             <option value="name">Sort by business name</option>
             <option value="newest">Sort by newest</option>
             <option value="subscription">Sort by subscription</option>
@@ -351,172 +542,236 @@
         </div>
       </section>
 
-      <section class="admin-card">
-        <h2>Find Vendor</h2>
+      <!-- Search -->
+      <section class="panel">
+        <div class="panel-header">
+          <div>
+            <h2 class="panel-title">Find Vendor</h2>
+            <p class="panel-subtitle">Search by name, email, category, ID, invite code or Stripe ID.</p>
+          </div>
+          <button id="refreshBtn" class="btn btn-ghost">↺ Refresh</button>
+        </div>
 
-        <div class="admin-grid">
-          <input id="searchInput" class="admin-input" type="text" placeholder="Search by business name, email, category, ID, invite code or Stripe ID">
-          <button id="refreshBtn" class="admin-btn">Refresh</button>
+        <div class="search-row">
+          <input id="searchInput" class="field-input" type="text" placeholder="Search vendors…">
         </div>
 
         <div id="vendorList" class="vendor-list"></div>
       </section>
 
-      <section id="editorCard" class="admin-card hidden">
-        <h2 id="editorTitle">Edit Vendor</h2>
-        <p id="vendorIdText" class="admin-muted"></p>
-
-        <div id="signupInfoBox" class="admin-info-box"></div>
-
-        <div class="edit-grid">
-          <input id="businessNameInput" class="admin-input" type="text" placeholder="Business name">
-          <input id="emailInput" class="admin-input" type="email" placeholder="Email">
-          <input id="phoneInput" class="admin-input" type="text" placeholder="Phone">
-          <input id="priceInput" class="admin-input" type="text" placeholder="Price guide">
-          <input id="coverImageInput" class="admin-input" type="url" placeholder="Cover image URL">
-          <input id="profileImageInput" class="admin-input" type="url" placeholder="Profile picture URL">
-          <input id="logoInput" class="admin-input" type="url" placeholder="Logo URL">
-          <input id="websiteInput" class="admin-input" type="url" placeholder="Website">
-          <input id="instagramInput" class="admin-input" type="text" placeholder="Instagram">
-          <input id="facebookInput" class="admin-input" type="url" placeholder="Facebook">
-          <input id="tiktokInput" class="admin-input" type="url" placeholder="TikTok">
-        </div>
-
-        <div style="margin-top:14px;">
-          <label class="admin-muted">Short profile tagline</label>
-          <textarea id="taglineInput" class="admin-textarea" placeholder="A short intro line for their profile."></textarea>
-        </div>
-
-        <div style="margin-top:14px;">
-          <label class="admin-muted">Vendor bio / about section</label>
-          <textarea id="bioInput" class="admin-textarea" placeholder="Write or edit their vendor bio here."></textarea>
-        </div>
-
-        <div style="margin-top:14px;">
-          <label class="admin-muted">Services / packages</label>
-          <textarea id="servicesInput" class="admin-textarea" placeholder="Add their services, packages, inclusions, or notes that should show on their public profile."></textarea>
-        </div>
-
-        <div class="edit-grid">
+      <!-- Editor -->
+      <section id="editorCard" class="panel hidden">
+        <div class="panel-header">
           <div>
-            <label class="admin-muted">Published / visible</label>
-            <select id="publishedInput" class="admin-select">
-              <option value="true">Visible</option>
-              <option value="false">Hidden</option>
-            </select>
-          </div>
-
-          <div>
-            <label class="admin-muted">Featured vendor</label>
-            <select id="featuredInput" class="admin-select">
-              <option value="false">Not featured</option>
-              <option value="true">Featured</option>
-            </select>
-          </div>
-
-          <div>
-            <label class="admin-muted">Subscription</label>
-            <select id="subscriptionInput" class="admin-select">
-              <option value="complimentary">Complimentary</option>
-              <option value="paid">Paid</option>
-              <option value="free">Free</option>
-              <option value="trial">Trial</option>
-              <option value="cancelled">Cancelled</option>
-              <option value="unknown">Unknown</option>
-            </select>
-          </div>
-
-          <div>
-            <label class="admin-muted">Payment status</label>
-            <select id="paymentStatusInput" class="admin-select">
-              <option value="unknown">Unknown</option>
-              <option value="active">Active</option>
-              <option value="paid">Paid</option>
-              <option value="free_link">Free link</option>
-              <option value="trialing">Trialing</option>
-              <option value="past_due">Past due</option>
-              <option value="cancelled">Cancelled</option>
-            </select>
+            <h2 id="editorTitle" class="panel-title">Edit Vendor</h2>
+            <p id="vendorIdText" class="panel-subtitle"></p>
           </div>
         </div>
-<div>
-  <label class="admin-muted">Boutique access</label>
-  <select id="shopAccessInput" class="admin-select">
-    <option value="false">No boutique access</option>
-    <option value="true">Boutique access enabled</option>
-  </select>
-</div>
 
-<div>
-  <label class="admin-muted">Founding Vendor</label>
-  <select id="foundingVendorInput" class="admin-select">
-    <option value="false">Not founding vendor</option>
-    <option value="true">Founding vendor</option>
-  </select>
-</div>
-        <div style="margin-top:14px;">
-          <label class="admin-muted">Admin notes</label>
-          <textarea id="adminNotesInput" class="admin-textarea" placeholder="Private notes only you/admin can see."></textarea>
+        <!-- Signup info -->
+        <div id="signupInfoBox" class="info-box"></div>
+
+        <!-- Core details -->
+        <div class="soft-card">
+          <div class="edit-grid-2">
+            <div class="field-group">
+              <label class="field-label">Business name</label>
+              <input id="businessNameInput" class="field-input" type="text" placeholder="Business name">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Email</label>
+              <input id="emailInput" class="field-input" type="email" placeholder="Email">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Phone</label>
+              <input id="phoneInput" class="field-input" type="text" placeholder="Phone">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Price guide</label>
+              <input id="priceInput" class="field-input" type="text" placeholder="Price guide">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Cover image URL</label>
+              <input id="coverImageInput" class="field-input" type="url" placeholder="https://…">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Profile picture URL</label>
+              <input id="profileImageInput" class="field-input" type="url" placeholder="https://…">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Logo URL</label>
+              <input id="logoInput" class="field-input" type="url" placeholder="https://…">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Website</label>
+              <input id="websiteInput" class="field-input" type="url" placeholder="https://…">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Instagram</label>
+              <input id="instagramInput" class="field-input" type="text" placeholder="@handle or full link">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Facebook</label>
+              <input id="facebookInput" class="field-input" type="url" placeholder="https://…">
+            </div>
+            <div class="field-group">
+              <label class="field-label">TikTok</label>
+              <input id="tiktokInput" class="field-input" type="url" placeholder="https://…">
+            </div>
+          </div>
+
+          <div class="section-divider"></div>
+
+          <div class="field-group">
+            <label class="field-label">Short tagline</label>
+            <textarea id="taglineInput" class="field-textarea" placeholder="A short intro line for their profile."></textarea>
+          </div>
+
+          <div class="field-group" style="margin-top:14px;">
+            <label class="field-label">Bio / about section</label>
+            <textarea id="bioInput" class="field-textarea" placeholder="Write or edit their vendor bio here."></textarea>
+          </div>
+
+          <div class="field-group" style="margin-top:14px;">
+            <label class="field-label">Services / packages</label>
+            <textarea id="servicesInput" class="field-textarea" placeholder="Services, packages, inclusions…"></textarea>
+          </div>
         </div>
 
-        <div style="margin-top:18px; display:flex; gap:10px; flex-wrap:wrap;">
-          <button id="saveDetailsBtn" class="admin-btn save">Save Details</button>
+        <!-- Status & access -->
+        <div class="soft-card" style="margin-top:16px;">
+          <div class="edit-grid-2">
+            <div class="field-group">
+              <label class="field-label">Published / visible</label>
+              <select id="publishedInput" class="field-select">
+                <option value="true">Visible</option>
+                <option value="false">Hidden</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label class="field-label">Featured vendor</label>
+              <select id="featuredInput" class="field-select">
+                <option value="false">Not featured</option>
+                <option value="true">Featured</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label class="field-label">Subscription</label>
+              <select id="subscriptionInput" class="field-select">
+                <option value="complimentary">Complimentary</option>
+                <option value="paid">Paid</option>
+                <option value="free">Free</option>
+                <option value="trial">Trial</option>
+                <option value="cancelled">Cancelled</option>
+                <option value="unknown">Unknown</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label class="field-label">Payment status</label>
+              <select id="paymentStatusInput" class="field-select">
+                <option value="unknown">Unknown</option>
+                <option value="active">Active</option>
+                <option value="paid">Paid</option>
+                <option value="free_link">Free link</option>
+                <option value="trialing">Trialing</option>
+                <option value="past_due">Past due</option>
+                <option value="cancelled">Cancelled</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label class="field-label">Boutique access</label>
+              <select id="shopAccessInput" class="field-select">
+                <option value="false">No boutique access</option>
+                <option value="true">Boutique access enabled</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label class="field-label">Founding vendor</label>
+              <select id="foundingVendorInput" class="field-select">
+                <option value="false">Not a founding vendor</option>
+                <option value="true">Founding vendor</option>
+              </select>
+            </div>
+          </div>
         </div>
 
-        <div class="upload-box">
-  <label class="admin-muted">Upload profile picture</label>
-  <input id="profileUploadInput" class="admin-input" type="file" accept="image/*">
-  <div class="upload-actions">
-    <button id="uploadProfileBtn" class="admin-btn save" type="button">Upload Profile Picture</button>
-  </div>
-</div>
+        <!-- Admin notes -->
+        <div class="soft-card" style="margin-top:16px;">
+          <div class="field-group">
+            <label class="field-label">Admin notes (private)</label>
+            <textarea id="adminNotesInput" class="field-textarea" placeholder="Private notes — only visible to admins."></textarea>
+          </div>
+        </div>
 
-<div class="upload-box">
-  <label class="admin-muted">Upload logo</label>
-  <input id="logoUploadInput" class="admin-input" type="file" accept="image/*">
-  <div class="upload-actions">
-    <button id="uploadLogoBtn" class="admin-btn save" type="button">Upload Logo</button>
-  </div>
-</div>
-        
-        <p id="saveStatus" class="status"></p>
+        <div class="action-bar">
+          <button id="saveDetailsBtn" class="btn btn-primary">Save Details</button>
+        </div>
+
+        <p id="saveStatus" class="save-status"></p>
+
+        <!-- Profile picture upload -->
+        <div class="section-divider"></div>
+        <div class="edit-grid-2">
+          <div class="upload-box">
+            <p class="upload-box-title">Upload Profile Picture</p>
+            <input id="profileUploadInput" class="field-input" type="file" accept="image/*">
+            <div class="upload-row">
+              <button id="uploadProfileBtn" class="btn btn-ghost btn-sm" type="button">Upload</button>
+            </div>
+          </div>
+          <div class="upload-box">
+            <p class="upload-box-title">Upload Logo</p>
+            <input id="logoUploadInput" class="field-input" type="file" accept="image/*">
+            <div class="upload-row">
+              <button id="uploadLogoBtn" class="btn btn-ghost btn-sm" type="button">Upload</button>
+            </div>
+          </div>
+        </div>
       </section>
 
-      <section id="galleryCard" class="admin-card hidden">
-        <h2>Gallery Images</h2>
-        <p class="admin-muted">Upload images, add image links manually, set a cover image, or remove broken links.</p>
-
-        <div class="upload-box">
-          <label class="admin-muted">Upload new gallery images</label>
-          <input id="imageUploadInput" class="admin-input" type="file" accept="image/*" multiple>
-          <div class="upload-actions">
-            <button id="uploadImagesBtn" class="admin-btn save" type="button">Upload Images</button>
-            <span id="uploadStatus" class="admin-muted"></span>
+      <!-- Gallery Images -->
+      <section id="galleryCard" class="panel hidden">
+        <div class="panel-header">
+          <div>
+            <h2 class="panel-title">Gallery Images</h2>
+            <p class="panel-subtitle">Upload images, set a cover, or remove broken links.</p>
           </div>
         </div>
 
         <div class="upload-box">
+          <p class="upload-box-title">Upload new gallery images</p>
+          <input id="imageUploadInput" class="field-input" type="file" accept="image/*" multiple>
+          <div class="upload-row">
+            <button id="uploadImagesBtn" class="btn btn-primary btn-sm" type="button">Upload Images</button>
+            <span id="uploadStatus" style="font-size:0.88rem; color:var(--muted);"></span>
+          </div>
+        </div>
 
         <div id="imageList" class="media-list"></div>
       </section>
 
-      <section id="videoCard" class="admin-card hidden">
-        <h2>Gallery Videos</h2>
+      <!-- Gallery Videos -->
+      <section id="videoCard" class="panel hidden">
+        <div class="panel-header">
+          <div>
+            <h2 class="panel-title">Gallery Videos</h2>
+            <p class="panel-subtitle">Upload or remove gallery videos for this vendor.</p>
+          </div>
+        </div>
 
         <div class="upload-box">
-  <label class="admin-muted">Upload gallery videos</label>
-  <input id="videoUploadInput" class="admin-input" type="file" accept="video/*" multiple>
-  <div class="upload-actions">
-    <button id="uploadVideosBtn" class="admin-btn save" type="button">Upload Videos</button>
-    <span id="videoUploadStatus" class="admin-muted"></span>
-  </div>
-</div>
+          <p class="upload-box-title">Upload gallery videos</p>
+          <input id="videoUploadInput" class="field-input" type="file" accept="video/*" multiple>
+          <div class="upload-row">
+            <button id="uploadVideosBtn" class="btn btn-primary btn-sm" type="button">Upload Videos</button>
+            <span id="videoUploadStatus" style="font-size:0.88rem; color:var(--muted);"></span>
+          </div>
+        </div>
 
-        <div class="upload-box">
-       
         <div id="videoList" class="media-list"></div>
       </section>
-    </section>
+
+    </div><!-- /adminTools -->
   </main>
 
   <script type="module">
@@ -536,270 +791,174 @@
 
     const ADMIN_EMAILS = ["stephanie@ourweddingdayhub.com"];
 
-    const authStatus = document.getElementById("authStatus");
-    const adminTools = document.getElementById("adminTools");
-    const statsGrid = document.getElementById("statsGrid");
-    const searchInput = document.getElementById("searchInput");
-    const filterInput = document.getElementById("filterInput");
-    const sortInput = document.getElementById("sortInput");
-    const refreshBtn = document.getElementById("refreshBtn");
-    const vendorList = document.getElementById("vendorList");
+    // ── Element refs ──────────────────────────────────────────────
+    const authStatus     = document.getElementById("authStatus");
+    const adminTools     = document.getElementById("adminTools");
+    const statsGrid      = document.getElementById("statsGrid");
+    const searchInput    = document.getElementById("searchInput");
+    const filterInput    = document.getElementById("filterInput");
+    const sortInput      = document.getElementById("sortInput");
+    const refreshBtn     = document.getElementById("refreshBtn");
+    const vendorList     = document.getElementById("vendorList");
 
-    const editorCard = document.getElementById("editorCard");
-    const galleryCard = document.getElementById("galleryCard");
-    const videoCard = document.getElementById("videoCard");
+    const editorCard     = document.getElementById("editorCard");
+    const galleryCard    = document.getElementById("galleryCard");
+    const videoCard      = document.getElementById("videoCard");
+    const editorTitle    = document.getElementById("editorTitle");
+    const vendorIdText   = document.getElementById("vendorIdText");
+    const signupInfoBox  = document.getElementById("signupInfoBox");
 
-    const editorTitle = document.getElementById("editorTitle");
-    const vendorIdText = document.getElementById("vendorIdText");
-    const signupInfoBox = document.getElementById("signupInfoBox");
+    const businessNameInput  = document.getElementById("businessNameInput");
+    const emailInput         = document.getElementById("emailInput");
+    const phoneInput         = document.getElementById("phoneInput");
+    const priceInput         = document.getElementById("priceInput");
+    const coverImageInput    = document.getElementById("coverImageInput");
+    const profileImageInput  = document.getElementById("profileImageInput");
+    const logoInput          = document.getElementById("logoInput");
+    const websiteInput       = document.getElementById("websiteInput");
+    const instagramInput     = document.getElementById("instagramInput");
+    const facebookInput      = document.getElementById("facebookInput");
+    const tiktokInput        = document.getElementById("tiktokInput");
+    const taglineInput       = document.getElementById("taglineInput");
+    const bioInput           = document.getElementById("bioInput");
+    const servicesInput      = document.getElementById("servicesInput");
+    const publishedInput     = document.getElementById("publishedInput");
+    const featuredInput      = document.getElementById("featuredInput");
+    const subscriptionInput  = document.getElementById("subscriptionInput");
+    const paymentStatusInput = document.getElementById("paymentStatusInput");
+    const shopAccessInput    = document.getElementById("shopAccessInput");
+    const foundingVendorInput= document.getElementById("foundingVendorInput");
+    const adminNotesInput    = document.getElementById("adminNotesInput");
+    const saveDetailsBtn     = document.getElementById("saveDetailsBtn");
+    const saveStatus         = document.getElementById("saveStatus");
 
-    const businessNameInput = document.getElementById("businessNameInput");
-    const emailInput = document.getElementById("emailInput");
-    const phoneInput = document.getElementById("phoneInput");
-    const categoryInput = document.getElementById("categoryInput");
-    const categoriesInput = document.getElementById("categoriesInput");
-    const locationInput = document.getElementById("locationInput");
-    const priceInput = document.getElementById("priceInput");
-    const coverImageInput = document.getElementById("coverImageInput");
-    const profileImageInput = document.getElementById("profileImageInput");
-    const logoInput = document.getElementById("logoInput");
-    const websiteInput = document.getElementById("websiteInput");
-    const instagramInput = document.getElementById("instagramInput");
-    const facebookInput = document.getElementById("facebookInput");
-    const tiktokInput = document.getElementById("tiktokInput");
-    const taglineInput = document.getElementById("taglineInput");
-    const bioInput = document.getElementById("bioInput");
-    const servicesInput = document.getElementById("servicesInput");
-    const publishedInput = document.getElementById("publishedInput");
-    const featuredInput = document.getElementById("featuredInput");
-    const subscriptionInput = document.getElementById("subscriptionInput");
-const paymentStatusInput = document.getElementById("paymentStatusInput");
-const shopAccessInput = document.getElementById("shopAccessInput");
-const foundingVendorInput = document.getElementById("foundingVendorInput");
-const adminNotesInput = document.getElementById("adminNotesInput");
-
-    const saveDetailsBtn = document.getElementById("saveDetailsBtn");
-    const removeAllImagesBtn = document.getElementById("removeAllImagesBtn");
-    const removeAllVideosBtn = document.getElementById("removeAllVideosBtn");
-    const saveStatus = document.getElementById("saveStatus");
-
-    const imageUploadInput = document.getElementById("imageUploadInput");
-    const uploadImagesBtn = document.getElementById("uploadImagesBtn");
-    const uploadStatus = document.getElementById("uploadStatus");
-    const manualImageInput = document.getElementById("manualImageInput");
-    const addImageUrlBtn = document.getElementById("addImageUrlBtn");
-    const manualVideoInput = document.getElementById("manualVideoInput");
-    const addVideoUrlBtn = document.getElementById("addVideoUrlBtn");
-    const videoUploadInput = document.getElementById("videoUploadInput");
-    const uploadVideosBtn = document.getElementById("uploadVideosBtn");
-    const videoUploadStatus = document.getElementById("videoUploadStatus");
+    const imageUploadInput   = document.getElementById("imageUploadInput");
+    const uploadImagesBtn    = document.getElementById("uploadImagesBtn");
+    const uploadStatus       = document.getElementById("uploadStatus");
+    const videoUploadInput   = document.getElementById("videoUploadInput");
+    const uploadVideosBtn    = document.getElementById("uploadVideosBtn");
+    const videoUploadStatus  = document.getElementById("videoUploadStatus");
     const profileUploadInput = document.getElementById("profileUploadInput");
-const uploadProfileBtn = document.getElementById("uploadProfileBtn");
-
-const logoUploadInput = document.getElementById("logoUploadInput");
-const uploadLogoBtn = document.getElementById("uploadLogoBtn");
-
-    const imageList = document.getElementById("imageList");
-    const videoList = document.getElementById("videoList");
+    const uploadProfileBtn   = document.getElementById("uploadProfileBtn");
+    const logoUploadInput    = document.getElementById("logoUploadInput");
+    const uploadLogoBtn      = document.getElementById("uploadLogoBtn");
+    const imageList          = document.getElementById("imageList");
+    const videoList          = document.getElementById("videoList");
 
     let vendors = [];
     let selectedVendorId = "";
-    let selectedVendor = null;
+    let selectedVendor   = null;
 
-    function isAdmin(user) {
-      return user && ADMIN_EMAILS.includes(user.email);
+    // ── Helpers ───────────────────────────────────────────────────
+    const isAdmin   = u => u && ADMIN_EMAILS.includes(u.email);
+    const cleanArr  = v => Array.isArray(v) ? v.filter(Boolean) : [];
+    const normalise = v => String(v || "").toLowerCase().trim();
+    const show      = el => el.classList.remove("hidden");
+    const hide      = el => el.classList.add("hidden");
+    const pretty    = v => String(v || "unknown").replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+
+    function setStatus(msg, type = "") {
+      saveStatus.textContent = msg;
+      saveStatus.className   = "save-status" + (type ? " " + type : "");
     }
 
-    function cleanArray(value) {
-      return Array.isArray(value) ? value.filter(Boolean) : [];
+    function formatDate(v) {
+      if (!v) return "Not saved";
+      try { return v.toDate ? v.toDate().toLocaleString() : new Date(v).toLocaleString(); }
+      catch { return "Not saved"; }
     }
 
-    function arrayFromCommaText(value) {
-      return String(value || "")
-        .split(",")
-        .map((item) => item.trim())
-        .filter(Boolean);
+    function safeFileName(n) {
+      return String(n || "file").toLowerCase().replace(/[^a-z0-9.\-_]/g, "-").replace(/-+/g, "-");
     }
 
-    function normalise(value) {
-      return String(value || "").toLowerCase().trim();
-    }
+    function getSubscription(v)  { return v.subscriptionType || v.subscription || v.plan || "unknown"; }
+    function getPaymentStatus(v) { return v.paymentStatus || v.stripeStatus || v.subscriptionStatus || "unknown"; }
+    function getInviteCode(v)    { return v.inviteCode || v.invite || v.signupInvite || v.referralCode || v.joinCode || ""; }
+    function getBio(v)           { return v.bio || v.about || v.description || ""; }
+    function getTagline(v)       { return v.tagline || v.shortDescription || v.intro || ""; }
+    function getServices(v)      { return v.services || v.packages || v.inclusions || ""; }
 
-    function show(el) {
-      el.classList.remove("hidden");
-    }
-
-    function hide(el) {
-      el.classList.add("hidden");
-    }
-
-    function setStatus(message) {
-      saveStatus.textContent = message;
-    }
-
-    function getSubscription(vendor) {
-      return vendor.subscriptionType || vendor.subscription || vendor.plan || vendor.planType || "unknown";
-    }
-
-    function getPaymentStatus(vendor) {
-      return vendor.paymentStatus || vendor.stripeStatus || vendor.subscriptionStatus || "unknown";
-    }
-
-    function getInviteCode(vendor) {
-      return vendor.inviteCode || vendor.invite || vendor.signupInvite || vendor.referralCode || vendor.joinCode || "";
-    }
-
-    function getBio(vendor) {
-      return vendor.bio || vendor.about || vendor.description || "";
-    }
-
-    function getTagline(vendor) {
-      return vendor.tagline || vendor.shortDescription || vendor.intro || "";
-    }
-
-    function getServices(vendor) {
-      return vendor.services || vendor.packages || vendor.inclusions || "";
-    }
-
-    function usedFreeLink(vendor) {
-      const invite = normalise(getInviteCode(vendor));
-      const subscription = normalise(getSubscription(vendor));
-      const paymentStatus = normalise(getPaymentStatus(vendor));
-
+    function usedFreeLink(v) {
+      const invite = normalise(getInviteCode(v));
+      const sub    = normalise(getSubscription(v));
+      const pay    = normalise(getPaymentStatus(v));
       return Boolean(
-        vendor.usedFreeLink ||
-        vendor.foundingVendor ||
-        vendor.freeForever ||
-        vendor.complimentaryAccess ||
-        invite.includes("foundingvendor") ||
-        invite.includes("free") ||
-        subscription === "complimentary" ||
-        subscription === "free" ||
-        paymentStatus === "free_link"
+        v.usedFreeLink || v.foundingVendor || v.freeForever || v.complimentaryAccess ||
+        invite.includes("foundingvendor") || invite.includes("free") ||
+        sub === "complimentary" || sub === "free" || pay === "free_link"
       );
     }
 
-    function isPaidCustomer(vendor) {
-      const subscription = normalise(getSubscription(vendor));
-      const paymentStatus = normalise(getPaymentStatus(vendor));
-
+    function isPaidCustomer(v) {
+      const sub = normalise(getSubscription(v));
+      const pay = normalise(getPaymentStatus(v));
       return Boolean(
-        subscription === "paid" ||
-        paymentStatus === "paid" ||
-        paymentStatus === "active" ||
-        vendor.stripeCustomerId ||
-        vendor.stripeSubscriptionId
-      ) && !usedFreeLink(vendor);
+        sub === "paid" || pay === "paid" || pay === "active" ||
+        v.stripeCustomerId || v.stripeSubscriptionId
+      ) && !usedFreeLink(v);
     }
 
-    function getCustomerType(vendor) {
-      if (usedFreeLink(vendor)) return "Free link";
-      if (isPaidCustomer(vendor)) return "Paid customer";
+    function getCustomerType(v) {
+      if (usedFreeLink(v))    return "Free link";
+      if (isPaidCustomer(v))  return "Paid customer";
       return "Unknown";
     }
 
-    function pretty(value) {
-      const text = String(value || "unknown").trim();
-      if (!text) return "Unknown";
-      return text.replace(/_/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
-    }
-
-    function formatDate(value) {
-      if (!value) return "Not saved";
-
-      try {
-        if (value.toDate) return value.toDate().toLocaleString();
-        return new Date(value).toLocaleString();
-      } catch {
-        return "Not saved";
-      }
-    }
-
-    function safeFileName(name) {
-      return String(name || "image")
-        .toLowerCase()
-        .replace(/[^a-z0-9.\-_]/g, "-")
-        .replace(/-+/g, "-");
-    }
-
-    function createText(tag, text, className = "") {
-      const el = document.createElement(tag);
-      if (className) el.className = className;
-      el.textContent = text;
-      return el;
-    }
-
+    // ── Stats ─────────────────────────────────────────────────────
     function renderStats() {
-      const total = vendors.length;
-      const free = vendors.filter(usedFreeLink).length;
-      const paid = vendors.filter(isPaidCustomer).length;
-      const visible = vendors.filter((v) => v.published !== false && v.profileVisible !== false).length;
-      const hidden = vendors.filter((v) => v.published === false || v.profileVisible === false).length;
-
+      const total   = vendors.length;
+      const free    = vendors.filter(usedFreeLink).length;
+      const paid    = vendors.filter(isPaidCustomer).length;
+      const visible = vendors.filter(v => v.published !== false && v.profileVisible !== false).length;
+      const hidden  = vendors.filter(v => v.published === false || v.profileVisible === false).length;
       statsGrid.innerHTML = `
         <div class="stat-box"><strong>${total}</strong><span>Total vendors</span></div>
         <div class="stat-box"><strong>${free}</strong><span>Free link</span></div>
-        <div class="stat-box"><strong>${paid}</strong><span>Paid customers</span></div>
+        <div class="stat-box"><strong>${paid}</strong><span>Paid</span></div>
         <div class="stat-box"><strong>${visible}</strong><span>Visible</span></div>
-        <div class="stat-box"><strong>${hidden}</strong><span>Hidden</span></div>
-      `;
+        <div class="stat-box"><strong>${hidden}</strong><span>Hidden</span></div>`;
     }
 
+    // ── Load vendors ──────────────────────────────────────────────
     async function loadVendors() {
-      vendorList.innerHTML = "<p class='admin-muted'>Loading vendors...</p>";
-
+      vendorList.innerHTML = "<p style='color:var(--muted); padding:8px 0;'>Loading vendors…</p>";
       const snap = await getDocs(collection(db, "vendors"));
-
-      vendors = snap.docs.map((item) => ({
-        id: item.id,
-        ...item.data()
-      }));
-
+      vendors = snap.docs.map(d => ({ id: d.id, ...d.data() }));
       renderStats();
       renderVendorList();
-
-      if (selectedVendorId) {
-        const stillExists = vendors.find((vendor) => vendor.id === selectedVendorId);
-        if (stillExists) openVendor(selectedVendorId, false);
+      if (selectedVendorId && vendors.find(v => v.id === selectedVendorId)) {
+        openVendor(selectedVendorId, false);
       }
     }
 
+    // ── Vendor list ───────────────────────────────────────────────
     function getFilteredVendors() {
-      const term = normalise(searchInput.value);
+      const term   = normalise(searchInput.value);
       const filter = filterInput.value;
 
-      let filtered = vendors.filter((v) => {
-        const haystack = [
-          v.id,
-          v.businessName,
-          v.email,
-          v.phone,
-          v.category,
-          v.location,
-          getBio(v),
-          getTagline(v),
-          getSubscription(v),
-          getPaymentStatus(v),
-          getInviteCode(v),
-          v.stripeCustomerId,
-          v.stripeSubscriptionId,
-          cleanArray(v.categories).join(" ")
+      let filtered = vendors.filter(v => {
+        const hay = [
+          v.id, v.businessName, v.email, v.phone, v.category, v.location,
+          getBio(v), getTagline(v), getSubscription(v), getPaymentStatus(v),
+          getInviteCode(v), v.stripeCustomerId, v.stripeSubscriptionId,
+          cleanArr(v.categories).join(" ")
         ].join(" ").toLowerCase();
-
-        return haystack.includes(term);
+        return hay.includes(term);
       });
 
       if (filter === "free-link") filtered = filtered.filter(usedFreeLink);
-      if (filter === "paid") filtered = filtered.filter(isPaidCustomer);
-      if (filter === "visible") filtered = filtered.filter((v) => v.published !== false && v.profileVisible !== false);
-      if (filter === "hidden") filtered = filtered.filter((v) => v.published === false || v.profileVisible === false);
-      if (filter === "featured") filtered = filtered.filter((v) => v.featured === true);
+      if (filter === "paid")      filtered = filtered.filter(isPaidCustomer);
+      if (filter === "visible")   filtered = filtered.filter(v => v.published !== false && v.profileVisible !== false);
+      if (filter === "hidden")    filtered = filtered.filter(v => v.published === false || v.profileVisible === false);
+      if (filter === "featured")  filtered = filtered.filter(v => v.featured === true);
+      if (filter === "boutique")  filtered = filtered.filter(v => v.shopAccess === true);
 
       if (sortInput.value === "newest") {
         filtered.sort((a, b) => {
-          const dateA = a.createdAt?.toDate ? a.createdAt.toDate().getTime() : new Date(a.createdAt || 0).getTime();
-          const dateB = b.createdAt?.toDate ? b.createdAt.toDate().getTime() : new Date(b.createdAt || 0).getTime();
-          return dateB - dateA;
+          const tA = a.createdAt?.toDate ? a.createdAt.toDate().getTime() : new Date(a.createdAt || 0).getTime();
+          const tB = b.createdAt?.toDate ? b.createdAt.toDate().getTime() : new Date(b.createdAt || 0).getTime();
+          return tB - tA;
         });
       } else if (sortInput.value === "subscription") {
         filtered.sort((a, b) => getCustomerType(a).localeCompare(getCustomerType(b)));
@@ -812,67 +971,70 @@ const uploadLogoBtn = document.getElementById("uploadLogoBtn");
 
     function renderVendorList() {
       const filtered = getFilteredVendors();
-
       if (!filtered.length) {
-        vendorList.innerHTML = "<p class='admin-muted'>No vendors found.</p>";
+        vendorList.innerHTML = "<p style='color:var(--muted);padding:8px 0;'>No vendors found.</p>";
         return;
       }
-
       vendorList.innerHTML = "";
-
-      filtered.forEach((vendor) => {
-        const row = document.createElement("div");
+      filtered.forEach(v => {
+        const type  = getCustomerType(v);
+        const row   = document.createElement("div");
         row.className = "vendor-row";
-
-        const customerType = getCustomerType(vendor);
-        const customerClass = customerType === "Paid customer" ? "paid" : customerType === "Free link" ? "free" : "";
 
         const info = document.createElement("div");
 
-        info.appendChild(createText("h3", vendor.businessName || "Unnamed vendor"));
-        info.appendChild(createText(
-          "p",
-          `${vendor.email || "No email"} • ${vendor.category || "No category"} • ${vendor.location || "No location"}`
-        ));
+        const h3 = document.createElement("h3");
+        h3.textContent = v.businessName || "Unnamed vendor";
+        info.appendChild(h3);
 
-        const badgeRow = document.createElement("div");
-        badgeRow.className = "badge-row";
+        const meta = document.createElement("p");
+        meta.textContent = `${v.email || "No email"} · ${v.category || "No category"} · ${v.location || "No location"}`;
+        info.appendChild(meta);
 
-        const customerBadge = createText("span", customerType, `badge ${customerClass}`);
-        const visibilityBadge = createText(
-          "span",
-          vendor.published === false || vendor.profileVisible === false ? "Hidden" : "Visible",
-          `badge ${vendor.published === false || vendor.profileVisible === false ? "hidden-badge" : "visible-badge"}`
-        );
+        const badges = document.createElement("div");
+        badges.className = "badge-row";
 
-        badgeRow.appendChild(customerBadge);
-        badgeRow.appendChild(visibilityBadge);
+        const typePill = document.createElement("span");
+        typePill.className = "status-pill" + (type === "Paid customer" ? " pill-paid" : type === "Free link" ? " pill-free" : "");
+        typePill.textContent = type;
+        badges.appendChild(typePill);
 
-        if (vendor.featured === true) {
-          badgeRow.appendChild(createText("span", "Featured", "badge featured"));
+        const isHidden = v.published === false || v.profileVisible === false;
+        const visPill  = document.createElement("span");
+        visPill.className = "status-pill " + (isHidden ? "pill-hidden" : "pill-visible");
+        visPill.textContent = isHidden ? "Hidden" : "Visible";
+        badges.appendChild(visPill);
+
+        if (v.featured === true) {
+          const fp = document.createElement("span");
+          fp.className = "status-pill pill-featured";
+          fp.textContent = "Featured";
+          badges.appendChild(fp);
         }
 
-        badgeRow.appendChild(createText("span", `Images: ${cleanArray(vendor.images).length}`, "badge"));
-        badgeRow.appendChild(createText("span", `Videos: ${cleanArray(vendor.videos).length}`, "badge"));
+        const imgPill = document.createElement("span");
+        imgPill.className = "status-pill";
+        imgPill.textContent = `${cleanArr(v.images).length} images`;
+        badges.appendChild(imgPill);
 
-        info.appendChild(badgeRow);
+        info.appendChild(badges);
 
-        const button = document.createElement("button");
-        button.className = "admin-btn small";
-        button.type = "button";
-        button.textContent = "Open";
-        button.addEventListener("click", () => openVendor(vendor.id));
+        const btn = document.createElement("button");
+        btn.className = "btn btn-ghost btn-sm";
+        btn.type      = "button";
+        btn.textContent = "Open";
+        btn.addEventListener("click", () => openVendor(v.id));
 
         row.appendChild(info);
-        row.appendChild(button);
+        row.appendChild(btn);
         vendorList.appendChild(row);
       });
     }
 
+    // ── Open vendor ───────────────────────────────────────────────
     function openVendor(vendorId, shouldScroll = true) {
       selectedVendorId = vendorId;
-      selectedVendor = vendors.find((v) => v.id === vendorId);
-
+      selectedVendor   = vendors.find(v => v.id === vendorId);
       if (!selectedVendor) return;
 
       editorTitle.textContent = selectedVendor.businessName || "Edit Vendor";
@@ -880,89 +1042,68 @@ const uploadLogoBtn = document.getElementById("uploadLogoBtn");
 
       signupInfoBox.innerHTML = `
         <p><strong>Customer type:</strong> ${getCustomerType(selectedVendor)}</p>
-        <p><strong>Invite code / signup link used:</strong> ${getInviteCode(selectedVendor) || "Not saved"}</p>
+        <p><strong>Invite code:</strong> ${getInviteCode(selectedVendor) || "Not saved"}</p>
         <p><strong>Subscription:</strong> ${pretty(getSubscription(selectedVendor))}</p>
         <p><strong>Payment status:</strong> ${pretty(getPaymentStatus(selectedVendor))}</p>
-        <p><strong>Stripe customer ID:</strong> ${selectedVendor.stripeCustomerId || "Not saved"}</p>
-        <p><strong>Stripe subscription ID:</strong> ${selectedVendor.stripeSubscriptionId || "Not saved"}</p>
+        <p><strong>Stripe customer:</strong> ${selectedVendor.stripeCustomerId || "Not saved"}</p>
+        <p><strong>Stripe subscription:</strong> ${selectedVendor.stripeSubscriptionId || "Not saved"}</p>
         <p><strong>Created:</strong> ${formatDate(selectedVendor.createdAt)}</p>
-        <p><strong>Last updated:</strong> ${formatDate(selectedVendor.updatedAt)}</p>
-      `;
+        <p><strong>Last updated:</strong> ${formatDate(selectedVendor.updatedAt)}</p>`;
 
-      businessNameInput.value = selectedVendor.businessName || "";
-      emailInput.value = selectedVendor.email || "";
-      phoneInput.value = selectedVendor.phone || "";
-      categoryInput.value = selectedVendor.category || "";
-      categoriesInput.value = cleanArray(selectedVendor.categories).join(", ");
-      locationInput.value = selectedVendor.location || "";
-      priceInput.value = selectedVendor.priceGuide || selectedVendor.price || "";
-      coverImageInput.value = selectedVendor.coverImageUrl || "";
-      profileImageInput.value = selectedVendor.profileImageUrl || selectedVendor.profilePhotoUrl || "";
-      logoInput.value = selectedVendor.logoUrl || "";
-      websiteInput.value = selectedVendor.website || "";
-      instagramInput.value = selectedVendor.instagram || "";
-      facebookInput.value = selectedVendor.facebook || "";
-      tiktokInput.value = selectedVendor.tiktok || "";
-      taglineInput.value = getTagline(selectedVendor);
-      bioInput.value = getBio(selectedVendor);
-      servicesInput.value = getServices(selectedVendor);
-      publishedInput.value = selectedVendor.published === false || selectedVendor.profileVisible === false ? "false" : "true";
-      featuredInput.value = selectedVendor.featured === true ? "true" : "false";
-      subscriptionInput.value = getSubscription(selectedVendor);
-paymentStatusInput.value = getPaymentStatus(selectedVendor);
-shopAccessInput.value = selectedVendor.shopAccess === true ? "true" : "false";
-foundingVendorInput.value = selectedVendor.complimentaryPlan === true ? "true" : "false";
-adminNotesInput.value = selectedVendor.adminNotes || "";
+      businessNameInput.value  = selectedVendor.businessName || "";
+      emailInput.value         = selectedVendor.email || "";
+      phoneInput.value         = selectedVendor.phone || "";
+      priceInput.value         = selectedVendor.priceGuide || selectedVendor.price || "";
+      coverImageInput.value    = selectedVendor.coverImageUrl || "";
+      profileImageInput.value  = selectedVendor.profileImageUrl || selectedVendor.profilePhotoUrl || "";
+      logoInput.value          = selectedVendor.logoUrl || "";
+      websiteInput.value       = selectedVendor.website || "";
+      instagramInput.value     = selectedVendor.instagram || "";
+      facebookInput.value      = selectedVendor.facebook || "";
+      tiktokInput.value        = selectedVendor.tiktok || "";
+      taglineInput.value       = getTagline(selectedVendor);
+      bioInput.value           = getBio(selectedVendor);
+      servicesInput.value      = getServices(selectedVendor);
+      publishedInput.value     = (selectedVendor.published === false || selectedVendor.profileVisible === false) ? "false" : "true";
+      featuredInput.value      = selectedVendor.featured === true ? "true" : "false";
+      subscriptionInput.value  = getSubscription(selectedVendor);
+      paymentStatusInput.value = getPaymentStatus(selectedVendor);
+      shopAccessInput.value    = selectedVendor.shopAccess === true ? "true" : "false";
+      foundingVendorInput.value= selectedVendor.complimentaryPlan === true ? "true" : "false";
+      adminNotesInput.value    = selectedVendor.adminNotes || "";
 
-      if (![...subscriptionInput.options].some((option) => option.value === subscriptionInput.value)) {
-        subscriptionInput.value = "unknown";
-      }
+      if (![...subscriptionInput.options].some(o => o.value === subscriptionInput.value))  subscriptionInput.value  = "unknown";
+      if (![...paymentStatusInput.options].some(o => o.value === paymentStatusInput.value)) paymentStatusInput.value = "unknown";
 
-      if (![...paymentStatusInput.options].some((option) => option.value === paymentStatusInput.value)) {
-        paymentStatusInput.value = "unknown";
-      }
-
-      imageUploadInput.value = "";
-      manualImageInput.value = "";
-      manualVideoInput.value = "";
-      videoUploadInput.value = "";
-      videoUploadStatus.textContent = "";
+      imageUploadInput.value   = "";
+      videoUploadInput.value   = "";
       profileUploadInput.value = "";
-      logoUploadInput.value = "";
+      logoUploadInput.value    = "";
       uploadStatus.textContent = "";
+      videoUploadStatus.textContent = "";
 
       renderImages();
       renderVideos();
-
       show(editorCard);
       show(galleryCard);
       show(videoCard);
-
       setStatus("");
 
-      if (shouldScroll) {
-        window.scrollTo({ top: editorCard.offsetTop - 20, behavior: "smooth" });
-      }
+      if (shouldScroll) window.scrollTo({ top: editorCard.offsetTop - 20, behavior: "smooth" });
     }
 
+    // ── Media ─────────────────────────────────────────────────────
     function makeMediaItem(url, index, type) {
       const item = document.createElement("div");
       item.className = "media-item";
 
-      const preview = document.createElement(type === "video" ? "video" : "img");
+      const preview = type === "video" ? document.createElement("video") : document.createElement("img");
       preview.className = "media-thumb";
-
-      if (type === "video") {
-        preview.src = url;
-        preview.controls = true;
-        preview.muted = true;
-      } else {
+      if (type === "video") { preview.src = url; preview.controls = true; preview.muted = true; }
+      else {
         preview.src = url;
         preview.alt = `Gallery image ${index + 1}`;
-        preview.onerror = () => {
-          preview.style.objectFit = "contain";
-          preview.src = "images/logo.png";
-        };
+        preview.onerror = () => { preview.style.objectFit = "contain"; preview.src = "images/logo.png"; };
       }
 
       const text = document.createElement("div");
@@ -974,449 +1115,234 @@ adminNotesInput.value = selectedVendor.adminNotes || "";
 
       if (type === "image") {
         const coverBtn = document.createElement("button");
-        coverBtn.className = "admin-btn small";
-        coverBtn.type = "button";
-        coverBtn.textContent = selectedVendor.coverImageUrl === url ? "Current Cover" : "Set Cover";
-        coverBtn.disabled = selectedVendor.coverImageUrl === url;
+        coverBtn.className = "btn btn-ghost btn-sm";
+        coverBtn.type      = "button";
+        coverBtn.textContent = selectedVendor.coverImageUrl === url ? "✓ Cover" : "Set Cover";
+        coverBtn.disabled  = selectedVendor.coverImageUrl === url;
         coverBtn.addEventListener("click", () => saveVendorUpdates({ coverImageUrl: url }));
         actions.appendChild(coverBtn);
       }
 
       const removeBtn = document.createElement("button");
-      removeBtn.className = "admin-btn danger small";
-      removeBtn.type = "button";
+      removeBtn.className  = "btn btn-danger btn-sm";
+      removeBtn.type       = "button";
       removeBtn.textContent = "Remove";
       removeBtn.addEventListener("click", () => removeMediaUrl(type, url));
-
       actions.appendChild(removeBtn);
 
       item.appendChild(preview);
       item.appendChild(text);
       item.appendChild(actions);
-
       return item;
     }
 
     function renderImages() {
-      const images = cleanArray(selectedVendor.images);
-
+      const images = cleanArr(selectedVendor.images);
       imageList.innerHTML = "";
-
-      if (!images.length) {
-        imageList.innerHTML = "<p class='admin-muted'>No gallery images saved.</p>";
-        return;
-      }
-
-      images.forEach((url, index) => {
-        imageList.appendChild(makeMediaItem(url, index, "image"));
-      });
+      if (!images.length) { imageList.innerHTML = "<p style='color:var(--muted);padding:8px 0;'>No gallery images saved.</p>"; return; }
+      images.forEach((url, i) => imageList.appendChild(makeMediaItem(url, i, "image")));
     }
 
     function renderVideos() {
-      const videos = cleanArray(selectedVendor.videos);
-
+      const videos = cleanArr(selectedVendor.videos);
       videoList.innerHTML = "";
-
-      if (!videos.length) {
-        videoList.innerHTML = "<p class='admin-muted'>No gallery videos saved.</p>";
-        return;
-      }
-
-      videos.forEach((url, index) => {
-        videoList.appendChild(makeMediaItem(url, index, "video"));
-      });
+      if (!videos.length) { videoList.innerHTML = "<p style='color:var(--muted);padding:8px 0;'>No gallery videos saved.</p>"; return; }
+      videos.forEach((url, i) => videoList.appendChild(makeMediaItem(url, i, "video")));
     }
 
+    // ── Save ──────────────────────────────────────────────────────
     async function saveVendorUpdates(updates) {
       if (!selectedVendorId) return;
-
       try {
         saveDetailsBtn.disabled = true;
-        setStatus("Saving...");
-
-        const finalUpdates = {
-          ...updates,
-          updatedAt: new Date()
-        };
-
-        await updateDoc(doc(db, "vendors", selectedVendorId), finalUpdates);
-
-        selectedVendor = {
-          ...selectedVendor,
-          ...finalUpdates
-        };
-
-        vendors = vendors.map((vendor) => {
-          if (vendor.id === selectedVendorId) return selectedVendor;
-          return vendor;
-        });
-
+        setStatus("Saving…");
+        const final = { ...updates, updatedAt: new Date() };
+        await updateDoc(doc(db, "vendors", selectedVendorId), final);
+        selectedVendor = { ...selectedVendor, ...final };
+        vendors = vendors.map(v => v.id === selectedVendorId ? selectedVendor : v);
         renderStats();
         renderVendorList();
         openVendor(selectedVendorId, false);
-        setStatus("Saved successfully.");
-      } catch (error) {
-        console.error(error);
-        setStatus("Save failed. Check your Firestore rules and firebase.js exports.");
+        setStatus("Saved successfully.", "ok");
+      } catch (err) {
+        console.error(err);
+        setStatus("Save failed. Check Firestore rules and firebase.js exports.", "err");
       } finally {
         saveDetailsBtn.disabled = false;
       }
     }
 
     async function removeMediaUrl(type, url) {
-      if (!selectedVendor) return;
-
-      const field = type === "video" ? "videos" : "images";
-      const current = cleanArray(selectedVendor[field]);
-      const updated = current.filter((item) => item !== url);
-
-      const updates = {
-        [field]: updated
-      };
-
-      if (type === "image" && selectedVendor.coverImageUrl === url) {
-        updates.coverImageUrl = updated[0] || "";
-      }
-
+      const field   = type === "video" ? "videos" : "images";
+      const current = cleanArr(selectedVendor[field]);
+      const updated = current.filter(i => i !== url);
+      const updates = { [field]: updated };
+      if (type === "image" && selectedVendor.coverImageUrl === url) updates.coverImageUrl = updated[0] || "";
       await saveVendorUpdates(updates);
+    }
+
+    // ── Upload helpers ────────────────────────────────────────────
+    async function uploadSingleImage(file, folder, fields) {
+      if (!selectedVendorId || !file || !file.type.startsWith("image/")) {
+        setStatus("Please choose a valid image file.", "err"); return;
+      }
+      const filePath = `${folder}/${selectedVendorId}/${Date.now()}-${safeFileName(file.name)}`;
+      const fileRef  = ref(storage, filePath);
+      await uploadBytes(fileRef, file);
+      const url = await getDownloadURL(fileRef);
+      const upd = {};
+      fields.forEach(f => upd[f] = url);
+      await saveVendorUpdates(upd);
     }
 
     uploadImagesBtn.addEventListener("click", async () => {
       if (!selectedVendorId || !selectedVendor) return;
-
       const files = Array.from(imageUploadInput.files || []);
-
-      if (!files.length) {
-        uploadStatus.textContent = "Please choose at least one image.";
-        return;
-      }
-
+      if (!files.length) { uploadStatus.textContent = "Choose at least one image."; return; }
       try {
         uploadImagesBtn.disabled = true;
-        uploadStatus.textContent = "Uploading images...";
-
-        const currentImages = cleanArray(selectedVendor.images);
-        const uploadedUrls = [];
-
-        for (const file of files) {
-          if (!file.type.startsWith("image/")) continue;
-
-          const filePath = `vendor-gallery-images/${selectedVendorId}/${Date.now()}-${safeFileName(file.name)}`;
-          const fileRef = ref(storage, filePath);
-
-          await uploadBytes(fileRef, file);
-          const downloadUrl = await getDownloadURL(fileRef);
-
-          uploadedUrls.push(downloadUrl);
+        uploadStatus.textContent = "Uploading…";
+        const current = cleanArr(selectedVendor.images);
+        const urls = [];
+        for (const f of files) {
+          if (!f.type.startsWith("image/")) continue;
+          const fRef = ref(storage, `vendor-gallery-images/${selectedVendorId}/${Date.now()}-${safeFileName(f.name)}`);
+          await uploadBytes(fRef, f);
+          urls.push(await getDownloadURL(fRef));
         }
-
-        if (!uploadedUrls.length) {
-          uploadStatus.textContent = "No valid image files selected.";
-          return;
-        }
-
-        const updatedImages = [...currentImages, ...uploadedUrls];
-
-        const updates = {
-          images: updatedImages
-        };
-
-        if (!selectedVendor.coverImageUrl) {
-          updates.coverImageUrl = updatedImages[0] || "";
-        }
-
-        await saveVendorUpdates(updates);
-
-        imageUploadInput.value = "";
-        uploadStatus.textContent = "Images uploaded successfully.";
-      } catch (error) {
-        console.error(error);
-        uploadStatus.textContent = "Upload failed. Check Firebase Storage rules and firebase.js exports.";
+        if (!urls.length) { uploadStatus.textContent = "No valid image files selected."; return; }
+        const merged = [...current, ...urls];
+        const upd    = { images: merged };
+        if (!selectedVendor.coverImageUrl) upd.coverImageUrl = merged[0] || "";
+        await saveVendorUpdates(upd);
+        imageUploadInput.value   = "";
+        uploadStatus.textContent = "Images uploaded.";
+      } catch (e) {
+        console.error(e);
+        uploadStatus.textContent = "Upload failed. Check Firebase Storage rules.";
       } finally {
         uploadImagesBtn.disabled = false;
       }
     });
 
-    addImageUrlBtn?.addEventListener("click", async () => {
-      if (!selectedVendor) return;
-
-      const url = manualImageInput.value.trim();
-
-      if (!url) {
-        setStatus("Please paste an image URL first.");
-        return;
-      }
-
-      const currentImages = cleanArray(selectedVendor.images);
-
-      if (currentImages.includes(url)) {
-        setStatus("That image is already saved.");
-        return;
-      }
-
-      const updatedImages = [...currentImages, url];
-
-      const updates = {
-        images: updatedImages
-      };
-
-      if (!selectedVendor.coverImageUrl) {
-        updates.coverImageUrl = url;
-      }
-
-      manualImageInput.value = "";
-      await saveVendorUpdates(updates);
+    uploadProfileBtn.addEventListener("click", async () => {
+      const file = profileUploadInput.files?.[0];
+      if (!file) { setStatus("Choose a profile picture first.", "err"); return; }
+      try {
+        uploadProfileBtn.disabled = true;
+        setStatus("Uploading profile picture…");
+        await uploadSingleImage(file, "vendor-profile-images", ["profileImageUrl", "profilePhotoUrl"]);
+        profileUploadInput.value = "";
+        setStatus("Profile picture uploaded.", "ok");
+      } catch (e) { console.error(e); setStatus("Upload failed.", "err"); }
+      finally { uploadProfileBtn.disabled = false; }
     });
 
-    async function uploadSingleVendorImage(file, folder, fieldNames) {
-  if (!selectedVendorId || !selectedVendor || !file) return;
+    uploadLogoBtn.addEventListener("click", async () => {
+      const file = logoUploadInput.files?.[0];
+      if (!file) { setStatus("Choose a logo first.", "err"); return; }
+      try {
+        uploadLogoBtn.disabled = true;
+        setStatus("Uploading logo…");
+        await uploadSingleImage(file, "vendor-logos", ["logoUrl"]);
+        logoUploadInput.value = "";
+        setStatus("Logo uploaded.", "ok");
+      } catch (e) { console.error(e); setStatus("Upload failed.", "err"); }
+      finally { uploadLogoBtn.disabled = false; }
+    });
 
-  if (!file.type.startsWith("image/")) {
-    setStatus("Please choose a valid image file.");
-    return;
-  }
-
-  const filePath = `${folder}/${selectedVendorId}/${Date.now()}-${safeFileName(file.name)}`;
-  const fileRef = ref(storage, filePath);
-
-  await uploadBytes(fileRef, file);
-  const downloadUrl = await getDownloadURL(fileRef);
-
-  const updates = {};
-
-  fieldNames.forEach((field) => {
-    updates[field] = downloadUrl;
-  });
-
-  await saveVendorUpdates(updates);
-}
-
-uploadProfileBtn.addEventListener("click", async () => {
-  const file = profileUploadInput.files?.[0];
-
-  if (!file) {
-    setStatus("Please choose a profile picture first.");
-    return;
-  }
-
-  try {
-    uploadProfileBtn.disabled = true;
-    setStatus("Uploading profile picture...");
-
-    await uploadSingleVendorImage(file, "vendor-profile-images", [
-      "profileImageUrl",
-      "profilePhotoUrl"
-    ]);
-
-    profileUploadInput.value = "";
-    setStatus("Profile picture uploaded successfully.");
-  } catch (error) {
-    console.error(error);
-    setStatus("Profile picture upload failed. Check Firebase Storage rules.");
-  } finally {
-    uploadProfileBtn.disabled = false;
-  }
-});
-
-uploadLogoBtn.addEventListener("click", async () => {
-  const file = logoUploadInput.files?.[0];
-
-  if (!file) {
-    setStatus("Please choose a logo first.");
-    return;
-  }
-
-  try {
-    uploadLogoBtn.disabled = true;
-    setStatus("Uploading logo...");
-
-    await uploadSingleVendorImage(file, "vendor-logos", ["logoUrl"]);
-
-    logoUploadInput.value = "";
-    setStatus("Logo uploaded successfully.");
-  } catch (error) {
-    console.error(error);
-    setStatus("Logo upload failed. Check Firebase Storage rules.");
-  } finally {
-    uploadLogoBtn.disabled = false;
-  }
-});
-    
     uploadVideosBtn.addEventListener("click", async () => {
-  if (!selectedVendorId || !selectedVendor) return;
-
-  const files = Array.from(videoUploadInput.files || []);
-
-  if (!files.length) {
-    videoUploadStatus.textContent = "Please choose at least one video.";
-    return;
-  }
-
-  try {
-    uploadVideosBtn.disabled = true;
-    videoUploadStatus.textContent = "Uploading videos...";
-
-    const currentVideos = cleanArray(selectedVendor.videos);
-    const uploadedUrls = [];
-
-    for (const file of files) {
-      if (!file.type.startsWith("video/")) continue;
-
-      const filePath = `vendor-gallery-videos/${selectedVendorId}/${Date.now()}-${safeFileName(file.name)}`;
-      const fileRef = ref(storage, filePath);
-
-      await uploadBytes(fileRef, file);
-      const downloadUrl = await getDownloadURL(fileRef);
-
-      uploadedUrls.push(downloadUrl);
-    }
-
-    if (!uploadedUrls.length) {
-      videoUploadStatus.textContent = "No valid video files selected.";
-      return;
-    }
-
-    await saveVendorUpdates({
-      videos: [...currentVideos, ...uploadedUrls]
+      if (!selectedVendorId || !selectedVendor) return;
+      const files = Array.from(videoUploadInput.files || []);
+      if (!files.length) { videoUploadStatus.textContent = "Choose at least one video."; return; }
+      try {
+        uploadVideosBtn.disabled = true;
+        videoUploadStatus.textContent = "Uploading…";
+        const current = cleanArr(selectedVendor.videos);
+        const urls = [];
+        for (const f of files) {
+          if (!f.type.startsWith("video/")) continue;
+          const fRef = ref(storage, `vendor-gallery-videos/${selectedVendorId}/${Date.now()}-${safeFileName(f.name)}`);
+          await uploadBytes(fRef, f);
+          urls.push(await getDownloadURL(fRef));
+        }
+        if (!urls.length) { videoUploadStatus.textContent = "No valid video files."; return; }
+        await saveVendorUpdates({ videos: [...current, ...urls] });
+        videoUploadInput.value        = "";
+        videoUploadStatus.textContent = "Videos uploaded.";
+      } catch (e) { console.error(e); videoUploadStatus.textContent = "Upload failed."; }
+      finally { uploadVideosBtn.disabled = false; }
     });
 
-    videoUploadInput.value = "";
-    videoUploadStatus.textContent = "Videos uploaded successfully.";
-  } catch (error) {
-    console.error(error);
-    videoUploadStatus.textContent = "Video upload failed. Check Firebase Storage rules.";
-  } finally {
-    uploadVideosBtn.disabled = false;
-  }
-});
-    addVideoUrlBtn?.addEventListener("click", async () => {
-      if (!selectedVendor) return;
-
-      const url = manualVideoInput.value.trim();
-
-      if (!url) {
-        setStatus("Please paste a video URL first.");
-        return;
-      }
-
-      const currentVideos = cleanArray(selectedVendor.videos);
-
-      if (currentVideos.includes(url)) {
-        setStatus("That video is already saved.");
-        return;
-      }
-
-      manualVideoInput.value = "";
-      await saveVendorUpdates({
-        videos: [...currentVideos, url]
-      });
-    });
-
+    // ── Save details ──────────────────────────────────────────────
     saveDetailsBtn.addEventListener("click", async () => {
       const visible = publishedInput.value === "true";
-      const categories = arrayFromCommaText(categoriesInput.value);
-      const mainCategory = categoryInput.value.trim();
-
-      if (mainCategory && !categories.includes(mainCategory)) {
-        categories.unshift(mainCategory);
-      }
-
       await saveVendorUpdates({
-        businessName: businessNameInput.value.trim(),
-        email: emailInput.value.trim(),
-        phone: phoneInput.value.trim(),
-        category: mainCategory,
-        categories,
-        location: locationInput.value.trim(),
-        priceGuide: priceInput.value.trim(),
-        price: priceInput.value.trim(),
-        coverImageUrl: coverImageInput.value.trim(),
-        profileImageUrl: profileImageInput.value.trim(),
-        profilePhotoUrl: profileImageInput.value.trim(),
-        logoUrl: logoInput.value.trim(),
-        website: websiteInput.value.trim(),
-        instagram: instagramInput.value.trim(),
-        facebook: facebookInput.value.trim(),
-        tiktok: tiktokInput.value.trim(),
-
-        tagline: taglineInput.value.trim(),
+        businessName:     businessNameInput.value.trim(),
+        email:            emailInput.value.trim(),
+        phone:            phoneInput.value.trim(),
+        priceGuide:       priceInput.value.trim(),
+        price:            priceInput.value.trim(),
+        coverImageUrl:    coverImageInput.value.trim(),
+        profileImageUrl:  profileImageInput.value.trim(),
+        profilePhotoUrl:  profileImageInput.value.trim(),
+        logoUrl:          logoInput.value.trim(),
+        website:          websiteInput.value.trim(),
+        instagram:        instagramInput.value.trim(),
+        facebook:         facebookInput.value.trim(),
+        tiktok:           tiktokInput.value.trim(),
+        tagline:          taglineInput.value.trim(),
         shortDescription: taglineInput.value.trim(),
-        intro: taglineInput.value.trim(),
-
-        bio: bioInput.value.trim(),
-        about: bioInput.value.trim(),
-        description: bioInput.value.trim(),
-
-        services: servicesInput.value.trim(),
-        packages: servicesInput.value.trim(),
-        inclusions: servicesInput.value.trim(),
-
-        published: visible,
-        profileVisible: visible,
-        featured: featuredInput.value === "true",
+        intro:            taglineInput.value.trim(),
+        bio:              bioInput.value.trim(),
+        about:            bioInput.value.trim(),
+        description:      bioInput.value.trim(),
+        services:         servicesInput.value.trim(),
+        packages:         servicesInput.value.trim(),
+        inclusions:       servicesInput.value.trim(),
+        published:        visible,
+        profileVisible:   visible,
+        featured:         featuredInput.value === "true",
         subscriptionType: subscriptionInput.value,
-        subscription: subscriptionInput.value,
-        paymentStatus: paymentStatusInput.value,
-
-shopAccess: shopAccessInput.value === "true",
-foundingVendor: foundingVendorInput.value === "true",
-complimentaryPlan: foundingVendorInput.value === "true",
-plan: foundingVendorInput.value === "true" ? "complimentary" : subscriptionInput.value,
-accessType: foundingVendorInput.value === "true" ? "complimentary-invite" : "",
-
-adminNotes: adminNotesInput.value.trim()
-              });
-    });
-
-    removeAllImagesBtn?.addEventListener("click", async () => {
-      if (!selectedVendor) return;
-
-      const ok = confirm("Remove all gallery image links for this vendor?");
-      if (!ok) return;
-
-      await saveVendorUpdates({
-        images: [],
-        coverImageUrl: ""
+        subscription:     subscriptionInput.value,
+        paymentStatus:    paymentStatusInput.value,
+        shopAccess:       shopAccessInput.value === "true",
+        foundingVendor:   foundingVendorInput.value === "true",
+        complimentaryPlan:foundingVendorInput.value === "true",
+        plan:             foundingVendorInput.value === "true" ? "complimentary" : subscriptionInput.value,
+        accessType:       foundingVendorInput.value === "true" ? "complimentary-invite" : "",
+        adminNotes:       adminNotesInput.value.trim()
       });
     });
 
-    removeAllVideosBtn?.addEventListener("click", async () => {
-      if (!selectedVendor) return;
-
-      const ok = confirm("Remove all gallery video links for this vendor?");
-      if (!ok) return;
-
-      await saveVendorUpdates({
-        videos: []
-      });
-    });
-
-    searchInput.addEventListener("input", renderVendorList);
+    // ── Event listeners ───────────────────────────────────────────
+    searchInput.addEventListener("input",  renderVendorList);
     filterInput.addEventListener("change", renderVendorList);
-    sortInput.addEventListener("change", renderVendorList);
-    refreshBtn.addEventListener("click", loadVendors);
+    sortInput.addEventListener("change",   renderVendorList);
+    refreshBtn.addEventListener("click",   loadVendors);
 
-    onAuthStateChanged(auth, async (user) => {
+    // ── Auth ──────────────────────────────────────────────────────
+    onAuthStateChanged(auth, async user => {
       if (!user) {
-        authStatus.innerHTML = `Please log in first: <a href="login.html">Log in</a>`;
+        authStatus.className  = "auth-status err";
+        authStatus.innerHTML  = `Please log in first: <a href="login.html">Log in</a>`;
         hide(adminTools);
         return;
       }
-
       if (!isAdmin(user)) {
-        authStatus.textContent = "You are logged in, but this account is not approved for admin access.";
+        authStatus.className = "auth-status err";
+        authStatus.textContent = "Logged in, but this account is not approved for admin access.";
         hide(adminTools);
         return;
       }
-
+      authStatus.className  = "auth-status ok";
       authStatus.textContent = `Admin access approved: ${user.email}`;
       show(adminTools);
-
-      try {
-        await loadVendors();
-      } catch (error) {
-        console.error(error);
-        authStatus.textContent = "Could not load vendors. Check your Firestore rules, Storage rules, and firebase.js exports.";
+      try { await loadVendors(); }
+      catch (e) {
+        console.error(e);
+        authStatus.className  = "auth-status err";
+        authStatus.textContent = "Could not load vendors. Check Firestore rules and firebase.js exports.";
       }
     });
   </script>
