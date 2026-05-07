@@ -5,15 +5,54 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Couple Dashboard | Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
   <style>
-    html {
-      scroll-behavior: smooth;
+    /* ── Tokens ── */
+    :root {
+      --lux-espresso: #3b2f2a;
+      --lux-rose:     #c8a6a1;
+      --lux-champagne:#c6a77d;
+      --lux-cream:    #fffaf7;
+      --lux-blush:    #f4e7df;
+      --lux-border:   rgba(216, 197, 189, 0.55);
+      --lux-muted:    #9b8579;
+      --lux-shadow:   rgba(59, 47, 42, 0.08);
     }
 
+    html { scroll-behavior: smooth; }
+
+    body {
+      background:
+        radial-gradient(circle at top left, rgba(200, 166, 161, 0.13), transparent 34%),
+        radial-gradient(circle at bottom right, rgba(198, 167, 125, 0.08), transparent 36%),
+        #f7f1ed;
+      min-height: 100vh;
+    }
+
+    /* ── Fade-up animation ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes heroFadeIn {
+      from { opacity: 0; transform: scale(1.02); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50%       { transform: scale(1.18); }
+    }
+    @keyframes shimmer {
+      0%   { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+
+    /* ── TOPBAR ── */
     .couple-topbar {
-      max-width: 1180px;
-      margin: 10px auto 24px;
-      padding: 0 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 18px 24px 0;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -24,140 +63,199 @@
     .couple-topbar-home {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
       text-decoration: none;
       flex: 0 0 auto;
     }
 
     .couple-topbar-logo {
-      width: 96px;
-      height: 96px;
+      width: 88px;
+      height: 88px;
       object-fit: contain;
       display: block;
+      transition: transform 0.3s ease;
     }
+    .couple-topbar-logo:hover { transform: scale(1.04); }
 
-    .couple-topbar-text {
-      flex: 1;
-      text-align: left;
-      min-width: 220px;
-    }
+    .couple-topbar-text { flex: 1; min-width: 200px; }
 
     .couple-topbar-kicker {
-      margin: 0 0 6px;
+      margin: 0 0 5px;
       font-size: 0.76rem;
-      letter-spacing: 0.22em;
+      letter-spacing: 0.28em;
       text-transform: uppercase;
-      color: #b59b8d;
+      color: #b08d7d;
+      opacity: 0.85;
     }
 
     .couple-topbar-title {
       margin: 0;
-      font-size: clamp(1.7rem, 3vw, 2.5rem);
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      color: var(--lux-espresso);
       line-height: 1.05;
-      letter-spacing: -0.02em;
-      color: #3f2d28;
     }
 
     .couple-topbar-actions {
       display: flex;
-      gap: 12px;
+      gap: 10px;
       flex-wrap: wrap;
       justify-content: flex-end;
     }
 
-    .couple-topbar-actions .auth-link,
-    .couple-topbar-actions .auth-button {
+    .topbar-pill {
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      padding: 10px 18px;
+      border-radius: 999px;
       text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
     }
 
+    .topbar-pill-ghost {
+      background: rgba(255,250,247,0.9);
+      border: 1px solid var(--lux-border);
+      color: var(--lux-espresso);
+    }
+    .topbar-pill-ghost:hover {
+      background: var(--lux-blush);
+      transform: translateY(-1px);
+    }
+
+    .topbar-pill-solid {
+      background: linear-gradient(135deg, #d6b19a, #a97c66);
+      border: none;
+      color: #fffaf7;
+      box-shadow: 0 8px 20px rgba(185,143,122,0.22);
+      cursor: pointer;
+      font: inherit;
+    }
+    .topbar-pill-solid:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 28px rgba(185,143,122,0.28);
+      filter: brightness(1.04);
+    }
+
+    /* ── PAGE SHELL ── */
     .couple-page-shell {
-      max-width: 1180px;
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 0 20px 60px;
+      padding: 24px 24px 80px;
       display: grid;
-      gap: 22px;
+      gap: 28px;
     }
 
+    /* ── SECTION KICKER ── */
+    .section-kicker-wrap {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .section-kicker {
+      font-size: 0.74rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: #b08d7d;
+      white-space: nowrap;
+    }
+    .section-kicker-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(200,166,161,0.4), transparent);
+    }
+
+    /* ── JUMP NAV ── */
     .dashboard-jump-nav {
       display: flex;
-      gap: 10px;
+      gap: 8px;
       flex-wrap: wrap;
       justify-content: center;
-      margin-top: -4px;
     }
 
     .dashboard-jump-link {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      padding: 11px 16px;
+      gap: 6px;
+      padding: 10px 16px;
       border-radius: 999px;
       text-decoration: none;
-      background: #fffaf8;
-      border: 1px solid rgba(216, 197, 189, 0.65);
+      background: rgba(255,250,247,0.9);
+      border: 1px solid var(--lux-border);
       color: #6e5a52;
-      font-size: 0.92rem;
-      transition: 0.18s ease;
-      box-shadow: 0 10px 24px rgba(74, 49, 42, 0.04);
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: all 0.18s ease;
+      box-shadow: 0 4px 12px var(--lux-shadow);
     }
-
     .dashboard-jump-link:hover {
-      transform: translateY(-1px);
-      background: #f6ece7;
+      background: var(--lux-blush);
+      border-color: rgba(198,167,125,0.5);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 22px var(--lux-shadow);
     }
+    .jump-icon { font-size: 0.9rem; }
 
-    .couple-hero-card,
-    .dashboard-card,
-    .mini-panel,
-    .vision-upload-card,
-    .vendor-card-public,
-    .board-item,
-    .account-card-inner,
-    .planning-card-inner,
-    .security-card-inner {
-      border: 1px solid rgba(216, 197, 189, 0.45);
-      box-shadow: 0 16px 40px rgba(74, 49, 42, 0.06);
-    }
-
-    .couple-hero-card,
-    .dashboard-card {
-      background: linear-gradient(180deg, #faf4f1 0%, #fdfaf8 100%);
-      border-radius: 28px;
-    }
-
+    /* ── HERO CARD ── */
     .couple-hero-card {
-      padding: 34px 30px;
+      border-radius: 32px;
+      border: 1px solid rgba(227,219,212,0.9);
+      box-shadow: 0 24px 70px var(--lux-shadow);
+      background:
+        radial-gradient(circle at top left, rgba(200,166,161,0.18), transparent 34%),
+        linear-gradient(135deg, #fffaf7, #f4ebe5);
+      padding: 36px 32px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .couple-hero-card::before {
+      content: "♡";
+      position: absolute;
+      right: 32px;
+      top: 24px;
+      font-size: 6rem;
+      color: rgba(200,166,161,0.12);
+      line-height: 1;
+      pointer-events: none;
+      animation: heartbeat 3.5s ease-in-out infinite;
     }
 
     .couple-hero-grid {
       display: grid;
-      grid-template-columns: 290px 1fr;
-      gap: 24px;
+      grid-template-columns: 200px 1fr;
+      gap: 28px;
       align-items: center;
     }
 
+    /* Profile photo */
     .profile-card {
-      background: #fffdfb;
-      border-radius: 24px;
-      padding: 22px;
       text-align: center;
-      border: 1px solid rgba(221, 206, 200, 0.7);
     }
 
     .profile-photo-wrap {
-      width: 168px;
-      height: 168px;
+      width: 160px;
+      height: 160px;
       border-radius: 50%;
       overflow: hidden;
-      margin: 0 auto 16px;
-      border: 4px solid #f0dfd7;
-      background: #f7ece8;
+      margin: 0 auto 14px;
+      border: 4px solid rgba(200,166,161,0.4);
+      background: var(--lux-blush);
       display: flex;
       align-items: center;
       justify-content: center;
+      box-shadow: 0 12px 32px rgba(59,47,42,0.1);
+      position: relative;
+      cursor: pointer;
+      transition: box-shadow 0.25s ease, transform 0.25s ease;
+    }
+    .profile-photo-wrap:hover {
+      transform: scale(1.03);
+      box-shadow: 0 18px 42px rgba(59,47,42,0.14);
     }
 
     .profile-photo-wrap img {
@@ -168,235 +266,275 @@
     }
 
     .profile-placeholder {
-      color: #9a7e73;
-      font-size: 0.95rem;
+      color: var(--lux-muted);
+      font-size: 0.85rem;
       line-height: 1.5;
-      padding: 20px;
+      padding: 16px;
       text-align: center;
     }
+
+    .profile-photo-hover-label {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: rgba(59,47,42,0.42);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fffaf7;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      pointer-events: none;
+    }
+    .profile-photo-wrap:hover .profile-photo-hover-label { opacity: 1; }
 
     .upload-label {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-width: 150px;
-      padding: 11px 16px;
-      background: #ead7ce;
-      color: #3f2d28;
+      padding: 9px 18px;
+      background: rgba(255,250,247,0.92);
+      color: #5b4540;
       border-radius: 999px;
       cursor: pointer;
-      border: none;
-      text-decoration: none;
-      transition: 0.18s ease;
+      border: 1px solid var(--lux-border);
+      font-size: 0.84rem;
+      font-weight: 600;
+      transition: all 0.18s ease;
     }
-
-    .upload-label:hover,
-    .soft-pill-button:hover,
-    .board-delete:hover,
-    .board-upload-button:hover,
-    .remove-favourite-btn:hover,
-    .account-save-btn:hover,
-    .todo-add-btn:hover,
-    .todo-delete-btn:hover,
-    .calendar-nav:hover,
-    .favourite-filter:hover,
-    .security-save-btn:hover {
+    .upload-label:hover {
+      background: var(--lux-blush);
       transform: translateY(-1px);
     }
 
-    .hidden-input {
-      display: none;
-    }
+    .hidden-input { display: none; }
 
     .profile-help {
-      margin: 10px 0 0;
-      color: #8e7369;
-      font-size: 0.92rem;
-      line-height: 1.6;
-      min-height: 24px;
+      margin: 8px 0 0;
+      color: var(--lux-muted);
+      font-size: 0.84rem;
+      line-height: 1.5;
+      min-height: 20px;
     }
 
+    /* Hero copy */
     .hero-copy {
       text-align: left;
     }
 
+    .hero-copy > * {
+      animation: fadeUp 0.7s ease forwards;
+      opacity: 0;
+    }
+    .hero-copy > *:nth-child(1) { animation-delay: 0.05s; }
+    .hero-copy > *:nth-child(2) { animation-delay: 0.12s; }
+    .hero-copy > *:nth-child(3) { animation-delay: 0.2s; }
+    .hero-copy > *:nth-child(4) { animation-delay: 0.28s; }
+
+    .hero-copy-kicker {
+      margin: 0 0 10px;
+      font-size: 0.76rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: #b08d7d;
+    }
+
     .hero-copy h1 {
-      margin: 0 0 12px;
+      margin: 0 0 10px;
+      font-family: "Cormorant Garamond", serif;
       font-size: clamp(2rem, 4vw, 3.2rem);
-      line-height: 1.08;
-      color: #3f2d28;
+      font-weight: 500;
+      line-height: 1.05;
+      letter-spacing: -0.035em;
+      color: var(--lux-espresso);
+    }
+
+    .hero-copy-script {
+      margin: 0 0 16px;
+      font-family: "Cormorant Garamond", serif;
+      font-style: italic;
+      font-size: 1.2rem;
+      color: #c69b84;
+      opacity: 0.9;
     }
 
     .hero-copy p {
       margin: 0;
-      color: #8d7369;
-      font-size: 1.04rem;
-      line-height: 1.75;
-      max-width: 58ch;
+      color: var(--lux-muted);
+      font-size: 0.97rem;
+      line-height: 1.8;
+      max-width: 52ch;
     }
 
     .hero-actions {
       display: flex;
-      gap: 12px;
-      margin-top: 22px;
+      gap: 10px;
+      margin-top: 20px;
       flex-wrap: wrap;
     }
 
-    .soft-pill-button {
+    .hero-cta-primary {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-width: 145px;
-      padding: 12px 18px;
+      padding: 12px 22px;
       border-radius: 999px;
       text-decoration: none;
-      background: #ead7ce;
-      color: #3f2d28;
-      transition: 0.18s ease;
+      background: linear-gradient(135deg, #d6b19a, #a97c66);
+      color: #fffaf7;
+      font-weight: 700;
+      font-size: 0.92rem;
+      box-shadow: 0 10px 24px rgba(185,143,122,0.22);
+      transition: all 0.18s ease;
+    }
+    .hero-cta-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 32px rgba(185,143,122,0.3);
+      filter: brightness(1.04);
     }
 
+    .hero-cta-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 22px;
+      border-radius: 999px;
+      text-decoration: none;
+      background: rgba(255,250,247,0.9);
+      border: 1px solid var(--lux-border);
+      color: var(--lux-espresso);
+      font-weight: 600;
+      font-size: 0.92rem;
+      transition: all 0.18s ease;
+    }
+    .hero-cta-secondary:hover {
+      background: var(--lux-blush);
+      transform: translateY(-2px);
+    }
+
+    /* ── DASHBOARD CARDS ── */
     .dashboard-card {
-      padding: 28px 26px;
+      background: rgba(255,250,247,0.92);
+      border-radius: 28px;
+      border: 1px solid rgba(223,210,200,0.9);
+      box-shadow: 0 8px 28px var(--lux-shadow);
+      padding: 32px 28px;
+      transition: box-shadow 0.28s ease;
+    }
+
+    .dashboard-card:hover {
+      box-shadow: 0 16px 48px rgba(59,47,42,0.1);
     }
 
     .dashboard-card h2 {
-      margin: 0 0 10px;
-      color: #3f2d28;
-      font-size: clamp(1.7rem, 3vw, 2.25rem);
-      text-align: center;
+      margin: 0 0 6px;
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(1.7rem, 3vw, 2.2rem);
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      color: var(--lux-espresso);
     }
 
     .dashboard-subtext {
-      margin: 0 0 22px;
-      color: #94786d;
-      text-align: center;
-      line-height: 1.7;
+      margin: 0 0 24px;
+      color: var(--lux-muted);
+      line-height: 1.75;
+      font-size: 0.95rem;
     }
 
-    .account-card-inner,
-    .planning-card-inner,
-    .security-card-inner {
-      max-width: 760px;
-      margin: 0 auto;
-      background: #fffdfb;
-      border-radius: 24px;
-      padding: 22px;
+    /* ── INNER PANELS ── */
+    .inner-panel {
+      background: linear-gradient(180deg, #fffdfb 0%, #fff8f3 100%);
+      border-radius: 22px;
+      border: 1px solid rgba(223,210,200,0.7);
+      padding: 24px 22px;
+      box-shadow: 0 4px 16px rgba(59,47,42,0.03);
     }
 
-    .account-form,
-    .planning-form-grid,
-    .security-form {
-      display: grid;
-      gap: 14px;
-    }
-
-    .account-two-col,
-    .planning-two-col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
-
-    .account-form input,
-    .planning-form-grid input,
-    .vision-form textarea,
-    .todo-input,
-    .favourite-filter,
-    .security-form input {
-      width: 100%;
-      border-radius: 18px;
-      border: 1px solid rgba(212, 194, 186, 0.8);
-      padding: 14px 15px;
-      font: inherit;
-      background: #fff;
-      color: #3f2d28;
-      box-sizing: border-box;
-    }
-
-    .account-form input:focus,
-    .planning-form-grid input:focus,
-    .vision-form textarea:focus,
-    .todo-input:focus,
-    .favourite-filter:focus,
-    .security-form input:focus {
-      outline: none;
-      border-color: #caaea2;
-      box-shadow: 0 0 0 4px rgba(234, 215, 206, 0.45);
-    }
-
-    .account-save-btn,
-    .todo-add-btn,
-    .board-upload-button,
-    .security-save-btn {
-      border: none;
-      background: #ead7ce;
-      color: #3f2d28;
-      border-radius: 999px;
-      padding: 12px 16px;
-      cursor: pointer;
-      font: inherit;
-      transition: 0.18s ease;
-    }
-
-    .account-status,
-    .todo-status,
-    .security-status {
-      margin: 0;
-      min-height: 24px;
-      color: #8f746a;
-      font-size: 0.93rem;
-      line-height: 1.6;
-      text-align: center;
-    }
-
-    .security-help {
-      margin: 0;
-      color: #8f746a;
-      font-size: 0.93rem;
-      line-height: 1.7;
-      text-align: center;
-    }
-
+    /* ── PLANNING LAYOUT ── */
     .planning-layout {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 18px;
+      gap: 20px;
       align-items: start;
     }
 
-    .calendar-box,
-    .todo-box {
-      background: #fffaf8;
-      border: 1px solid #efe1d6;
+    /* Calendar */
+    .calendar-box {
+      background: linear-gradient(180deg, #fffdfb, #fff8f3);
+      border: 1px solid rgba(223,210,200,0.7);
       border-radius: 22px;
-      padding: 18px;
+      padding: 22px;
+    }
+
+    .calendar-date-input-wrap {
+      margin-bottom: 16px;
+    }
+
+    .calendar-date-input-wrap label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #8d7369;
+    }
+
+    .calendar-date-input-wrap input {
+      width: 100%;
+      border: 1px solid #eadfd6;
+      border-radius: 14px;
+      background: #fffdfb;
+      padding: 12px 14px;
+      font-size: 0.95rem;
+      color: #2d221c;
+      box-sizing: border-box;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .calendar-date-input-wrap input:focus {
+      outline: none;
+      border-color: #d6bcad;
+      box-shadow: 0 0 0 4px rgba(217,194,178,0.16);
     }
 
     .calendar-header {
       display: grid;
-      grid-template-columns: 44px 1fr 44px;
+      grid-template-columns: 40px 1fr 40px;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       margin-bottom: 14px;
     }
 
     .calendar-nav {
-      width: 44px;
-      height: 44px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
-      border: 1px solid #eadfd6;
-      background: rgba(255,255,255,0.92);
+      border: 1px solid rgba(223,210,200,0.8);
+      background: rgba(255,250,247,0.95);
       color: #534740;
       cursor: pointer;
-      font-size: 1rem;
-      box-shadow: 0 6px 16px rgba(62, 44, 34, 0.05);
-      transition: 0.18s ease;
+      font-size: 1.1rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.18s ease;
+      box-shadow: 0 4px 12px rgba(59,47,42,0.04);
+    }
+    .calendar-nav:hover {
+      background: var(--lux-blush);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 18px rgba(59,47,42,0.08);
     }
 
     .calendar-month-label {
       text-align: center;
-      font-size: 1.02rem;
-      font-weight: 700;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1.1rem;
+      font-weight: 600;
       color: #5c4d45;
       letter-spacing: 0.02em;
     }
@@ -405,16 +543,13 @@
     .calendar-grid {
       display: grid;
       grid-template-columns: repeat(7, minmax(0, 1fr));
-      gap: 8px;
+      gap: 6px;
     }
-
-    .calendar-weekdays {
-      margin-bottom: 8px;
-    }
+    .calendar-weekdays { margin-bottom: 6px; }
 
     .calendar-weekday {
       text-align: center;
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       font-weight: 700;
       color: #aa998f;
       text-transform: uppercase;
@@ -424,76 +559,138 @@
 
     .calendar-day {
       position: relative;
-      min-height: 58px;
-      border-radius: 16px;
+      min-height: 52px;
+      border-radius: 14px;
       border: 1px solid #efe3da;
       background: rgba(255,255,255,0.88);
       color: #4e433d;
-      padding: 8px 10px;
+      padding: 7px 8px;
       cursor: pointer;
       display: flex;
       align-items: flex-start;
       justify-content: flex-end;
-      transition: 0.18s ease;
-      box-shadow: 0 6px 14px rgba(62, 44, 34, 0.03);
+      transition: all 0.18s ease;
     }
-
     .calendar-day:hover {
-      box-shadow: 0 10px 18px rgba(62, 44, 34, 0.07);
+      border-color: rgba(198,167,125,0.5);
+      box-shadow: 0 6px 16px rgba(59,47,42,0.07);
+      transform: translateY(-1px);
     }
-
     .calendar-day.empty {
       background: transparent;
       border: none;
-      box-shadow: none;
       cursor: default;
+      transform: none;
+      box-shadow: none;
     }
-
     .calendar-day.today {
-      box-shadow: inset 0 0 0 2px #d8bfae;
+      box-shadow: inset 0 0 0 2px rgba(198,167,125,0.55);
     }
-
     .calendar-day.selected {
-      background: linear-gradient(180deg, #332f2c 0%, #24211f 100%);
+      background: linear-gradient(160deg, #3b2f2a, #2a211d);
       border-color: #2d2926;
       color: white;
-      box-shadow: 0 14px 24px rgba(31, 27, 24, 0.16);
+      box-shadow: 0 12px 26px rgba(31,27,24,0.2);
+      transform: translateY(-2px);
     }
-
-    .calendar-day .calendar-number {
-      font-size: 0.92rem;
+    .calendar-number {
+      font-size: 0.88rem;
       font-weight: 600;
       line-height: 1;
     }
-
     .calendar-heart {
       position: absolute;
-      left: 10px;
-      bottom: 10px;
-      font-size: 0.78rem;
-      opacity: 0.8;
+      left: 8px;
+      bottom: 8px;
+      font-size: 0.74rem;
+      opacity: 0.85;
     }
 
     .calendar-note {
       margin-top: 14px;
-      padding: 14px 16px;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.8);
-      border: 1px solid #ede2d8;
+      padding: 13px 16px;
+      border-radius: 16px;
+      background: rgba(244,231,223,0.5);
+      border: 1px solid rgba(223,210,200,0.6);
       color: #5e5047;
-      font-size: 0.93rem;
-      line-height: 1.6;
+      font-size: 0.9rem;
+      line-height: 1.65;
+      font-style: italic;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1rem;
+    }
+
+    /* To-do */
+    .todo-box {
+      background: linear-gradient(180deg, #fffdfb, #fff8f3);
+      border: 1px solid rgba(223,210,200,0.7);
+      border-radius: 22px;
+      padding: 22px;
+    }
+
+    .todo-box-title {
+      margin: 0 0 14px;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: var(--lux-espresso);
     }
 
     .todo-form {
       display: grid;
-      gap: 12px;
+      gap: 10px;
+    }
+
+    .todo-input {
+      width: 100%;
+      border: 1px solid #eadfd6;
+      border-radius: 14px;
+      background: #fffdfb;
+      padding: 12px 14px;
+      font: inherit;
+      font-size: 0.95rem;
+      color: #2d221c;
+      box-sizing: border-box;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .todo-input:focus {
+      outline: none;
+      border-color: #d6bcad;
+      box-shadow: 0 0 0 4px rgba(217,194,178,0.16);
+    }
+
+    .todo-add-btn {
+      width: 100%;
+      border: none;
+      background: linear-gradient(135deg, #d6b19a, #a97c66);
+      color: #fffaf7;
+      border-radius: 999px;
+      padding: 12px 16px;
+      cursor: pointer;
+      font: inherit;
+      font-weight: 700;
+      font-size: 0.9rem;
+      box-shadow: 0 8px 20px rgba(185,143,122,0.2);
+      transition: all 0.18s ease;
+    }
+    .todo-add-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 28px rgba(185,143,122,0.28);
+      filter: brightness(1.04);
+    }
+
+    .todo-status {
+      margin: 0;
+      min-height: 20px;
+      color: var(--lux-muted);
+      font-size: 0.88rem;
+      text-align: center;
     }
 
     .todo-list {
       display: grid;
-      gap: 10px;
-      margin-top: 14px;
+      gap: 8px;
+      margin-top: 16px;
     }
 
     .todo-item {
@@ -501,272 +698,219 @@
       grid-template-columns: auto 1fr auto;
       gap: 10px;
       align-items: center;
-      background: #fff;
+      background: rgba(255,255,255,0.88);
       border: 1px solid #eadfd6;
-      border-radius: 16px;
+      border-radius: 14px;
       padding: 12px 14px;
+      transition: all 0.18s ease;
     }
+    .todo-item:hover {
+      border-color: rgba(198,167,125,0.4);
+      box-shadow: 0 4px 12px rgba(59,47,42,0.05);
+    }
+    .todo-item.done { opacity: 0.65; }
+    .todo-item.done .todo-text { text-decoration: line-through; color: #a29086; }
 
-    .todo-item.done .todo-text {
-      text-decoration: line-through;
-      color: #a29086;
-    }
-
-    .todo-check {
-      width: 18px;
-      height: 18px;
-    }
+    .todo-check { width: 17px; height: 17px; cursor: pointer; }
 
     .todo-text {
       color: #4a3c35;
       line-height: 1.5;
       word-break: break-word;
+      font-size: 0.94rem;
     }
 
     .todo-delete-btn {
       border: none;
-      background: #f1ddd4;
+      background: rgba(244,229,222,0.8);
       color: #6d4f45;
-      border-radius: 999px;
-      padding: 7px 10px;
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
       cursor: pointer;
       font: inherit;
-      transition: 0.18s ease;
-    }
-
-    .favourites-topbar {
-      max-width: 360px;
-      margin: 0 auto 22px;
-    }
-
-    .vendors-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 18px;
-    }
-
-    .vendor-card-public {
-      background: #fffdfb;
-      border-radius: 22px;
-      overflow: hidden;
-      transition: transform 0.18s ease, box-shadow 0.18s ease;
-    }
-
-    .vendor-card-public:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 18px 34px rgba(74, 49, 42, 0.08);
-    }
-
-    .vendor-card-image-wrap {
-      width: 100%;
-      aspect-ratio: 4 / 3;
-      background: #f4ece8;
-      overflow: hidden;
-      border-radius: 22px 22px 0 0;
-    }
-
-    .vendor-card-image-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .vendor-card-public-inner {
-      padding: 22px;
-    }
-
-    .vendor-card-top h3 {
-      margin: 0 0 6px;
-      color: #3f2d28;
-      font-size: 1.22rem;
-      line-height: 1.2;
-    }
-
-    .vendor-card-location {
-      margin: 0 0 14px;
-      color: #a08479;
-      font-size: 0.94rem;
-    }
-
-    .vendor-card-bio {
-      margin: 0 0 18px;
-      color: #6f5c55;
-      line-height: 1.7;
-      font-size: 0.98rem;
-    }
-
-    .vendor-card-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 18px;
-    }
-
-    .vendor-tag {
+      font-size: 1rem;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      background: #f4e5de;
-      color: #805f54;
-      padding: 8px 12px;
-      border-radius: 999px;
-      font-size: 0.84rem;
-      line-height: 1;
-      border: 1px solid rgba(207, 178, 166, 0.45);
+      transition: all 0.18s ease;
+    }
+    .todo-delete-btn:hover {
+      background: #f1ddd4;
+      transform: scale(1.1);
     }
 
-    .vendor-card-links {
-      display: grid;
-      gap: 10px;
-    }
-
-    .vendor-card-links .pretty-button.small-button,
-    .remove-favourite-btn {
-      width: 100%;
-      text-align: center;
-      text-decoration: none;
-      border-radius: 999px;
-      padding: 12px 14px;
-      font: inherit;
-      cursor: pointer;
-      box-sizing: border-box;
-    }
-
-    .remove-favourite-btn {
-      border: 1px solid rgba(214, 184, 191, 0.7);
-      background: #fff7f9;
-      color: #9d6778;
-      transition: 0.18s ease;
-    }
-
-    .empty-message {
-      text-align: center;
-      margin: 16px 0 0;
-      color: #8f746a;
-      font-size: 1rem;
-      line-height: 1.7;
-    }
-
+    /* ── VISION BOARD ── */
     .vision-layout {
       display: grid;
-      grid-template-columns: 330px 1fr;
+      grid-template-columns: 300px 1fr;
       gap: 22px;
       align-items: start;
     }
 
-    .vision-upload-card,
-    .mini-panel {
-      background: #fffdfb;
-      border-radius: 24px;
-      padding: 22px;
+    .vision-sidebar { display: grid; gap: 16px; }
+
+    .vision-upload-card {
+      background: linear-gradient(180deg, #fffdfb, #fff8f3);
+      border: 1px solid rgba(223,210,200,0.7);
+      border-radius: 22px;
+      padding: 24px 22px;
     }
 
-    .vision-upload-card h3,
-    .mini-panel h3 {
-      margin: 0 0 10px;
-      color: #3f2d28;
-      font-size: 1.25rem;
+    .vision-upload-card h3 {
+      margin: 0 0 8px;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: var(--lux-espresso);
     }
 
-    .vision-upload-card p,
-    .mini-panel p {
+    .vision-upload-card p {
       margin: 0 0 16px;
-      color: #8f746a;
+      color: var(--lux-muted);
       line-height: 1.7;
+      font-size: 0.92rem;
     }
 
-    .vision-form {
-      display: grid;
-      gap: 14px;
-    }
+    .vision-form { display: grid; gap: 12px; }
 
-    .vision-preview-wrap {
-      display: none;
-      background: #fff8f4;
-      border: 1px solid #eadfd6;
-      border-radius: 20px;
-      padding: 12px;
-    }
-
-    .vision-preview-wrap.active {
-      display: block;
-    }
-
-    .vision-preview-wrap img {
+    .vision-form textarea {
       width: 100%;
-      display: block;
-      border-radius: 16px;
-      max-height: 260px;
-      object-fit: cover;
+      border: 1px solid #eadfd6;
+      border-radius: 14px;
+      background: #fffdfb;
+      padding: 12px 14px;
+      font: inherit;
+      font-size: 0.92rem;
+      color: #2d221c;
+      box-sizing: border-box;
+      resize: vertical;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .vision-form textarea:focus {
+      outline: none;
+      border-color: #d6bcad;
+      box-shadow: 0 0 0 4px rgba(217,194,178,0.16);
     }
 
     .vision-file-note {
       margin: 0;
-      color: #8f746a;
-      font-size: 0.92rem;
-      line-height: 1.6;
-      min-height: 22px;
+      color: var(--lux-muted);
+      font-size: 0.86rem;
+      line-height: 1.5;
       word-break: break-word;
+    }
+
+    .vision-preview-wrap {
+      display: none;
+      background: rgba(244,231,223,0.5);
+      border: 1px solid rgba(223,210,200,0.6);
+      border-radius: 16px;
+      padding: 10px;
+      overflow: hidden;
+    }
+    .vision-preview-wrap.active { display: block; }
+    .vision-preview-wrap img {
+      width: 100%;
+      display: block;
+      border-radius: 12px;
+      max-height: 200px;
+      object-fit: cover;
+    }
+
+    .board-upload-button {
+      width: 100%;
+      border: none;
+      background: linear-gradient(135deg, #d6b19a, #a97c66);
+      color: #fffaf7;
+      border-radius: 999px;
+      padding: 12px 16px;
+      cursor: pointer;
+      font: inherit;
+      font-weight: 700;
+      font-size: 0.9rem;
+      box-shadow: 0 8px 20px rgba(185,143,122,0.2);
+      transition: all 0.18s ease;
+    }
+    .board-upload-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 28px rgba(185,143,122,0.28);
+      filter: brightness(1.04);
     }
 
     .upload-status {
       margin: 0;
-      min-height: 24px;
-      color: #8f746a;
-      font-size: 0.93rem;
-      line-height: 1.6;
+      min-height: 20px;
+      color: var(--lux-muted);
+      font-size: 0.88rem;
+      text-align: center;
     }
 
-    .mini-panel-soft {
+    .mini-panel {
+      background: rgba(244,231,223,0.4);
+      border: 1px solid rgba(223,210,200,0.6);
+      border-radius: 20px;
+      padding: 20px;
+    }
+    .mini-panel h3 {
+      margin: 0 0 8px;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--lux-espresso);
+    }
+    .mini-panel p {
       margin: 0;
-      color: #8f746a;
-      line-height: 1.8;
+      color: var(--lux-muted);
+      line-height: 1.75;
+      font-size: 0.9rem;
     }
 
+    /* Masonry grid */
     .vision-board-grid {
-      columns: 4 220px;
-      column-gap: 18px;
+      columns: 3 200px;
+      column-gap: 16px;
     }
 
     .board-item {
       break-inside: avoid;
-      margin-bottom: 18px;
-      background: #fffdfb;
-      border-radius: 22px;
+      margin-bottom: 16px;
+      background: rgba(255,253,251,0.95);
+      border: 1px solid rgba(223,210,200,0.7);
+      border-radius: 20px;
       overflow: hidden;
       position: relative;
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
     }
-
+    .board-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 40px rgba(59,47,42,0.1);
+    }
     .board-item img {
       width: 100%;
       display: block;
       height: auto;
-      background: #f4ece8;
+      background: var(--lux-blush);
     }
-
-    .board-item-body {
-      padding: 14px 16px 16px;
-    }
+    .board-item-body { padding: 14px 16px 16px; }
 
     .board-item-title {
-      margin: 0 0 8px;
-      color: #3f2d28;
-      font-size: 1rem;
-      line-height: 1.35;
+      margin: 0 0 6px;
+      color: var(--lux-espresso);
+      font-size: 0.98rem;
+      font-weight: 600;
+      line-height: 1.3;
     }
-
     .board-item-subtitle {
-      margin: 0 0 12px;
+      margin: 0 0 10px;
       color: #9a7c70;
-      font-size: 0.9rem;
-      line-height: 1.5;
+      font-size: 0.87rem;
     }
-
     .board-item-caption {
       margin: 0;
       color: #6e5b54;
-      line-height: 1.6;
+      line-height: 1.65;
+      font-size: 0.9rem;
       white-space: pre-wrap;
       word-break: break-word;
     }
@@ -778,56 +922,43 @@
       opacity: 0;
       transition: opacity 0.18s ease;
     }
-
-    .board-item:hover .board-overlay {
-      opacity: 1;
-    }
+    .board-item:hover .board-overlay { opacity: 1; }
 
     .board-overlay-top {
       position: absolute;
-      top: 12px;
-      left: 12px;
-      right: 12px;
+      top: 10px;
+      left: 10px;
+      right: 10px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
       pointer-events: none;
     }
-
     .board-chip,
     .board-link,
-    .board-delete {
-      pointer-events: auto;
-    }
+    .board-delete { pointer-events: auto; }
 
     .board-chip {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      background: rgba(36, 33, 31, 0.78);
+      background: rgba(36,33,31,0.78);
       color: #fff;
-      padding: 8px 12px;
+      padding: 6px 12px;
       border-radius: 999px;
-      font-size: 0.74rem;
-      line-height: 1;
-      border: 1px solid rgba(255,255,255,0.18);
-      backdrop-filter: blur(3px);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
     }
 
-    .board-actions {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-      margin-left: auto;
-    }
+    .board-actions { display: flex; gap: 6px; margin-left: auto; }
 
     .board-link,
     .board-delete {
-      width: 34px;
-      height: 34px;
+      width: 32px;
+      height: 32px;
       border: none;
-      background: rgba(36, 33, 31, 0.78);
+      background: rgba(36,33,31,0.78);
       color: #fff;
       border-radius: 50%;
       cursor: pointer;
@@ -836,188 +967,299 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      transition: 0.18s ease;
-      backdrop-filter: blur(3px);
+      transition: background 0.18s ease, transform 0.18s ease;
+    }
+    .board-link:hover,
+    .board-delete:hover {
+      background: rgba(59,47,42,0.95);
+      transform: scale(1.08);
     }
 
-    .board-delete {
-      font-size: 1rem;
-      line-height: 1;
+    /* ── FAVOURITES ── */
+    .favourites-topbar {
+      max-width: 340px;
+      margin: 0 auto 22px;
     }
 
-    @media (max-width: 920px) {
-      .couple-topbar {
-        padding: 0 20px;
-        justify-content: center;
-      }
+    .favourite-filter {
+      width: 100%;
+      border: 1px solid #eadfd6;
+      border-radius: 14px;
+      background: #fffdfb;
+      padding: 12px 14px;
+      font: inherit;
+      font-size: 0.94rem;
+      color: #2d221c;
+      box-sizing: border-box;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .favourite-filter:focus {
+      outline: none;
+      border-color: #d6bcad;
+      box-shadow: 0 0 0 4px rgba(217,194,178,0.16);
+    }
 
-      .couple-topbar-home {
-        width: 100%;
-      }
+    .vendors-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+    }
 
-      .couple-topbar-text {
-        text-align: center;
-        width: 100%;
-      }
+    .vendor-card-public {
+      background: rgba(255,253,251,0.95);
+      border-radius: 22px;
+      border: 1px solid rgba(223,210,200,0.7);
+      overflow: hidden;
+      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+      box-shadow: 0 4px 16px rgba(59,47,42,0.04);
+    }
+    .vendor-card-public:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 44px rgba(59,47,42,0.1);
+      border-color: rgba(198,167,125,0.5);
+    }
 
-      .couple-topbar-actions {
-        width: 100%;
-        justify-content: center;
-      }
+    .vendor-card-image-wrap {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: var(--lux-blush);
+      overflow: hidden;
+    }
+    .vendor-card-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .vendor-card-public:hover .vendor-card-image-wrap img { transform: scale(1.04); }
 
+    .vendor-card-public-inner { padding: 20px; }
+
+    .vendor-card-top h3 {
+      margin: 0 0 5px;
+      color: var(--lux-espresso);
+      font-size: 1.15rem;
+      line-height: 1.2;
+      font-family: "Cormorant Garamond", serif;
+      font-weight: 600;
+    }
+    .vendor-card-location {
+      margin: 0 0 12px;
+      color: #a08479;
+      font-size: 0.88rem;
+    }
+    .vendor-card-bio {
+      margin: 0 0 14px;
+      color: #6f5c55;
+      line-height: 1.7;
+      font-size: 0.92rem;
+    }
+    .vendor-card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 16px;
+    }
+    .vendor-tag {
+      display: inline-flex;
+      align-items: center;
+      background: rgba(244,229,222,0.8);
+      color: #805f54;
+      padding: 6px 11px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      border: 1px solid rgba(207,178,166,0.35);
+    }
+    .vendor-card-links { display: grid; gap: 8px; }
+
+    .view-vendor-btn {
+      display: block;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 999px;
+      padding: 11px 14px;
+      font: inherit;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-sizing: border-box;
+      background: linear-gradient(135deg, #d6b19a, #a97c66);
+      color: #fffaf7;
+      border: none;
+      box-shadow: 0 6px 16px rgba(185,143,122,0.2);
+      transition: all 0.18s ease;
+    }
+    .view-vendor-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 26px rgba(185,143,122,0.28);
+      filter: brightness(1.04);
+    }
+
+    .remove-favourite-btn {
+      display: block;
+      width: 100%;
+      border: 1px solid rgba(214,184,191,0.6);
+      background: rgba(255,247,249,0.8);
+      color: #9d6778;
+      border-radius: 999px;
+      padding: 10px 14px;
+      font: inherit;
+      font-size: 0.86rem;
+      cursor: pointer;
+      box-sizing: border-box;
+      text-align: center;
+      transition: all 0.18s ease;
+    }
+    .remove-favourite-btn:hover {
+      background: #ffe8ee;
+      transform: translateY(-1px);
+    }
+
+    /* ── ACCOUNT & SECURITY ── */
+    .account-form,
+    .security-form {
+      display: grid;
+      gap: 14px;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .account-two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .form-field-label {
+      display: block;
+      margin-bottom: 7px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #8d7369;
+    }
+
+    .account-form input,
+    .security-form input {
+      width: 100%;
+      border: 1px solid #eadfd6;
+      border-radius: 14px;
+      background: #fffdfb;
+      padding: 13px 15px;
+      font: inherit;
+      font-size: 0.95rem;
+      color: #2d221c;
+      box-sizing: border-box;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .account-form input:focus,
+    .security-form input:focus {
+      outline: none;
+      border-color: #d6bcad;
+      box-shadow: 0 0 0 4px rgba(217,194,178,0.16);
+    }
+
+    .account-save-btn,
+    .security-save-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 12px 28px;
+      border: none;
+      background: linear-gradient(135deg, #d6b19a, #a97c66);
+      color: #fffaf7;
+      border-radius: 999px;
+      cursor: pointer;
+      font: inherit;
+      font-weight: 700;
+      font-size: 0.92rem;
+      box-shadow: 0 10px 24px rgba(185,143,122,0.22);
+      transition: all 0.18s ease;
+    }
+    .account-save-btn:hover,
+    .security-save-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 32px rgba(185,143,122,0.28);
+      filter: brightness(1.04);
+    }
+
+    .account-status,
+    .security-status {
+      margin: 0;
+      min-height: 22px;
+      color: var(--lux-muted);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    .security-help {
+      margin: 4px 0 0;
+      color: var(--lux-muted);
+      font-size: 0.88rem;
+      line-height: 1.7;
+      text-align: center;
+      font-style: italic;
+    }
+
+    /* ── EMPTY STATES ── */
+    .empty-message {
+      text-align: center;
+      margin: 20px 0 0;
+      color: var(--lux-muted);
+      font-size: 0.97rem;
+      line-height: 1.75;
+    }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      background:
+        radial-gradient(circle at top, rgba(200,166,161,0.16), transparent 36%),
+        linear-gradient(180deg, #f5eee9 0%, #eee5df 100%);
+    }
+    .footer-title { color: var(--lux-espresso); letter-spacing: -0.035em; }
+    .footer-eyebrow { color: #b08d7d; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
       .couple-hero-grid,
       .vision-layout,
       .planning-layout,
-      .account-two-col,
-      .planning-two-col {
+      .account-two-col {
         grid-template-columns: 1fr;
       }
-
-      .hero-copy {
-        text-align: center;
-      }
-
-      .hero-copy p {
-        margin-left: auto;
-        margin-right: auto;
-      }
-
-      .hero-actions,
-      .dashboard-jump-nav {
-        justify-content: center;
-      }
-
-      .vision-board-grid {
-        columns: 2 220px;
-      }
+      .couple-topbar { justify-content: center; }
+      .couple-topbar-text { text-align: center; }
+      .couple-topbar-actions { justify-content: center; }
+      .hero-copy { text-align: center; }
+      .hero-copy p { margin-left: auto; margin-right: auto; }
+      .hero-actions { justify-content: center; }
+      .hero-copy-kicker { text-align: center; }
+      .profile-card { max-width: 220px; margin: 0 auto; }
+      .vision-board-grid { columns: 2 180px; }
     }
 
     @media (max-width: 640px) {
-      .couple-topbar {
-        padding: 0 14px;
-        margin: 6px auto 18px;
-        gap: 14px;
-      }
-
-      .couple-topbar-logo {
-        width: 78px;
-        height: 78px;
-      }
-
-      .couple-topbar-title {
-        font-size: 1.35rem;
-      }
-
-      .couple-topbar-kicker {
-        font-size: 0.72rem;
-        letter-spacing: 0.16em;
-      }
-
-      .couple-page-shell {
-        padding-left: 14px;
-        padding-right: 14px;
-        gap: 18px;
-      }
-
-      .couple-hero-card,
-      .dashboard-card {
-        padding: 22px 18px;
-        border-radius: 22px;
-      }
-
-      .account-card-inner,
-      .planning-card-inner,
-      .security-card-inner,
-      .vision-upload-card,
-      .mini-panel,
-      .profile-card,
-      .calendar-box,
-      .todo-box,
-      .vendor-card-public {
-        border-radius: 20px;
-      }
-
-      .profile-photo-wrap {
-        width: 142px;
-        height: 142px;
-      }
-
-      .hero-copy h1 {
-        font-size: 1.8rem;
-      }
-
-      .hero-copy p,
-      .dashboard-subtext,
-      .mini-panel-soft,
-      .vision-upload-card p,
-      .calendar-note,
-      .vendor-card-bio {
-        font-size: 0.96rem;
-        line-height: 1.7;
-      }
-
-      .calendar-grid,
-      .calendar-weekdays {
-        gap: 6px;
-      }
-
-      .calendar-day {
-        min-height: 48px;
-        padding: 7px 8px;
-        border-radius: 12px;
-      }
-
-      .calendar-day .calendar-number {
-        font-size: 0.84rem;
-      }
-
-      .calendar-heart {
-        font-size: 0.7rem;
-        left: 8px;
-        bottom: 8px;
-      }
-
-      .vision-board-grid {
-        columns: 1 220px;
-      }
-
-      .vendors-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .vendor-card-public-inner {
-        padding: 18px;
-      }
-
-      .board-overlay {
-        opacity: 1;
-      }
-
-      .hero-actions,
-      .couple-topbar-actions {
-        gap: 10px;
-      }
-
-      .soft-pill-button,
-      .upload-label,
-      .account-save-btn,
-      .security-save-btn,
-      .todo-add-btn,
-      .board-upload-button,
-      .dashboard-jump-link {
-        width: 100%;
-      }
-
-      .favourites-topbar {
-        max-width: 100%;
-      }
+      .couple-page-shell { padding: 16px 14px 60px; gap: 20px; }
+      .dashboard-card { padding: 24px 18px; border-radius: 22px; }
+      .couple-hero-card { padding: 24px 18px; border-radius: 22px; }
+      .couple-hero-card::before { display: none; }
+      .vision-board-grid { columns: 1 180px; }
+      .vendors-grid { grid-template-columns: 1fr; }
+      .hero-cta-primary,
+      .hero-cta-secondary { width: 100%; }
+      .calendar-day { min-height: 44px; padding: 6px 7px; border-radius: 10px; }
     }
   </style>
 </head>
 <body class="couple-dashboard-page">
 
+  <!-- ── TOPBAR ── -->
   <header class="couple-topbar">
-    <a href="index.html" class="couple-topbar-home" aria-label="Go to homepage">
+    <a href="index.html" class="couple-topbar-home" aria-label="Homepage">
       <img src="images/logo.png" alt="Our Wedding Day Hub" class="couple-topbar-logo">
     </a>
 
@@ -1027,136 +1269,154 @@
     </div>
 
     <div class="couple-topbar-actions">
-      <a href="index.html" class="auth-link auth-pill">Home</a>
-      <button id="logoutBtn" class="auth-button" type="button">Log Out</button>
+      <a href="index.html" class="topbar-pill topbar-pill-ghost">Home</a>
+      <button id="logoutBtn" class="topbar-pill topbar-pill-solid" type="button">Log Out</button>
     </div>
   </header>
 
   <main class="couple-page-shell">
+
+    <!-- ── HERO ── -->
     <section class="couple-hero-card">
       <div class="couple-hero-grid">
-        <div class="profile-card">
-          <div class="profile-photo-wrap">
-            <div class="profile-placeholder" id="profilePlaceholder">No profile photo yet</div>
-            <img id="profilePhoto" alt="Profile photo" style="display:none;">
-          </div>
 
-          <label for="profileImageInput" class="upload-label">Upload Profile Photo</label>
+        <div class="profile-card">
+          <div class="profile-photo-wrap" onclick="document.getElementById('profileImageInput').click()">
+            <div class="profile-placeholder" id="profilePlaceholder">Add your photo</div>
+            <img id="profilePhoto" alt="Profile photo" style="display:none;">
+            <div class="profile-photo-hover-label">Change photo</div>
+          </div>
+          <label for="profileImageInput" class="upload-label">Upload Photo</label>
           <input id="profileImageInput" class="hidden-input" type="file" accept="image/*">
           <p id="profileUploadStatus" class="profile-help"></p>
         </div>
 
         <div class="hero-copy">
+          <p class="hero-copy-kicker">Welcome back</p>
           <h1 id="welcomeMessage">Loading your dashboard...</h1>
-          <p>Your favourite vendors, saved inspiration, planning notes, and wedding ideas can all live together here in one lovely space.</p>
-
+          <p class="hero-copy-script">your big day is coming ♡</p>
+          <p>Your favourite vendors, saved inspiration, planning notes, and wedding ideas all in one beautiful space.</p>
           <div class="hero-actions">
-            <a href="categories.html" class="soft-pill-button">Find Vendors</a>
+            <a href="categories.html" class="hero-cta-primary">Find Vendors</a>
+            <a href="#visionBoardSection" class="hero-cta-secondary">Add Inspiration</a>
           </div>
         </div>
+
       </div>
     </section>
 
+    <!-- ── JUMP NAV ── -->
     <nav class="dashboard-jump-nav" aria-label="Dashboard sections">
-      <a href="#planningSection" class="dashboard-jump-link">Planning</a>
-      <a href="#visionBoardSection" class="dashboard-jump-link">Inspiration</a>
-      <a href="#favouritesSection" class="dashboard-jump-link">Favourites</a>
-      <a href="#accountSection" class="dashboard-jump-link">Account</a>
-      <a href="#securitySection" class="dashboard-jump-link">Password</a>
+      <a href="#planningSection"    class="dashboard-jump-link"><span class="jump-icon">📅</span> Planning</a>
+      <a href="#visionBoardSection" class="dashboard-jump-link"><span class="jump-icon">✨</span> Inspiration</a>
+      <a href="#favouritesSection"  class="dashboard-jump-link"><span class="jump-icon">♡</span> Favourites</a>
+      <a href="#accountSection"     class="dashboard-jump-link"><span class="jump-icon">☁</span> Account</a>
+      <a href="#securitySection"    class="dashboard-jump-link"><span class="jump-icon">🔒</span> Password</a>
     </nav>
 
+    <!-- ── PLANNING ── -->
     <section class="dashboard-card" id="planningSection">
+      <div class="section-kicker-wrap">
+        <span class="section-kicker">Planning</span>
+        <span class="section-kicker-line"></span>
+      </div>
       <h2>Your Planning Space</h2>
-      <p class="dashboard-subtext">Keep your wedding date and your next little jobs together in one easy spot.</p>
+      <p class="dashboard-subtext">Keep your wedding date and your little jobs together in one easy spot.</p>
 
-      <div class="planning-card-inner">
-        <div class="planning-layout">
-          <div class="calendar-box">
-            <div class="planning-form-grid">
-              <input id="weddingDateInput" type="date">
-            </div>
+      <div class="planning-layout">
 
-            <div class="calendar-header" style="margin-top:16px;">
-              <button type="button" id="calendarPrevBtn" class="calendar-nav" aria-label="Previous month">‹</button>
-              <div id="calendarMonthLabel" class="calendar-month-label"></div>
-              <button type="button" id="calendarNextBtn" class="calendar-nav" aria-label="Next month">›</button>
-            </div>
-
-            <div class="calendar-weekdays">
-              <div class="calendar-weekday">Sun</div>
-              <div class="calendar-weekday">Mon</div>
-              <div class="calendar-weekday">Tue</div>
-              <div class="calendar-weekday">Wed</div>
-              <div class="calendar-weekday">Thu</div>
-              <div class="calendar-weekday">Fri</div>
-              <div class="calendar-weekday">Sat</div>
-            </div>
-
-            <div id="planningCalendarGrid" class="calendar-grid"></div>
-            <div id="calendarNote" class="calendar-note">Choose your wedding date above and it will be highlighted on your planning calendar.</div>
+        <div class="calendar-box">
+          <div class="calendar-date-input-wrap">
+            <label for="weddingDateInput">Your wedding date</label>
+            <input id="weddingDateInput" type="date">
           </div>
 
-          <div class="todo-box">
-            <div class="todo-form">
-              <input id="todoInput" class="todo-input" type="text" placeholder="Add a to-do item">
-              <button type="button" id="addTodoBtn" class="todo-add-btn">Add To-Do</button>
-              <p id="todoStatus" class="todo-status"></p>
-            </div>
-
-            <div id="todoList" class="todo-list"></div>
-            <p id="emptyTodo" class="empty-message" style="display:none;">No to-do items yet.</p>
+          <div class="calendar-header">
+            <button type="button" id="calendarPrevBtn" class="calendar-nav" aria-label="Previous month">‹</button>
+            <div id="calendarMonthLabel" class="calendar-month-label"></div>
+            <button type="button" id="calendarNextBtn" class="calendar-nav" aria-label="Next month">›</button>
           </div>
+
+          <div class="calendar-weekdays">
+            <div class="calendar-weekday">Sun</div>
+            <div class="calendar-weekday">Mon</div>
+            <div class="calendar-weekday">Tue</div>
+            <div class="calendar-weekday">Wed</div>
+            <div class="calendar-weekday">Thu</div>
+            <div class="calendar-weekday">Fri</div>
+            <div class="calendar-weekday">Sat</div>
+          </div>
+
+          <div id="planningCalendarGrid" class="calendar-grid"></div>
+          <div id="calendarNote" class="calendar-note">Choose your wedding date above and it will be marked on your calendar.</div>
         </div>
+
+        <div class="todo-box">
+          <h3 class="todo-box-title">Wedding To-Dos</h3>
+          <div class="todo-form">
+            <input id="todoInput" class="todo-input" type="text" placeholder="e.g. Book the florist...">
+            <button type="button" id="addTodoBtn" class="todo-add-btn">Add To-Do</button>
+            <p id="todoStatus" class="todo-status"></p>
+          </div>
+          <div id="todoList" class="todo-list"></div>
+          <p id="emptyTodo" class="empty-message" style="display:none;">No to-do items yet — add your first above.</p>
+        </div>
+
       </div>
     </section>
 
+    <!-- ── VISION BOARD ── -->
     <section class="dashboard-card" id="visionBoardSection">
+      <div class="section-kicker-wrap">
+        <span class="section-kicker">Inspiration</span>
+        <span class="section-kicker-line"></span>
+      </div>
       <h2>Your Inspiration Board</h2>
-      <p class="dashboard-subtext">Upload images, save visual ideas, and collect vendors you love into one simple mood board for your wedding planning.</p>
+      <p class="dashboard-subtext">Upload images, save visual ideas, and collect everything you love into your own mood board.</p>
 
       <div class="vision-layout">
-        <aside>
+        <aside class="vision-sidebar">
           <div class="vision-upload-card">
             <h3>Add Inspiration</h3>
-            <p>Upload screenshots, mood images, flowers, dresses, stationery, styling, or anything you love.</p>
+            <p>Upload mood images, flowers, dresses, stationery, or anything that sparks joy.</p>
 
             <form id="visionUploadForm" class="vision-form">
               <label for="visionImageInput" class="upload-label">Choose Image</label>
               <input id="visionImageInput" class="hidden-input" type="file" accept="image/*">
-
               <p id="visionFileNote" class="vision-file-note"></p>
 
               <div id="visionPreviewWrap" class="vision-preview-wrap">
-                <img id="visionPreviewImage" alt="Selected inspiration preview">
+                <img id="visionPreviewImage" alt="Preview">
               </div>
 
-              <textarea id="visionCaptionInput" rows="4" placeholder="Add a little note if you like... soft florals, candlelit reception, modern white cake, romantic textures..."></textarea>
+              <textarea id="visionCaptionInput" rows="3" placeholder="Add a little note... soft florals, candlelit reception, romantic textures..."></textarea>
 
-              <button type="submit" class="board-upload-button">Add To Board</button>
+              <button type="submit" class="board-upload-button">Add to Board</button>
               <p id="visionUploadStatus" class="upload-status"></p>
             </form>
           </div>
 
-          <div class="mini-panel" style="margin-top:18px;">
+          <div class="mini-panel">
             <h3>Ideas for this space</h3>
-            <p class="mini-panel-soft">
-              Bridal style, ceremony flowers, reception styling, colour palettes, table settings, hair and makeup looks — save anything that inspires you and start shaping your vision.
-            </p>
+            <p>Bridal style, ceremony flowers, colour palettes, table settings, hair looks — save anything that inspires you and start shaping your vision.</p>
           </div>
         </aside>
 
         <div>
           <div id="visionBoardGrid" class="vision-board-grid"></div>
-          <p id="emptyVisionBoard" class="empty-message" style="display:none;">
-            Your board is empty for now. Upload your first inspiration image to get started.
-          </p>
+          <p id="emptyVisionBoard" class="empty-message" style="display:none;">Your board is empty for now. Upload your first image to get started.</p>
         </div>
       </div>
     </section>
 
+    <!-- ── FAVOURITES ── -->
     <section class="dashboard-card" id="favouritesSection">
+      <div class="section-kicker-wrap">
+        <span class="section-kicker">Favourites</span>
+        <span class="section-kicker-line"></span>
+      </div>
       <h2>Your Favourite Vendors</h2>
-      <p class="dashboard-subtext">Browse your saved vendors by category whenever you come back.</p>
+      <p class="dashboard-subtext">Browse your saved vendors and view their profiles whenever you need them.</p>
 
       <div class="favourites-topbar">
         <select id="favouriteCategoryFilter" class="favourite-filter">
@@ -1165,57 +1425,66 @@
       </div>
 
       <div id="favouritesGrid" class="vendors-grid"></div>
-
-      <p id="emptyFavourites" class="empty-message" style="display:none;">
-        You have not saved any vendors yet.
-      </p>
+      <p id="emptyFavourites" class="empty-message" style="display:none;">You haven't saved any vendors yet. Browse the directory and heart the ones you love.</p>
     </section>
 
+    <!-- ── ACCOUNT ── -->
     <section class="dashboard-card" id="accountSection">
+      <div class="section-kicker-wrap">
+        <span class="section-kicker">Account</span>
+        <span class="section-kicker-line"></span>
+      </div>
       <h2>Your Account Details</h2>
-      <p class="dashboard-subtext">Update your names and email here.</p>
+      <p class="dashboard-subtext">Update your names and email address here.</p>
 
-      <div class="account-card-inner">
-        <form id="accountForm" class="account-form">
-          <div class="account-two-col">
-            <input id="partnerOne" type="text" placeholder="Name one">
-            <input id="partnerTwo" type="text" placeholder="Name two">
+      <form id="accountForm" class="account-form">
+        <div class="account-two-col">
+          <div>
+            <label class="form-field-label" for="partnerOne">Name one</label>
+            <input id="partnerOne" type="text" placeholder="Partner one">
           </div>
-          <input id="accountEmail" type="email" placeholder="Your email">
-          <button type="submit" class="account-save-btn">Update Details</button>
-          <p id="accountStatus" class="account-status"></p>
-        </form>
-      </div>
+          <div>
+            <label class="form-field-label" for="partnerTwo">Name two</label>
+            <input id="partnerTwo" type="text" placeholder="Partner two">
+          </div>
+        </div>
+        <div>
+          <label class="form-field-label" for="accountEmail">Email address</label>
+          <input id="accountEmail" type="email" placeholder="your@email.com">
+        </div>
+        <button type="submit" class="account-save-btn">Update Details</button>
+        <p id="accountStatus" class="account-status"></p>
+      </form>
     </section>
 
+    <!-- ── SECURITY ── -->
     <section class="dashboard-card" id="securitySection">
-      <h2>Password & Security</h2>
-      <p class="dashboard-subtext">Keep your account secure by updating your password here.</p>
-
-      <div class="security-card-inner">
-        <form id="securityForm" class="security-form">
-          <input id="accountPassword" type="password" placeholder="New password">
-          <button type="submit" class="security-save-btn">Update Password</button>
-          <p id="securityStatus" class="security-status"></p>
-          <p class="security-help">If password changes do not go through, Firebase may ask you to log in again first.</p>
-        </form>
+      <div class="section-kicker-wrap">
+        <span class="section-kicker">Password</span>
+        <span class="section-kicker-line"></span>
       </div>
+      <h2>Password &amp; Security</h2>
+      <p class="dashboard-subtext">Keep your account safe by updating your password here.</p>
+
+      <form id="securityForm" class="security-form">
+        <div>
+          <label class="form-field-label" for="accountPassword">New password</label>
+          <input id="accountPassword" type="password" placeholder="At least 6 characters">
+        </div>
+        <button type="submit" class="security-save-btn">Update Password</button>
+        <p id="securityStatus" class="security-status"></p>
+        <p class="security-help">If changes don't go through, Firebase may ask you to log in again first.</p>
+      </form>
     </section>
+
   </main>
 
+  <!-- ── FOOTER ── -->
   <footer class="site-footer">
     <div class="footer-content">
       <p class="footer-eyebrow">wedding vendor directory</p>
-
-      <h2 class="footer-title">
-        Everything your wedding deserves.
-      </h2>
-
-      <p class="footer-text">
-        Browse trusted wedding businesses, discover local favourites, and connect
-        with the people who can bring your day to life.
-      </p>
-
+      <h2 class="footer-title">Everything your wedding deserves.</h2>
+      <p class="footer-text">Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.</p>
       <div class="footer-links">
         <a href="about.html">About Us</a>
         <a href="how-it-works.html">How It Works</a>
@@ -1227,16 +1496,13 @@
         <a href="https://www.equaldex.com/equality-index" target="_blank" rel="noopener noreferrer">Global Equality Index</a>
         <a href="#" onclick="return false;">Events4Us (Coming Soon)</a>
       </div>
-
-      <p class="footer-tagline">
-        Proudly inclusive • Worldwide • Built with heart
-      </p>
-
+      <p class="footer-tagline">Proudly inclusive • Worldwide • Built with heart</p>
       <p class="footer-abn">© 2026 Our Wedding Day Hub</p>
       <p class="footer-abn">ABN 76 688 637 041 • Australia</p>
     </div>
   </footer>
 
+  <!-- ── ALL SCRIPTS UNCHANGED ── -->
   <script type="module">
     import {
       auth,
@@ -1271,72 +1537,60 @@
       deleteObject
     } from 'https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js';
 
-    const logoutBtn = document.getElementById('logoutBtn');
-    const welcomeMessage = document.getElementById('welcomeMessage');
-
-    const favouritesGrid = document.getElementById('favouritesGrid');
-    const emptyFavourites = document.getElementById('emptyFavourites');
+    const logoutBtn               = document.getElementById('logoutBtn');
+    const welcomeMessage          = document.getElementById('welcomeMessage');
+    const favouritesGrid          = document.getElementById('favouritesGrid');
+    const emptyFavourites         = document.getElementById('emptyFavourites');
     const favouriteCategoryFilter = document.getElementById('favouriteCategoryFilter');
-
-    const profilePhoto = document.getElementById('profilePhoto');
-    const profilePlaceholder = document.getElementById('profilePlaceholder');
-    const profileImageInput = document.getElementById('profileImageInput');
-    const profileUploadStatus = document.getElementById('profileUploadStatus');
-
-    const accountForm = document.getElementById('accountForm');
-    const partnerOne = document.getElementById('partnerOne');
-    const partnerTwo = document.getElementById('partnerTwo');
-    const accountEmail = document.getElementById('accountEmail');
-    const accountStatus = document.getElementById('accountStatus');
-
-    const securityForm = document.getElementById('securityForm');
-    const accountPassword = document.getElementById('accountPassword');
-    const securityStatus = document.getElementById('securityStatus');
-
-    const weddingDateInput = document.getElementById('weddingDateInput');
-    const calendarPrevBtn = document.getElementById('calendarPrevBtn');
-    const calendarNextBtn = document.getElementById('calendarNextBtn');
-    const calendarMonthLabel = document.getElementById('calendarMonthLabel');
-    const planningCalendarGrid = document.getElementById('planningCalendarGrid');
-    const calendarNote = document.getElementById('calendarNote');
-
-    const todoInput = document.getElementById('todoInput');
-    const addTodoBtn = document.getElementById('addTodoBtn');
-    const todoStatus = document.getElementById('todoStatus');
-    const todoList = document.getElementById('todoList');
-    const emptyTodo = document.getElementById('emptyTodo');
-
-    const visionUploadForm = document.getElementById('visionUploadForm');
-    const visionImageInput = document.getElementById('visionImageInput');
-    const visionCaptionInput = document.getElementById('visionCaptionInput');
-    const visionUploadStatus = document.getElementById('visionUploadStatus');
-    const visionBoardGrid = document.getElementById('visionBoardGrid');
-    const emptyVisionBoard = document.getElementById('emptyVisionBoard');
-    const visionFileNote = document.getElementById('visionFileNote');
-    const visionPreviewWrap = document.getElementById('visionPreviewWrap');
-    const visionPreviewImage = document.getElementById('visionPreviewImage');
+    const profilePhoto            = document.getElementById('profilePhoto');
+    const profilePlaceholder      = document.getElementById('profilePlaceholder');
+    const profileImageInput       = document.getElementById('profileImageInput');
+    const profileUploadStatus     = document.getElementById('profileUploadStatus');
+    const accountForm             = document.getElementById('accountForm');
+    const partnerOne              = document.getElementById('partnerOne');
+    const partnerTwo              = document.getElementById('partnerTwo');
+    const accountEmail            = document.getElementById('accountEmail');
+    const accountStatus           = document.getElementById('accountStatus');
+    const securityForm            = document.getElementById('securityForm');
+    const accountPassword         = document.getElementById('accountPassword');
+    const securityStatus          = document.getElementById('securityStatus');
+    const weddingDateInput        = document.getElementById('weddingDateInput');
+    const calendarPrevBtn         = document.getElementById('calendarPrevBtn');
+    const calendarNextBtn         = document.getElementById('calendarNextBtn');
+    const calendarMonthLabel      = document.getElementById('calendarMonthLabel');
+    const planningCalendarGrid    = document.getElementById('planningCalendarGrid');
+    const calendarNote            = document.getElementById('calendarNote');
+    const todoInput               = document.getElementById('todoInput');
+    const addTodoBtn              = document.getElementById('addTodoBtn');
+    const todoStatus              = document.getElementById('todoStatus');
+    const todoList                = document.getElementById('todoList');
+    const emptyTodo               = document.getElementById('emptyTodo');
+    const visionUploadForm        = document.getElementById('visionUploadForm');
+    const visionImageInput        = document.getElementById('visionImageInput');
+    const visionCaptionInput      = document.getElementById('visionCaptionInput');
+    const visionUploadStatus      = document.getElementById('visionUploadStatus');
+    const visionBoardGrid         = document.getElementById('visionBoardGrid');
+    const emptyVisionBoard        = document.getElementById('emptyVisionBoard');
+    const visionFileNote          = document.getElementById('visionFileNote');
+    const visionPreviewWrap       = document.getElementById('visionPreviewWrap');
+    const visionPreviewImage      = document.getElementById('visionPreviewImage');
 
     const storage = getStorage();
 
-    let currentUser = null;
-    let currentUserData = null;
-    let calendarMonth = new Date().getMonth();
-    let calendarYear = new Date().getFullYear();
+    let currentUser        = null;
+    let currentUserData    = null;
+    let calendarMonth      = new Date().getMonth();
+    let calendarYear       = new Date().getFullYear();
     let loadedFavouriteVendors = [];
 
     function prettifyCategory(category) {
-      return String(category)
-        .replaceAll('_', ' ')
-        .replace(/\b\w/g, letter => letter.toUpperCase());
+      return String(category).replaceAll('_', ' ').replace(/\b\w/g, l => l.toUpperCase());
     }
 
     function safeText(value) {
       return String(value || '')
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;').replace(/'/g, '&#039;');
     }
 
     function setProfileImage(url) {
@@ -1354,7 +1608,6 @@
     function getDisplayNames(userData) {
       const one = (userData.partnerOne || '').trim();
       const two = (userData.partnerTwo || '').trim();
-
       if (one && two) return `${one} & ${two}`;
       if (userData.name && userData.name.trim()) return userData.name.trim();
       if (one) return one;
@@ -1364,24 +1617,13 @@
     function parseLegacyNames(userData) {
       const one = (userData.partnerOne || '').trim();
       const two = (userData.partnerTwo || '').trim();
-
-      if (one || two) {
-        return { one, two };
-      }
-
+      if (one || two) return { one, two };
       const legacy = (userData.name || '').trim();
       if (legacy.includes('&')) {
-        const parts = legacy.split('&').map(part => part.trim()).filter(Boolean);
-        return {
-          one: parts[0] || '',
-          two: parts[1] || ''
-        };
+        const parts = legacy.split('&').map(p => p.trim()).filter(Boolean);
+        return { one: parts[0] || '', two: parts[1] || '' };
       }
-
-      return {
-        one: legacy,
-        two: ''
-      };
+      return { one: legacy, two: '' };
     }
 
     function getLocalFavorites() {
@@ -1389,9 +1631,7 @@
         const raw = localStorage.getItem('favoriteVendors');
         const parsed = raw ? JSON.parse(raw) : [];
         return Array.isArray(parsed) ? parsed.filter(Boolean) : [];
-      } catch {
-        return [];
-      }
+      } catch { return []; }
     }
 
     function setLocalFavorites(ids) {
@@ -1407,21 +1647,12 @@
     async function syncFavoritesIfNeeded(user) {
       const merged = getMergedFavoriteIds(currentUserData);
       const firestoreFavs = Array.isArray(currentUserData?.favorites) ? currentUserData.favorites : [];
-
       const sameLength = merged.length === firestoreFavs.length;
       const sameValues = sameLength && merged.every(id => firestoreFavs.includes(id));
-
       if (!sameValues) {
-        await updateDoc(doc(db, 'users', user.uid), {
-          favorites: merged
-        });
-
-        currentUserData = {
-          ...(currentUserData || {}),
-          favorites: merged
-        };
+        await updateDoc(doc(db, 'users', user.uid), { favorites: merged });
+        currentUserData = { ...(currentUserData || {}), favorites: merged };
       }
-
       setLocalFavorites(merged);
       return merged;
     }
@@ -1433,9 +1664,7 @@
 
     function populateFavouriteFilter(vendors) {
       const categories = Array.from(new Set(vendors.map(getVendorMainCategory))).sort();
-
       favouriteCategoryFilter.innerHTML = '<option value="all">All favourites</option>';
-
       categories.forEach(category => {
         const option = document.createElement('option');
         option.value = category;
@@ -1448,76 +1677,45 @@
       const card = document.createElement('article');
       card.className = 'vendor-card-public';
 
-      const categories = Array.isArray(vendor.categories) ? vendor.categories : [];
-      const states = Array.isArray(vendor.states) ? vendor.states : [];
-      const regions = Array.isArray(vendor.regions) ? vendor.regions : [];
-
-      const shortBio = vendor.bio
-        ? vendor.bio.length > 180
-          ? vendor.bio.slice(0, 180) + '...'
-          : vendor.bio
+      const categories  = Array.isArray(vendor.categories) ? vendor.categories : [];
+      const states      = Array.isArray(vendor.states)     ? vendor.states     : [];
+      const regions     = Array.isArray(vendor.regions)    ? vendor.regions    : [];
+      const shortBio    = vendor.bio
+        ? vendor.bio.length > 180 ? vendor.bio.slice(0, 180) + '...' : vendor.bio
         : 'This vendor has not added their bio yet.';
-
-      const cardImage =
+      const cardImage   =
         vendor.coverImageUrl ||
         vendor.coverImage ||
-        (Array.isArray(vendor.images) && vendor.images.length ? vendor.images[0] : '') ||
+        (Array.isArray(vendor.images)        && vendor.images.length        ? vendor.images[0]        : '') ||
         (Array.isArray(vendor.galleryImages) && vendor.galleryImages.length ? vendor.galleryImages[0] : '') ||
-        vendor.profileImageUrl ||
-        vendor.profileImage ||
-        '';
+        vendor.profileImageUrl || vendor.profileImage || '';
 
       card.innerHTML = `
-        ${cardImage ? `
-          <div class="vendor-card-image-wrap">
-            <img src="${safeText(cardImage)}" alt="${safeText(vendor.businessName || 'Vendor')}">
-          </div>
-        ` : ''}
-
+        ${cardImage ? `<div class="vendor-card-image-wrap"><img src="${safeText(cardImage)}" alt="${safeText(vendor.businessName || 'Vendor')}"></div>` : ''}
         <div class="vendor-card-public-inner">
           <div class="vendor-card-top">
             <h3>${safeText(vendor.businessName || 'Vendor')}</h3>
-            <p class="vendor-card-location">
-              ${safeText(regions.slice(0, 2).join(', ') || states.slice(0, 2).join(', ') || 'Australia')}
-            </p>
+            <p class="vendor-card-location">${safeText(regions.slice(0,2).join(', ') || states.slice(0,2).join(', ') || 'Australia')}</p>
           </div>
-
           <p class="vendor-card-bio">${safeText(shortBio)}</p>
-
           <div class="vendor-card-tags">
-            ${categories.slice(0, 4).map(category => `
-              <span class="vendor-tag">${safeText(prettifyCategory(category))}</span>
-            `).join('')}
+            ${categories.slice(0,4).map(c => `<span class="vendor-tag">${safeText(prettifyCategory(c))}</span>`).join('')}
           </div>
-
           <div class="vendor-card-links">
-            <a class="pretty-button small-button" href="vendor.html?id=${encodeURIComponent(vendor.id || vendor.uid || '')}">
-              View Profile
-            </a>
+            <a class="view-vendor-btn" href="vendor.html?id=${encodeURIComponent(vendor.id || vendor.uid || '')}">View Profile</a>
             <button class="remove-favourite-btn" type="button">Remove from favourites</button>
           </div>
         </div>
       `;
 
-      const removeBtn = card.querySelector('.remove-favourite-btn');
-      removeBtn.addEventListener('click', async () => {
+      card.querySelector('.remove-favourite-btn').addEventListener('click', async () => {
         if (!currentUser) return;
-
         const merged = getMergedFavoriteIds(currentUserData);
         const newFavorites = merged.filter(id => id !== vendor.id);
-
         try {
-          await updateDoc(doc(db, 'users', currentUser.uid), {
-            favorites: newFavorites
-          });
-
+          await updateDoc(doc(db, 'users', currentUser.uid), { favorites: newFavorites });
           setLocalFavorites(newFavorites);
-
-          currentUserData = {
-            ...(currentUserData || {}),
-            favorites: newFavorites
-          };
-
+          currentUserData = { ...(currentUserData || {}), favorites: newFavorites };
           await loadFavouriteVendors(currentUserData);
         } catch (error) {
           console.error(error);
@@ -1530,29 +1728,19 @@
 
     function renderFavouriteGrid() {
       const selectedCategory = favouriteCategoryFilter.value || 'all';
-
       const filtered = selectedCategory === 'all'
         ? loadedFavouriteVendors
-        : loadedFavouriteVendors.filter(vendor => getVendorMainCategory(vendor) === selectedCategory);
+        : loadedFavouriteVendors.filter(v => getVendorMainCategory(v) === selectedCategory);
 
       favouritesGrid.innerHTML = '';
-
-      if (!filtered.length) {
-        emptyFavourites.style.display = 'block';
-        return;
-      }
-
+      if (!filtered.length) { emptyFavourites.style.display = 'block'; return; }
       emptyFavourites.style.display = 'none';
-
-      filtered.forEach(vendor => {
-        favouritesGrid.appendChild(createVendorCard(vendor));
-      });
+      filtered.forEach(vendor => favouritesGrid.appendChild(createVendorCard(vendor)));
     }
 
     function createBoardItem(docId, item) {
       const article = document.createElement('article');
       article.className = 'board-item';
-
       const isVendorPin = item.type === 'vendor';
 
       article.innerHTML = `
@@ -1561,7 +1749,6 @@
           ${isVendorPin ? `<h3 class="board-item-title">${safeText(item.title || 'Vendor Pin')}</h3>` : ''}
           ${isVendorPin && item.subtitle ? `<p class="board-item-subtitle">${safeText(item.subtitle)}</p>` : ''}
           ${item.caption ? `<p class="board-item-caption">${safeText(item.caption)}</p>` : ''}
-
           <div class="board-overlay">
             <div class="board-overlay-top">
               <span class="board-chip">${isVendorPin ? 'Vendor' : 'Idea'}</span>
@@ -1574,16 +1761,10 @@
         </div>
       `;
 
-      const deleteBtn = article.querySelector('.board-delete');
-      deleteBtn.addEventListener('click', async () => {
-        const confirmed = window.confirm('Remove this item from your board?');
-        if (!confirmed || !currentUser) return;
-
+      article.querySelector('.board-delete').addEventListener('click', async () => {
+        if (!confirm('Remove this item from your board?') || !currentUser) return;
         try {
-          if (item.storagePath) {
-            await deleteObject(ref(storage, item.storagePath));
-          }
-
+          if (item.storagePath) await deleteObject(ref(storage, item.storagePath));
           await deleteDoc(doc(db, 'users', currentUser.uid, 'visionBoard', docId));
           await loadVisionBoard(currentUser);
         } catch (error) {
@@ -1597,8 +1778,7 @@
 
     async function loadFavouriteVendors(userData) {
       const favouriteVendorIds = getMergedFavoriteIds(userData);
-
-      if (favouriteVendorIds.length === 0) {
+      if (!favouriteVendorIds.length) {
         loadedFavouriteVendors = [];
         favouriteCategoryFilter.innerHTML = '<option value="all">All favourites</option>';
         emptyFavourites.style.display = 'block';
@@ -1606,15 +1786,8 @@
         return;
       }
 
-      const vendorPromises = favouriteVendorIds.map(id => getDoc(doc(db, 'vendors', id)));
-      const vendorSnapshots = await Promise.all(vendorPromises);
-
-      loadedFavouriteVendors = vendorSnapshots
-        .filter(snap => snap.exists())
-        .map(snap => ({
-          id: snap.id,
-          ...snap.data()
-        }));
+      const vendorSnapshots = await Promise.all(favouriteVendorIds.map(id => getDoc(doc(db, 'vendors', id))));
+      loadedFavouriteVendors = vendorSnapshots.filter(s => s.exists()).map(s => ({ id: s.id, ...s.data() }));
 
       if (!loadedFavouriteVendors.length) {
         favouriteCategoryFilter.innerHTML = '<option value="all">All favourites</option>';
@@ -1628,83 +1801,50 @@
     }
 
     async function loadVisionBoard(user) {
-      const boardQuery = query(
-        collection(db, 'users', user.uid, 'visionBoard'),
-        orderBy('createdAt', 'desc')
-      );
-
-      const snapshot = await getDocs(boardQuery);
-
-      if (snapshot.empty) {
-        visionBoardGrid.innerHTML = '';
-        emptyVisionBoard.style.display = 'block';
-        return;
-      }
-
+      const snapshot = await getDocs(query(collection(db, 'users', user.uid, 'visionBoard'), orderBy('createdAt', 'desc')));
+      if (snapshot.empty) { visionBoardGrid.innerHTML = ''; emptyVisionBoard.style.display = 'block'; return; }
       emptyVisionBoard.style.display = 'none';
       visionBoardGrid.innerHTML = '';
-
-      snapshot.forEach(docSnap => {
-        visionBoardGrid.appendChild(createBoardItem(docSnap.id, docSnap.data()));
-      });
+      snapshot.forEach(docSnap => visionBoardGrid.appendChild(createBoardItem(docSnap.id, docSnap.data())));
     }
 
     function renderPlanningCalendar() {
       const weddingDate = weddingDateInput.value || '';
       planningCalendarGrid.innerHTML = '';
 
-      const firstDay = new Date(calendarYear, calendarMonth, 1);
-      const lastDay = new Date(calendarYear, calendarMonth + 1, 0);
-      const startWeekday = firstDay.getDay();
-      const daysInMonth = lastDay.getDate();
-      const today = new Date();
-      const todayString = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
+      const firstDay    = new Date(calendarYear, calendarMonth, 1);
+      const lastDay     = new Date(calendarYear, calendarMonth + 1, 0);
+      const today       = new Date();
+      const todayString = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
 
-      calendarMonthLabel.textContent = firstDay.toLocaleDateString("en-AU", {
-        month: "long",
-        year: "numeric"
-      });
+      calendarMonthLabel.textContent = firstDay.toLocaleDateString('en-AU', { month: 'long', year: 'numeric' });
 
-      for (let i = 0; i < startWeekday; i++) {
-        const emptyCell = document.createElement('div');
-        emptyCell.className = 'calendar-day empty';
-        planningCalendarGrid.appendChild(emptyCell);
+      for (let i = 0; i < firstDay.getDay(); i++) {
+        const empty = document.createElement('div');
+        empty.className = 'calendar-day empty';
+        planningCalendarGrid.appendChild(empty);
       }
 
-      for (let day = 1; day <= daysInMonth; day++) {
-        const dateObj = new Date(calendarYear, calendarMonth, day);
-        const dateString = `${dateObj.getFullYear()}-${String(dateObj.getMonth() + 1).padStart(2, "0")}-${String(dateObj.getDate()).padStart(2, "0")}`;
-
-        const cell = document.createElement('button');
-        cell.type = 'button';
-        cell.className = 'calendar-day';
-
-        if (dateString === todayString) {
-          cell.classList.add('today');
-        }
-
-        if (weddingDate && dateString === weddingDate) {
-          cell.classList.add('selected');
-        }
-
-        cell.innerHTML = `<span class="calendar-number">${day}</span>${weddingDate && dateString === weddingDate ? '<span class="calendar-heart">♥</span>' : ''}`;
-
+      for (let day = 1; day <= lastDay.getDate(); day++) {
+        const dateObj    = new Date(calendarYear, calendarMonth, day);
+        const dateString = `${dateObj.getFullYear()}-${String(dateObj.getMonth()+1).padStart(2,'0')}-${String(dateObj.getDate()).padStart(2,'0')}`;
+        const cell       = document.createElement('button');
+        cell.type        = 'button';
+        cell.className   = 'calendar-day';
+        if (dateString === todayString) cell.classList.add('today');
+        if (weddingDate && dateString === weddingDate) cell.classList.add('selected');
+        cell.innerHTML   = `<span class="calendar-number">${day}</span>${weddingDate && dateString === weddingDate ? '<span class="calendar-heart">♥</span>' : ''}`;
         cell.addEventListener('click', async () => {
           weddingDateInput.value = dateString;
           await savePlanningData();
           renderPlanningCalendar();
         });
-
         planningCalendarGrid.appendChild(cell);
       }
 
       if (weddingDate) {
-        const prettyDate = new Date(weddingDate + "T00:00:00").toLocaleDateString("en-AU", {
-          day: "numeric",
-          month: "long",
-          year: "numeric"
-        });
-        calendarNote.textContent = `Wedding date saved: ${prettyDate}`;
+        const pretty = new Date(weddingDate + 'T00:00:00').toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' });
+        calendarNote.textContent = `Wedding date saved: ${pretty} ♡`;
       } else {
         calendarNote.textContent = 'Choose your wedding date above and it will be highlighted on your planning calendar.';
       }
@@ -1712,113 +1852,71 @@
 
     function renderTodoList() {
       const todos = Array.isArray(currentUserData?.todoItems) ? currentUserData.todoItems : [];
-
       todoList.innerHTML = '';
-
-      if (!todos.length) {
-        emptyTodo.style.display = 'block';
-        return;
-      }
-
+      if (!todos.length) { emptyTodo.style.display = 'block'; return; }
       emptyTodo.style.display = 'none';
 
       todos.forEach((todo, index) => {
         const item = document.createElement('div');
         item.className = `todo-item ${todo.done ? 'done' : ''}`;
-
         item.innerHTML = `
           <input class="todo-check" type="checkbox" ${todo.done ? 'checked' : ''}>
           <div class="todo-text">${safeText(todo.text)}</div>
           <button class="todo-delete-btn" type="button">×</button>
         `;
-
-        const check = item.querySelector('.todo-check');
-        const del = item.querySelector('.todo-delete-btn');
-
-        check.addEventListener('change', async () => {
+        item.querySelector('.todo-check').addEventListener('change', async (e) => {
           const updated = [...todos];
-          updated[index] = {
-            ...updated[index],
-            done: check.checked
-          };
+          updated[index] = { ...updated[index], done: e.target.checked };
           currentUserData.todoItems = updated;
           await savePlanningData(false);
           renderTodoList();
         });
-
-        del.addEventListener('click', async () => {
-          const updated = todos.filter((_, i) => i !== index);
-          currentUserData.todoItems = updated;
+        item.querySelector('.todo-delete-btn').addEventListener('click', async () => {
+          currentUserData.todoItems = todos.filter((_, i) => i !== index);
           await savePlanningData(false);
           renderTodoList();
         });
-
         todoList.appendChild(item);
       });
     }
 
     async function savePlanningData(showMessage = true) {
       if (!currentUser) return;
-
       try {
         const payload = {
           weddingDate: weddingDateInput.value || '',
           todoItems: Array.isArray(currentUserData?.todoItems) ? currentUserData.todoItems : []
         };
-
         await updateDoc(doc(db, 'users', currentUser.uid), payload);
-
-        currentUserData = {
-          ...(currentUserData || {}),
-          ...payload
-        };
-
-        if (showMessage) {
-          todoStatus.textContent = 'Planning details saved.';
-        }
+        currentUserData = { ...(currentUserData || {}), ...payload };
+        if (showMessage) todoStatus.textContent = 'Saved.';
       } catch (error) {
         console.error(error);
-        if (showMessage) {
-          todoStatus.textContent = 'Could not save planning details right now.';
-        }
+        if (showMessage) todoStatus.textContent = 'Could not save right now.';
       }
     }
 
     async function loadCoupleDashboard(user) {
       try {
         const userSnap = await getDoc(doc(db, 'users', user.uid));
-
-        if (!userSnap.exists()) {
-          welcomeMessage.textContent = 'We could not find your account details.';
-          return;
-        }
+        if (!userSnap.exists()) { welcomeMessage.textContent = 'We could not find your account details.'; return; }
 
         const userData = userSnap.data();
-
-        if (userData.role !== 'couple') {
-          window.location.href = 'dashboard.html';
-          return;
-        }
+        if (userData.role !== 'couple') { window.location.href = 'dashboard.html'; return; }
 
         currentUserData = userData;
-
         const names = parseLegacyNames(userData);
-        partnerOne.value = names.one || '';
-        partnerTwo.value = names.two || '';
+        partnerOne.value   = names.one || '';
+        partnerTwo.value   = names.two || '';
         accountEmail.value = userData.email || '';
 
-        welcomeMessage.textContent = `Welcome, ${getDisplayNames({
-          ...userData,
-          partnerOne: names.one,
-          partnerTwo: names.two
-        })}!`;
-
+        welcomeMessage.textContent = `Welcome, ${getDisplayNames({ ...userData, partnerOne: names.one, partnerTwo: names.two })} ♡`;
         setProfileImage(userData.profileImage || '');
 
         weddingDateInput.value = userData.weddingDate || '';
-        const baseDate = weddingDateInput.value ? new Date(weddingDateInput.value + "T00:00:00") : new Date();
-        calendarMonth = baseDate.getMonth();
-        calendarYear = baseDate.getFullYear();
+        const baseDate  = weddingDateInput.value ? new Date(weddingDateInput.value + 'T00:00:00') : new Date();
+        calendarMonth   = baseDate.getMonth();
+        calendarYear    = baseDate.getFullYear();
 
         await syncFavoritesIfNeeded(user);
         await loadFavouriteVendors(currentUserData);
@@ -1834,160 +1932,89 @@
     profileImageInput.addEventListener('change', async () => {
       const file = profileImageInput.files?.[0];
       if (!file || !auth.currentUser) return;
-
-      profileUploadStatus.textContent = 'Uploading profile photo...';
-
+      profileUploadStatus.textContent = 'Uploading...';
       try {
         const storagePath = `couples/${auth.currentUser.uid}/profile/${Date.now()}-${file.name}`;
-        const storageRef = ref(storage, storagePath);
-
+        const storageRef  = ref(storage, storagePath);
         await uploadBytes(storageRef, file);
         const imageUrl = await getDownloadURL(storageRef);
-
-        await updateDoc(doc(db, 'users', auth.currentUser.uid), {
-          profileImage: imageUrl,
-          profileImagePath: storagePath
-        });
-
-        currentUserData = {
-          ...(currentUserData || {}),
-          profileImage: imageUrl,
-          profileImagePath: storagePath
-        };
-
+        await updateDoc(doc(db, 'users', auth.currentUser.uid), { profileImage: imageUrl, profileImagePath: storagePath });
+        currentUserData = { ...(currentUserData || {}), profileImage: imageUrl, profileImagePath: storagePath };
         setProfileImage(imageUrl);
-        profileUploadStatus.textContent = 'Profile photo updated.';
+        profileUploadStatus.textContent = 'Photo updated!';
       } catch (error) {
         console.error(error);
-        profileUploadStatus.textContent = 'Could not upload your profile photo right now.';
+        profileUploadStatus.textContent = 'Could not upload right now.';
       }
     });
 
     visionImageInput.addEventListener('change', () => {
       const file = visionImageInput.files?.[0];
-
-      if (!file) {
-        visionFileNote.textContent = '';
-        visionPreviewWrap.classList.remove('active');
-        visionPreviewImage.removeAttribute('src');
-        return;
-      }
-
+      if (!file) { visionFileNote.textContent = ''; visionPreviewWrap.classList.remove('active'); visionPreviewImage.removeAttribute('src'); return; }
       visionFileNote.textContent = file.name;
-
-      const previewUrl = URL.createObjectURL(file);
-      visionPreviewImage.src = previewUrl;
+      visionPreviewImage.src = URL.createObjectURL(file);
       visionPreviewWrap.classList.add('active');
     });
 
     accountForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-
       if (!auth.currentUser) return;
-
-      accountStatus.textContent = 'Updating your details...';
-
+      accountStatus.textContent = 'Updating...';
       try {
         const one = partnerOne.value.trim();
         const two = partnerTwo.value.trim();
         const newEmail = accountEmail.value.trim();
         const combinedName = [one, two].filter(Boolean).join(' & ');
-
-        await updateDoc(doc(db, 'users', auth.currentUser.uid), {
-          partnerOne: one,
-          partnerTwo: two,
-          name: combinedName,
-          email: newEmail
-        });
-
-        if (newEmail && newEmail !== auth.currentUser.email) {
-          await updateEmail(auth.currentUser, newEmail);
-        }
-
-        currentUserData = {
-          ...(currentUserData || {}),
-          partnerOne: one,
-          partnerTwo: two,
-          name: combinedName,
-          email: newEmail
-        };
-
-        welcomeMessage.textContent = `Welcome, ${combinedName || one || 'Lovely'}!`;
+        await updateDoc(doc(db, 'users', auth.currentUser.uid), { partnerOne: one, partnerTwo: two, name: combinedName, email: newEmail });
+        if (newEmail && newEmail !== auth.currentUser.email) await updateEmail(auth.currentUser, newEmail);
+        currentUserData = { ...(currentUserData || {}), partnerOne: one, partnerTwo: two, name: combinedName, email: newEmail };
+        welcomeMessage.textContent = `Welcome, ${combinedName || one || 'Lovely'} ♡`;
         accountStatus.textContent = 'Details updated successfully.';
       } catch (error) {
         console.error(error);
-        accountStatus.textContent = 'Could not update your details right now. You may need to log in again before changing email.';
+        accountStatus.textContent = 'Could not update right now. You may need to log in again before changing email.';
       }
     });
 
     securityForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-
       if (!auth.currentUser) return;
-
       securityStatus.textContent = 'Updating password...';
-
       try {
         const newPassword = accountPassword.value.trim();
-
-        if (!newPassword) {
-          securityStatus.textContent = 'Please enter a new password.';
-          return;
-        }
-
-        if (newPassword.length < 6) {
-          securityStatus.textContent = 'Password must be at least 6 characters.';
-          return;
-        }
-
+        if (!newPassword) { securityStatus.textContent = 'Please enter a new password.'; return; }
+        if (newPassword.length < 6) { securityStatus.textContent = 'Password must be at least 6 characters.'; return; }
         await updatePassword(auth.currentUser, newPassword);
         accountPassword.value = '';
         securityStatus.textContent = 'Password updated successfully.';
       } catch (error) {
         console.error(error);
-        securityStatus.textContent = 'Could not update your password right now. You may need to log in again first.';
+        securityStatus.textContent = 'Could not update password. You may need to log in again first.';
       }
     });
 
-    weddingDateInput.addEventListener('change', async () => {
-      await savePlanningData(false);
-      renderPlanningCalendar();
-    });
+    weddingDateInput.addEventListener('change', async () => { await savePlanningData(false); renderPlanningCalendar(); });
 
     calendarPrevBtn.addEventListener('click', () => {
       calendarMonth -= 1;
-      if (calendarMonth < 0) {
-        calendarMonth = 11;
-        calendarYear -= 1;
-      }
+      if (calendarMonth < 0) { calendarMonth = 11; calendarYear -= 1; }
       renderPlanningCalendar();
     });
 
     calendarNextBtn.addEventListener('click', () => {
       calendarMonth += 1;
-      if (calendarMonth > 11) {
-        calendarMonth = 0;
-        calendarYear += 1;
-      }
+      if (calendarMonth > 11) { calendarMonth = 0; calendarYear += 1; }
       renderPlanningCalendar();
     });
 
     addTodoBtn.addEventListener('click', async () => {
       const text = todoInput.value.trim();
-      if (!text) {
-        todoStatus.textContent = 'Please write a to-do item first.';
-        return;
-      }
-
+      if (!text) { todoStatus.textContent = 'Please write a to-do item first.'; return; }
       const todos = Array.isArray(currentUserData?.todoItems) ? currentUserData.todoItems : [];
-      currentUserData.todoItems = [
-        ...todos,
-        { text, done: false }
-      ];
-
+      currentUserData.todoItems = [...todos, { text, done: false }];
       todoInput.value = '';
       await savePlanningData(false);
-      todoStatus.textContent = 'To-do item added.';
+      todoStatus.textContent = 'Added!';
       renderTodoList();
     });
 
@@ -1995,43 +2022,26 @@
 
     visionUploadForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-
-      const file = visionImageInput.files?.[0];
+      const file    = visionImageInput.files?.[0];
       const caption = visionCaptionInput.value.trim();
-
-      if (!file || !auth.currentUser) {
-        visionUploadStatus.textContent = 'Please choose an image first.';
-        return;
-      }
-
-      visionUploadStatus.textContent = 'Uploading inspiration image...';
-
+      if (!file || !auth.currentUser) { visionUploadStatus.textContent = 'Please choose an image first.'; return; }
+      visionUploadStatus.textContent = 'Uploading...';
       try {
         const storagePath = `couples/${auth.currentUser.uid}/vision-board/${Date.now()}-${file.name}`;
-        const storageRef = ref(storage, storagePath);
-
+        const storageRef  = ref(storage, storagePath);
         await uploadBytes(storageRef, file);
         const imageUrl = await getDownloadURL(storageRef);
-
-        await addDoc(collection(db, 'users', auth.currentUser.uid, 'visionBoard'), {
-          type: 'image',
-          imageUrl,
-          storagePath,
-          caption,
-          createdAt: serverTimestamp()
-        });
-
+        await addDoc(collection(db, 'users', auth.currentUser.uid, 'visionBoard'), { type: 'image', imageUrl, storagePath, caption, createdAt: serverTimestamp() });
         visionImageInput.value = '';
         visionCaptionInput.value = '';
         visionFileNote.textContent = '';
         visionPreviewWrap.classList.remove('active');
         visionPreviewImage.removeAttribute('src');
-
-        visionUploadStatus.textContent = 'Added to your board.';
+        visionUploadStatus.textContent = 'Added to your board!';
         await loadVisionBoard(auth.currentUser);
       } catch (error) {
         console.error(error);
-        visionUploadStatus.textContent = 'Could not upload that image right now.';
+        visionUploadStatus.textContent = 'Could not upload right now.';
       }
     });
 
@@ -2041,11 +2051,7 @@
     });
 
     onAuthStateChanged(auth, async (user) => {
-      if (!user) {
-        window.location.href = 'login.html';
-        return;
-      }
-
+      if (!user) { window.location.href = 'login.html'; return; }
       currentUser = user;
       await loadCoupleDashboard(user);
     });
