@@ -6,20 +6,50 @@
   <title>Privacy Policy | Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css">
   <style>
+    :root {
+      --lux-espresso: #3b2f2a;
+      --lux-rose:     #c8a6a1;
+      --lux-champagne:#c6a77d;
+      --lux-cream:    #fffaf7;
+      --lux-blush:    #f4e7df;
+      --lux-border:   rgba(216, 197, 189, 0.55);
+      --lux-muted:    #9b8579;
+      --lux-shadow:   rgba(59, 47, 42, 0.08);
+    }
+
+    body {
+      background:
+        radial-gradient(circle at top left, rgba(200, 166, 161, 0.12), transparent 32%),
+        #f7f1ed;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes heroFadeIn {
+      from { opacity: 0; transform: scale(1.01); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
     .privacy-page {
       max-width: 1200px;
       margin: 0 auto 60px;
       padding: 18px 20px 0;
     }
 
-    .privacy-stack {
-      display: grid;
-      gap: 24px;
-    }
+    .privacy-stack { display: grid; gap: 24px; }
 
+    /* ── HERO ── */
     .privacy-hero-card {
-      padding: 0;
+      border-radius: 36px;
+      border: 1px solid rgba(227, 219, 212, 0.9);
+      box-shadow: 0 24px 70px var(--lux-shadow);
+      background:
+        radial-gradient(circle at top left, rgba(200, 166, 161, 0.18), transparent 34%),
+        linear-gradient(135deg, #fffaf7, #f4ebe5);
       overflow: hidden;
+      padding: 0;
     }
 
     .privacy-hero-grid {
@@ -30,173 +60,365 @@
     }
 
     .privacy-hero-copy {
-      padding: 46px 42px;
+      padding: 52px 48px;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      text-align: left;
     }
+
+    .privacy-hero-copy > * {
+      animation: fadeUp 0.8s ease forwards;
+      opacity: 0;
+    }
+    .privacy-hero-copy > *:nth-child(1) { animation-delay: 0.05s; }
+    .privacy-hero-copy > *:nth-child(2) { animation-delay: 0.1s; }
+    .privacy-hero-copy > *:nth-child(3) { animation-delay: 0.18s; }
+    .privacy-hero-copy > *:nth-child(4) { animation-delay: 0.26s; }
+    .privacy-hero-copy > *:nth-child(5) { animation-delay: 0.34s; }
 
     .privacy-logo-wrap {
       display: inline-flex;
       align-items: center;
       justify-content: flex-start;
-      margin-bottom: 18px;
+      margin-bottom: 20px;
     }
 
     .privacy-logo {
       width: 108px;
       display: block;
+      transition: transform 0.3s ease;
     }
+    .privacy-logo:hover { transform: scale(1.04); }
 
-    .privacy-hero-copy .eyebrow {
-      margin-bottom: 12px;
-      text-align: left;
+    .privacy-kicker {
+      margin: 0 0 12px;
+      font-size: 0.78rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: #b08d7d;
+      opacity: 0.85;
     }
 
     .privacy-title {
-      margin: 0 0 16px;
+      margin: 0 0 14px;
       font-family: "Cormorant Garamond", serif;
-      font-size: clamp(3rem, 5vw, 4.3rem);
+      font-size: clamp(2.8rem, 4.5vw, 4rem);
       font-weight: 500;
-      line-height: 0.94;
-      letter-spacing: -0.03em;
-      color: var(--text);
+      line-height: 0.96;
+      letter-spacing: -0.045em;
+      color: var(--lux-espresso);
+      text-shadow: 0 10px 30px rgba(59, 47, 42, 0.08);
+    }
+
+    .privacy-script {
+      margin: 0 0 18px;
+      font-family: "Cormorant Garamond", serif;
+      font-style: italic;
+      font-size: 1.3rem;
+      color: #c69b84;
+      opacity: 0.9;
+      letter-spacing: 0.02em;
     }
 
     .privacy-intro {
-      margin: 0 0 14px;
-      max-width: 560px;
-      color: var(--muted);
+      margin: 0;
+      max-width: 480px;
+      color: var(--lux-muted);
       line-height: 1.8;
-      font-size: 1rem;
+      font-size: 0.97rem;
     }
 
     .privacy-hero-image-wrap {
+      position: relative;
+      overflow: hidden;
       min-height: 100%;
       background: #f4ece6;
     }
-
+    .privacy-hero-image-wrap::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(59, 47, 42, 0.08), transparent 45%),
+        radial-gradient(circle at top right, rgba(255, 250, 247, 0.14), transparent 38%);
+      pointer-events: none;
+    }
     .privacy-hero-image {
       width: 100%;
       height: 100%;
       display: block;
       object-fit: cover;
+      filter: brightness(0.98) contrast(0.94) saturate(0.92);
+      opacity: 0;
+      animation: heroFadeIn 0.9s ease forwards;
+      transition: transform 0.9s ease, filter 0.4s ease;
+    }
+    .privacy-hero-image-wrap:hover .privacy-hero-image {
+      transform: scale(1.035);
+      filter: brightness(1) contrast(0.96) saturate(0.96);
     }
 
+    /* Trust strip */
+    .trust-strip {
+      text-align: center;
+      padding: 16px 20px 6px;
+      font-size: 0.82rem;
+      letter-spacing: 0.12em;
+      color: #9b8579;
+      opacity: 0.7;
+    }
+    .trust-strip p { margin: 0; }
+
+    /* ── PROMISE CARD ── */
+    .privacy-promise-card {
+      border-radius: 24px;
+      background: linear-gradient(135deg, rgba(200,166,161,0.14), rgba(198,167,125,0.1));
+      border: 1px solid rgba(214, 190, 174, 0.8);
+      box-shadow: 0 6px 18px var(--lux-shadow);
+      padding: 32px 28px;
+      text-align: center;
+      transition: transform 0.28s ease, box-shadow 0.28s ease;
+    }
+    .privacy-promise-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 50px rgba(59, 47, 42, 0.1);
+    }
+
+    .privacy-promise-icon {
+      font-size: 2rem;
+      display: block;
+      margin-bottom: 14px;
+      opacity: 0.85;
+    }
+
+    .privacy-promise-card h2 {
+      margin: 0 0 14px;
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      color: var(--lux-espresso);
+    }
+
+    .privacy-promise-card p {
+      margin: 0 auto;
+      max-width: 720px;
+      color: #5b4a43;
+      line-height: 1.85;
+      font-size: 1rem;
+    }
+
+    .privacy-promise-card p + p { margin-top: 12px; }
+
+    .privacy-promise-strong {
+      display: inline-block;
+      margin-top: 18px;
+      padding: 12px 22px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #d6b19a, #a97c66);
+      color: #fffaf7;
+      font-weight: 700;
+      font-size: 0.92rem;
+      letter-spacing: 0.04em;
+      box-shadow: 0 8px 20px rgba(185, 143, 122, 0.22);
+    }
+
+    /* ── POLICY CARD ── */
     .privacy-policy-card {
+      border-radius: 24px;
+      background: rgba(255, 250, 247, 0.92);
+      border: 1px solid rgba(223, 210, 200, 0.9);
+      box-shadow: 0 6px 18px var(--lux-shadow);
+      padding: 36px 32px;
       text-align: left;
+      transition: box-shadow 0.28s ease;
+    }
+    .privacy-policy-card:hover {
+      box-shadow: 0 16px 44px rgba(59, 47, 42, 0.1);
     }
 
     .privacy-policy-meta {
-      display: inline-block;
-      margin-bottom: 16px;
-      padding: 8px 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
       border-radius: 999px;
-      background: #f4e5da;
-      color: #5b4540;
-      font-size: 0.82rem;
+      background: rgba(255, 250, 247, 0.9);
+      color: #6f5143;
+      border: 1px solid rgba(214, 190, 174, 0.8);
+      font-size: 0.74rem;
       font-weight: 700;
       letter-spacing: 0.08em;
       text-transform: uppercase;
+      margin-bottom: 24px;
     }
 
     .privacy-policy-card h3 {
-      margin: 24px 0 10px;
-      font-size: 1.22rem;
-      color: var(--text);
+      margin: 28px 0 10px;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1.4rem;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      color: var(--lux-espresso);
     }
+    .privacy-policy-card h3:first-of-type { margin-top: 0; }
 
     .privacy-policy-card p {
-      margin-top: 0;
-      margin-bottom: 14px;
-      color: var(--text);
+      margin: 0 0 14px;
+      color: #5b4a43;
       line-height: 1.85;
+      font-size: 0.97rem;
     }
+    .privacy-policy-card p:last-child { margin-bottom: 0; }
 
     .privacy-policy-card ul {
-      margin: 0 0 18px 20px;
+      margin: 0 0 16px 20px;
       padding: 0;
-      color: var(--text);
+      color: #5b4a43;
       line-height: 1.85;
+      font-size: 0.97rem;
     }
+    .privacy-policy-card li { margin-bottom: 6px; }
 
-    .privacy-policy-card li {
-      margin-bottom: 6px;
-    }
-
+    /* Info highlight box */
     .privacy-highlight {
-      padding: 18px;
+      padding: 20px 22px;
       border-radius: 20px;
-      background: linear-gradient(180deg, #fffdfb 0%, #fff7f2 100%);
-      border: 1px solid #f0dfd2;
-      margin: 18px 0 20px;
+      background: linear-gradient(180deg, rgba(247,241,237,0.9), rgba(244,235,229,0.95));
+      border: 1px solid rgba(223, 210, 200, 0.7);
+      margin: 16px 0 20px;
+      display: grid;
+      gap: 12px;
+    }
+    .privacy-highlight p {
+      margin: 0 !important;
+      font-size: 0.95rem;
     }
 
-    .privacy-highlight p:last-child {
-      margin-bottom: 0;
+    /* Never-sell callout */
+    .privacy-never-sell {
+      padding: 22px 24px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(244,231,223,0.7), rgba(238,219,207,0.75));
+      border: 1px solid rgba(214, 190, 174, 0.8);
+      margin: 20px 0;
+    }
+    .privacy-never-sell p {
+      margin: 0 !important;
+      font-weight: 600;
+      color: #3b2f2a !important;
+      font-size: 0.97rem !important;
     }
 
+    /* Section divider */
+    .privacy-divider {
+      height: 1px;
+      background: linear-gradient(90deg, rgba(200,166,161,0.3), transparent);
+      margin: 8px 0 4px;
+      border: none;
+    }
+
+    /* ── CONTACT CARD ── */
     .privacy-contact-card {
+      border-radius: 24px;
+      background: linear-gradient(135deg, rgba(200,166,161,0.1), rgba(198,167,125,0.08));
+      border: 1px solid rgba(214, 190, 174, 0.8);
+      box-shadow: 0 6px 18px var(--lux-shadow);
+      padding: 32px 28px;
       text-align: left;
-      background: linear-gradient(180deg, #fffaf7 0%, #fff3ec 100%);
+      transition: transform 0.28s ease, box-shadow 0.28s ease;
+    }
+    .privacy-contact-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 50px rgba(59, 47, 42, 0.1);
     }
 
     .privacy-contact-card h2 {
-      margin-top: 0;
-      margin-bottom: 12px;
-      text-align: left;
+      margin: 0 0 12px;
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(1.7rem, 2.5vw, 2.2rem);
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      color: var(--lux-espresso);
     }
 
     .privacy-contact-card p {
-      margin-top: 0;
-      margin-bottom: 14px;
+      margin: 0 0 12px;
+      color: var(--lux-muted);
       line-height: 1.8;
-      color: var(--muted);
+      font-size: 0.97rem;
     }
-
-    .privacy-contact-card p:last-child {
-      margin-bottom: 0;
-    }
+    .privacy-contact-card p:last-of-type { margin-bottom: 0; }
 
     .privacy-cta-row {
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
-      margin-top: 18px;
+      margin-top: 20px;
     }
 
-    .privacy-cta-row .pretty-button,
-    .privacy-cta-row .apply-button {
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 12px 22px;
+      border-radius: 999px;
       text-decoration: none;
+      background: linear-gradient(135deg, #d6b19a, #a97c66);
+      color: #fffaf7;
+      font-weight: 700;
+      font-size: 0.92rem;
+      letter-spacing: 0.04em;
+      box-shadow: 0 10px 24px rgba(185, 143, 122, 0.22);
+      transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 34px rgba(185, 143, 122, 0.28);
+      filter: brightness(1.04);
     }
 
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 12px 22px;
+      border-radius: 999px;
+      text-decoration: none;
+      background: rgba(255, 250, 247, 0.95);
+      border: 1px solid rgba(223, 210, 200, 0.9);
+      color: var(--lux-espresso);
+      font-weight: 600;
+      font-size: 0.92rem;
+      transition: transform 0.18s ease, background 0.18s ease;
+    }
+    .btn-secondary:hover {
+      background: var(--lux-blush);
+      transform: translateY(-2px);
+    }
+
+    /* Footer */
+    .site-footer {
+      background:
+        radial-gradient(circle at top, rgba(200, 166, 161, 0.16), transparent 36%),
+        linear-gradient(180deg, #f5eee9 0%, #eee5df 100%);
+    }
+    .footer-title { color: var(--lux-espresso); letter-spacing: -0.035em; }
+    .footer-eyebrow { color: #b08d7d; }
+
+    /* ── RESPONSIVE ── */
     @media (max-width: 980px) {
-      .privacy-hero-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .privacy-hero-copy {
-        padding: 34px 24px;
-      }
-
-      .privacy-hero-image {
-        max-height: 500px;
-      }
+      .privacy-hero-grid { grid-template-columns: 1fr; }
+      .privacy-hero-copy { padding: 36px 28px; }
     }
 
     @media (max-width: 700px) {
-      .privacy-page {
-        padding: 10px 10px 0;
-      }
-
-      .privacy-hero-copy {
-        padding: 28px 20px;
-      }
-
-      .privacy-title {
-        font-size: 2.7rem;
-      }
+      .privacy-page { padding: 10px 10px 0; }
+      .privacy-hero-copy { padding: 28px 18px; }
+      .privacy-title { font-size: 2.6rem; }
+      .privacy-policy-card { padding: 28px 20px; }
     }
   </style>
 </head>
@@ -204,182 +426,176 @@
 
 <div class="page-auth">
   <a href="categories.html" id="categoriesLink" class="auth-link">Categories</a>
-
   <a href="shop.html" id="shopLink" class="auth-link">Boutique</a>
-
   <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
-
   <a href="login.html" id="loginLink" class="auth-link">Log In</a>
-
   <a href="dashboard.html" id="dashboardLink" class="auth-link" style="display:none;">Dashboard</a>
-
   <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
 </div>
 
-  <main class="privacy-page">
-    <div class="privacy-stack">
+<main class="privacy-page">
+  <div class="privacy-stack">
 
-      <section class="card privacy-hero-card">
-        <div class="privacy-hero-grid">
-          <div class="privacy-hero-copy">
-            <a href="index.html" class="privacy-logo-wrap" aria-label="Go to homepage">
-              <img src="images/logo.png" alt="Our Wedding Day Hub" class="privacy-logo">
-            </a>
+    <!-- ── HERO ── -->
+    <section class="privacy-hero-card">
+      <div class="privacy-hero-grid">
+        <div class="privacy-hero-copy">
+          <a href="index.html" class="privacy-logo-wrap" aria-label="Go to homepage">
+            <img src="images/logo.png" alt="Our Wedding Day Hub" class="privacy-logo">
+          </a>
 
-            <p class="eyebrow">privacy policy</p>
-            <h1 class="privacy-title">Privacy Policy</h1>
+          <p class="privacy-kicker">Privacy Policy</p>
+          <h1 class="privacy-title">Your privacy,<br>protected always</h1>
+          <p class="privacy-script">your details are safe with us ♡</p>
 
-            <p class="privacy-intro">
-              Your privacy matters to us. This policy explains how we collect, use, store, and protect your information when you use Our Wedding Day Hub.
-            </p>
-
-            <p class="privacy-intro">
-              We want our platform to feel clear, trustworthy, and respectful of your information at every step.
-            </p>
-          </div>
-
-          <div class="privacy-hero-image-wrap">
-            <img src="images/timeless-love.png" alt="Modern wedding couple portrait" class="privacy-hero-image">
-          </div>
-        </div>
-      </section>
-
-      <section class="card privacy-policy-card">
-        <span class="privacy-policy-meta">Effective Date: 20 March 2026</span>
-
-        <h3>1. Overview</h3>
-        <p>
-          Our Wedding Day Hub respects your privacy and is committed to protecting your personal information.
-          This Privacy Policy explains how we collect, use, store, and disclose your information when you use our website.
-        </p>
-
-        <h3>2. Information We Collect</h3>
-        <p>We may collect the following types of information:</p>
-
-        <div class="privacy-highlight">
-          <p><strong>Account Information:</strong><br>
-          Name, email address, password secured through Firebase, and account type such as vendor or couple.</p>
-
-          <p><strong>Vendor Information:</strong><br>
-          Business name, service categories, service locations, contact details, and any content you upload.</p>
-
-          <p><strong>Couple Information:</strong><br>
-          Names, wedding date, notes, and preferences entered into your dashboard.</p>
-
-          <p><strong>Usage Information:</strong><br>
-          Basic data about how you interact with the website, such as pages visited, which helps us improve the platform.</p>
+          <p class="privacy-intro">
+            Your privacy matters to us deeply. This policy explains how we collect, use, store, and protect your information — and makes clear what we will never, ever do with it.
+          </p>
         </div>
 
-        <h3>3. How We Use Your Information</h3>
-        <p>Your information is used to:</p>
-        <ul>
-          <li>create and manage your account;</li>
-          <li>display vendor listings publicly on the platform;</li>
-          <li>allow couples to find and contact vendors;</li>
-          <li>provide dashboard functionality;</li>
-          <li>improve the website and user experience; and</li>
-          <li>communicate with you about your account or services.</li>
-        </ul>
-
-        <h3>4. Vendor Listings Are Public</h3>
-        <p>
-          If you sign up as a vendor, your business information, such as name, category, service areas, and contact details,
-          may be displayed publicly on Our Wedding Day Hub.
-        </p>
-
-        <h3>5. Payments</h3>
-        <p>
-          Vendor payments may be processed through third-party providers such as Stripe or other payment platforms.
-          We do not store your full payment details.
-        </p>
-
-        <h3>6. Third-Party Services</h3>
-        <p>
-          We use trusted third-party services to operate the platform, including:
-        </p>
-        <ul>
-          <li>Firebase for authentication and database services;</li>
-          <li>hosting providers such as GitHub Pages or AWS; and</li>
-          <li>payment providers for vendor subscriptions.</li>
-        </ul>
-        <p>
-          These services may store or process your data in accordance with their own privacy policies.
-        </p>
-
-        <h3>7. Data Storage and Security</h3>
-        <p>
-          We take reasonable steps to protect your personal information from unauthorised access, misuse, or disclosure.
-          However, no system is completely secure, and we cannot guarantee absolute security.
-        </p>
-
-        <h3>8. Your Responsibilities</h3>
-        <p>You are responsible for:</p>
-        <ul>
-          <li>keeping your login details secure;</li>
-          <li>ensuring any information you provide is accurate; and</li>
-          <li>only uploading content you have permission to use.</li>
-        </ul>
-
-        <h3>9. Access and Updates</h3>
-        <p>
-          You can update your information at any time through your dashboard.
-          If you would like your account deleted, you may contact us and request removal.
-        </p>
-
-        <h3>10. Cookies and Tracking</h3>
-        <p>
-          We may use basic cookies or similar technologies to improve your browsing experience.
-          These help us understand how users interact with the site.
-        </p>
-
-        <h3>11. Australian Privacy Law</h3>
-        <p>
-          We aim to comply with applicable Australian privacy laws, including the Privacy Act 1988, where applicable.
-        </p>
-
-        <h3>12. Changes to This Policy</h3>
-        <p>
-          We may update this Privacy Policy from time to time.
-          Changes will take effect once published on this page.
-        </p>
-
-        <h3>13. Contact</h3>
-        <p>
-          If you have any questions about this Privacy Policy, please contact us through the website.
-        </p>
-      </section>
-
-      <section class="card privacy-contact-card">
-        <h2>Questions about privacy?</h2>
-        <p>
-          If you have any questions about how your information is handled on Our Wedding Day Hub, please contact us and we’ll do our best to help.
-        </p>
-        <p>
-          We want the platform to feel thoughtful, transparent, and respectful of your privacy.
-        </p>
-
-        <div class="privacy-cta-row">
-          <a href="contact.html" class="pretty-button">Contact Us</a>
-          <a href="terms.html" class="apply-button">View Terms</a>
+        <div class="privacy-hero-image-wrap">
+          <img src="images/timeless-love.png" alt="Modern wedding couple portrait" class="privacy-hero-image">
         </div>
-      </section>
+      </div>
+    </section>
 
+    <!-- Trust strip -->
+    <section class="trust-strip">
+      <p>Trusted by wedding vendors across Australia & worldwide • Founding members now joining • Growing daily</p>
+    </section>
+
+    <!-- ── OUR PROMISE ── -->
+    <div class="privacy-promise-card">
+      <span class="privacy-promise-icon">♡</span>
+      <h2>Our Promise to You</h2>
+      <p>We will <strong>never sell, share, rent, trade, or pass on your personal information</strong> to any third party for marketing, advertising, or commercial purposes — ever. Not now, not in the future, not under any circumstances.</p>
+      <p>Your details belong to you. They exist solely to help us run the platform for you, and for nothing else. We do not believe in profiting from your information, and we never will.</p>
+      <span class="privacy-promise-strong">✦ We will never sell your data. Period.</span>
     </div>
-  </main>
+
+    <!-- ── POLICY ── -->
+    <section class="privacy-policy-card">
+      <span class="privacy-policy-meta">✦ Effective Date: 20 March 2026</span>
+
+      <h3>1. Overview</h3>
+      <p>Our Wedding Day Hub respects your privacy and is committed to protecting your personal information. This Privacy Policy explains how we collect, use, store, and disclose your information when you use our website and platform.</p>
+
+      <hr class="privacy-divider">
+
+      <h3>2. Information We Collect</h3>
+      <p>We may collect the following types of information:</p>
+
+      <div class="privacy-highlight">
+        <p><strong>Account Information</strong><br>Name, email address, password (secured through Firebase), and account type such as vendor or couple.</p>
+        <p><strong>Vendor Information</strong><br>Business name, service categories, service locations, contact details, and any content you upload to your profile.</p>
+        <p><strong>Couple Information</strong><br>Names, wedding date, planning notes, and preferences entered into your dashboard.</p>
+        <p><strong>Usage Information</strong><br>Basic data about how you interact with the website, such as pages visited, which helps us improve the platform experience.</p>
+      </div>
+
+      <hr class="privacy-divider">
+
+      <h3>3. How We Use Your Information</h3>
+      <p>Your information is used only to:</p>
+      <ul>
+        <li>create and manage your account;</li>
+        <li>display vendor listings publicly on the platform;</li>
+        <li>allow couples to find and contact vendors;</li>
+        <li>provide dashboard functionality;</li>
+        <li>improve the website and user experience; and</li>
+        <li>communicate with you about your account or services.</li>
+      </ul>
+
+      <div class="privacy-never-sell">
+        <p>✦ We will never use your information for advertising purposes, sell it to any third party, share it with data brokers, or pass it on to anyone outside the essential services required to run this platform. This is an absolute commitment with no exceptions.</p>
+      </div>
+
+      <hr class="privacy-divider">
+
+      <h3>4. Vendor Listings Are Public</h3>
+      <p>If you sign up as a vendor, your business information — such as your business name, category, service areas, and contact details — may be displayed publicly on Our Wedding Day Hub so that couples can discover and contact you.</p>
+
+      <hr class="privacy-divider">
+
+      <h3>5. Payments</h3>
+      <p>Vendor payments are processed through trusted third-party providers such as Stripe. We do not store your full payment card details. Payment information is handled entirely by the payment provider under their own security and privacy standards.</p>
+
+      <hr class="privacy-divider">
+
+      <h3>6. Third-Party Services</h3>
+      <p>We use a small number of trusted third-party services to operate the platform, including:</p>
+      <ul>
+        <li>Firebase for authentication and database services;</li>
+        <li>hosting providers for platform delivery; and</li>
+        <li>payment providers for vendor subscriptions.</li>
+      </ul>
+      <p>These services are used solely to operate the platform. We do not share your data with them for any purpose beyond what is necessary to provide the service. These providers may process your data in accordance with their own privacy policies.</p>
+
+      <div class="privacy-never-sell">
+        <p>✦ We do not share your personal information with advertisers, marketing platforms, data brokers, or any commercial third parties. We never have and we never will.</p>
+      </div>
+
+      <hr class="privacy-divider">
+
+      <h3>7. Data Storage and Security</h3>
+      <p>We take reasonable steps to protect your personal information from unauthorised access, misuse, or disclosure. Your account data is secured through Firebase, which applies industry-standard security practices. However, no system is completely secure and we cannot guarantee absolute security.</p>
+
+      <hr class="privacy-divider">
+
+      <h3>8. Your Responsibilities</h3>
+      <p>You are responsible for:</p>
+      <ul>
+        <li>keeping your login details secure;</li>
+        <li>ensuring any information you provide is accurate; and</li>
+        <li>only uploading content you have permission to use.</li>
+      </ul>
+
+      <hr class="privacy-divider">
+
+      <h3>9. Access and Updates</h3>
+      <p>You can update your personal information at any time through your dashboard. If you would like your account deleted and your data removed, please contact us and we will action your request promptly.</p>
+
+      <hr class="privacy-divider">
+
+      <h3>10. Cookies and Tracking</h3>
+      <p>We may use basic cookies or similar technologies to improve your browsing experience and understand how users interact with the site. We do not use tracking cookies for advertising or third-party marketing purposes.</p>
+
+      <hr class="privacy-divider">
+
+      <h3>11. Australian Privacy Law</h3>
+      <p>We aim to comply with applicable Australian privacy laws, including the Privacy Act 1988, where applicable. Our Wedding Day Hub operates from Australia under ABN 76 688 637 041.</p>
+
+      <hr class="privacy-divider">
+
+      <h3>12. Changes to This Policy</h3>
+      <p>We may update this Privacy Policy from time to time. Changes will take effect once published on this page. We encourage you to review it periodically.</p>
+
+      <hr class="privacy-divider">
+
+      <h3>13. Contact</h3>
+      <p>If you have any questions about this Privacy Policy or how your information is handled, please contact us through the website. We are always happy to help and will respond as soon as possible.</p>
+    </section>
+
+    <!-- ── CONTACT ── -->
+    <section class="privacy-contact-card">
+      <span style="display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:999px;background:rgba(255,250,247,0.9);color:#6f5143;border:1px solid rgba(214,190,174,0.8);font-size:0.74rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:16px;">✦ Questions?</span>
+      <h2>Questions about your privacy?</h2>
+      <p>If you have any questions about how your information is handled on Our Wedding Day Hub, please reach out and we'll do our best to help.</p>
+      <p>We want this platform to feel thoughtful, transparent, and genuinely respectful of the people who use it. Your trust means everything to us.</p>
+
+      <div class="privacy-cta-row">
+        <a href="contact.html" class="btn-primary">Contact Us</a>
+        <a href="terms.html" class="btn-secondary">View Terms</a>
+      </div>
+    </section>
+
+  </div>
+</main>
 
 <footer class="site-footer">
   <div class="footer-content">
     <p class="footer-eyebrow">wedding vendor directory</p>
-
-    <h2 class="footer-title">
-      Everything your wedding deserves.
-    </h2>
-
-    <p class="footer-text">
-      Browse trusted wedding businesses, discover local favourites, and connect
-      with the people who can bring your day to life.
-    </p>
-
+    <h2 class="footer-title">Everything your wedding deserves.</h2>
+    <p class="footer-text">Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.</p>
     <div class="footer-links">
       <a href="about.html">About Us</a>
       <a href="how-it-works.html">How It Works</a>
@@ -391,15 +607,12 @@
       <a href="https://www.equaldex.com/equality-index" target="_blank" rel="noopener noreferrer">Global Equality Index</a>
       <a href="#" onclick="return false;">Events4Us (Coming Soon)</a>
     </div>
-
-    <p class="footer-tagline">
-      Proudly inclusive • Worldwide • Built with heart
-    </p>
-
+    <p class="footer-tagline">Proudly inclusive • Worldwide • Built with heart</p>
     <p class="footer-abn">© 2026 Our Wedding Day Hub</p>
     <p class="footer-abn">ABN 76 688 637 041 • Australia</p>
   </div>
 </footer>
-  <script type="module" src="nav.js"></script>
+
+<script type="module" src="nav.js"></script>
 </body>
 </html>
