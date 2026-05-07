@@ -6,61 +6,96 @@
   <title>Browse Categories | Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css">
   <style>
+    :root {
+      --lux-espresso: #3b2f2a;
+      --lux-rose:     #c8a6a1;
+      --lux-champagne:#c6a77d;
+      --lux-cream:    #fffaf7;
+      --lux-blush:    #f4e7df;
+      --lux-border:   rgba(216, 197, 189, 0.55);
+      --lux-muted:    #9b8579;
+      --lux-shadow:   rgba(59, 47, 42, 0.08);
+    }
+
+    body {
+      background:
+        radial-gradient(circle at top left, rgba(200, 166, 161, 0.12), transparent 32%),
+        #f7f1ed;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes heroFadeIn {
+      from { opacity: 0; transform: scale(1.01); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    /* ── PAGE ── */
     .categories-page {
       max-width: 1520px;
       margin: 0 auto;
       padding: 18px 20px 56px;
     }
 
+    /* ── HERO ── */
     .categories-hero {
       position: relative;
       background:
-        radial-gradient(circle at top center, rgba(231, 211, 199, 0.32), transparent 34%),
-        linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(255, 249, 245, 0.9));
+        radial-gradient(circle at top left, rgba(200, 166, 161, 0.18), transparent 34%),
+        linear-gradient(135deg, #fffaf7, #f4ebe5);
       border: 1px solid rgba(227, 219, 212, 0.9);
       border-radius: 36px;
-      padding: 52px 30px 32px;
+      padding: 52px 30px 36px;
       margin-bottom: 28px;
       text-align: center;
-      box-shadow: 0 20px 46px rgba(52, 37, 30, 0.05);
+      box-shadow: 0 24px 70px var(--lux-shadow);
       overflow: hidden;
     }
 
+    /* Decorative orbs */
     .categories-hero::before,
     .categories-hero::after {
       content: "";
       position: absolute;
-      width: 240px;
-      height: 240px;
+      width: 260px;
+      height: 260px;
       border-radius: 999px;
-      background: radial-gradient(circle, rgba(232, 214, 201, 0.22), transparent 70%);
+      background: radial-gradient(circle, rgba(200, 166, 161, 0.14), transparent 70%);
       pointer-events: none;
     }
+    .categories-hero::before { top: -120px; left: -80px; }
+    .categories-hero::after  { right: -90px; bottom: -130px; }
 
-    .categories-hero::before {
-      top: -110px;
-      left: -70px;
+    .categories-hero > * {
+      animation: fadeUp 0.8s ease forwards;
+      opacity: 0;
     }
-
-    .categories-hero::after {
-      right: -80px;
-      bottom: -120px;
-    }
+    .categories-hero > *:nth-child(1) { animation-delay: 0.05s; }
+    .categories-hero > *:nth-child(2) { animation-delay: 0.1s; }
+    .categories-hero > *:nth-child(3) { animation-delay: 0.17s; }
+    .categories-hero > *:nth-child(4) { animation-delay: 0.24s; }
+    .categories-hero > *:nth-child(5) { animation-delay: 0.31s; }
+    .categories-hero > *:nth-child(6) { animation-delay: 0.38s; }
 
     .categories-logo {
-      width: 92px;
+      width: 88px;
       margin: 0 auto 18px;
       display: block;
       position: relative;
       z-index: 1;
+      transition: transform 0.3s ease;
     }
+    .categories-logo:hover { transform: scale(1.04); }
 
     .categories-kicker {
-      margin: 0 0 14px;
+      margin: 0 0 12px;
+      font-size: 0.78rem;
+      letter-spacing: 0.28em;
       text-transform: uppercase;
-      letter-spacing: 0.26em;
-      font-size: 0.76rem;
-      color: #b38c79;
+      color: #b08d7d;
+      opacity: 0.85;
       position: relative;
       z-index: 1;
     }
@@ -68,28 +103,41 @@
     .categories-title {
       margin: 0;
       font-family: "Cormorant Garamond", serif;
-      font-size: clamp(2.8rem, 5vw, 5rem);
+      font-size: clamp(2.8rem, 5vw, 4.8rem);
       font-weight: 500;
       line-height: 0.95;
-      letter-spacing: -0.035em;
-      color: var(--text);
+      letter-spacing: -0.045em;
+      color: var(--lux-espresso);
+      text-shadow: 0 10px 30px rgba(59, 47, 42, 0.08);
+      position: relative;
+      z-index: 1;
+    }
+
+    .categories-script {
+      margin: 10px 0 0;
+      font-family: "Cormorant Garamond", serif;
+      font-style: italic;
+      font-size: 1.25rem;
+      color: #c69b84;
+      opacity: 0.9;
       position: relative;
       z-index: 1;
     }
 
     .categories-subtitle {
-      max-width: 780px;
-      margin: 18px auto 0;
-      color: var(--muted);
+      max-width: 680px;
+      margin: 14px auto 0;
+      color: var(--lux-muted);
       line-height: 1.78;
-      font-size: 1rem;
+      font-size: 0.97rem;
       position: relative;
       z-index: 1;
     }
 
+    /* ── FILTER PILLS ── */
     .categories-filter-wrap {
       max-width: 1230px;
-      margin: 30px auto 0;
+      margin: 28px auto 0;
       position: relative;
       z-index: 1;
     }
@@ -98,49 +146,53 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 12px;
+      gap: 10px;
     }
 
     .categories-filter-pill {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 12px 18px;
-      min-height: 46px;
+      padding: 10px 17px;
+      min-height: 42px;
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.92);
-      border: 1px solid rgba(227, 219, 212, 0.96);
-      color: var(--text);
-      font-size: 0.94rem;
+      background: rgba(255, 250, 247, 0.9);
+      border: 1px solid rgba(223, 210, 200, 0.9);
+      color: #6e5a52;
+      font-size: 0.88rem;
       font-weight: 500;
       text-decoration: none;
       white-space: nowrap;
       transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 4px 12px var(--lux-shadow);
     }
-
     .categories-filter-pill:hover {
-      transform: translateY(-1px);
-      background: #fcf7f3;
-      border-color: #ddc8bc;
-      box-shadow: 0 10px 22px rgba(60, 40, 30, 0.06);
+      transform: translateY(-2px);
+      background: var(--lux-blush);
+      border-color: rgba(198, 167, 125, 0.5);
+      box-shadow: 0 10px 22px var(--lux-shadow);
     }
-
     .categories-filter-pill.active {
-      background: linear-gradient(180deg, #ead8cd 0%, #e2ccbe 100%);
-      border-color: #dcc4b4;
-      color: #2f2723;
-      box-shadow: 0 8px 18px rgba(199, 157, 137, 0.12);
+      background: linear-gradient(135deg, #d6b19a, #a97c66);
+      border-color: transparent;
+      color: #fffaf7;
+      box-shadow: 0 10px 24px rgba(185, 143, 122, 0.22);
+      font-weight: 600;
+    }
+    .categories-filter-pill.active:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.04);
     }
 
+    /* ── SEARCH PANEL ── */
     .categories-search-panel {
       max-width: 1210px;
-      margin: 28px auto 0;
-      padding: 18px;
+      margin: 24px auto 0;
+      padding: 20px;
       border-radius: 28px;
-      background: rgba(255, 255, 255, 0.88);
-      border: 1px solid rgba(227, 219, 212, 0.92);
-      box-shadow: 0 14px 32px rgba(59, 43, 35, 0.045);
-      backdrop-filter: blur(8px);
+      background: rgba(255, 250, 247, 0.92);
+      border: 1px solid rgba(223, 210, 200, 0.9);
+      box-shadow: 0 8px 28px var(--lux-shadow);
       position: relative;
       z-index: 1;
     }
@@ -154,59 +206,53 @@
 
     .categories-search-field label {
       display: block;
-      margin-bottom: 8px;
-      font-size: 0.84rem;
-      font-weight: 600;
-      color: #54453c;
-      text-align: left;
-      letter-spacing: 0.01em;
+      margin-bottom: 7px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #8d7369;
     }
 
     .categories-search-field select,
     .categories-search-field input {
       width: 100%;
-      min-height: 50px;
-      border-radius: 16px;
-      border: 1px solid rgba(227, 219, 212, 0.95);
+      min-height: 48px;
+      border-radius: 14px;
+      border: 1px solid #eadfd6;
       background: #fffdfb;
       padding: 12px 14px;
-      font-size: 0.95rem;
-      color: var(--text);
+      font-size: 0.94rem;
+      color: #2d221c;
       box-sizing: border-box;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, transform 0.2s ease;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
     }
-
-    .categories-search-field select:hover,
-    .categories-search-field input:hover {
-      background: #fff;
-      border-color: #ddcbc0;
-    }
-
     .categories-search-field select:focus,
     .categories-search-field input:focus {
       outline: none;
-      border-color: #d9c2b2;
-      box-shadow: 0 0 0 4px rgba(217, 194, 178, 0.14);
-      background: #fff;
+      border-color: #d6bcad;
+      box-shadow: 0 0 0 4px rgba(217, 194, 178, 0.16);
+      background: #ffffff;
     }
 
     .categories-search-btn {
-      min-height: 50px;
+      min-height: 48px;
       border: none;
       border-radius: 999px;
-      padding: 0 24px;
-      background: #111;
-      color: #fff;
-      font-weight: 600;
-      font-size: 0.95rem;
+      padding: 0 26px;
+      background: linear-gradient(135deg, #d6b19a, #a97c66);
+      color: #fffaf7;
+      font-weight: 700;
+      font-size: 0.94rem;
       cursor: pointer;
-      transition: transform 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 10px 24px rgba(185, 143, 122, 0.22);
+      transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+      white-space: nowrap;
     }
-
     .categories-search-btn:hover {
-      opacity: 0.95;
-      transform: translateY(-1px);
-      box-shadow: 0 10px 20px rgba(17, 17, 17, 0.14);
+      transform: translateY(-2px);
+      box-shadow: 0 16px 32px rgba(185, 143, 122, 0.28);
+      filter: brightness(1.04);
     }
 
     .categories-clear-row {
@@ -218,19 +264,24 @@
     .categories-clear-btn {
       border: none;
       background: transparent;
-      color: var(--muted);
-      font-size: 0.92rem;
+      color: var(--lux-muted);
+      font-size: 0.88rem;
       text-decoration: underline;
       cursor: pointer;
       padding: 0;
+      transition: opacity 0.18s ease;
     }
+    .categories-clear-btn:hover { opacity: 0.65; }
 
+    /* ── RESULTS CONTAINER ── */
     .categories-results {
-      background: linear-gradient(180deg, rgba(250, 246, 243, 0.84), rgba(246, 240, 236, 0.95));
-      border: 1px solid rgba(227, 219, 212, 0.75);
-      border-radius: 36px;
-      padding: 28px 22px 34px;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.35);
+      background:
+        radial-gradient(circle at top left, rgba(200,166,161,0.08), transparent 40%),
+        linear-gradient(180deg, rgba(238,231,225,0.95), rgba(232,224,218,0.98));
+      border: 1px solid rgba(223, 210, 200, 0.7);
+      border-radius: 32px;
+      padding: 28px 22px 36px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.4);
     }
 
     .categories-results-top {
@@ -239,341 +290,202 @@
       justify-content: space-between;
       align-items: center;
       gap: 12px;
-      margin-bottom: 20px;
+      margin-bottom: 22px;
     }
 
     .categories-results-label {
-      font-size: 0.96rem;
-      color: var(--muted);
+      font-size: 0.9rem;
+      color: var(--lux-muted);
       margin: 0;
+      letter-spacing: 0.01em;
     }
-
     .categories-results-label strong {
-      color: var(--text);
+      color: var(--lux-espresso);
       font-weight: 600;
     }
 
+    /* ── VENDOR CARDS ── */
     .categories-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 24px;
+      gap: 22px;
       align-items: stretch;
     }
 
     .category-vendor-card {
-      background: rgba(255, 255, 255, 0.93);
-      border: 1px solid rgba(227, 219, 212, 0.92);
-      border-radius: 26px;
-      padding: 14px 14px 16px;
+      background: rgba(255, 250, 247, 0.94);
+      border: 1px solid rgba(223, 210, 200, 0.9);
+      border-radius: 24px;
+      padding: 14px 14px 18px;
       text-align: left;
-      box-shadow: 0 10px 24px rgba(42, 28, 22, 0.045);
-      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      box-shadow: 0 6px 18px var(--lux-shadow);
+      transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
       cursor: pointer;
       display: flex;
       flex-direction: column;
       min-height: 100%;
       overflow: hidden;
     }
-
     .category-vendor-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 18px 36px rgba(42, 28, 22, 0.08);
-      border-color: rgba(219, 199, 186, 1);
+      transform: translateY(-7px);
+      box-shadow: 0 24px 60px rgba(59, 47, 42, 0.12);
+      border-color: rgba(198, 167, 125, 0.65);
     }
 
     .category-vendor-card img {
       width: 100%;
-      border-radius: 18px;
+      border-radius: 16px;
       margin-bottom: 16px;
       aspect-ratio: 1.26 / 1;
       object-fit: cover;
-      background: #f6eee8;
+      background: var(--lux-blush);
       display: block;
+      filter: brightness(0.98) contrast(0.95) saturate(0.92);
+      transition: transform 0.45s ease, filter 0.35s ease;
+    }
+    .category-vendor-card:hover img {
+      transform: scale(1.045);
+      filter: brightness(1) contrast(0.97) saturate(0.97);
     }
 
     .category-vendor-card h3 {
-      margin: 0 0 8px;
+      margin: 0 0 7px;
       font-family: "Cormorant Garamond", serif;
       font-weight: 500;
-      font-size: clamp(1.9rem, 2vw, 2.3rem);
-      line-height: 0.98;
-      letter-spacing: -0.02em;
-      color: var(--text);
+      font-size: clamp(1.7rem, 2vw, 2.1rem);
+      line-height: 1;
+      letter-spacing: -0.025em;
+      color: var(--lux-espresso);
     }
 
     .category-vendor-card p {
-      font-size: 0.95rem;
-      color: var(--muted);
-      line-height: 1.58;
+      font-size: 0.93rem;
+      color: var(--lux-muted);
+      line-height: 1.65;
       margin: 0;
     }
 
-    .category-vendor-meta,
-    .category-vendor-location {
-      font-size: 0.9rem;
+    .category-vendor-meta {
+      font-size: 0.84rem;
       color: #8a7468;
-      margin-bottom: 7px;
+      font-weight: 600;
+      margin-bottom: 5px;
+      letter-spacing: 0.01em;
     }
 
-    .category-vendor-meta {
-      font-weight: 500;
+    .category-vendor-location {
+      font-size: 0.84rem;
+      color: #a08479;
+      margin-bottom: 8px;
     }
 
     .category-vendor-actions {
       margin-top: auto;
-      padding-top: 18px;
+      padding-top: 16px;
     }
 
     .category-vendor-btn {
       border: none;
-      background: linear-gradient(180deg, #ead8cd 0%, #e3cec0 100%);
-      color: #2d2521;
-      padding: 12px 18px;
+      background: linear-gradient(135deg, #d6b19a, #a97c66);
+      color: #fffaf7;
+      padding: 11px 20px;
       border-radius: 999px;
-      font-size: 0.94rem;
-      font-weight: 600;
+      font-size: 0.9rem;
+      font-weight: 700;
       line-height: 1;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      transition: opacity 0.2s ease, transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
-      box-shadow: 0 8px 16px rgba(199, 157, 137, 0.1);
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(185, 143, 122, 0.2);
+      transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
     }
-
     .category-vendor-btn:hover {
-      opacity: 0.97;
-      transform: translateY(-1px);
-      background: #dcc4b4;
+      transform: translateY(-2px);
+      box-shadow: 0 14px 28px rgba(185, 143, 122, 0.28);
+      filter: brightness(1.04);
     }
 
     .categories-empty {
-      max-width: 700px;
-      margin: 26px auto 0;
-      color: var(--muted);
-      line-height: 1.7;
+      max-width: 600px;
+      margin: 28px auto 0;
+      color: var(--lux-muted);
+      line-height: 1.75;
       text-align: center;
+      font-style: italic;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1.1rem;
     }
 
-    /* Categories aesthetic match */
-:root {
-  --lux-espresso: #3b2f2a;
-  --lux-rose: #c8a6a1;
-  --lux-champagne: #c6a77d;
-  --lux-cream: #fffaf7;
-}
+    /* Footer */
+    .site-footer {
+      background:
+        radial-gradient(circle at top, rgba(200, 166, 161, 0.16), transparent 36%),
+        linear-gradient(180deg, #f5eee9 0%, #eee5df 100%);
+    }
+    .footer-title { color: var(--lux-espresso); letter-spacing: -0.035em; }
+    .footer-eyebrow { color: #b08d7d; }
 
-body {
-  background:
-    radial-gradient(circle at top left, rgba(200, 166, 161, 0.12), transparent 32%),
-    #f7f1ed;
-}
-
-.categories-hero {
-  background:
-    radial-gradient(circle at top left, rgba(200, 166, 161, 0.18), transparent 34%),
-    linear-gradient(135deg, #fffaf7, #f4ebe5);
-  box-shadow: 0 24px 70px rgba(59, 47, 42, 0.08);
-}
-
-.categories-kicker,
-.footer-eyebrow {
-  color: #b08d7d;
-  letter-spacing: 0.24em;
-}
-
-.categories-title,
-.category-vendor-card h3,
-.footer-title {
-  color: var(--lux-espresso);
-}
-
-.categories-filter-pill,
-.categories-search-panel,
-.categories-results,
-.category-vendor-card {
-  border-color: rgba(223, 210, 200, 0.92);
-}
-
-.categories-filter-pill.active,
-.categories-search-btn,
-.category-vendor-btn {
-  background: linear-gradient(135deg, #d8b59f, #b98f7a);
-  color: #fffaf7;
-  border-color: transparent;
-  box-shadow: 0 10px 24px rgba(185, 143, 122, 0.22);
-}
-
-.categories-search-btn:hover,
-.category-vendor-btn:hover,
-.categories-filter-pill.active:hover {
-  transform: translateY(-2px);
-  filter: brightness(1.03);
-}
-
-.category-vendor-card {
-  background: rgba(255, 250, 247, 0.94);
-  box-shadow: 0 14px 38px rgba(59, 47, 42, 0.07);
-}
-
-.category-vendor-card:hover {
-  transform: translateY(-7px);
-  box-shadow: 0 24px 60px rgba(59, 47, 42, 0.12);
-  border-color: rgba(198, 167, 125, 0.65);
-}
-
-.category-vendor-card img {
-  filter: brightness(0.98) contrast(0.95) saturate(0.92);
-  transition: transform 0.45s ease, filter 0.35s ease;
-}
-
-.category-vendor-card:hover img {
-  transform: scale(1.045);
-  filter: brightness(1) contrast(0.97) saturate(0.97);
-}
-
-.categories-results {
-  background:
-    linear-gradient(180deg, #eee7e1 0%, #e9ded7 100%);
-}
-
-.categories-search-field select,
-.categories-search-field input {
-  background: #fffdfb;
-}
-
-.site-footer {
-  background:
-    radial-gradient(circle at top, rgba(200, 166, 161, 0.16), transparent 36%),
-    linear-gradient(180deg, #f5eee9 0%, #eee5df 100%);
-}
+    /* ── RESPONSIVE ── */
     @media (max-width: 1180px) {
-      .categories-search-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .categories-search-btn {
-        width: 100%;
-      }
+      .categories-search-grid { grid-template-columns: 1fr 1fr; }
+      .categories-search-btn { width: 100%; }
     }
 
     @media (max-width: 980px) {
-      .categories-page {
-        padding: 16px 16px 48px;
-      }
-
-      .categories-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 20px;
-      }
+      .categories-page { padding: 16px 16px 48px; }
+      .categories-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
     }
 
     @media (max-width: 700px) {
-      .categories-page {
-        padding: 10px 10px 40px;
-      }
+      .categories-page { padding: 10px 10px 40px; }
 
       .categories-hero,
       .categories-results,
-      .categories-search-panel {
-        border-radius: 24px;
-      }
+      .categories-search-panel { border-radius: 24px; }
 
-      .categories-hero {
-        padding: 30px 16px 20px;
-      }
-
-      .categories-logo {
-        width: 74px;
-        margin-bottom: 16px;
-      }
-
-      .categories-title {
-        font-size: clamp(2.3rem, 9vw, 3.25rem);
-        line-height: 0.98;
-      }
-
-      .categories-subtitle {
-        font-size: 0.95rem;
-        line-height: 1.65;
-        margin-top: 14px;
-      }
+      .categories-hero { padding: 32px 18px 22px; }
+      .categories-logo { width: 72px; margin-bottom: 14px; }
+      .categories-title { font-size: clamp(2.3rem, 9vw, 3.2rem); }
+      .categories-subtitle { font-size: 0.93rem; margin-top: 12px; }
 
       .categories-filter-wrap {
-        margin-top: 22px;
+        margin-top: 20px;
         overflow-x: auto;
         overflow-y: hidden;
         padding-bottom: 4px;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
       }
-
-      .categories-filter-wrap::-webkit-scrollbar {
-        display: none;
-      }
+      .categories-filter-wrap::-webkit-scrollbar { display: none; }
 
       .categories-filter-bar {
         flex-wrap: nowrap;
         justify-content: flex-start;
         width: max-content;
         min-width: 100%;
-        padding-bottom: 2px;
       }
 
       .categories-filter-pill {
-        width: auto;
         flex: 0 0 auto;
-        min-height: 42px;
-        padding: 11px 16px;
-        font-size: 0.92rem;
+        min-height: 40px;
+        padding: 10px 15px;
+        font-size: 0.86rem;
       }
 
-      .categories-search-panel {
-        margin-top: 20px;
-        padding: 14px;
-      }
+      .categories-search-panel { margin-top: 18px; padding: 16px; }
+      .categories-search-grid { grid-template-columns: 1fr; gap: 10px; }
+      .categories-clear-row { justify-content: center; margin-top: 12px; }
 
-      .categories-search-grid {
-        grid-template-columns: 1fr;
-        gap: 10px;
-      }
+      .categories-results { padding: 20px 14px 26px; }
+      .categories-grid { grid-template-columns: 1fr; gap: 14px; }
 
-      .categories-clear-row {
-        justify-content: center;
-        margin-top: 14px;
-      }
-
-      .categories-results {
-        padding: 20px 14px 24px;
-      }
-
-      .categories-results-top {
-        margin-bottom: 14px;
-      }
-
-      .categories-grid {
-        grid-template-columns: 1fr;
-        gap: 16px;
-      }
-
-      .category-vendor-card {
-        padding: 12px 12px 14px;
-        border-radius: 22px;
-      }
-
-      .category-vendor-card img {
-        border-radius: 16px;
-        aspect-ratio: 1.2 / 1;
-        margin-bottom: 14px;
-      }
-
-      .category-vendor-card h3 {
-        font-size: 2rem;
-      }
+      .category-vendor-card { padding: 12px 12px 16px; border-radius: 20px; }
+      .category-vendor-card img { border-radius: 14px; aspect-ratio: 1.2/1; margin-bottom: 12px; }
+      .category-vendor-card h3 { font-size: 1.8rem; }
 
       .category-vendor-btn,
-      .categories-search-btn {
-        width: 100%;
-      }
+      .categories-search-btn { width: 100%; }
     }
   </style>
 </head>
@@ -581,105 +493,85 @@ body {
 
 <div class="page-auth">
   <a href="categories.html" id="categoriesLink" class="auth-link">Categories</a>
-
   <a href="shop.html" id="shopLink" class="auth-link">Boutique</a>
-
   <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
-
   <a href="login.html" id="loginLink" class="auth-link">Log In</a>
-
   <a href="dashboard.html" id="dashboardLink" class="auth-link" style="display:none;">Dashboard</a>
-
   <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
 </div>
 
-  <main class="categories-page">
-    <section class="categories-hero">
-      <a href="index.html" aria-label="Go to homepage">
-        <img src="images/logo.png" alt="Our Wedding Day Hub" class="categories-logo">
-      </a>
+<main class="categories-page">
+  <section class="categories-hero">
+    <a href="index.html" aria-label="Go to homepage">
+      <img src="images/logo.png" alt="Our Wedding Day Hub" class="categories-logo">
+    </a>
 
-      <p class="categories-kicker">Browse wedding vendors</p>
-      <h1 class="categories-title" id="categoryPageTitle">All Categories</h1>
-      <p class="categories-subtitle" id="categoryPageSubtitle">
-        Discover trusted wedding vendors and explore beautiful businesses for every part of your day.
-      </p>
+    <p class="categories-kicker">Browse wedding vendors</p>
+    <h1 class="categories-title" id="categoryPageTitle">All Categories</h1>
+    <p class="categories-script">find the people who make it perfect ♡</p>
+    <p class="categories-subtitle" id="categoryPageSubtitle">
+      Discover trusted wedding vendors and explore beautiful businesses for every part of your day.
+    </p>
 
-      <div class="categories-filter-wrap">
-        <div class="categories-filter-bar" id="categoriesFilterBar"></div>
-      </div>
+    <div class="categories-filter-wrap">
+      <div class="categories-filter-bar" id="categoriesFilterBar"></div>
+    </div>
 
-      <div class="categories-search-panel">
-        <div class="categories-search-grid">
-          <div class="categories-search-field">
-            <label for="mainCategorySelect">Category</label>
-            <select id="mainCategorySelect">
-              <option value="all">All Categories</option>
-            </select>
-          </div>
-
-          <div class="categories-search-field">
-            <label for="subCategorySelect">Subcategory</label>
-            <select id="subCategorySelect">
-              <option value="all">All Subcategories</option>
-            </select>
-          </div>
-
-          <div class="categories-search-field">
-            <label for="locationSearch">Location</label>
-            <input
-              type="text"
-              id="locationSearch"
-              placeholder="Search suburb, city, state or country"
-            >
-          </div>
-
-          <div class="categories-search-field">
-            <label for="keywordSearch">Search</label>
-            <input
-              type="text"
-              id="keywordSearch"
-              placeholder="Search vendor or keyword"
-            >
-          </div>
-
-          <button type="button" id="searchBtn" class="categories-search-btn">Search</button>
+    <div class="categories-search-panel">
+      <div class="categories-search-grid">
+        <div class="categories-search-field">
+          <label for="mainCategorySelect">Category</label>
+          <select id="mainCategorySelect">
+            <option value="all">All Categories</option>
+          </select>
         </div>
 
-        <div class="categories-clear-row">
-          <button type="button" id="clearFiltersBtn" class="categories-clear-btn">Clear filters</button>
+        <div class="categories-search-field">
+          <label for="subCategorySelect">Subcategory</label>
+          <select id="subCategorySelect">
+            <option value="all">All Subcategories</option>
+          </select>
         </div>
+
+        <div class="categories-search-field">
+          <label for="locationSearch">Location</label>
+          <input type="text" id="locationSearch" placeholder="Suburb, city, state or country">
+        </div>
+
+        <div class="categories-search-field">
+          <label for="keywordSearch">Search</label>
+          <input type="text" id="keywordSearch" placeholder="Search vendor or keyword">
+        </div>
+
+        <button type="button" id="searchBtn" class="categories-search-btn">Search</button>
       </div>
-    </section>
 
-    <section class="categories-results">
-      <div class="categories-results-top">
-        <p class="categories-results-label">
-          Showing <strong id="resultsCount">0</strong> vendor(s)
-        </p>
+      <div class="categories-clear-row">
+        <button type="button" id="clearFiltersBtn" class="categories-clear-btn">Clear filters</button>
       </div>
+    </div>
+  </section>
 
-      <section id="categoriesGrid" class="categories-grid"></section>
-
-      <p id="categoriesEmpty" class="categories-empty" style="display:none;">
-        No vendors found just yet for this search. Try another category, subcategory, location or keyword.
+  <section class="categories-results">
+    <div class="categories-results-top">
+      <p class="categories-results-label">
+        Showing <strong id="resultsCount">0</strong> vendor(s)
       </p>
-    </section>
-  </main>
+    </div>
+
+    <section id="categoriesGrid" class="categories-grid"></section>
+
+    <p id="categoriesEmpty" class="categories-empty" style="display:none;">
+      No vendors found just yet for this search. Try another category, subcategory, location or keyword.
+    </p>
+  </section>
+</main>
 
 <footer class="site-footer">
   <div class="footer-content">
     <p class="footer-eyebrow">wedding vendor directory</p>
-
-    <h2 class="footer-title">
-      Everything your wedding deserves.
-    </h2>
-
-    <p class="footer-text">
-      Browse trusted wedding businesses, discover local favourites, and connect
-      with the people who can bring your day to life.
-    </p>
-
+    <h2 class="footer-title">Everything your wedding deserves.</h2>
+    <p class="footer-text">Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.</p>
     <div class="footer-links">
       <a href="about.html">About Us</a>
       <a href="how-it-works.html">How It Works</a>
@@ -691,17 +583,13 @@ body {
       <a href="https://www.equaldex.com/equality-index" target="_blank" rel="noopener noreferrer">Global Equality Index</a>
       <a href="#" onclick="return false;">Events4Us (Coming Soon)</a>
     </div>
-
-    <p class="footer-tagline">
-      Proudly inclusive • Worldwide • Built with heart
-    </p>
-
+    <p class="footer-tagline">Proudly inclusive • Worldwide • Built with heart</p>
     <p class="footer-abn">© 2026 Our Wedding Day Hub</p>
     <p class="footer-abn">ABN 76 688 637 041 • Australia</p>
   </div>
 </footer>
 
-  <script type="module">
+<script type="module">
     import {
       db,
       auth,
@@ -889,7 +777,7 @@ body {
           ["tarot_reader", "Tarot Reader"]
         ]
       },
-            pre_wedding_celebrations: {
+      pre_wedding_celebrations: {
         title: "Pre-Wedding Celebrations",
         subtitle: "Beautiful experiences, activities and celebration services for the events leading up to the wedding.",
         items: [
@@ -996,27 +884,10 @@ body {
     };
 
     const MAIN_CATEGORY_ORDER = [
-      "photo_video",
-      "beauty",
-      "entertainment",
-      "styling_florals",
-      "food_drink",
-      "venues",
-      "stationery_signage",
-      "fashion",
-      "jewellery",
-      "transport",
-      "experiences_unique_services",
-      "pre_wedding_celebrations",
-      "ceremony_services",
-      "planning_support",
-      "care_services",
-      "hire_rentals",
-      "gifts_favours",
-      "keepsakes",
-      "health_wellness",
-      "accommodation",
-      "all"
+      "photo_video","beauty","entertainment","styling_florals","food_drink","venues",
+      "stationery_signage","fashion","jewellery","transport","experiences_unique_services",
+      "pre_wedding_celebrations","ceremony_services","planning_support","care_services",
+      "hire_rentals","gifts_favours","keepsakes","health_wellness","accommodation","all"
     ];
 
     function cleanArray(arr) {
@@ -1025,12 +896,7 @@ body {
 
     function formatText(value) {
       if (!value) return "";
-      return String(value)
-        .replace(/_/g, " ")
-        .replace(/-/g, " ")
-        .replace(/\s+/g, " ")
-        .trim()
-        .replace(/\b\w/g, char => char.toUpperCase());
+      return String(value).replace(/_/g, " ").replace(/-/g, " ").replace(/\s+/g, " ").trim().replace(/\b\w/g, char => char.toUpperCase());
     }
 
     function getCardImage(vendor) {
@@ -1044,101 +910,55 @@ body {
     }
 
     function getShortBio(vendor) {
-      const source =
-        (vendor.shortBio || "").trim() ||
-        (vendor.tagline || "").trim() ||
-        (vendor.bio || "").trim() ||
-        (vendor.description || "").trim();
-
+      const source = (vendor.shortBio || "").trim() || (vendor.tagline || "").trim() || (vendor.bio || "").trim() || (vendor.description || "").trim();
       if (!source) return "Beautiful vendor profile coming soon.";
       return source.length > 110 ? source.slice(0, 110).trim() + "..." : source;
     }
 
     function getCategoryLine(vendor) {
-      const categories = Array.isArray(vendor.categories) && vendor.categories.length
-        ? vendor.categories
-        : vendor.category
-          ? [vendor.category]
-          : [];
-
+      const categories = Array.isArray(vendor.categories) && vendor.categories.length ? vendor.categories : vendor.category ? [vendor.category] : [];
       const cleaned = cleanArray(categories);
       if (!cleaned.length) return "";
       return cleaned.slice(0, 3).map(formatText).join(" • ");
     }
 
     function getLocationLine(vendor) {
-      if (vendor.serviceAreas && String(vendor.serviceAreas).trim()) {
-        return formatText(vendor.serviceAreas.trim());
-      }
-
+      if (vendor.serviceAreas && String(vendor.serviceAreas).trim()) return formatText(vendor.serviceAreas.trim());
       const regions = cleanArray(vendor.regions);
       if (regions.length) return regions.slice(0, 3).map(formatText).join(" • ");
-
       const states = cleanArray(vendor.states);
       if (states.length) return states.map(formatText).join(" • ");
-
       const countries = cleanArray(vendor.countries);
       if (countries.length) return countries.map(formatText).join(" • ");
-
-      if (vendor.displayLocation && String(vendor.displayLocation).trim()) {
-        return formatText(vendor.displayLocation.trim());
-      }
-
+      if (vendor.displayLocation && String(vendor.displayLocation).trim()) return formatText(vendor.displayLocation.trim());
       return "";
-    }
-
-    function hasVendorAccess(vendor) {
-      const hasPaidAccess =
-        vendor.subscriptionActive === true || vendor.paidSetupFee === true;
-
-      const hasComplimentaryAccess =
-        vendor.complimentaryPlan === true ||
-        vendor.plan === "complimentary" ||
-        vendor.accessType === "complimentary-invite";
-
-      const isApprovedAccount =
-        !vendor.accountStatus || vendor.accountStatus === "active";
-
-      return isApprovedAccount && (hasPaidAccess || hasComplimentaryAccess);
     }
 
     function goToVendor(vendor) {
       sessionStorage.setItem("selectedVendorId", vendor.docId);
-      if (vendor.uid) {
-        sessionStorage.setItem("selectedVendorUid", vendor.uid);
-      }
+      if (vendor.uid) sessionStorage.setItem("selectedVendorUid", vendor.uid);
       window.location.href = `vendor.html?id=${vendor.docId}`;
     }
 
     function getVendorCategories(vendor) {
-      const rawCategories = Array.isArray(vendor.categories) && vendor.categories.length
-        ? vendor.categories
-        : vendor.category
-          ? [vendor.category]
-          : [];
-
-      return rawCategories
-        .map(cat => String(cat).trim().toLowerCase())
-        .filter(Boolean);
+      const rawCategories = Array.isArray(vendor.categories) && vendor.categories.length ? vendor.categories : vendor.category ? [vendor.category] : [];
+      return rawCategories.map(cat => String(cat).trim().toLowerCase()).filter(Boolean);
     }
 
     function getMainCategoryForSubcategory(subcategorySlug) {
       for (const [mainKey, config] of Object.entries(CATEGORY_GROUPS)) {
         if (mainKey === "all") continue;
-        const found = config.items.some(([value]) => value === subcategorySlug);
-        if (found) return mainKey;
+        if (config.items.some(([value]) => value === subcategorySlug)) return mainKey;
       }
       return "";
     }
 
     function buildMainCategoryOptions() {
       mainCategorySelect.innerHTML = '<option value="all">All Categories</option>';
-
       MAIN_CATEGORY_ORDER.forEach(key => {
         if (key === "all") return;
         const config = CATEGORY_GROUPS[key];
         if (!config) return;
-
         const option = document.createElement("option");
         option.value = key;
         option.textContent = config.title;
@@ -1148,16 +968,10 @@ body {
 
     function buildSubcategoryOptions(mainKey = "all") {
       subCategorySelect.innerHTML = '<option value="all">All Subcategories</option>';
-
-      const groupsToUse =
-        mainKey === "all"
-          ? MAIN_CATEGORY_ORDER.filter(key => key !== "all")
-          : [mainKey];
-
+      const groupsToUse = mainKey === "all" ? MAIN_CATEGORY_ORDER.filter(key => key !== "all") : [mainKey];
       groupsToUse.forEach(groupKey => {
         const config = CATEGORY_GROUPS[groupKey];
         if (!config) return;
-
         config.items.forEach(([value, label]) => {
           const option = document.createElement("option");
           option.value = value;
@@ -1169,21 +983,15 @@ body {
 
     function buildFilterPills() {
       categoriesFilterBar.innerHTML = "";
-
       MAIN_CATEGORY_ORDER.forEach(key => {
         const config = CATEGORY_GROUPS[key];
         if (!config) return;
-
         const pill = document.createElement("a");
         pill.className = "categories-filter-pill";
         pill.dataset.type = key;
         pill.href = key === "all" ? "categories.html" : `categories.html?type=${key}`;
         pill.textContent = config.title;
-
-        if ((selectedType || "all") === key) {
-          pill.classList.add("active");
-        }
-
+        if ((selectedType || "all") === key) pill.classList.add("active");
         categoriesFilterBar.appendChild(pill);
       });
     }
@@ -1199,50 +1007,16 @@ body {
     }
 
     function normalizeLocationText(vendor) {
-      const parts = [
-        vendor.serviceAreas || "",
-        vendor.displayLocation || "",
-        ...(Array.isArray(vendor.regions) ? vendor.regions : []),
-        ...(Array.isArray(vendor.states) ? vendor.states : []),
-        ...(Array.isArray(vendor.countries) ? vendor.countries : []),
-        vendor.country || ""
-      ];
-
-      return parts
-        .join(" ")
-        .toLowerCase()
-        .replace(/\s+/g, " ")
-        .trim();
+      const parts = [vendor.serviceAreas || "", vendor.displayLocation || "", ...(Array.isArray(vendor.regions) ? vendor.regions : []), ...(Array.isArray(vendor.states) ? vendor.states : []), ...(Array.isArray(vendor.countries) ? vendor.countries : []), vendor.country || ""];
+      return parts.join(" ").toLowerCase().replace(/\s+/g, " ").trim();
     }
 
     function getKeywordSearchText(vendor) {
-      return `
-        ${vendor.businessName || ""}
-        ${vendor.bio || ""}
-        ${vendor.shortBio || ""}
-        ${vendor.description || ""}
-        ${vendor.tagline || ""}
-        ${vendor.serviceAreas || ""}
-        ${vendor.displayLocation || ""}
-        ${vendor.instagram || ""}
-        ${vendor.facebook || ""}
-        ${vendor.tiktok || ""}
-        ${vendor.youtube || ""}
-        ${vendor.pinterest || ""}
-        ${vendor.linkedin || ""}
-        ${vendor.x || ""}
-        ${vendor.website || ""}
-        ${cleanArray(vendor.categories).join(" ")}
-        ${cleanArray(vendor.regions).join(" ")}
-        ${cleanArray(vendor.states).join(" ")}
-        ${cleanArray(vendor.countries).join(" ")}
-        ${cleanArray(vendor.styleTags).join(" ")}
-      `.toLowerCase();
+      return `${vendor.businessName || ""} ${vendor.bio || ""} ${vendor.shortBio || ""} ${vendor.description || ""} ${vendor.tagline || ""} ${vendor.serviceAreas || ""} ${vendor.displayLocation || ""} ${vendor.instagram || ""} ${vendor.facebook || ""} ${vendor.tiktok || ""} ${vendor.youtube || ""} ${vendor.pinterest || ""} ${vendor.linkedin || ""} ${vendor.x || ""} ${vendor.website || ""} ${cleanArray(vendor.categories).join(" ")} ${cleanArray(vendor.regions).join(" ")} ${cleanArray(vendor.states).join(" ")} ${cleanArray(vendor.countries).join(" ")} ${cleanArray(vendor.styleTags).join(" ")}`.toLowerCase();
     }
 
     function vendorMatchesMainCategory(vendor, mainCategory) {
       if (mainCategory === "all") return true;
-
       const categories = getVendorCategories(vendor);
       return categories.some(category => getMainCategoryForSubcategory(category) === mainCategory);
     }
@@ -1255,110 +1029,32 @@ body {
     function vendorMatchesLocation(vendor, locationValue) {
       const query = String(locationValue || "").trim().toLowerCase();
       if (!query) return true;
-
       const locationText = normalizeLocationText(vendor);
-
-      if (query === "australia & new zealand") {
-        return locationText.includes("australia") || locationText.includes("new zealand");
-      }
-
-      if (query === "united kingdom & ireland") {
-        return (
-          locationText.includes("united kingdom") ||
-          locationText.includes("uk") ||
-          locationText.includes("ireland")
-        );
-      }
-
-      if (query === "north america") {
-        return (
-          locationText.includes("united states") ||
-          locationText.includes("usa") ||
-          locationText.includes("canada") ||
-          locationText.includes("mexico") ||
-          locationText.includes("north america")
-        );
-      }
-
-      if (query === "south america") {
-        return (
-          locationText.includes("south america") ||
-          locationText.includes("brazil") ||
-          locationText.includes("argentina") ||
-          locationText.includes("chile") ||
-          locationText.includes("colombia") ||
-          locationText.includes("peru") ||
-          locationText.includes("uruguay") ||
-          locationText.includes("paraguay") ||
-          locationText.includes("ecuador") ||
-          locationText.includes("bolivia") ||
-          locationText.includes("venezuela")
-        );
-      }
-
-      if (query === "asia") {
-        return (
-          locationText.includes("asia") ||
-          locationText.includes("philippines") ||
-          locationText.includes("singapore") ||
-          locationText.includes("indonesia") ||
-          locationText.includes("thailand") ||
-          locationText.includes("malaysia") ||
-          locationText.includes("japan") ||
-          locationText.includes("india") ||
-          locationText.includes("china") ||
-          locationText.includes("vietnam") ||
-          locationText.includes("bali")
-        );
-      }
-
-      if (query === "europe") {
-        return (
-          locationText.includes("europe") ||
-          locationText.includes("england") ||
-          locationText.includes("scotland") ||
-          locationText.includes("wales") ||
-          locationText.includes("france") ||
-          locationText.includes("italy") ||
-          locationText.includes("spain") ||
-          locationText.includes("greece") ||
-          locationText.includes("portugal") ||
-          locationText.includes("germany") ||
-          locationText.includes("netherlands") ||
-          locationText.includes("switzerland")
-        );
-      }
-
-      if (query === "worldwide") {
-        return true;
-      }
-
+      if (query === "australia & new zealand") return locationText.includes("australia") || locationText.includes("new zealand");
+      if (query === "united kingdom & ireland") return locationText.includes("united kingdom") || locationText.includes("uk") || locationText.includes("ireland");
+      if (query === "north america") return locationText.includes("united states") || locationText.includes("usa") || locationText.includes("canada") || locationText.includes("mexico") || locationText.includes("north america");
+      if (query === "south america") return locationText.includes("south america") || locationText.includes("brazil") || locationText.includes("argentina") || locationText.includes("chile") || locationText.includes("colombia") || locationText.includes("peru") || locationText.includes("uruguay") || locationText.includes("paraguay") || locationText.includes("ecuador") || locationText.includes("bolivia") || locationText.includes("venezuela");
+      if (query === "asia") return locationText.includes("asia") || locationText.includes("philippines") || locationText.includes("singapore") || locationText.includes("indonesia") || locationText.includes("thailand") || locationText.includes("malaysia") || locationText.includes("japan") || locationText.includes("india") || locationText.includes("china") || locationText.includes("vietnam") || locationText.includes("bali");
+      if (query === "europe") return locationText.includes("europe") || locationText.includes("england") || locationText.includes("scotland") || locationText.includes("wales") || locationText.includes("france") || locationText.includes("italy") || locationText.includes("spain") || locationText.includes("greece") || locationText.includes("portugal") || locationText.includes("germany") || locationText.includes("netherlands") || locationText.includes("switzerland");
+      if (query === "worldwide") return true;
       return locationText.includes(query);
     }
 
     function vendorMatchesKeyword(vendor, keywordValue) {
       const query = String(keywordValue || "").trim().toLowerCase();
       if (!query) return true;
-
-      const keywordText = getKeywordSearchText(vendor);
-      return keywordText.includes(query);
+      return getKeywordSearchText(vendor).includes(query);
     }
 
     function renderVendors(vendors) {
       categoriesGrid.innerHTML = "";
       resultsCount.textContent = String(vendors.length);
-
-      if (!vendors.length) {
-        categoriesEmpty.style.display = "block";
-        return;
-      }
-
+      if (!vendors.length) { categoriesEmpty.style.display = "block"; return; }
       categoriesEmpty.style.display = "none";
 
       vendors.forEach((vendor) => {
         const card = document.createElement("article");
         card.className = "category-vendor-card";
-
         const image = getCardImage(vendor);
         const name = (vendor.businessName || "Vendor").trim();
         const categoryLine = getCategoryLine(vendor);
@@ -1376,16 +1072,8 @@ body {
           </div>
         `;
 
-        card.addEventListener("click", () => {
-          goToVendor(vendor);
-        });
-
-        const btn = card.querySelector(".category-vendor-btn");
-        btn.addEventListener("click", (event) => {
-          event.stopPropagation();
-          goToVendor(vendor);
-        });
-
+        card.addEventListener("click", () => goToVendor(vendor));
+        card.querySelector(".category-vendor-btn").addEventListener("click", (event) => { event.stopPropagation(); goToVendor(vendor); });
         categoriesGrid.appendChild(card);
       });
     }
@@ -1395,29 +1083,12 @@ body {
       const subcategory = subCategorySelect.value || "all";
       const location = locationSearch.value.trim();
       const keyword = keywordSearch.value.trim();
-
       const nextParams = new URLSearchParams();
-
-      if (mainCategory !== "all") {
-        nextParams.set("type", mainCategory);
-      }
-
-      if (subcategory !== "all") {
-        nextParams.set("subcategory", subcategory);
-      }
-
-      if (location) {
-        nextParams.set("location", location);
-      }
-
-      if (keyword) {
-        nextParams.set("search", keyword);
-      }
-
-      const nextUrl = nextParams.toString()
-        ? `${window.location.pathname}?${nextParams.toString()}`
-        : window.location.pathname;
-
+      if (mainCategory !== "all") nextParams.set("type", mainCategory);
+      if (subcategory !== "all") nextParams.set("subcategory", subcategory);
+      if (location) nextParams.set("location", location);
+      if (keyword) nextParams.set("search", keyword);
+      const nextUrl = nextParams.toString() ? `${window.location.pathname}?${nextParams.toString()}` : window.location.pathname;
       window.history.replaceState({}, "", nextUrl);
     }
 
@@ -1426,24 +1097,18 @@ body {
       const subcategory = subCategorySelect.value || "all";
       const location = locationSearch.value.trim();
       const keyword = keywordSearch.value.trim();
-
       const headerConfig = CATEGORY_GROUPS[mainCategory] || CATEGORY_GROUPS.all;
       categoryPageTitle.textContent = headerConfig.title;
       categoryPageSubtitle.textContent = headerConfig.subtitle;
-
       document.querySelectorAll(".categories-filter-pill").forEach((pill) => {
         pill.classList.toggle("active", pill.dataset.type === mainCategory);
       });
-
-      const filtered = allLiveVendors.filter(vendor => {
-        return (
-          vendorMatchesMainCategory(vendor, mainCategory) &&
-          vendorMatchesSubcategory(vendor, subcategory) &&
-          vendorMatchesLocation(vendor, location) &&
-          vendorMatchesKeyword(vendor, keyword)
-        );
-      });
-
+      const filtered = allLiveVendors.filter(vendor =>
+        vendorMatchesMainCategory(vendor, mainCategory) &&
+        vendorMatchesSubcategory(vendor, subcategory) &&
+        vendorMatchesLocation(vendor, location) &&
+        vendorMatchesKeyword(vendor, keyword)
+      );
       renderVendors(filtered);
       updateUrlFromFilters();
     }
@@ -1452,27 +1117,11 @@ body {
       try {
         const snapshot = await getDocs(collection(db, "vendors"));
         const liveVendors = [];
-
         snapshot.forEach((docSnap) => {
           const vendor = docSnap.data();
-
-const hasLiveProfile =
-  vendor &&
-  vendor.businessName &&
-  vendor.profileVisible !== false &&
-  vendor.published !== false;
-
-if (
-  vendor &&
-  hasLiveProfile
-) {
-            liveVendors.push({
-              ...vendor,
-              docId: docSnap.id
-            });
-          }
+          const hasLiveProfile = vendor && vendor.businessName && vendor.profileVisible !== false && vendor.published !== false;
+          if (vendor && hasLiveProfile) liveVendors.push({ ...vendor, docId: docSnap.id });
         });
-
         allLiveVendors = liveVendors;
         applyFilters();
       } catch (error) {
@@ -1485,79 +1134,35 @@ if (
     function syncInitialFilters() {
       buildMainCategoryOptions();
       buildSubcategoryOptions(selectedType === "all" ? "all" : selectedType);
-
       mainCategorySelect.value = CATEGORY_GROUPS[selectedType] ? selectedType : "all";
-
-      const currentSubcategoryExists = Array.from(subCategorySelect.options).some(
-        option => option.value === selectedSubcategory
-      );
+      const currentSubcategoryExists = Array.from(subCategorySelect.options).some(option => option.value === selectedSubcategory);
       subCategorySelect.value = currentSubcategoryExists ? selectedSubcategory : "all";
-
       locationSearch.value = selectedLocation;
       keywordSearch.value = selectedSearch;
     }
 
-    mainCategorySelect.addEventListener("change", () => {
-      buildSubcategoryOptions(mainCategorySelect.value);
-      subCategorySelect.value = "all";
-      applyFilters();
-    });
-
+    mainCategorySelect.addEventListener("change", () => { buildSubcategoryOptions(mainCategorySelect.value); subCategorySelect.value = "all"; applyFilters(); });
     subCategorySelect.addEventListener("change", applyFilters);
     searchBtn.addEventListener("click", applyFilters);
-
-    locationSearch.addEventListener("keydown", (event) => {
-      if (event.key === "Enter") {
-        event.preventDefault();
-        applyFilters();
-      }
-    });
-
-    keywordSearch.addEventListener("keydown", (event) => {
-      if (event.key === "Enter") {
-        event.preventDefault();
-        applyFilters();
-      }
-    });
-
-    clearFiltersBtn.addEventListener("click", () => {
-      mainCategorySelect.value = "all";
-      buildSubcategoryOptions("all");
-      subCategorySelect.value = "all";
-      locationSearch.value = "";
-      keywordSearch.value = "";
-      applyFilters();
-    });
+    locationSearch.addEventListener("keydown", (event) => { if (event.key === "Enter") { event.preventDefault(); applyFilters(); } });
+    keywordSearch.addEventListener("keydown", (event) => { if (event.key === "Enter") { event.preventDefault(); applyFilters(); } });
+    clearFiltersBtn.addEventListener("click", () => { mainCategorySelect.value = "all"; buildSubcategoryOptions("all"); subCategorySelect.value = "all"; locationSearch.value = ""; keywordSearch.value = ""; applyFilters(); });
 
     onAuthStateChanged(auth, (user) => {
-      if (user) {
-        joinLink.style.display = "none";
-        loginLink.style.display = "none";
-        dashboardLink.style.display = "inline-block";
-        logoutLink.style.display = "inline-block";
-      } else {
-        joinLink.style.display = "inline-flex";
-        loginLink.style.display = "inline-block";
-        dashboardLink.style.display = "none";
-        logoutLink.style.display = "none";
-      }
+      if (user) { joinLink.style.display = "none"; loginLink.style.display = "none"; dashboardLink.style.display = "inline-block"; logoutLink.style.display = "inline-block"; }
+      else { joinLink.style.display = "inline-flex"; loginLink.style.display = "inline-block"; dashboardLink.style.display = "none"; logoutLink.style.display = "none"; }
     });
 
     logoutLink.addEventListener("click", async () => {
-      try {
-        await signOut(auth);
-        window.location.href = "index.html";
-      } catch (error) {
-        console.error("Logout failed:", error);
-      }
+      try { await signOut(auth); window.location.href = "index.html"; } catch (error) { console.error("Logout failed:", error); }
     });
 
     buildFilterPills();
     renderPageHeader();
     syncInitialFilters();
     loadVendors();
-  </script>
+</script>
 
-  <script type="module" src="nav.js"></script>
+<script type="module" src="nav.js"></script>
 </body>
 </html>
