@@ -752,6 +752,72 @@
       min-height: 1.2em;
     }
 
+    /* ── MESSAGING & ENQUIRIES ── */
+    .msg-unread-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #d6b19a, #a97c66);
+      color: #fffaf7;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0 6px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+    .conv-list { display: grid; gap: 10px; margin-top: 4px; }
+    .conv-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: start;
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: rgba(255, 250, 247, 0.95);
+      border: 1px solid rgba(223, 210, 200, 0.7);
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+    .conv-item:hover { border-color: rgba(198, 167, 125, 0.5); box-shadow: 0 8px 22px var(--lux-shadow); transform: translateY(-2px); }
+    .conv-item.unread { border-left: 3px solid #a97c66; }
+    .conv-name { margin: 0 0 4px; font-family: "Cormorant Garamond", serif; font-size: 1.1rem; font-weight: 500; color: var(--lux-espresso); }
+    .conv-preview { margin: 0; color: var(--lux-muted); font-size: 0.88rem; line-height: 1.5; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 400px; }
+    .conv-time { font-size: 0.8rem; color: var(--lux-muted); white-space: nowrap; }
+    .thread-view { display: none; }
+    .thread-view.open { display: block; }
+    .thread-back { display: inline-flex; align-items: center; gap: 6px; background: none; border: none; color: var(--lux-muted); font: inherit; font-size: 0.88rem; cursor: pointer; padding: 0; margin-bottom: 16px; transition: color 0.18s ease; }
+    .thread-back:hover { color: var(--lux-espresso); }
+    .thread-title { margin: 0 0 16px; font-family: "Cormorant Garamond", serif; font-size: 1.4rem; font-weight: 500; color: var(--lux-espresso); }
+    .messages-list { display: grid; gap: 12px; margin-bottom: 20px; max-height: 420px; overflow-y: auto; padding-right: 4px; }
+    .msg-bubble-wrap { display: flex; }
+    .msg-bubble-wrap.mine { justify-content: flex-end; }
+    .msg-bubble { max-width: 75%; padding: 12px 16px; border-radius: 18px; line-height: 1.65; font-size: 0.93rem; word-break: break-word; }
+    .msg-bubble.theirs { background: rgba(247, 241, 237, 0.9); border: 1px solid rgba(223, 210, 200, 0.7); color: #4a3b34; border-bottom-left-radius: 4px; }
+    .msg-bubble.mine { background: linear-gradient(135deg, #3b2f2a, #2a211d); color: #fffaf7; border-bottom-right-radius: 4px; }
+    .msg-bubble-time { font-size: 0.76rem; color: var(--lux-muted); margin-top: 4px; }
+    .msg-bubble-wrap.mine .msg-bubble-time { text-align: right; }
+    .msg-bubble-wrap.theirs .msg-bubble-time { text-align: left; }
+    .reply-form { display: grid; gap: 10px; }
+    .reply-form textarea { width: 100%; border: 1px solid #eadfd6; border-radius: 14px; background: #fffdfb; padding: 12px 14px; font: inherit; font-size: 0.94rem; color: #2d221c; box-sizing: border-box; resize: vertical; min-height: 90px; transition: border-color 0.2s, box-shadow 0.2s; }
+    .reply-form textarea:focus { outline: none; border-color: #d6bcad; box-shadow: 0 0 0 4px rgba(217, 194, 178, 0.16); }
+    .enquiry-list { display: grid; gap: 10px; margin-top: 4px; }
+    .enquiry-item { padding: 18px 20px; border-radius: 18px; background: rgba(255, 250, 247, 0.95); border: 1px solid rgba(223, 210, 200, 0.7); transition: box-shadow 0.18s ease; }
+    .enquiry-item:hover { box-shadow: 0 8px 22px var(--lux-shadow); }
+    .enquiry-item.new-enquiry { border-left: 3px solid #a97c66; }
+    .enquiry-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px; flex-wrap: wrap; }
+    .enquiry-name { margin: 0 0 3px; font-family: "Cormorant Garamond", serif; font-size: 1.1rem; font-weight: 500; color: var(--lux-espresso); }
+    .enquiry-email { margin: 0; font-size: 0.84rem; color: var(--lux-muted); }
+    .enquiry-date-badge { display: inline-flex; padding: 5px 12px; border-radius: 999px; background: rgba(244, 231, 223, 0.7); border: 1px solid rgba(214, 190, 174, 0.6); color: #6f5143; font-size: 0.78rem; font-weight: 700; white-space: nowrap; }
+    .enquiry-message { margin: 0 0 14px; color: #5b4a43; line-height: 1.75; font-size: 0.93rem; }
+    .enquiry-status-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .enquiry-status-btn { padding: 7px 14px; border-radius: 999px; border: 1px solid rgba(223,210,200,0.8); background: rgba(255,250,247,0.9); color: var(--lux-espresso); font: inherit; font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: all 0.18s ease; }
+    .enquiry-status-btn:hover { background: var(--lux-blush); transform: translateY(-1px); }
+    .enquiry-status-btn.active { background: linear-gradient(135deg, #d6b19a, #a97c66); color: #fffaf7; border-color: transparent; }
+    .enquiry-reply-hint { margin: 10px 0 0; font-size: 0.84rem; color: var(--lux-muted); font-style: italic; font-family: "Cormorant Garamond", serif; }
+
     /* Footer */
     .site-footer {
       background:
@@ -1338,6 +1404,47 @@
       </div>
     </section>
 
+    <!-- ── MESSAGES ── -->
+    <section class="dashboard-panel" style="text-align:left;" id="messagesSection">
+      <div class="dashboard-card-header">
+        <h2 class="dashboard-section-title">Messages <span class="msg-unread-badge" id="msgUnreadBadge" style="display:none;">0</span></h2>
+        <p class="dashboard-subtitle">Conversations with couples who have reached out to you.</p>
+      </div>
+
+      <div class="dashboard-card-soft">
+        <!-- Conversation list -->
+        <div id="convListView">
+          <div id="convList" class="conv-list"></div>
+          <p id="convEmpty" class="small-text" style="display:none; margin-top:8px;">No messages yet. When couples send you a message it will appear here.</p>
+        </div>
+
+        <!-- Thread view -->
+        <div id="threadView" class="thread-view">
+          <button type="button" id="threadBackBtn" class="thread-back">← Back to messages</button>
+          <h3 id="threadTitle" class="thread-title"></h3>
+          <div id="messagesList" class="messages-list"></div>
+          <form id="replyForm" class="reply-form">
+            <textarea id="replyBody" placeholder="Write your reply..."></textarea>
+            <button type="submit" class="pretty-button" style="justify-self:start;">Send Reply</button>
+          </form>
+          <p id="replyStatus" class="dashboard-help" style="margin-top:6px;"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── ENQUIRIES ── -->
+    <section class="dashboard-panel" style="text-align:left;" id="enquiriesSection">
+      <div class="dashboard-card-header">
+        <h2 class="dashboard-section-title">Enquiries <span class="msg-unread-badge" id="enqUnreadBadge" style="display:none;">0</span></h2>
+        <p class="dashboard-subtitle">Booking enquiries sent through your vendor profile.</p>
+      </div>
+
+      <div class="dashboard-card-soft">
+        <div id="enquiryList" class="enquiry-list"></div>
+        <p id="enquiryEmpty" class="small-text" style="display:none; margin-top:8px;">No enquiries yet. They will appear here when couples reach out through your profile.</p>
+      </div>
+    </section>
+
     <!-- ── SAVE BAR ── -->
     <section class="dashboard-panel">
       <div class="dashboard-save-bar">
@@ -1400,6 +1507,13 @@ import {
   } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
   import { LOCATION_DATA } from "./locations.js";
+
+  import {
+    onSnapshot,
+    orderBy,
+    where
+  } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
 
   const categoryOptions = document.getElementById("categoryOptions");
   const styleTagOptions = document.getElementById("styleTagOptions");
@@ -1967,6 +2081,8 @@ import {
     updateBoutiqueAccessVisibility(vendorData);
     updateStripeStatus(vendorData);
     if (hasShopAccess(vendorData)) await loadBoutiqueProducts(uid);
+    loadConversations(uid);
+    loadEnquiries(uid);
   }
 
   async function saveAccountSettings() {
@@ -2068,7 +2184,242 @@ import {
     } catch (error) { console.error(error); message.textContent = "There was a problem saving your changes."; }
   }
 
-  saveBtn.addEventListener("click", saveVendorData);
+
+  // ── MESSAGING & ENQUIRIES ──
+  const msgUnreadBadge = document.getElementById("msgUnreadBadge");
+  const enqUnreadBadge = document.getElementById("enqUnreadBadge");
+  const convList       = document.getElementById("convList");
+  const convEmpty      = document.getElementById("convEmpty");
+  const convListView   = document.getElementById("convListView");
+  const threadView     = document.getElementById("threadView");
+  const threadBackBtn  = document.getElementById("threadBackBtn");
+  const threadTitle    = document.getElementById("threadTitle");
+  const messagesList   = document.getElementById("messagesList");
+  const replyForm      = document.getElementById("replyForm");
+  const replyBody      = document.getElementById("replyBody");
+  const replyStatus    = document.getElementById("replyStatus");
+  const enquiryList    = document.getElementById("enquiryList");
+  const enquiryEmpty   = document.getElementById("enquiryEmpty");
+
+  let activeConvId   = null;
+  let unsubMessages  = null;
+
+  function timeAgo(ts) {
+    if (!ts) return "";
+    const d = ts.toDate ? ts.toDate() : new Date(ts);
+    const diff = Math.floor((Date.now() - d) / 1000);
+    if (diff < 60) return "just now";
+    if (diff < 3600) return `${Math.floor(diff/60)}m ago`;
+    if (diff < 86400) return `${Math.floor(diff/3600)}h ago`;
+    return d.toLocaleDateString("en-AU", { day:"numeric", month:"short" });
+  }
+
+  function openThread(convId, coupleName) {
+    activeConvId = convId;
+    threadTitle.textContent = `Conversation with ${coupleName}`;
+    convListView.style.display = "none";
+    threadView.classList.add("open");
+    messagesList.innerHTML = "";
+    replyStatus.textContent = "";
+    replyBody.value = "";
+
+    // Mark as read
+    updateDoc(doc(db, "conversations", convId), { vendorUnread: 0 }).catch(() => {});
+
+    // Listen for messages in real time
+    if (unsubMessages) unsubMessages();
+    unsubMessages = onSnapshot(
+      query(collection(db, "conversations", convId, "messages"), orderBy("sentAt", "asc")),
+      (snap) => {
+        messagesList.innerHTML = "";
+        snap.forEach(msgDoc => {
+          const m = msgDoc.data();
+          const isMine = m.senderId === currentUser?.uid;
+          const wrap = document.createElement("div");
+          wrap.className = "msg-bubble-wrap " + (isMine ? "mine" : "theirs");
+          const bubble = document.createElement("div");
+          bubble.className = "msg-bubble " + (isMine ? "mine" : "theirs");
+          bubble.textContent = m.body || "";
+          const timeEl = document.createElement("div");
+          timeEl.className = "msg-bubble-time";
+          timeEl.textContent = timeAgo(m.sentAt);
+          const inner = document.createElement("div");
+          inner.appendChild(bubble);
+          inner.appendChild(timeEl);
+          wrap.appendChild(inner);
+          messagesList.appendChild(wrap);
+        });
+        messagesList.scrollTop = messagesList.scrollHeight;
+      }
+    );
+  }
+
+  threadBackBtn.addEventListener("click", () => {
+    if (unsubMessages) { unsubMessages(); unsubMessages = null; }
+    activeConvId = null;
+    threadView.classList.remove("open");
+    convListView.style.display = "block";
+  });
+
+  replyForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (!activeConvId || !currentUser) return;
+    const body = replyBody.value.trim();
+    if (!body) return;
+    replyStatus.textContent = "Sending...";
+    try {
+      await addDoc(collection(db, "conversations", activeConvId, "messages"), {
+        senderId:   currentUser.uid,
+        senderName: currentUser.email,
+        body,
+        sentAt: serverTimestamp(),
+        read:   false
+      });
+      await updateDoc(doc(db, "conversations", activeConvId), {
+        lastMessage:   body,
+        lastMessageAt: serverTimestamp(),
+        coupleUnread:  increment(1)
+      });
+      replyBody.value = "";
+      replyStatus.textContent = "";
+    } catch (err) {
+      console.error(err);
+      replyStatus.textContent = "Could not send. Please try again.";
+    }
+  });
+
+  function loadConversations(uid) {
+    onSnapshot(
+      query(collection(db, "conversations"), where("vendorId", "==", uid), orderBy("lastMessageAt", "desc")),
+      (snap) => {
+        convList.innerHTML = "";
+        let totalUnread = 0;
+        if (snap.empty) { convEmpty.style.display = "block"; convList.style.display = "none"; }
+        else { convEmpty.style.display = "none"; convList.style.display = "grid"; }
+
+        snap.forEach(convDoc => {
+          const c = convDoc.data();
+          const unread = c.vendorUnread || 0;
+          totalUnread += unread;
+
+          const item = document.createElement("div");
+          item.className = "conv-item" + (unread > 0 ? " unread" : "");
+
+          const left = document.createElement("div");
+          const name = document.createElement("p");
+          name.className = "conv-name";
+          name.textContent = c.coupleName || c.coupleEmail || "Couple";
+          if (unread > 0) name.innerHTML += ` <span class="msg-unread-badge">${unread}</span>`;
+          const preview = document.createElement("p");
+          preview.className = "conv-preview";
+          preview.textContent = c.lastMessage || "";
+          left.appendChild(name);
+          left.appendChild(preview);
+
+          const right = document.createElement("div");
+          right.className = "conv-time";
+          right.textContent = timeAgo(c.lastMessageAt);
+
+          item.appendChild(left);
+          item.appendChild(right);
+          item.addEventListener("click", () => openThread(convDoc.id, c.coupleName || "Couple"));
+          convList.appendChild(item);
+        });
+
+        if (totalUnread > 0) {
+          msgUnreadBadge.textContent = totalUnread;
+          msgUnreadBadge.style.display = "inline-flex";
+        } else {
+          msgUnreadBadge.style.display = "none";
+        }
+      }
+    );
+  }
+
+  function loadEnquiries(uid) {
+    onSnapshot(
+      query(collection(db, "enquiries"), where("vendorId", "==", uid), orderBy("createdAt", "desc")),
+      (snap) => {
+        enquiryList.innerHTML = "";
+        let newCount = 0;
+        if (snap.empty) { enquiryEmpty.style.display = "block"; }
+        else { enquiryEmpty.style.display = "none"; }
+
+        snap.forEach(enqDoc => {
+          const e = enqDoc.data();
+          if (e.status === "new") newCount++;
+
+          const item = document.createElement("div");
+          item.className = "enquiry-item" + (e.status === "new" ? " new-enquiry" : "");
+
+          const header = document.createElement("div");
+          header.className = "enquiry-header";
+
+          const nameWrap = document.createElement("div");
+          const nameEl = document.createElement("p");
+          nameEl.className = "enquiry-name";
+          nameEl.textContent = e.coupleName || "Couple";
+          const emailEl = document.createElement("p");
+          emailEl.className = "enquiry-email";
+          emailEl.textContent = e.coupleEmail || "";
+          nameWrap.appendChild(nameEl);
+          nameWrap.appendChild(emailEl);
+
+          const dateBadge = document.createElement("span");
+          dateBadge.className = "enquiry-date-badge";
+          dateBadge.textContent = e.preferredDate ? `Preferred date: ${e.preferredDate}` : "No date specified";
+
+          header.appendChild(nameWrap);
+          header.appendChild(dateBadge);
+
+          const msgEl = document.createElement("p");
+          msgEl.className = "enquiry-message";
+          msgEl.textContent = e.message || "";
+
+          const statusRow = document.createElement("div");
+          statusRow.className = "enquiry-status-row";
+
+          ["new", "responded", "declined"].forEach(s => {
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "enquiry-status-btn" + (e.status === s ? " active" : "");
+            btn.textContent = s.charAt(0).toUpperCase() + s.slice(1);
+            btn.addEventListener("click", async () => {
+              try {
+                await updateDoc(doc(db, "enquiries", enqDoc.id), { status: s });
+              } catch (err) { console.error(err); }
+            });
+            statusRow.appendChild(btn);
+          });
+
+          if (e.coupleEmail) {
+            const hint = document.createElement("p");
+            hint.className = "enquiry-reply-hint";
+            hint.textContent = `Reply directly to ${e.coupleEmail}`;
+            item.appendChild(header);
+            item.appendChild(msgEl);
+            item.appendChild(statusRow);
+            item.appendChild(hint);
+          } else {
+            item.appendChild(header);
+            item.appendChild(msgEl);
+            item.appendChild(statusRow);
+          }
+
+          enquiryList.appendChild(item);
+        });
+
+        if (newCount > 0) {
+          enqUnreadBadge.textContent = newCount;
+          enqUnreadBadge.style.display = "inline-flex";
+        } else {
+          enqUnreadBadge.style.display = "none";
+        }
+      }
+    );
+  }
+
+    saveBtn.addEventListener("click", saveVendorData);
   saveTopBtn.addEventListener("click", saveVendorData);
   saveAccountBtn.addEventListener("click", saveAccountSettings);
   saveProductBtn.addEventListener("click", saveBoutiqueProduct);
