@@ -4,12 +4,14 @@ const admin = require("firebase-admin");
 const express = require("express");
 const cors = require("cors");
 const Stripe = require("stripe");
+const { Resend } = require("resend");
 
 admin.initializeApp();
 
 const db = admin.firestore();
 
 const stripeSecret = defineSecret("STRIPE_SECRET_KEY");
+const resendApiKey = defineSecret("RESEND_API_KEY");
 
 const constantContactClientSecret = defineSecret("CONSTANT_CONTACT_CLIENT_SECRET");
 const constantContactRefreshToken = defineSecret("CONSTANT_CONTACT_REFRESH_TOKEN");
@@ -17,6 +19,8 @@ const constantContactVendorListId = defineSecret("CONSTANT_CONTACT_VENDOR_LIST_I
 const constantContactCoupleListId = defineSecret("CONSTANT_CONTACT_COUPLE_LIST_ID");
 
 const CONSTANT_CONTACT_CLIENT_ID = "b5586c07-4edd-442e-af03-cba30ffa9f1a";
+const FROM_EMAIL = "noreply@ourweddingdayhub.com";
+const SITE_URL = "https://ourweddingdayhub.com";
 
 const app = express();
 
@@ -124,17 +128,16 @@ app.post("/add-to-constant-contact", async (req, res) => {
     if (!email || !type) {
       return res.status(400).json({ error: "Missing email or account type." });
     }
-    
-let listId;
 
-if (type === "vendor") {
-  listId = constantContactVendorListId.value();
-} else if (type === "couple") {
-  listId = constantContactCoupleListId.value();
-} else {
-  return res.status(400).json({ error: "Invalid account type." });
-}
-    
+    let listId;
+    if (type === "vendor") {
+      listId = constantContactVendorListId.value();
+    } else if (type === "couple") {
+      listId = constantContactCoupleListId.value();
+    } else {
+      return res.status(400).json({ error: "Invalid account type." });
+    }
+
     const accessToken = await getConstantContactAccessToken();
 
     const response = await fetch(
@@ -173,10 +176,269 @@ if (type === "vendor") {
   }
 });
 
+// ── MESSAGE NOTIFICATION ──
+// Called when a new message is sent — notifies the recipient
+app.post("/send-message-notification", async (req, res) => {
+  try {
+    const {
+      conversationId,
+      senderName,
+      recipientEmail,
+      recipientName,
+      messageBody,
+      recipientType
+    } = req.body;
+
+    if (!conversationId || !recipientEmail || !messageBody) {
+      return res.status(400).json({ error: "Missing required fields." });
+    }
+
+    // Smart notification — only send if recipient has no unread messages already
+    // (prevents spam if someone sends multiple messages quickly)
+    const convSnap = await db.collection("conversations").doc(conversationId).get();
+    if (!convSnap.exists) {
+      return res.status(404).json({ error: "Conversation not found." });
+    }
+
+    const conv = convSnap.data();
+    const unreadCount = recipientType === "vendor"
+      ? (conv.vendorUnread || 0)
+      : (conv.coupleUnread || 0);
+
+    // Only send email if this is the first unread message
+    if (unreadCount > 1) {
+      return res.json({ success: true, skipped: true, reason: "Already has unread messages." });
+    }
+
+    const resend = new Resend(resendApiKey.value());
+
+    const dashboardLink = recipientType === "vendor"
+      ? `${SITE_URL}/dashboard.html`
+      : `${SITE_URL}/couple-dashboard.html`;
+
+    const previewText = messageBody.length > 120
+      ? messageBody.slice(0, 120) + "..."
+      : messageBody;
+
+    await resend.emails.send({
+      from: `Our Wedding Day Hub <${FROM_EMAIL}>`,
+      to: recipientEmail,
+      subject: `New message from ${senderName} on Our Wedding Day Hub`,
+      html: `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        </head>
+        <body style="margin:0; padding:0; background:#f7f1ed; font-family: Georgia, serif;">
+          <table width="100%" cellpadding="0" cellspacing="0" style="background:#f7f1ed; padding: 40px 20px;">
+            <tr>
+              <td align="center">
+                <table width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;">
+
+                  <!-- Logo -->
+                  <tr>
+                    <td align="center" style="padding-bottom: 28px;">
+                      <img src="${SITE_URL}/images/logo.png" alt="Our Wedding Day Hub" width="90" style="display:block;">
+                    </td>
+                  </tr>
+
+                  <!-- Card -->
+                  <tr>
+                    <td style="background:#fffaf7; border-radius:24px; border:1px solid rgba(223,210,200,0.9); padding:40px 36px;">
+
+                      <p style="margin:0 0 8px; font-size:12px; letter-spacing:0.2em; text-transform:uppercase; color:#b08d7d;">New Message</p>
+
+                      <h1 style="margin:0 0 16px; font-family:'Georgia',serif; font-size:28px; font-weight:400; color:#3b2f2a; line-height:1.1;">
+                        ${senderName} sent you a message
+                      </h1>
+
+                      <p style="margin:0 0 24px; color:#9b8579; line-height:1.75; font-size:15px;">
+                        Hi ${recipientName || "there"}, you have a new message waiting for you on Our Wedding Day Hub.
+                      </p>
+
+                      <!-- Message preview -->
+                      <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:28px;">
+                        <tr>
+                          <td style="background:#f4e7df; border-radius:16px; padding:20px 22px; border-left:3px solid #a97c66;">
+                            <p style="margin:0; color:#5b4a43; font-style:italic; line-height:1.75; font-size:15px;">
+                              "${previewText}"
+                            </p>
+                            <p style="margin:8px 0 0; font-size:12px; color:#b08d7d;">— ${senderName}</p>
+                          </td>
+                        </tr>
+                      </table>
+
+                      <!-- CTA -->
+                      <table width="100%" cellpadding="0" cellspacing="0">
+                        <tr>
+                          <td align="center">
+                            <a href="${dashboardLink}" style="display:inline-block; background:linear-gradient(135deg,#d6b19a,#a97c66); color:#fffaf7; text-decoration:none; padding:14px 32px; border-radius:999px; font-size:15px; font-weight:bold; letter-spacing:0.04em;">
+                              View Message
+                            </a>
+                          </td>
+                        </tr>
+                      </table>
+
+                      <p style="margin:28px 0 0; color:#b08d7d; font-size:13px; text-align:center; line-height:1.7;">
+                        You're receiving this because someone messaged you on<br>
+                        <a href="${SITE_URL}" style="color:#a97c66;">ourweddingdayhub.com</a>
+                      </p>
+
+                    </td>
+                  </tr>
+
+                  <!-- Footer -->
+                  <tr>
+                    <td align="center" style="padding-top:24px;">
+                      <p style="margin:0; color:#b08d7d; font-size:12px; line-height:1.7;">
+                        Our Wedding Day Hub • ABN 76 688 637 041 • Australia<br>
+                        Proudly inclusive • Worldwide • Built with heart
+                      </p>
+                    </td>
+                  </tr>
+
+                </table>
+              </td>
+            </tr>
+          </table>
+        </body>
+        </html>
+      `
+    });
+
+    res.json({ success: true });
+  } catch (error) {
+    console.error("Message notification error:", error);
+    res.status(500).json({ error: "Unable to send message notification." });
+  }
+});
+
+// ── ENQUIRY NOTIFICATION ──
+// Called when a couple submits a booking enquiry — notifies the vendor
+app.post("/send-enquiry-notification", async (req, res) => {
+  try {
+    const {
+      vendorEmail,
+      vendorName,
+      coupleName,
+      coupleEmail,
+      preferredDate,
+      message
+    } = req.body;
+
+    if (!vendorEmail || !coupleName || !message) {
+      return res.status(400).json({ error: "Missing required fields." });
+    }
+
+    const resend = new Resend(resendApiKey.value());
+
+    await resend.emails.send({
+      from: `Our Wedding Day Hub <${FROM_EMAIL}>`,
+      to: vendorEmail,
+      subject: `New booking enquiry from ${coupleName} on Our Wedding Day Hub`,
+      html: `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        </head>
+        <body style="margin:0; padding:0; background:#f7f1ed; font-family: Georgia, serif;">
+          <table width="100%" cellpadding="0" cellspacing="0" style="background:#f7f1ed; padding: 40px 20px;">
+            <tr>
+              <td align="center">
+                <table width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;">
+
+                  <!-- Logo -->
+                  <tr>
+                    <td align="center" style="padding-bottom: 28px;">
+                      <img src="${SITE_URL}/images/logo.png" alt="Our Wedding Day Hub" width="90" style="display:block;">
+                    </td>
+                  </tr>
+
+                  <!-- Card -->
+                  <tr>
+                    <td style="background:#fffaf7; border-radius:24px; border:1px solid rgba(223,210,200,0.9); padding:40px 36px;">
+
+                      <p style="margin:0 0 8px; font-size:12px; letter-spacing:0.2em; text-transform:uppercase; color:#b08d7d;">New Enquiry</p>
+
+                      <h1 style="margin:0 0 16px; font-family:'Georgia',serif; font-size:28px; font-weight:400; color:#3b2f2a; line-height:1.1;">
+                        ${coupleName} sent you a booking enquiry
+                      </h1>
+
+                      <p style="margin:0 0 24px; color:#9b8579; line-height:1.75; font-size:15px;">
+                        Hi ${vendorName || "there"}, you have a new booking enquiry on Our Wedding Day Hub.
+                      </p>
+
+                      <!-- Enquiry details -->
+                      <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:20px;">
+                        <tr>
+                          <td style="background:#f4e7df; border-radius:16px; padding:20px 22px; border-left:3px solid #a97c66;">
+                            ${preferredDate ? `<p style="margin:0 0 10px; font-size:13px; font-weight:bold; color:#6f5143; letter-spacing:0.06em; text-transform:uppercase;">Preferred Date</p>
+                            <p style="margin:0 0 16px; color:#3b2f2a; font-size:15px;">${preferredDate}</p>` : ""}
+                            <p style="margin:0 0 10px; font-size:13px; font-weight:bold; color:#6f5143; letter-spacing:0.06em; text-transform:uppercase;">Message</p>
+                            <p style="margin:0; color:#5b4a43; font-style:italic; line-height:1.75; font-size:15px;">"${message}"</p>
+                          </td>
+                        </tr>
+                      </table>
+
+                      <!-- Reply hint -->
+                      <p style="margin:0 0 24px; color:#9b8579; font-size:14px; line-height:1.7;">
+                        Reply directly to <a href="mailto:${coupleEmail}" style="color:#a97c66;">${coupleEmail}</a> or view the enquiry in your dashboard.
+                      </p>
+
+                      <!-- CTA -->
+                      <table width="100%" cellpadding="0" cellspacing="0">
+                        <tr>
+                          <td align="center">
+                            <a href="${SITE_URL}/dashboard.html" style="display:inline-block; background:linear-gradient(135deg,#d6b19a,#a97c66); color:#fffaf7; text-decoration:none; padding:14px 32px; border-radius:999px; font-size:15px; font-weight:bold; letter-spacing:0.04em;">
+                              View in Dashboard
+                            </a>
+                          </td>
+                        </tr>
+                      </table>
+
+                      <p style="margin:28px 0 0; color:#b08d7d; font-size:13px; text-align:center; line-height:1.7;">
+                        You're receiving this because someone enquired through your profile on<br>
+                        <a href="${SITE_URL}" style="color:#a97c66;">ourweddingdayhub.com</a>
+                      </p>
+
+                    </td>
+                  </tr>
+
+                  <!-- Footer -->
+                  <tr>
+                    <td align="center" style="padding-top:24px;">
+                      <p style="margin:0; color:#b08d7d; font-size:12px; line-height:1.7;">
+                        Our Wedding Day Hub • ABN 76 688 637 041 • Australia<br>
+                        Proudly inclusive • Worldwide • Built with heart
+                      </p>
+                    </td>
+                  </tr>
+
+                </table>
+              </td>
+            </tr>
+          </table>
+        </body>
+        </html>
+      `
+    });
+
+    res.json({ success: true });
+  } catch (error) {
+    console.error("Enquiry notification error:", error);
+    res.status(500).json({ error: "Unable to send enquiry notification." });
+  }
+});
+
 exports.api = onRequest(
   {
     secrets: [
       stripeSecret,
+      resendApiKey,
       constantContactClientSecret,
       constantContactRefreshToken,
       constantContactVendorListId,
