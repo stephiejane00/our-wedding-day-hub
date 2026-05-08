@@ -1498,8 +1498,13 @@ import {
   where,
   orderBy,
   deleteDoc,
-  updateDoc
+  updateDoc,
+  increment
 } from "./firebase.js";
+
+import {
+  onSnapshot
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
   import {
     updateEmail,
@@ -1508,11 +1513,7 @@ import {
 
   import { LOCATION_DATA } from "./locations.js";
 
-  import {
-    onSnapshot,
-    orderBy,
-    where
-  } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
 
 
   const categoryOptions = document.getElementById("categoryOptions");
