@@ -1224,6 +1224,34 @@
     .footer-eyebrow { color: #b08d7d; }
 
     /* ── RESPONSIVE ── */
+
+    /* ── MESSAGING ── */
+    .conv-list { display: grid; gap: 10px; margin-top: 4px; }
+    .conv-item { display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: start; padding: 16px 18px; border-radius: 18px; background: rgba(255,250,247,0.95); border: 1px solid rgba(223,210,200,0.7); cursor: pointer; transition: all 0.18s ease; }
+    .conv-item:hover { border-color: rgba(198,167,125,0.5); box-shadow: 0 8px 22px var(--lux-shadow); transform: translateY(-2px); }
+    .conv-item.unread { border-left: 3px solid #a97c66; }
+    .conv-name { margin: 0 0 4px; font-family: "Cormorant Garamond", serif; font-size: 1.1rem; font-weight: 500; color: var(--lux-espresso); }
+    .conv-preview { margin: 0; color: var(--lux-muted); font-size: 0.88rem; line-height: 1.5; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 380px; }
+    .conv-time { font-size: 0.8rem; color: var(--lux-muted); white-space: nowrap; }
+    .thread-view { display: none; }
+    .thread-view.open { display: block; }
+    .thread-back { display: inline-flex; align-items: center; gap: 6px; background: none; border: none; color: var(--lux-muted); font: inherit; font-size: 0.88rem; cursor: pointer; padding: 0; margin-bottom: 16px; transition: color 0.18s ease; }
+    .thread-back:hover { color: var(--lux-espresso); }
+    .thread-title { margin: 0 0 16px; font-family: "Cormorant Garamond", serif; font-size: 1.4rem; font-weight: 500; color: var(--lux-espresso); }
+    .messages-list { display: grid; gap: 12px; margin-bottom: 20px; max-height: 420px; overflow-y: auto; padding-right: 4px; }
+    .msg-bubble-wrap { display: flex; }
+    .msg-bubble-wrap.mine { justify-content: flex-end; }
+    .msg-bubble { max-width: 75%; padding: 12px 16px; border-radius: 18px; line-height: 1.65; font-size: 0.93rem; word-break: break-word; }
+    .msg-bubble.theirs { background: rgba(247,241,237,0.9); border: 1px solid rgba(223,210,200,0.7); color: #4a3b34; border-bottom-left-radius: 4px; }
+    .msg-bubble.mine { background: linear-gradient(135deg, #3b2f2a, #2a211d); color: #fffaf7; border-bottom-right-radius: 4px; }
+    .msg-bubble-time { font-size: 0.76rem; color: var(--lux-muted); margin-top: 4px; }
+    .msg-bubble-wrap.mine .msg-bubble-time { text-align: right; }
+    .msg-bubble-wrap.theirs .msg-bubble-time { text-align: left; }
+    .reply-form { display: grid; gap: 10px; }
+    .reply-form textarea { width: 100%; border: 1px solid #eadfd6; border-radius: 14px; background: #fffdfb; padding: 12px 14px; font: inherit; font-size: 0.94rem; color: #2d221c; box-sizing: border-box; resize: vertical; min-height: 90px; transition: border-color 0.2s, box-shadow 0.2s; }
+    .reply-form textarea:focus { outline: none; border-color: #d6bcad; box-shadow: 0 0 0 4px rgba(217,194,178,0.16); }
+    .msg-unread-badge { display: inline-flex; align-items: center; justify-content: center; min-width: 22px; height: 22px; border-radius: 999px; background: linear-gradient(135deg, #d6b19a, #a97c66); color: #fffaf7; font-size: 0.72rem; font-weight: 700; padding: 0 6px; margin-left: 8px; vertical-align: middle; }
+
     @media (max-width: 960px) {
       .couple-hero-grid,
       .vision-layout,
@@ -1312,6 +1340,7 @@
       <a href="#favouritesSection"  class="dashboard-jump-link"><span class="jump-icon">♡</span> Favourites</a>
       <a href="#accountSection"     class="dashboard-jump-link"><span class="jump-icon">☁</span> Account</a>
       <a href="#securitySection"    class="dashboard-jump-link"><span class="jump-icon">🔒</span> Password</a>
+      <a href="#messagesSection"    class="dashboard-jump-link"><span class="jump-icon">✦</span> Messages</a>
     </nav>
 
     <!-- ── PLANNING ── -->
@@ -1477,6 +1506,37 @@
       </form>
     </section>
 
+    <!-- ── MESSAGES ── -->
+    <section class="dashboard-card" id="messagesSection">
+      <div class="section-kicker-wrap">
+        <span class="section-kicker">Messages</span>
+        <span class="section-kicker-line"></span>
+      </div>
+      <h2>Your Messages <span class="msg-unread-badge" id="coupleUnreadBadge" style="display:none;">0</span></h2>
+      <p class="dashboard-subtext">Conversations with your favourite vendors all in one place.</p>
+
+      <div class="inner-panel">
+        <!-- List view -->
+        <div id="coupleConvListView">
+          <div id="coupleConvList" class="conv-list"></div>
+          <p id="coupleConvEmpty" class="empty-message" style="display:none;">No messages yet. Visit a vendor profile and click "Send a Message" to start a conversation.</p>
+        </div>
+
+        <!-- Thread view -->
+        <div id="coupleThreadView" class="thread-view">
+          <button type="button" id="coupleThreadBack" class="thread-back">← Back to messages</button>
+          <h3 id="coupleThreadTitle" class="thread-title"></h3>
+          <div id="coupleMessagesList" class="messages-list"></div>
+          <form id="coupleReplyForm" class="reply-form">
+            <textarea id="coupleReplyBody" placeholder="Write your message..."></textarea>
+            <button type="submit" class="hero-cta-primary" style="justify-self:start;">Send Message</button>
+          </form>
+          <p id="coupleReplyStatus" style="margin-top:8px; color:var(--lux-muted); font-style:italic; font-family:'Cormorant Garamond',serif; font-size:0.95rem;"></p>
+        </div>
+      </div>
+    </section>
+
+
   </main>
 
   <!-- ── FOOTER ── -->
@@ -1528,6 +1588,8 @@
       deleteDoc,
       serverTimestamp
     } from 'https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js';
+
+  import { onSnapshot, where, orderBy } from 'https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js';
 
     import {
       getStorage,
@@ -1923,6 +1985,7 @@
         await loadVisionBoard(user);
         renderPlanningCalendar();
         renderTodoList();
+        loadCoupleConversations(user.uid);
       } catch (error) {
         console.error(error);
         welcomeMessage.textContent = 'There was a problem loading your dashboard.';
@@ -2050,7 +2113,155 @@
       window.location.href = 'login.html';
     });
 
-    onAuthStateChanged(auth, async (user) => {
+
+    // ── COUPLE MESSAGING ──
+    const coupleUnreadBadge  = document.getElementById("coupleUnreadBadge");
+    const coupleConvList     = document.getElementById("coupleConvList");
+    const coupleConvEmpty    = document.getElementById("coupleConvEmpty");
+    const coupleConvListView = document.getElementById("coupleConvListView");
+    const coupleThreadView   = document.getElementById("coupleThreadView");
+    const coupleThreadBack   = document.getElementById("coupleThreadBack");
+    const coupleThreadTitle  = document.getElementById("coupleThreadTitle");
+    const coupleMessagesList = document.getElementById("coupleMessagesList");
+    const coupleReplyForm    = document.getElementById("coupleReplyForm");
+    const coupleReplyBody    = document.getElementById("coupleReplyBody");
+    const coupleReplyStatus  = document.getElementById("coupleReplyStatus");
+
+    let coupleActiveConvId  = null;
+    let coupleUnsubMessages = null;
+
+    function timeAgo(ts) {
+      if (!ts) return "";
+      const d = ts.toDate ? ts.toDate() : new Date(ts);
+      const diff = Math.floor((Date.now() - d) / 1000);
+      if (diff < 60) return "just now";
+      if (diff < 3600) return `${Math.floor(diff/60)}m ago`;
+      if (diff < 86400) return `${Math.floor(diff/3600)}h ago`;
+      return d.toLocaleDateString("en-AU", { day:"numeric", month:"short" });
+    }
+
+    function openCoupleThread(convId, vendorName) {
+      coupleActiveConvId = convId;
+      coupleThreadTitle.textContent = vendorName;
+      coupleConvListView.style.display = "none";
+      coupleThreadView.classList.add("open");
+      coupleMessagesList.innerHTML = "";
+      coupleReplyBody.value = "";
+      coupleReplyStatus.textContent = "";
+
+      // Mark as read
+      updateDoc(doc(db, "conversations", convId), { coupleUnread: 0 }).catch(()=>{});
+
+      if (coupleUnsubMessages) coupleUnsubMessages();
+      coupleUnsubMessages = onSnapshot(
+        query(collection(db, "conversations", convId, "messages"), orderBy("sentAt","asc")),
+        (snap) => {
+          coupleMessagesList.innerHTML = "";
+          snap.forEach(msgDoc => {
+            const m = msgDoc.data();
+            const isMine = m.senderId === currentUser?.uid;
+            const wrap = document.createElement("div");
+            wrap.className = "msg-bubble-wrap " + (isMine ? "mine" : "theirs");
+            const bubble = document.createElement("div");
+            bubble.className = "msg-bubble " + (isMine ? "mine" : "theirs");
+            bubble.textContent = m.body || "";
+            const timeEl = document.createElement("div");
+            timeEl.className = "msg-bubble-time";
+            timeEl.textContent = timeAgo(m.sentAt);
+            const inner = document.createElement("div");
+            inner.appendChild(bubble);
+            inner.appendChild(timeEl);
+            wrap.appendChild(inner);
+            coupleMessagesList.appendChild(wrap);
+          });
+          coupleMessagesList.scrollTop = coupleMessagesList.scrollHeight;
+        }
+      );
+    }
+
+    coupleThreadBack.addEventListener("click", () => {
+      if (coupleUnsubMessages) { coupleUnsubMessages(); coupleUnsubMessages = null; }
+      coupleActiveConvId = null;
+      coupleThreadView.classList.remove("open");
+      coupleConvListView.style.display = "block";
+    });
+
+    coupleReplyForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      if (!coupleActiveConvId || !currentUser) return;
+      const body = coupleReplyBody.value.trim();
+      if (!body) return;
+      coupleReplyStatus.textContent = "Sending...";
+      try {
+        await addDoc(collection(db, "conversations", coupleActiveConvId, "messages"), {
+          senderId:   currentUser.uid,
+          senderName: currentUser.email,
+          body,
+          sentAt: serverTimestamp(),
+          read:   false
+        });
+        await updateDoc(doc(db, "conversations", coupleActiveConvId), {
+          lastMessage:   body,
+          lastMessageAt: serverTimestamp(),
+          vendorUnread:  increment(1)
+        });
+        coupleReplyBody.value = "";
+        coupleReplyStatus.textContent = "";
+      } catch (err) {
+        console.error(err);
+        coupleReplyStatus.textContent = "Could not send. Please try again.";
+      }
+    });
+
+    function loadCoupleConversations(uid) {
+      onSnapshot(
+        query(collection(db, "conversations"), where("coupleId","==",uid), orderBy("lastMessageAt","desc")),
+        (snap) => {
+          coupleConvList.innerHTML = "";
+          let totalUnread = 0;
+          if (snap.empty) { coupleConvEmpty.style.display = "block"; coupleConvList.style.display = "none"; }
+          else { coupleConvEmpty.style.display = "none"; coupleConvList.style.display = "grid"; }
+
+          snap.forEach(convDoc => {
+            const c = convDoc.data();
+            const unread = c.coupleUnread || 0;
+            totalUnread += unread;
+
+            const item = document.createElement("div");
+            item.className = "conv-item" + (unread > 0 ? " unread" : "");
+
+            const left = document.createElement("div");
+            const name = document.createElement("p");
+            name.className = "conv-name";
+            name.textContent = c.vendorName || "Vendor";
+            if (unread > 0) name.innerHTML += ` <span class="msg-unread-badge">${unread}</span>`;
+            const preview = document.createElement("p");
+            preview.className = "conv-preview";
+            preview.textContent = c.lastMessage || "";
+            left.appendChild(name);
+            left.appendChild(preview);
+
+            const right = document.createElement("div");
+            right.className = "conv-time";
+            right.textContent = timeAgo(c.lastMessageAt);
+
+            item.appendChild(left);
+            item.appendChild(right);
+            item.addEventListener("click", () => openCoupleThread(convDoc.id, c.vendorName || "Vendor"));
+            coupleConvList.appendChild(item);
+          });
+
+          if (totalUnread > 0) {
+            coupleUnreadBadge.textContent = totalUnread;
+            coupleUnreadBadge.style.display = "inline-flex";
+          } else {
+            coupleUnreadBadge.style.display = "none";
+          }
+        }
+      );
+    }
+
+        onAuthStateChanged(auth, async (user) => {
       if (!user) { window.location.href = 'login.html'; return; }
       currentUser = user;
       await loadCoupleDashboard(user);
