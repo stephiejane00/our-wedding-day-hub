@@ -32,22 +32,14 @@
       to   { opacity: 1; transform: scale(1); }
     }
 
-    .pricing-page {
-      max-width: 1280px;
-      margin: 0 auto 60px;
-      padding: 18px 20px 0;
-    }
-
+    .pricing-page { max-width: 1280px; margin: 0 auto 60px; padding: 18px 20px 0; }
     .pricing-stack { display: grid; gap: 24px; }
 
-    /* ── HERO ── */
     .pricing-hero-card {
       border-radius: 36px;
       border: 1px solid rgba(227, 219, 212, 0.9);
       box-shadow: 0 24px 70px var(--lux-shadow);
-      background:
-        radial-gradient(circle at top left, rgba(200, 166, 161, 0.18), transparent 34%),
-        linear-gradient(135deg, #fffaf7, #f4ebe5);
+      background: radial-gradient(circle at top left, rgba(200, 166, 161, 0.18), transparent 34%), linear-gradient(135deg, #fffaf7, #f4ebe5);
       overflow: hidden;
       padding: 0;
     }
@@ -66,10 +58,7 @@
       justify-content: center;
     }
 
-    .pricing-hero-copy > * {
-      animation: fadeUp 0.8s ease forwards;
-      opacity: 0;
-    }
+    .pricing-hero-copy > * { animation: fadeUp 0.8s ease forwards; opacity: 0; }
     .pricing-hero-copy > *:nth-child(1) { animation-delay: 0.05s; }
     .pricing-hero-copy > *:nth-child(2) { animation-delay: 0.1s; }
     .pricing-hero-copy > *:nth-child(3) { animation-delay: 0.18s; }
@@ -77,28 +66,11 @@
     .pricing-hero-copy > *:nth-child(5) { animation-delay: 0.33s; }
     .pricing-hero-copy > *:nth-child(6) { animation-delay: 0.4s; }
 
-    .pricing-logo-wrap {
-      display: inline-flex;
-      align-items: center;
-      justify-content: flex-start;
-      margin-bottom: 20px;
-    }
-
-    .pricing-logo {
-      width: 108px;
-      display: block;
-      transition: transform 0.3s ease;
-    }
+    .pricing-logo-wrap { display: inline-flex; align-items: center; justify-content: flex-start; margin-bottom: 20px; }
+    .pricing-logo { width: 108px; display: block; transition: transform 0.3s ease; }
     .pricing-logo:hover { transform: scale(1.04); }
 
-    .pricing-kicker {
-      margin: 0 0 12px;
-      font-size: 0.78rem;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: #b08d7d;
-      opacity: 0.85;
-    }
+    .pricing-kicker { margin: 0 0 12px; font-size: 0.78rem; letter-spacing: 0.28em; text-transform: uppercase; color: #b08d7d; opacity: 0.85; }
 
     .pricing-hero-title {
       margin: 0 0 14px;
@@ -111,474 +83,118 @@
       text-shadow: 0 10px 30px rgba(59, 47, 42, 0.08);
     }
 
-    .pricing-hero-script {
-      margin: 0 0 16px;
-      font-family: "Cormorant Garamond", serif;
-      font-style: italic;
-      font-size: 1.3rem;
-      color: #c69b84;
-      opacity: 0.9;
-      letter-spacing: 0.02em;
-    }
+    .pricing-hero-script { margin: 0 0 16px; font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 1.3rem; color: #c69b84; opacity: 0.9; letter-spacing: 0.02em; }
 
-    .pricing-hero-text {
-      margin: 0 0 10px;
-      max-width: 480px;
-      color: var(--lux-muted);
-      line-height: 1.8;
-      font-size: 0.97rem;
-    }
+    .pricing-hero-text { margin: 0 0 10px; max-width: 480px; color: var(--lux-muted); line-height: 1.8; font-size: 0.97rem; }
     .pricing-hero-text:last-child { margin-bottom: 0; }
 
-    .pricing-hero-image-wrap {
-      position: relative;
-      overflow: hidden;
-      min-height: 100%;
-      background: #f4ece6;
-    }
-    .pricing-hero-image-wrap::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(90deg, rgba(59, 47, 42, 0.08), transparent 45%),
-        radial-gradient(circle at top right, rgba(255, 250, 247, 0.14), transparent 38%);
-      pointer-events: none;
-    }
-    .pricing-hero-image {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover;
-      filter: brightness(0.98) contrast(0.94) saturate(0.92);
-      opacity: 0;
-      animation: heroFadeIn 0.9s ease forwards;
-      transition: transform 0.9s ease, filter 0.4s ease;
-    }
-    .pricing-hero-image-wrap:hover .pricing-hero-image {
-      transform: scale(1.035);
-      filter: brightness(1) contrast(0.96) saturate(0.96);
-    }
-
-    /* Trust strip */
-    .trust-strip {
-      text-align: center;
-      padding: 16px 20px 6px;
-      font-size: 0.82rem;
-      letter-spacing: 0.12em;
-      color: #9b8579;
-      opacity: 0.7;
-    }
-    .trust-strip p { margin: 0; }
-
-    /* Section kicker */
-    .section-kicker-wrap {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 20px;
-    }
-    .section-kicker {
-      font-size: 0.74rem;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: #b08d7d;
-      white-space: nowrap;
-    }
-    .section-kicker-line {
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(90deg, rgba(200,166,161,0.4), transparent);
-    }
-
-    /* Mini badge */
-    .lux-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 7px 14px;
-      border-radius: 999px;
-      background: rgba(255, 250, 247, 0.9);
-      color: #6f5143;
-      border: 1px solid rgba(214, 190, 174, 0.8);
-      font-size: 0.74rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 16px;
-    }
-
-    /* ── CURRENCY INDICATOR ── */
-    .currency-indicator {
-      text-align: center;
-      font-size: 0.8rem;
-      letter-spacing: 0.06em;
-      color: #b08d7d;
-      opacity: 0;
-      transition: opacity 0.5s ease;
-      padding: 0 0 4px;
-    }
-
-    /* Inline currency styling */
-    .currency-code {
-      font-size: 0.7em;
-      letter-spacing: 0.06em;
-      opacity: 0.75;
-      text-transform: uppercase;
-    }
-
-    .currency-note {
-      display: block;
-      font-size: 0.62rem;
-      letter-spacing: 0.05em;
-      color: var(--lux-muted);
-      opacity: 0.75;
-      margin-top: 4px;
-      font-style: italic;
-      font-family: inherit;
-    }
-
-    /* ── SETUP CARD ── */
-    .pricing-setup-card {
-      border-radius: 24px;
-      background: rgba(255, 250, 247, 0.92);
-      border: 1px solid rgba(223, 210, 200, 0.9);
-      box-shadow: 0 6px 18px var(--lux-shadow);
-      padding: 36px 28px;
-      text-align: center;
-      transition: transform 0.28s ease, box-shadow 0.28s ease;
-    }
-    .pricing-setup-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 20px 50px rgba(59, 47, 42, 0.1);
-    }
-
-    .pricing-setup-eyebrow {
-      font-size: 0.74rem;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: #b08d7d;
-      margin: 0 0 10px;
-    }
-
-    .pricing-setup-card h2 {
-      margin: 0 0 12px;
-      font-family: "Cormorant Garamond", serif;
-      font-size: 2.2rem;
-      font-weight: 500;
-      letter-spacing: -0.03em;
-      color: var(--lux-espresso);
-    }
-
-    .pricing-setup-price {
-      font-family: "Cormorant Garamond", serif;
-      font-size: clamp(2.4rem, 4vw, 3.2rem);
-      font-weight: 500;
-      line-height: 1.1;
-      color: var(--lux-espresso);
-      letter-spacing: -0.03em;
-      margin: 0 0 16px;
-      transition: opacity 0.3s ease;
-    }
-
-    .pricing-setup-copy {
-      max-width: 720px;
-      margin: 0 auto;
-      color: var(--lux-muted);
+    .pricing-hero-highlight {
+      margin: 4px 0 0;
+      max-width: 480px;
+      color: #a97c66;
       line-height: 1.8;
       font-size: 0.97rem;
+      font-weight: 600;
     }
+
+    .pricing-hero-image-wrap { position: relative; overflow: hidden; min-height: 100%; background: #f4ece6; }
+    .pricing-hero-image-wrap::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(59, 47, 42, 0.08), transparent 45%), radial-gradient(circle at top right, rgba(255, 250, 247, 0.14), transparent 38%); pointer-events: none; }
+    .pricing-hero-image { width: 100%; height: 100%; display: block; object-fit: cover; filter: brightness(0.98) contrast(0.94) saturate(0.92); opacity: 0; animation: heroFadeIn 0.9s ease forwards; transition: transform 0.9s ease, filter 0.4s ease; }
+    .pricing-hero-image-wrap:hover .pricing-hero-image { transform: scale(1.035); filter: brightness(1) contrast(0.96) saturate(0.96); }
+
+    .trust-strip { text-align: center; padding: 16px 20px 6px; font-size: 0.82rem; letter-spacing: 0.12em; color: #9b8579; opacity: 0.7; }
+    .trust-strip p { margin: 0; }
+
+    .section-kicker-wrap { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+    .section-kicker { font-size: 0.74rem; letter-spacing: 0.28em; text-transform: uppercase; color: #b08d7d; white-space: nowrap; }
+    .section-kicker-line { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(200,166,161,0.4), transparent); }
+
+    .lux-badge { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 999px; background: rgba(255, 250, 247, 0.9); color: #6f5143; border: 1px solid rgba(214, 190, 174, 0.8); font-size: 0.74rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 16px; }
+
+    .currency-indicator { text-align: center; font-size: 0.8rem; letter-spacing: 0.06em; color: #b08d7d; opacity: 0; transition: opacity 0.5s ease; padding: 0 0 4px; }
+    .currency-code { font-size: 0.7em; letter-spacing: 0.06em; opacity: 0.75; text-transform: uppercase; }
+    .currency-note { display: block; font-size: 0.62rem; letter-spacing: 0.05em; color: var(--lux-muted); opacity: 0.75; margin-top: 4px; font-style: italic; font-family: inherit; }
+
+    /* ── AFFORDABILITY CARD ── */
+    .pricing-afford-card {
+      border-radius: 24px;
+      background: linear-gradient(135deg, rgba(214,177,154,0.15), rgba(169,124,102,0.06));
+      border: 1px solid rgba(198, 167, 125, 0.55);
+      box-shadow: 0 6px 18px var(--lux-shadow);
+      padding: 32px 28px;
+    }
+    .pricing-afford-card h2 { margin: 0 0 12px; font-family: "Cormorant Garamond", serif; font-size: clamp(1.7rem, 2.5vw, 2.2rem); font-weight: 500; letter-spacing: -0.03em; color: var(--lux-espresso); }
+    .pricing-afford-card p { margin: 0 0 20px; color: var(--lux-muted); line-height: 1.8; font-size: 0.97rem; max-width: 760px; }
+    .pricing-afford-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px; }
+    .pricing-afford-stat { padding: 20px; border-radius: 18px; background: rgba(255,253,251,0.95); border: 1px solid rgba(223,210,200,0.7); }
+    .pricing-afford-stat-num { font-family: "Cormorant Garamond", serif; font-size: clamp(1.5rem,3vw,2rem); font-weight: 500; color: #a97c66; margin: 0 0 6px; letter-spacing: -0.03em; line-height: 1.1; }
+    .pricing-afford-stat p { color: var(--lux-muted); font-size: 0.9rem; line-height: 1.6; margin: 0; }
+
+    .pricing-setup-card { border-radius: 24px; background: rgba(255, 250, 247, 0.92); border: 1px solid rgba(223, 210, 200, 0.9); box-shadow: 0 6px 18px var(--lux-shadow); padding: 36px 28px; text-align: center; transition: transform 0.28s ease, box-shadow 0.28s ease; }
+    .pricing-setup-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(59, 47, 42, 0.1); }
+    .pricing-setup-eyebrow { font-size: 0.74rem; letter-spacing: 0.28em; text-transform: uppercase; color: #b08d7d; margin: 0 0 10px; }
+    .pricing-setup-card h2 { margin: 0 0 12px; font-family: "Cormorant Garamond", serif; font-size: 2.2rem; font-weight: 500; letter-spacing: -0.03em; color: var(--lux-espresso); }
+    .pricing-setup-price { font-family: "Cormorant Garamond", serif; font-size: clamp(2.4rem, 4vw, 3.2rem); font-weight: 500; line-height: 1.1; color: var(--lux-espresso); letter-spacing: -0.03em; margin: 0 0 16px; transition: opacity 0.3s ease; }
+    .pricing-setup-copy { max-width: 720px; margin: 0 auto; color: var(--lux-muted); line-height: 1.8; font-size: 0.97rem; }
     .pricing-setup-copy p { margin: 0; }
     .pricing-setup-copy p + p { margin-top: 10px; }
 
-    /* ── PRICING CARDS ── */
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 22px;
-      align-items: start;
-    }
+    .pricing-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 22px; align-items: start; }
 
-    .pricing-card {
-      position: relative;
-      background: rgba(255, 250, 247, 0.94);
-      border-radius: 24px;
-      border: 1px solid rgba(223, 210, 200, 0.9);
-      padding: 28px 22px 24px;
-      text-align: left;
-      box-shadow: 0 6px 18px var(--lux-shadow);
-      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      height: fit-content;
-      align-self: start;
-    }
-    .pricing-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 22px 52px rgba(59, 47, 42, 0.12);
-      border-color: rgba(198, 167, 125, 0.6);
-    }
+    .pricing-card { position: relative; background: rgba(255, 250, 247, 0.94); border-radius: 24px; border: 1px solid rgba(223, 210, 200, 0.9); padding: 28px 22px 24px; text-align: left; box-shadow: 0 6px 18px var(--lux-shadow); transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease; display: flex; flex-direction: column; gap: 14px; height: fit-content; align-self: start; }
+    .pricing-card:hover { transform: translateY(-6px); box-shadow: 0 22px 52px rgba(59, 47, 42, 0.12); border-color: rgba(198, 167, 125, 0.6); }
+    .pricing-card h2 { font-family: "Cormorant Garamond", serif; font-size: 1.55rem; font-weight: 500; letter-spacing: -0.02em; margin: 0; color: var(--lux-espresso); line-height: 1.15; }
 
-    .pricing-card h2 {
-      font-family: "Cormorant Garamond", serif;
-      font-size: 1.55rem;
-      font-weight: 500;
-      letter-spacing: -0.02em;
-      margin: 0;
-      color: var(--lux-espresso);
-      line-height: 1.15;
-    }
+    .pricing-price { font-family: "Cormorant Garamond", serif; font-size: 2.2rem; font-weight: 500; letter-spacing: -0.03em; line-height: 1.15; margin: 0; color: var(--lux-espresso); transition: opacity 0.3s ease; }
+    .pricing-price small { font-family: inherit; font-size: 1rem; color: var(--lux-muted); letter-spacing: 0; }
 
-    .pricing-price {
-      font-family: "Cormorant Garamond", serif;
-      font-size: 2.2rem;
-      font-weight: 500;
-      letter-spacing: -0.03em;
-      line-height: 1.15;
-      margin: 0;
-      color: var(--lux-espresso);
-      transition: opacity 0.3s ease;
-    }
-    .pricing-price small {
-      font-family: inherit;
-      font-size: 1rem;
-      color: var(--lux-muted);
-      letter-spacing: 0;
-    }
+    .pricing-subtext { color: var(--lux-muted); font-size: 0.93rem; line-height: 1.72; margin: 0; }
 
-    .pricing-subtext {
-      color: var(--lux-muted);
-      font-size: 0.93rem;
-      line-height: 1.72;
-      margin: 0;
-    }
+    .pricing-highlights { display: grid; gap: 9px; margin: 0; }
+    .pricing-highlight { display: flex; gap: 10px; align-items: flex-start; color: #5b4a43; line-height: 1.6; font-size: 0.92rem; }
+    .pricing-highlight-dot { width: 7px; height: 7px; border-radius: 999px; background: rgba(198, 167, 125, 0.7); flex: 0 0 7px; margin-top: 8px; }
 
-    .pricing-highlights {
-      display: grid;
-      gap: 9px;
-      margin: 0;
-    }
-
-    .pricing-highlight {
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-      color: #5b4a43;
-      line-height: 1.6;
-      font-size: 0.92rem;
-    }
-
-    .pricing-highlight-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: rgba(198, 167, 125, 0.7);
-      flex: 0 0 7px;
-      margin-top: 8px;
-    }
-
-    .pricing-includes {
-      padding-top: 16px;
-      border-top: 1px solid rgba(223, 210, 200, 0.6);
-      display: grid;
-      gap: 11px;
-    }
-    .pricing-includes p {
-      margin: 0;
-      color: var(--lux-muted);
-      line-height: 1.7;
-      font-size: 0.92rem;
-    }
+    .pricing-includes { padding-top: 16px; border-top: 1px solid rgba(223, 210, 200, 0.6); display: grid; gap: 11px; }
+    .pricing-includes p { margin: 0; color: var(--lux-muted); line-height: 1.7; font-size: 0.92rem; }
     .pricing-includes p strong { color: #4a3b34; }
-
-    .pricing-best-for {
-      margin-top: 4px !important;
-      padding-top: 12px;
-      border-top: 1px solid rgba(223, 210, 200, 0.4);
-      font-style: italic;
-    }
+    .pricing-best-for { margin-top: 4px !important; padding-top: 12px; border-top: 1px solid rgba(223, 210, 200, 0.4); font-style: italic; }
 
     .pricing-signature { box-shadow: 0 10px 28px rgba(185, 143, 122, 0.08); }
-    .pricing-elite {
-      box-shadow: 0 14px 34px rgba(185, 143, 122, 0.12);
-      border-color: rgba(214, 190, 174, 0.9);
-    }
-    .pricing-platinum {
-      box-shadow: 0 18px 42px rgba(185, 143, 122, 0.18);
-      border-color: rgba(198, 167, 125, 0.7);
-      transform: translateY(-8px);
-      background: linear-gradient(160deg, #fffdfb, #fff5ee);
-    }
+    .pricing-elite { box-shadow: 0 14px 34px rgba(185, 143, 122, 0.12); border-color: rgba(214, 190, 174, 0.9); }
+    .pricing-platinum { box-shadow: 0 18px 42px rgba(185, 143, 122, 0.18); border-color: rgba(198, 167, 125, 0.7); transform: translateY(-8px); background: linear-gradient(160deg, #fffdfb, #fff5ee); }
     .pricing-platinum:hover { transform: translateY(-12px); }
 
-    .popular-badge {
-      position: absolute;
-      top: -13px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: linear-gradient(135deg, #d6b19a, #a97c66);
-      color: #fffaf7;
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      padding: 7px 14px;
-      border-radius: 999px;
-      white-space: nowrap;
-      box-shadow: 0 6px 16px rgba(185, 143, 122, 0.3);
-    }
+    .popular-badge { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #d6b19a, #a97c66); color: #fffaf7; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; padding: 7px 14px; border-radius: 999px; white-space: nowrap; box-shadow: 0 6px 16px rgba(185, 143, 122, 0.3); }
 
-    .pricing-feature-callout {
-      padding: 16px;
-      border-radius: 18px;
-      background: linear-gradient(160deg, rgba(244,231,223,0.6), rgba(238,219,207,0.7));
-      border: 1px solid rgba(214, 190, 174, 0.7);
-    }
+    .pricing-feature-callout { padding: 16px; border-radius: 18px; background: linear-gradient(160deg, rgba(244,231,223,0.6), rgba(238,219,207,0.7)); border: 1px solid rgba(214, 190, 174, 0.7); }
+    .pricing-feature-label { display: inline-flex; align-items: center; padding: 5px 11px; border-radius: 999px; background: linear-gradient(135deg, #d6b19a, #a97c66); color: #fffaf7; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; }
+    .pricing-feature-callout p { margin: 0; font-size: 0.91rem; line-height: 1.65; color: #5b4a43; }
 
-    .pricing-feature-label {
-      display: inline-flex;
-      align-items: center;
-      padding: 5px 11px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, #d6b19a, #a97c66);
-      color: #fffaf7;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 10px;
-    }
+    .pricing-visual-grid { display: grid; grid-template-columns: 0.94fr 1.06fr; gap: 24px; align-items: stretch; }
 
-    .pricing-feature-callout p {
-      margin: 0;
-      font-size: 0.91rem;
-      line-height: 1.65;
-      color: #5b4a43;
-    }
-
-    /* ── VISUAL GRID ── */
-    .pricing-visual-grid {
-      display: grid;
-      grid-template-columns: 0.94fr 1.06fr;
-      gap: 24px;
-      align-items: stretch;
-    }
-
-    .pricing-image-card {
-      border-radius: 24px;
-      border: 1px solid rgba(223, 210, 200, 0.9);
-      box-shadow: 0 6px 18px var(--lux-shadow);
-      overflow: hidden;
-      padding: 0;
-      transition: box-shadow 0.3s ease;
-    }
+    .pricing-image-card { border-radius: 24px; border: 1px solid rgba(223, 210, 200, 0.9); box-shadow: 0 6px 18px var(--lux-shadow); overflow: hidden; padding: 0; transition: box-shadow 0.3s ease; }
     .pricing-image-card:hover { box-shadow: 0 18px 48px rgba(59, 47, 42, 0.12); }
-    .pricing-image-card img {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover;
-      aspect-ratio: 1/1;
-      filter: brightness(0.98) contrast(0.94) saturate(0.92);
-      transition: transform 0.45s ease, filter 0.35s ease;
-    }
-    .pricing-image-card:hover img {
-      transform: scale(1.04);
-      filter: brightness(1) contrast(0.96) saturate(0.96);
-    }
+    .pricing-image-card img { width: 100%; height: 100%; display: block; object-fit: cover; aspect-ratio: 1/1; filter: brightness(0.98) contrast(0.94) saturate(0.92); transition: transform 0.45s ease, filter 0.35s ease; }
+    .pricing-image-card:hover img { transform: scale(1.04); filter: brightness(1) contrast(0.96) saturate(0.96); }
 
-    .lux-card {
-      border-radius: 24px;
-      background: rgba(255, 250, 247, 0.92);
-      border: 1px solid rgba(223, 210, 200, 0.9);
-      box-shadow: 0 6px 18px var(--lux-shadow);
-      padding: 32px 28px;
-      transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
-    }
-    .lux-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 20px 50px rgba(59, 47, 42, 0.1);
-      border-color: rgba(198, 167, 125, 0.5);
-    }
-    .lux-card h2 {
-      margin: 0 0 12px;
-      font-family: "Cormorant Garamond", serif;
-      font-size: clamp(1.7rem, 2.5vw, 2.2rem);
-      font-weight: 500;
-      letter-spacing: -0.03em;
-      color: var(--lux-espresso);
-    }
-    .lux-card p {
-      margin: 0 0 14px;
-      color: var(--lux-muted);
-      line-height: 1.8;
-      font-size: 0.97rem;
-    }
+    .lux-card { border-radius: 24px; background: rgba(255, 250, 247, 0.92); border: 1px solid rgba(223, 210, 200, 0.9); box-shadow: 0 6px 18px var(--lux-shadow); padding: 32px 28px; transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease; }
+    .lux-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(59, 47, 42, 0.1); border-color: rgba(198, 167, 125, 0.5); }
+    .lux-card h2 { margin: 0 0 12px; font-family: "Cormorant Garamond", serif; font-size: clamp(1.7rem, 2.5vw, 2.2rem); font-weight: 500; letter-spacing: -0.03em; color: var(--lux-espresso); }
+    .lux-card p { margin: 0 0 14px; color: var(--lux-muted); line-height: 1.8; font-size: 0.97rem; }
     .lux-card p:last-child { margin-bottom: 0; }
 
-    .pricing-copy-card {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
+    .pricing-copy-card { display: flex; flex-direction: column; justify-content: center; }
     .pricing-refund-card { background: linear-gradient(180deg, #fffdfb 0%, #fff8f3 100%); }
     .pricing-cta-card { background: linear-gradient(135deg, rgba(200,166,161,0.1), rgba(198,167,125,0.08)); }
 
-    .pricing-cta-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 20px;
-    }
+    .pricing-cta-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
 
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 46px;
-      padding: 12px 22px;
-      border-radius: 999px;
-      text-decoration: none;
-      background: linear-gradient(135deg, #d6b19a, #a97c66);
-      color: #fffaf7;
-      font-weight: 700;
-      font-size: 0.92rem;
-      letter-spacing: 0.04em;
-      box-shadow: 0 10px 24px rgba(185, 143, 122, 0.22);
-      transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
-    }
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 16px 34px rgba(185, 143, 122, 0.28);
-      filter: brightness(1.04);
-    }
+    .btn-primary { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 12px 22px; border-radius: 999px; text-decoration: none; background: linear-gradient(135deg, #d6b19a, #a97c66); color: #fffaf7; font-weight: 700; font-size: 0.92rem; letter-spacing: 0.04em; box-shadow: 0 10px 24px rgba(185, 143, 122, 0.22); transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 34px rgba(185, 143, 122, 0.28); filter: brightness(1.04); }
+    .btn-secondary { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 12px 22px; border-radius: 999px; text-decoration: none; background: rgba(255, 250, 247, 0.95); border: 1px solid rgba(223, 210, 200, 0.9); color: var(--lux-espresso); font-weight: 600; font-size: 0.92rem; transition: transform 0.18s ease, background 0.18s ease; }
+    .btn-secondary:hover { background: var(--lux-blush); transform: translateY(-2px); }
 
-    .btn-secondary {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 46px;
-      padding: 12px 22px;
-      border-radius: 999px;
-      text-decoration: none;
-      background: rgba(255, 250, 247, 0.95);
-      border: 1px solid rgba(223, 210, 200, 0.9);
-      color: var(--lux-espresso);
-      font-weight: 600;
-      font-size: 0.92rem;
-      transition: transform 0.18s ease, background 0.18s ease;
-    }
-    .btn-secondary:hover {
-      background: var(--lux-blush);
-      transform: translateY(-2px);
-    }
-
-    .site-footer {
-      background:
-        radial-gradient(circle at top, rgba(200, 166, 161, 0.16), transparent 36%),
-        linear-gradient(180deg, #f5eee9 0%, #eee5df 100%);
-    }
+    .site-footer { background: radial-gradient(circle at top, rgba(200, 166, 161, 0.16), transparent 36%), linear-gradient(180deg, #f5eee9 0%, #eee5df 100%); }
     .footer-title { color: var(--lux-espresso); letter-spacing: -0.035em; }
     .footer-eyebrow { color: #b08d7d; }
 
@@ -586,10 +202,9 @@
       .pricing-grid { grid-template-columns: repeat(2, 1fr); }
       .pricing-platinum { transform: none; }
       .pricing-platinum:hover { transform: translateY(-6px); }
-      .pricing-visual-grid,
-      .pricing-hero-grid { grid-template-columns: 1fr; }
+      .pricing-visual-grid, .pricing-hero-grid { grid-template-columns: 1fr; }
+      .pricing-afford-grid { grid-template-columns: 1fr; }
     }
-
     @media (max-width: 700px) {
       .pricing-page { padding: 10px 10px 0; }
       .pricing-hero-copy { padding: 28px 18px; }
@@ -597,6 +212,7 @@
       .pricing-grid { grid-template-columns: 1fr; }
       .lux-card { padding: 24px 20px; }
       .pricing-setup-card { padding: 28px 20px; }
+      .pricing-afford-card { padding: 24px 20px; }
     }
   </style>
 </head>
@@ -605,6 +221,10 @@
 <div class="page-auth">
   <a href="categories.html" id="categoriesLink" class="auth-link">Categories</a>
   <a href="shop.html" id="shopLink" class="auth-link">Boutique</a>
+  <a href="messages.html" id="messagesLink" class="auth-link" style="display:none; position:relative;">
+    Messages
+    <span id="msgNavBadge" style="display:none; position:absolute; top:-6px; right:-10px; background:linear-gradient(135deg,#d6b19a,#a97c66); color:#fffaf7; font-size:0.68rem; font-weight:700; padding:2px 6px; border-radius:999px; line-height:1.2; min-width:18px; text-align:center;">0</span>
+  </a>
   <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
   <a href="login.html" id="loginLink" class="auth-link">Log In</a>
   <a href="dashboard.html" id="dashboardLink" class="auth-link" style="display:none;">Dashboard</a>
@@ -618,7 +238,7 @@
       <div class="pricing-hero-grid">
         <div class="pricing-hero-copy">
           <a href="index.html" class="pricing-logo-wrap" aria-label="Go to homepage">
-            <img src="images/logo.png" alt="Our Wedding Day Hub" class="pricing-logo">
+            <img src="images/logo.png" alt="Our Wedding Day Hub" class="pricing-logo" loading="lazy">
           </a>
           <p class="pricing-kicker">Pricing</p>
           <h1 class="pricing-hero-title">Choose the listing<br>level that suits you</h1>
@@ -626,18 +246,45 @@
           <p class="pricing-hero-text">Create a beautiful presence on the platform and choose the level of visibility that feels right for your business.</p>
           <p class="pricing-hero-text">Each tier is designed to help your profile feel stronger, more noticeable, and more refined for couples actively searching for wedding vendors.</p>
           <p class="pricing-hero-text">Select your tier during sign up and upgrade at any time as your business grows.</p>
+          <p class="pricing-hero-highlight">✦ A fraction of the cost of other directories — with zero commission on your bookings, ever.</p>
         </div>
         <div class="pricing-hero-image-wrap">
-          <img src="images/modern-couple-sunglasses.png" alt="Modern wedding couple portrait" class="pricing-hero-image">
+          <img src="images/modern-couple-sunglasses.png" alt="Modern wedding couple portrait" class="pricing-hero-image" loading="lazy">
         </div>
       </div>
     </section>
 
     <section class="trust-strip">
-      <p>Trusted by wedding vendors across Australia & worldwide • Founding members now joining • Growing daily</p>
+      <p>Trusted by wedding vendors across Australia &amp; worldwide • Proudly independent • Built with heart</p>
     </section>
 
     <p class="currency-indicator" id="currency-indicator">Prices shown in AUD</p>
+
+    <!-- ── AFFORDABILITY ── -->
+    <div class="section-kicker-wrap" style="padding: 0 4px;">
+      <span class="section-kicker">Refreshingly Affordable</span>
+      <span class="section-kicker-line"></span>
+    </div>
+
+    <div class="pricing-afford-card">
+      <span class="lux-badge">✦ A genuinely different price point</span>
+      <h2>So much more affordable than anywhere else</h2>
+      <p>Most wedding advertising platforms charge hundreds — sometimes thousands — of dollars a year just to appear in their directory. We think that's not fair for the passionate, independent businesses that make weddings beautiful. Our plans start from under $5 a month, with no commissions on bookings, no pay-to-rank games, and no hidden fees. Just a stunning profile that works hard for you, at a price that makes real sense for a small business.</p>
+      <div class="pricing-afford-grid">
+        <div class="pricing-afford-stat">
+          <p class="pricing-afford-stat-num">No commissions</p>
+          <p>Every booking you make is entirely yours. We never take a cut — not now, not ever.</p>
+        </div>
+        <div class="pricing-afford-stat">
+          <p class="pricing-afford-stat-num">From $4.75 / mo</p>
+          <p>A fraction of what other directories charge, with everything you need already included.</p>
+        </div>
+        <div class="pricing-afford-stat">
+          <p class="pricing-afford-stat-num">No surprises</p>
+          <p>One clear, transparent price. No hidden fees, no locked features, no confusing upsells.</p>
+        </div>
+      </div>
+    </div>
 
     <div class="section-kicker-wrap" style="padding: 0 4px;">
       <span class="section-kicker">Getting Started</span>
@@ -738,14 +385,14 @@
 
     <div class="pricing-visual-grid">
       <div class="pricing-image-card">
-        <img src="images/bride.png" alt="Editorial bridal portrait">
+        <img src="images/bride.png" alt="Editorial bridal portrait" loading="lazy">
       </div>
       <article class="lux-card pricing-copy-card">
         <span class="lux-badge">✦ Your presence</span>
         <h2>Designed to help your business feel seen</h2>
         <p>Our Wedding Day Hub is built to feel elegant, simple, and beautiful to use. Your profile is designed to give couples a clear sense of your business, your style, and what you offer.</p>
         <p>As you move through the tiers, your business presentation becomes stronger — helping your listing feel more established and more noticeable when couples are exploring their options.</p>
-        <p>Whether you want a simple presence or a more premium showcase, each level is designed to help your business appear polished and professional.</p>
+        <p>Whether you want a simple presence or a more premium showcase, each level is designed to help your business appear polished and professional — at a price that genuinely works for independent businesses.</p>
       </article>
     </div>
 
@@ -759,7 +406,7 @@
     <article class="lux-card pricing-cta-card">
       <span class="lux-badge">✦ Ready to join?</span>
       <h2>Start building your presence today</h2>
-      <p>Create your account, choose the listing level that suits your business, and start building a beautiful presence on the hub.</p>
+      <p>Create your account, choose the listing level that suits your business, and start building a beautiful presence on the hub — at one of the most affordable price points in the industry.</p>
       <div class="pricing-cta-actions">
         <a href="signup.html" class="btn-primary">Join as Vendor</a>
         <a href="contact.html" class="btn-secondary">Ask a Question</a>
@@ -771,7 +418,7 @@
 
 <footer class="site-footer">
   <div class="footer-content">
-    <p class="footer-eyebrow">wedding vendor directory</p>
+    <p class="footer-eyebrow">wedding planning directory</p>
     <h2 class="footer-title">Everything your wedding deserves.</h2>
     <p class="footer-text">Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.</p>
     <div class="footer-links">
@@ -791,143 +438,44 @@
   </div>
 </footer>
 
-<!-- ── CURRENCY CONVERSION ── -->
 <script>
 (async function() {
-
   const PRICES_AUD = { setup: 50, classic: 4.75, signature: 5.95, elite: 7.25, platinum: 9.95 };
-
-  const COUNTRY_CURRENCY = {
-    AU:"AUD", US:"USD", CA:"CAD", GB:"GBP", IE:"EUR", FR:"EUR", DE:"EUR",
-    IT:"EUR", ES:"EUR", PT:"EUR", NL:"EUR", BE:"EUR", AT:"EUR", GR:"EUR",
-    FI:"EUR", CY:"EUR", EE:"EUR", LT:"EUR", LV:"EUR", LU:"EUR", MT:"EUR",
-    SI:"EUR", SK:"EUR", HR:"EUR", SE:"SEK", NO:"NOK", DK:"DKK", CH:"CHF",
-    NZ:"NZD", SG:"SGD", HK:"HKD", JP:"JPY", CN:"CNY", IN:"INR", TW:"TWD",
-    KR:"KRW", TH:"THB", MY:"MYR", ID:"IDR", PH:"PHP", VN:"VND", BD:"BDT",
-    AE:"AED", SA:"SAR", QA:"QAR", KW:"KWD", BH:"BHD", OM:"OMR", JO:"JOD",
-    IL:"ILS", TR:"TRY", EG:"EGP", ZA:"ZAR", NG:"NGN", KE:"KES", GH:"GHS",
-    BR:"BRL", MX:"MXN", AR:"ARS", CL:"CLP", CO:"COP", PE:"PEN", UY:"UYU",
-    PL:"PLN", CZ:"CZK", HU:"HUF", RO:"RON", RU:"RUB", UA:"UAH",
-    IS:"ISK", RS:"RSD", PK:"PKR", LK:"LKR", MM:"MMK"
-  };
-
-  const FMT = {
-    AUD:{sym:"A$",dec:2}, USD:{sym:"$",dec:2}, CAD:{sym:"CA$",dec:2},
-    GBP:{sym:"£",dec:2},  EUR:{sym:"€",dec:2}, NZD:{sym:"NZ$",dec:2},
-    SGD:{sym:"S$",dec:2}, HKD:{sym:"HK$",dec:2}, JPY:{sym:"¥",dec:0},
-    CNY:{sym:"¥",dec:2},  INR:{sym:"₹",dec:2}, KRW:{sym:"₩",dec:0},
-    THB:{sym:"฿",dec:2},  MYR:{sym:"RM",dec:2}, IDR:{sym:"Rp",dec:0},
-    PHP:{sym:"₱",dec:2},  TWD:{sym:"NT$",dec:0}, AED:{sym:"AED",dec:2},
-    SAR:{sym:"SAR",dec:2},ZAR:{sym:"R",dec:2},  BRL:{sym:"R$",dec:2},
-    MXN:{sym:"MX$",dec:2},SEK:{sym:"kr",dec:2}, NOK:{sym:"kr",dec:2},
-    DKK:{sym:"kr",dec:2}, CHF:{sym:"CHF",dec:2},TRY:{sym:"₺",dec:2},
-    PLN:{sym:"zł",dec:2}, ARS:{sym:"AR$",dec:0},CLP:{sym:"CL$",dec:0},
-    COP:{sym:"CO$",dec:0},ILS:{sym:"₪",dec:2}, QAR:{sym:"QAR",dec:2},
-    KWD:{sym:"KWD",dec:3},HUF:{sym:"Ft",dec:0},CZK:{sym:"Kč",dec:2},
-    RON:{sym:"lei",dec:2},ISK:{sym:"kr",dec:0},
-  };
-
-  function fmt(amount, f) {
-    const val = f.dec === 0 ? Math.round(amount) : parseFloat(amount.toFixed(f.dec));
-    return f.sym + val.toLocaleString("en", { minimumFractionDigits: f.dec, maximumFractionDigits: f.dec });
-  }
-
-  function setPrice(id, amount, f, isAUD) {
-    const el = document.getElementById(id);
-    if (!el) return;
-    const note = isAUD ? "" : '<span class="currency-note">approx. — charged in AUD</span>';
-    if (id === "price-setup") {
-      el.innerHTML = fmt(amount, f) + ' <span class="currency-code">' + f.sym.replace(/[^A-Z]/g,"") + (!isAUD ? f.sym.includes("$") ? "":"" : "AUD") + '</span>' + note;
-      // simpler:
-      el.innerHTML = fmt(amount, f) + note;
-    } else {
-      el.innerHTML = fmt(amount, f) + ' <small>/ month</small>' + note;
-    }
-  }
-
+  const COUNTRY_CURRENCY = { AU:"AUD",US:"USD",CA:"CAD",GB:"GBP",IE:"EUR",FR:"EUR",DE:"EUR",IT:"EUR",ES:"EUR",PT:"EUR",NL:"EUR",BE:"EUR",AT:"EUR",GR:"EUR",FI:"EUR",CY:"EUR",EE:"EUR",LT:"EUR",LV:"EUR",LU:"EUR",MT:"EUR",SI:"EUR",SK:"EUR",HR:"EUR",SE:"SEK",NO:"NOK",DK:"DKK",CH:"CHF",NZ:"NZD",SG:"SGD",HK:"HKD",JP:"JPY",CN:"CNY",IN:"INR",TW:"TWD",KR:"KRW",TH:"THB",MY:"MYR",ID:"IDR",PH:"PHP",VN:"VND",BD:"BDT",AE:"AED",SA:"SAR",QA:"QAR",KW:"KWD",BH:"BHD",OM:"OMR",JO:"JOD",IL:"ILS",TR:"TRY",EG:"EGP",ZA:"ZAR",NG:"NGN",KE:"KES",GH:"GHS",BR:"BRL",MX:"MXN",AR:"ARS",CL:"CLP",CO:"COP",PE:"PEN",UY:"UYU",PL:"PLN",CZ:"CZK",HU:"HUF",RO:"RON",RU:"RUB",UA:"UAH",IS:"ISK",RS:"RSD",PK:"PKR",LK:"LKR",MM:"MMK" };
+  const FMT = { AUD:{sym:"A$",dec:2},USD:{sym:"$",dec:2},CAD:{sym:"CA$",dec:2},GBP:{sym:"£",dec:2},EUR:{sym:"€",dec:2},NZD:{sym:"NZ$",dec:2},SGD:{sym:"S$",dec:2},HKD:{sym:"HK$",dec:2},JPY:{sym:"¥",dec:0},CNY:{sym:"¥",dec:2},INR:{sym:"₹",dec:2},KRW:{sym:"₩",dec:0},THB:{sym:"฿",dec:2},MYR:{sym:"RM",dec:2},IDR:{sym:"Rp",dec:0},PHP:{sym:"₱",dec:2},TWD:{sym:"NT$",dec:0},AED:{sym:"AED",dec:2},SAR:{sym:"SAR",dec:2},ZAR:{sym:"R",dec:2},BRL:{sym:"R$",dec:2},MXN:{sym:"MX$",dec:2},SEK:{sym:"kr",dec:2},NOK:{sym:"kr",dec:2},DKK:{sym:"kr",dec:2},CHF:{sym:"CHF",dec:2},TRY:{sym:"₺",dec:2},PLN:{sym:"zł",dec:2},ARS:{sym:"AR$",dec:0},CLP:{sym:"CL$",dec:0},COP:{sym:"CO$",dec:0},ILS:{sym:"₪",dec:2},QAR:{sym:"QAR",dec:2},KWD:{sym:"KWD",dec:3},HUF:{sym:"Ft",dec:0},CZK:{sym:"Kč",dec:2},RON:{sym:"lei",dec:2},ISK:{sym:"kr",dec:0} };
+  function fmt(amount, f) { const val = f.dec===0?Math.round(amount):parseFloat(amount.toFixed(f.dec)); return f.sym+val.toLocaleString("en",{minimumFractionDigits:f.dec,maximumFractionDigits:f.dec}); }
   function applyRates(rates, currency) {
-    const f = FMT[currency] || FMT["AUD"];
-    const rate = currency === "AUD" ? 1 : (rates[currency] || null);
+    const f = FMT[currency]||FMT["AUD"];
+    const rate = currency==="AUD"?1:(rates[currency]||null);
     if (!rate) return;
-
-    const isAUD = currency === "AUD";
-    const note = isAUD ? "" : '<span class="currency-note">approx. — charged in AUD</span>';
-
-    // Setup
+    const isAUD = currency==="AUD";
+    const note = isAUD?"":'<span class="currency-note">approx. — charged in AUD</span>';
     const setupEl = document.getElementById("price-setup");
-    if (setupEl) {
-      setupEl.innerHTML = fmt(PRICES_AUD.setup * rate, f) + note;
-    }
-
-    // Tiers
+    if (setupEl) setupEl.innerHTML = fmt(PRICES_AUD.setup*rate,f)+note;
     ["classic","signature","elite","platinum"].forEach(tier => {
-      const el = document.getElementById("price-" + tier);
+      const el = document.getElementById("price-"+tier);
       if (!el) return;
-      el.innerHTML = fmt(PRICES_AUD[tier] * rate, f) + ' <small>/ month</small>' + note;
+      el.innerHTML = fmt(PRICES_AUD[tier]*rate,f)+' <small>/ month</small>'+note;
     });
-
-    // Indicator
     const ind = document.getElementById("currency-indicator");
-    if (ind) {
-      ind.textContent = isAUD
-        ? "Prices shown in AUD"
-        : "Prices shown in " + currency + " (approx.) — all payments are processed in AUD";
-      ind.style.opacity = "1";
-    }
+    if (ind) { ind.textContent = isAUD?"Prices shown in AUD":"Prices shown in "+currency+" (approx.) — all payments are processed in AUD"; ind.style.opacity="1"; }
   }
-
   try {
     const geo = await fetch("https://ipapi.co/json/");
     const geoData = await geo.json();
-    const cc = geoData.country_code || "AU";
-    const currency = COUNTRY_CURRENCY[cc] || "AUD";
-
-    if (currency === "AUD") { applyRates({}, "AUD"); return; }
-
-    const rateRes = await fetch("https://api.frankfurter.app/latest?from=AUD&to=" + currency);
+    const cc = geoData.country_code||"AU";
+    const currency = COUNTRY_CURRENCY[cc]||"AUD";
+    if (currency==="AUD") { applyRates({},"AUD"); return; }
+    const rateRes = await fetch("https://api.frankfurter.app/latest?from=AUD&to="+currency);
     const rateData = await rateRes.json();
-    applyRates(rateData.rates || {}, currency);
+    applyRates(rateData.rates||{},currency);
   } catch(e) {
-    // Silently keep AUD defaults
     const ind = document.getElementById("currency-indicator");
-    if (ind) { ind.textContent = "Prices shown in AUD"; ind.style.opacity = "1"; }
+    if (ind) { ind.textContent="Prices shown in AUD"; ind.style.opacity="1"; }
   }
-
 })();
 </script>
 
-<!-- ── FIREBASE AUTH ── -->
-<script type="module">
-  import { auth, onAuthStateChanged, signOut } from "./firebase.js";
-
-  const joinLink      = document.getElementById("joinLink");
-  const loginLink     = document.getElementById("loginLink");
-  const dashboardLink = document.getElementById("dashboardLink");
-  const logoutLink    = document.getElementById("logoutLink");
-
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      joinLink.style.display      = "none";
-      loginLink.style.display     = "none";
-      dashboardLink.style.display = "inline-block";
-      logoutLink.style.display    = "inline-block";
-    } else {
-      joinLink.style.display      = "inline-flex";
-      loginLink.style.display     = "inline-block";
-      dashboardLink.style.display = "none";
-      logoutLink.style.display    = "none";
-    }
-  });
-
-  logoutLink.addEventListener("click", async () => {
-    try {
-      await signOut(auth);
-      window.location.href = "index.html";
-    } catch (error) {
-      console.error("Logout failed:", error);
-    }
-  });
-</script>
-
+<script type="module" src="nav.js"></script>
 </body>
 </html>
