@@ -40,7 +40,6 @@
 
     .about-stack { display: grid; gap: 24px; }
 
-    /* ── HERO ── */
     .about-hero-card {
       border-radius: 36px;
       border: 1px solid rgba(227, 219, 212, 0.9);
@@ -66,36 +65,18 @@
       justify-content: center;
     }
 
-    .about-hero-copy > * {
-      animation: fadeUp 0.8s ease forwards;
-      opacity: 0;
-    }
+    .about-hero-copy > * { animation: fadeUp 0.8s ease forwards; opacity: 0; }
     .about-hero-copy > *:nth-child(1) { animation-delay: 0.05s; }
     .about-hero-copy > *:nth-child(2) { animation-delay: 0.1s; }
     .about-hero-copy > *:nth-child(3) { animation-delay: 0.18s; }
     .about-hero-copy > *:nth-child(4) { animation-delay: 0.26s; }
     .about-hero-copy > *:nth-child(5) { animation-delay: 0.34s; }
 
-    .about-logo-wrap {
-      display: inline-block;
-      margin-bottom: 22px;
-    }
-
-    .about-logo {
-      width: 108px;
-      display: block;
-      transition: transform 0.3s ease;
-    }
+    .about-logo-wrap { display: inline-block; margin-bottom: 22px; }
+    .about-logo { width: 108px; display: block; transition: transform 0.3s ease; }
     .about-logo:hover { transform: scale(1.04); }
 
-    .about-kicker {
-      margin: 0 0 12px;
-      font-size: 0.78rem;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: #b08d7d;
-      opacity: 0.85;
-    }
+    .about-kicker { margin: 0 0 12px; font-size: 0.78rem; letter-spacing: 0.28em; text-transform: uppercase; color: #b08d7d; opacity: 0.85; }
 
     .about-title {
       margin: 0 0 14px;
@@ -108,310 +89,68 @@
       text-shadow: 0 10px 30px rgba(59, 47, 42, 0.08);
     }
 
-    .about-script {
-      margin: 0 0 18px;
-      font-family: "Cormorant Garamond", serif;
-      font-style: italic;
-      font-size: 1.3rem;
-      color: #c69b84;
-      opacity: 0.9;
-      letter-spacing: 0.02em;
-    }
+    .about-script { margin: 0 0 18px; font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 1.3rem; color: #c69b84; opacity: 0.9; letter-spacing: 0.02em; }
+    .about-subtitle { margin: 0; max-width: 480px; color: var(--lux-muted); line-height: 1.8; font-size: 0.97rem; }
 
-    .about-subtitle {
-      margin: 0;
-      max-width: 480px;
-      color: var(--lux-muted);
-      line-height: 1.8;
-      font-size: 0.97rem;
-    }
+    .about-hero-image-wrap { position: relative; overflow: hidden; min-height: 100%; background: #f4ece6; }
+    .about-hero-image-wrap::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(59, 47, 42, 0.08), transparent 45%), radial-gradient(circle at top right, rgba(255, 250, 247, 0.14), transparent 38%); pointer-events: none; }
+    .about-hero-image { width: 100%; height: 100%; display: block; object-fit: cover; filter: brightness(0.98) contrast(0.94) saturate(0.92); opacity: 0; animation: heroFadeIn 0.9s ease forwards; transition: transform 0.9s ease, filter 0.4s ease; }
+    .about-hero-image-wrap:hover .about-hero-image { transform: scale(1.035); filter: brightness(1) contrast(0.96) saturate(0.96); }
 
-    .about-hero-image-wrap {
-      position: relative;
-      overflow: hidden;
-      min-height: 100%;
-      background: #f4ece6;
-    }
-
-    .about-hero-image-wrap::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(90deg, rgba(59, 47, 42, 0.08), transparent 45%),
-        radial-gradient(circle at top right, rgba(255, 250, 247, 0.14), transparent 38%);
-      pointer-events: none;
-    }
-
-    .about-hero-image {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover;
-      filter: brightness(0.98) contrast(0.94) saturate(0.92);
-      opacity: 0;
-      animation: heroFadeIn 0.9s ease forwards;
-      transition: transform 0.9s ease, filter 0.4s ease;
-    }
-    .about-hero-image-wrap:hover .about-hero-image {
-      transform: scale(1.035);
-      filter: brightness(1) contrast(0.96) saturate(0.96);
-    }
-
-    /* Trust strip */
-    .trust-strip {
-      text-align: center;
-      padding: 16px 20px 6px;
-      font-size: 0.82rem;
-      letter-spacing: 0.12em;
-      color: #9b8579;
-      opacity: 0.7;
-    }
+    .trust-strip { text-align: center; padding: 16px 20px 6px; font-size: 0.82rem; letter-spacing: 0.12em; color: #9b8579; opacity: 0.7; }
     .trust-strip p { margin: 0; }
 
-    /* Section kicker */
-    .section-kicker-wrap {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 20px;
-    }
-    .section-kicker {
-      font-size: 0.74rem;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: #b08d7d;
-      white-space: nowrap;
-    }
-    .section-kicker-line {
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(90deg, rgba(200,166,161,0.4), transparent);
-    }
+    .section-kicker-wrap { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+    .section-kicker { font-size: 0.74rem; letter-spacing: 0.28em; text-transform: uppercase; color: #b08d7d; white-space: nowrap; }
+    .section-kicker-line { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(200,166,161,0.4), transparent); }
 
-    /* Mini badge */
-    .lux-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 7px 14px;
-      border-radius: 999px;
-      background: rgba(255, 250, 247, 0.9);
-      color: #6f5143;
-      border: 1px solid rgba(214, 190, 174, 0.8);
-      font-size: 0.74rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 16px;
-    }
+    .lux-badge { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 999px; background: rgba(255, 250, 247, 0.9); color: #6f5143; border: 1px solid rgba(214, 190, 174, 0.8); font-size: 0.74rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 16px; }
 
-    /* ── SHARED CARD BASE ── */
-    .lux-card {
-      position: relative;
-      border-radius: 24px;
-      background: rgba(255, 250, 247, 0.92);
-      border: 1px solid rgba(223, 210, 200, 0.9);
-      box-shadow: 0 6px 18px var(--lux-shadow);
-      padding: 32px 28px;
-      transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
-    }
-    .lux-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 22px 52px rgba(59, 47, 42, 0.11);
-      border-color: rgba(198, 167, 125, 0.55);
-    }
-    .lux-card h2 {
-      margin: 0 0 12px;
-      font-family: "Cormorant Garamond", serif;
-      font-size: clamp(1.7rem, 3vw, 2.3rem);
-      font-weight: 500;
-      letter-spacing: -0.03em;
-      color: var(--lux-espresso);
-    }
-    .lux-card h3 {
-      margin: 0 0 10px;
-      font-family: "Cormorant Garamond", serif;
-      font-size: 1.45rem;
-      font-weight: 500;
-      letter-spacing: -0.02em;
-      color: var(--lux-espresso);
-    }
-    .lux-card p {
-      margin: 0 0 16px;
-      color: var(--lux-muted);
-      line-height: 1.85;
-      font-size: 0.97rem;
-    }
+    .lux-card { position: relative; border-radius: 24px; background: rgba(255, 250, 247, 0.92); border: 1px solid rgba(223, 210, 200, 0.9); box-shadow: 0 6px 18px var(--lux-shadow); padding: 32px 28px; transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease; }
+    .lux-card:hover { transform: translateY(-5px); box-shadow: 0 22px 52px rgba(59, 47, 42, 0.11); border-color: rgba(198, 167, 125, 0.55); }
+    .lux-card h2 { margin: 0 0 12px; font-family: "Cormorant Garamond", serif; font-size: clamp(1.7rem, 3vw, 2.3rem); font-weight: 500; letter-spacing: -0.03em; color: var(--lux-espresso); }
+    .lux-card h3 { margin: 0 0 10px; font-family: "Cormorant Garamond", serif; font-size: 1.45rem; font-weight: 500; letter-spacing: -0.02em; color: var(--lux-espresso); }
+    .lux-card p { margin: 0 0 16px; color: var(--lux-muted); line-height: 1.85; font-size: 0.97rem; }
     .lux-card p:last-child { margin-bottom: 0; }
 
-    /* Image cards */
-    .lux-image-card {
-      border-radius: 24px;
-      border: 1px solid rgba(223, 210, 200, 0.9);
-      box-shadow: 0 6px 18px var(--lux-shadow);
-      overflow: hidden;
-      padding: 0;
-      transition: box-shadow 0.3s ease;
-    }
-    .lux-image-card:hover {
-      box-shadow: 0 18px 48px rgba(59, 47, 42, 0.12);
-    }
-    .lux-image-card img {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover;
-      filter: brightness(0.98) contrast(0.94) saturate(0.92);
-      transition: transform 0.45s ease, filter 0.35s ease;
-    }
-    .lux-image-card:hover img {
-      transform: scale(1.04);
-      filter: brightness(1) contrast(0.96) saturate(0.96);
-    }
+    .lux-image-card { border-radius: 24px; border: 1px solid rgba(223, 210, 200, 0.9); box-shadow: 0 6px 18px var(--lux-shadow); overflow: hidden; padding: 0; transition: box-shadow 0.3s ease; }
+    .lux-image-card:hover { box-shadow: 0 18px 48px rgba(59, 47, 42, 0.12); }
+    .lux-image-card img { width: 100%; height: 100%; display: block; object-fit: cover; filter: brightness(0.98) contrast(0.94) saturate(0.92); transition: transform 0.45s ease, filter 0.35s ease; }
+    .lux-image-card:hover img { transform: scale(1.04); filter: brightness(1) contrast(0.96) saturate(0.96); }
 
-    /* ── STORY GRID ── */
-    .about-story-grid {
-      display: grid;
-      grid-template-columns: 1.08fr 0.92fr;
-      gap: 24px;
-      align-items: start;
-    }
-
-    .about-story-copy p {
-      color: #5b4a43;
-    }
-
-    /* Pull-quote style for the first paragraph */
-    .about-story-copy p:first-child {
-      font-family: "Cormorant Garamond", serif;
-      font-size: 1.18rem;
-      font-style: italic;
-      color: #7a5f55;
-      line-height: 1.75;
-      padding-bottom: 18px;
-      border-bottom: 1px solid rgba(216, 197, 189, 0.5);
-      margin-bottom: 20px;
-    }
-
+    .about-story-grid { display: grid; grid-template-columns: 1.08fr 0.92fr; gap: 24px; align-items: start; }
+    .about-story-copy p { color: #5b4a43; }
+    .about-story-copy p:first-child { font-family: "Cormorant Garamond", serif; font-size: 1.18rem; font-style: italic; color: #7a5f55; line-height: 1.75; padding-bottom: 18px; border-bottom: 1px solid rgba(216, 197, 189, 0.5); margin-bottom: 20px; }
     .about-side-stack { display: grid; gap: 18px; }
 
-    /* ── VALUES GRID ── */
-    .about-values-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
-    }
-
+    .about-values-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
     .about-value-card { padding: 28px 24px; }
+    .about-value-icon { font-size: 1.6rem; margin-bottom: 14px; display: block; opacity: 0.85; }
 
-    .about-value-icon {
-      font-size: 1.6rem;
-      margin-bottom: 14px;
-      display: block;
-      opacity: 0.85;
+    /* ── AFFORDABILITY CARD ── */
+    .about-value-highlight {
+      background: linear-gradient(135deg, rgba(214,177,154,0.18), rgba(169,124,102,0.08));
+      border-color: rgba(198, 167, 125, 0.55);
     }
+    .about-value-highlight h3 { color: #7a4f3a; }
 
-    /* ── BOTTOM GRID ── */
-    .about-bottom-grid {
-      display: grid;
-      grid-template-columns: 0.92fr 1.08fr;
-      gap: 24px;
-      align-items: stretch;
-    }
+    .about-bottom-grid { display: grid; grid-template-columns: 0.92fr 1.08fr; gap: 24px; align-items: stretch; }
+    .about-bottom-copy { display: flex; flex-direction: column; justify-content: center; }
+    .about-sign-off { margin-top: 20px; padding-top: 18px; border-top: 1px solid rgba(216, 197, 189, 0.5); font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 1.1rem; color: #c69b84; }
 
-    .about-bottom-copy {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
+    .btn-primary { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 12px 22px; border-radius: 999px; text-decoration: none; background: linear-gradient(135deg, #d6b19a, #a97c66); color: #fffaf7; font-weight: 700; font-size: 0.92rem; letter-spacing: 0.04em; box-shadow: 0 10px 24px rgba(185, 143, 122, 0.22); transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 34px rgba(185, 143, 122, 0.28); filter: brightness(1.04); }
+    .btn-secondary { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 12px 22px; border-radius: 999px; text-decoration: none; background: rgba(255, 250, 247, 0.95); border: 1px solid rgba(223, 210, 200, 0.9); color: var(--lux-espresso); font-weight: 600; font-size: 0.92rem; transition: transform 0.18s ease, background 0.18s ease; }
+    .btn-secondary:hover { background: var(--lux-blush); transform: translateY(-2px); }
 
-    .about-sign-off {
-      margin-top: 20px;
-      padding-top: 18px;
-      border-top: 1px solid rgba(216, 197, 189, 0.5);
-      font-family: "Cormorant Garamond", serif;
-      font-style: italic;
-      font-size: 1.1rem;
-      color: #c69b84;
-    }
+    .about-cta-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 22px; }
 
-    /* Buttons */
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 46px;
-      padding: 12px 22px;
-      border-radius: 999px;
-      text-decoration: none;
-      background: linear-gradient(135deg, #d6b19a, #a97c66);
-      color: #fffaf7;
-      font-weight: 700;
-      font-size: 0.92rem;
-      letter-spacing: 0.04em;
-      box-shadow: 0 10px 24px rgba(185, 143, 122, 0.22);
-      transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
-    }
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 16px 34px rgba(185, 143, 122, 0.28);
-      filter: brightness(1.04);
-    }
-
-    .btn-secondary {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 46px;
-      padding: 12px 22px;
-      border-radius: 999px;
-      text-decoration: none;
-      background: rgba(255, 250, 247, 0.95);
-      border: 1px solid rgba(223, 210, 200, 0.9);
-      color: var(--lux-espresso);
-      font-weight: 600;
-      font-size: 0.92rem;
-      transition: transform 0.18s ease, background 0.18s ease;
-    }
-    .btn-secondary:hover {
-      background: var(--lux-blush);
-      transform: translateY(-2px);
-    }
-
-    .about-cta-actions {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 22px;
-    }
-
-    /* Footer */
-    .site-footer {
-      background:
-        radial-gradient(circle at top, rgba(200, 166, 161, 0.16), transparent 36%),
-        linear-gradient(180deg, #f5eee9 0%, #eee5df 100%);
-    }
+    .site-footer { background: radial-gradient(circle at top, rgba(200, 166, 161, 0.16), transparent 36%), linear-gradient(180deg, #f5eee9 0%, #eee5df 100%); }
     .footer-title { color: var(--lux-espresso); letter-spacing: -0.035em; }
     .footer-eyebrow { color: #b08d7d; }
 
-    /* ── RESPONSIVE ── */
-    @media (max-width: 980px) {
-      .about-hero-grid,
-      .about-story-grid,
-      .about-bottom-grid,
-      .about-values-grid {
-        grid-template-columns: 1fr;
-      }
-      .about-hero-copy { padding: 36px 28px; }
-    }
-
-    @media (max-width: 640px) {
-      .about-page { padding: 10px 10px 0; }
-      .about-hero-copy { padding: 28px 18px; }
-      .about-title { font-size: 2.6rem; }
-      .lux-card { padding: 24px 20px; }
-    }
+    @media (max-width: 980px) { .about-hero-grid, .about-story-grid, .about-bottom-grid, .about-values-grid { grid-template-columns: 1fr; } .about-hero-copy { padding: 36px 28px; } }
+    @media (max-width: 640px) { .about-page { padding: 10px 10px 0; } .about-hero-copy { padding: 28px 18px; } .about-title { font-size: 2.6rem; } .lux-card { padding: 24px 20px; } }
   </style>
 </head>
 <body>
@@ -419,6 +158,10 @@
 <div class="page-auth">
   <a href="categories.html" id="categoriesLink" class="auth-link">Categories</a>
   <a href="shop.html" id="shopLink" class="auth-link">Boutique</a>
+  <a href="messages.html" id="messagesLink" class="auth-link" style="display:none; position:relative;">
+    Messages
+    <span id="msgNavBadge" style="display:none; position:absolute; top:-6px; right:-10px; background:linear-gradient(135deg,#d6b19a,#a97c66); color:#fffaf7; font-size:0.68rem; font-weight:700; padding:2px 6px; border-radius:999px; line-height:1.2; min-width:18px; text-align:center;">0</span>
+  </a>
   <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
   <a href="login.html" id="loginLink" class="auth-link">Log In</a>
   <a href="dashboard.html" id="dashboardLink" class="auth-link" style="display:none;">Dashboard</a>
@@ -428,37 +171,27 @@
 <main class="about-page">
   <div class="about-stack">
 
-    <!-- ── HERO ── -->
     <section class="about-hero-card">
       <div class="about-hero-grid">
         <div class="about-hero-copy">
           <a href="index.html" class="about-logo-wrap" aria-label="Go to homepage">
-            <img src="images/logo.png" alt="Our Wedding Day Hub" class="about-logo">
+            <img src="images/logo.png" alt="Our Wedding Day Hub" class="about-logo" loading="lazy">
           </a>
-
           <p class="about-kicker">Trusted wedding vendors worldwide</p>
-
           <h1 class="about-title">Our Story</h1>
-
           <p class="about-script">built with heart ♡</p>
-
-          <p class="about-subtitle">
-            A space created with intention, designed to help couples discover beautiful wedding vendors with more ease, confidence, and inspiration.
-          </p>
+          <p class="about-subtitle">A space created with intention, designed to help couples discover beautiful wedding vendors with more ease, confidence, and inspiration.</p>
         </div>
-
         <div class="about-hero-image-wrap">
-          <img src="images/couple-garden.png" alt="Romantic couple walking through a garden" class="about-hero-image">
+          <img src="images/couple-garden.png" alt="Romantic couple walking through a garden" class="about-hero-image" loading="lazy">
         </div>
       </div>
     </section>
 
-    <!-- Trust strip -->
     <section class="trust-strip">
-      <p>Trusted by wedding vendors across Australia & worldwide • Founding members now joining • Growing daily</p>
+      <p>Trusted by wedding vendors across Australia &amp; worldwide • Proudly independent • Built with heart</p>
     </section>
 
-    <!-- ── STORY ── -->
     <div class="section-kicker-wrap" style="padding: 0 4px;">
       <span class="section-kicker">Our Story</span>
       <span class="section-kicker-line"></span>
@@ -467,25 +200,18 @@
     <div class="about-story-grid">
       <article class="lux-card about-story-copy">
         <span class="lux-badge">✦ How we began</span>
-
         <p>Our Wedding Day Hub is a globally accessible platform, proudly founded in Australia, designed to connect couples with beautiful, trusted wedding vendors across Australia and around the world.</p>
-
         <p>The idea was born from a simple but powerful realisation. Couples were spending countless hours searching across multiple websites, trying to bring together the perfect team for their wedding day. It felt overwhelming, fragmented, and far from the joyful experience it should be.</p>
-
         <p>We created Our Wedding Day Hub to change that. A single, thoughtfully curated space where couples can explore, feel inspired, and confidently connect with vendors who align with their vision.</p>
-
         <p>At the same time, we wanted to create something meaningful for vendors. A place where their work can be beautifully showcased, where they can share what they do, where they work, and be discovered by couples who are already searching for exactly what they offer.</p>
-
         <p>We are proudly based in Australia, supporting local businesses worldwide while helping couples plan their day with ease, clarity, and confidence.</p>
-
         <p>Our Wedding Day Hub is more than a directory. It is a space designed with intention. Elegant, simple, and built to make every step of the journey feel effortless.</p>
       </article>
 
       <div class="about-side-stack">
         <div class="lux-image-card" style="min-height: 320px;">
-          <img src="images/bride.png" alt="Editorial bridal portrait" style="aspect-ratio: 0.9/1.08;">
+          <img src="images/bride.png" alt="Editorial bridal portrait" style="aspect-ratio: 0.9/1.08;" loading="lazy">
         </div>
-
         <article class="lux-card">
           <span class="lux-badge">✦ Our approach</span>
           <h2>Designed with intention</h2>
@@ -494,7 +220,6 @@
       </div>
     </div>
 
-    <!-- ── VALUES ── -->
     <div class="section-kicker-wrap" style="padding: 0 4px;">
       <span class="section-kicker">What We Believe</span>
       <span class="section-kicker-line"></span>
@@ -506,13 +231,11 @@
         <h3>For couples</h3>
         <p>A beautiful space to browse, compare, and connect with vendors without the overwhelm of searching everywhere at once.</p>
       </article>
-
       <article class="lux-card about-value-card">
         <span class="about-value-icon">✦</span>
         <h3>For vendors</h3>
         <p>A place to be seen, share your work, and connect with couples already looking for the services you offer.</p>
       </article>
-
       <article class="lux-card about-value-card">
         <span class="about-value-icon">✶</span>
         <h3>For the journey</h3>
@@ -520,21 +243,41 @@
       </article>
     </div>
 
-    <!-- ── BOTTOM ── -->
+    <!-- ── AFFORDABILITY SECTION ── -->
+    <div class="section-kicker-wrap" style="padding: 0 4px;">
+      <span class="section-kicker">Refreshingly Affordable</span>
+      <span class="section-kicker-line"></span>
+    </div>
+
+    <div class="about-values-grid">
+      <article class="lux-card about-value-card about-value-highlight">
+        <span class="about-value-icon">✦</span>
+        <h3>A fraction of the cost</h3>
+        <p>Compared to the big advertising platforms, our membership is genuinely, refreshingly affordable. You keep more of what you earn and spend less just to be visible.</p>
+      </article>
+      <article class="lux-card about-value-card about-value-highlight">
+        <span class="about-value-icon">✶</span>
+        <h3>No hidden fees</h3>
+        <p>What you see is what you pay. No commissions on bookings, no surprise charges, no pay-to-rank games. Just a beautiful place to be found — at a price that actually makes sense for small businesses.</p>
+      </article>
+      <article class="lux-card about-value-card about-value-highlight">
+        <span class="about-value-icon">♡</span>
+        <h3>Built for real businesses</h3>
+        <p>We built our pricing with independent vendors in mind — the florists, photographers, celebrants, and cake makers who deserve gorgeous visibility without the enormous price tag that comes with it elsewhere.</p>
+      </article>
+    </div>
+
     <div class="about-bottom-grid">
       <div class="lux-image-card">
-        <img src="images/bouquet.png" alt="White tulip bridal bouquet" style="aspect-ratio: 1/1;">
+        <img src="images/bouquet.png" alt="White tulip bridal bouquet" style="aspect-ratio: 1/1;" loading="lazy">
       </div>
-
       <article class="lux-card about-bottom-copy">
         <span class="lux-badge">✦ Looking ahead</span>
         <h2>Beautifully simple, globally minded</h2>
         <p>As Our Wedding Day Hub grows, our vision remains the same: to create an elegant platform where couples can discover trusted businesses and vendors can present their work in a way that feels elevated and professional.</p>
         <p>We are proud to be Australian founded, globally accessible, and built with a genuine love for weddings, creativity, and connection.</p>
         <p>Our Wedding Day Hub operates from Australia under ABN 76 688 637 041 and complies with applicable consumer and privacy laws.</p>
-
         <p class="about-sign-off">Thank you for being here ♡</p>
-
         <div class="about-cta-actions">
           <a href="categories.html" class="btn-primary">Browse Vendors</a>
           <a href="signup.html" class="btn-secondary">Join as Vendor</a>
@@ -547,7 +290,7 @@
 
 <footer class="site-footer">
   <div class="footer-content">
-    <p class="footer-eyebrow">wedding vendor directory</p>
+    <p class="footer-eyebrow">wedding planning directory</p>
     <h2 class="footer-title">Everything your wedding deserves.</h2>
     <p class="footer-text">Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.</p>
     <div class="footer-links">
@@ -567,37 +310,6 @@
   </div>
 </footer>
 
-<script type="module">
-  import { auth, onAuthStateChanged, signOut } from "./firebase.js";
-
-  const joinLink      = document.getElementById("joinLink");
-  const loginLink     = document.getElementById("loginLink");
-  const dashboardLink = document.getElementById("dashboardLink");
-  const logoutLink    = document.getElementById("logoutLink");
-
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      joinLink.style.display      = "none";
-      loginLink.style.display     = "none";
-      dashboardLink.style.display = "inline-block";
-      logoutLink.style.display    = "inline-block";
-    } else {
-      joinLink.style.display      = "inline-flex";
-      loginLink.style.display     = "inline-block";
-      dashboardLink.style.display = "none";
-      logoutLink.style.display    = "none";
-    }
-  });
-
-  logoutLink.addEventListener("click", async () => {
-    try {
-      await signOut(auth);
-      window.location.href = "index.html";
-    } catch (error) {
-      console.error("Logout failed:", error);
-    }
-  });
-</script>
-
+<script type="module" src="nav.js"></script>
 </body>
 </html>
