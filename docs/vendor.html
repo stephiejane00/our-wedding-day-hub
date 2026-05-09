@@ -7,711 +7,143 @@
   <link rel="stylesheet" href="style.css"/>
   <style>
     :root {
-      --lux-espresso: #3b2f2a;
-      --lux-rose:     #c8a6a1;
-      --lux-champagne:#c6a77d;
-      --lux-cream:    #fffaf7;
-      --lux-blush:    #f4e7df;
-      --lux-border:   rgba(216, 197, 189, 0.55);
-      --lux-muted:    #9b8579;
-      --lux-shadow:   rgba(59, 47, 42, 0.08);
+      --lux-espresso: #3b2f2a; --lux-rose: #c8a6a1; --lux-champagne: #c6a77d;
+      --lux-cream: #fffaf7; --lux-blush: #f4e7df; --lux-border: rgba(216, 197, 189, 0.55);
+      --lux-muted: #9b8579; --lux-shadow: rgba(59, 47, 42, 0.08);
     }
+    body { background: radial-gradient(circle at top left, rgba(200, 166, 161, 0.12), transparent 32%), #f7f1ed; }
 
-    body {
-      background:
-        radial-gradient(circle at top left, rgba(200, 166, 161, 0.12), transparent 32%),
-        #f7f1ed;
-    }
-
-    /* ── TOPBAR ── */
-    .vendor-topbar {
-      max-width: 1200px;
-      margin: 10px auto 24px;
-      padding: 0 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-    }
-
-    .vendor-topbar-home {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      flex: 0 0 auto;
-    }
-
-    .vendor-topbar-logo {
-      width: 110px;
-      height: 110px;
-      object-fit: contain;
-      display: block;
-      transition: transform 0.3s ease;
-    }
+    .vendor-topbar { max-width: 1200px; margin: 10px auto 24px; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .vendor-topbar-home { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; }
+    .vendor-topbar-logo { width: 110px; height: 110px; object-fit: contain; display: block; transition: transform 0.3s ease; }
     .vendor-topbar-logo:hover { transform: scale(1.04); }
-
     .vendor-topbar-text { flex: 1; text-align: right; }
+    .vendor-topbar-kicker { margin: 0 0 6px; font-size: 0.78rem; letter-spacing: 0.28em; text-transform: uppercase; color: #b08d7d; opacity: 0.85; }
+    .vendor-topbar-title { margin: 0; font-family: "Cormorant Garamond", serif; font-size: clamp(1.7rem, 3vw, 2.6rem); font-weight: 500; line-height: 1.05; letter-spacing: -0.03em; color: var(--lux-espresso); }
 
-    .vendor-topbar-kicker {
-      margin: 0 0 6px;
-      font-size: 0.78rem;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: #b08d7d;
-      opacity: 0.85;
-    }
-
-    .vendor-topbar-title {
-      margin: 0;
-      font-family: "Cormorant Garamond", serif;
-      font-size: clamp(1.7rem, 3vw, 2.6rem);
-      font-weight: 500;
-      line-height: 1.05;
-      letter-spacing: -0.03em;
-      color: var(--lux-espresso);
-    }
-
-    /* ── PAGE ── */
-    .vendor-page {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 24px 20px 50px;
-    }
-
-    .vendor-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1.65fr) minmax(300px, 0.95fr);
-      gap: 24px;
-      align-items: start;
-    }
-
+    .vendor-page { max-width: 1200px; margin: 0 auto; padding: 24px 20px 50px; }
+    .vendor-layout { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(300px, 0.95fr); gap: 24px; align-items: start; }
     .vendor-left { display: grid; gap: 24px; }
 
-    /* ── CARDS ── */
-    .vendor-card {
-      background: rgba(255, 250, 247, 0.94);
-      border: 1px solid rgba(223, 210, 200, 0.92);
-      border-radius: 24px;
-      padding: 24px;
-      box-shadow: 0 8px 28px var(--lux-shadow);
-      transition: box-shadow 0.28s ease;
-    }
+    .vendor-card { background: rgba(255, 250, 247, 0.94); border: 1px solid rgba(223, 210, 200, 0.92); border-radius: 24px; padding: 24px; box-shadow: 0 8px 28px var(--lux-shadow); transition: box-shadow 0.28s ease; }
 
     /* ── GALLERY ── */
     .vendor-gallery-card { padding: 0; overflow: hidden; }
-
     .vendor-gallery-stage {
       position: relative;
       border-radius: 24px 24px 0 0;
       overflow: hidden;
       background: #f4ebe5;
+      cursor: grab;
+      touch-action: pan-y;
+      user-select: none;
+      -webkit-user-select: none;
     }
+    .vendor-gallery-stage:active { cursor: grabbing; }
+    .vendor-gallery-stage::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(59, 47, 42, 0.08), transparent 45%), radial-gradient(circle at top right, rgba(255, 250, 247, 0.14), transparent 38%); pointer-events: none; }
+    .vendor-gallery-media { width: 100%; height: 680px; display: block; background: #f4ebe5; }
+    .vendor-gallery-media img, .vendor-gallery-media video { width: 100%; height: 100%; display: block; object-fit: cover; filter: brightness(0.98) contrast(0.94) saturate(0.92); transition: filter 0.35s ease; }
 
-    .vendor-gallery-stage::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(90deg, rgba(59, 47, 42, 0.08), transparent 45%),
-        radial-gradient(circle at top right, rgba(255, 250, 247, 0.14), transparent 38%);
-      pointer-events: none;
-    }
-
-    .vendor-gallery-media {
-      width: 100%;
-      height: 680px;
-      display: block;
-      background: #f4ebe5;
-    }
-
-    .vendor-gallery-media img,
-    .vendor-gallery-media video {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover;
-      filter: brightness(0.98) contrast(0.94) saturate(0.92);
-      transition: filter 0.35s ease;
-    }
-
-    .vendor-gallery-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 46px;
-      height: 46px;
-      border: none;
-      border-radius: 999px;
-      background: rgba(255, 250, 247, 0.92);
-      color: var(--lux-espresso);
-      font-size: 28px;
-      line-height: 1;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 8px 22px rgba(59, 47, 42, 0.14);
-      z-index: 2;
-      transition: transform 0.22s ease, box-shadow 0.22s ease;
-    }
-    .vendor-gallery-arrow.left  { left: 14px; }
+    .vendor-gallery-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 46px; height: 46px; border: none; border-radius: 999px; background: rgba(255, 250, 247, 0.92); color: var(--lux-espresso); font-size: 28px; line-height: 1; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; box-shadow: 0 8px 22px rgba(59, 47, 42, 0.14); z-index: 2; transition: transform 0.22s ease, box-shadow 0.22s ease; }
+    .vendor-gallery-arrow.left { left: 14px; }
     .vendor-gallery-arrow.right { right: 14px; }
-    .vendor-gallery-arrow:hover {
-      transform: translateY(-50%) scale(1.06);
-      box-shadow: 0 14px 30px rgba(59, 47, 42, 0.18);
-    }
+    .vendor-gallery-arrow:hover { transform: translateY(-50%) scale(1.06); box-shadow: 0 14px 30px rgba(59, 47, 42, 0.18); }
     .vendor-gallery-arrow[hidden] { display: none !important; }
 
-    .vendor-gallery-dots {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-      padding: 16px 18px 18px;
-    }
+    /* Swipe hint on mobile */
+    .gallery-swipe-hint { display: none; position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%); background: rgba(59,47,42,0.55); color: #fffaf7; font-size: 0.72rem; padding: 5px 12px; border-radius: 999px; white-space: nowrap; pointer-events: none; z-index: 3; letter-spacing: 0.04em; }
+    @media (max-width: 700px) { .gallery-swipe-hint { display: block; } }
 
-    .vendor-gallery-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
-      border: none;
-      background: rgba(160, 135, 123, 0.25);
-      cursor: pointer;
-      padding: 0;
-      transition: background 0.2s ease, transform 0.2s ease;
-    }
-    .vendor-gallery-dot.active {
-      background: #b98f7a;
-      transform: scale(1.15);
-    }
+    .vendor-gallery-dots { display: flex; justify-content: center; align-items: center; gap: 10px; padding: 16px 18px 18px; }
+    .vendor-gallery-dot { width: 10px; height: 10px; border-radius: 999px; border: none; background: rgba(160, 135, 123, 0.25); cursor: pointer; padding: 0; transition: background 0.2s ease, transform 0.2s ease; }
+    .vendor-gallery-dot.active { background: #b98f7a; transform: scale(1.15); }
 
     /* ── HEADER ── */
     .vendor-header-card { text-align: left; }
-
-    .vendor-kicker {
-      margin: 0 0 8px;
-      font-size: 0.78rem;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: #b08d7d;
-      opacity: 0.85;
-    }
-
-    .vendor-title {
-      margin: 0 0 10px;
-      font-family: "Cormorant Garamond", serif;
-      font-size: clamp(2rem, 3vw, 2.9rem);
-      font-weight: 500;
-      line-height: 0.98;
-      letter-spacing: -0.04em;
-      color: var(--lux-espresso);
-    }
-
-    .vendor-category, .vendor-tagline {
-      margin: 0 0 10px;
-      color: var(--lux-muted);
-      line-height: 1.65;
-      font-size: 0.95rem;
-    }
-
-    .vendor-about {
-      margin: 8px 0 0;
-      line-height: 1.85;
-      color: #5b4a43;
-      white-space: pre-wrap;
-      font-size: 0.97rem;
-    }
-
-    .vendor-section-title {
-      margin: 0 0 14px;
-      font-family: "Cormorant Garamond", serif;
-      font-size: 1.5rem;
-      font-weight: 500;
-      letter-spacing: -0.02em;
-      color: var(--lux-espresso);
-    }
+    .vendor-kicker { margin: 0 0 8px; font-size: 0.78rem; letter-spacing: 0.28em; text-transform: uppercase; color: #b08d7d; opacity: 0.85; }
+    .vendor-title { margin: 0 0 10px; font-family: "Cormorant Garamond", serif; font-size: clamp(2rem, 3vw, 2.9rem); font-weight: 500; line-height: 0.98; letter-spacing: -0.04em; color: var(--lux-espresso); }
+    .vendor-category, .vendor-tagline { margin: 0 0 10px; color: var(--lux-muted); line-height: 1.65; font-size: 0.95rem; }
+    .vendor-about { margin: 8px 0 0; line-height: 1.85; color: #5b4a43; white-space: pre-wrap; font-size: 0.97rem; }
+    .vendor-section-title { margin: 0 0 14px; font-family: "Cormorant Garamond", serif; font-size: 1.5rem; font-weight: 500; letter-spacing: -0.02em; color: var(--lux-espresso); }
 
     /* ── CALENDAR ── */
-    .availability-calendar {
-      margin-top: 16px;
-    }
-
-    .cal-header {
-      display: grid;
-      grid-template-columns: 44px 1fr 44px;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 16px;
-    }
-
-    .cal-nav {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      border: 1px solid rgba(223, 210, 200, 0.8);
-      background: rgba(255, 250, 247, 0.95);
-      color: var(--lux-espresso);
-      cursor: pointer;
-      font-size: 1.2rem;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.18s ease;
-    }
+    .availability-calendar { margin-top: 16px; }
+    .cal-header { display: grid; grid-template-columns: 44px 1fr 44px; align-items: center; gap: 10px; margin-bottom: 16px; }
+    .cal-nav { width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(223, 210, 200, 0.8); background: rgba(255, 250, 247, 0.95); color: var(--lux-espresso); cursor: pointer; font-size: 1.2rem; display: inline-flex; align-items: center; justify-content: center; transition: all 0.18s ease; }
     .cal-nav:hover { background: var(--lux-blush); transform: translateY(-1px); }
-
-    .cal-month-label {
-      text-align: center;
-      font-family: "Cormorant Garamond", serif;
-      font-size: 1.15rem;
-      font-weight: 500;
-      color: var(--lux-espresso);
-      letter-spacing: 0.02em;
-    }
-
-    .cal-weekdays, .cal-grid {
-      display: grid;
-      grid-template-columns: repeat(7, minmax(0, 1fr));
-      gap: 6px;
-    }
+    .cal-month-label { text-align: center; font-family: "Cormorant Garamond", serif; font-size: 1.15rem; font-weight: 500; color: var(--lux-espresso); letter-spacing: 0.02em; }
+    .cal-weekdays, .cal-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; }
     .cal-weekdays { margin-bottom: 6px; }
-
-    .cal-weekday {
-      text-align: center;
-      font-size: 0.7rem;
-      font-weight: 700;
-      color: var(--lux-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      padding: 4px 0;
-    }
-
-    .cal-day {
-      min-height: 48px;
-      border-radius: 12px;
-      border: 1px solid rgba(223, 210, 200, 0.6);
-      background: rgba(255, 255, 255, 0.88);
-      color: #4e433d;
-      padding: 6px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.88rem;
-      font-weight: 500;
-      transition: all 0.18s ease;
-    }
-    .cal-day:hover:not(.unavailable):not(.past) {
-      border-color: rgba(198, 167, 125, 0.5);
-      box-shadow: 0 4px 12px var(--lux-shadow);
-      transform: translateY(-1px);
-    }
-    .cal-day.empty {
-      background: transparent;
-      border: none;
-      cursor: default;
-    }
-    .cal-day.unavailable {
-      background: rgba(240, 234, 230, 0.6);
-      color: #c4b5ae;
-      cursor: not-allowed;
-      text-decoration: line-through;
-      border-color: transparent;
-    }
-    .cal-day.past {
-      background: rgba(245, 240, 237, 0.5);
-      color: #ccc0ba;
-      cursor: not-allowed;
-      border-color: transparent;
-    }
-    .cal-day.selected {
-      background: linear-gradient(135deg, #3b2f2a, #2a211d);
-      border-color: transparent;
-      color: #fffaf7;
-      box-shadow: 0 8px 20px rgba(59, 47, 42, 0.2);
-      transform: translateY(-2px);
-    }
-    .cal-day.today {
-      box-shadow: inset 0 0 0 2px rgba(198, 167, 125, 0.6);
-    }
-
-    .cal-selected-note {
-      margin-top: 14px;
-      padding: 12px 16px;
-      border-radius: 14px;
-      background: rgba(244, 231, 223, 0.5);
-      border: 1px solid rgba(214, 190, 174, 0.6);
-      color: #5e5047;
-      font-family: "Cormorant Garamond", serif;
-      font-style: italic;
-      font-size: 1rem;
-      line-height: 1.6;
-    }
+    .cal-weekday { text-align: center; font-size: 0.7rem; font-weight: 700; color: var(--lux-muted); text-transform: uppercase; letter-spacing: 0.08em; padding: 4px 0; }
+    .cal-day { min-height: 48px; border-radius: 12px; border: 1px solid rgba(223, 210, 200, 0.6); background: rgba(255, 255, 255, 0.88); color: #4e433d; padding: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 0.88rem; font-weight: 500; transition: all 0.18s ease; }
+    .cal-day:hover:not(.unavailable):not(.past) { border-color: rgba(198, 167, 125, 0.5); box-shadow: 0 4px 12px var(--lux-shadow); transform: translateY(-1px); }
+    .cal-day.empty { background: transparent; border: none; cursor: default; }
+    .cal-day.unavailable { background: rgba(240, 234, 230, 0.6); color: #c4b5ae; cursor: not-allowed; text-decoration: line-through; border-color: transparent; }
+    .cal-day.past { background: rgba(245, 240, 237, 0.5); color: #ccc0ba; cursor: not-allowed; border-color: transparent; }
+    .cal-day.selected { background: linear-gradient(135deg, #3b2f2a, #2a211d); border-color: transparent; color: #fffaf7; box-shadow: 0 8px 20px rgba(59, 47, 42, 0.2); transform: translateY(-2px); }
+    .cal-day.today { box-shadow: inset 0 0 0 2px rgba(198, 167, 125, 0.6); }
+    .cal-selected-note { margin-top: 14px; padding: 12px 16px; border-radius: 14px; background: rgba(244, 231, 223, 0.5); border: 1px solid rgba(214, 190, 174, 0.6); color: #5e5047; font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 1rem; line-height: 1.6; }
 
     /* ── ENQUIRY FORM ── */
-    .enquiry-form {
-      display: grid;
-      gap: 12px;
-      margin-top: 16px;
-    }
-
-    .enquiry-form input,
-    .enquiry-form textarea {
-      width: 100%;
-      border: 1px solid #eadfd6;
-      border-radius: 14px;
-      padding: 13px 15px;
-      font: inherit;
-      font-size: 0.95rem;
-      background: #fffdfb;
-      color: #2f2a27;
-      box-sizing: border-box;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
-    }
-    .enquiry-form input:focus,
-    .enquiry-form textarea:focus {
-      outline: none;
-      border-color: #d6bcad;
-      box-shadow: 0 0 0 4px rgba(217, 194, 178, 0.16);
-    }
+    .enquiry-form { display: grid; gap: 12px; margin-top: 16px; }
+    .enquiry-form input, .enquiry-form textarea { width: 100%; border: 1px solid #eadfd6; border-radius: 14px; padding: 13px 15px; font: inherit; font-size: 0.95rem; background: #fffdfb; color: #2f2a27; box-sizing: border-box; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+    .enquiry-form input:focus, .enquiry-form textarea:focus { outline: none; border-color: #d6bcad; box-shadow: 0 0 0 4px rgba(217, 194, 178, 0.16); }
     .enquiry-form textarea { min-height: 130px; resize: vertical; }
 
     /* ── BUTTONS ── */
-    .lux-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 48px;
-      padding: 12px 22px;
-      border-radius: 999px;
-      border: none;
-      font: inherit;
-      font-weight: 700;
-      font-size: 0.92rem;
-      letter-spacing: 0.04em;
-      cursor: pointer;
-      text-decoration: none;
-      background: linear-gradient(135deg, #d6b19a, #a97c66);
-      color: #fffaf7;
-      box-shadow: 0 10px 24px rgba(185, 143, 122, 0.22);
-      transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
-    }
-    .lux-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 16px 32px rgba(185, 143, 122, 0.28);
-      filter: brightness(1.04);
-    }
+    .lux-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 12px 22px; border-radius: 999px; border: none; font: inherit; font-weight: 700; font-size: 0.92rem; letter-spacing: 0.04em; cursor: pointer; text-decoration: none; background: linear-gradient(135deg, #d6b19a, #a97c66); color: #fffaf7; box-shadow: 0 10px 24px rgba(185, 143, 122, 0.22); transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease; }
+    .lux-btn:hover { transform: translateY(-2px); box-shadow: 0 16px 32px rgba(185, 143, 122, 0.28); filter: brightness(1.04); }
     .lux-btn:active { transform: translateY(0); }
-
-    .lux-btn-ghost {
-      background: rgba(255, 250, 247, 0.95);
-      border: 1px solid rgba(223, 210, 200, 0.9);
-      color: var(--lux-espresso);
-      box-shadow: none;
-    }
-    .lux-btn-ghost:hover {
-      background: var(--lux-blush);
-      box-shadow: none;
-      filter: none;
-    }
-
+    .lux-btn-ghost { background: rgba(255, 250, 247, 0.95); border: 1px solid rgba(223, 210, 200, 0.9); color: var(--lux-espresso); box-shadow: none; }
+    .lux-btn-ghost:hover { background: var(--lux-blush); box-shadow: none; filter: none; }
     .lux-btn[hidden] { display: none !important; }
-
-    /* ── MESSAGE BUTTON ── */
-    .message-btn-wrap {
-      margin-top: 12px;
-    }
+    .message-btn-wrap { margin-top: 12px; }
 
     /* ── SIDEBAR ── */
-    .sidebar-card {
-      position: sticky;
-      top: 20px;
-      text-align: center;
-    }
-
-    .profile-pic-wrap {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      margin-bottom: 14px;
-    }
-
-    .profile-pic {
-      width: 180px;
-      height: 180px;
-      border-radius: 999px;
-      object-fit: cover;
-      display: block;
-      background: var(--lux-blush);
-      border: 4px solid rgba(255, 250, 247, 0.9);
-      box-shadow: 0 14px 34px rgba(59, 47, 42, 0.12);
-    }
-
-    .sidebar-business-name {
-      margin: 0 0 10px;
-      font-family: "Cormorant Garamond", serif;
-      font-size: 1.6rem;
-      font-weight: 500;
-      letter-spacing: -0.025em;
-      color: var(--lux-espresso);
-    }
-
-    .sidebar-copy {
-      margin: 0 0 10px;
-      color: var(--lux-muted);
-      line-height: 1.5;
-      font-size: 0.9rem;
-    }
-
-    .vendor-logo-wrap {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 14px 0 18px;
-    }
-
-    .vendor-logo {
-      max-width: 170px;
-      max-height: 90px;
-      width: auto;
-      height: auto;
-      object-fit: contain;
-      display: block;
-      border-radius: 14px;
-      background: #fffaf7;
-      padding: 10px 14px;
-      border: 1px solid #eadfd6;
-    }
-
-    .favorite-btn {
-      width: 100%;
-      margin: 10px 0 16px;
-    }
-    .favorite-btn.saved {
-      background: linear-gradient(135deg, #c8a6a1, #a97b70);
-    }
-
-    .contact-stack {
-      display: grid;
-      gap: 10px;
-      margin-top: 8px;
-    }
-
-    .stack-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      text-decoration: none;
-      border-radius: 999px;
-      padding: 12px 16px;
-      min-height: 46px;
-      border: none;
-      cursor: pointer;
-      font: inherit;
-      font-weight: 600;
-      font-size: 0.9rem;
-      background: linear-gradient(135deg, #d6b19a, #a97c66);
-      color: #fffaf7;
-      box-shadow: 0 8px 20px rgba(185, 143, 122, 0.18);
-      transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
-    }
-    .stack-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 14px 28px rgba(185, 143, 122, 0.26);
-      filter: brightness(1.04);
-    }
+    .sidebar-card { position: sticky; top: 20px; text-align: center; }
+    .profile-pic-wrap { width: 100%; display: flex; justify-content: center; margin-bottom: 14px; }
+    .profile-pic { width: 180px; height: 180px; border-radius: 999px; object-fit: cover; display: block; background: var(--lux-blush); border: 4px solid rgba(255, 250, 247, 0.9); box-shadow: 0 14px 34px rgba(59, 47, 42, 0.12); }
+    .sidebar-business-name { margin: 0 0 10px; font-family: "Cormorant Garamond", serif; font-size: 1.6rem; font-weight: 500; letter-spacing: -0.025em; color: var(--lux-espresso); }
+    .sidebar-copy { margin: 0 0 10px; color: var(--lux-muted); line-height: 1.5; font-size: 0.9rem; }
+    .vendor-logo-wrap { display: flex; justify-content: center; align-items: center; margin: 14px 0 18px; }
+    .vendor-logo { max-width: 170px; max-height: 90px; width: auto; height: auto; object-fit: contain; display: block; border-radius: 14px; background: #fffaf7; padding: 10px 14px; border: 1px solid #eadfd6; }
+    .favorite-btn { width: 100%; margin: 10px 0 16px; }
+    .favorite-btn.saved { background: linear-gradient(135deg, #c8a6a1, #a97b70); }
+    .contact-stack { display: grid; gap: 10px; margin-top: 8px; }
+    .stack-btn { display: inline-flex; align-items: center; justify-content: center; text-align: center; text-decoration: none; border-radius: 999px; padding: 12px 16px; min-height: 46px; border: none; cursor: pointer; font: inherit; font-weight: 600; font-size: 0.9rem; background: linear-gradient(135deg, #d6b19a, #a97c66); color: #fffaf7; box-shadow: 0 8px 20px rgba(185, 143, 122, 0.18); transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease; }
+    .stack-btn:hover { transform: translateY(-2px); box-shadow: 0 14px 28px rgba(185, 143, 122, 0.26); filter: brightness(1.04); }
     .stack-btn[hidden] { display: none !important; }
+    .sidebar-locations { margin-top: 20px; padding-top: 18px; border-top: 1px solid #eadfd6; text-align: left; }
+    .sidebar-locations h3 { margin: 0 0 12px; font-family: "Cormorant Garamond", serif; font-size: 1.1rem; font-weight: 500; color: var(--lux-espresso); text-align: center; }
+    .sidebar-location-item { margin: 0 0 8px; color: var(--lux-muted); line-height: 1.5; text-align: center; font-size: 0.9rem; }
+    #statusMessage { margin-top: 12px; min-height: 22px; color: var(--lux-muted); font-size: 0.9rem; font-style: italic; font-family: "Cormorant Garamond", serif; }
 
-    .sidebar-locations {
-      margin-top: 20px;
-      padding-top: 18px;
-      border-top: 1px solid #eadfd6;
-      text-align: left;
-    }
-
-    .sidebar-locations h3 {
-      margin: 0 0 12px;
-      font-family: "Cormorant Garamond", serif;
-      font-size: 1.1rem;
-      font-weight: 500;
-      color: var(--lux-espresso);
-      text-align: center;
-    }
-
-    .sidebar-location-item {
-      margin: 0 0 8px;
-      color: var(--lux-muted);
-      line-height: 1.5;
-      text-align: center;
-      font-size: 0.9rem;
-    }
-
-    #statusMessage {
-      margin-top: 12px;
-      min-height: 22px;
-      color: var(--lux-muted);
-      font-size: 0.9rem;
-      font-style: italic;
-      font-family: "Cormorant Garamond", serif;
-    }
-
-    /* ── BOOKING FRAME ── */
-    .booking-frame {
-      width: 100%;
-      min-height: 720px;
-      border: 0;
-      border-radius: 16px;
-      background: #fffaf7;
-    }
-
-    .empty-block {
-      color: var(--lux-muted);
-      margin: 0;
-      line-height: 1.7;
-      font-size: 0.95rem;
-    }
+    .booking-frame { width: 100%; min-height: 720px; border: 0; border-radius: 16px; background: #fffaf7; }
+    .empty-block { color: var(--lux-muted); margin: 0; line-height: 1.7; font-size: 0.95rem; }
 
     /* ── MESSAGE MODAL ── */
-    .msg-modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(34, 26, 22, 0.5);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      z-index: 4000;
-      backdrop-filter: blur(4px);
-    }
+    .msg-modal-backdrop { position: fixed; inset: 0; background: rgba(34, 26, 22, 0.5); display: none; align-items: center; justify-content: center; padding: 20px; z-index: 4000; backdrop-filter: blur(4px); }
     .msg-modal-backdrop.open { display: flex; }
-
-    .msg-modal {
-      width: 100%;
-      max-width: 540px;
-      background: linear-gradient(135deg, #fffaf7, #f4ebe5);
-      border: 1px solid rgba(223, 210, 200, 0.9);
-      border-radius: 32px;
-      box-shadow: 0 32px 80px rgba(62, 44, 34, 0.2);
-      padding: 36px 32px 28px;
-      position: relative;
-    }
-
-    .msg-modal-close {
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      border: 1px solid rgba(214, 190, 174, 0.8);
-      background: rgba(255, 250, 247, 0.9);
-      color: var(--lux-espresso);
-      cursor: pointer;
-      font-size: 1.1rem;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.18s ease;
-    }
+    .msg-modal { width: 100%; max-width: 540px; background: linear-gradient(135deg, #fffaf7, #f4ebe5); border: 1px solid rgba(223, 210, 200, 0.9); border-radius: 32px; box-shadow: 0 32px 80px rgba(62, 44, 34, 0.2); padding: 36px 32px 28px; position: relative; }
+    .msg-modal-close { position: absolute; top: 16px; right: 16px; width: 38px; height: 38px; border-radius: 50%; border: 1px solid rgba(214, 190, 174, 0.8); background: rgba(255, 250, 247, 0.9); color: var(--lux-espresso); cursor: pointer; font-size: 1.1rem; display: inline-flex; align-items: center; justify-content: center; transition: background 0.18s ease; }
     .msg-modal-close:hover { background: var(--lux-blush); }
-
-    .msg-modal-kicker {
-      font-size: 0.74rem;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: #b08d7d;
-      margin: 0 0 10px;
-    }
-
-    .msg-modal-title {
-      margin: 0 0 6px;
-      font-family: "Cormorant Garamond", serif;
-      font-size: 1.9rem;
-      font-weight: 500;
-      letter-spacing: -0.03em;
-      color: var(--lux-espresso);
-    }
-
-    .msg-modal-sub {
-      margin: 0 0 20px;
-      color: var(--lux-muted);
-      font-size: 0.93rem;
-      line-height: 1.7;
-    }
-
+    .msg-modal-kicker { font-size: 0.74rem; letter-spacing: 0.28em; text-transform: uppercase; color: #b08d7d; margin: 0 0 10px; }
+    .msg-modal-title { margin: 0 0 6px; font-family: "Cormorant Garamond", serif; font-size: 1.9rem; font-weight: 500; letter-spacing: -0.03em; color: var(--lux-espresso); }
+    .msg-modal-sub { margin: 0 0 20px; color: var(--lux-muted); font-size: 0.93rem; line-height: 1.7; }
     .msg-form { display: grid; gap: 12px; }
-
-    .msg-form input,
-    .msg-form textarea {
-      width: 100%;
-      border: 1px solid #eadfd6;
-      border-radius: 14px;
-      background: #fffdfb;
-      padding: 13px 15px;
-      font: inherit;
-      font-size: 0.95rem;
-      color: #2d221c;
-      box-sizing: border-box;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .msg-form input:focus,
-    .msg-form textarea:focus {
-      outline: none;
-      border-color: #d6bcad;
-      box-shadow: 0 0 0 4px rgba(217, 194, 178, 0.16);
-    }
+    .msg-form input, .msg-form textarea { width: 100%; border: 1px solid #eadfd6; border-radius: 14px; background: #fffdfb; padding: 13px 15px; font: inherit; font-size: 0.95rem; color: #2d221c; box-sizing: border-box; transition: border-color 0.2s, box-shadow 0.2s; }
+    .msg-form input:focus, .msg-form textarea:focus { outline: none; border-color: #d6bcad; box-shadow: 0 0 0 4px rgba(217, 194, 178, 0.16); }
     .msg-form textarea { min-height: 120px; resize: vertical; }
+    .msg-status { margin: 8px 0 0; min-height: 20px; color: var(--lux-muted); font-size: 0.88rem; text-align: center; font-style: italic; font-family: "Cormorant Garamond", serif; }
+    .msg-login-note { text-align: center; padding: 20px 0 8px; }
+    .msg-login-note p { color: var(--lux-muted); line-height: 1.75; margin: 0 0 16px; font-size: 0.95rem; }
 
-    .msg-status {
-      margin: 8px 0 0;
-      min-height: 20px;
-      color: var(--lux-muted);
-      font-size: 0.88rem;
-      text-align: center;
-      font-style: italic;
-      font-family: "Cormorant Garamond", serif;
-    }
-
-    .msg-login-note {
-      text-align: center;
-      padding: 20px 0 8px;
-    }
-    .msg-login-note p {
-      color: var(--lux-muted);
-      line-height: 1.75;
-      margin: 0 0 16px;
-      font-size: 0.95rem;
-    }
-
-    /* Footer */
-    .site-footer {
-      background:
-        radial-gradient(circle at top, rgba(200, 166, 161, 0.16), transparent 36%),
-        linear-gradient(180deg, #f5eee9 0%, #eee5df 100%);
-    }
+    .site-footer { background: radial-gradient(circle at top, rgba(200, 166, 161, 0.16), transparent 36%), linear-gradient(180deg, #f5eee9 0%, #eee5df 100%); }
     .footer-title { color: var(--lux-espresso); letter-spacing: -0.035em; }
     .footer-eyebrow { color: #b08d7d; }
 
-    /* ── RESPONSIVE ── */
-    @media (max-width: 920px) {
-      .vendor-layout { grid-template-columns: 1fr; }
-      .sidebar-card { position: static; }
-      .vendor-gallery-media { height: 460px; }
-    }
-
-    @media (max-width: 620px) {
-      .vendor-topbar { padding: 0 14px; margin: 6px auto 18px; gap: 14px; }
-      .vendor-topbar-logo { width: 78px; height: 78px; }
-      .vendor-topbar-title { font-size: 1.35rem; }
-      .vendor-page { padding: 18px 14px 40px; }
-      .vendor-card { padding: 18px; border-radius: 20px; }
-      .vendor-gallery-card { padding: 0; }
-      .vendor-gallery-media { height: 300px; }
-      .vendor-gallery-arrow { width: 40px; height: 40px; font-size: 24px; }
-      .profile-pic { width: 140px; height: 140px; }
-      .msg-modal { padding: 28px 22px 22px; border-radius: 24px; }
-    }
+    @media (max-width: 920px) { .vendor-layout { grid-template-columns: 1fr; } .sidebar-card { position: static; } .vendor-gallery-media { height: 460px; } }
+    @media (max-width: 620px) { .vendor-topbar { padding: 0 14px; margin: 6px auto 18px; gap: 14px; } .vendor-topbar-logo { width: 78px; height: 78px; } .vendor-topbar-title { font-size: 1.35rem; } .vendor-page { padding: 18px 14px 40px; } .vendor-card { padding: 18px; border-radius: 20px; } .vendor-gallery-card { padding: 0; } .vendor-gallery-media { height: 300px; } .vendor-gallery-arrow { width: 40px; height: 40px; font-size: 24px; } .profile-pic { width: 140px; height: 140px; } .msg-modal { padding: 28px 22px 22px; border-radius: 24px; } }
   </style>
 </head>
 
@@ -719,6 +151,10 @@
 <div class="page-auth">
   <a href="categories.html" id="categoriesLink" class="auth-link">Categories</a>
   <a href="shop.html" id="shopLink" class="auth-link">Boutique</a>
+  <a href="messages.html" id="messagesLink" class="auth-link" style="display:none; position:relative;">
+    Messages
+    <span id="msgNavBadge" style="display:none; position:absolute; top:-6px; right:-10px; background:linear-gradient(135deg,#d6b19a,#a97c66); color:#fffaf7; font-size:0.68rem; font-weight:700; padding:2px 6px; border-radius:999px; line-height:1.2; min-width:18px; text-align:center;">0</span>
+  </a>
   <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
   <a href="login.html" id="loginLink" class="auth-link">Log In</a>
   <a href="dashboard.html" id="dashboardLink" class="auth-link" style="display:none;">Dashboard</a>
@@ -727,7 +163,7 @@
 
 <header class="vendor-topbar">
   <a href="index.html" class="vendor-topbar-home" aria-label="Go to homepage">
-    <img src="images/logo.png" alt="Our Wedding Day Hub" class="vendor-topbar-logo">
+    <img src="images/logo.png" alt="Our Wedding Day Hub" class="vendor-topbar-logo" loading="eager" fetchpriority="high">
   </a>
   <div class="vendor-topbar-text">
     <p class="vendor-topbar-kicker">Vendor Profile</p>
@@ -737,7 +173,6 @@
 
 <main class="vendor-page">
   <div class="vendor-layout">
-
     <section class="vendor-left">
 
       <!-- Gallery -->
@@ -745,10 +180,11 @@
         <div class="vendor-gallery-stage">
           <button type="button" id="prevMediaBtn" class="vendor-gallery-arrow left" aria-label="Previous">‹</button>
           <div class="vendor-gallery-media">
-            <img id="mainImage" src="images/header4.png" alt="Vendor gallery image">
+            <img id="mainImage" src="images/header4.png" alt="Vendor gallery image" loading="eager" fetchpriority="high">
             <video id="mainVideo" controls playsinline style="display:none;"></video>
           </div>
           <button type="button" id="nextMediaBtn" class="vendor-gallery-arrow right" aria-label="Next">›</button>
+          <div class="gallery-swipe-hint">Swipe to browse ♡</div>
         </div>
         <div id="galleryDots" class="vendor-gallery-dots"></div>
       </section>
@@ -766,8 +202,6 @@
       <div class="vendor-card" id="enquiriesCard">
         <h2 class="vendor-section-title">Check Availability &amp; Enquire</h2>
         <p class="empty-block" id="calendarIntro">Select a date to check availability and send an enquiry.</p>
-
-        <!-- Built-in calendar -->
         <div id="builtInCalendar" class="availability-calendar">
           <div class="cal-header">
             <button type="button" id="calPrevBtn" class="cal-nav">‹</button>
@@ -775,19 +209,12 @@
             <button type="button" id="calNextBtn" class="cal-nav">›</button>
           </div>
           <div class="cal-weekdays">
-            <div class="cal-weekday">Sun</div>
-            <div class="cal-weekday">Mon</div>
-            <div class="cal-weekday">Tue</div>
-            <div class="cal-weekday">Wed</div>
-            <div class="cal-weekday">Thu</div>
-            <div class="cal-weekday">Fri</div>
-            <div class="cal-weekday">Sat</div>
+            <div class="cal-weekday">Sun</div><div class="cal-weekday">Mon</div><div class="cal-weekday">Tue</div>
+            <div class="cal-weekday">Wed</div><div class="cal-weekday">Thu</div><div class="cal-weekday">Fri</div><div class="cal-weekday">Sat</div>
           </div>
           <div id="calGrid" class="cal-grid"></div>
           <div id="calSelectedNote" class="cal-selected-note" style="display:none;"></div>
         </div>
-
-        <!-- Enquiry form (shown after date selected or always) -->
         <div id="enquiryFormWrap" style="margin-top:24px;">
           <h3 class="vendor-section-title" style="font-size:1.2rem; margin-bottom:12px;">Send an Enquiry</h3>
           <form id="enquiryForm" class="enquiry-form">
@@ -801,7 +228,7 @@
         </div>
       </div>
 
-      <!-- External booking embed (shown if vendor has Calendly etc) -->
+      <!-- External booking embed -->
       <div class="vendor-card" id="bookingCard" style="display:none;">
         <h2 class="vendor-section-title">Book Online</h2>
         <p class="empty-block" id="bookingIntro">Book directly through this vendor's calendar.</p>
@@ -820,24 +247,17 @@
     <!-- Sidebar -->
     <aside class="vendor-card sidebar-card">
       <div class="profile-pic-wrap">
-        <img id="profilePic" class="profile-pic" src="" alt="Vendor profile picture">
+        <img id="profilePic" class="profile-pic" src="" alt="Vendor profile picture" loading="lazy">
       </div>
-
       <h2 id="sidebarBusinessName" class="sidebar-business-name">Loading...</h2>
-
       <div id="logoWrap" class="vendor-logo-wrap" style="display:none;">
-        <img id="logoImage" class="vendor-logo" src="" alt="Vendor logo">
+        <img id="logoImage" class="vendor-logo" src="" alt="Vendor logo" loading="lazy">
       </div>
-
       <p id="sidebarCategory" class="sidebar-copy"></p>
-
       <button id="favoriteBtn" class="lux-btn favorite-btn">♡ Save to favourites</button>
-
-      <!-- Message button -->
       <div class="message-btn-wrap">
         <button id="messageBtn" class="lux-btn" style="width:100%;">✦ Send a Message</button>
       </div>
-
       <div class="contact-stack" style="margin-top:14px;">
         <a id="websiteBtn"   class="stack-btn" target="_blank" rel="noopener noreferrer">Website</a>
         <a id="emailBtn"     class="stack-btn">Email</a>
@@ -846,7 +266,6 @@
         <a id="tiktokBtn"    class="stack-btn" target="_blank" rel="noopener noreferrer">TikTok</a>
         <a id="youtubeBtn"   class="stack-btn" target="_blank" rel="noopener noreferrer">YouTube</a>
       </div>
-
       <div id="sidebarLocations" class="sidebar-locations" style="display:none;">
         <h3>Locations</h3>
         <p id="sidebarLocation"     class="sidebar-location-item"></p>
@@ -855,10 +274,8 @@
         <p id="sidebarStates"       class="sidebar-location-item"></p>
         <p id="sidebarRegions"      class="sidebar-location-item"></p>
       </div>
-
       <div id="statusMessage"></div>
     </aside>
-
   </div>
 </main>
 
@@ -866,8 +283,6 @@
 <div id="msgModalBackdrop" class="msg-modal-backdrop" aria-hidden="true">
   <div class="msg-modal">
     <button type="button" id="msgModalClose" class="msg-modal-close" aria-label="Close">×</button>
-
-    <!-- Logged-in view -->
     <div id="msgLoggedIn" style="display:none;">
       <p class="msg-modal-kicker">Send a Message</p>
       <h2 class="msg-modal-title" id="msgModalTitle">Message Vendor</h2>
@@ -878,8 +293,6 @@
       </form>
       <p id="msgStatus" class="msg-status"></p>
     </div>
-
-    <!-- Logged-out view -->
     <div id="msgLoggedOut" style="display:none;">
       <p class="msg-modal-kicker">Send a Message</p>
       <h2 class="msg-modal-title">Say hello</h2>
@@ -894,7 +307,7 @@
 
 <footer class="site-footer">
   <div class="footer-content">
-    <p class="footer-eyebrow">wedding vendor directory</p>
+    <p class="footer-eyebrow">wedding planning directory</p>
     <h2 class="footer-title">Everything your wedding deserves.</h2>
     <p class="footer-text">Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.</p>
     <div class="footer-links">
@@ -915,128 +328,94 @@
 </footer>
 
 <script type="module">
-import {
-  db,
-  auth,
-  doc,
-  getDoc,
-  updateDoc,
-  increment,
-  onAuthStateChanged,
-  signOut,
-  collection,
-  addDoc,
-  serverTimestamp,
-  query,
-  where,
-  getDocs
-} from "./firebase.js";
+import { db, auth, doc, getDoc, updateDoc, increment, onAuthStateChanged, signOut, collection, addDoc, serverTimestamp, query, where, getDocs } from "./firebase.js";
 
 const params   = new URLSearchParams(window.location.search);
 const vendorId = params.get("id");
 
-// ── DOM refs ──
-const businessNameEl      = document.getElementById("businessName");
-const topbarBusinessName  = document.getElementById("topbarBusinessName");
-const vendorCategoryEl    = document.getElementById("vendorCategory");
-const vendorTaglineEl     = document.getElementById("vendorTagline");
-const vendorAboutEl       = document.getElementById("vendorAbout");
-const mainImage           = document.getElementById("mainImage");
-const mainVideo           = document.getElementById("mainVideo");
-const prevMediaBtn        = document.getElementById("prevMediaBtn");
-const nextMediaBtn        = document.getElementById("nextMediaBtn");
-const galleryDots         = document.getElementById("galleryDots");
-const profilePicEl        = document.getElementById("profilePic");
+const businessNameEl        = document.getElementById("businessName");
+const topbarBusinessName    = document.getElementById("topbarBusinessName");
+const vendorCategoryEl      = document.getElementById("vendorCategory");
+const vendorTaglineEl       = document.getElementById("vendorTagline");
+const vendorAboutEl         = document.getElementById("vendorAbout");
+const mainImage             = document.getElementById("mainImage");
+const mainVideo             = document.getElementById("mainVideo");
+const prevMediaBtn          = document.getElementById("prevMediaBtn");
+const nextMediaBtn          = document.getElementById("nextMediaBtn");
+const galleryDots           = document.getElementById("galleryDots");
+const profilePicEl          = document.getElementById("profilePic");
 const sidebarBusinessNameEl = document.getElementById("sidebarBusinessName");
-const sidebarCategoryEl   = document.getElementById("sidebarCategory");
-const logoWrap            = document.getElementById("logoWrap");
-const logoImage           = document.getElementById("logoImage");
-const websiteBtn          = document.getElementById("websiteBtn");
-const emailBtn            = document.getElementById("emailBtn");
-const instagramBtn        = document.getElementById("instagramBtn");
-const facebookBtn         = document.getElementById("facebookBtn");
-const tiktokBtn           = document.getElementById("tiktokBtn");
-const youtubeBtn          = document.getElementById("youtubeBtn");
-const sidebarLocations    = document.getElementById("sidebarLocations");
-const sidebarLocationEl   = document.getElementById("sidebarLocation");
+const sidebarCategoryEl     = document.getElementById("sidebarCategory");
+const logoWrap              = document.getElementById("logoWrap");
+const logoImage             = document.getElementById("logoImage");
+const websiteBtn            = document.getElementById("websiteBtn");
+const emailBtn              = document.getElementById("emailBtn");
+const instagramBtn          = document.getElementById("instagramBtn");
+const facebookBtn           = document.getElementById("facebookBtn");
+const tiktokBtn             = document.getElementById("tiktokBtn");
+const youtubeBtn            = document.getElementById("youtubeBtn");
+const sidebarLocations      = document.getElementById("sidebarLocations");
+const sidebarLocationEl     = document.getElementById("sidebarLocation");
 const sidebarServiceAreasEl = document.getElementById("sidebarServiceAreas");
-const sidebarRegionsEl    = document.getElementById("sidebarRegions");
-const sidebarStatesEl     = document.getElementById("sidebarStates");
-const sidebarCountriesEl  = document.getElementById("sidebarCountries");
-const favoriteBtn         = document.getElementById("favoriteBtn");
-const statusMessage       = document.getElementById("statusMessage");
-const joinLink            = document.getElementById("joinLink");
-const loginLink           = document.getElementById("loginLink");
-const dashboardLink       = document.getElementById("dashboardLink");
-const logoutLink          = document.getElementById("logoutLink");
-const bookingCard         = document.getElementById("bookingCard");
-const bookingFrame        = document.getElementById("bookingFrame");
-const bookingEmbedWrap    = document.getElementById("bookingEmbedWrap");
-const bookingFallback     = document.getElementById("bookingFallback");
-const bookingFallbackBtn  = document.getElementById("bookingFallbackBtn");
-const enquiryForm         = document.getElementById("enquiryForm");
-const enquiryName         = document.getElementById("enquiryName");
-const enquiryEmail        = document.getElementById("enquiryEmail");
-const enquiryDate         = document.getElementById("enquiryDate");
-const enquiryMessage      = document.getElementById("enquiryMessage");
-const enquiryStatus       = document.getElementById("enquiryStatus");
-const calGrid             = document.getElementById("calGrid");
-const calMonthLabel       = document.getElementById("calMonthLabel");
-const calPrevBtn          = document.getElementById("calPrevBtn");
-const calNextBtn          = document.getElementById("calNextBtn");
-const calSelectedNote     = document.getElementById("calSelectedNote");
-const messageBtn          = document.getElementById("messageBtn");
-const msgModalBackdrop    = document.getElementById("msgModalBackdrop");
-const msgModalClose       = document.getElementById("msgModalClose");
-const msgLoggedIn         = document.getElementById("msgLoggedIn");
-const msgLoggedOut        = document.getElementById("msgLoggedOut");
-const msgModalTitle       = document.getElementById("msgModalTitle");
-const msgForm             = document.getElementById("msgForm");
-const msgBody             = document.getElementById("msgBody");
-const msgStatus           = document.getElementById("msgStatus");
+const sidebarRegionsEl      = document.getElementById("sidebarRegions");
+const sidebarStatesEl       = document.getElementById("sidebarStates");
+const sidebarCountriesEl    = document.getElementById("sidebarCountries");
+const favoriteBtn           = document.getElementById("favoriteBtn");
+const statusMessage         = document.getElementById("statusMessage");
+const joinLink              = document.getElementById("joinLink");
+const loginLink             = document.getElementById("loginLink");
+const dashboardLink         = document.getElementById("dashboardLink");
+const logoutLink            = document.getElementById("logoutLink");
+const bookingCard           = document.getElementById("bookingCard");
+const bookingFrame          = document.getElementById("bookingFrame");
+const bookingEmbedWrap      = document.getElementById("bookingEmbedWrap");
+const bookingFallback       = document.getElementById("bookingFallback");
+const bookingFallbackBtn    = document.getElementById("bookingFallbackBtn");
+const enquiryForm           = document.getElementById("enquiryForm");
+const enquiryName           = document.getElementById("enquiryName");
+const enquiryEmail          = document.getElementById("enquiryEmail");
+const enquiryDate           = document.getElementById("enquiryDate");
+const enquiryMessage        = document.getElementById("enquiryMessage");
+const enquiryStatus         = document.getElementById("enquiryStatus");
+const calGrid               = document.getElementById("calGrid");
+const calMonthLabel         = document.getElementById("calMonthLabel");
+const calPrevBtn            = document.getElementById("calPrevBtn");
+const calNextBtn            = document.getElementById("calNextBtn");
+const calSelectedNote       = document.getElementById("calSelectedNote");
+const messageBtn            = document.getElementById("messageBtn");
+const msgModalBackdrop      = document.getElementById("msgModalBackdrop");
+const msgModalClose         = document.getElementById("msgModalClose");
+const msgLoggedIn           = document.getElementById("msgLoggedIn");
+const msgLoggedOut          = document.getElementById("msgLoggedOut");
+const msgModalTitle         = document.getElementById("msgModalTitle");
+const msgForm               = document.getElementById("msgForm");
+const msgBody               = document.getElementById("msgBody");
+const msgStatus             = document.getElementById("msgStatus");
 
 const favoritesKey = "favoriteVendors";
-
-let galleryItems       = [];
-let currentMediaIndex  = 0;
+let galleryItems      = [];
+let currentMediaIndex = 0;
 let vendorEmailAddress = "";
 let vendorBusinessName = "Vendor";
-let vendorData         = null;
-let currentUser        = null;
-let blockedDates       = [];
-let calMonth           = new Date().getMonth();
-let calYear            = new Date().getFullYear();
-let selectedDate       = "";
+let vendorData = null;
+let currentUser = null;
+let blockedDates = [];
+let calMonth = new Date().getMonth();
+let calYear  = new Date().getFullYear();
+let selectedDate = "";
 
-// ── Helpers ──
 function cleanArray(arr) { return Array.isArray(arr) ? arr.filter(Boolean) : []; }
-function formatText(v) {
-  if (!v) return "";
-  return String(v).replace(/_/g," ").replace(/-/g," ").replace(/\s+/g," ").trim().replace(/\b\w/g,c=>c.toUpperCase());
-}
-function hide(el)               { if (el) el.style.display = "none"; }
-function show(el, d = "")       { if (el) el.style.display = d; }
-function setOrHide(el, val, pre = "") {
-  if (!val) { hide(el); return false; }
-  el.textContent = pre ? `${pre}${val}` : val;
-  show(el);
-  return true;
-}
-function setLink(el, href) {
-  if (!href) { hide(el); return; }
-  el.href = href;
-  show(el, "inline-flex");
-}
-function toDateStr(d) {
-  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
-}
-function prettyDate(str) {
-  return new Date(str+"T00:00:00").toLocaleDateString("en-AU",{day:"numeric",month:"long",year:"numeric"});
-}
+function formatText(v) { if (!v) return ""; return String(v).replace(/_/g," ").replace(/-/g," ").replace(/\s+/g," ").trim().replace(/\b\w/g,c=>c.toUpperCase()); }
+function hide(el)             { if (el) el.style.display = "none"; }
+function show(el, d = "")     { if (el) el.style.display = d; }
+function setOrHide(el, val, pre = "") { if (!val) { hide(el); return false; } el.textContent = pre ? `${pre}${val}` : val; show(el); return true; }
+function setLink(el, href)    { if (!href) { hide(el); return; } el.href = href; show(el, "inline-flex"); }
+function toDateStr(d)         { return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`; }
+function prettyDate(str)      { return new Date(str+"T00:00:00").toLocaleDateString("en-AU",{day:"numeric",month:"long",year:"numeric"}); }
 
-// ── Favorites ──
-function getFavs()       { return JSON.parse(localStorage.getItem(favoritesKey)) || []; }
-function saveFavs(f)     { localStorage.setItem(favoritesKey, JSON.stringify(f)); }
+// Favorites
+function getFavs()    { return JSON.parse(localStorage.getItem(favoritesKey)) || []; }
+function saveFavs(f)  { localStorage.setItem(favoritesKey, JSON.stringify(f)); }
 function updateFavBtn(id) {
   const saved = getFavs().includes(id);
   favoriteBtn.textContent = saved ? "♥ Saved" : "♡ Save to favourites";
@@ -1046,12 +425,11 @@ favoriteBtn.addEventListener("click", () => {
   if (!vendorId) return;
   let f = getFavs();
   if (f.includes(vendorId)) { f = f.filter(i=>i!==vendorId); statusMessage.textContent = "Removed from favourites."; }
-  else                       { f.push(vendorId);               statusMessage.textContent = "Saved to favourites."; }
-  saveFavs(f);
-  updateFavBtn(vendorId);
+  else { f.push(vendorId); statusMessage.textContent = "Saved to favourites."; }
+  saveFavs(f); updateFavBtn(vendorId);
 });
 
-// ── Gallery ──
+// Gallery
 function buildGallery(v) {
   const items = [];
   if (v.coverImageUrl?.trim()) items.push({type:"image",src:v.coverImageUrl});
@@ -1061,6 +439,7 @@ function buildGallery(v) {
   if (!items.length) items.push({type:"image",src:"images/header4.png"});
   return items;
 }
+
 function renderDots() {
   galleryDots.innerHTML = "";
   if (galleryItems.length <= 1) { hide(galleryDots); return; }
@@ -1074,6 +453,7 @@ function renderDots() {
     galleryDots.appendChild(d);
   });
 }
+
 function updateGallery() {
   const item = galleryItems[currentMediaIndex];
   if (item.type==="video") {
@@ -1082,45 +462,65 @@ function updateGallery() {
     mainVideo.pause(); mainVideo.removeAttribute("src"); mainVideo.load(); hide(mainVideo);
     show(mainImage,"block"); mainImage.src=item.src;
   }
-  const multi = galleryItems.length>1;
+  const multi = galleryItems.length > 1;
   prevMediaBtn.hidden = !multi;
   nextMediaBtn.hidden = !multi;
   renderDots();
 }
-prevMediaBtn.addEventListener("click", () => { if (galleryItems.length>1) { currentMediaIndex=(currentMediaIndex-1+galleryItems.length)%galleryItems.length; updateGallery(); } });
-nextMediaBtn.addEventListener("click", () => { if (galleryItems.length>1) { currentMediaIndex=(currentMediaIndex+1)%galleryItems.length; updateGallery(); } });
 
-// ── Calendar ──
+prevMediaBtn.addEventListener("click", () => {
+  if (galleryItems.length > 1) { currentMediaIndex = (currentMediaIndex - 1 + galleryItems.length) % galleryItems.length; updateGallery(); }
+});
+nextMediaBtn.addEventListener("click", () => {
+  if (galleryItems.length > 1) { currentMediaIndex = (currentMediaIndex + 1) % galleryItems.length; updateGallery(); }
+});
+
+// ── Swipeable gallery (touch + mouse drag) ──
+let gallerySwipeStartX = 0;
+let gallerySwipeEndX   = 0;
+let galleryIsDragging  = false;
+const galleryStage = document.querySelector(".vendor-gallery-stage");
+
+function handleGallerySwipe() {
+  const dist = gallerySwipeStartX - gallerySwipeEndX;
+  if (Math.abs(dist) < 40 || galleryItems.length <= 1) return;
+  currentMediaIndex = dist > 0
+    ? (currentMediaIndex + 1) % galleryItems.length
+    : (currentMediaIndex - 1 + galleryItems.length) % galleryItems.length;
+  updateGallery();
+}
+
+if (galleryStage) {
+  galleryStage.addEventListener("touchstart", (e) => { gallerySwipeStartX = e.touches[0].clientX; }, { passive: true });
+  galleryStage.addEventListener("touchend",   (e) => { gallerySwipeEndX = e.changedTouches[0].clientX; handleGallerySwipe(); });
+  galleryStage.addEventListener("mousedown",  (e) => { galleryIsDragging = true; gallerySwipeStartX = e.clientX; });
+  galleryStage.addEventListener("mouseup",    (e) => { if (!galleryIsDragging) return; galleryIsDragging = false; gallerySwipeEndX = e.clientX; handleGallerySwipe(); });
+  galleryStage.addEventListener("mouseleave", ()  => { galleryIsDragging = false; });
+}
+
+// Calendar
 function renderCalendar() {
   calGrid.innerHTML = "";
   const today    = new Date();
   const todayStr = toDateStr(today);
   const first    = new Date(calYear, calMonth, 1);
   const last     = new Date(calYear, calMonth+1, 0);
-
   calMonthLabel.textContent = first.toLocaleDateString("en-AU",{month:"long",year:"numeric"});
-
-  for (let i=0; i<first.getDay(); i++) {
-    const e = document.createElement("div"); e.className="cal-day empty"; calGrid.appendChild(e);
-  }
-
+  for (let i=0; i<first.getDay(); i++) { const e=document.createElement("div"); e.className="cal-day empty"; calGrid.appendChild(e); }
   for (let d=1; d<=last.getDate(); d++) {
     const dateObj = new Date(calYear, calMonth, d);
     const dateStr = toDateStr(dateObj);
     const cell    = document.createElement("div");
     cell.className = "cal-day";
     cell.textContent = d;
-
-    const isPast      = dateStr < todayStr;
-    const isBlocked   = blockedDates.includes(dateStr);
-    const isSelected  = dateStr === selectedDate;
-    const isToday     = dateStr === todayStr;
-
-    if (isPast)     cell.classList.add("past");
+    const isPast    = dateStr < todayStr;
+    const isBlocked = blockedDates.includes(dateStr);
+    const isSelected = dateStr === selectedDate;
+    const isToday   = dateStr === todayStr;
+    if (isPast)         cell.classList.add("past");
     else if (isBlocked) cell.classList.add("unavailable");
     else if (isSelected) cell.classList.add("selected");
-    else if (isToday) cell.classList.add("today");
-
+    else if (isToday)   cell.classList.add("today");
     if (!isPast && !isBlocked) {
       cell.addEventListener("click", () => {
         selectedDate = dateStr;
@@ -1130,7 +530,6 @@ function renderCalendar() {
         renderCalendar();
       });
     }
-
     calGrid.appendChild(cell);
   }
 }
@@ -1138,7 +537,6 @@ function renderCalendar() {
 calPrevBtn.addEventListener("click", () => { calMonth--; if (calMonth<0){calMonth=11;calYear--;} renderCalendar(); });
 calNextBtn.addEventListener("click", () => { calMonth++; if (calMonth>11){calMonth=0;calYear++;} renderCalendar(); });
 
-// ── Booking embed ──
 function renderBooking(v) {
   const link = v.bookingLink||v.bookingUrl||v.calendly||v.calendlyUrl||v.calendarLink||v.calendarUrl||"";
   if (!link) return;
@@ -1149,65 +547,39 @@ function renderBooking(v) {
   else { hide(bookingEmbedWrap); show(bookingFallback,"block"); bookingFallbackBtn.href=link; }
 }
 
-// ── Sidebar locations ──
 function renderLocations(v) {
-  const loc  = formatText(v.displayLocation||"");
-  const sa   = formatText(v.serviceAreas||"");
-  const reg  = cleanArray(v.regions).map(formatText).join(" • ");
-  const st   = cleanArray(v.states).map(formatText).join(" • ");
-  const co   = cleanArray(v.countries).map(formatText).join(" • ");
-  const any  = setOrHide(sidebarLocationEl,loc,"Location: ")
-             | setOrHide(sidebarServiceAreasEl,sa,"Service Areas: ")
-             | setOrHide(sidebarRegionsEl,reg,"Regions: ")
-             | setOrHide(sidebarStatesEl,st,"States: ")
-             | setOrHide(sidebarCountriesEl,co,"Countries: ");
+  const loc = formatText(v.displayLocation||"");
+  const sa  = formatText(v.serviceAreas||"");
+  const reg = cleanArray(v.regions).map(formatText).join(" • ");
+  const st  = cleanArray(v.states).map(formatText).join(" • ");
+  const co  = cleanArray(v.countries).map(formatText).join(" • ");
+  const any = setOrHide(sidebarLocationEl,loc,"Location: ")
+            | setOrHide(sidebarServiceAreasEl,sa,"Service Areas: ")
+            | setOrHide(sidebarRegionsEl,reg,"Regions: ")
+            | setOrHide(sidebarStatesEl,st,"States: ")
+            | setOrHide(sidebarCountriesEl,co,"Countries: ");
   if (any) show(sidebarLocations,"block"); else hide(sidebarLocations);
 }
 
-// ── Enquiry form submit (saves to Firestore) ──
 enquiryForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   enquiryStatus.textContent = "Sending your enquiry...";
-
   try {
-    await addDoc(collection(db,"enquiries"), {
-      vendorId:    vendorId,
-      vendorName:  vendorBusinessName,
-      vendorEmail: vendorEmailAddress,
-      coupleId:    currentUser ? currentUser.uid : "guest",
-      coupleName:  enquiryName.value.trim(),
-      coupleEmail: enquiryEmail.value.trim(),
-      preferredDate: selectedDate || enquiryDate.value.trim(),
-      message:     enquiryMessage.value.trim(),
-      status:      "new",
-      createdAt:   serverTimestamp()
-    });
-
+    await addDoc(collection(db,"enquiries"), { vendorId, vendorName: vendorBusinessName, vendorEmail: vendorEmailAddress, coupleId: currentUser ? currentUser.uid : "guest", coupleName: enquiryName.value.trim(), coupleEmail: enquiryEmail.value.trim(), preferredDate: selectedDate || enquiryDate.value.trim(), message: enquiryMessage.value.trim(), status: "new", createdAt: serverTimestamp() });
     enquiryStatus.textContent = "Enquiry sent! The vendor will be in touch soon ♡";
-    enquiryForm.reset();
-    selectedDate = "";
-    enquiryDate.value = "";
-    hide(calSelectedNote);
-    renderCalendar();
-  } catch (err) {
-    console.error(err);
-    enquiryStatus.textContent = "Something went wrong. Please try again.";
-  }
+    enquiryForm.reset(); selectedDate = ""; enquiryDate.value = "";
+    hide(calSelectedNote); renderCalendar();
+  } catch (err) { console.error(err); enquiryStatus.textContent = "Something went wrong. Please try again."; }
 });
 
-// ── Messaging modal ──
 function openMsgModal() {
   msgModalBackdrop.classList.add("open");
   msgModalBackdrop.setAttribute("aria-hidden","false");
-  msgStatus.textContent = "";
-  msgBody.value = "";
+  msgStatus.textContent = ""; msgBody.value = "";
   if (currentUser) { show(msgLoggedIn,"block"); hide(msgLoggedOut); msgModalTitle.textContent = `Message ${vendorBusinessName}`; }
   else             { hide(msgLoggedIn); show(msgLoggedOut,"block"); }
 }
-function closeMsgModal() {
-  msgModalBackdrop.classList.remove("open");
-  msgModalBackdrop.setAttribute("aria-hidden","true");
-}
+function closeMsgModal() { msgModalBackdrop.classList.remove("open"); msgModalBackdrop.setAttribute("aria-hidden","true"); }
 
 messageBtn.addEventListener("click", openMsgModal);
 msgModalClose.addEventListener("click", closeMsgModal);
@@ -1220,159 +592,70 @@ msgForm.addEventListener("submit", async (e) => {
   const body = msgBody.value.trim();
   if (!body) return;
   msgStatus.textContent = "Sending...";
-
   try {
-    // Check if conversation already exists
-    const convQuery = query(
-      collection(db,"conversations"),
-      where("vendorId","==",vendorId),
-      where("coupleId","==",currentUser.uid)
-    );
+    const convQuery = query(collection(db,"conversations"), where("vendorId","==",vendorId), where("coupleId","==",currentUser.uid));
     const existing = await getDocs(convQuery);
     let convId;
-
     if (!existing.empty) {
       convId = existing.docs[0].id;
-      await updateDoc(doc(db,"conversations",convId), {
-        lastMessage:   body,
-        lastMessageAt: serverTimestamp(),
-        vendorUnread:  increment(1)
-      });
+      await updateDoc(doc(db,"conversations",convId), { lastMessage: body, lastMessageAt: serverTimestamp(), vendorUnread: increment(1) });
     } else {
-      // Get couple name from users collection
       let coupleName = currentUser.email;
-      try {
-        const userSnap = await getDoc(doc(db,"users",currentUser.uid));
-        if (userSnap.exists()) {
-          const ud = userSnap.data();
-          coupleName = ud.partnerOne && ud.partnerTwo
-            ? `${ud.partnerOne} & ${ud.partnerTwo}`
-            : ud.name || currentUser.email;
-        }
-      } catch {}
-
-      const convRef = await addDoc(collection(db,"conversations"), {
-        vendorId:      vendorId,
-        coupleId:      currentUser.uid,
-        vendorName:    vendorBusinessName,
-        coupleName:    coupleName,
-        vendorEmail:   vendorEmailAddress,
-        coupleEmail:   currentUser.email,
-        lastMessage:   body,
-        lastMessageAt: serverTimestamp(),
-        vendorUnread:  1,
-        coupleUnread:  0,
-        createdAt:     serverTimestamp()
-      });
+      try { const userSnap = await getDoc(doc(db,"users",currentUser.uid)); if (userSnap.exists()) { const ud = userSnap.data(); coupleName = ud.partnerOne && ud.partnerTwo ? `${ud.partnerOne} & ${ud.partnerTwo}` : ud.name || currentUser.email; } } catch {}
+      const convRef = await addDoc(collection(db,"conversations"), { vendorId, coupleId: currentUser.uid, vendorName: vendorBusinessName, coupleName, vendorEmail: vendorEmailAddress, coupleEmail: currentUser.email, lastMessage: body, lastMessageAt: serverTimestamp(), vendorUnread: 1, coupleUnread: 0, createdAt: serverTimestamp() });
       convId = convRef.id;
     }
-
-    // Add message to subcollection
-    await addDoc(collection(db,"conversations",convId,"messages"), {
-      senderId:   currentUser.uid,
-      senderName: currentUser.email,
-      body:       body,
-      sentAt:     serverTimestamp(),
-      read:       false
-    });
-
+    await addDoc(collection(db,"conversations",convId,"messages"), { senderId: currentUser.uid, senderName: currentUser.email, body, sentAt: serverTimestamp(), read: false });
     msgStatus.textContent = "Message sent! You'll see the reply in your dashboard ♡";
     msgBody.value = "";
-  } catch (err) {
-    console.error(err);
-    msgStatus.textContent = "Something went wrong. Please try again.";
-  }
+  } catch (err) { console.error(err); msgStatus.textContent = "Something went wrong. Please try again."; }
 });
 
-// ── Profile view tracking ──
-async function trackView(id) {
-  try { await updateDoc(doc(db,"vendors",id), { profileViews: increment(1) }); } catch {}
-}
+async function trackView(id) { try { await updateDoc(doc(db,"vendors",id), { profileViews: increment(1) }); } catch {} }
 
-// ── Load vendor ──
 async function loadVendor() {
-  if (!vendorId) {
-    businessNameEl.textContent = "Vendor not found";
-    sidebarBusinessNameEl.textContent = "Vendor not found";
-    topbarBusinessName.textContent = "Vendor not found";
-    return;
-  }
+  if (!vendorId) { businessNameEl.textContent = "Vendor not found"; sidebarBusinessNameEl.textContent = "Vendor not found"; topbarBusinessName.textContent = "Vendor not found"; return; }
   try {
     const snap = await getDoc(doc(db,"vendors",vendorId));
-    if (!snap.exists()) {
-      businessNameEl.textContent = "Vendor not found";
-      sidebarBusinessNameEl.textContent = "Vendor not found";
-      topbarBusinessName.textContent = "Vendor not found";
-      return;
-    }
-
+    if (!snap.exists()) { businessNameEl.textContent = "Vendor not found"; sidebarBusinessNameEl.textContent = "Vendor not found"; topbarBusinessName.textContent = "Vendor not found"; return; }
     vendorData = snap.data();
     trackView(vendorId);
-
     const name = vendorData.businessName || "Vendor";
-    vendorBusinessName = name;
-    vendorEmailAddress = vendorData.email || vendorData.contactEmail || "";
-
+    vendorBusinessName = name; vendorEmailAddress = vendorData.email || vendorData.contactEmail || "";
     blockedDates = Array.isArray(vendorData.blockedDates) ? vendorData.blockedDates.filter(Boolean) : [];
     renderCalendar();
-
-    const category = Array.isArray(vendorData.categories) && vendorData.categories.length
-      ? vendorData.categories.map(formatText).join(" • ")
-      : formatText(vendorData.category||"");
+    const category = Array.isArray(vendorData.categories) && vendorData.categories.length ? vendorData.categories.map(formatText).join(" • ") : formatText(vendorData.category||"");
     const about = vendorData.bio || vendorData.shortBio || vendorData.description || "Beautiful vendor profile coming soon.";
-
-    businessNameEl.textContent      = name;
-    sidebarBusinessNameEl.textContent = name;
-    topbarBusinessName.textContent  = name;
-    vendorAboutEl.textContent       = about;
-    setOrHide(vendorCategoryEl, category);
-    setOrHide(vendorTaglineEl, formatText(vendorData.tagline||""));
-    setOrHide(sidebarCategoryEl, category);
-
+    businessNameEl.textContent = name; sidebarBusinessNameEl.textContent = name; topbarBusinessName.textContent = name;
+    vendorAboutEl.textContent = about;
+    setOrHide(vendorCategoryEl, category); setOrHide(vendorTaglineEl, formatText(vendorData.tagline||"")); setOrHide(sidebarCategoryEl, category);
     const profileImg = vendorData.profileImageUrl || vendorData.profileImage || "";
     if (profileImg) { profilePicEl.src=profileImg; show(profilePicEl,"block"); } else hide(profilePicEl);
-
     const logo = vendorData.logoUrl || vendorData.logo || "";
     if (logo) { logoImage.src=logo; show(logoWrap,"flex"); } else hide(logoWrap);
-
-    galleryItems = buildGallery(vendorData);
-    updateGallery();
-    renderBooking(vendorData);
-    renderLocations(vendorData);
-
+    galleryItems = buildGallery(vendorData); updateGallery();
+    renderBooking(vendorData); renderLocations(vendorData);
     setLink(websiteBtn,   vendorData.website||"");
     setLink(emailBtn,     vendorEmailAddress ? `mailto:${vendorEmailAddress}` : "");
     setLink(instagramBtn, vendorData.instagram||"");
     setLink(facebookBtn,  vendorData.facebook||"");
     setLink(tiktokBtn,    vendorData.tiktok||"");
     setLink(youtubeBtn,   vendorData.youtube||"");
-
     updateFavBtn(vendorId);
-  } catch (err) {
-    console.error("Error loading vendor:", err);
-    businessNameEl.textContent      = "There was a problem loading this vendor";
-    sidebarBusinessNameEl.textContent = "Vendor profile";
-    topbarBusinessName.textContent  = "Vendor profile";
-  }
+  } catch (err) { console.error("Error loading vendor:", err); businessNameEl.textContent = "There was a problem loading this vendor"; sidebarBusinessNameEl.textContent = "Vendor profile"; topbarBusinessName.textContent = "Vendor profile"; }
 }
 
-// ── Auth ──
 onAuthStateChanged(auth, (user) => {
   currentUser = user;
-  if (user) {
-    hide(joinLink); hide(loginLink);
-    show(dashboardLink,"inline-block"); show(logoutLink,"inline-block");
-  } else {
-    show(joinLink,"inline-block"); show(loginLink,"inline-block");
-    hide(dashboardLink); hide(logoutLink);
-  }
+  if (user) { hide(joinLink); hide(loginLink); show(dashboardLink,"inline-block"); show(logoutLink,"inline-block"); }
+  else       { show(joinLink,"inline-block"); show(loginLink,"inline-block"); hide(dashboardLink); hide(logoutLink); }
 });
 
-logoutLink.addEventListener("click", async () => {
-  try { await signOut(auth); window.location.href="index.html"; } catch {}
-});
+logoutLink.addEventListener("click", async () => { try { await signOut(auth); window.location.href="index.html"; } catch {} });
 
 loadVendor();
 </script>
+
+<script type="module" src="nav.js"></script>
 </body>
 </html>
