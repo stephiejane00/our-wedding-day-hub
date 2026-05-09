@@ -546,9 +546,9 @@
 
   <div class="messages-page-header">
     <div>
-      <a href="dashboard.html" class="messages-back-link">← Back to dashboard</a>
+      <a id="backLink" href="dashboard.html" class="messages-back-link">← Back to dashboard</a>
       <h1 class="messages-page-title">Messages</h1>
-      <p class="messages-page-subtitle">Your conversations and enquiries from couples</p>
+      <p class="messages-page-subtitle" id="pageSubtitle">Your messages</p>
     </div>
   </div>
 
@@ -622,7 +622,7 @@
 
 <footer class="site-footer">
   <div class="footer-content">
-    <p class="footer-eyebrow">wedding vendor directory</p>
+    <p class="footer-eyebrow">wedding planning directory</p>
     <h2 class="footer-title">Everything your wedding deserves.</h2>
     <p class="footer-text">Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.</p>
     <div class="footer-links">
@@ -666,43 +666,34 @@
 
 <script type="module">
 import {
-  auth,
-  db,
-  onAuthStateChanged,
-  doc,
-  getDoc,
-  collection,
-  addDoc,
-  query,
-  where,
-  orderBy,
-  updateDoc,
-  increment,
-  serverTimestamp
+  auth, db, onAuthStateChanged, doc, getDoc, collection, addDoc,
+  query, where, orderBy, updateDoc, increment, serverTimestamp, onSnapshot
 } from "./firebase.js";
 
-import { onSnapshot } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
-
   let currentUser = null;
-  let activeConvId = null;
-  let unsubMessages = null;
-  let allConvDocs = [];
+  let userRole    = null;   // "vendor" | "couple"
+  let activeConvId   = null;
+  let unsubMessages  = null;
 
-  const convList     = document.getElementById("convList");
-  const threadEmpty  = document.getElementById("threadEmpty");
-  const threadView   = document.getElementById("threadView");
-  const threadName   = document.getElementById("threadName");
-  const threadSub    = document.getElementById("threadSub");
-  const threadMsgs   = document.getElementById("threadMessages");
-  const replyForm    = document.getElementById("replyForm");
-  const replyBody    = document.getElementById("replyBody");
-  const replyStatus  = document.getElementById("replyStatus");
-  const enquiryList  = document.getElementById("enquiryList");
-  const enquiryEmpty = document.getElementById("enquiryEmpty");
-  const msgTabBadge  = document.getElementById("msgTabBadge");
-  const enqTabBadge  = document.getElementById("enqTabBadge");
-  const navMsgBadge  = document.getElementById("navMsgBadge");
+  const convList        = document.getElementById("convList");
+  const threadEmpty     = document.getElementById("threadEmpty");
+  const threadView      = document.getElementById("threadView");
+  const threadName      = document.getElementById("threadName");
+  const threadSub       = document.getElementById("threadSub");
+  const threadMsgs      = document.getElementById("threadMessages");
+  const replyForm       = document.getElementById("replyForm");
+  const replyBody       = document.getElementById("replyBody");
+  const replyStatus     = document.getElementById("replyStatus");
+  const enquiryList     = document.getElementById("enquiryList");
+  const enquiryEmpty    = document.getElementById("enquiryEmpty");
+  const msgTabBadge     = document.getElementById("msgTabBadge");
+  const enqTabBadge     = document.getElementById("enqTabBadge");
+  const navMsgBadge     = document.getElementById("navMsgBadge");
   const messagesNavLink = document.getElementById("messagesNavLink");
+  const pageSubtitle    = document.getElementById("pageSubtitle");
+  const backLink        = document.getElementById("backLink");
+  const tabEnquiries    = document.querySelector('[data-tab="enquiries"]');
+  const tabPanelEnq     = document.getElementById("tab-enquiries");
 
   function timeAgo(ts) {
     if (!ts) return "";
@@ -714,20 +705,22 @@ import { onSnapshot } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-f
     return d.toLocaleDateString("en-AU", { day: "numeric", month: "short" });
   }
 
-  function openThread(convId, coupleName, coupleEmail) {
+  // ── OPEN THREAD ──
+  function openThread(convId, otherName, otherSub, unreadField) {
     activeConvId = convId;
-    threadName.textContent = coupleName;
-    threadSub.textContent = coupleEmail || "";
+    threadName.textContent = otherName;
+    threadSub.textContent  = otherSub || "";
     threadEmpty.style.display = "none";
-    threadView.style.display = "flex";
+    threadView.style.display  = "flex";
     threadMsgs.innerHTML = "";
     replyStatus.textContent = "";
     replyBody.value = "";
 
-    // Mark as read
-    updateDoc(doc(db, "conversations", convId), { vendorUnread: 0 }).catch(() => {});
+    // Mark as read for this role
+    const markRead = {};
+    markRead[unreadField] = 0;
+    updateDoc(doc(db, "conversations", convId), markRead).catch(() => {});
 
-    // Highlight active conv
     document.querySelectorAll(".conv-item[data-id]").forEach(el => {
       el.classList.toggle("active", el.dataset.id === convId);
     });
@@ -740,7 +733,7 @@ import { onSnapshot } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-f
         snap.forEach(msgDoc => {
           const m = msgDoc.data();
           const isMine = m.senderId === currentUser?.uid;
-          const wrap = document.createElement("div");
+          const wrap   = document.createElement("div");
           wrap.className = "msg-bubble-wrap " + (isMine ? "mine" : "theirs");
           const bubble = document.createElement("div");
           bubble.className = "msg-bubble " + (isMine ? "mine" : "theirs");
@@ -759,6 +752,7 @@ import { onSnapshot } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-f
     );
   }
 
+  // ── REPLY FORM ──
   replyForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     if (!activeConvId || !currentUser) return;
@@ -770,9 +764,11 @@ import { onSnapshot } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-f
         senderId: currentUser.uid, senderName: currentUser.email, body,
         sentAt: serverTimestamp(), read: false
       });
-      await updateDoc(doc(db, "conversations", activeConvId), {
-        lastMessage: body, lastMessageAt: serverTimestamp(), coupleUnread: increment(1)
-      });
+      // Increment unread for the OTHER party
+      const otherUnread = userRole === "vendor" ? "coupleUnread" : "vendorUnread";
+      const upd = { lastMessage: body, lastMessageAt: serverTimestamp() };
+      upd[otherUnread] = increment(1);
+      await updateDoc(doc(db, "conversations", activeConvId), upd);
       replyBody.value = "";
       replyStatus.textContent = "";
     } catch (err) {
@@ -781,60 +777,70 @@ import { onSnapshot } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-f
     }
   });
 
-  function loadConversations(uid) {
+  // ── BUILD CONV LIST ITEM ──
+  function buildConvItem(convDoc, displayName, displaySub, unreadCount, unreadField) {
+    const item = document.createElement("div");
+    item.className = "conv-item" + (unreadCount > 0 ? " unread" : "") + (activeConvId === convDoc.id ? " active" : "");
+    item.dataset.id   = convDoc.id;
+    item.dataset.name = displayName.toLowerCase();
+
+    const left = document.createElement("div");
+    const name = document.createElement("p");
+    name.className   = "conv-name";
+    name.textContent = displayName;
+    if (unreadCount > 0) {
+      const dot = document.createElement("span");
+      dot.className = "msg-unread-dot";
+      name.appendChild(dot);
+    }
+    const preview = document.createElement("p");
+    preview.className   = "conv-preview";
+    preview.textContent = convDoc.data().lastMessage || "";
+    left.appendChild(name);
+    left.appendChild(preview);
+
+    const right = document.createElement("div");
+    right.className = "conv-time";
+    right.textContent = timeAgo(convDoc.data().lastMessageAt);
+    if (unreadCount > 0) {
+      const badge = document.createElement("div");
+      badge.style.cssText = "background:linear-gradient(135deg,#d6b19a,#a97c66);color:#fffaf7;font-size:0.7rem;font-weight:700;padding:2px 7px;border-radius:999px;margin-top:4px;text-align:center;";
+      badge.textContent = unreadCount;
+      right.appendChild(badge);
+    }
+
+    item.appendChild(left);
+    item.appendChild(right);
+    item.addEventListener("click", () => openThread(convDoc.id, displayName, displaySub, unreadField));
+    return item;
+  }
+
+  // ── VENDOR: load inbox (reply-only) ──
+  function loadVendorConversations(uid) {
     onSnapshot(
       query(collection(db, "conversations"), where("vendorId", "==", uid), orderBy("lastMessageAt", "desc")),
       (snap) => {
         convList.innerHTML = "";
         let totalUnread = 0;
-
         if (snap.empty) {
-          convList.innerHTML = '<div class="empty-state"><p>No messages yet</p><small>When couples message you, they will appear here.</small></div>';
+          convList.innerHTML = `
+            <div class="empty-state">
+              <p>No messages yet</p>
+              <small>Conversations begin when a couple messages you from your vendor profile ♡</small>
+            </div>`;
+          msgTabBadge.style.display = "none";
+          if (navMsgBadge) navMsgBadge.style.display = "none";
+          return;
         }
-
         snap.forEach(convDoc => {
-          const c = convDoc.data();
-          const unread = c.vendorUnread || 0;
-          totalUnread += unread;
-
-          const item = document.createElement("div");
-          item.className = "conv-item" + (unread > 0 ? " unread" : "") + (activeConvId === convDoc.id ? " active" : "");
-          item.dataset.id = convDoc.id;
-          item.dataset.name = c.coupleName || c.coupleEmail || "";
-
-          const left = document.createElement("div");
-          const name = document.createElement("p");
-          name.className = "conv-name";
-          name.textContent = c.coupleName || c.coupleEmail || "Couple";
-          if (unread > 0) {
-            const dot = document.createElement("span");
-            dot.className = "msg-unread-dot";
-            name.appendChild(dot);
-          }
-          const preview = document.createElement("p");
-          preview.className = "conv-preview";
-          preview.textContent = c.lastMessage || "No messages yet";
-          left.appendChild(name);
-          left.appendChild(preview);
-
-          const right = document.createElement("div");
-          right.className = "conv-time";
-          right.textContent = timeAgo(c.lastMessageAt);
-          if (unread > 0) {
-            const badge = document.createElement("div");
-            badge.style.cssText = "background:linear-gradient(135deg,#d6b19a,#a97c66);color:#fffaf7;font-size:0.7rem;font-weight:700;padding:2px 7px;border-radius:999px;margin-top:4px;text-align:center;";
-            badge.textContent = unread;
-            right.appendChild(badge);
-          }
-
-          item.appendChild(left);
-          item.appendChild(right);
-          item.addEventListener("click", () => openThread(convDoc.id, c.coupleName || "Couple", c.coupleEmail || ""));
+          const c       = convDoc.data();
+          const unread  = c.vendorUnread || 0;
+          totalUnread  += unread;
+          const item    = buildConvItem(convDoc, c.coupleName || c.coupleEmail || "Couple", c.coupleEmail || "", unread, "vendorUnread");
           convList.appendChild(item);
         });
-
         if (totalUnread > 0) {
-          msgTabBadge.textContent = totalUnread;
+          msgTabBadge.textContent  = totalUnread;
           msgTabBadge.style.display = "inline-flex";
           if (navMsgBadge) { navMsgBadge.textContent = totalUnread; navMsgBadge.style.display = "inline"; }
         } else {
@@ -845,26 +851,63 @@ import { onSnapshot } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-f
     );
   }
 
+  // ── COUPLE: load their sent conversations ──
+  function loadCoupleConversations(uid) {
+    // Hide the enquiries tab entirely for couples
+    if (tabEnquiries)  tabEnquiries.style.display  = "none";
+    if (tabPanelEnq)   tabPanelEnq.style.display   = "none";
+
+    onSnapshot(
+      query(collection(db, "conversations"), where("coupleId", "==", uid), orderBy("lastMessageAt", "desc")),
+      (snap) => {
+        convList.innerHTML = "";
+        let totalUnread = 0;
+        if (snap.empty) {
+          convList.innerHTML = `
+            <div class="empty-state">
+              <p>No messages yet ♡</p>
+              <small>Browse vendors and send a message from their profile to start a conversation.</small>
+              <div style="margin-top:16px;">
+                <a href="categories.html" style="display:inline-flex;align-items:center;justify-content:center;padding:10px 22px;border-radius:999px;background:linear-gradient(135deg,#d6b19a,#a97c66);color:#fffaf7;font-weight:700;font-size:0.88rem;text-decoration:none;box-shadow:0 8px 20px rgba(185,143,122,0.2);">Browse Vendors</a>
+              </div>
+            </div>`;
+          msgTabBadge.style.display = "none";
+          if (navMsgBadge) navMsgBadge.style.display = "none";
+          return;
+        }
+        snap.forEach(convDoc => {
+          const c      = convDoc.data();
+          const unread = c.coupleUnread || 0;
+          totalUnread += unread;
+          const item   = buildConvItem(convDoc, c.vendorName || "Vendor", c.vendorEmail || "", unread, "coupleUnread");
+          convList.appendChild(item);
+        });
+        if (totalUnread > 0) {
+          msgTabBadge.textContent   = totalUnread;
+          msgTabBadge.style.display = "inline-flex";
+          if (navMsgBadge) { navMsgBadge.textContent = totalUnread; navMsgBadge.style.display = "inline"; }
+        } else {
+          msgTabBadge.style.display = "none";
+          if (navMsgBadge) navMsgBadge.style.display = "none";
+        }
+      }
+    );
+  }
+
+  // ── VENDOR: enquiries tab ──
   function loadEnquiries(uid) {
     onSnapshot(
       query(collection(db, "enquiries"), where("vendorId", "==", uid), orderBy("createdAt", "desc")),
       (snap) => {
         enquiryList.innerHTML = "";
         let newCount = 0;
-
-        if (snap.empty) {
-          enquiryEmpty.style.display = "block";
-          return;
-        }
+        if (snap.empty) { enquiryEmpty.style.display = "block"; return; }
         enquiryEmpty.style.display = "none";
-
         snap.forEach(enqDoc => {
           const e = enqDoc.data();
           if (e.status === "new") newCount++;
-
           const item = document.createElement("div");
           item.className = "enquiry-item" + (e.status === "new" ? " new-enquiry" : "");
-
           const header = document.createElement("div");
           header.className = "enquiry-header";
           const nameWrap = document.createElement("div");
@@ -875,9 +918,7 @@ import { onSnapshot } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-f
           dateBadge.className = "enquiry-date-badge";
           dateBadge.textContent = e.preferredDate ? `Preferred date: ${e.preferredDate}` : "No date specified";
           header.appendChild(nameWrap); header.appendChild(dateBadge);
-
           const msgEl = document.createElement("p"); msgEl.className = "enquiry-message"; msgEl.textContent = e.message || "";
-
           const statusRow = document.createElement("div"); statusRow.className = "enquiry-status-row";
           ["new", "responded", "declined"].forEach(s => {
             const btn = document.createElement("button"); btn.type = "button";
@@ -888,36 +929,65 @@ import { onSnapshot } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-f
             });
             statusRow.appendChild(btn);
           });
-
           item.appendChild(header);
           item.appendChild(msgEl);
           item.appendChild(statusRow);
-
           if (e.coupleEmail) {
             const hint = document.createElement("p"); hint.className = "enquiry-reply-hint";
             hint.textContent = `Reply directly to ${e.coupleEmail}`;
             item.appendChild(hint);
           }
-
           enquiryList.appendChild(item);
         });
-
-        if (newCount > 0) {
-          enqTabBadge.textContent = newCount;
-          enqTabBadge.style.display = "inline-flex";
-        } else {
-          enqTabBadge.style.display = "none";
-        }
+        if (newCount > 0) { enqTabBadge.textContent = newCount; enqTabBadge.style.display = "inline-flex"; }
+        else enqTabBadge.style.display = "none";
       }
     );
   }
 
+  // ── AUTH & ROLE DETECTION ──
   onAuthStateChanged(auth, async (user) => {
     if (!user) { window.location.href = "login.html"; return; }
     currentUser = user;
     if (messagesNavLink) messagesNavLink.style.display = "inline-flex";
-    loadConversations(user.uid);
-    loadEnquiries(user.uid);
+
+    // Detect role
+    try {
+      const userSnap = await getDoc(doc(db, "users", user.uid));
+      userRole = userSnap.exists() ? (userSnap.data().role || "couple") : "couple";
+    } catch {
+      // Fall back: check vendors collection
+      try {
+        const vendorSnap = await getDoc(doc(db, "vendors", user.uid));
+        userRole = vendorSnap.exists() ? "vendor" : "couple";
+      } catch { userRole = "couple"; }
+    }
+
+    if (userRole === "vendor") {
+      pageSubtitle.textContent = "Your conversations and enquiries from couples";
+      backLink.href = "dashboard.html";
+      loadVendorConversations(user.uid);
+      loadEnquiries(user.uid);
+    } else {
+      pageSubtitle.textContent = "Your conversations with wedding vendors";
+      backLink.href = "couple-dashboard.html";
+      loadCoupleConversations(user.uid);
+    }
+
+    // Open specific conv from URL param e.g. messages.html?conv=abc
+    const convParam = new URLSearchParams(window.location.search).get("conv");
+    if (convParam) {
+      try {
+        const convSnap = await getDoc(doc(db, "conversations", convParam));
+        if (convSnap.exists()) {
+          const c = convSnap.data();
+          const otherName  = userRole === "vendor" ? (c.coupleName || "Couple") : (c.vendorName || "Vendor");
+          const otherSub   = userRole === "vendor" ? (c.coupleEmail || "") : (c.vendorEmail || "");
+          const unreadField = userRole === "vendor" ? "vendorUnread" : "coupleUnread";
+          setTimeout(() => openThread(convParam, otherName, otherSub, unreadField), 600);
+        }
+      } catch {}
+    }
   });
 </script>
 
