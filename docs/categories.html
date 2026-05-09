@@ -7,71 +7,21 @@
   <link rel="stylesheet" href="style.css">
   <style>
     :root {
-      --lux-espresso: #3b2f2a;
-      --lux-rose:     #c8a6a1;
-      --lux-champagne:#c6a77d;
-      --lux-cream:    #fffaf7;
-      --lux-blush:    #f4e7df;
-      --lux-border:   rgba(216, 197, 189, 0.55);
-      --lux-muted:    #9b8579;
-      --lux-shadow:   rgba(59, 47, 42, 0.08);
+      --lux-espresso: #3b2f2a; --lux-rose: #c8a6a1; --lux-champagne: #c6a77d;
+      --lux-cream: #fffaf7; --lux-blush: #f4e7df; --lux-border: rgba(216, 197, 189, 0.55);
+      --lux-muted: #9b8579; --lux-shadow: rgba(59, 47, 42, 0.08);
     }
+    body { background: radial-gradient(circle at top left, rgba(200, 166, 161, 0.12), transparent 32%), #f7f1ed; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes heroFadeIn { from { opacity: 0; transform: scale(1.01); } to { opacity: 1; transform: scale(1); } }
 
-    body {
-      background:
-        radial-gradient(circle at top left, rgba(200, 166, 161, 0.12), transparent 32%),
-        #f7f1ed;
-    }
+    .categories-page { max-width: 1520px; margin: 0 auto; padding: 18px 20px 56px; }
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(14px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes heroFadeIn {
-      from { opacity: 0; transform: scale(1.01); }
-      to   { opacity: 1; transform: scale(1); }
-    }
-
-    /* ── PAGE ── */
-    .categories-page {
-      max-width: 1520px;
-      margin: 0 auto;
-      padding: 18px 20px 56px;
-    }
-
-    /* ── HERO ── */
-    .categories-hero {
-      position: relative;
-      background:
-        radial-gradient(circle at top left, rgba(200, 166, 161, 0.18), transparent 34%),
-        linear-gradient(135deg, #fffaf7, #f4ebe5);
-      border: 1px solid rgba(227, 219, 212, 0.9);
-      border-radius: 36px;
-      padding: 52px 30px 36px;
-      margin-bottom: 28px;
-      text-align: center;
-      box-shadow: 0 24px 70px var(--lux-shadow);
-      overflow: hidden;
-    }
-
-    /* Decorative orbs */
-    .categories-hero::before,
-    .categories-hero::after {
-      content: "";
-      position: absolute;
-      width: 260px;
-      height: 260px;
-      border-radius: 999px;
-      background: radial-gradient(circle, rgba(200, 166, 161, 0.14), transparent 70%);
-      pointer-events: none;
-    }
+    .categories-hero { position: relative; background: radial-gradient(circle at top left, rgba(200, 166, 161, 0.18), transparent 34%), linear-gradient(135deg, #fffaf7, #f4ebe5); border: 1px solid rgba(227, 219, 212, 0.9); border-radius: 36px; padding: 52px 30px 36px; margin-bottom: 28px; text-align: center; box-shadow: 0 24px 70px var(--lux-shadow); overflow: hidden; }
+    .categories-hero::before, .categories-hero::after { content: ""; position: absolute; width: 260px; height: 260px; border-radius: 999px; background: radial-gradient(circle, rgba(200, 166, 161, 0.14), transparent 70%); pointer-events: none; }
     .categories-hero::before { top: -120px; left: -80px; }
     .categories-hero::after  { right: -90px; bottom: -130px; }
-
-    .categories-hero > * {
-      animation: fadeUp 0.8s ease forwards;
-      opacity: 0;
-    }
+    .categories-hero > * { animation: fadeUp 0.8s ease forwards; opacity: 0; }
     .categories-hero > *:nth-child(1) { animation-delay: 0.05s; }
     .categories-hero > *:nth-child(2) { animation-delay: 0.1s; }
     .categories-hero > *:nth-child(3) { animation-delay: 0.17s; }
@@ -79,413 +29,76 @@
     .categories-hero > *:nth-child(5) { animation-delay: 0.31s; }
     .categories-hero > *:nth-child(6) { animation-delay: 0.38s; }
 
-    .categories-logo {
-      width: 88px;
-      margin: 0 auto 18px;
-      display: block;
-      position: relative;
-      z-index: 1;
-      transition: transform 0.3s ease;
-    }
+    .categories-logo { width: 88px; margin: 0 auto 18px; display: block; position: relative; z-index: 1; transition: transform 0.3s ease; }
     .categories-logo:hover { transform: scale(1.04); }
+    .categories-kicker { margin: 0 0 12px; font-size: 0.78rem; letter-spacing: 0.28em; text-transform: uppercase; color: #b08d7d; opacity: 0.85; position: relative; z-index: 1; }
+    .categories-title { margin: 0; font-family: "Cormorant Garamond", serif; font-size: clamp(2.8rem, 5vw, 4.8rem); font-weight: 500; line-height: 0.95; letter-spacing: -0.045em; color: var(--lux-espresso); text-shadow: 0 10px 30px rgba(59, 47, 42, 0.08); position: relative; z-index: 1; }
+    .categories-script { margin: 10px 0 0; font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 1.25rem; color: #c69b84; opacity: 0.9; position: relative; z-index: 1; }
+    .categories-subtitle { max-width: 680px; margin: 14px auto 0; color: var(--lux-muted); line-height: 1.78; font-size: 0.97rem; position: relative; z-index: 1; }
 
-    .categories-kicker {
-      margin: 0 0 12px;
-      font-size: 0.78rem;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: #b08d7d;
-      opacity: 0.85;
-      position: relative;
-      z-index: 1;
-    }
+    .categories-filter-wrap { max-width: 1230px; margin: 28px auto 0; position: relative; z-index: 1; }
+    .categories-filter-bar { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+    .categories-filter-pill { display: inline-flex; align-items: center; justify-content: center; padding: 10px 17px; min-height: 42px; border-radius: 999px; background: rgba(255, 250, 247, 0.9); border: 1px solid rgba(223, 210, 200, 0.9); color: #6e5a52; font-size: 0.88rem; font-weight: 500; text-decoration: none; white-space: nowrap; transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease; box-shadow: 0 4px 12px var(--lux-shadow); }
+    .categories-filter-pill:hover { transform: translateY(-2px); background: var(--lux-blush); border-color: rgba(198, 167, 125, 0.5); box-shadow: 0 10px 22px var(--lux-shadow); }
+    .categories-filter-pill.active { background: linear-gradient(135deg, #d6b19a, #a97c66); border-color: transparent; color: #fffaf7; box-shadow: 0 10px 24px rgba(185, 143, 122, 0.22); font-weight: 600; }
+    .categories-filter-pill.active:hover { transform: translateY(-2px); filter: brightness(1.04); }
 
-    .categories-title {
-      margin: 0;
-      font-family: "Cormorant Garamond", serif;
-      font-size: clamp(2.8rem, 5vw, 4.8rem);
-      font-weight: 500;
-      line-height: 0.95;
-      letter-spacing: -0.045em;
-      color: var(--lux-espresso);
-      text-shadow: 0 10px 30px rgba(59, 47, 42, 0.08);
-      position: relative;
-      z-index: 1;
-    }
-
-    .categories-script {
-      margin: 10px 0 0;
-      font-family: "Cormorant Garamond", serif;
-      font-style: italic;
-      font-size: 1.25rem;
-      color: #c69b84;
-      opacity: 0.9;
-      position: relative;
-      z-index: 1;
-    }
-
-    .categories-subtitle {
-      max-width: 680px;
-      margin: 14px auto 0;
-      color: var(--lux-muted);
-      line-height: 1.78;
-      font-size: 0.97rem;
-      position: relative;
-      z-index: 1;
-    }
-
-    /* ── FILTER PILLS ── */
-    .categories-filter-wrap {
-      max-width: 1230px;
-      margin: 28px auto 0;
-      position: relative;
-      z-index: 1;
-    }
-
-    .categories-filter-bar {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-    }
-
-    .categories-filter-pill {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 10px 17px;
-      min-height: 42px;
-      border-radius: 999px;
-      background: rgba(255, 250, 247, 0.9);
-      border: 1px solid rgba(223, 210, 200, 0.9);
-      color: #6e5a52;
-      font-size: 0.88rem;
-      font-weight: 500;
-      text-decoration: none;
-      white-space: nowrap;
-      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-      box-shadow: 0 4px 12px var(--lux-shadow);
-    }
-    .categories-filter-pill:hover {
-      transform: translateY(-2px);
-      background: var(--lux-blush);
-      border-color: rgba(198, 167, 125, 0.5);
-      box-shadow: 0 10px 22px var(--lux-shadow);
-    }
-    .categories-filter-pill.active {
-      background: linear-gradient(135deg, #d6b19a, #a97c66);
-      border-color: transparent;
-      color: #fffaf7;
-      box-shadow: 0 10px 24px rgba(185, 143, 122, 0.22);
-      font-weight: 600;
-    }
-    .categories-filter-pill.active:hover {
-      transform: translateY(-2px);
-      filter: brightness(1.04);
-    }
-
-    /* ── SEARCH PANEL ── */
-    .categories-search-panel {
-      max-width: 1210px;
-      margin: 24px auto 0;
-      padding: 20px;
-      border-radius: 28px;
-      background: rgba(255, 250, 247, 0.92);
-      border: 1px solid rgba(223, 210, 200, 0.9);
-      box-shadow: 0 8px 28px var(--lux-shadow);
-      position: relative;
-      z-index: 1;
-    }
-
-    .categories-search-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1.1fr 1.1fr auto;
-      gap: 12px;
-      align-items: end;
-    }
-
-    .categories-search-field label {
-      display: block;
-      margin-bottom: 7px;
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: #8d7369;
-    }
-
-    .categories-search-field select,
-    .categories-search-field input {
-      width: 100%;
-      min-height: 48px;
-      border-radius: 14px;
-      border: 1px solid #eadfd6;
-      background: #fffdfb;
-      padding: 12px 14px;
-      font-size: 0.94rem;
-      color: #2d221c;
-      box-sizing: border-box;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-    }
-    .categories-search-field select:focus,
-    .categories-search-field input:focus {
-      outline: none;
-      border-color: #d6bcad;
-      box-shadow: 0 0 0 4px rgba(217, 194, 178, 0.16);
-      background: #ffffff;
-    }
-
-    .categories-search-btn {
-      min-height: 48px;
-      border: none;
-      border-radius: 999px;
-      padding: 0 26px;
-      background: linear-gradient(135deg, #d6b19a, #a97c66);
-      color: #fffaf7;
-      font-weight: 700;
-      font-size: 0.94rem;
-      cursor: pointer;
-      box-shadow: 0 10px 24px rgba(185, 143, 122, 0.22);
-      transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
-      white-space: nowrap;
-    }
-    .categories-search-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 16px 32px rgba(185, 143, 122, 0.28);
-      filter: brightness(1.04);
-    }
-
-    .categories-clear-row {
-      display: flex;
-      justify-content: flex-end;
-      margin-top: 12px;
-    }
-
-    .categories-clear-btn {
-      border: none;
-      background: transparent;
-      color: var(--lux-muted);
-      font-size: 0.88rem;
-      text-decoration: underline;
-      cursor: pointer;
-      padding: 0;
-      transition: opacity 0.18s ease;
-    }
+    .categories-search-panel { max-width: 1210px; margin: 24px auto 0; padding: 20px; border-radius: 28px; background: rgba(255, 250, 247, 0.92); border: 1px solid rgba(223, 210, 200, 0.9); box-shadow: 0 8px 28px var(--lux-shadow); position: relative; z-index: 1; }
+    .categories-search-grid { display: grid; grid-template-columns: 1fr 1fr 1.1fr 1.1fr auto; gap: 12px; align-items: end; }
+    .categories-search-field label { display: block; margin-bottom: 7px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #8d7369; }
+    .categories-search-field select, .categories-search-field input { width: 100%; min-height: 48px; border-radius: 14px; border: 1px solid #eadfd6; background: #fffdfb; padding: 12px 14px; font-size: 0.94rem; color: #2d221c; box-sizing: border-box; transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease; }
+    .categories-search-field select:focus, .categories-search-field input:focus { outline: none; border-color: #d6bcad; box-shadow: 0 0 0 4px rgba(217, 194, 178, 0.16); background: #ffffff; }
+    .categories-search-btn { min-height: 48px; border: none; border-radius: 999px; padding: 0 26px; background: linear-gradient(135deg, #d6b19a, #a97c66); color: #fffaf7; font-weight: 700; font-size: 0.94rem; cursor: pointer; box-shadow: 0 10px 24px rgba(185, 143, 122, 0.22); transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease; white-space: nowrap; }
+    .categories-search-btn:hover { transform: translateY(-2px); box-shadow: 0 16px 32px rgba(185, 143, 122, 0.28); filter: brightness(1.04); }
+    .categories-clear-row { display: flex; justify-content: flex-end; margin-top: 12px; }
+    .categories-clear-btn { border: none; background: transparent; color: var(--lux-muted); font-size: 0.88rem; text-decoration: underline; cursor: pointer; padding: 0; transition: opacity 0.18s ease; }
     .categories-clear-btn:hover { opacity: 0.65; }
 
-    /* ── RESULTS CONTAINER ── */
-    .categories-results {
-      background:
-        radial-gradient(circle at top left, rgba(200,166,161,0.08), transparent 40%),
-        linear-gradient(180deg, rgba(238,231,225,0.95), rgba(232,224,218,0.98));
-      border: 1px solid rgba(223, 210, 200, 0.7);
-      border-radius: 32px;
-      padding: 28px 22px 36px;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.4);
-    }
+    .categories-results { background: radial-gradient(circle at top left, rgba(200,166,161,0.08), transparent 40%), linear-gradient(180deg, rgba(238,231,225,0.95), rgba(232,224,218,0.98)); border: 1px solid rgba(223, 210, 200, 0.7); border-radius: 32px; padding: 28px 22px 36px; box-shadow: inset 0 1px 0 rgba(255,255,255,0.4); }
+    .categories-results-top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 22px; }
+    .categories-results-label { font-size: 0.9rem; color: var(--lux-muted); margin: 0; letter-spacing: 0.01em; }
+    .categories-results-label strong { color: var(--lux-espresso); font-weight: 600; }
 
-    .categories-results-top {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 22px;
-    }
+    .categories-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; align-items: stretch; }
+    .category-vendor-card { background: rgba(255, 250, 247, 0.94); border: 1px solid rgba(223, 210, 200, 0.9); border-radius: 24px; padding: 14px 14px 18px; text-align: left; box-shadow: 0 6px 18px var(--lux-shadow); transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease; cursor: pointer; display: flex; flex-direction: column; min-height: 100%; overflow: hidden; }
+    .category-vendor-card:hover { transform: translateY(-7px); box-shadow: 0 24px 60px rgba(59, 47, 42, 0.12); border-color: rgba(198, 167, 125, 0.65); }
+    .category-vendor-card img { width: 100%; border-radius: 16px; margin-bottom: 16px; aspect-ratio: 1.26 / 1; object-fit: cover; background: var(--lux-blush); display: block; filter: brightness(0.98) contrast(0.95) saturate(0.92); transition: transform 0.45s ease, filter 0.35s ease; }
+    .category-vendor-card:hover img { transform: scale(1.045); filter: brightness(1) contrast(0.97) saturate(0.97); }
+    .category-vendor-card h3 { margin: 0 0 7px; font-family: "Cormorant Garamond", serif; font-weight: 500; font-size: clamp(1.7rem, 2vw, 2.1rem); line-height: 1; letter-spacing: -0.025em; color: var(--lux-espresso); }
+    .category-vendor-card p { font-size: 0.93rem; color: var(--lux-muted); line-height: 1.65; margin: 0; }
+    .category-vendor-meta { font-size: 0.84rem; color: #8a7468; font-weight: 600; margin-bottom: 5px; letter-spacing: 0.01em; }
+    .category-vendor-location { font-size: 0.84rem; color: #a08479; margin-bottom: 8px; }
+    .category-vendor-actions { margin-top: auto; padding-top: 16px; }
+    .category-vendor-btn { border: none; background: linear-gradient(135deg, #d6b19a, #a97c66); color: #fffaf7; padding: 11px 20px; border-radius: 999px; font-size: 0.9rem; font-weight: 700; line-height: 1; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 8px 20px rgba(185, 143, 122, 0.2); transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease; }
+    .category-vendor-btn:hover { transform: translateY(-2px); box-shadow: 0 14px 28px rgba(185, 143, 122, 0.28); filter: brightness(1.04); }
+    .categories-empty { max-width: 600px; margin: 28px auto 0; color: var(--lux-muted); line-height: 1.75; text-align: center; font-style: italic; font-family: "Cormorant Garamond", serif; font-size: 1.1rem; }
 
-    .categories-results-label {
-      font-size: 0.9rem;
-      color: var(--lux-muted);
-      margin: 0;
-      letter-spacing: 0.01em;
-    }
-    .categories-results-label strong {
-      color: var(--lux-espresso);
-      font-weight: 600;
-    }
-
-    /* ── VENDOR CARDS ── */
-    .categories-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 22px;
-      align-items: stretch;
-    }
-
-    .category-vendor-card {
-      background: rgba(255, 250, 247, 0.94);
-      border: 1px solid rgba(223, 210, 200, 0.9);
-      border-radius: 24px;
-      padding: 14px 14px 18px;
-      text-align: left;
-      box-shadow: 0 6px 18px var(--lux-shadow);
-      transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      min-height: 100%;
-      overflow: hidden;
-    }
-    .category-vendor-card:hover {
-      transform: translateY(-7px);
-      box-shadow: 0 24px 60px rgba(59, 47, 42, 0.12);
-      border-color: rgba(198, 167, 125, 0.65);
-    }
-
-    .category-vendor-card img {
-      width: 100%;
-      border-radius: 16px;
-      margin-bottom: 16px;
-      aspect-ratio: 1.26 / 1;
-      object-fit: cover;
-      background: var(--lux-blush);
-      display: block;
-      filter: brightness(0.98) contrast(0.95) saturate(0.92);
-      transition: transform 0.45s ease, filter 0.35s ease;
-    }
-    .category-vendor-card:hover img {
-      transform: scale(1.045);
-      filter: brightness(1) contrast(0.97) saturate(0.97);
-    }
-
-    .category-vendor-card h3 {
-      margin: 0 0 7px;
-      font-family: "Cormorant Garamond", serif;
-      font-weight: 500;
-      font-size: clamp(1.7rem, 2vw, 2.1rem);
-      line-height: 1;
-      letter-spacing: -0.025em;
-      color: var(--lux-espresso);
-    }
-
-    .category-vendor-card p {
-      font-size: 0.93rem;
-      color: var(--lux-muted);
-      line-height: 1.65;
-      margin: 0;
-    }
-
-    .category-vendor-meta {
-      font-size: 0.84rem;
-      color: #8a7468;
-      font-weight: 600;
-      margin-bottom: 5px;
-      letter-spacing: 0.01em;
-    }
-
-    .category-vendor-location {
-      font-size: 0.84rem;
-      color: #a08479;
-      margin-bottom: 8px;
-    }
-
-    .category-vendor-actions {
-      margin-top: auto;
-      padding-top: 16px;
-    }
-
-    .category-vendor-btn {
-      border: none;
-      background: linear-gradient(135deg, #d6b19a, #a97c66);
-      color: #fffaf7;
-      padding: 11px 20px;
-      border-radius: 999px;
-      font-size: 0.9rem;
-      font-weight: 700;
-      line-height: 1;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 8px 20px rgba(185, 143, 122, 0.2);
-      transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
-    }
-    .category-vendor-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 14px 28px rgba(185, 143, 122, 0.28);
-      filter: brightness(1.04);
-    }
-
-    .categories-empty {
-      max-width: 600px;
-      margin: 28px auto 0;
-      color: var(--lux-muted);
-      line-height: 1.75;
-      text-align: center;
-      font-style: italic;
-      font-family: "Cormorant Garamond", serif;
-      font-size: 1.1rem;
-    }
-
-    /* Footer */
-    .site-footer {
-      background:
-        radial-gradient(circle at top, rgba(200, 166, 161, 0.16), transparent 36%),
-        linear-gradient(180deg, #f5eee9 0%, #eee5df 100%);
-    }
+    .site-footer { background: radial-gradient(circle at top, rgba(200, 166, 161, 0.16), transparent 36%), linear-gradient(180deg, #f5eee9 0%, #eee5df 100%); }
     .footer-title { color: var(--lux-espresso); letter-spacing: -0.035em; }
     .footer-eyebrow { color: #b08d7d; }
 
-    /* ── RESPONSIVE ── */
-    @media (max-width: 1180px) {
-      .categories-search-grid { grid-template-columns: 1fr 1fr; }
-      .categories-search-btn { width: 100%; }
-    }
-
-    @media (max-width: 980px) {
-      .categories-page { padding: 16px 16px 48px; }
-      .categories-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
-    }
-
+    @media (max-width: 1180px) { .categories-search-grid { grid-template-columns: 1fr 1fr; } .categories-search-btn { width: 100%; } }
+    @media (max-width: 980px) { .categories-page { padding: 16px 16px 48px; } .categories-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; } }
     @media (max-width: 700px) {
       .categories-page { padding: 10px 10px 40px; }
-
-      .categories-hero,
-      .categories-results,
-      .categories-search-panel { border-radius: 24px; }
-
+      .categories-hero, .categories-results, .categories-search-panel { border-radius: 24px; }
       .categories-hero { padding: 32px 18px 22px; }
       .categories-logo { width: 72px; margin-bottom: 14px; }
       .categories-title { font-size: clamp(2.3rem, 9vw, 3.2rem); }
       .categories-subtitle { font-size: 0.93rem; margin-top: 12px; }
-
-      .categories-filter-wrap {
-        margin-top: 20px;
-        overflow-x: auto;
-        overflow-y: hidden;
-        padding-bottom: 4px;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-      }
+      .categories-filter-wrap { margin-top: 20px; overflow-x: auto; overflow-y: hidden; padding-bottom: 4px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
       .categories-filter-wrap::-webkit-scrollbar { display: none; }
-
-      .categories-filter-bar {
-        flex-wrap: nowrap;
-        justify-content: flex-start;
-        width: max-content;
-        min-width: 100%;
-      }
-
-      .categories-filter-pill {
-        flex: 0 0 auto;
-        min-height: 40px;
-        padding: 10px 15px;
-        font-size: 0.86rem;
-      }
-
+      .categories-filter-bar { flex-wrap: nowrap; justify-content: flex-start; width: max-content; min-width: 100%; }
+      .categories-filter-pill { flex: 0 0 auto; min-height: 40px; padding: 10px 15px; font-size: 0.86rem; }
       .categories-search-panel { margin-top: 18px; padding: 16px; }
       .categories-search-grid { grid-template-columns: 1fr; gap: 10px; }
       .categories-clear-row { justify-content: center; margin-top: 12px; }
-
       .categories-results { padding: 20px 14px 26px; }
       .categories-grid { grid-template-columns: 1fr; gap: 14px; }
-
       .category-vendor-card { padding: 12px 12px 16px; border-radius: 20px; }
       .category-vendor-card img { border-radius: 14px; aspect-ratio: 1.2/1; margin-bottom: 12px; }
       .category-vendor-card h3 { font-size: 1.8rem; }
-
-      .category-vendor-btn,
-      .categories-search-btn { width: 100%; }
+      .category-vendor-btn, .categories-search-btn { width: 100%; }
     }
   </style>
 </head>
@@ -494,6 +107,10 @@
 <div class="page-auth">
   <a href="categories.html" id="categoriesLink" class="auth-link">Categories</a>
   <a href="shop.html" id="shopLink" class="auth-link">Boutique</a>
+  <a href="messages.html" id="messagesLink" class="auth-link" style="display:none; position:relative;">
+    Messages
+    <span id="msgNavBadge" style="display:none; position:absolute; top:-6px; right:-10px; background:linear-gradient(135deg,#d6b19a,#a97c66); color:#fffaf7; font-size:0.68rem; font-weight:700; padding:2px 6px; border-radius:999px; line-height:1.2; min-width:18px; text-align:center;">0</span>
+  </a>
   <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
   <a href="login.html" id="loginLink" class="auth-link">Log In</a>
   <a href="dashboard.html" id="dashboardLink" class="auth-link" style="display:none;">Dashboard</a>
@@ -503,49 +120,35 @@
 <main class="categories-page">
   <section class="categories-hero">
     <a href="index.html" aria-label="Go to homepage">
-      <img src="images/logo.png" alt="Our Wedding Day Hub" class="categories-logo">
+      <img src="images/logo.png" alt="Our Wedding Day Hub" class="categories-logo" loading="lazy">
     </a>
-
     <p class="categories-kicker">Browse wedding vendors</p>
     <h1 class="categories-title" id="categoryPageTitle">All Categories</h1>
     <p class="categories-script">find the people who make it perfect ♡</p>
-    <p class="categories-subtitle" id="categoryPageSubtitle">
-      Discover trusted wedding vendors and explore beautiful businesses for every part of your day.
-    </p>
-
+    <p class="categories-subtitle" id="categoryPageSubtitle">Discover trusted wedding vendors and explore beautiful businesses for every part of your day.</p>
     <div class="categories-filter-wrap">
       <div class="categories-filter-bar" id="categoriesFilterBar"></div>
     </div>
-
     <div class="categories-search-panel">
       <div class="categories-search-grid">
         <div class="categories-search-field">
           <label for="mainCategorySelect">Category</label>
-          <select id="mainCategorySelect">
-            <option value="all">All Categories</option>
-          </select>
+          <select id="mainCategorySelect"><option value="all">All Categories</option></select>
         </div>
-
         <div class="categories-search-field">
           <label for="subCategorySelect">Subcategory</label>
-          <select id="subCategorySelect">
-            <option value="all">All Subcategories</option>
-          </select>
+          <select id="subCategorySelect"><option value="all">All Subcategories</option></select>
         </div>
-
         <div class="categories-search-field">
           <label for="locationSearch">Location</label>
           <input type="text" id="locationSearch" placeholder="Suburb, city, state or country">
         </div>
-
         <div class="categories-search-field">
           <label for="keywordSearch">Search</label>
           <input type="text" id="keywordSearch" placeholder="Search vendor or keyword">
         </div>
-
         <button type="button" id="searchBtn" class="categories-search-btn">Search</button>
       </div>
-
       <div class="categories-clear-row">
         <button type="button" id="clearFiltersBtn" class="categories-clear-btn">Clear filters</button>
       </div>
@@ -554,22 +157,16 @@
 
   <section class="categories-results">
     <div class="categories-results-top">
-      <p class="categories-results-label">
-        Showing <strong id="resultsCount">0</strong> vendor(s)
-      </p>
+      <p class="categories-results-label">Showing <strong id="resultsCount">0</strong> vendor(s)</p>
     </div>
-
     <section id="categoriesGrid" class="categories-grid"></section>
-
-    <p id="categoriesEmpty" class="categories-empty" style="display:none;">
-      No vendors found just yet for this search. Try another category, subcategory, location or keyword.
-    </p>
+    <p id="categoriesEmpty" class="categories-empty" style="display:none;">No vendors found just yet for this search. Try another category, subcategory, location or keyword.</p>
   </section>
 </main>
 
 <footer class="site-footer">
   <div class="footer-content">
-    <p class="footer-eyebrow">wedding vendor directory</p>
+    <p class="footer-eyebrow">wedding planning directory</p>
     <h2 class="footer-title">Everything your wedding deserves.</h2>
     <p class="footer-text">Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.</p>
     <div class="footer-links">
@@ -590,14 +187,7 @@
 </footer>
 
 <script type="module">
-    import {
-      db,
-      auth,
-      collection,
-      getDocs,
-      onAuthStateChanged,
-      signOut
-    } from "./firebase.js";
+    import { db, auth, collection, getDocs, onAuthStateChanged, signOut } from "./firebase.js";
 
     const categoriesGrid = document.getElementById("categoriesGrid");
     const categoriesEmpty = document.getElementById("categoriesEmpty");
@@ -605,14 +195,12 @@
     const categoryPageTitle = document.getElementById("categoryPageTitle");
     const categoryPageSubtitle = document.getElementById("categoryPageSubtitle");
     const categoriesFilterBar = document.getElementById("categoriesFilterBar");
-
     const mainCategorySelect = document.getElementById("mainCategorySelect");
     const subCategorySelect = document.getElementById("subCategorySelect");
     const locationSearch = document.getElementById("locationSearch");
     const keywordSearch = document.getElementById("keywordSearch");
     const searchBtn = document.getElementById("searchBtn");
     const clearFiltersBtn = document.getElementById("clearFiltersBtn");
-
     const joinLink = document.getElementById("joinLink");
     const loginLink = document.getElementById("loginLink");
     const dashboardLink = document.getElementById("dashboardLink");
@@ -627,311 +215,66 @@
     let allLiveVendors = [];
 
     const CATEGORY_GROUPS = {
-      photo_video: {
-        title: "Photo & Video",
-        subtitle: "Photographers, videographers and content creators to capture every beautiful moment.",
-        items: [
-          ["wedding_photographer", "Photographer"],
-          ["wedding_videographer", "Videographer"],
-          ["wedding_content_creator", "Content Creator"],
-          ["photo_and_video_team", "Photo & Video Team"],
-          ["engagement_photographer", "Engagement Photographer"],
-          ["drone_operator", "Drone Operator"]
-        ]
-      },
-      beauty: {
-        title: "Beauty",
-        subtitle: "Makeup, hair, nails, tanning and beauty professionals for your wedding day look.",
-        items: [
-          ["wedding_makeup_artist", "Makeup Artist"],
-          ["wedding_hair_stylist", "Hair Stylist"],
-          ["nail_artist", "Nail Artist"],
-          ["beauty_salon", "Beauty Salon"],
-          ["spray_tan", "Tanning"],
-          ["skin_aesthetics", "Skin & Aesthetics"],
-          ["brow_artist", "Brow Artist"],
-          ["lash_artist", "Lash Artist"],
-          ["barber_grooming", "Barber / Grooming"]
-        ]
-      },
-      entertainment: {
-        title: "Entertainment",
-        subtitle: "Singers, DJs, bands and performers to create the perfect atmosphere.",
-        items: [
-          ["wedding_singer", "Singer"],
-          ["wedding_band", "Band"],
-          ["wedding_dj", "DJ"],
-          ["acoustic_musician", "Acoustic Musician"],
-          ["violinist", "Violinist"],
-          ["saxophonist", "Saxophonist"],
-          ["harpist", "Harpist"],
-          ["wedding_mc", "MC"],
-          ["string_quartet", "String Quartet"],
-          ["live_entertainment", "Live Entertainment"]
-        ]
-      },
-      styling_florals: {
-        title: "Styling & Florals",
-        subtitle: "Florists, stylists and designers to shape the look and feel of your day.",
-        items: [
-          ["wedding_florist", "Florist"],
-          ["wedding_stylist", "Wedding Stylist"],
-          ["event_designer", "Event Designer"],
-          ["balloon_stylist", "Balloon Stylist"],
-          ["backdrops_arches", "Backdrops & Arches"],
-          ["ceremony_styling", "Ceremony Styling"],
-          ["reception_styling", "Reception Styling"]
-        ]
-      },
-      food_drink: {
-        title: "Food & Drink",
-        subtitle: "Caterers, cake designers, dessert vendors and drinks services for every celebration style.",
-        items: [
-          ["wedding_caterer", "Caterer"],
-          ["wedding_cake_designer", "Wedding Cake Designer"],
-          ["dessert_bar", "Dessert Bar"],
-          ["mobile_bar", "Mobile Bar"],
-          ["coffee_cart", "Coffee Cart"],
-          ["food_truck", "Food Truck"],
-          ["grazing_tables", "Grazing Tables"],
-          ["cocktail_catering", "Cocktail Catering"],
-          ["ice_cream_cart", "Ice Cream Cart"]
-        ]
-      },
-      venues: {
-        title: "Venues",
-        subtitle: "Beautiful spaces for ceremonies, receptions, elopements and unforgettable celebrations.",
-        items: [
-          ["wedding_venue", "Wedding Venue"],
-          ["ceremony_venue", "Ceremony Venue"],
-          ["reception_venue", "Reception Venue"],
-          ["elopement_location", "Elopement Location"],
-          ["outdoor_venue", "Outdoor Venue"],
-          ["church_ceremony_venue", "Church / Ceremony Venue"],
-          ["garden_venue", "Garden Venue"],
-          ["winery_venue", "Winery Venue"],
-          ["beach_venue", "Beach Venue"]
-        ]
-      },
-      stationery_signage: {
-        title: "Stationery & Signage",
-        subtitle: "Invitations, signage and paper details to complete your wedding styling.",
-        items: [
-          ["wedding_invitations", "Invitations"],
-          ["wedding_stationery", "Wedding Stationery"],
-          ["wedding_signage", "Signage"],
-          ["calligraphy", "Calligraphy"],
-          ["place_cards", "Place Cards"],
-          ["seating_charts", "Seating Charts"]
-        ]
-      },
-      fashion: {
-        title: "Fashion",
-        subtitle: "Bridal boutiques, formal wear and accessories for every wedding wardrobe.",
-        items: [
-          ["bridal_boutique", "Bridal Boutique"],
-          ["bridesmaid_dresses", "Bridesmaid Dresses"],
-          ["formal_wear", "Formal Wear"],
-          ["suit_hire", "Suit Hire"],
-          ["custom_designer", "Custom Designer"],
-          ["wedding_dress_alterations", "Wedding Dress Alterations"],
-          ["bridal_accessories", "Bridal Accessories"],
-          ["bridal_shoes", "Bridal Shoes"],
-          ["veils_headpieces", "Veils & Headpieces"]
-        ]
-      },
-      jewellery: {
-        title: "Jewellery",
-        subtitle: "Wedding rings, engagement rings and custom jewellery for lasting memories.",
-        items: [
-          ["wedding_rings", "Wedding Rings"],
-          ["engagement_rings", "Engagement Rings"],
-          ["custom_jewellery", "Custom Jewellery"],
-          ["permanent_jewellery", "Permanent Jewellery"]
-        ]
-      },
-      transport: {
-        title: "Transport",
-        subtitle: "Wedding cars, guest transport and elegant arrival options.",
-        items: [
-          ["wedding_cars", "Wedding Cars"],
-          ["luxury_cars", "Luxury Cars"],
-          ["vintage_cars", "Vintage Cars"],
-          ["limousine", "Limousine"],
-          ["guest_transport", "Guest Transport"],
-          ["bus_charter", "Bus Charter"],
-          ["horse_carriage", "Horse & Carriage"]
-        ]
-      },
-      experiences_unique_services: {
-        title: "Experiences & Unique Services",
-        subtitle: "Special extra touches to make your day feel unforgettable and personal.",
-        items: [
-          ["live_wedding_painter", "Live Wedding Painter"],
-          ["photo_booth", "Photo Booth"],
-          ["audio_guestbook", "Audio Guestbook"],
-          ["wedding_content_creator_unique", "Wedding Content Creator"],
-          ["fireworks_special_effects", "Fireworks / Special Effects"],
-          ["dance_lessons", "Dance Lessons"],
-          ["caricature_artist", "Caricature Artist"],
-          ["tarot_reader", "Tarot Reader"]
-        ]
-      },
-      pre_wedding_celebrations: {
-        title: "Pre-Wedding Celebrations",
-        subtitle: "Beautiful experiences, activities and celebration services for the events leading up to the wedding.",
-        items: [
-          ["engagement_party", "Engagement Party"],
-          ["bridal_shower", "Bridal Shower"],
-          ["wedding_shower", "Wedding Shower"],
-          ["pre_wedding_celebration", "Pre-Wedding Celebration"],
-          ["group_experience", "Group Experience"],
-          ["party_workshop", "Party Workshop"],
-          ["celebration_planning", "Celebration Planning"]
-        ]
-      },
-      ceremony_services: {
-        title: "Ceremony Services",
-        subtitle: "Celebrants and ceremony support to help create a meaningful moment.",
-        items: [
-          ["wedding_celebrant", "Celebrant"],
-          ["ceremony_music", "Ceremony Music"],
-          ["wedding_vows_speech_writer", "Vow / Speech Writer"]
-        ]
-      },
-      planning_support: {
-        title: "Planning & Support",
-        subtitle: "Wedding planners, coordinators and support professionals to help everything run smoothly.",
-        items: [
-          ["wedding_planner", "Wedding Planner"],
-          ["wedding_coordinator", "Wedding Coordinator"],
-          ["on_the_day_coordinator", "On-the-day Coordinator"],
-          ["honeymoon_planner", "Honeymoon Planner"],
-          ["wedding_consultant", "Wedding Consultant"]
-        ]
-      },
-      care_services: {
-        title: "Care Services",
-        subtitle: "Helpful support services for pets and children on your wedding day.",
-        items: [
-          ["pet_attendant", "Pet Attendant"],
-          ["child_minder_wedding_nanny", "Child Minder / Wedding Nanny"]
-        ]
-      },
-      hire_rentals: {
-        title: "Hire & Rentals",
-        subtitle: "Furniture, decor, lighting and event hire items for weddings of every style.",
-        items: [
-          ["furniture_hire", "Furniture Hire"],
-          ["decor_hire", "Decor Hire"],
-          ["tableware_hire", "Tableware Hire"],
-          ["lighting_hire", "Lighting Hire"],
-          ["marquee_hire", "Marquee Hire"],
-          ["styling_hire", "Styling Hire"],
-          ["dance_floor_hire", "Dance Floor Hire"],
-          ["linen_hire", "Linen Hire"],
-          ["prop_hire", "Prop Hire"]
-        ]
-      },
-      gifts_favours: {
-        title: "Gifts & Favours",
-        subtitle: "Thoughtful gifts, hampers and bomboniere for your guests and wedding party.",
-        items: [
-          ["wedding_favours", "Wedding Favours"],
-          ["personalised_gifts", "Personalised Gifts"],
-          ["hampers", "Hampers"],
-          ["bomboniere", "Bomboniere"]
-        ]
-      },
-      keepsakes: {
-        title: "Keepsakes",
-        subtitle: "Meaningful pieces and personalised keepsakes to help couples remember their day forever.",
-        items: [
-          ["wedding_album", "Wedding Album"],
-          ["photo_book", "Photo Book"],
-          ["guestbook_keepsake", "Guestbook Keepsake"],
-          ["framed_prints", "Framed Prints"],
-          ["engraved_keepsakes", "Engraved Keepsakes"],
-          ["bridal_boxes", "Bridal Boxes"],
-          ["preserved_flowers", "Preserved Flowers"],
-          ["wedding_memory_box", "Wedding Memory Box"],
-          ["custom_illustration", "Custom Illustration"]
-        ]
-      },
-      health_wellness: {
-        title: "Health & Wellness",
-        subtitle: "Fitness, massage and wellness services to help you feel your best.",
-        items: [
-          ["bridal_fitness", "Bridal Fitness"],
-          ["massage_therapist", "Massage Therapist"],
-          ["wellness_services", "Wellness Services"],
-          ["botanical_wellness", "Botanical Wellness"]
-        ]
-      },
-      accommodation: {
-        title: "Accommodation",
-        subtitle: "Stays and accommodation options for wedding nights, guests and honeymoons.",
-        items: [
-          ["guest_accommodation", "Guest Accommodation"],
-          ["bridal_suite", "Bridal Suite"],
-          ["honeymoon_stay", "Honeymoon Stay"]
-        ]
-      },
-      all: {
-        title: "All Categories",
-        subtitle: "Discover trusted wedding vendors and explore beautiful businesses for every part of your day.",
-        items: []
-      }
+      photo_video: { title: "Photo & Video", subtitle: "Photographers, videographers and content creators to capture every beautiful moment.", items: [["wedding_photographer","Photographer"],["wedding_videographer","Videographer"],["wedding_content_creator","Content Creator"],["photo_and_video_team","Photo & Video Team"],["engagement_photographer","Engagement Photographer"],["drone_operator","Drone Operator"]] },
+      beauty: { title: "Beauty", subtitle: "Makeup, hair, nails, tanning and beauty professionals for your wedding day look.", items: [["wedding_makeup_artist","Makeup Artist"],["wedding_hair_stylist","Hair Stylist"],["nail_artist","Nail Artist"],["beauty_salon","Beauty Salon"],["spray_tan","Tanning"],["skin_aesthetics","Skin & Aesthetics"],["brow_artist","Brow Artist"],["lash_artist","Lash Artist"],["barber_grooming","Barber / Grooming"]] },
+      entertainment: { title: "Entertainment", subtitle: "Singers, DJs, bands and performers to create the perfect atmosphere.", items: [["wedding_singer","Singer"],["wedding_band","Band"],["wedding_dj","DJ"],["acoustic_musician","Acoustic Musician"],["violinist","Violinist"],["saxophonist","Saxophonist"],["harpist","Harpist"],["wedding_mc","MC"],["string_quartet","String Quartet"],["live_entertainment","Live Entertainment"]] },
+      styling_florals: { title: "Styling & Florals", subtitle: "Florists, stylists and designers to shape the look and feel of your day.", items: [["wedding_florist","Florist"],["wedding_stylist","Wedding Stylist"],["event_designer","Event Designer"],["balloon_stylist","Balloon Stylist"],["backdrops_arches","Backdrops & Arches"],["ceremony_styling","Ceremony Styling"],["reception_styling","Reception Styling"]] },
+      food_drink: { title: "Food & Drink", subtitle: "Caterers, cake designers, dessert vendors and drinks services for every celebration style.", items: [["wedding_caterer","Caterer"],["wedding_cake_designer","Wedding Cake Designer"],["dessert_bar","Dessert Bar"],["mobile_bar","Mobile Bar"],["coffee_cart","Coffee Cart"],["food_truck","Food Truck"],["grazing_tables","Grazing Tables"],["cocktail_catering","Cocktail Catering"],["ice_cream_cart","Ice Cream Cart"]] },
+      venues: { title: "Venues", subtitle: "Beautiful spaces for ceremonies, receptions, elopements and unforgettable celebrations.", items: [["wedding_venue","Wedding Venue"],["ceremony_venue","Ceremony Venue"],["reception_venue","Reception Venue"],["elopement_location","Elopement Location"],["outdoor_venue","Outdoor Venue"],["church_ceremony_venue","Church / Ceremony Venue"],["garden_venue","Garden Venue"],["winery_venue","Winery Venue"],["beach_venue","Beach Venue"]] },
+      stationery_signage: { title: "Stationery & Signage", subtitle: "Invitations, signage and paper details to complete your wedding styling.", items: [["wedding_invitations","Invitations"],["wedding_stationery","Wedding Stationery"],["wedding_signage","Signage"],["calligraphy","Calligraphy"],["place_cards","Place Cards"],["seating_charts","Seating Charts"]] },
+      fashion: { title: "Fashion", subtitle: "Bridal boutiques, formal wear and accessories for every wedding wardrobe.", items: [["bridal_boutique","Bridal Boutique"],["bridesmaid_dresses","Bridesmaid Dresses"],["formal_wear","Formal Wear"],["suit_hire","Suit Hire"],["custom_designer","Custom Designer"],["wedding_dress_alterations","Wedding Dress Alterations"],["bridal_accessories","Bridal Accessories"],["bridal_shoes","Bridal Shoes"],["veils_headpieces","Veils & Headpieces"]] },
+      jewellery: { title: "Jewellery", subtitle: "Wedding rings, engagement rings and custom jewellery for lasting memories.", items: [["wedding_rings","Wedding Rings"],["engagement_rings","Engagement Rings"],["custom_jewellery","Custom Jewellery"],["permanent_jewellery","Permanent Jewellery"]] },
+      transport: { title: "Transport", subtitle: "Wedding cars, guest transport and elegant arrival options.", items: [["wedding_cars","Wedding Cars"],["luxury_cars","Luxury Cars"],["vintage_cars","Vintage Cars"],["limousine","Limousine"],["guest_transport","Guest Transport"],["bus_charter","Bus Charter"],["horse_carriage","Horse & Carriage"]] },
+      experiences_unique_services: { title: "Experiences & Unique Services", subtitle: "Special extra touches to make your day feel unforgettable and personal.", items: [["live_wedding_painter","Live Wedding Painter"],["photo_booth","Photo Booth"],["audio_guestbook","Audio Guestbook"],["wedding_content_creator_unique","Wedding Content Creator"],["fireworks_special_effects","Fireworks / Special Effects"],["dance_lessons","Dance Lessons"],["caricature_artist","Caricature Artist"],["tarot_reader","Tarot Reader"]] },
+      pre_wedding_celebrations: { title: "Pre-Wedding Celebrations", subtitle: "Beautiful experiences, activities and celebration services for the events leading up to the wedding.", items: [["engagement_party","Engagement Party"],["bridal_shower","Bridal Shower"],["wedding_shower","Wedding Shower"],["pre_wedding_celebration","Pre-Wedding Celebration"],["group_experience","Group Experience"],["party_workshop","Party Workshop"],["celebration_planning","Celebration Planning"]] },
+      ceremony_services: { title: "Ceremony Services", subtitle: "Celebrants and ceremony support to help create a meaningful moment.", items: [["wedding_celebrant","Celebrant"],["ceremony_music","Ceremony Music"],["wedding_vows_speech_writer","Vow / Speech Writer"]] },
+      planning_support: { title: "Planning & Support", subtitle: "Wedding planners, coordinators and support professionals to help everything run smoothly.", items: [["wedding_planner","Wedding Planner"],["wedding_coordinator","Wedding Coordinator"],["on_the_day_coordinator","On-the-day Coordinator"],["honeymoon_planner","Honeymoon Planner"],["wedding_consultant","Wedding Consultant"]] },
+      care_services: { title: "Care Services", subtitle: "Helpful support services for pets and children on your wedding day.", items: [["pet_attendant","Pet Attendant"],["child_minder_wedding_nanny","Child Minder / Wedding Nanny"]] },
+      hire_rentals: { title: "Hire & Rentals", subtitle: "Furniture, decor, lighting and event hire items for weddings of every style.", items: [["furniture_hire","Furniture Hire"],["decor_hire","Decor Hire"],["tableware_hire","Tableware Hire"],["lighting_hire","Lighting Hire"],["marquee_hire","Marquee Hire"],["styling_hire","Styling Hire"],["dance_floor_hire","Dance Floor Hire"],["linen_hire","Linen Hire"],["prop_hire","Prop Hire"]] },
+      gifts_favours: { title: "Gifts & Favours", subtitle: "Thoughtful gifts, hampers and bomboniere for your guests and wedding party.", items: [["wedding_favours","Wedding Favours"],["personalised_gifts","Personalised Gifts"],["hampers","Hampers"],["bomboniere","Bomboniere"]] },
+      keepsakes: { title: "Keepsakes", subtitle: "Meaningful pieces and personalised keepsakes to help couples remember their day forever.", items: [["wedding_album","Wedding Album"],["photo_book","Photo Book"],["guestbook_keepsake","Guestbook Keepsake"],["framed_prints","Framed Prints"],["engraved_keepsakes","Engraved Keepsakes"],["bridal_boxes","Bridal Boxes"],["preserved_flowers","Preserved Flowers"],["wedding_memory_box","Wedding Memory Box"],["custom_illustration","Custom Illustration"]] },
+      health_wellness: { title: "Health & Wellness", subtitle: "Fitness, massage and wellness services to help you feel your best.", items: [["bridal_fitness","Bridal Fitness"],["massage_therapist","Massage Therapist"],["wellness_services","Wellness Services"],["botanical_wellness","Botanical Wellness"]] },
+      accommodation: { title: "Accommodation", subtitle: "Stays and accommodation options for wedding nights, guests and honeymoons.", items: [["guest_accommodation","Guest Accommodation"],["bridal_suite","Bridal Suite"],["honeymoon_stay","Honeymoon Stay"]] },
+      all: { title: "All Categories", subtitle: "Discover trusted wedding vendors and explore beautiful businesses for every part of your day.", items: [] }
     };
 
-    const MAIN_CATEGORY_ORDER = [
-      "photo_video","beauty","entertainment","styling_florals","food_drink","venues",
-      "stationery_signage","fashion","jewellery","transport","experiences_unique_services",
-      "pre_wedding_celebrations","ceremony_services","planning_support","care_services",
-      "hire_rentals","gifts_favours","keepsakes","health_wellness","accommodation","all"
-    ];
+    const MAIN_CATEGORY_ORDER = ["photo_video","beauty","entertainment","styling_florals","food_drink","venues","stationery_signage","fashion","jewellery","transport","experiences_unique_services","pre_wedding_celebrations","ceremony_services","planning_support","care_services","hire_rentals","gifts_favours","keepsakes","health_wellness","accommodation","all"];
 
-    function cleanArray(arr) {
-      return Array.isArray(arr) ? arr.filter(Boolean) : [];
-    }
-
-    function formatText(value) {
-      if (!value) return "";
-      return String(value).replace(/_/g, " ").replace(/-/g, " ").replace(/\s+/g, " ").trim().replace(/\b\w/g, char => char.toUpperCase());
-    }
+    function cleanArray(arr) { return Array.isArray(arr) ? arr.filter(Boolean) : []; }
+    function formatText(value) { if (!value) return ""; return String(value).replace(/_/g," ").replace(/-/g," ").replace(/\s+/g," ").trim().replace(/\b\w/g,char=>char.toUpperCase()); }
 
     function getCardImage(vendor) {
-      if (vendor.coverImageUrl && String(vendor.coverImageUrl).trim()) return vendor.coverImageUrl;
+      if (vendor.coverImageUrl?.trim()) return vendor.coverImageUrl;
       if (Array.isArray(vendor.images) && vendor.images.length > 0) return vendor.images[0];
-      if (vendor.profileImageUrl && String(vendor.profileImageUrl).trim()) return vendor.profileImageUrl;
-      if (vendor.logoUrl && String(vendor.logoUrl).trim()) return vendor.logoUrl;
-      if (vendor.coverImage && String(vendor.coverImage).trim()) return vendor.coverImage;
-      if (vendor.profileImage && String(vendor.profileImage).trim()) return vendor.profileImage;
+      if (vendor.profileImageUrl?.trim()) return vendor.profileImageUrl;
+      if (vendor.logoUrl?.trim()) return vendor.logoUrl;
+      if (vendor.coverImage?.trim()) return vendor.coverImage;
+      if (vendor.profileImage?.trim()) return vendor.profileImage;
       return "images/bouquet.png";
     }
 
     function getShortBio(vendor) {
-      const source = (vendor.shortBio || "").trim() || (vendor.tagline || "").trim() || (vendor.bio || "").trim() || (vendor.description || "").trim();
+      const source = (vendor.shortBio||"").trim() || (vendor.tagline||"").trim() || (vendor.bio||"").trim() || (vendor.description||"").trim();
       if (!source) return "Beautiful vendor profile coming soon.";
-      return source.length > 110 ? source.slice(0, 110).trim() + "..." : source;
+      return source.length > 110 ? source.slice(0,110).trim()+"..." : source;
     }
 
     function getCategoryLine(vendor) {
       const categories = Array.isArray(vendor.categories) && vendor.categories.length ? vendor.categories : vendor.category ? [vendor.category] : [];
       const cleaned = cleanArray(categories);
       if (!cleaned.length) return "";
-      return cleaned.slice(0, 3).map(formatText).join(" • ");
+      return cleaned.slice(0,3).map(formatText).join(" • ");
     }
 
     function getLocationLine(vendor) {
-      if (vendor.serviceAreas && String(vendor.serviceAreas).trim()) return formatText(vendor.serviceAreas.trim());
+      if (vendor.serviceAreas?.trim()) return formatText(vendor.serviceAreas.trim());
       const regions = cleanArray(vendor.regions);
-      if (regions.length) return regions.slice(0, 3).map(formatText).join(" • ");
+      if (regions.length) return regions.slice(0,3).map(formatText).join(" • ");
       const states = cleanArray(vendor.states);
       if (states.length) return states.map(formatText).join(" • ");
       const countries = cleanArray(vendor.countries);
       if (countries.length) return countries.map(formatText).join(" • ");
-      if (vendor.displayLocation && String(vendor.displayLocation).trim()) return formatText(vendor.displayLocation.trim());
+      if (vendor.displayLocation?.trim()) return formatText(vendor.displayLocation.trim());
       return "";
     }
 
@@ -975,8 +318,7 @@
         if (!config) return;
         config.items.forEach(([value, label]) => {
           const option = document.createElement("option");
-          option.value = value;
-          option.textContent = label;
+          option.value = value; option.textContent = label;
           subCategorySelect.appendChild(option);
         });
       });
@@ -997,9 +339,7 @@
       });
     }
 
-    function getSelectedMainCategoryConfig() {
-      return CATEGORY_GROUPS[selectedType] || CATEGORY_GROUPS.all;
-    }
+    function getSelectedMainCategoryConfig() { return CATEGORY_GROUPS[selectedType] || CATEGORY_GROUPS.all; }
 
     function renderPageHeader() {
       const config = getSelectedMainCategoryConfig();
@@ -1008,18 +348,17 @@
     }
 
     function normalizeLocationText(vendor) {
-      const parts = [vendor.serviceAreas || "", vendor.displayLocation || "", ...(Array.isArray(vendor.regions) ? vendor.regions : []), ...(Array.isArray(vendor.states) ? vendor.states : []), ...(Array.isArray(vendor.countries) ? vendor.countries : []), vendor.country || ""];
-      return parts.join(" ").toLowerCase().replace(/\s+/g, " ").trim();
+      const parts = [vendor.serviceAreas||"",vendor.displayLocation||"",...(Array.isArray(vendor.regions)?vendor.regions:[]),...(Array.isArray(vendor.states)?vendor.states:[]),...(Array.isArray(vendor.countries)?vendor.countries:[]),vendor.country||""];
+      return parts.join(" ").toLowerCase().replace(/\s+/g," ").trim();
     }
 
     function getKeywordSearchText(vendor) {
-      return `${vendor.businessName || ""} ${vendor.bio || ""} ${vendor.shortBio || ""} ${vendor.description || ""} ${vendor.tagline || ""} ${vendor.serviceAreas || ""} ${vendor.displayLocation || ""} ${vendor.instagram || ""} ${vendor.facebook || ""} ${vendor.tiktok || ""} ${vendor.youtube || ""} ${vendor.pinterest || ""} ${vendor.linkedin || ""} ${vendor.x || ""} ${vendor.website || ""} ${cleanArray(vendor.categories).join(" ")} ${cleanArray(vendor.regions).join(" ")} ${cleanArray(vendor.states).join(" ")} ${cleanArray(vendor.countries).join(" ")} ${cleanArray(vendor.styleTags).join(" ")}`.toLowerCase();
+      return `${vendor.businessName||""} ${vendor.bio||""} ${vendor.shortBio||""} ${vendor.description||""} ${vendor.tagline||""} ${vendor.serviceAreas||""} ${vendor.displayLocation||""} ${cleanArray(vendor.categories).join(" ")} ${cleanArray(vendor.regions).join(" ")} ${cleanArray(vendor.states).join(" ")} ${cleanArray(vendor.countries).join(" ")} ${cleanArray(vendor.styleTags).join(" ")}`.toLowerCase();
     }
 
     function vendorMatchesMainCategory(vendor, mainCategory) {
       if (mainCategory === "all") return true;
-      const categories = getVendorCategories(vendor);
-      return categories.some(category => getMainCategoryForSubcategory(category) === mainCategory);
+      return getVendorCategories(vendor).some(category => getMainCategoryForSubcategory(category) === mainCategory);
     }
 
     function vendorMatchesSubcategory(vendor, subcategory) {
@@ -1028,23 +367,23 @@
     }
 
     function vendorMatchesLocation(vendor, locationValue) {
-      const query = String(locationValue || "").trim().toLowerCase();
-      if (!query) return true;
+      const q = String(locationValue||"").trim().toLowerCase();
+      if (!q) return true;
       const locationText = normalizeLocationText(vendor);
-      if (query === "australia & new zealand") return locationText.includes("australia") || locationText.includes("new zealand");
-      if (query === "united kingdom & ireland") return locationText.includes("united kingdom") || locationText.includes("uk") || locationText.includes("ireland");
-      if (query === "north america") return locationText.includes("united states") || locationText.includes("usa") || locationText.includes("canada") || locationText.includes("mexico") || locationText.includes("north america");
-      if (query === "south america") return locationText.includes("south america") || locationText.includes("brazil") || locationText.includes("argentina") || locationText.includes("chile") || locationText.includes("colombia") || locationText.includes("peru") || locationText.includes("uruguay") || locationText.includes("paraguay") || locationText.includes("ecuador") || locationText.includes("bolivia") || locationText.includes("venezuela");
-      if (query === "asia") return locationText.includes("asia") || locationText.includes("philippines") || locationText.includes("singapore") || locationText.includes("indonesia") || locationText.includes("thailand") || locationText.includes("malaysia") || locationText.includes("japan") || locationText.includes("india") || locationText.includes("china") || locationText.includes("vietnam") || locationText.includes("bali");
-      if (query === "europe") return locationText.includes("europe") || locationText.includes("england") || locationText.includes("scotland") || locationText.includes("wales") || locationText.includes("france") || locationText.includes("italy") || locationText.includes("spain") || locationText.includes("greece") || locationText.includes("portugal") || locationText.includes("germany") || locationText.includes("netherlands") || locationText.includes("switzerland");
-      if (query === "worldwide") return true;
-      return locationText.includes(query);
+      if (q === "australia & new zealand") return locationText.includes("australia") || locationText.includes("new zealand");
+      if (q === "united kingdom & ireland") return locationText.includes("united kingdom") || locationText.includes("uk") || locationText.includes("ireland");
+      if (q === "north america") return locationText.includes("united states") || locationText.includes("usa") || locationText.includes("canada") || locationText.includes("mexico") || locationText.includes("north america");
+      if (q === "south america") return locationText.includes("south america") || locationText.includes("brazil") || locationText.includes("argentina") || locationText.includes("chile");
+      if (q === "asia") return locationText.includes("asia") || locationText.includes("philippines") || locationText.includes("singapore") || locationText.includes("indonesia") || locationText.includes("thailand") || locationText.includes("malaysia") || locationText.includes("japan") || locationText.includes("india") || locationText.includes("china") || locationText.includes("bali");
+      if (q === "europe") return locationText.includes("europe") || locationText.includes("england") || locationText.includes("scotland") || locationText.includes("france") || locationText.includes("italy") || locationText.includes("spain") || locationText.includes("greece") || locationText.includes("portugal") || locationText.includes("germany");
+      if (q === "worldwide") return true;
+      return locationText.includes(q);
     }
 
     function vendorMatchesKeyword(vendor, keywordValue) {
-      const query = String(keywordValue || "").trim().toLowerCase();
-      if (!query) return true;
-      return getKeywordSearchText(vendor).includes(query);
+      const q = String(keywordValue||"").trim().toLowerCase();
+      if (!q) return true;
+      return getKeywordSearchText(vendor).includes(q);
     }
 
     function renderVendors(vendors) {
@@ -1052,7 +391,6 @@
       resultsCount.textContent = String(vendors.length);
       if (!vendors.length) { categoriesEmpty.style.display = "block"; return; }
       categoriesEmpty.style.display = "none";
-
       vendors.forEach((vendor) => {
         const card = document.createElement("article");
         card.className = "category-vendor-card";
@@ -1061,7 +399,6 @@
         const categoryLine = getCategoryLine(vendor);
         const locationLine = getLocationLine(vendor);
         const bio = getShortBio(vendor);
-
         card.innerHTML = `
           <img src="${image}" alt="${name}" loading="lazy">
           <h3>${name}</h3>
@@ -1072,7 +409,6 @@
             <button type="button" class="category-vendor-btn">View Profile</button>
           </div>
         `;
-
         card.addEventListener("click", () => goToVendor(vendor));
         card.querySelector(".category-vendor-btn").addEventListener("click", (event) => { event.stopPropagation(); goToVendor(vendor); });
         categoriesGrid.appendChild(card);
@@ -1101,15 +437,8 @@
       const headerConfig = CATEGORY_GROUPS[mainCategory] || CATEGORY_GROUPS.all;
       categoryPageTitle.textContent = headerConfig.title;
       categoryPageSubtitle.textContent = headerConfig.subtitle;
-      document.querySelectorAll(".categories-filter-pill").forEach((pill) => {
-        pill.classList.toggle("active", pill.dataset.type === mainCategory);
-      });
-      const filtered = allLiveVendors.filter(vendor =>
-        vendorMatchesMainCategory(vendor, mainCategory) &&
-        vendorMatchesSubcategory(vendor, subcategory) &&
-        vendorMatchesLocation(vendor, location) &&
-        vendorMatchesKeyword(vendor, keyword)
-      );
+      document.querySelectorAll(".categories-filter-pill").forEach((pill) => { pill.classList.toggle("active", pill.dataset.type === mainCategory); });
+      const filtered = allLiveVendors.filter(vendor => vendorMatchesMainCategory(vendor, mainCategory) && vendorMatchesSubcategory(vendor, subcategory) && vendorMatchesLocation(vendor, location) && vendorMatchesKeyword(vendor, keyword));
       renderVendors(filtered);
       updateUrlFromFilters();
     }
@@ -1120,8 +449,7 @@
         const liveVendors = [];
         snapshot.forEach((docSnap) => {
           const vendor = docSnap.data();
-          const hasLiveProfile = vendor && vendor.businessName && vendor.profileVisible !== false && vendor.published !== false;
-          if (vendor && hasLiveProfile) liveVendors.push({ ...vendor, docId: docSnap.id });
+          if (vendor && vendor.businessName && vendor.profileVisible !== false && vendor.published !== false) liveVendors.push({ ...vendor, docId: docSnap.id });
         });
         allLiveVendors = liveVendors;
         applyFilters();
@@ -1148,15 +476,6 @@
     locationSearch.addEventListener("keydown", (event) => { if (event.key === "Enter") { event.preventDefault(); applyFilters(); } });
     keywordSearch.addEventListener("keydown", (event) => { if (event.key === "Enter") { event.preventDefault(); applyFilters(); } });
     clearFiltersBtn.addEventListener("click", () => { mainCategorySelect.value = "all"; buildSubcategoryOptions("all"); subCategorySelect.value = "all"; locationSearch.value = ""; keywordSearch.value = ""; applyFilters(); });
-
-    onAuthStateChanged(auth, (user) => {
-      if (user) { joinLink.style.display = "none"; loginLink.style.display = "none"; dashboardLink.style.display = "inline-block"; logoutLink.style.display = "inline-block"; }
-      else { joinLink.style.display = "inline-flex"; loginLink.style.display = "inline-block"; dashboardLink.style.display = "none"; logoutLink.style.display = "none"; }
-    });
-
-    logoutLink.addEventListener("click", async () => {
-      try { await signOut(auth); window.location.href = "index.html"; } catch (error) { console.error("Logout failed:", error); }
-    });
 
     buildFilterPills();
     renderPageHeader();
