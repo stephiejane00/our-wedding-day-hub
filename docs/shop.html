@@ -3,780 +3,260 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Boutique | Our Wedding Day Hub</title>
+  <title>The Boutique | Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    .boutique-page {
-      max-width: 1520px;
-      margin: 0 auto 60px;
-      padding: 18px 20px 0;
-    }
+    :root { --lux-espresso: #3b2f2a; --lux-rose: #c8a6a1; --lux-champagne: #c6a77d; --lux-cream: #fffaf7; --lux-blush: #f4e7df; --lux-border: rgba(216, 197, 189, 0.55); --lux-muted: #9b8579; --lux-shadow: rgba(59, 47, 42, 0.08); }
+    body { background: radial-gradient(circle at top left, rgba(200, 166, 161, 0.12), transparent 32%), #f7f1ed; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes heroFadeIn { from { opacity: 0; transform: scale(1.01); } to { opacity: 1; transform: scale(1); } }
 
-    .boutique-stack {
-      display: grid;
-      gap: 28px;
-    }
+    .shop-page { max-width: 1520px; margin: 0 auto; padding: 18px 20px 56px; }
 
-.boutique-hero-card {
-  padding: 0;
-  overflow: hidden;
-  border-radius: 36px;
-  border: 1px solid rgba(227, 219, 212, 0.9);
-  box-shadow: 0 20px 46px rgba(52, 37, 30, 0.05);
-  background:
-    radial-gradient(circle at top center, rgba(231, 211, 199, 0.28), transparent 40%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(255, 249, 245, 0.92));
-}
+    .shop-hero { position: relative; background: radial-gradient(circle at top left, rgba(200, 166, 161, 0.18), transparent 34%), linear-gradient(135deg, #fffaf7, #f4ebe5); border: 1px solid rgba(227, 219, 212, 0.9); border-radius: 36px; overflow: hidden; box-shadow: 0 24px 70px var(--lux-shadow); margin-bottom: 28px; }
+    .shop-hero-grid { display: grid; grid-template-columns: 1.02fr 0.98fr; align-items: stretch; min-height: 520px; }
+    .shop-hero-copy { padding: 52px 48px; display: flex; flex-direction: column; justify-content: center; }
+    .shop-hero-copy > * { animation: fadeUp 0.8s ease forwards; opacity: 0; }
+    .shop-hero-copy > *:nth-child(1) { animation-delay: 0.05s; } .shop-hero-copy > *:nth-child(2) { animation-delay: 0.1s; } .shop-hero-copy > *:nth-child(3) { animation-delay: 0.18s; } .shop-hero-copy > *:nth-child(4) { animation-delay: 0.26s; } .shop-hero-copy > *:nth-child(5) { animation-delay: 0.34s; }
+    .shop-logo-wrap { display: inline-flex; align-items: center; justify-content: flex-start; margin-bottom: 20px; }
+    .shop-logo { width: 108px; display: block; transition: transform 0.3s ease; }
+    .shop-logo:hover { transform: scale(1.04); }
+    .shop-kicker { margin: 0 0 12px; font-size: 0.78rem; letter-spacing: 0.28em; text-transform: uppercase; color: #b08d7d; opacity: 0.85; }
+    .shop-title { margin: 0 0 14px; font-family: "Cormorant Garamond", serif; font-size: clamp(2.8rem, 4.5vw, 4rem); font-weight: 500; line-height: 0.96; letter-spacing: -0.045em; color: var(--lux-espresso); }
+    .shop-script { margin: 0 0 18px; font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 1.3rem; color: #c69b84; opacity: 0.9; }
+    .shop-intro { margin: 0; max-width: 480px; color: var(--lux-muted); line-height: 1.8; font-size: 0.97rem; }
+    .shop-hero-image-wrap { position: relative; overflow: hidden; min-height: 100%; background: #f4ece6; }
+    .shop-hero-image-wrap::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(59, 47, 42, 0.08), transparent 45%); pointer-events: none; }
+    .shop-hero-image { width: 100%; height: 100%; display: block; object-fit: cover; filter: brightness(0.98) contrast(0.94) saturate(0.92); opacity: 0; animation: heroFadeIn 0.9s ease forwards; transition: transform 0.9s ease; }
+    .shop-hero-image-wrap:hover .shop-hero-image { transform: scale(1.035); }
 
-    .boutique-hero-grid {
-      display: grid;
-      grid-template-columns: 0.9fr 1.1fr;
-      align-items: stretch;
-      min-height: 640px;
-    }
+    .shop-filter-strip { display: flex; align-items: center; gap: 12px; padding: 0 4px; flex-wrap: wrap; margin-bottom: 6px; }
+    .shop-filter-pill { display: inline-flex; align-items: center; justify-content: center; padding: 10px 18px; min-height: 42px; border-radius: 999px; background: rgba(255, 250, 247, 0.92); border: 1px solid rgba(223, 210, 200, 0.9); color: #6e5a52; font-size: 0.88rem; font-weight: 500; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 4px 12px var(--lux-shadow); }
+    .shop-filter-pill.active, .shop-filter-pill:hover { background: linear-gradient(135deg, #d6b19a, #a97c66); border-color: transparent; color: #fffaf7; box-shadow: 0 8px 20px rgba(185, 143, 122, 0.22); }
+    .shop-search-input { flex: 1; min-width: 200px; max-width: 320px; border: 1px solid rgba(223, 210, 200, 0.9); border-radius: 999px; padding: 10px 18px; font: inherit; font-size: 0.9rem; color: var(--lux-espresso); background: rgba(255, 250, 247, 0.92); transition: border-color 0.2s, box-shadow 0.2s; box-shadow: 0 4px 12px var(--lux-shadow); }
+    .shop-search-input:focus { outline: none; border-color: #d6bcad; box-shadow: 0 0 0 4px rgba(217, 194, 178, 0.16); }
 
-    .boutique-hero-copy {
-      padding: 54px 46px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      text-align: left;
-      background: linear-gradient(180deg, rgba(255,250,247,0.96) 0%, rgba(249,243,238,0.96) 100%);
-    }
+    .shop-results-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; }
+    .shop-results-label { color: var(--lux-muted); font-size: 0.9rem; margin: 0; }
+    .shop-results-label strong { color: var(--lux-espresso); }
 
-    .boutique-logo-wrap {
-      display: inline-flex;
-      align-items: center;
-      justify-content: flex-start;
-      margin-bottom: 20px;
-    }
+    .shop-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 22px; }
 
-    .boutique-logo {
-      width: 108px;
-      display: block;
-    }
+    .shop-card { background: rgba(255, 250, 247, 0.94); border: 1px solid rgba(223, 210, 200, 0.9); border-radius: 24px; overflow: hidden; box-shadow: 0 6px 18px var(--lux-shadow); transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease; display: flex; flex-direction: column; }
+    .shop-card:hover { transform: translateY(-7px); box-shadow: 0 24px 60px rgba(59, 47, 42, 0.12); border-color: rgba(198, 167, 125, 0.65); }
+    .shop-card-image-wrap { position: relative; overflow: hidden; background: var(--lux-blush); aspect-ratio: 1 / 1; }
+    .shop-card-image { width: 100%; height: 100%; object-fit: cover; display: block; filter: brightness(0.98) contrast(0.95) saturate(0.92); transition: transform 0.45s ease, filter 0.35s ease; }
+    .shop-card:hover .shop-card-image { transform: scale(1.045); filter: brightness(1) contrast(0.97) saturate(0.97); }
+    .shop-card-body { padding: 16px 18px 20px; display: flex; flex-direction: column; flex: 1; gap: 8px; }
+    .shop-card-vendor { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #b08d7d; margin: 0; }
+    .shop-card-name { margin: 0; font-family: "Cormorant Garamond", serif; font-size: 1.45rem; font-weight: 500; letter-spacing: -0.02em; color: var(--lux-espresso); line-height: 1.15; }
+    .shop-card-desc { margin: 0; color: var(--lux-muted); line-height: 1.65; font-size: 0.9rem; flex: 1; }
+    .shop-card-price { margin: 0; font-family: "Cormorant Garamond", serif; font-size: 1.35rem; font-weight: 500; color: var(--lux-espresso); letter-spacing: -0.02em; }
+    .shop-card-btn { display: inline-flex; align-items: center; justify-content: center; width: 100%; min-height: 44px; border-radius: 999px; border: none; background: linear-gradient(135deg, #d6b19a, #a97c66); color: #fffaf7; font: inherit; font-weight: 700; font-size: 0.9rem; cursor: pointer; box-shadow: 0 8px 20px rgba(185, 143, 122, 0.2); transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease; text-decoration: none; margin-top: 4px; }
+    .shop-card-btn:hover { transform: translateY(-2px); box-shadow: 0 14px 28px rgba(185, 143, 122, 0.28); filter: brightness(1.04); }
 
-    .boutique-eyebrow {
-      margin: 0 0 16px;
-      color: #b79a8a;
-      font-size: 0.84rem;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-    }
+    .shop-empty { text-align: center; padding: 48px 20px; color: var(--lux-muted); font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 1.2rem; line-height: 1.8; }
+    .shop-loading { text-align: center; padding: 48px 20px; color: var(--lux-muted); font-style: italic; font-size: 0.95rem; }
 
-    .boutique-title {
-      margin: 0;
-      font-family: "Cormorant Garamond", serif;
-      font-size: clamp(3.2rem, 6vw, 5.3rem);
-      font-weight: 500;
-      line-height: 0.95;
-      letter-spacing: -0.03em;
-      color: var(--text);
-    }
+    .shop-coming-soon { border-radius: 24px; background: linear-gradient(135deg, rgba(200,166,161,0.12), rgba(198,167,125,0.08)); border: 1px solid rgba(214, 190, 174, 0.8); padding: 40px 32px; text-align: center; margin-top: 16px; }
+    .shop-coming-soon h2 { margin: 0 0 14px; font-family: "Cormorant Garamond", serif; font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 500; letter-spacing: -0.03em; color: var(--lux-espresso); }
+    .shop-coming-soon p { max-width: 620px; margin: 0 auto 18px; color: var(--lux-muted); line-height: 1.8; font-size: 0.97rem; }
+    .shop-coming-soon a { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 12px 24px; border-radius: 999px; text-decoration: none; background: linear-gradient(135deg, #d6b19a, #a97c66); color: #fffaf7; font-weight: 700; font-size: 0.92rem; letter-spacing: 0.04em; box-shadow: 0 10px 24px rgba(185, 143, 122, 0.22); transition: transform 0.18s ease, box-shadow 0.18s ease; }
+    .shop-coming-soon a:hover { transform: translateY(-2px); box-shadow: 0 16px 32px rgba(185, 143, 122, 0.28); }
 
-    .boutique-script {
-      margin: 0 0 18px;
-      font-family: "Cormorant Garamond", serif;
-      font-style: italic;
-      font-size: clamp(2.4rem, 5vw, 4rem);
-      line-height: 0.95;
-      color: #b8947f;
-      font-weight: 400;
-    }
+    .site-footer { background: radial-gradient(circle at top, rgba(200, 166, 161, 0.16), transparent 36%), linear-gradient(180deg, #f5eee9 0%, #eee5df 100%); }
+    .footer-title { color: var(--lux-espresso); letter-spacing: -0.035em; }
+    .footer-eyebrow { color: #b08d7d; }
 
-    .boutique-heart {
-      margin: 4px 0 20px;
-      font-size: 2rem;
-      color: #ccb09e;
-      line-height: 1;
-    }
-
-    .boutique-intro,
-    .boutique-subtext {
-      max-width: 500px;
-      color: var(--muted);
-      line-height: 1.9;
-      font-size: 1.02rem;
-    }
-
-    .boutique-intro {
-      margin: 0 0 18px;
-    }
-
-    .boutique-divider {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin: 16px 0 18px;
-      max-width: 280px;
-      color: #c8ad9c;
-    }
-
-    .boutique-divider span {
-      display: block;
-      height: 1px;
-      flex: 1;
-      background: #decfc5;
-    }
-
-    .boutique-divider .divider-heart {
-      flex: 0 0 auto;
-      height: auto;
-      background: transparent;
-      font-size: 1rem;
-      line-height: 1;
-    }
-
-    .boutique-subtext {
-      margin: 0;
-    }
-
-    .boutique-hero-image-wrap {
-      min-height: 100%;
-      background: #f1e8e1;
-    }
-
-    .boutique-hero-image {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover;
-    }
-
-    .boutique-filter-card {
-      padding: 24px;
-      text-align: center;
-    }
-
-    .boutique-filter-title {
-      margin: 0 0 10px;
-      font-family: "Cormorant Garamond", serif;
-      font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 500;
-      color: var(--text);
-    }
-
-    .boutique-filter-text {
-      margin: 0 auto;
-      max-width: 720px;
-      color: var(--muted);
-      line-height: 1.8;
-    }
-
-    .boutique-pill-row {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 22px;
-    }
-
-    .boutique-pill {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 42px;
-      padding: 10px 16px;
-      border-radius: 999px;
-      background: #fffaf7;
-      border: 1px solid #e2d3c8;
-      color: #5b4a43;
-      font-weight: 600;
-      font-size: 0.92rem;
-    }
-
-    .boutique-products-card {
-      padding: 28px;
-    }
-
-    .boutique-products-top {
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 18px;
-      flex-wrap: wrap;
-      margin-bottom: 20px;
-      text-align: left;
-    }
-
-    .boutique-products-top h2 {
-      margin: 0;
-      font-family: "Cormorant Garamond", serif;
-      font-size: clamp(2.1rem, 4vw, 3.3rem);
-      font-weight: 500;
-      color: var(--text);
-    }
-
-    .boutique-products-top p {
-      margin: 8px 0 0;
-      color: var(--muted);
-      line-height: 1.7;
-    }
-
-    .boutique-product-count {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 40px;
-      padding: 9px 15px;
-      border-radius: 999px;
-      background: #fff7f2;
-      border: 1px solid #ead9cd;
-      color: #6d5549;
-      font-size: 0.9rem;
-      font-weight: 700;
-    }
-
-    .boutique-product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 22px;
-    }
-
-.boutique-product-card {
-  overflow: hidden;
-  border-radius: 28px;
-  border: 1px solid #eadfd7;
-  background: linear-gradient(180deg, #fffdfb 0%, #fff8f4 100%);
-  box-shadow: 0 14px 34px rgba(45, 31, 24, 0.045);
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  min-height: 100%;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-}
-    .boutique-product-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 18px 36px rgba(42, 28, 22, 0.08);
-  border-color: rgba(219, 199, 186, 1);
-}
-
-    .boutique-product-image-wrap {
-      position: relative;
-      background: #f4ece6;
-      aspect-ratio: 1 / 1;
-      overflow: hidden;
-    }
-
-    .boutique-product-image {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover;
-    }
-
-    .boutique-product-placeholder {
-      width: 100%;
-      height: 100%;
-      display: grid;
-      place-items: center;
-      color: #b89c8a;
-      font-family: "Cormorant Garamond", serif;
-      font-size: 2.8rem;
-      background:
-        radial-gradient(circle at top left, rgba(220, 196, 181, 0.28), transparent 36%),
-        linear-gradient(180deg, #fff8f4, #f2e7df);
-    }
-
-    .boutique-product-type {
-      position: absolute;
-      left: 14px;
-      top: 14px;
-      display: inline-flex;
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: rgba(255, 250, 247, 0.92);
-      border: 1px solid rgba(234, 217, 205, 0.95);
-      color: #5b4a43;
-      font-size: 0.8rem;
-      font-weight: 700;
-      backdrop-filter: blur(6px);
-    }
-
-    .boutique-product-body {
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      flex: 1;
-    }
-
-    .boutique-product-body h3 {
-      margin: 0;
-      font-family: "Cormorant Garamond", serif;
-      font-size: 1.75rem;
-      font-weight: 500;
-      line-height: 1.1;
-      color: var(--text);
-    }
-
-    .boutique-vendor {
-      margin: 0;
-      color: #9b7e6d;
-      font-size: 0.92rem;
-      font-weight: 700;
-    }
-
-    .boutique-price {
-      margin: 0;
-      color: #2d221c;
-      font-size: 1.15rem;
-      font-weight: 800;
-    }
-
-    .boutique-description,
-    .boutique-small-detail {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.7;
-      font-size: 0.95rem;
-    }
-
-    .boutique-small-detail strong {
-      color: #5f4c42;
-    }
-
-    .boutique-product-actions {
-      display: grid;
-      gap: 10px;
-      margin-top: auto;
-      padding-top: 8px;
-    }
-
-    .boutique-button {
-      min-height: 46px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 11px 16px;
-      border-radius: 999px;
-      background: linear-gradient(180deg, #ead8cd 0%, #e3cec0 100%);
-      color: #2d2521;
-      text-decoration: none;
-      font-weight: 700;
-      border: none;
-      cursor: pointer;
-      transition: transform 0.18s ease, opacity 0.18s ease, box-shadow 0.18s ease;
-    }
-
-    .boutique-button:hover {
-      opacity: 0.94;
-      transform: translateY(-1px);
-      box-shadow: 0 10px 22px rgba(17,17,17,0.12);
-    }
-
-    .boutique-button-soft {
-      background: #f1e4db;
-      color: #3a2a22;
-    }
-
-    .boutique-empty {
-      padding: 42px 24px;
-      text-align: center;
-      border-radius: 28px;
-      border: 1px dashed #dccabe;
-      background: #fffaf7;
-      color: var(--muted);
-      line-height: 1.8;
-    }
-
-    .boutique-empty h3 {
-      margin: 0 0 10px;
-      font-family: "Cormorant Garamond", serif;
-      font-size: 2rem;
-      font-weight: 500;
-      color: var(--text);
-    }
-
-    @media (max-width: 1100px) {
-      .boutique-hero-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .boutique-hero-copy {
-        padding: 40px 28px;
-      }
-
-      .boutique-hero-image {
-        max-height: 620px;
-      }
-    }
-
-    @media (max-width: 700px) {
-      .boutique-page {
-        padding: 10px 10px 0;
-      }
-
-      .boutique-hero-copy,
-      .boutique-products-card,
-      .boutique-filter-card {
-        padding: 32px 22px;
-      }
-
-      .boutique-products-top {
-        align-items: flex-start;
-      }
-
-      .boutique-product-grid {
-        grid-template-columns: 1fr;
-      }
-    }
+    @media (max-width: 1180px) { .shop-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 900px) { .shop-grid { grid-template-columns: repeat(2, 1fr); } .shop-hero-grid { grid-template-columns: 1fr; } .shop-hero-copy { padding: 36px 28px; } }
+    @media (max-width: 620px) { .shop-page { padding: 10px 10px 40px; } .shop-grid { grid-template-columns: 1fr; gap: 14px; } .shop-hero { border-radius: 24px; } .shop-hero-copy { padding: 28px 18px; } .shop-title { font-size: 2.6rem; } }
   </style>
 </head>
 <body>
 
-  <div class="page-auth">
-    <a href="categories.html" id="categoriesLink" class="auth-link">Categories</a>
-    <a href="shop.html" id="shopLink" class="auth-link">Boutique</a>
-    <a href="dashboard.html" id="dashboardLink" class="auth-link" style="display:none;">Dashboard</a>
-    <a href="login.html" id="loginLink" class="auth-link">Log In</a>
-    <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
-    <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
+<div class="page-auth">
+  <a href="categories.html" id="categoriesLink" class="auth-link">Categories</a>
+  <a href="shop.html" id="shopLink" class="auth-link">Boutique</a>
+  <a href="messages.html" id="messagesLink" class="auth-link" style="display:none; position:relative;">
+    Messages
+    <span id="msgNavBadge" style="display:none; position:absolute; top:-6px; right:-10px; background:linear-gradient(135deg,#d6b19a,#a97c66); color:#fffaf7; font-size:0.68rem; font-weight:700; padding:2px 6px; border-radius:999px; line-height:1.2; min-width:18px; text-align:center;">0</span>
+  </a>
+  <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
+  <a href="login.html" id="loginLink" class="auth-link">Log In</a>
+  <a href="dashboard.html" id="dashboardLink" class="auth-link" style="display:none;">Dashboard</a>
+  <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
+</div>
+
+<main class="shop-page">
+
+  <section class="shop-hero">
+    <div class="shop-hero-grid">
+      <div class="shop-hero-copy">
+        <a href="index.html" class="shop-logo-wrap" aria-label="Go to homepage">
+          <img src="images/logo.png" alt="Our Wedding Day Hub" class="shop-logo" loading="lazy">
+        </a>
+        <p class="shop-kicker">The Boutique</p>
+        <h1 class="shop-title">Beautiful things,<br>curated for your day</h1>
+        <p class="shop-script">thoughtfully chosen ♡</p>
+        <p class="shop-intro">Discover wedding products and keepsakes from our trusted vendors — beautiful pieces to make your day even more special.</p>
+      </div>
+      <div class="shop-hero-image-wrap">
+        <img src="images/bride.png" alt="Bridal editorial" class="shop-hero-image" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <div id="shopMainContent">
+    <div class="shop-filter-strip">
+      <button type="button" class="shop-filter-pill active" data-filter="all">All Products</button>
+      <button type="button" class="shop-filter-pill" data-filter="keepsakes">Keepsakes</button>
+      <button type="button" class="shop-filter-pill" data-filter="stationery">Stationery</button>
+      <button type="button" class="shop-filter-pill" data-filter="jewellery">Jewellery</button>
+      <button type="button" class="shop-filter-pill" data-filter="beauty">Beauty</button>
+      <button type="button" class="shop-filter-pill" data-filter="gifts">Gifts &amp; Favours</button>
+      <input type="text" class="shop-search-input" id="shopSearchInput" placeholder="Search products...">
+    </div>
+
+    <div class="shop-results-top">
+      <p class="shop-results-label">Showing <strong id="shopResultsCount">0</strong> product(s)</p>
+    </div>
+
+    <div id="shopGrid" class="shop-grid">
+      <div class="shop-loading">Loading boutique products...</div>
+    </div>
+
+    <div id="shopEmpty" class="shop-empty" style="display:none;">
+      No products found for this search. Try a different category or keyword.
+    </div>
   </div>
 
-  <main class="boutique-page">
-    <div class="boutique-stack">
+  <div id="shopComingSoon" class="shop-coming-soon" style="display:none;">
+    <h2>The Boutique is coming soon</h2>
+    <p>We're curating a beautiful collection of wedding products from our trusted vendors. Check back soon to discover keepsakes, stationery, jewellery, gifts and more.</p>
+    <a href="categories.html">Browse Vendors</a>
+  </div>
 
-      <section class="card boutique-hero-card">
-        <div class="boutique-hero-grid">
-          <div class="boutique-hero-copy">
-            <a href="index.html" class="boutique-logo-wrap" aria-label="Go to homepage">
-              <img src="images/logo.png" alt="Our Wedding Day Hub" class="boutique-logo">
-            </a>
+</main>
 
-            <p class="boutique-eyebrow">our boutique</p>
-
-            <h1 class="boutique-title">Boutique</h1>
-            <p class="boutique-script">Wedding finds, gifts & vouchers</p>
-            <div class="boutique-heart">♡</div>
-
-            <p class="boutique-intro">
-              Discover beautiful wedding pieces, thoughtful gifts, vouchers, jewellery, favours, keepsakes and special offers from vendors inside Our Wedding Day Hub.
-            </p>
-
-            <div class="boutique-divider">
-              <span></span>
-              <span class="divider-heart">♡</span>
-              <span></span>
-            </div>
-
-            <p class="boutique-subtext">
-              Some items can be purchased through a vendor’s own link, while others may ask you to enquire first.
-            </p>
-          </div>
-
-          <div class="boutique-hero-image-wrap">
-            <img src="images/hero-2.png" alt="Elegant bride wearing sunglasses" class="boutique-hero-image">
-          </div>
-        </div>
-      </section>
-
-      <section class="card boutique-filter-card">
-        <h2 class="boutique-filter-title">Shop wedding extras with heart</h2>
-        <p class="boutique-filter-text">
-          Browse gift cards, vouchers, products, accessories, keepsakes and thoughtful add-ons from wedding businesses around the world.
-        </p>
-
-        <div class="boutique-pill-row">
-          <span class="boutique-pill">Gift cards</span>
-          <span class="boutique-pill">Vouchers</span>
-          <span class="boutique-pill">Jewellery</span>
-          <span class="boutique-pill">Wedding favours</span>
-          <span class="boutique-pill">Keepsakes</span>
-          <span class="boutique-pill">Experiences</span>
-        </div>
-      </section>
-
-      <section class="card boutique-products-card">
-        <div class="boutique-products-top">
-          <div>
-            <h2>Browse the Boutique</h2>
-            <p>Live listings from our vendors will appear here.</p>
-          </div>
-          <span class="boutique-product-count" id="productCountText">Loading...</span>
-        </div>
-
-        <div id="boutiqueProductGrid" class="boutique-product-grid"></div>
-      </section>
-
+<footer class="site-footer">
+  <div class="footer-content">
+    <p class="footer-eyebrow">wedding planning directory</p>
+    <h2 class="footer-title">Everything your wedding deserves.</h2>
+    <p class="footer-text">Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.</p>
+    <div class="footer-links">
+      <a href="about.html">About Us</a>
+      <a href="how-it-works.html">How It Works</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="contact.html">Contact Us</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms &amp; Conditions</a>
+      <a href="refund-policy.html">Refund Policy</a>
+      <a href="https://www.equaldex.com/equality-index" target="_blank" rel="noopener noreferrer">Global Equality Index</a>
+      <a href="#" onclick="return false;">Events4Us (Coming Soon)</a>
     </div>
-  </main>
+    <p class="footer-tagline">Proudly inclusive • Worldwide • Built with heart</p>
+    <p class="footer-abn">© 2026 Our Wedding Day Hub</p>
+    <p class="footer-abn">ABN 76 688 637 041 • Australia</p>
+  </div>
+</footer>
 
-  <footer class="site-footer">
-    <div class="footer-content">
-      <p class="footer-eyebrow">wedding vendor directory</p>
+<script type="module">
+import { db, collection, getDocs, query, where } from "./firebase.js";
 
-      <h2 class="footer-title">
-        Everything your wedding deserves.
-      </h2>
+const shopGrid         = document.getElementById("shopGrid");
+const shopEmpty        = document.getElementById("shopEmpty");
+const shopComingSoon   = document.getElementById("shopComingSoon");
+const shopMainContent  = document.getElementById("shopMainContent");
+const shopResultsCount = document.getElementById("shopResultsCount");
+const shopSearchInput  = document.getElementById("shopSearchInput");
+const filterPills      = document.querySelectorAll(".shop-filter-pill");
 
-      <p class="footer-text">
-        Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.
-      </p>
+let allProducts = [];
+let activeFilter = "all";
+let searchQuery = "";
 
-      <div class="footer-links">
-        <a href="about.html">About Us</a>
-        <a href="how-it-works.html">How It Works</a>
-        <a href="pricing.html">Pricing</a>
-        <a href="contact.html">Contact Us</a>
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="terms.html">Terms &amp; Conditions</a>
-        <a href="refund-policy.html">Refund Policy</a>
-        <a href="https://www.equaldex.com/equality-index" target="_blank" rel="noopener noreferrer">Global Equality Index</a>
-        <a href="#" onclick="return false;">Events4Us (Coming Soon)</a>
+function formatPrice(price, currency = "AUD") {
+  if (!price && price !== 0) return "";
+  const num = parseFloat(price);
+  if (isNaN(num)) return String(price);
+  return `A$${num.toFixed(2)}`;
+}
+
+function renderProducts(products) {
+  shopGrid.innerHTML = "";
+  shopResultsCount.textContent = String(products.length);
+  if (!products.length) { shopEmpty.style.display = "block"; return; }
+  shopEmpty.style.display = "none";
+  products.forEach(product => {
+    const card = document.createElement("article");
+    card.className = "shop-card";
+    const imageUrl = product.imageUrl || product.image || product.coverImage || "images/bouquet.png";
+    const name = product.name || product.productName || "Product";
+    const vendorName = product.vendorName || product.businessName || "";
+    const description = product.description || product.shortDescription || "";
+    const priceDisplay = formatPrice(product.price, product.currency);
+    const productLink = product.link || product.url || product.purchaseLink || (product.vendorId ? `vendor.html?id=${product.vendorId}` : "#");
+    card.innerHTML = `
+      <div class="shop-card-image-wrap">
+        <img src="${imageUrl}" alt="${name}" class="shop-card-image" loading="lazy">
       </div>
+      <div class="shop-card-body">
+        ${vendorName ? `<p class="shop-card-vendor">${vendorName}</p>` : ""}
+        <h2 class="shop-card-name">${name}</h2>
+        ${description ? `<p class="shop-card-desc">${description.length > 100 ? description.slice(0,100)+"..." : description}</p>` : ""}
+        ${priceDisplay ? `<p class="shop-card-price">${priceDisplay}</p>` : ""}
+        <a href="${productLink}" class="shop-card-btn" ${productLink !== "#" ? 'target="_blank" rel="noopener noreferrer"' : ""}>View Product</a>
+      </div>
+    `;
+    shopGrid.appendChild(card);
+  });
+}
 
-      <p class="footer-tagline">
-        Proudly inclusive • Worldwide • Built with heart
-      </p>
+function applyFilters() {
+  const q = searchQuery.toLowerCase().trim();
+  const filtered = allProducts.filter(p => {
+    const matchFilter = activeFilter === "all" || (p.category || "").toLowerCase() === activeFilter || (p.categories || []).some(c => c.toLowerCase() === activeFilter);
+    const searchText = `${p.name||""} ${p.productName||""} ${p.description||""} ${p.vendorName||""} ${p.category||""}`.toLowerCase();
+    const matchSearch = !q || searchText.includes(q);
+    return matchFilter && matchSearch;
+  });
+  renderProducts(filtered);
+}
 
-      <p class="footer-abn">© 2026 Our Wedding Day Hub</p>
-      <p class="footer-abn">ABN 76 688 637 041 • Australia</p>
-    </div>
-  </footer>
+filterPills.forEach(pill => {
+  pill.addEventListener("click", () => {
+    filterPills.forEach(p => p.classList.remove("active"));
+    pill.classList.add("active");
+    activeFilter = pill.dataset.filter;
+    applyFilters();
+  });
+});
 
-  <script type="module">
-    import {
-      auth,
-      db,
-      onAuthStateChanged,
-      signOut,
-      collection,
-      getDocs,
-      query,
-      where
-    } from "./firebase.js";
+shopSearchInput.addEventListener("input", () => { searchQuery = shopSearchInput.value; applyFilters(); });
 
-    const joinLink = document.getElementById("joinLink");
-    const loginLink = document.getElementById("loginLink");
-    const dashboardLink = document.getElementById("dashboardLink");
-    const logoutLink = document.getElementById("logoutLink");
-
-    const boutiqueProductGrid = document.getElementById("boutiqueProductGrid");
-    const productCountText = document.getElementById("productCountText");
-
-    function formatPrice(value) {
-      const number = Number(value || 0);
-      if (!number) return "Price on enquiry";
-      return `$${number.toFixed(2)}`;
+async function loadProducts() {
+  try {
+    const q = query(collection(db, "boutiqueProducts"), where("visible", "==", true));
+    const snapshot = await getDocs(q);
+    if (snapshot.empty) {
+      shopMainContent.style.display = "none";
+      shopComingSoon.style.display = "block";
+      return;
     }
+    allProducts = [];
+    snapshot.forEach(docSnap => { allProducts.push({ ...docSnap.data(), docId: docSnap.id }); });
+    applyFilters();
+  } catch (err) {
+    console.error("Shop load error:", err);
+    shopMainContent.style.display = "none";
+    shopComingSoon.style.display = "block";
+  }
+}
 
-    function formatCategory(value) {
-      const labels = {
-        gift_card: "Gift Card",
-        voucher: "Voucher / Offer",
-        product: "Product",
-        jewellery: "Jewellery",
-        bridal_accessories: "Bridal Accessories",
-        wedding_favours: "Wedding Favours",
-        keepsakes: "Keepsake",
-        experience: "Experience",
-        other: "Boutique Listing"
-      };
+loadProducts();
+</script>
 
-      return labels[value] || "Boutique Listing";
-    }
-
-    function formatFulfilment(value) {
-      const labels = {
-        email: "Email delivery",
-        pickup: "Local pickup",
-        local_delivery: "Local delivery",
-        domestic_shipping: "Ships within vendor country",
-        international_shipping: "Ships internationally",
-        enquiry: "Arrange after enquiry"
-      };
-
-      return labels[value] || "";
-    }
-
-    function getActionLabel(product) {
-      if (product.paymentMethod === "enquiry") return "Enquire with Vendor";
-      if (product.paymentMethod === "stripe") return "Checkout Coming Soon";
-      return "View Purchase Link";
-    }
-
-    function getActionHref(product) {
-      const link = product.purchaseLink || product.paymentLink || product.bookingLink || "";
-
-      if (link) return link;
-
-      if (product.vendorInstagram) return product.vendorInstagram;
-      if (product.vendorWebsite) return product.vendorWebsite;
-
-      return "contact.html";
-    }
-
-    function createProductCard(product) {
-      const card = document.createElement("article");
-      card.className = "boutique-product-card";
-
-      const imageWrap = document.createElement("div");
-      imageWrap.className = "boutique-product-image-wrap";
-
-      const imageUrl = Array.isArray(product.images) && product.images.length ? product.images[0] : "";
-
-      if (imageUrl) {
-        const img = document.createElement("img");
-        img.className = "boutique-product-image";
-        img.src = imageUrl;
-        img.alt = product.name || "Boutique listing";
-        img.loading = "lazy";
-        imageWrap.appendChild(img);
-      } else {
-        const placeholder = document.createElement("div");
-        placeholder.className = "boutique-product-placeholder";
-        placeholder.textContent = "♡";
-        imageWrap.appendChild(placeholder);
-      }
-
-      const type = document.createElement("span");
-      type.className = "boutique-product-type";
-      type.textContent = formatCategory(product.category);
-      imageWrap.appendChild(type);
-
-      const body = document.createElement("div");
-      body.className = "boutique-product-body";
-
-      const title = document.createElement("h3");
-      title.textContent = product.name || "Untitled Listing";
-
-      const vendor = document.createElement("p");
-      vendor.className = "boutique-vendor";
-      vendor.textContent = product.vendorName ? `By ${product.vendorName}` : "By a hub vendor";
-
-      const price = document.createElement("p");
-      price.className = "boutique-price";
-      price.textContent = formatPrice(product.price);
-
-      const description = document.createElement("p");
-      description.className = "boutique-description";
-      description.textContent = product.description || "More details available from the vendor.";
-
-      const fulfilmentText = formatFulfilment(product.fulfilmentMethod);
-      const fulfilment = document.createElement("p");
-      fulfilment.className = "boutique-small-detail";
-      fulfilment.innerHTML = fulfilmentText
-        ? `<strong>Delivery:</strong> ${fulfilmentText}`
-        : `<strong>Delivery:</strong> Details from vendor`;
-
-      const details = document.createElement("p");
-      details.className = "boutique-small-detail";
-      details.innerHTML = product.fulfilmentDetails
-        ? `<strong>Details:</strong> ${product.fulfilmentDetails}`
-        : "";
-
-      const actions = document.createElement("div");
-      actions.className = "boutique-product-actions";
-
-      const button = document.createElement("a");
-      button.className = product.paymentMethod === "stripe" ? "boutique-button boutique-button-soft" : "boutique-button";
-      button.href = product.paymentMethod === "stripe" ? "#" : getActionHref(product);
-      button.textContent = getActionLabel(product);
-
-      if (product.paymentMethod !== "stripe") {
-        button.target = "_blank";
-        button.rel = "noopener noreferrer";
-      } else {
-        button.addEventListener("click", (event) => {
-          event.preventDefault();
-          alert("Checkout for this listing is coming soon. Please contact the vendor directly for now.");
-        });
-      }
-
-      actions.appendChild(button);
-
-      body.appendChild(title);
-      body.appendChild(vendor);
-      body.appendChild(price);
-      body.appendChild(description);
-      body.appendChild(fulfilment);
-      if (product.fulfilmentDetails) body.appendChild(details);
-      body.appendChild(actions);
-
-      card.appendChild(imageWrap);
-      card.appendChild(body);
-
-      return card;
-    }
-
-    function renderEmptyState(message = "No boutique listings are live yet. Please check back soon.") {
-      boutiqueProductGrid.innerHTML = `
-        <div class="boutique-empty" style="grid-column: 1 / -1;">
-          <h3>Something beautiful is on the way</h3>
-          <p>${message}</p>
-        </div>
-      `;
-      productCountText.textContent = "0 listings";
-    }
-
-    async function loadBoutiqueProducts() {
-      boutiqueProductGrid.innerHTML = `
-        <div class="boutique-empty" style="grid-column: 1 / -1;">
-          <h3>Loading the Boutique...</h3>
-          <p>We’re finding the latest live listings for you.</p>
-        </div>
-      `;
-
-      try {
-        const productsQuery = query(
-          collection(db, "boutiqueProducts"),
-          where("visible", "==", true)
-        );
-
-        const snap = await getDocs(productsQuery);
-
-        const products = snap.docs
-          .map(doc => ({
-            id: doc.id,
-            ...doc.data()
-          }))
-          .filter(product => product.status === "live" || product.visible === true);
-
-        if (!products.length) {
-          renderEmptyState();
-          return;
-        }
-
-        boutiqueProductGrid.innerHTML = "";
-        productCountText.textContent = `${products.length} listing${products.length === 1 ? "" : "s"}`;
-
-        products.forEach(product => {
-          boutiqueProductGrid.appendChild(createProductCard(product));
-        });
-      } catch (error) {
-        console.error(error);
-        renderEmptyState("There was a problem loading the Boutique. Please refresh the page and try again.");
-      }
-    }
-
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        joinLink.style.display = "none";
-        loginLink.style.display = "none";
-        dashboardLink.style.display = "inline-block";
-        logoutLink.style.display = "inline-block";
-      } else {
-        joinLink.style.display = "inline-flex";
-        loginLink.style.display = "inline-block";
-        dashboardLink.style.display = "none";
-        logoutLink.style.display = "none";
-      }
-    });
-
-    logoutLink.addEventListener("click", async () => {
-      try {
-        await signOut(auth);
-        window.location.href = "index.html";
-      } catch (error) {
-        console.error("Logout failed:", error);
-      }
-    });
-
-    loadBoutiqueProducts();
-  </script>
-
-  <script type="module" src="nav.js"></script>
+<script type="module" src="nav.js"></script>
 </body>
 </html>
