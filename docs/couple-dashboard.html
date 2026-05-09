@@ -3,2269 +3,659 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Couple Dashboard | Our Wedding Day Hub</title>
+  <title>My Wedding Dashboard | Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
   <style>
-    /* ── Tokens ── */
-    :root {
-      --lux-espresso: #3b2f2a;
-      --lux-rose:     #c8a6a1;
-      --lux-champagne:#c6a77d;
-      --lux-cream:    #fffaf7;
-      --lux-blush:    #f4e7df;
-      --lux-border:   rgba(216, 197, 189, 0.55);
-      --lux-muted:    #9b8579;
-      --lux-shadow:   rgba(59, 47, 42, 0.08);
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background:
-        radial-gradient(circle at top left, rgba(200, 166, 161, 0.13), transparent 34%),
-        radial-gradient(circle at bottom right, rgba(198, 167, 125, 0.08), transparent 36%),
-        #f7f1ed;
-      min-height: 100vh;
-    }
-
-    /* ── Fade-up animation ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes heroFadeIn {
-      from { opacity: 0; transform: scale(1.02); }
-      to   { opacity: 1; transform: scale(1); }
-    }
-    @keyframes heartbeat {
-      0%, 100% { transform: scale(1); }
-      50%       { transform: scale(1.18); }
-    }
-    @keyframes shimmer {
-      0%   { background-position: -200% center; }
-      100% { background-position: 200% center; }
-    }
-
-    /* ── TOPBAR ── */
-    .couple-topbar {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 18px 24px 0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    .couple-topbar-home {
-      display: inline-flex;
-      align-items: center;
-      text-decoration: none;
-      flex: 0 0 auto;
-    }
-
-    .couple-topbar-logo {
-      width: 88px;
-      height: 88px;
-      object-fit: contain;
-      display: block;
-      transition: transform 0.3s ease;
-    }
-    .couple-topbar-logo:hover { transform: scale(1.04); }
-
-    .couple-topbar-text { flex: 1; min-width: 200px; }
-
-    .couple-topbar-kicker {
-      margin: 0 0 5px;
-      font-size: 0.76rem;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: #b08d7d;
-      opacity: 0.85;
-    }
-
-    .couple-topbar-title {
-      margin: 0;
-      font-family: "Cormorant Garamond", serif;
-      font-size: clamp(1.6rem, 3vw, 2.4rem);
-      font-weight: 500;
-      letter-spacing: -0.03em;
-      color: var(--lux-espresso);
-      line-height: 1.05;
-    }
-
-    .couple-topbar-actions {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-
-    .topbar-pill {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 10px 18px;
-      border-radius: 999px;
-      text-decoration: none;
-      font-size: 0.88rem;
-      font-weight: 600;
-      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
-    }
-
-    .topbar-pill-ghost {
-      background: rgba(255,250,247,0.9);
-      border: 1px solid var(--lux-border);
-      color: var(--lux-espresso);
-    }
-    .topbar-pill-ghost:hover {
-      background: var(--lux-blush);
-      transform: translateY(-1px);
-    }
-
-    .topbar-pill-solid {
-      background: linear-gradient(135deg, #d6b19a, #a97c66);
-      border: none;
-      color: #fffaf7;
-      box-shadow: 0 8px 20px rgba(185,143,122,0.22);
-      cursor: pointer;
-      font: inherit;
-    }
-    .topbar-pill-solid:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 14px 28px rgba(185,143,122,0.28);
-      filter: brightness(1.04);
-    }
-
-    /* ── PAGE SHELL ── */
-    .couple-page-shell {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 24px 24px 80px;
-      display: grid;
-      gap: 28px;
-    }
-
-    /* ── SECTION KICKER ── */
-    .section-kicker-wrap {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 20px;
-    }
-    .section-kicker {
-      font-size: 0.74rem;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: #b08d7d;
-      white-space: nowrap;
-    }
-    .section-kicker-line {
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(90deg, rgba(200,166,161,0.4), transparent);
-    }
-
-    /* ── JUMP NAV ── */
-    .dashboard-jump-nav {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .dashboard-jump-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 10px 16px;
-      border-radius: 999px;
-      text-decoration: none;
-      background: rgba(255,250,247,0.9);
-      border: 1px solid var(--lux-border);
-      color: #6e5a52;
-      font-size: 0.88rem;
-      font-weight: 500;
-      transition: all 0.18s ease;
-      box-shadow: 0 4px 12px var(--lux-shadow);
-    }
-    .dashboard-jump-link:hover {
-      background: var(--lux-blush);
-      border-color: rgba(198,167,125,0.5);
-      transform: translateY(-2px);
-      box-shadow: 0 10px 22px var(--lux-shadow);
-    }
-    .jump-icon { font-size: 0.9rem; }
-
-    /* ── HERO CARD ── */
-    .couple-hero-card {
-      border-radius: 32px;
-      border: 1px solid rgba(227,219,212,0.9);
-      box-shadow: 0 24px 70px var(--lux-shadow);
-      background:
-        radial-gradient(circle at top left, rgba(200,166,161,0.18), transparent 34%),
-        linear-gradient(135deg, #fffaf7, #f4ebe5);
-      padding: 36px 32px;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .couple-hero-card::before {
-      content: "♡";
-      position: absolute;
-      right: 32px;
-      top: 24px;
-      font-size: 6rem;
-      color: rgba(200,166,161,0.12);
-      line-height: 1;
-      pointer-events: none;
-      animation: heartbeat 3.5s ease-in-out infinite;
-    }
-
-    .couple-hero-grid {
-      display: grid;
-      grid-template-columns: 200px 1fr;
-      gap: 28px;
-      align-items: center;
-    }
-
-    /* Profile photo */
-    .profile-card {
-      text-align: center;
-    }
-
-    .profile-photo-wrap {
-      width: 160px;
-      height: 160px;
-      border-radius: 50%;
-      overflow: hidden;
-      margin: 0 auto 14px;
-      border: 4px solid rgba(200,166,161,0.4);
-      background: var(--lux-blush);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 12px 32px rgba(59,47,42,0.1);
-      position: relative;
-      cursor: pointer;
-      transition: box-shadow 0.25s ease, transform 0.25s ease;
-    }
-    .profile-photo-wrap:hover {
-      transform: scale(1.03);
-      box-shadow: 0 18px 42px rgba(59,47,42,0.14);
-    }
-
-    .profile-photo-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .profile-placeholder {
-      color: var(--lux-muted);
-      font-size: 0.85rem;
-      line-height: 1.5;
-      padding: 16px;
-      text-align: center;
-    }
-
-    .profile-photo-hover-label {
-      position: absolute;
-      inset: 0;
-      border-radius: 50%;
-      background: rgba(59,47,42,0.42);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fffaf7;
-      font-size: 0.82rem;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      opacity: 0;
-      transition: opacity 0.2s ease;
-      pointer-events: none;
-    }
-    .profile-photo-wrap:hover .profile-photo-hover-label { opacity: 1; }
-
-    .upload-label {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 9px 18px;
-      background: rgba(255,250,247,0.92);
-      color: #5b4540;
-      border-radius: 999px;
-      cursor: pointer;
-      border: 1px solid var(--lux-border);
-      font-size: 0.84rem;
-      font-weight: 600;
-      transition: all 0.18s ease;
-    }
-    .upload-label:hover {
-      background: var(--lux-blush);
-      transform: translateY(-1px);
-    }
-
-    .hidden-input { display: none; }
-
-    .profile-help {
-      margin: 8px 0 0;
-      color: var(--lux-muted);
-      font-size: 0.84rem;
-      line-height: 1.5;
-      min-height: 20px;
-    }
-
-    /* Hero copy */
-    .hero-copy {
-      text-align: left;
-    }
-
-    .hero-copy > * {
-      animation: fadeUp 0.7s ease forwards;
-      opacity: 0;
-    }
-    .hero-copy > *:nth-child(1) { animation-delay: 0.05s; }
-    .hero-copy > *:nth-child(2) { animation-delay: 0.12s; }
-    .hero-copy > *:nth-child(3) { animation-delay: 0.2s; }
-    .hero-copy > *:nth-child(4) { animation-delay: 0.28s; }
-
-    .hero-copy-kicker {
-      margin: 0 0 10px;
-      font-size: 0.76rem;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: #b08d7d;
-    }
-
-    .hero-copy h1 {
-      margin: 0 0 10px;
-      font-family: "Cormorant Garamond", serif;
-      font-size: clamp(2rem, 4vw, 3.2rem);
-      font-weight: 500;
-      line-height: 1.05;
-      letter-spacing: -0.035em;
-      color: var(--lux-espresso);
-    }
-
-    .hero-copy-script {
-      margin: 0 0 16px;
-      font-family: "Cormorant Garamond", serif;
-      font-style: italic;
-      font-size: 1.2rem;
-      color: #c69b84;
-      opacity: 0.9;
-    }
-
-    .hero-copy p {
-      margin: 0;
-      color: var(--lux-muted);
-      font-size: 0.97rem;
-      line-height: 1.8;
-      max-width: 52ch;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 10px;
-      margin-top: 20px;
-      flex-wrap: wrap;
-    }
-
-    .hero-cta-primary {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 12px 22px;
-      border-radius: 999px;
-      text-decoration: none;
-      background: linear-gradient(135deg, #d6b19a, #a97c66);
-      color: #fffaf7;
-      font-weight: 700;
-      font-size: 0.92rem;
-      box-shadow: 0 10px 24px rgba(185,143,122,0.22);
-      transition: all 0.18s ease;
-    }
-    .hero-cta-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 16px 32px rgba(185,143,122,0.3);
-      filter: brightness(1.04);
-    }
-
-    .hero-cta-secondary {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 12px 22px;
-      border-radius: 999px;
-      text-decoration: none;
-      background: rgba(255,250,247,0.9);
-      border: 1px solid var(--lux-border);
-      color: var(--lux-espresso);
-      font-weight: 600;
-      font-size: 0.92rem;
-      transition: all 0.18s ease;
-    }
-    .hero-cta-secondary:hover {
-      background: var(--lux-blush);
-      transform: translateY(-2px);
-    }
-
-    /* ── DASHBOARD CARDS ── */
-    .dashboard-card {
-      background: rgba(255,250,247,0.92);
-      border-radius: 28px;
-      border: 1px solid rgba(223,210,200,0.9);
-      box-shadow: 0 8px 28px var(--lux-shadow);
-      padding: 32px 28px;
-      transition: box-shadow 0.28s ease;
-    }
-
-    .dashboard-card:hover {
-      box-shadow: 0 16px 48px rgba(59,47,42,0.1);
-    }
-
-    .dashboard-card h2 {
-      margin: 0 0 6px;
-      font-family: "Cormorant Garamond", serif;
-      font-size: clamp(1.7rem, 3vw, 2.2rem);
-      font-weight: 500;
-      letter-spacing: -0.03em;
-      color: var(--lux-espresso);
-    }
-
-    .dashboard-subtext {
-      margin: 0 0 24px;
-      color: var(--lux-muted);
-      line-height: 1.75;
-      font-size: 0.95rem;
-    }
-
-    /* ── INNER PANELS ── */
-    .inner-panel {
-      background: linear-gradient(180deg, #fffdfb 0%, #fff8f3 100%);
-      border-radius: 22px;
-      border: 1px solid rgba(223,210,200,0.7);
-      padding: 24px 22px;
-      box-shadow: 0 4px 16px rgba(59,47,42,0.03);
-    }
-
-    /* ── PLANNING LAYOUT ── */
-    .planning-layout {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      align-items: start;
-    }
-
-    /* Calendar */
-    .calendar-box {
-      background: linear-gradient(180deg, #fffdfb, #fff8f3);
-      border: 1px solid rgba(223,210,200,0.7);
-      border-radius: 22px;
-      padding: 22px;
-    }
-
-    .calendar-date-input-wrap {
-      margin-bottom: 16px;
-    }
-
-    .calendar-date-input-wrap label {
-      display: block;
-      margin-bottom: 8px;
-      font-size: 0.82rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: #8d7369;
-    }
-
-    .calendar-date-input-wrap input {
-      width: 100%;
-      border: 1px solid #eadfd6;
-      border-radius: 14px;
-      background: #fffdfb;
-      padding: 12px 14px;
-      font-size: 0.95rem;
-      color: #2d221c;
-      box-sizing: border-box;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .calendar-date-input-wrap input:focus {
-      outline: none;
-      border-color: #d6bcad;
-      box-shadow: 0 0 0 4px rgba(217,194,178,0.16);
-    }
-
-    .calendar-header {
-      display: grid;
-      grid-template-columns: 40px 1fr 40px;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 14px;
-    }
-
-    .calendar-nav {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      border: 1px solid rgba(223,210,200,0.8);
-      background: rgba(255,250,247,0.95);
-      color: #534740;
-      cursor: pointer;
-      font-size: 1.1rem;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.18s ease;
-      box-shadow: 0 4px 12px rgba(59,47,42,0.04);
-    }
-    .calendar-nav:hover {
-      background: var(--lux-blush);
-      transform: translateY(-1px);
-      box-shadow: 0 8px 18px rgba(59,47,42,0.08);
-    }
-
-    .calendar-month-label {
-      text-align: center;
-      font-family: "Cormorant Garamond", serif;
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: #5c4d45;
-      letter-spacing: 0.02em;
-    }
-
-    .calendar-weekdays,
-    .calendar-grid {
-      display: grid;
-      grid-template-columns: repeat(7, minmax(0, 1fr));
-      gap: 6px;
-    }
-    .calendar-weekdays { margin-bottom: 6px; }
-
-    .calendar-weekday {
-      text-align: center;
-      font-size: 0.68rem;
-      font-weight: 700;
-      color: #aa998f;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      padding: 4px 0;
-    }
-
-    .calendar-day {
-      position: relative;
-      min-height: 52px;
-      border-radius: 14px;
-      border: 1px solid #efe3da;
-      background: rgba(255,255,255,0.88);
-      color: #4e433d;
-      padding: 7px 8px;
-      cursor: pointer;
-      display: flex;
-      align-items: flex-start;
-      justify-content: flex-end;
-      transition: all 0.18s ease;
-    }
-    .calendar-day:hover {
-      border-color: rgba(198,167,125,0.5);
-      box-shadow: 0 6px 16px rgba(59,47,42,0.07);
-      transform: translateY(-1px);
-    }
-    .calendar-day.empty {
-      background: transparent;
-      border: none;
-      cursor: default;
-      transform: none;
-      box-shadow: none;
-    }
-    .calendar-day.today {
-      box-shadow: inset 0 0 0 2px rgba(198,167,125,0.55);
-    }
-    .calendar-day.selected {
-      background: linear-gradient(160deg, #3b2f2a, #2a211d);
-      border-color: #2d2926;
-      color: white;
-      box-shadow: 0 12px 26px rgba(31,27,24,0.2);
-      transform: translateY(-2px);
-    }
-    .calendar-number {
-      font-size: 0.88rem;
-      font-weight: 600;
-      line-height: 1;
-    }
-    .calendar-heart {
-      position: absolute;
-      left: 8px;
-      bottom: 8px;
-      font-size: 0.74rem;
-      opacity: 0.85;
-    }
-
-    .calendar-note {
-      margin-top: 14px;
-      padding: 13px 16px;
-      border-radius: 16px;
-      background: rgba(244,231,223,0.5);
-      border: 1px solid rgba(223,210,200,0.6);
-      color: #5e5047;
-      font-size: 0.9rem;
-      line-height: 1.65;
-      font-style: italic;
-      font-family: "Cormorant Garamond", serif;
-      font-size: 1rem;
-    }
-
-    /* To-do */
-    .todo-box {
-      background: linear-gradient(180deg, #fffdfb, #fff8f3);
-      border: 1px solid rgba(223,210,200,0.7);
-      border-radius: 22px;
-      padding: 22px;
-    }
-
-    .todo-box-title {
-      margin: 0 0 14px;
-      font-family: "Cormorant Garamond", serif;
-      font-size: 1.25rem;
-      font-weight: 500;
-      color: var(--lux-espresso);
-    }
-
-    .todo-form {
-      display: grid;
-      gap: 10px;
-    }
-
-    .todo-input {
-      width: 100%;
-      border: 1px solid #eadfd6;
-      border-radius: 14px;
-      background: #fffdfb;
-      padding: 12px 14px;
-      font: inherit;
-      font-size: 0.95rem;
-      color: #2d221c;
-      box-sizing: border-box;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .todo-input:focus {
-      outline: none;
-      border-color: #d6bcad;
-      box-shadow: 0 0 0 4px rgba(217,194,178,0.16);
-    }
-
-    .todo-add-btn {
-      width: 100%;
-      border: none;
-      background: linear-gradient(135deg, #d6b19a, #a97c66);
-      color: #fffaf7;
-      border-radius: 999px;
-      padding: 12px 16px;
-      cursor: pointer;
-      font: inherit;
-      font-weight: 700;
-      font-size: 0.9rem;
-      box-shadow: 0 8px 20px rgba(185,143,122,0.2);
-      transition: all 0.18s ease;
-    }
-    .todo-add-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 14px 28px rgba(185,143,122,0.28);
-      filter: brightness(1.04);
-    }
-
-    .todo-status {
-      margin: 0;
-      min-height: 20px;
-      color: var(--lux-muted);
-      font-size: 0.88rem;
-      text-align: center;
-    }
-
-    .todo-list {
-      display: grid;
-      gap: 8px;
-      margin-top: 16px;
-    }
-
-    .todo-item {
-      display: grid;
-      grid-template-columns: auto 1fr auto;
-      gap: 10px;
-      align-items: center;
-      background: rgba(255,255,255,0.88);
-      border: 1px solid #eadfd6;
-      border-radius: 14px;
-      padding: 12px 14px;
-      transition: all 0.18s ease;
-    }
-    .todo-item:hover {
-      border-color: rgba(198,167,125,0.4);
-      box-shadow: 0 4px 12px rgba(59,47,42,0.05);
-    }
-    .todo-item.done { opacity: 0.65; }
-    .todo-item.done .todo-text { text-decoration: line-through; color: #a29086; }
-
-    .todo-check { width: 17px; height: 17px; cursor: pointer; }
-
-    .todo-text {
-      color: #4a3c35;
-      line-height: 1.5;
-      word-break: break-word;
-      font-size: 0.94rem;
-    }
-
-    .todo-delete-btn {
-      border: none;
-      background: rgba(244,229,222,0.8);
-      color: #6d4f45;
-      border-radius: 50%;
-      width: 28px;
-      height: 28px;
-      cursor: pointer;
-      font: inherit;
-      font-size: 1rem;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.18s ease;
-    }
-    .todo-delete-btn:hover {
-      background: #f1ddd4;
-      transform: scale(1.1);
-    }
-
-    /* ── VISION BOARD ── */
-    .vision-layout {
-      display: grid;
-      grid-template-columns: 300px 1fr;
-      gap: 22px;
-      align-items: start;
-    }
-
-    .vision-sidebar { display: grid; gap: 16px; }
-
-    .vision-upload-card {
-      background: linear-gradient(180deg, #fffdfb, #fff8f3);
-      border: 1px solid rgba(223,210,200,0.7);
-      border-radius: 22px;
-      padding: 24px 22px;
-    }
-
-    .vision-upload-card h3 {
-      margin: 0 0 8px;
-      font-family: "Cormorant Garamond", serif;
-      font-size: 1.3rem;
-      font-weight: 500;
-      color: var(--lux-espresso);
-    }
-
-    .vision-upload-card p {
-      margin: 0 0 16px;
-      color: var(--lux-muted);
-      line-height: 1.7;
-      font-size: 0.92rem;
-    }
-
-    .vision-form { display: grid; gap: 12px; }
-
-    .vision-form textarea {
-      width: 100%;
-      border: 1px solid #eadfd6;
-      border-radius: 14px;
-      background: #fffdfb;
-      padding: 12px 14px;
-      font: inherit;
-      font-size: 0.92rem;
-      color: #2d221c;
-      box-sizing: border-box;
-      resize: vertical;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .vision-form textarea:focus {
-      outline: none;
-      border-color: #d6bcad;
-      box-shadow: 0 0 0 4px rgba(217,194,178,0.16);
-    }
-
-    .vision-file-note {
-      margin: 0;
-      color: var(--lux-muted);
-      font-size: 0.86rem;
-      line-height: 1.5;
-      word-break: break-word;
-    }
-
-    .vision-preview-wrap {
-      display: none;
-      background: rgba(244,231,223,0.5);
-      border: 1px solid rgba(223,210,200,0.6);
-      border-radius: 16px;
-      padding: 10px;
-      overflow: hidden;
-    }
-    .vision-preview-wrap.active { display: block; }
-    .vision-preview-wrap img {
-      width: 100%;
-      display: block;
-      border-radius: 12px;
-      max-height: 200px;
-      object-fit: cover;
-    }
-
-    .board-upload-button {
-      width: 100%;
-      border: none;
-      background: linear-gradient(135deg, #d6b19a, #a97c66);
-      color: #fffaf7;
-      border-radius: 999px;
-      padding: 12px 16px;
-      cursor: pointer;
-      font: inherit;
-      font-weight: 700;
-      font-size: 0.9rem;
-      box-shadow: 0 8px 20px rgba(185,143,122,0.2);
-      transition: all 0.18s ease;
-    }
-    .board-upload-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 14px 28px rgba(185,143,122,0.28);
-      filter: brightness(1.04);
-    }
-
-    .upload-status {
-      margin: 0;
-      min-height: 20px;
-      color: var(--lux-muted);
-      font-size: 0.88rem;
-      text-align: center;
-    }
-
-    .mini-panel {
-      background: rgba(244,231,223,0.4);
-      border: 1px solid rgba(223,210,200,0.6);
-      border-radius: 20px;
-      padding: 20px;
-    }
-    .mini-panel h3 {
-      margin: 0 0 8px;
-      font-family: "Cormorant Garamond", serif;
-      font-size: 1.1rem;
-      font-weight: 500;
-      color: var(--lux-espresso);
-    }
-    .mini-panel p {
-      margin: 0;
-      color: var(--lux-muted);
-      line-height: 1.75;
-      font-size: 0.9rem;
-    }
-
-    /* Masonry grid */
-    .vision-board-grid {
-      columns: 3 200px;
-      column-gap: 16px;
-    }
-
-    .board-item {
-      break-inside: avoid;
-      margin-bottom: 16px;
-      background: rgba(255,253,251,0.95);
-      border: 1px solid rgba(223,210,200,0.7);
-      border-radius: 20px;
-      overflow: hidden;
-      position: relative;
-      transition: transform 0.22s ease, box-shadow 0.22s ease;
-    }
-    .board-item:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 18px 40px rgba(59,47,42,0.1);
-    }
-    .board-item img {
-      width: 100%;
-      display: block;
-      height: auto;
-      background: var(--lux-blush);
-    }
-    .board-item-body { padding: 14px 16px 16px; }
-
-    .board-item-title {
-      margin: 0 0 6px;
-      color: var(--lux-espresso);
-      font-size: 0.98rem;
-      font-weight: 600;
-      line-height: 1.3;
-    }
-    .board-item-subtitle {
-      margin: 0 0 10px;
-      color: #9a7c70;
-      font-size: 0.87rem;
-    }
-    .board-item-caption {
-      margin: 0;
-      color: #6e5b54;
-      line-height: 1.65;
-      font-size: 0.9rem;
-      white-space: pre-wrap;
-      word-break: break-word;
-    }
-
-    .board-overlay {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.18s ease;
-    }
-    .board-item:hover .board-overlay { opacity: 1; }
-
-    .board-overlay-top {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      right: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      pointer-events: none;
-    }
-    .board-chip,
-    .board-link,
-    .board-delete { pointer-events: auto; }
-
-    .board-chip {
-      display: inline-flex;
-      align-items: center;
-      background: rgba(36,33,31,0.78);
-      color: #fff;
-      padding: 6px 12px;
-      border-radius: 999px;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
-
-    .board-actions { display: flex; gap: 6px; margin-left: auto; }
-
-    .board-link,
-    .board-delete {
-      width: 32px;
-      height: 32px;
-      border: none;
-      background: rgba(36,33,31,0.78);
-      color: #fff;
-      border-radius: 50%;
-      cursor: pointer;
-      font: inherit;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.18s ease, transform 0.18s ease;
-    }
-    .board-link:hover,
-    .board-delete:hover {
-      background: rgba(59,47,42,0.95);
-      transform: scale(1.08);
-    }
+    :root { --lux-espresso: #3b2f2a; --lux-rose: #c8a6a1; --lux-champagne: #c6a77d; --lux-cream: #fffaf7; --lux-blush: #f4e7df; --lux-border: rgba(216, 197, 189, 0.55); --lux-muted: #9b8579; --lux-shadow: rgba(59, 47, 42, 0.08); }
+    body { background: radial-gradient(circle at top left, rgba(200, 166, 161, 0.12), transparent 32%), #f7f1ed; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ── COUPLE TOPBAR ── */
+    .couple-topbar { background: radial-gradient(circle at top left, rgba(200, 166, 161, 0.18), transparent 34%), linear-gradient(135deg, #fffaf7, #f4ebe5); border-bottom: 1px solid rgba(223, 210, 200, 0.9); box-shadow: 0 6px 24px var(--lux-shadow); padding: 0 24px; display: flex; align-items: center; gap: 20px; min-height: 72px; position: sticky; top: 0; z-index: 100; }
+    .couple-topbar-logo-wrap { display: inline-flex; align-items: center; flex: 0 0 auto; }
+    .couple-topbar-logo { width: 52px; height: 52px; object-fit: contain; display: block; transition: transform 0.3s ease; }
+    .couple-topbar-logo:hover { transform: scale(1.05); }
+    .couple-topbar-title { flex: 1; }
+    .couple-topbar-title h1 { margin: 0; font-family: "Cormorant Garamond", serif; font-size: clamp(1.2rem, 2vw, 1.7rem); font-weight: 500; letter-spacing: -0.025em; color: var(--lux-espresso); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .couple-topbar-actions { display: flex; align-items: center; gap: 12px; flex: 0 0 auto; }
+    .couple-topbar-link { display: inline-flex; align-items: center; justify-content: center; min-height: 38px; padding: 8px 16px; border-radius: 999px; background: rgba(255, 250, 247, 0.9); border: 1px solid rgba(223, 210, 200, 0.9); color: var(--lux-espresso); font-size: 0.88rem; font-weight: 600; text-decoration: none; transition: background 0.18s ease, transform 0.18s ease; white-space: nowrap; }
+    .couple-topbar-link:hover { background: var(--lux-blush); transform: translateY(-1px); }
+    .couple-topbar-link.messages-link { position: relative; }
+    .couple-topbar-badge { display: none; position: absolute; top: -5px; right: -5px; background: linear-gradient(135deg, #d6b19a, #a97c66); color: #fffaf7; font-size: 0.65rem; font-weight: 700; padding: 2px 5px; border-radius: 999px; line-height: 1.2; min-width: 16px; text-align: center; }
+    .couple-topbar-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 38px; padding: 8px 16px; border-radius: 999px; border: none; background: linear-gradient(135deg, #d6b19a, #a97c66); color: #fffaf7; font: inherit; font-size: 0.88rem; font-weight: 700; cursor: pointer; box-shadow: 0 6px 16px rgba(185, 143, 122, 0.2); transition: transform 0.18s ease, box-shadow 0.18s ease; }
+    .couple-topbar-btn:hover { transform: translateY(-1px); box-shadow: 0 10px 22px rgba(185, 143, 122, 0.28); }
+
+    /* ── MAIN LAYOUT ── */
+    .couple-dashboard { max-width: 1400px; margin: 0 auto; padding: 24px 20px 56px; display: grid; gap: 24px; }
+
+    /* ── HERO WELCOME ── */
+    .couple-welcome-card { border-radius: 28px; background: radial-gradient(circle at top left, rgba(200, 166, 161, 0.18), transparent 34%), linear-gradient(135deg, #fffaf7, #f4ebe5); border: 1px solid rgba(223, 210, 200, 0.9); box-shadow: 0 8px 28px var(--lux-shadow); padding: 32px 28px; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 24px; }
+    .couple-welcome-card > * { animation: fadeUp 0.7s ease forwards; opacity: 0; }
+    .couple-welcome-card > *:nth-child(1) { animation-delay: 0.05s; }
+    .couple-welcome-card > *:nth-child(2) { animation-delay: 0.12s; }
+    .couple-welcome-kicker { margin: 0 0 8px; font-size: 0.76rem; letter-spacing: 0.28em; text-transform: uppercase; color: #b08d7d; }
+    .couple-welcome-title { margin: 0 0 10px; font-family: "Cormorant Garamond", serif; font-size: clamp(1.9rem, 3vw, 2.8rem); font-weight: 500; letter-spacing: -0.035em; color: var(--lux-espresso); line-height: 1.05; }
+    .couple-welcome-sub { margin: 0; color: var(--lux-muted); line-height: 1.75; font-size: 0.96rem; max-width: 560px; }
+    .couple-countdown-wrap { text-align: center; min-width: 140px; }
+    .couple-countdown-days { font-family: "Cormorant Garamond", serif; font-size: clamp(3rem, 5vw, 5rem); font-weight: 500; color: var(--lux-espresso); letter-spacing: -0.04em; line-height: 1; display: block; }
+    .couple-countdown-label { font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; color: #b08d7d; margin-top: 4px; display: block; }
+
+    /* ── DASHBOARD GRID ── */
+    .couple-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 24px; align-items: start; }
+    .couple-grid-left { display: grid; gap: 24px; }
+
+    /* ── CARDS ── */
+    .couple-card { border-radius: 24px; background: rgba(255, 250, 247, 0.92); border: 1px solid rgba(223, 210, 200, 0.9); box-shadow: 0 6px 18px var(--lux-shadow); padding: 24px 22px; transition: box-shadow 0.28s ease; }
+    .couple-card:hover { box-shadow: 0 14px 36px rgba(59, 47, 42, 0.1); }
+    .couple-card-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 18px; }
+    .couple-card-title { margin: 0; font-family: "Cormorant Garamond", serif; font-size: 1.45rem; font-weight: 500; letter-spacing: -0.025em; color: var(--lux-espresso); }
+    .couple-card-kicker { font-size: 0.74rem; letter-spacing: 0.22em; text-transform: uppercase; color: #b08d7d; margin: 0 0 10px; }
+    .couple-card p { margin: 0 0 12px; color: var(--lux-muted); line-height: 1.75; font-size: 0.95rem; }
+    .couple-card p:last-child { margin-bottom: 0; }
+
+    /* ── COUNTDOWN FORM ── */
+    .couple-date-form { display: grid; gap: 10px; }
+    .couple-date-form label { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #8d7369; display: block; margin-bottom: 4px; }
+    .couple-date-form input[type="date"], .couple-date-form input[type="text"] { width: 100%; border: 1px solid #eadfd6; border-radius: 14px; padding: 12px 15px; font: inherit; font-size: 0.94rem; color: #2d221c; background: #fffdfb; box-sizing: border-box; transition: border-color 0.2s, box-shadow 0.2s; }
+    .couple-date-form input:focus { outline: none; border-color: #d6bcad; box-shadow: 0 0 0 4px rgba(217,194,178,0.16); }
+    .couple-save-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 11px 22px; border-radius: 999px; border: none; background: linear-gradient(135deg, #d6b19a, #a97c66); color: #fffaf7; font: inherit; font-weight: 700; font-size: 0.9rem; cursor: pointer; box-shadow: 0 8px 20px rgba(185,143,122,0.2); transition: transform 0.18s ease, box-shadow 0.18s ease; }
+    .couple-save-btn:hover { transform: translateY(-2px); box-shadow: 0 14px 28px rgba(185,143,122,0.28); }
+    .couple-save-status { margin: 6px 0 0 !important; font-style: italic; font-family: "Cormorant Garamond", serif; font-size: 1rem; min-height: 20px; }
+
+    /* ── CHECKLIST ── */
+    .couple-checklist { display: grid; gap: 8px; }
+    .checklist-item { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 14px; background: rgba(247,241,237,0.8); border: 1px solid rgba(223,210,200,0.7); cursor: pointer; transition: background 0.18s, border-color 0.18s; }
+    .checklist-item:hover { background: var(--lux-blush); border-color: rgba(198,167,125,0.5); }
+    .checklist-item.done { opacity: 0.62; }
+    .checklist-item.done .checklist-label { text-decoration: line-through; color: #b0a09a; }
+    .checklist-check { width: 20px; height: 20px; border-radius: 6px; border: 1.5px solid rgba(198,167,125,0.7); background: #fffdfb; flex: 0 0 20px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: #a97c66; transition: background 0.18s, border-color 0.18s; }
+    .checklist-item.done .checklist-check { background: linear-gradient(135deg, #d6b19a, #a97c66); border-color: transparent; color: #fffaf7; }
+    .checklist-label { flex: 1; color: #4a3b34; font-size: 0.93rem; line-height: 1.5; }
+    .checklist-add { display: flex; gap: 10px; margin-top: 10px; }
+    .checklist-add input { flex: 1; border: 1px solid #eadfd6; border-radius: 14px; padding: 10px 14px; font: inherit; font-size: 0.9rem; background: #fffdfb; color: #2d221c; transition: border-color 0.2s, box-shadow 0.2s; }
+    .checklist-add input:focus { outline: none; border-color: #d6bcad; box-shadow: 0 0 0 4px rgba(217,194,178,0.16); }
+    .checklist-add button { min-height: 42px; padding: 10px 18px; border-radius: 999px; border: none; background: linear-gradient(135deg, #d6b19a, #a97c66); color: #fffaf7; font: inherit; font-weight: 700; font-size: 0.88rem; cursor: pointer; box-shadow: 0 6px 16px rgba(185,143,122,0.2); transition: transform 0.18s, box-shadow 0.18s; }
+    .checklist-add button:hover { transform: translateY(-1px); box-shadow: 0 10px 22px rgba(185,143,122,0.28); }
+    .checklist-progress { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+    .checklist-bar-wrap { flex: 1; height: 6px; border-radius: 999px; background: rgba(214,190,174,0.3); overflow: hidden; }
+    .checklist-bar { height: 100%; border-radius: 999px; background: linear-gradient(90deg, #d6b19a, #a97c66); transition: width 0.4s ease; }
+    .checklist-pct { font-size: 0.8rem; font-weight: 700; color: #a97c66; white-space: nowrap; }
 
     /* ── FAVOURITES ── */
-    .favourites-topbar {
-      max-width: 340px;
-      margin: 0 auto 22px;
-    }
+    .couple-favs-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .couple-fav-card { border-radius: 18px; border: 1px solid rgba(223,210,200,0.8); overflow: hidden; background: #fffdfb; cursor: pointer; transition: transform 0.22s ease, box-shadow 0.22s ease; }
+    .couple-fav-card:hover { transform: translateY(-4px); box-shadow: 0 14px 32px rgba(59,47,42,0.1); }
+    .couple-fav-card img { width: 100%; aspect-ratio: 1.3/1; object-fit: cover; display: block; filter: brightness(0.98) contrast(0.94) saturate(0.92); transition: transform 0.4s ease; }
+    .couple-fav-card:hover img { transform: scale(1.04); }
+    .couple-fav-info { padding: 10px 12px; }
+    .couple-fav-name { margin: 0 0 4px; font-family: "Cormorant Garamond", serif; font-size: 1.15rem; font-weight: 500; letter-spacing: -0.02em; color: var(--lux-espresso); }
+    .couple-fav-cat { margin: 0; font-size: 0.8rem; color: var(--lux-muted); }
+    .couple-favs-empty { color: var(--lux-muted); font-style: italic; font-size: 0.95rem; line-height: 1.7; margin: 0; }
+    .couple-fav-clear { border: none; background: transparent; color: var(--lux-muted); font-size: 0.8rem; text-decoration: underline; cursor: pointer; padding: 0; margin-left: 8px; transition: opacity 0.18s; }
+    .couple-fav-clear:hover { opacity: 0.6; }
 
-    .favourite-filter {
-      width: 100%;
-      border: 1px solid #eadfd6;
-      border-radius: 14px;
-      background: #fffdfb;
-      padding: 12px 14px;
-      font: inherit;
-      font-size: 0.94rem;
-      color: #2d221c;
-      box-sizing: border-box;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .favourite-filter:focus {
-      outline: none;
-      border-color: #d6bcad;
-      box-shadow: 0 0 0 4px rgba(217,194,178,0.16);
-    }
+    /* ── MESSAGES ── */
+    .couple-messages-list { display: grid; gap: 10px; }
+    .couple-msg-item { display: flex; align-items: flex-start; gap: 14px; padding: 14px 16px; border-radius: 16px; background: rgba(247,241,237,0.8); border: 1px solid rgba(223,210,200,0.7); cursor: pointer; transition: background 0.18s, border-color 0.18s, transform 0.18s; }
+    .couple-msg-item:hover { background: var(--lux-blush); border-color: rgba(198,167,125,0.5); transform: translateX(3px); }
+    .couple-msg-item.unread { border-left: 3px solid #d6b19a; }
+    .couple-msg-avatar { width: 42px; height: 42px; border-radius: 999px; object-fit: cover; background: var(--lux-blush); flex: 0 0 42px; }
+    .couple-msg-content { flex: 1; min-width: 0; }
+    .couple-msg-name { margin: 0 0 3px; font-family: "Cormorant Garamond", serif; font-size: 1.05rem; font-weight: 500; color: var(--lux-espresso); }
+    .couple-msg-preview { margin: 0; font-size: 0.88rem; color: var(--lux-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.5; }
+    .couple-msg-time { font-size: 0.78rem; color: #b5a49c; white-space: nowrap; margin-top: 2px; }
+    .couple-msg-unread-dot { width: 8px; height: 8px; border-radius: 999px; background: #d6b19a; flex: 0 0 8px; margin-top: 6px; }
+    .couple-msgs-empty { color: var(--lux-muted); font-style: italic; font-size: 0.95rem; line-height: 1.7; margin: 0; }
 
-    .vendors-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 18px;
-    }
+    /* ── QUICK LINKS ── */
+    .couple-quicklinks-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .couple-quicklink { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 18px; background: rgba(247,241,237,0.8); border: 1px solid rgba(223,210,200,0.7); text-decoration: none; color: var(--lux-espresso); transition: background 0.18s, border-color 0.18s, transform 0.18s; }
+    .couple-quicklink:hover { background: var(--lux-blush); border-color: rgba(198,167,125,0.5); transform: translateY(-2px); }
+    .couple-quicklink-icon { font-size: 1.3rem; flex: 0 0 auto; }
+    .couple-quicklink-text strong { display: block; font-size: 0.9rem; font-weight: 700; color: var(--lux-espresso); margin-bottom: 2px; }
+    .couple-quicklink-text span { font-size: 0.82rem; color: var(--lux-muted); }
 
-    .vendor-card-public {
-      background: rgba(255,253,251,0.95);
-      border-radius: 22px;
-      border: 1px solid rgba(223,210,200,0.7);
-      overflow: hidden;
-      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
-      box-shadow: 0 4px 16px rgba(59,47,42,0.04);
-    }
-    .vendor-card-public:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 20px 44px rgba(59,47,42,0.1);
-      border-color: rgba(198,167,125,0.5);
-    }
+    /* ── NOTES ── */
+    .couple-notes-area { width: 100%; border: 1px solid #eadfd6; border-radius: 16px; padding: 14px 16px; font: inherit; font-size: 0.95rem; color: #2d221c; background: #fffdfb; min-height: 140px; resize: vertical; box-sizing: border-box; transition: border-color 0.2s, box-shadow 0.2s; }
+    .couple-notes-area:focus { outline: none; border-color: #d6bcad; box-shadow: 0 0 0 4px rgba(217,194,178,0.16); }
+    .couple-notes-save { margin-top: 10px; }
+    .couple-notes-status { margin: 6px 0 0 !important; font-style: italic; font-family: "Cormorant Garamond", serif; font-size: 0.95rem; min-height: 18px; }
 
-    .vendor-card-image-wrap {
-      width: 100%;
-      aspect-ratio: 4/3;
-      background: var(--lux-blush);
-      overflow: hidden;
-    }
-    .vendor-card-image-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.4s ease;
-    }
-    .vendor-card-public:hover .vendor-card-image-wrap img { transform: scale(1.04); }
+    /* ── SIDEBAR ── */
+    .couple-sidebar { display: grid; gap: 24px; }
+    .couple-sidebar-card { border-radius: 24px; background: rgba(255, 250, 247, 0.92); border: 1px solid rgba(223, 210, 200, 0.9); box-shadow: 0 6px 18px var(--lux-shadow); padding: 22px 20px; }
+    .couple-sidebar-card h2 { margin: 0 0 14px; font-family: "Cormorant Garamond", serif; font-size: 1.35rem; font-weight: 500; letter-spacing: -0.02em; color: var(--lux-espresso); }
 
-    .vendor-card-public-inner { padding: 20px; }
+    /* ── BUDGET ── */
+    .budget-total-row { display: flex; align-items: baseline; gap: 8px; margin-bottom: 14px; }
+    .budget-total-label { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #8d7369; }
+    .budget-total-amount { font-family: "Cormorant Garamond", serif; font-size: 2rem; font-weight: 500; color: var(--lux-espresso); letter-spacing: -0.03em; flex: 1; }
+    .budget-edit-btn { border: none; background: transparent; color: var(--lux-muted); font-size: 0.8rem; text-decoration: underline; cursor: pointer; padding: 0; }
+    .budget-categories { display: grid; gap: 8px; margin-bottom: 14px; }
+    .budget-cat-row { display: flex; align-items: center; gap: 10px; }
+    .budget-cat-label { flex: 1; font-size: 0.88rem; color: #5b4a43; }
+    .budget-cat-amount { font-size: 0.88rem; font-weight: 600; color: var(--lux-espresso); white-space: nowrap; }
+    .budget-cat-bar-wrap { width: 80px; height: 5px; border-radius: 999px; background: rgba(214,190,174,0.3); overflow: hidden; }
+    .budget-cat-bar { height: 100%; border-radius: 999px; background: linear-gradient(90deg, #d6b19a, #a97c66); }
+    .budget-add-row { display: flex; gap: 8px; margin-top: 10px; }
+    .budget-add-row input { flex: 1; border: 1px solid #eadfd6; border-radius: 12px; padding: 9px 12px; font: inherit; font-size: 0.88rem; color: #2d221c; background: #fffdfb; box-sizing: border-box; min-width: 0; transition: border-color 0.2s; }
+    .budget-add-row input:focus { outline: none; border-color: #d6bcad; }
+    .budget-add-row button { min-height: 38px; padding: 8px 14px; border-radius: 999px; border: none; background: linear-gradient(135deg, #d6b19a, #a97c66); color: #fffaf7; font: inherit; font-weight: 700; font-size: 0.82rem; cursor: pointer; white-space: nowrap; transition: transform 0.18s; }
+    .budget-add-row button:hover { transform: translateY(-1px); }
+    .budget-remaining { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; border-radius: 14px; background: linear-gradient(135deg, rgba(214,177,154,0.15), rgba(169,124,102,0.06)); border: 1px solid rgba(198,167,125,0.5); margin-top: 14px; }
+    .budget-remaining-label { font-size: 0.82rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #8d7369; }
+    .budget-remaining-amount { font-family: "Cormorant Garamond", serif; font-size: 1.5rem; font-weight: 500; color: var(--lux-espresso); letter-spacing: -0.03em; }
 
-    .vendor-card-top h3 {
-      margin: 0 0 5px;
-      color: var(--lux-espresso);
-      font-size: 1.15rem;
-      line-height: 1.2;
-      font-family: "Cormorant Garamond", serif;
-      font-weight: 600;
-    }
-    .vendor-card-location {
-      margin: 0 0 12px;
-      color: #a08479;
-      font-size: 0.88rem;
-    }
-    .vendor-card-bio {
-      margin: 0 0 14px;
-      color: #6f5c55;
-      line-height: 1.7;
-      font-size: 0.92rem;
-    }
-    .vendor-card-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 7px;
-      margin-bottom: 16px;
-    }
-    .vendor-tag {
-      display: inline-flex;
-      align-items: center;
-      background: rgba(244,229,222,0.8);
-      color: #805f54;
-      padding: 6px 11px;
-      border-radius: 999px;
-      font-size: 0.8rem;
-      border: 1px solid rgba(207,178,166,0.35);
-    }
-    .vendor-card-links { display: grid; gap: 8px; }
+    /* ── INSPIRATION ── */
+    .inspiration-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .inspiration-card { border-radius: 16px; overflow: hidden; border: 1px solid rgba(223,210,200,0.8); background: var(--lux-blush); aspect-ratio: 1/1; cursor: pointer; transition: transform 0.22s ease; }
+    .inspiration-card:hover { transform: scale(1.03); }
+    .inspiration-card img { width: 100%; height: 100%; object-fit: cover; display: block; filter: brightness(0.97) contrast(0.94) saturate(0.9); transition: filter 0.3s; }
+    .inspiration-card:hover img { filter: brightness(1) contrast(0.96) saturate(0.95); }
+    .inspiration-add { width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px; border-radius: 14px; border: 1.5px dashed rgba(198,167,125,0.6); background: transparent; color: #a08479; font: inherit; font-size: 0.88rem; cursor: pointer; margin-top: 8px; transition: background 0.18s, border-color 0.18s; }
+    .inspiration-add:hover { background: rgba(244,231,223,0.5); border-color: rgba(198,167,125,0.8); }
 
-    .view-vendor-btn {
-      display: block;
-      text-align: center;
-      text-decoration: none;
-      border-radius: 999px;
-      padding: 11px 14px;
-      font: inherit;
-      font-size: 0.88rem;
-      font-weight: 700;
-      cursor: pointer;
-      box-sizing: border-box;
-      background: linear-gradient(135deg, #d6b19a, #a97c66);
-      color: #fffaf7;
-      border: none;
-      box-shadow: 0 6px 16px rgba(185,143,122,0.2);
-      transition: all 0.18s ease;
-    }
-    .view-vendor-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 26px rgba(185,143,122,0.28);
-      filter: brightness(1.04);
-    }
-
-    .remove-favourite-btn {
-      display: block;
-      width: 100%;
-      border: 1px solid rgba(214,184,191,0.6);
-      background: rgba(255,247,249,0.8);
-      color: #9d6778;
-      border-radius: 999px;
-      padding: 10px 14px;
-      font: inherit;
-      font-size: 0.86rem;
-      cursor: pointer;
-      box-sizing: border-box;
-      text-align: center;
-      transition: all 0.18s ease;
-    }
-    .remove-favourite-btn:hover {
-      background: #ffe8ee;
-      transform: translateY(-1px);
-    }
-
-    /* ── ACCOUNT & SECURITY ── */
-    .account-form,
-    .security-form {
-      display: grid;
-      gap: 14px;
-      max-width: 680px;
-      margin: 0 auto;
-    }
-
-    .account-two-col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
-
-    .form-field-label {
-      display: block;
-      margin-bottom: 7px;
-      font-size: 0.82rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: #8d7369;
-    }
-
-    .account-form input,
-    .security-form input {
-      width: 100%;
-      border: 1px solid #eadfd6;
-      border-radius: 14px;
-      background: #fffdfb;
-      padding: 13px 15px;
-      font: inherit;
-      font-size: 0.95rem;
-      color: #2d221c;
-      box-sizing: border-box;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .account-form input:focus,
-    .security-form input:focus {
-      outline: none;
-      border-color: #d6bcad;
-      box-shadow: 0 0 0 4px rgba(217,194,178,0.16);
-    }
-
-    .account-save-btn,
-    .security-save-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 48px;
-      padding: 12px 28px;
-      border: none;
-      background: linear-gradient(135deg, #d6b19a, #a97c66);
-      color: #fffaf7;
-      border-radius: 999px;
-      cursor: pointer;
-      font: inherit;
-      font-weight: 700;
-      font-size: 0.92rem;
-      box-shadow: 0 10px 24px rgba(185,143,122,0.22);
-      transition: all 0.18s ease;
-    }
-    .account-save-btn:hover,
-    .security-save-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 16px 32px rgba(185,143,122,0.28);
-      filter: brightness(1.04);
-    }
-
-    .account-status,
-    .security-status {
-      margin: 0;
-      min-height: 22px;
-      color: var(--lux-muted);
-      font-size: 0.9rem;
-      line-height: 1.6;
-      text-align: center;
-    }
-
-    .security-help {
-      margin: 4px 0 0;
-      color: var(--lux-muted);
-      font-size: 0.88rem;
-      line-height: 1.7;
-      text-align: center;
-      font-style: italic;
-    }
-
-    /* ── EMPTY STATES ── */
-    .empty-message {
-      text-align: center;
-      margin: 20px 0 0;
-      color: var(--lux-muted);
-      font-size: 0.97rem;
-      line-height: 1.75;
-    }
-
-    /* ── FOOTER ── */
-    .site-footer {
-      background:
-        radial-gradient(circle at top, rgba(200,166,161,0.16), transparent 36%),
-        linear-gradient(180deg, #f5eee9 0%, #eee5df 100%);
-    }
+    /* ── MOBILE ── */
+    .site-footer { background: radial-gradient(circle at top, rgba(200, 166, 161, 0.16), transparent 36%), linear-gradient(180deg, #f5eee9 0%, #eee5df 100%); }
     .footer-title { color: var(--lux-espresso); letter-spacing: -0.035em; }
     .footer-eyebrow { color: #b08d7d; }
-
-    /* ── RESPONSIVE ── */
-
-    /* ── MESSAGING ── */
-    .conv-list { display: grid; gap: 10px; margin-top: 4px; }
-    .conv-item { display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: start; padding: 16px 18px; border-radius: 18px; background: rgba(255,250,247,0.95); border: 1px solid rgba(223,210,200,0.7); cursor: pointer; transition: all 0.18s ease; }
-    .conv-item:hover { border-color: rgba(198,167,125,0.5); box-shadow: 0 8px 22px var(--lux-shadow); transform: translateY(-2px); }
-    .conv-item.unread { border-left: 3px solid #a97c66; }
-    .conv-name { margin: 0 0 4px; font-family: "Cormorant Garamond", serif; font-size: 1.1rem; font-weight: 500; color: var(--lux-espresso); }
-    .conv-preview { margin: 0; color: var(--lux-muted); font-size: 0.88rem; line-height: 1.5; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 380px; }
-    .conv-time { font-size: 0.8rem; color: var(--lux-muted); white-space: nowrap; }
-    .thread-view { display: none; }
-    .thread-view.open { display: block; }
-    .thread-back { display: inline-flex; align-items: center; gap: 6px; background: none; border: none; color: var(--lux-muted); font: inherit; font-size: 0.88rem; cursor: pointer; padding: 0; margin-bottom: 16px; transition: color 0.18s ease; }
-    .thread-back:hover { color: var(--lux-espresso); }
-    .thread-title { margin: 0 0 16px; font-family: "Cormorant Garamond", serif; font-size: 1.4rem; font-weight: 500; color: var(--lux-espresso); }
-    .messages-list { display: grid; gap: 12px; margin-bottom: 20px; max-height: 420px; overflow-y: auto; padding-right: 4px; }
-    .msg-bubble-wrap { display: flex; }
-    .msg-bubble-wrap.mine { justify-content: flex-end; }
-    .msg-bubble { max-width: 75%; padding: 12px 16px; border-radius: 18px; line-height: 1.65; font-size: 0.93rem; word-break: break-word; }
-    .msg-bubble.theirs { background: rgba(247,241,237,0.9); border: 1px solid rgba(223,210,200,0.7); color: #4a3b34; border-bottom-left-radius: 4px; }
-    .msg-bubble.mine { background: linear-gradient(135deg, #3b2f2a, #2a211d); color: #fffaf7; border-bottom-right-radius: 4px; }
-    .msg-bubble-time { font-size: 0.76rem; color: var(--lux-muted); margin-top: 4px; }
-    .msg-bubble-wrap.mine .msg-bubble-time { text-align: right; }
-    .msg-bubble-wrap.theirs .msg-bubble-time { text-align: left; }
-    .reply-form { display: grid; gap: 10px; }
-    .reply-form textarea { width: 100%; border: 1px solid #eadfd6; border-radius: 14px; background: #fffdfb; padding: 12px 14px; font: inherit; font-size: 0.94rem; color: #2d221c; box-sizing: border-box; resize: vertical; min-height: 90px; transition: border-color 0.2s, box-shadow 0.2s; }
-    .reply-form textarea:focus { outline: none; border-color: #d6bcad; box-shadow: 0 0 0 4px rgba(217,194,178,0.16); }
-    .msg-unread-badge { display: inline-flex; align-items: center; justify-content: center; min-width: 22px; height: 22px; border-radius: 999px; background: linear-gradient(135deg, #d6b19a, #a97c66); color: #fffaf7; font-size: 0.72rem; font-weight: 700; padding: 0 6px; margin-left: 8px; vertical-align: middle; }
-
-    @media (max-width: 960px) {
-      .couple-hero-grid,
-      .vision-layout,
-      .planning-layout,
-      .account-two-col {
-        grid-template-columns: 1fr;
-      }
-      .couple-topbar { justify-content: center; }
-      .couple-topbar-text { text-align: center; }
-      .couple-topbar-actions { justify-content: center; }
-      .hero-copy { text-align: center; }
-      .hero-copy p { margin-left: auto; margin-right: auto; }
-      .hero-actions { justify-content: center; }
-      .hero-copy-kicker { text-align: center; }
-      .profile-card { max-width: 220px; margin: 0 auto; }
-      .vision-board-grid { columns: 2 180px; }
-    }
-
-    @media (max-width: 640px) {
-      .couple-page-shell { padding: 16px 14px 60px; gap: 20px; }
-      .dashboard-card { padding: 24px 18px; border-radius: 22px; }
-      .couple-hero-card { padding: 24px 18px; border-radius: 22px; }
-      .couple-hero-card::before { display: none; }
-      .vision-board-grid { columns: 1 180px; }
-      .vendors-grid { grid-template-columns: 1fr; }
-      .hero-cta-primary,
-      .hero-cta-secondary { width: 100%; }
-      .calendar-day { min-height: 44px; padding: 6px 7px; border-radius: 10px; }
-    }
+    @media (max-width: 1100px) { .couple-grid { grid-template-columns: 1fr; } .couple-sidebar { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 700px) { .couple-topbar { padding: 0 14px; gap: 12px; } .couple-topbar-logo { width: 40px; height: 40px; } .couple-topbar-title h1 { font-size: 1.15rem; } .couple-topbar-actions { gap: 8px; } .couple-topbar-link { padding: 7px 12px; font-size: 0.82rem; } .couple-dashboard { padding: 14px 12px 40px; gap: 16px; } .couple-welcome-card { grid-template-columns: 1fr; } .couple-countdown-wrap { display: none; } .couple-grid { grid-template-columns: 1fr; } .couple-sidebar { grid-template-columns: 1fr; } .couple-favs-grid, .couple-quicklinks-grid, .inspiration-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
-<body class="couple-dashboard-page">
+<body>
 
-  <!-- ── TOPBAR ── -->
-  <header class="couple-topbar">
-    <a href="index.html" class="couple-topbar-home" aria-label="Homepage">
-      <img src="images/logo.png" alt="Our Wedding Day Hub" class="couple-topbar-logo">
+<!-- ── COUPLE TOPBAR ── -->
+<header class="couple-topbar">
+  <a href="index.html" class="couple-topbar-logo-wrap" aria-label="Go to homepage">
+    <img src="images/logo.png" alt="Our Wedding Day Hub" class="couple-topbar-logo" loading="eager" fetchpriority="high">
+  </a>
+  <div class="couple-topbar-title">
+    <h1 id="topbarWeddingName">My Wedding Dashboard</h1>
+  </div>
+  <div class="couple-topbar-actions">
+    <a href="categories.html" class="couple-topbar-link">Browse Vendors</a>
+    <a href="messages.html" id="coupleMessagesLink" class="couple-topbar-link messages-link">
+      Messages
+      <span id="coupleMsgBadge" class="couple-topbar-badge">0</span>
     </a>
+    <button type="button" id="coupleLogoutBtn" class="couple-topbar-btn">Log Out</button>
+  </div>
+</header>
 
-    <div class="couple-topbar-text">
-      <p class="couple-topbar-kicker">Couple Dashboard</p>
-      <h1 class="couple-topbar-title">Your Wedding Planning Space</h1>
+<main class="couple-dashboard">
+
+  <!-- ── WELCOME CARD ── -->
+  <section class="couple-welcome-card">
+    <div>
+      <p class="couple-welcome-kicker">Welcome back</p>
+      <h2 id="welcomeTitle" class="couple-welcome-title">Your Wedding Dashboard</h2>
+      <p id="welcomeSub" class="couple-welcome-sub">Everything you need to plan your perfect day — saved favourites, messages from vendors, your checklist, budget, and more.</p>
+    </div>
+    <div class="couple-countdown-wrap">
+      <span class="couple-countdown-days" id="countdownDays">–</span>
+      <span class="couple-countdown-label">days to go</span>
+    </div>
+  </section>
+
+  <div class="couple-grid">
+    <div class="couple-grid-left">
+
+      <!-- ── CHECKLIST ── -->
+      <div class="couple-card">
+        <p class="couple-card-kicker">Planning</p>
+        <div class="couple-card-header">
+          <h2 class="couple-card-title">Wedding Checklist</h2>
+        </div>
+        <div class="checklist-progress">
+          <div class="checklist-bar-wrap"><div class="checklist-bar" id="checklistBar" style="width:0%"></div></div>
+          <span class="checklist-pct" id="checklistPct">0%</span>
+        </div>
+        <div id="checklistItems" class="couple-checklist"></div>
+        <div class="checklist-add" style="margin-top:14px;">
+          <input type="text" id="checklistInput" placeholder="Add a task...">
+          <button type="button" id="checklistAddBtn">Add</button>
+        </div>
+      </div>
+
+      <!-- ── SAVED FAVOURITES ── -->
+      <div class="couple-card">
+        <p class="couple-card-kicker">Discovered</p>
+        <div class="couple-card-header">
+          <h2 class="couple-card-title">Saved Vendors</h2>
+          <button type="button" class="couple-fav-clear" id="clearFavsBtn" style="display:none;">Clear all</button>
+        </div>
+        <div id="coupleFavsGrid" class="couple-favs-grid"></div>
+        <p id="coupleFavsEmpty" class="couple-favs-empty" style="display:none;">No saved vendors yet. Browse categories and save the ones you love ♡</p>
+      </div>
+
+      <!-- ── MESSAGES ── -->
+      <div class="couple-card">
+        <p class="couple-card-kicker">Conversations</p>
+        <div class="couple-card-header">
+          <h2 class="couple-card-title">Messages</h2>
+          <a href="messages.html" style="font-size:0.85rem;color:#a08479;text-decoration:none;font-weight:600;">View all →</a>
+        </div>
+        <div id="coupleMessagesList" class="couple-messages-list"></div>
+        <p id="coupleMsgsEmpty" class="couple-msgs-empty" style="display:none;">No messages yet. Send a message from any vendor profile to start a conversation ♡</p>
+      </div>
+
+      <!-- ── NOTES ── -->
+      <div class="couple-card">
+        <p class="couple-card-kicker">Notes</p>
+        <h2 class="couple-card-title" style="margin-bottom:12px;">Planning Notes</h2>
+        <p>Jot down ideas, reminders, or anything important for your day.</p>
+        <textarea id="coupleNotes" class="couple-notes-area" placeholder="Start typing your planning notes..."></textarea>
+        <div class="couple-notes-save">
+          <button type="button" id="saveNotesBtn" class="couple-save-btn">Save Notes</button>
+        </div>
+        <p id="notesStatus" class="couple-notes-status"></p>
+      </div>
+
     </div>
 
-    <div class="couple-topbar-actions">
-      <a href="index.html" class="topbar-pill topbar-pill-ghost">Home</a>
-      <button id="logoutBtn" class="topbar-pill topbar-pill-solid" type="button">Log Out</button>
-    </div>
-  </header>
+    <!-- ── SIDEBAR ── -->
+    <aside class="couple-sidebar">
 
-  <main class="couple-page-shell">
-
-    <!-- ── HERO ── -->
-    <section class="couple-hero-card">
-      <div class="couple-hero-grid">
-
-        <div class="profile-card">
-          <div class="profile-photo-wrap" onclick="document.getElementById('profileImageInput').click()">
-            <div class="profile-placeholder" id="profilePlaceholder">Add your photo</div>
-            <img id="profilePhoto" alt="Profile photo" style="display:none;">
-            <div class="profile-photo-hover-label">Change photo</div>
-          </div>
-          <label for="profileImageInput" class="upload-label">Upload Photo</label>
-          <input id="profileImageInput" class="hidden-input" type="file" accept="image/*">
-          <p id="profileUploadStatus" class="profile-help"></p>
-        </div>
-
-        <div class="hero-copy">
-          <p class="hero-copy-kicker">Welcome back</p>
-          <h1 id="welcomeMessage">Loading your dashboard...</h1>
-          <p class="hero-copy-script">your big day is coming ♡</p>
-          <p>Your favourite vendors, saved inspiration, planning notes, and wedding ideas all in one beautiful space.</p>
-          <div class="hero-actions">
-            <a href="categories.html" class="hero-cta-primary">Find Vendors</a>
-            <a href="#visionBoardSection" class="hero-cta-secondary">Add Inspiration</a>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ── JUMP NAV ── -->
-    <nav class="dashboard-jump-nav" aria-label="Dashboard sections">
-      <a href="#planningSection"    class="dashboard-jump-link"><span class="jump-icon">📅</span> Planning</a>
-      <a href="#visionBoardSection" class="dashboard-jump-link"><span class="jump-icon">✦</span> Inspiration</a>
-      <a href="#favouritesSection"  class="dashboard-jump-link"><span class="jump-icon">♡</span> Favourites</a>
-      <a href="#accountSection"     class="dashboard-jump-link"><span class="jump-icon">☁</span> Account</a>
-      <a href="#securitySection"    class="dashboard-jump-link"><span class="jump-icon">🔒</span> Password</a>
-      <a href="#messagesSection"    class="dashboard-jump-link"><span class="jump-icon">✦</span> Messages</a>
-    </nav>
-
-    <!-- ── PLANNING ── -->
-    <section class="dashboard-card" id="planningSection">
-      <div class="section-kicker-wrap">
-        <span class="section-kicker">Planning</span>
-        <span class="section-kicker-line"></span>
-      </div>
-      <h2>Your Planning Space</h2>
-      <p class="dashboard-subtext">Keep your wedding date and your little jobs together in one easy spot.</p>
-
-      <div class="planning-layout">
-
-        <div class="calendar-box">
-          <div class="calendar-date-input-wrap">
-            <label for="weddingDateInput">Your wedding date</label>
-            <input id="weddingDateInput" type="date">
-          </div>
-
-          <div class="calendar-header">
-            <button type="button" id="calendarPrevBtn" class="calendar-nav" aria-label="Previous month">‹</button>
-            <div id="calendarMonthLabel" class="calendar-month-label"></div>
-            <button type="button" id="calendarNextBtn" class="calendar-nav" aria-label="Next month">›</button>
-          </div>
-
-          <div class="calendar-weekdays">
-            <div class="calendar-weekday">Sun</div>
-            <div class="calendar-weekday">Mon</div>
-            <div class="calendar-weekday">Tue</div>
-            <div class="calendar-weekday">Wed</div>
-            <div class="calendar-weekday">Thu</div>
-            <div class="calendar-weekday">Fri</div>
-            <div class="calendar-weekday">Sat</div>
-          </div>
-
-          <div id="planningCalendarGrid" class="calendar-grid"></div>
-          <div id="calendarNote" class="calendar-note">Choose your wedding date above and it will be marked on your calendar.</div>
-        </div>
-
-        <div class="todo-box">
-          <h3 class="todo-box-title">Wedding To-Dos</h3>
-          <div class="todo-form">
-            <input id="todoInput" class="todo-input" type="text" placeholder="e.g. Book the florist...">
-            <button type="button" id="addTodoBtn" class="todo-add-btn">Add To-Do</button>
-            <p id="todoStatus" class="todo-status"></p>
-          </div>
-          <div id="todoList" class="todo-list"></div>
-          <p id="emptyTodo" class="empty-message" style="display:none;">No to-do items yet — add your first above.</p>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ── VISION BOARD ── -->
-    <section class="dashboard-card" id="visionBoardSection">
-      <div class="section-kicker-wrap">
-        <span class="section-kicker">Inspiration</span>
-        <span class="section-kicker-line"></span>
-      </div>
-      <h2>Your Inspiration Board</h2>
-      <p class="dashboard-subtext">Upload images, save visual ideas, and collect everything you love into your own mood board.</p>
-
-      <div class="vision-layout">
-        <aside class="vision-sidebar">
-          <div class="vision-upload-card">
-            <h3>Add Inspiration</h3>
-            <p>Upload mood images, flowers, dresses, stationery, or anything that sparks joy.</p>
-
-            <form id="visionUploadForm" class="vision-form">
-              <label for="visionImageInput" class="upload-label">Choose Image</label>
-              <input id="visionImageInput" class="hidden-input" type="file" accept="image/*">
-              <p id="visionFileNote" class="vision-file-note"></p>
-
-              <div id="visionPreviewWrap" class="vision-preview-wrap">
-                <img id="visionPreviewImage" alt="Preview">
-              </div>
-
-              <textarea id="visionCaptionInput" rows="3" placeholder="Add a little note... soft florals, candlelit reception, romantic textures..."></textarea>
-
-              <button type="submit" class="board-upload-button">Add to Board</button>
-              <p id="visionUploadStatus" class="upload-status"></p>
-            </form>
-          </div>
-
-          <div class="mini-panel">
-            <h3>Ideas for this space</h3>
-            <p>Bridal style, ceremony flowers, colour palettes, table settings, hair looks — save anything that inspires you and start shaping your vision.</p>
-          </div>
-        </aside>
-
-        <div>
-          <div id="visionBoardGrid" class="vision-board-grid"></div>
-          <p id="emptyVisionBoard" class="empty-message" style="display:none;">Your board is empty for now. Upload your first image to get started.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── FAVOURITES ── -->
-    <section class="dashboard-card" id="favouritesSection">
-      <div class="section-kicker-wrap">
-        <span class="section-kicker">Favourites</span>
-        <span class="section-kicker-line"></span>
-      </div>
-      <h2>Your Favourite Vendors</h2>
-      <p class="dashboard-subtext">Browse your saved vendors and view their profiles whenever you need them.</p>
-
-      <div class="favourites-topbar">
-        <select id="favouriteCategoryFilter" class="favourite-filter">
-          <option value="all">All favourites</option>
-        </select>
-      </div>
-
-      <div id="favouritesGrid" class="vendors-grid"></div>
-      <p id="emptyFavourites" class="empty-message" style="display:none;">You haven't saved any vendors yet. Browse the directory and heart the ones you love.</p>
-    </section>
-
-    <!-- ── ACCOUNT ── -->
-    <section class="dashboard-card" id="accountSection">
-      <div class="section-kicker-wrap">
-        <span class="section-kicker">Account</span>
-        <span class="section-kicker-line"></span>
-      </div>
-      <h2>Your Account Details</h2>
-      <p class="dashboard-subtext">Update your names and email address here.</p>
-
-      <form id="accountForm" class="account-form">
-        <div class="account-two-col">
+      <!-- Wedding Details -->
+      <div class="couple-sidebar-card">
+        <h2>Wedding Details</h2>
+        <div class="couple-date-form">
           <div>
-            <label class="form-field-label" for="partnerOne">Name one</label>
-            <input id="partnerOne" type="text" placeholder="Partner one">
+            <label for="partner1Name">Partner 1 Name</label>
+            <input type="text" id="partner1Name" placeholder="Name">
           </div>
           <div>
-            <label class="form-field-label" for="partnerTwo">Name two</label>
-            <input id="partnerTwo" type="text" placeholder="Partner two">
+            <label for="partner2Name">Partner 2 Name</label>
+            <input type="text" id="partner2Name" placeholder="Name">
+          </div>
+          <div>
+            <label for="weddingDate">Wedding Date</label>
+            <input type="date" id="weddingDate">
+          </div>
+          <div>
+            <label for="weddingVenue">Venue / Location</label>
+            <input type="text" id="weddingVenue" placeholder="e.g. The Estate, Byron Bay">
+          </div>
+          <button type="button" id="saveDetailsBtn" class="couple-save-btn">Save Details</button>
+          <p id="detailsStatus" class="couple-save-status"></p>
+        </div>
+      </div>
+
+      <!-- Budget Tracker -->
+      <div class="couple-sidebar-card">
+        <h2>Budget Tracker</h2>
+        <div class="budget-total-row">
+          <span class="budget-total-label">Total Budget</span>
+          <span class="budget-total-amount" id="budgetTotal">–</span>
+          <button type="button" class="budget-edit-btn" id="editBudgetBtn">Edit</button>
+        </div>
+        <div id="budgetInput" style="display:none; margin-bottom:12px;">
+          <div class="budget-add-row">
+            <input type="number" id="budgetTotalInput" placeholder="Total budget (e.g. 30000)" min="0">
+            <button type="button" id="saveBudgetTotalBtn">Save</button>
           </div>
         </div>
-        <div>
-          <label class="form-field-label" for="accountEmail">Email address</label>
-          <input id="accountEmail" type="email" placeholder="your@email.com">
+        <div id="budgetCategories" class="budget-categories"></div>
+        <div class="budget-add-row">
+          <input type="text" id="budgetCatName" placeholder="Category name">
+          <input type="number" id="budgetCatAmount" placeholder="Amount" style="max-width:100px;">
+          <button type="button" id="addBudgetCatBtn">Add</button>
         </div>
-        <button type="submit" class="account-save-btn">Update Details</button>
-        <p id="accountStatus" class="account-status"></p>
-      </form>
-    </section>
-
-    <!-- ── SECURITY ── -->
-    <section class="dashboard-card" id="securitySection">
-      <div class="section-kicker-wrap">
-        <span class="section-kicker">Password</span>
-        <span class="section-kicker-line"></span>
-      </div>
-      <h2>Password &amp; Security</h2>
-      <p class="dashboard-subtext">Keep your account safe by updating your password here.</p>
-
-      <form id="securityForm" class="security-form">
-        <div>
-          <label class="form-field-label" for="accountPassword">New password</label>
-          <input id="accountPassword" type="password" placeholder="At least 6 characters">
-        </div>
-        <button type="submit" class="security-save-btn">Update Password</button>
-        <p id="securityStatus" class="security-status"></p>
-        <p class="security-help">If changes don't go through, Firebase may ask you to log in again first.</p>
-      </form>
-    </section>
-
-    <!-- ── MESSAGES ── -->
-    <section class="dashboard-card" id="messagesSection">
-      <div class="section-kicker-wrap">
-        <span class="section-kicker">Messages</span>
-        <span class="section-kicker-line"></span>
-      </div>
-      <h2>Your Messages <span class="msg-unread-badge" id="coupleUnreadBadge" style="display:none;">0</span></h2>
-      <p class="dashboard-subtext">Conversations with your favourite vendors all in one place.</p>
-
-      <div class="inner-panel">
-        <!-- List view -->
-        <div id="coupleConvListView">
-          <div id="coupleConvList" class="conv-list"></div>
-          <p id="coupleConvEmpty" class="empty-message" style="display:none;">No messages yet. Visit a vendor profile and click "Send a Message" to start a conversation.</p>
-        </div>
-
-        <!-- Thread view -->
-        <div id="coupleThreadView" class="thread-view">
-          <button type="button" id="coupleThreadBack" class="thread-back">← Back to messages</button>
-          <h3 id="coupleThreadTitle" class="thread-title"></h3>
-          <div id="coupleMessagesList" class="messages-list"></div>
-          <form id="coupleReplyForm" class="reply-form">
-            <textarea id="coupleReplyBody" placeholder="Write your message..."></textarea>
-            <button type="submit" class="hero-cta-primary" style="justify-self:start;">Send Message</button>
-          </form>
-          <p id="coupleReplyStatus" style="margin-top:8px; color:var(--lux-muted); font-style:italic; font-family:'Cormorant Garamond',serif; font-size:0.95rem;"></p>
+        <div class="budget-remaining">
+          <span class="budget-remaining-label">Remaining</span>
+          <span class="budget-remaining-amount" id="budgetRemaining">–</span>
         </div>
       </div>
-    </section>
 
-
-  </main>
-
-  <!-- ── FOOTER ── -->
-  <footer class="site-footer">
-    <div class="footer-content">
-      <p class="footer-eyebrow">wedding vendor directory</p>
-      <h2 class="footer-title">Everything your wedding deserves.</h2>
-      <p class="footer-text">Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.</p>
-      <div class="footer-links">
-        <a href="about.html">About Us</a>
-        <a href="how-it-works.html">How It Works</a>
-        <a href="pricing.html">Pricing</a>
-        <a href="contact.html">Contact Us</a>
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="terms.html">Terms &amp; Conditions</a>
-        <a href="refund-policy.html">Refund Policy</a>
-        <a href="https://www.equaldex.com/equality-index" target="_blank" rel="noopener noreferrer">Global Equality Index</a>
-        <a href="#" onclick="return false;">Events4Us (Coming Soon)</a>
+      <!-- Quick Links -->
+      <div class="couple-sidebar-card">
+        <h2>Explore</h2>
+        <div class="couple-quicklinks-grid">
+          <a href="categories.html?type=photo_video" class="couple-quicklink"><span class="couple-quicklink-icon">◈</span><div class="couple-quicklink-text"><strong>Photo &amp; Video</strong><span>Photographers</span></div></a>
+          <a href="categories.html?type=beauty" class="couple-quicklink"><span class="couple-quicklink-icon">✦</span><div class="couple-quicklink-text"><strong>Beauty</strong><span>Hair &amp; Makeup</span></div></a>
+          <a href="categories.html?type=venues" class="couple-quicklink"><span class="couple-quicklink-icon">◇</span><div class="couple-quicklink-text"><strong>Venues</strong><span>Find a space</span></div></a>
+          <a href="categories.html?type=entertainment" class="couple-quicklink"><span class="couple-quicklink-icon">❋</span><div class="couple-quicklink-text"><strong>Music</strong><span>DJs &amp; bands</span></div></a>
+          <a href="categories.html?type=styling_florals" class="couple-quicklink"><span class="couple-quicklink-icon">✿</span><div class="couple-quicklink-text"><strong>Florals</strong><span>Florists &amp; styling</span></div></a>
+          <a href="categories.html" class="couple-quicklink"><span class="couple-quicklink-icon">◎</span><div class="couple-quicklink-text"><strong>All Categories</strong><span>Browse all vendors</span></div></a>
+        </div>
       </div>
-      <p class="footer-tagline">Proudly inclusive • Worldwide • Built with heart</p>
-      <p class="footer-abn">© 2026 Our Wedding Day Hub</p>
-      <p class="footer-abn">ABN 76 688 637 041 • Australia</p>
+
+      <!-- Inspiration Board -->
+      <div class="couple-sidebar-card">
+        <h2>Inspiration</h2>
+        <p style="color:var(--lux-muted);font-size:0.9rem;line-height:1.65;margin-bottom:12px;">Save beautiful images for your wedding vision board.</p>
+        <div id="inspirationGrid" class="inspiration-grid"></div>
+        <button type="button" id="addInspirationBtn" class="inspiration-add">+ Add Image</button>
+        <input type="file" id="inspirationFileInput" accept="image/*" style="display:none;" multiple>
+      </div>
+
+    </aside>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-content">
+    <p class="footer-eyebrow">wedding planning directory</p>
+    <h2 class="footer-title">Everything your wedding deserves.</h2>
+    <p class="footer-text">Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.</p>
+    <div class="footer-links">
+      <a href="about.html">About Us</a>
+      <a href="how-it-works.html">How It Works</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="contact.html">Contact Us</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms &amp; Conditions</a>
+      <a href="refund-policy.html">Refund Policy</a>
+      <a href="https://www.equaldex.com/equality-index" target="_blank" rel="noopener noreferrer">Global Equality Index</a>
+      <a href="#" onclick="return false;">Events4Us (Coming Soon)</a>
     </div>
-  </footer>
+    <p class="footer-tagline">Proudly inclusive • Worldwide • Built with heart</p>
+    <p class="footer-abn">© 2026 Our Wedding Day Hub</p>
+    <p class="footer-abn">ABN 76 688 637 041 • Australia</p>
+  </div>
+</footer>
 
-  <!-- ── ALL SCRIPTS UNCHANGED ── -->
-  <script type="module">
-    import {
-      auth,
-      db,
-      signOut,
-      onAuthStateChanged,
-      doc,
-      getDoc,
-      updateDoc
-    } from './firebase.js';
+<script type="module">
+import { db, auth, doc, getDoc, setDoc, updateDoc, onAuthStateChanged, signOut, collection, query, where, onSnapshot, orderBy, limit } from "./firebase.js";
 
-    import {
-      updateEmail,
-      updatePassword
-    } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+let currentUser = null;
+let userData = {};
+let budgetTotal = 0;
+let budgetCategories = [];
+let checklistItems = [];
+let inspirationImages = [];
+let unsubConversations = null;
 
-    import {
-      collection,
-      addDoc,
-      query,
-      orderBy,
-      getDocs,
-      deleteDoc,
-      serverTimestamp
-    } from 'https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js';
+// ── AUTH ──
+onAuthStateChanged(auth, async (user) => {
+  if (!user) { window.location.href = "login.html"; return; }
+  currentUser = user;
+  await loadUserData();
+  setupUnreadBadge();
+  setupConversationsListener();
+});
 
-  import { onSnapshot, where, orderBy } from 'https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js';
+document.getElementById("coupleLogoutBtn").addEventListener("click", async () => {
+  if (unsubConversations) unsubConversations();
+  await signOut(auth);
+  window.location.href = "index.html";
+});
 
-    import {
-      getStorage,
-      ref,
-      uploadBytes,
-      getDownloadURL,
-      deleteObject
-    } from 'https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js';
+// ── LOAD USER DATA ──
+async function loadUserData() {
+  try {
+    const snap = await getDoc(doc(db, "users", currentUser.uid));
+    if (snap.exists()) userData = snap.data();
+    applyUserData();
+  } catch (err) { console.error("Error loading user data:", err); }
+}
 
-    const logoutBtn               = document.getElementById('logoutBtn');
-    const welcomeMessage          = document.getElementById('welcomeMessage');
-    const favouritesGrid          = document.getElementById('favouritesGrid');
-    const emptyFavourites         = document.getElementById('emptyFavourites');
-    const favouriteCategoryFilter = document.getElementById('favouriteCategoryFilter');
-    const profilePhoto            = document.getElementById('profilePhoto');
-    const profilePlaceholder      = document.getElementById('profilePlaceholder');
-    const profileImageInput       = document.getElementById('profileImageInput');
-    const profileUploadStatus     = document.getElementById('profileUploadStatus');
-    const accountForm             = document.getElementById('accountForm');
-    const partnerOne              = document.getElementById('partnerOne');
-    const partnerTwo              = document.getElementById('partnerTwo');
-    const accountEmail            = document.getElementById('accountEmail');
-    const accountStatus           = document.getElementById('accountStatus');
-    const securityForm            = document.getElementById('securityForm');
-    const accountPassword         = document.getElementById('accountPassword');
-    const securityStatus          = document.getElementById('securityStatus');
-    const weddingDateInput        = document.getElementById('weddingDateInput');
-    const calendarPrevBtn         = document.getElementById('calendarPrevBtn');
-    const calendarNextBtn         = document.getElementById('calendarNextBtn');
-    const calendarMonthLabel      = document.getElementById('calendarMonthLabel');
-    const planningCalendarGrid    = document.getElementById('planningCalendarGrid');
-    const calendarNote            = document.getElementById('calendarNote');
-    const todoInput               = document.getElementById('todoInput');
-    const addTodoBtn              = document.getElementById('addTodoBtn');
-    const todoStatus              = document.getElementById('todoStatus');
-    const todoList                = document.getElementById('todoList');
-    const emptyTodo               = document.getElementById('emptyTodo');
-    const visionUploadForm        = document.getElementById('visionUploadForm');
-    const visionImageInput        = document.getElementById('visionImageInput');
-    const visionCaptionInput      = document.getElementById('visionCaptionInput');
-    const visionUploadStatus      = document.getElementById('visionUploadStatus');
-    const visionBoardGrid         = document.getElementById('visionBoardGrid');
-    const emptyVisionBoard        = document.getElementById('emptyVisionBoard');
-    const visionFileNote          = document.getElementById('visionFileNote');
-    const visionPreviewWrap       = document.getElementById('visionPreviewWrap');
-    const visionPreviewImage      = document.getElementById('visionPreviewImage');
+function applyUserData() {
+  const p1 = userData.partnerOne || "";
+  const p2 = userData.partnerTwo || "";
+  const weddingName = p1 && p2 ? `${p1} & ${p2}` : p1 || p2 || "My Wedding";
+  document.getElementById("topbarWeddingName").textContent = weddingName + " — Dashboard";
+  document.getElementById("welcomeTitle").textContent = p1 && p2 ? `${p1} & ${p2}` : "Your Wedding";
+  document.getElementById("welcomeSub").textContent = "Everything you need to plan your perfect day — saved favourites, messages, your checklist, budget, and more.";
+  document.getElementById("partner1Name").value = p1;
+  document.getElementById("partner2Name").value = p2;
+  if (userData.weddingDate) {
+    document.getElementById("weddingDate").value = userData.weddingDate;
+    updateCountdown(userData.weddingDate);
+  }
+  document.getElementById("weddingVenue").value = userData.weddingVenue || "";
+  document.getElementById("coupleNotes").value = userData.notes || "";
+  budgetTotal = parseFloat(userData.budgetTotal) || 0;
+  budgetCategories = Array.isArray(userData.budgetCategories) ? userData.budgetCategories : [];
+  checklistItems = Array.isArray(userData.checklist) ? userData.checklist : getDefaultChecklist();
+  inspirationImages = Array.isArray(userData.inspirationImages) ? userData.inspirationImages : [];
+  renderBudget();
+  renderChecklist();
+  renderFavourites();
+  renderInspiration();
+}
 
-    const storage = getStorage();
+function updateCountdown(dateStr) {
+  if (!dateStr) return;
+  const weddingDate = new Date(dateStr + "T00:00:00");
+  const today = new Date();
+  today.setHours(0,0,0,0);
+  const diff = Math.round((weddingDate - today) / 86400000);
+  const el = document.getElementById("countdownDays");
+  if (!el) return;
+  if (diff > 0) el.textContent = diff;
+  else if (diff === 0) el.textContent = "Today";
+  else el.textContent = "♡";
+}
 
-    let currentUser        = null;
-    let currentUserData    = null;
-    let calendarMonth      = new Date().getMonth();
-    let calendarYear       = new Date().getFullYear();
-    let loadedFavouriteVendors = [];
+// ── SAVE DETAILS ──
+document.getElementById("saveDetailsBtn").addEventListener("click", async () => {
+  const p1 = document.getElementById("partner1Name").value.trim();
+  const p2 = document.getElementById("partner2Name").value.trim();
+  const date = document.getElementById("weddingDate").value;
+  const venue = document.getElementById("weddingVenue").value.trim();
+  const statusEl = document.getElementById("detailsStatus");
+  try {
+    await setDoc(doc(db, "users", currentUser.uid), { partnerOne: p1, partnerTwo: p2, weddingDate: date, weddingVenue: venue, role: "couple", updatedAt: new Date().toISOString() }, { merge: true });
+    userData = { ...userData, partnerOne: p1, partnerTwo: p2, weddingDate: date, weddingVenue: venue };
+    statusEl.textContent = "Details saved ♡";
+    if (date) updateCountdown(date);
+    const weddingName = p1 && p2 ? `${p1} & ${p2}` : p1 || p2 || "My Wedding";
+    document.getElementById("topbarWeddingName").textContent = weddingName + " — Dashboard";
+    document.getElementById("welcomeTitle").textContent = p1 && p2 ? `${p1} & ${p2}` : "Your Wedding";
+    setTimeout(() => { statusEl.textContent = ""; }, 2500);
+  } catch (err) { console.error(err); statusEl.textContent = "Something went wrong."; }
+});
 
-    function prettifyCategory(category) {
-      return String(category).replaceAll('_', ' ').replace(/\b\w/g, l => l.toUpperCase());
-    }
+// ── NOTES ──
+document.getElementById("saveNotesBtn").addEventListener("click", async () => {
+  const notes = document.getElementById("coupleNotes").value;
+  const statusEl = document.getElementById("notesStatus");
+  try {
+    await setDoc(doc(db, "users", currentUser.uid), { notes }, { merge: true });
+    userData.notes = notes;
+    statusEl.textContent = "Notes saved ♡";
+    setTimeout(() => { statusEl.textContent = ""; }, 2200);
+  } catch (err) { console.error(err); statusEl.textContent = "Something went wrong."; }
+});
 
-    function safeText(value) {
-      return String(value || '')
-        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;').replace(/'/g, '&#039;');
-    }
+// ── CHECKLIST ──
+function getDefaultChecklist() {
+  return [
+    { id: "c1", text: "Set your wedding date", done: false },
+    { id: "c2", text: "Book your venue", done: false },
+    { id: "c3", text: "Find a celebrant", done: false },
+    { id: "c4", text: "Book photographer", done: false },
+    { id: "c5", text: "Book hair & makeup", done: false },
+    { id: "c6", text: "Choose your dress / attire", done: false },
+    { id: "c7", text: "Book catering or choose venue catering", done: false },
+    { id: "c8", text: "Send invitations", done: false },
+    { id: "c9", text: "Plan honeymoon", done: false },
+    { id: "c10", text: "Confirm all vendors", done: false },
+  ];
+}
 
-    function setProfileImage(url) {
-      if (url) {
-        profilePhoto.src = url;
-        profilePhoto.style.display = 'block';
-        profilePlaceholder.style.display = 'none';
-      } else {
-        profilePhoto.removeAttribute('src');
-        profilePhoto.style.display = 'none';
-        profilePlaceholder.style.display = 'block';
-      }
-    }
+function renderChecklist() {
+  const container = document.getElementById("checklistItems");
+  container.innerHTML = "";
+  const done = checklistItems.filter(i => i.done).length;
+  const pct = checklistItems.length ? Math.round((done / checklistItems.length) * 100) : 0;
+  document.getElementById("checklistBar").style.width = pct + "%";
+  document.getElementById("checklistPct").textContent = pct + "%";
+  checklistItems.forEach((item, idx) => {
+    const el = document.createElement("div");
+    el.className = "checklist-item" + (item.done ? " done" : "");
+    el.innerHTML = `<div class="checklist-check">${item.done ? "✓" : ""}</div><span class="checklist-label">${item.text}</span>`;
+    el.addEventListener("click", () => { checklistItems[idx].done = !checklistItems[idx].done; saveChecklist(); renderChecklist(); });
+    container.appendChild(el);
+  });
+}
 
-    function getDisplayNames(userData) {
-      const one = (userData.partnerOne || '').trim();
-      const two = (userData.partnerTwo || '').trim();
-      if (one && two) return `${one} & ${two}`;
-      if (userData.name && userData.name.trim()) return userData.name.trim();
-      if (one) return one;
-      return 'Lovely';
-    }
+document.getElementById("checklistAddBtn").addEventListener("click", addChecklistItem);
+document.getElementById("checklistInput").addEventListener("keydown", e => { if (e.key === "Enter") addChecklistItem(); });
 
-    function parseLegacyNames(userData) {
-      const one = (userData.partnerOne || '').trim();
-      const two = (userData.partnerTwo || '').trim();
-      if (one || two) return { one, two };
-      const legacy = (userData.name || '').trim();
-      if (legacy.includes('&')) {
-        const parts = legacy.split('&').map(p => p.trim()).filter(Boolean);
-        return { one: parts[0] || '', two: parts[1] || '' };
-      }
-      return { one: legacy, two: '' };
-    }
+function addChecklistItem() {
+  const input = document.getElementById("checklistInput");
+  const text = input.value.trim();
+  if (!text) return;
+  checklistItems.push({ id: "c" + Date.now(), text, done: false });
+  input.value = "";
+  saveChecklist();
+  renderChecklist();
+}
 
-    function getLocalFavorites() {
-      try {
-        const raw = localStorage.getItem('favoriteVendors');
-        const parsed = raw ? JSON.parse(raw) : [];
-        return Array.isArray(parsed) ? parsed.filter(Boolean) : [];
-      } catch { return []; }
-    }
+async function saveChecklist() {
+  try { await setDoc(doc(db, "users", currentUser.uid), { checklist: checklistItems }, { merge: true }); } catch (err) { console.error(err); }
+}
 
-    function setLocalFavorites(ids) {
-      localStorage.setItem('favoriteVendors', JSON.stringify(ids));
-    }
+// ── FAVOURITES ──
+function getFavs() { return JSON.parse(localStorage.getItem("favoriteVendors") || "[]"); }
+async function renderFavourites() {
+  const favIds = getFavs();
+  const grid = document.getElementById("coupleFavsGrid");
+  const empty = document.getElementById("coupleFavsEmpty");
+  const clearBtn = document.getElementById("clearFavsBtn");
+  grid.innerHTML = "";
+  if (!favIds.length) { empty.style.display = "block"; clearBtn.style.display = "none"; return; }
+  empty.style.display = "none"; clearBtn.style.display = "inline";
+  favIds.forEach(async (vendorId) => {
+    try {
+      const snap = await getDoc(doc(db, "vendors", vendorId));
+      if (!snap.exists()) return;
+      const v = snap.data();
+      const name = v.businessName || "Vendor";
+      const img = v.coverImageUrl || (Array.isArray(v.images) && v.images[0]) || v.profileImageUrl || "images/bouquet.png";
+      const cat = Array.isArray(v.categories) && v.categories.length ? v.categories.slice(0,2).map(c => c.replace(/_/g," ").replace(/\b\w/g,x=>x.toUpperCase())).join(" • ") : "";
+      const card = document.createElement("div");
+      card.className = "couple-fav-card";
+      card.innerHTML = `<img src="${img}" alt="${name}" loading="lazy"><div class="couple-fav-info"><p class="couple-fav-name">${name}</p>${cat?`<p class="couple-fav-cat">${cat}</p>`:""}</div>`;
+      card.addEventListener("click", () => { window.location.href = `vendor.html?id=${vendorId}`; });
+      grid.appendChild(card);
+    } catch {}
+  });
+}
 
-    function getMergedFavoriteIds(userData) {
-      const firestoreFavs = Array.isArray(userData?.favorites) ? userData.favorites : [];
-      const localFavs = getLocalFavorites();
-      return Array.from(new Set([...firestoreFavs, ...localFavs])).filter(Boolean);
-    }
+document.getElementById("clearFavsBtn").addEventListener("click", () => { localStorage.removeItem("favoriteVendors"); renderFavourites(); });
 
-    async function syncFavoritesIfNeeded(user) {
-      const merged = getMergedFavoriteIds(currentUserData);
-      const firestoreFavs = Array.isArray(currentUserData?.favorites) ? currentUserData.favorites : [];
-      const sameLength = merged.length === firestoreFavs.length;
-      const sameValues = sameLength && merged.every(id => firestoreFavs.includes(id));
-      if (!sameValues) {
-        await updateDoc(doc(db, 'users', user.uid), { favorites: merged });
-        currentUserData = { ...(currentUserData || {}), favorites: merged };
-      }
-      setLocalFavorites(merged);
-      return merged;
-    }
-
-    function getVendorMainCategory(vendor) {
-      const categories = Array.isArray(vendor.categories) ? vendor.categories : [];
-      return categories.length ? prettifyCategory(categories[0]) : 'Other';
-    }
-
-    function populateFavouriteFilter(vendors) {
-      const categories = Array.from(new Set(vendors.map(getVendorMainCategory))).sort();
-      favouriteCategoryFilter.innerHTML = '<option value="all">All favourites</option>';
-      categories.forEach(category => {
-        const option = document.createElement('option');
-        option.value = category;
-        option.textContent = category;
-        favouriteCategoryFilter.appendChild(option);
-      });
-    }
-
-    function createVendorCard(vendor) {
-      const card = document.createElement('article');
-      card.className = 'vendor-card-public';
-
-      const categories  = Array.isArray(vendor.categories) ? vendor.categories : [];
-      const states      = Array.isArray(vendor.states)     ? vendor.states     : [];
-      const regions     = Array.isArray(vendor.regions)    ? vendor.regions    : [];
-      const shortBio    = vendor.bio
-        ? vendor.bio.length > 180 ? vendor.bio.slice(0, 180) + '...' : vendor.bio
-        : 'This vendor has not added their bio yet.';
-      const cardImage   =
-        vendor.coverImageUrl ||
-        vendor.coverImage ||
-        (Array.isArray(vendor.images)        && vendor.images.length        ? vendor.images[0]        : '') ||
-        (Array.isArray(vendor.galleryImages) && vendor.galleryImages.length ? vendor.galleryImages[0] : '') ||
-        vendor.profileImageUrl || vendor.profileImage || '';
-
-      card.innerHTML = `
-        ${cardImage ? `<div class="vendor-card-image-wrap"><img src="${safeText(cardImage)}" alt="${safeText(vendor.businessName || 'Vendor')}"></div>` : ''}
-        <div class="vendor-card-public-inner">
-          <div class="vendor-card-top">
-            <h3>${safeText(vendor.businessName || 'Vendor')}</h3>
-            <p class="vendor-card-location">${safeText(regions.slice(0,2).join(', ') || states.slice(0,2).join(', ') || 'Australia')}</p>
-          </div>
-          <p class="vendor-card-bio">${safeText(shortBio)}</p>
-          <div class="vendor-card-tags">
-            ${categories.slice(0,4).map(c => `<span class="vendor-tag">${safeText(prettifyCategory(c))}</span>`).join('')}
-          </div>
-          <div class="vendor-card-links">
-            <a class="view-vendor-btn" href="vendor.html?id=${encodeURIComponent(vendor.id || vendor.uid || '')}">View Profile</a>
-            <button class="remove-favourite-btn" type="button">Remove from favourites</button>
-          </div>
+// ── MESSAGES (preview) ──
+function setupConversationsListener() {
+  if (!currentUser) return;
+  const q = query(collection(db, "conversations"), where("coupleId", "==", currentUser.uid), orderBy("lastMessageAt", "desc"), limit(5));
+  unsubConversations = onSnapshot(q, (snap) => {
+    const list = document.getElementById("coupleMessagesList");
+    const empty = document.getElementById("coupleMsgsEmpty");
+    list.innerHTML = "";
+    if (snap.empty) { empty.style.display = "block"; return; }
+    empty.style.display = "none";
+    snap.docs.forEach(docSnap => {
+      const conv = docSnap.data();
+      const unread = (conv.coupleUnread || 0) > 0;
+      const time = conv.lastMessageAt?.toDate ? conv.lastMessageAt.toDate().toLocaleDateString("en-AU", { day: "numeric", month: "short" }) : "";
+      const item = document.createElement("div");
+      item.className = "couple-msg-item" + (unread ? " unread" : "");
+      item.innerHTML = `
+        <img class="couple-msg-avatar" src="${conv.vendorProfileImage || "images/logo.png"}" alt="${conv.vendorName || "Vendor"}" loading="lazy">
+        <div class="couple-msg-content">
+          <p class="couple-msg-name">${conv.vendorName || "Vendor"}</p>
+          <p class="couple-msg-preview">${conv.lastMessage || ""}</p>
+          <span class="couple-msg-time">${time}</span>
         </div>
+        ${unread ? '<div class="couple-msg-unread-dot"></div>' : ""}
       `;
-
-      card.querySelector('.remove-favourite-btn').addEventListener('click', async () => {
-        if (!currentUser) return;
-        const merged = getMergedFavoriteIds(currentUserData);
-        const newFavorites = merged.filter(id => id !== vendor.id);
-        try {
-          await updateDoc(doc(db, 'users', currentUser.uid), { favorites: newFavorites });
-          setLocalFavorites(newFavorites);
-          currentUserData = { ...(currentUserData || {}), favorites: newFavorites };
-          await loadFavouriteVendors(currentUserData);
-        } catch (error) {
-          console.error(error);
-          alert('Could not remove this favourite right now.');
-        }
-      });
-
-      return card;
-    }
-
-    function renderFavouriteGrid() {
-      const selectedCategory = favouriteCategoryFilter.value || 'all';
-      const filtered = selectedCategory === 'all'
-        ? loadedFavouriteVendors
-        : loadedFavouriteVendors.filter(v => getVendorMainCategory(v) === selectedCategory);
-
-      favouritesGrid.innerHTML = '';
-      if (!filtered.length) { emptyFavourites.style.display = 'block'; return; }
-      emptyFavourites.style.display = 'none';
-      filtered.forEach(vendor => favouritesGrid.appendChild(createVendorCard(vendor)));
-    }
-
-    function createBoardItem(docId, item) {
-      const article = document.createElement('article');
-      article.className = 'board-item';
-      const isVendorPin = item.type === 'vendor';
-
-      article.innerHTML = `
-        ${item.imageUrl ? `<img src="${safeText(item.imageUrl)}" alt="Board image">` : ''}
-        <div class="board-item-body">
-          ${isVendorPin ? `<h3 class="board-item-title">${safeText(item.title || 'Vendor Pin')}</h3>` : ''}
-          ${isVendorPin && item.subtitle ? `<p class="board-item-subtitle">${safeText(item.subtitle)}</p>` : ''}
-          ${item.caption ? `<p class="board-item-caption">${safeText(item.caption)}</p>` : ''}
-          <div class="board-overlay">
-            <div class="board-overlay-top">
-              <span class="board-chip">${isVendorPin ? 'Vendor' : 'Idea'}</span>
-              <div class="board-actions">
-                ${item.linkUrl ? `<a class="board-link" href="${safeText(item.linkUrl)}" title="Open">↗</a>` : ''}
-                <button class="board-delete" type="button" title="Delete">×</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      `;
-
-      article.querySelector('.board-delete').addEventListener('click', async () => {
-        if (!confirm('Remove this item from your board?') || !currentUser) return;
-        try {
-          if (item.storagePath) await deleteObject(ref(storage, item.storagePath));
-          await deleteDoc(doc(db, 'users', currentUser.uid, 'visionBoard', docId));
-          await loadVisionBoard(currentUser);
-        } catch (error) {
-          console.error(error);
-          alert('Could not remove this item right now.');
-        }
-      });
-
-      return article;
-    }
-
-    async function loadFavouriteVendors(userData) {
-      const favouriteVendorIds = getMergedFavoriteIds(userData);
-      if (!favouriteVendorIds.length) {
-        loadedFavouriteVendors = [];
-        favouriteCategoryFilter.innerHTML = '<option value="all">All favourites</option>';
-        emptyFavourites.style.display = 'block';
-        favouritesGrid.innerHTML = '';
-        return;
-      }
-
-      const vendorSnapshots = await Promise.all(favouriteVendorIds.map(id => getDoc(doc(db, 'vendors', id))));
-      loadedFavouriteVendors = vendorSnapshots.filter(s => s.exists()).map(s => ({ id: s.id, ...s.data() }));
-
-      if (!loadedFavouriteVendors.length) {
-        favouriteCategoryFilter.innerHTML = '<option value="all">All favourites</option>';
-        emptyFavourites.style.display = 'block';
-        favouritesGrid.innerHTML = '';
-        return;
-      }
-
-      populateFavouriteFilter(loadedFavouriteVendors);
-      renderFavouriteGrid();
-    }
-
-    async function loadVisionBoard(user) {
-      const snapshot = await getDocs(query(collection(db, 'users', user.uid, 'visionBoard'), orderBy('createdAt', 'desc')));
-      if (snapshot.empty) { visionBoardGrid.innerHTML = ''; emptyVisionBoard.style.display = 'block'; return; }
-      emptyVisionBoard.style.display = 'none';
-      visionBoardGrid.innerHTML = '';
-      snapshot.forEach(docSnap => visionBoardGrid.appendChild(createBoardItem(docSnap.id, docSnap.data())));
-    }
-
-    function renderPlanningCalendar() {
-      const weddingDate = weddingDateInput.value || '';
-      planningCalendarGrid.innerHTML = '';
-
-      const firstDay    = new Date(calendarYear, calendarMonth, 1);
-      const lastDay     = new Date(calendarYear, calendarMonth + 1, 0);
-      const today       = new Date();
-      const todayString = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
-
-      calendarMonthLabel.textContent = firstDay.toLocaleDateString('en-AU', { month: 'long', year: 'numeric' });
-
-      for (let i = 0; i < firstDay.getDay(); i++) {
-        const empty = document.createElement('div');
-        empty.className = 'calendar-day empty';
-        planningCalendarGrid.appendChild(empty);
-      }
-
-      for (let day = 1; day <= lastDay.getDate(); day++) {
-        const dateObj    = new Date(calendarYear, calendarMonth, day);
-        const dateString = `${dateObj.getFullYear()}-${String(dateObj.getMonth()+1).padStart(2,'0')}-${String(dateObj.getDate()).padStart(2,'0')}`;
-        const cell       = document.createElement('button');
-        cell.type        = 'button';
-        cell.className   = 'calendar-day';
-        if (dateString === todayString) cell.classList.add('today');
-        if (weddingDate && dateString === weddingDate) cell.classList.add('selected');
-        cell.innerHTML   = `<span class="calendar-number">${day}</span>${weddingDate && dateString === weddingDate ? '<span class="calendar-heart">♥</span>' : ''}`;
-        cell.addEventListener('click', async () => {
-          weddingDateInput.value = dateString;
-          await savePlanningData();
-          renderPlanningCalendar();
-        });
-        planningCalendarGrid.appendChild(cell);
-      }
-
-      if (weddingDate) {
-        const pretty = new Date(weddingDate + 'T00:00:00').toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' });
-        calendarNote.textContent = `Wedding date saved: ${pretty} ♡`;
-      } else {
-        calendarNote.textContent = 'Choose your wedding date above and it will be highlighted on your planning calendar.';
-      }
-    }
-
-    function renderTodoList() {
-      const todos = Array.isArray(currentUserData?.todoItems) ? currentUserData.todoItems : [];
-      todoList.innerHTML = '';
-      if (!todos.length) { emptyTodo.style.display = 'block'; return; }
-      emptyTodo.style.display = 'none';
-
-      todos.forEach((todo, index) => {
-        const item = document.createElement('div');
-        item.className = `todo-item ${todo.done ? 'done' : ''}`;
-        item.innerHTML = `
-          <input class="todo-check" type="checkbox" ${todo.done ? 'checked' : ''}>
-          <div class="todo-text">${safeText(todo.text)}</div>
-          <button class="todo-delete-btn" type="button">×</button>
-        `;
-        item.querySelector('.todo-check').addEventListener('change', async (e) => {
-          const updated = [...todos];
-          updated[index] = { ...updated[index], done: e.target.checked };
-          currentUserData.todoItems = updated;
-          await savePlanningData(false);
-          renderTodoList();
-        });
-        item.querySelector('.todo-delete-btn').addEventListener('click', async () => {
-          currentUserData.todoItems = todos.filter((_, i) => i !== index);
-          await savePlanningData(false);
-          renderTodoList();
-        });
-        todoList.appendChild(item);
-      });
-    }
-
-    async function savePlanningData(showMessage = true) {
-      if (!currentUser) return;
-      try {
-        const payload = {
-          weddingDate: weddingDateInput.value || '',
-          todoItems: Array.isArray(currentUserData?.todoItems) ? currentUserData.todoItems : []
-        };
-        await updateDoc(doc(db, 'users', currentUser.uid), payload);
-        currentUserData = { ...(currentUserData || {}), ...payload };
-        if (showMessage) todoStatus.textContent = 'Saved.';
-      } catch (error) {
-        console.error(error);
-        if (showMessage) todoStatus.textContent = 'Could not save right now.';
-      }
-    }
-
-    async function loadCoupleDashboard(user) {
-      try {
-        const userSnap = await getDoc(doc(db, 'users', user.uid));
-        if (!userSnap.exists()) { welcomeMessage.textContent = 'We could not find your account details.'; return; }
-
-        const userData = userSnap.data();
-        if (userData.role !== 'couple') { window.location.href = 'dashboard.html'; return; }
-
-        currentUserData = userData;
-        const names = parseLegacyNames(userData);
-        partnerOne.value   = names.one || '';
-        partnerTwo.value   = names.two || '';
-        accountEmail.value = userData.email || '';
-
-        welcomeMessage.textContent = `Welcome, ${getDisplayNames({ ...userData, partnerOne: names.one, partnerTwo: names.two })} ♡`;
-        setProfileImage(userData.profileImage || '');
-
-        weddingDateInput.value = userData.weddingDate || '';
-        const baseDate  = weddingDateInput.value ? new Date(weddingDateInput.value + 'T00:00:00') : new Date();
-        calendarMonth   = baseDate.getMonth();
-        calendarYear    = baseDate.getFullYear();
-
-        await syncFavoritesIfNeeded(user);
-        await loadFavouriteVendors(currentUserData);
-        await loadVisionBoard(user);
-        renderPlanningCalendar();
-        renderTodoList();
-        loadCoupleConversations(user.uid);
-      } catch (error) {
-        console.error(error);
-        welcomeMessage.textContent = 'There was a problem loading your dashboard.';
-      }
-    }
-
-    profileImageInput.addEventListener('change', async () => {
-      const file = profileImageInput.files?.[0];
-      if (!file || !auth.currentUser) return;
-      profileUploadStatus.textContent = 'Uploading...';
-      try {
-        const storagePath = `couples/${auth.currentUser.uid}/profile/${Date.now()}-${file.name}`;
-        const storageRef  = ref(storage, storagePath);
-        await uploadBytes(storageRef, file);
-        const imageUrl = await getDownloadURL(storageRef);
-        await updateDoc(doc(db, 'users', auth.currentUser.uid), { profileImage: imageUrl, profileImagePath: storagePath });
-        currentUserData = { ...(currentUserData || {}), profileImage: imageUrl, profileImagePath: storagePath };
-        setProfileImage(imageUrl);
-        profileUploadStatus.textContent = 'Photo updated!';
-      } catch (error) {
-        console.error(error);
-        profileUploadStatus.textContent = 'Could not upload right now.';
-      }
+      item.addEventListener("click", () => { window.location.href = `messages.html?conv=${docSnap.id}`; });
+      list.appendChild(item);
     });
+  }, (err) => { console.error("Conversations error:", err); });
+}
 
-    visionImageInput.addEventListener('change', () => {
-      const file = visionImageInput.files?.[0];
-      if (!file) { visionFileNote.textContent = ''; visionPreviewWrap.classList.remove('active'); visionPreviewImage.removeAttribute('src'); return; }
-      visionFileNote.textContent = file.name;
-      visionPreviewImage.src = URL.createObjectURL(file);
-      visionPreviewWrap.classList.add('active');
-    });
+// ── UNREAD BADGE ──
+function setupUnreadBadge() {
+  if (!currentUser) return;
+  const q = query(collection(db, "conversations"), where("coupleId", "==", currentUser.uid));
+  onSnapshot(q, (snap) => {
+    let total = 0;
+    snap.forEach(d => { total += (d.data().coupleUnread || 0); });
+    const badge = document.getElementById("coupleMsgBadge");
+    if (badge) { badge.textContent = total > 0 ? String(total) : ""; badge.style.display = total > 0 ? "block" : "none"; }
+  });
+}
 
-    accountForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      if (!auth.currentUser) return;
-      accountStatus.textContent = 'Updating...';
-      try {
-        const one = partnerOne.value.trim();
-        const two = partnerTwo.value.trim();
-        const newEmail = accountEmail.value.trim();
-        const combinedName = [one, two].filter(Boolean).join(' & ');
-        await updateDoc(doc(db, 'users', auth.currentUser.uid), { partnerOne: one, partnerTwo: two, name: combinedName, email: newEmail });
-        if (newEmail && newEmail !== auth.currentUser.email) await updateEmail(auth.currentUser, newEmail);
-        currentUserData = { ...(currentUserData || {}), partnerOne: one, partnerTwo: two, name: combinedName, email: newEmail };
-        welcomeMessage.textContent = `Welcome, ${combinedName || one || 'Lovely'} ♡`;
-        accountStatus.textContent = 'Details updated successfully.';
-      } catch (error) {
-        console.error(error);
-        accountStatus.textContent = 'Could not update right now. You may need to log in again before changing email.';
-      }
-    });
+// ── BUDGET ──
+function renderBudget() {
+  document.getElementById("budgetTotal").textContent = budgetTotal ? `A$${budgetTotal.toLocaleString()}` : "–";
+  const container = document.getElementById("budgetCategories");
+  container.innerHTML = "";
+  const spent = budgetCategories.reduce((sum, c) => sum + (parseFloat(c.amount) || 0), 0);
+  budgetCategories.forEach((cat, idx) => {
+    const pct = budgetTotal ? Math.min(100, Math.round(((parseFloat(cat.amount) || 0) / budgetTotal) * 100)) : 0;
+    const row = document.createElement("div");
+    row.className = "budget-cat-row";
+    row.innerHTML = `<span class="budget-cat-label">${cat.name}</span><span class="budget-cat-amount">A$${(parseFloat(cat.amount)||0).toLocaleString()}</span><div class="budget-cat-bar-wrap"><div class="budget-cat-bar" style="width:${pct}%"></div></div>`;
+    container.appendChild(row);
+  });
+  const remaining = budgetTotal - spent;
+  document.getElementById("budgetRemaining").textContent = budgetTotal ? `A$${remaining.toLocaleString()}` : "–";
+}
 
-    securityForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      if (!auth.currentUser) return;
-      securityStatus.textContent = 'Updating password...';
-      try {
-        const newPassword = accountPassword.value.trim();
-        if (!newPassword) { securityStatus.textContent = 'Please enter a new password.'; return; }
-        if (newPassword.length < 6) { securityStatus.textContent = 'Password must be at least 6 characters.'; return; }
-        await updatePassword(auth.currentUser, newPassword);
-        accountPassword.value = '';
-        securityStatus.textContent = 'Password updated successfully.';
-      } catch (error) {
-        console.error(error);
-        securityStatus.textContent = 'Could not update password. You may need to log in again first.';
-      }
-    });
+document.getElementById("editBudgetBtn").addEventListener("click", () => {
+  const el = document.getElementById("budgetInput");
+  el.style.display = el.style.display === "none" ? "block" : "none";
+  if (el.style.display === "block") document.getElementById("budgetTotalInput").value = budgetTotal || "";
+});
 
-    weddingDateInput.addEventListener('change', async () => { await savePlanningData(false); renderPlanningCalendar(); });
+document.getElementById("saveBudgetTotalBtn").addEventListener("click", async () => {
+  const val = parseFloat(document.getElementById("budgetTotalInput").value);
+  if (isNaN(val) || val < 0) return;
+  budgetTotal = val;
+  document.getElementById("budgetInput").style.display = "none";
+  renderBudget();
+  await saveBudget();
+});
 
-    calendarPrevBtn.addEventListener('click', () => {
-      calendarMonth -= 1;
-      if (calendarMonth < 0) { calendarMonth = 11; calendarYear -= 1; }
-      renderPlanningCalendar();
-    });
+document.getElementById("addBudgetCatBtn").addEventListener("click", async () => {
+  const name = document.getElementById("budgetCatName").value.trim();
+  const amount = parseFloat(document.getElementById("budgetCatAmount").value);
+  if (!name || isNaN(amount)) return;
+  budgetCategories.push({ name, amount });
+  document.getElementById("budgetCatName").value = "";
+  document.getElementById("budgetCatAmount").value = "";
+  renderBudget();
+  await saveBudget();
+});
 
-    calendarNextBtn.addEventListener('click', () => {
-      calendarMonth += 1;
-      if (calendarMonth > 11) { calendarMonth = 0; calendarYear += 1; }
-      renderPlanningCalendar();
-    });
+async function saveBudget() {
+  try { await setDoc(doc(db, "users", currentUser.uid), { budgetTotal, budgetCategories }, { merge: true }); } catch (err) { console.error(err); }
+}
 
-    addTodoBtn.addEventListener('click', async () => {
-      const text = todoInput.value.trim();
-      if (!text) { todoStatus.textContent = 'Please write a to-do item first.'; return; }
-      const todos = Array.isArray(currentUserData?.todoItems) ? currentUserData.todoItems : [];
-      currentUserData.todoItems = [...todos, { text, done: false }];
-      todoInput.value = '';
-      await savePlanningData(false);
-      todoStatus.textContent = 'Added!';
-      renderTodoList();
-    });
+// ── INSPIRATION ──
+function renderInspiration() {
+  const grid = document.getElementById("inspirationGrid");
+  grid.innerHTML = "";
+  inspirationImages.forEach(src => {
+    const card = document.createElement("div");
+    card.className = "inspiration-card";
+    card.innerHTML = `<img src="${src}" alt="Inspiration" loading="lazy">`;
+    grid.appendChild(card);
+  });
+}
 
-    favouriteCategoryFilter.addEventListener('change', renderFavouriteGrid);
+document.getElementById("addInspirationBtn").addEventListener("click", () => { document.getElementById("inspirationFileInput").click(); });
+document.getElementById("inspirationFileInput").addEventListener("change", (e) => {
+  const files = Array.from(e.target.files);
+  files.forEach(file => {
+    const reader = new FileReader();
+    reader.onload = async (ev) => {
+      inspirationImages.push(ev.target.result);
+      renderInspiration();
+      try { await setDoc(doc(db, "users", currentUser.uid), { inspirationImages }, { merge: true }); } catch {}
+    };
+    reader.readAsDataURL(file);
+  });
+  e.target.value = "";
+});
+</script>
 
-    visionUploadForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const file    = visionImageInput.files?.[0];
-      const caption = visionCaptionInput.value.trim();
-      if (!file || !auth.currentUser) { visionUploadStatus.textContent = 'Please choose an image first.'; return; }
-      visionUploadStatus.textContent = 'Uploading...';
-      try {
-        const storagePath = `couples/${auth.currentUser.uid}/vision-board/${Date.now()}-${file.name}`;
-        const storageRef  = ref(storage, storagePath);
-        await uploadBytes(storageRef, file);
-        const imageUrl = await getDownloadURL(storageRef);
-        await addDoc(collection(db, 'users', auth.currentUser.uid, 'visionBoard'), { type: 'image', imageUrl, storagePath, caption, createdAt: serverTimestamp() });
-        visionImageInput.value = '';
-        visionCaptionInput.value = '';
-        visionFileNote.textContent = '';
-        visionPreviewWrap.classList.remove('active');
-        visionPreviewImage.removeAttribute('src');
-        visionUploadStatus.textContent = 'Added to your board!';
-        await loadVisionBoard(auth.currentUser);
-      } catch (error) {
-        console.error(error);
-        visionUploadStatus.textContent = 'Could not upload right now.';
-      }
-    });
-
-    logoutBtn.addEventListener('click', async () => {
-      await signOut(auth);
-      window.location.href = 'login.html';
-    });
-
-
-    // ── COUPLE MESSAGING ──
-    const coupleUnreadBadge  = document.getElementById("coupleUnreadBadge");
-    const coupleConvList     = document.getElementById("coupleConvList");
-    const coupleConvEmpty    = document.getElementById("coupleConvEmpty");
-    const coupleConvListView = document.getElementById("coupleConvListView");
-    const coupleThreadView   = document.getElementById("coupleThreadView");
-    const coupleThreadBack   = document.getElementById("coupleThreadBack");
-    const coupleThreadTitle  = document.getElementById("coupleThreadTitle");
-    const coupleMessagesList = document.getElementById("coupleMessagesList");
-    const coupleReplyForm    = document.getElementById("coupleReplyForm");
-    const coupleReplyBody    = document.getElementById("coupleReplyBody");
-    const coupleReplyStatus  = document.getElementById("coupleReplyStatus");
-
-    let coupleActiveConvId  = null;
-    let coupleUnsubMessages = null;
-
-    function timeAgo(ts) {
-      if (!ts) return "";
-      const d = ts.toDate ? ts.toDate() : new Date(ts);
-      const diff = Math.floor((Date.now() - d) / 1000);
-      if (diff < 60) return "just now";
-      if (diff < 3600) return `${Math.floor(diff/60)}m ago`;
-      if (diff < 86400) return `${Math.floor(diff/3600)}h ago`;
-      return d.toLocaleDateString("en-AU", { day:"numeric", month:"short" });
-    }
-
-    function openCoupleThread(convId, vendorName) {
-      coupleActiveConvId = convId;
-      coupleThreadTitle.textContent = vendorName;
-      coupleConvListView.style.display = "none";
-      coupleThreadView.classList.add("open");
-      coupleMessagesList.innerHTML = "";
-      coupleReplyBody.value = "";
-      coupleReplyStatus.textContent = "";
-
-      // Mark as read
-      updateDoc(doc(db, "conversations", convId), { coupleUnread: 0 }).catch(()=>{});
-
-      if (coupleUnsubMessages) coupleUnsubMessages();
-      coupleUnsubMessages = onSnapshot(
-        query(collection(db, "conversations", convId, "messages"), orderBy("sentAt","asc")),
-        (snap) => {
-          coupleMessagesList.innerHTML = "";
-          snap.forEach(msgDoc => {
-            const m = msgDoc.data();
-            const isMine = m.senderId === currentUser?.uid;
-            const wrap = document.createElement("div");
-            wrap.className = "msg-bubble-wrap " + (isMine ? "mine" : "theirs");
-            const bubble = document.createElement("div");
-            bubble.className = "msg-bubble " + (isMine ? "mine" : "theirs");
-            bubble.textContent = m.body || "";
-            const timeEl = document.createElement("div");
-            timeEl.className = "msg-bubble-time";
-            timeEl.textContent = timeAgo(m.sentAt);
-            const inner = document.createElement("div");
-            inner.appendChild(bubble);
-            inner.appendChild(timeEl);
-            wrap.appendChild(inner);
-            coupleMessagesList.appendChild(wrap);
-          });
-          coupleMessagesList.scrollTop = coupleMessagesList.scrollHeight;
-        }
-      );
-    }
-
-    coupleThreadBack.addEventListener("click", () => {
-      if (coupleUnsubMessages) { coupleUnsubMessages(); coupleUnsubMessages = null; }
-      coupleActiveConvId = null;
-      coupleThreadView.classList.remove("open");
-      coupleConvListView.style.display = "block";
-    });
-
-    coupleReplyForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      if (!coupleActiveConvId || !currentUser) return;
-      const body = coupleReplyBody.value.trim();
-      if (!body) return;
-      coupleReplyStatus.textContent = "Sending...";
-      try {
-        await addDoc(collection(db, "conversations", coupleActiveConvId, "messages"), {
-          senderId:   currentUser.uid,
-          senderName: currentUser.email,
-          body,
-          sentAt: serverTimestamp(),
-          read:   false
-        });
-        await updateDoc(doc(db, "conversations", coupleActiveConvId), {
-          lastMessage:   body,
-          lastMessageAt: serverTimestamp(),
-          vendorUnread:  increment(1)
-        });
-        coupleReplyBody.value = "";
-        coupleReplyStatus.textContent = "";
-      } catch (err) {
-        console.error(err);
-        coupleReplyStatus.textContent = "Could not send. Please try again.";
-      }
-    });
-
-    function loadCoupleConversations(uid) {
-      onSnapshot(
-        query(collection(db, "conversations"), where("coupleId","==",uid), orderBy("lastMessageAt","desc")),
-        (snap) => {
-          coupleConvList.innerHTML = "";
-          let totalUnread = 0;
-          if (snap.empty) { coupleConvEmpty.style.display = "block"; coupleConvList.style.display = "none"; }
-          else { coupleConvEmpty.style.display = "none"; coupleConvList.style.display = "grid"; }
-
-          snap.forEach(convDoc => {
-            const c = convDoc.data();
-            const unread = c.coupleUnread || 0;
-            totalUnread += unread;
-
-            const item = document.createElement("div");
-            item.className = "conv-item" + (unread > 0 ? " unread" : "");
-
-            const left = document.createElement("div");
-            const name = document.createElement("p");
-            name.className = "conv-name";
-            name.textContent = c.vendorName || "Vendor";
-            if (unread > 0) name.innerHTML += ` <span class="msg-unread-badge">${unread}</span>`;
-            const preview = document.createElement("p");
-            preview.className = "conv-preview";
-            preview.textContent = c.lastMessage || "";
-            left.appendChild(name);
-            left.appendChild(preview);
-
-            const right = document.createElement("div");
-            right.className = "conv-time";
-            right.textContent = timeAgo(c.lastMessageAt);
-
-            item.appendChild(left);
-            item.appendChild(right);
-            item.addEventListener("click", () => openCoupleThread(convDoc.id, c.vendorName || "Vendor"));
-            coupleConvList.appendChild(item);
-          });
-
-          if (totalUnread > 0) {
-            coupleUnreadBadge.textContent = totalUnread;
-            coupleUnreadBadge.style.display = "inline-flex";
-          } else {
-            coupleUnreadBadge.style.display = "none";
-          }
-        }
-      );
-    }
-
-        onAuthStateChanged(auth, async (user) => {
-      if (!user) { window.location.href = 'login.html'; return; }
-      currentUser = user;
-      await loadCoupleDashboard(user);
-    });
-  </script>
+<script type="module" src="nav.js"></script>
 </body>
 </html>
