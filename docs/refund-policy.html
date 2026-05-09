@@ -6,357 +6,173 @@
   <title>Refund Policy | Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    .refund-page {
-      max-width: 1200px;
-      margin: 0 auto 60px;
-      padding: 18px 20px 0;
-    }
-
-    .refund-stack {
-      display: grid;
-      gap: 24px;
-    }
-
-    .refund-hero-card {
-      padding: 0;
-      overflow: hidden;
-    }
-
-    .refund-hero-grid {
-      display: grid;
-      grid-template-columns: 1.02fr 0.98fr;
-      align-items: stretch;
-      min-height: 520px;
-    }
-
-    .refund-hero-copy {
-      padding: 46px 42px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      text-align: left;
-    }
-
-    .refund-logo-wrap {
-      display: inline-flex;
-      align-items: center;
-      justify-content: flex-start;
-      margin-bottom: 18px;
-    }
-
-    .refund-logo {
-      width: 108px;
-      display: block;
-    }
-
-    .refund-hero-copy .eyebrow {
-      margin-bottom: 12px;
-      text-align: left;
-    }
-
-    .refund-title {
-      margin: 0 0 16px;
-      font-family: "Cormorant Garamond", serif;
-      font-size: clamp(3rem, 5vw, 4.3rem);
-      font-weight: 500;
-      line-height: 0.94;
-      letter-spacing: -0.03em;
-      color: var(--text);
-    }
-
-    .refund-intro {
-      margin: 0 0 14px;
-      max-width: 560px;
-      color: var(--muted);
-      line-height: 1.8;
-      font-size: 1rem;
-    }
-
-    .refund-hero-image-wrap {
-      min-height: 100%;
-      background: #f4ece6;
-    }
-
-    .refund-hero-image {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover;
-    }
-
-    .refund-policy-card {
-      text-align: left;
-    }
-
-    .refund-policy-meta {
-      display: inline-block;
-      margin-bottom: 16px;
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: #f4e5da;
-      color: #5b4540;
-      font-size: 0.82rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .refund-policy-card h2 {
-      margin-top: 0;
-      margin-bottom: 10px;
-      text-align: left;
-    }
-
-    .refund-policy-card h3 {
-      margin: 24px 0 10px;
-      font-size: 1.22rem;
-      color: var(--text);
-    }
-
-    .refund-policy-card p {
-      margin-top: 0;
-      margin-bottom: 14px;
-      color: var(--text);
-      line-height: 1.85;
-    }
-
-    .refund-policy-card ul {
-      margin: 0 0 18px 20px;
-      padding: 0;
-      color: var(--text);
-      line-height: 1.85;
-    }
-
-    .refund-policy-card li {
-      margin-bottom: 6px;
-    }
-
-    .refund-highlight {
-      padding: 18px 18px;
-      border-radius: 20px;
-      background: linear-gradient(180deg, #fffdfb 0%, #fff7f2 100%);
-      border: 1px solid #f0dfd2;
-      margin: 18px 0 20px;
-    }
-
-    .refund-highlight p:last-child {
-      margin-bottom: 0;
-    }
-
-    .refund-contact-card {
-      text-align: left;
-      background: linear-gradient(180deg, #fffaf7 0%, #fff3ec 100%);
-    }
-
-    .refund-contact-card h2 {
-      margin-top: 0;
-      margin-bottom: 12px;
-      text-align: left;
-    }
-
-    .refund-contact-card p {
-      margin-top: 0;
-      margin-bottom: 14px;
-      line-height: 1.8;
-      color: var(--muted);
-    }
-
-    .refund-contact-card p:last-child {
-      margin-bottom: 0;
-    }
-
-    .refund-cta-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 18px;
-    }
-
-    .refund-cta-row .pretty-button,
-    .refund-cta-row .apply-button {
-      text-decoration: none;
-    }
-
-    @media (max-width: 980px) {
-      .refund-hero-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .refund-hero-copy {
-        padding: 34px 24px;
-      }
-
-      .refund-hero-image {
-        max-height: 500px;
-      }
-    }
-
-    @media (max-width: 700px) {
-      .refund-page {
-        padding: 10px 10px 0;
-      }
-
-      .refund-hero-copy {
-        padding: 28px 20px;
-      }
-
-      .refund-title {
-        font-size: 2.7rem;
-      }
-    }
+    :root { --lux-espresso: #3b2f2a; --lux-rose: #c8a6a1; --lux-champagne: #c6a77d; --lux-cream: #fffaf7; --lux-blush: #f4e7df; --lux-border: rgba(216, 197, 189, 0.55); --lux-muted: #9b8579; --lux-shadow: rgba(59, 47, 42, 0.08); }
+    body { background: radial-gradient(circle at top left, rgba(200, 166, 161, 0.12), transparent 32%), #f7f1ed; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes heroFadeIn { from { opacity: 0; transform: scale(1.01); } to { opacity: 1; transform: scale(1); } }
+    .refund-page { max-width: 1200px; margin: 0 auto 60px; padding: 18px 20px 0; }
+    .refund-stack { display: grid; gap: 24px; }
+    .refund-hero-card { border-radius: 36px; border: 1px solid rgba(227, 219, 212, 0.9); box-shadow: 0 24px 70px var(--lux-shadow); background: radial-gradient(circle at top left, rgba(200, 166, 161, 0.18), transparent 34%), linear-gradient(135deg, #fffaf7, #f4ebe5); overflow: hidden; padding: 0; }
+    .refund-hero-grid { display: grid; grid-template-columns: 1.02fr 0.98fr; align-items: stretch; min-height: 520px; }
+    .refund-hero-copy { padding: 52px 48px; display: flex; flex-direction: column; justify-content: center; }
+    .refund-hero-copy > * { animation: fadeUp 0.8s ease forwards; opacity: 0; }
+    .refund-hero-copy > *:nth-child(1) { animation-delay: 0.05s; } .refund-hero-copy > *:nth-child(2) { animation-delay: 0.1s; } .refund-hero-copy > *:nth-child(3) { animation-delay: 0.18s; } .refund-hero-copy > *:nth-child(4) { animation-delay: 0.26s; } .refund-hero-copy > *:nth-child(5) { animation-delay: 0.34s; }
+    .refund-logo-wrap { display: inline-flex; align-items: center; justify-content: flex-start; margin-bottom: 20px; }
+    .refund-logo { width: 108px; display: block; transition: transform 0.3s ease; }
+    .refund-logo:hover { transform: scale(1.04); }
+    .refund-kicker { margin: 0 0 12px; font-size: 0.78rem; letter-spacing: 0.28em; text-transform: uppercase; color: #b08d7d; opacity: 0.85; }
+    .refund-title { margin: 0 0 14px; font-family: "Cormorant Garamond", serif; font-size: clamp(2.8rem, 4.5vw, 4rem); font-weight: 500; line-height: 0.96; letter-spacing: -0.045em; color: var(--lux-espresso); text-shadow: 0 10px 30px rgba(59, 47, 42, 0.08); }
+    .refund-script { margin: 0 0 18px; font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 1.3rem; color: #c69b84; opacity: 0.9; letter-spacing: 0.02em; }
+    .refund-intro { margin: 0; max-width: 480px; color: var(--lux-muted); line-height: 1.8; font-size: 0.97rem; }
+    .refund-hero-image-wrap { position: relative; overflow: hidden; min-height: 100%; background: #f4ece6; }
+    .refund-hero-image-wrap::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(59, 47, 42, 0.08), transparent 45%), radial-gradient(circle at top right, rgba(255, 250, 247, 0.14), transparent 38%); pointer-events: none; }
+    .refund-hero-image { width: 100%; height: 100%; display: block; object-fit: cover; filter: brightness(0.98) contrast(0.94) saturate(0.92); opacity: 0; animation: heroFadeIn 0.9s ease forwards; transition: transform 0.9s ease, filter 0.4s ease; }
+    .refund-hero-image-wrap:hover .refund-hero-image { transform: scale(1.035); filter: brightness(1) contrast(0.96) saturate(0.96); }
+    .trust-strip { text-align: center; padding: 16px 20px 6px; font-size: 0.82rem; letter-spacing: 0.12em; color: #9b8579; opacity: 0.7; }
+    .trust-strip p { margin: 0; }
+    .refund-promise-card { border-radius: 24px; background: linear-gradient(135deg, rgba(200,166,161,0.14), rgba(198,167,125,0.1)); border: 1px solid rgba(214, 190, 174, 0.8); box-shadow: 0 6px 18px var(--lux-shadow); padding: 32px 28px; text-align: center; transition: transform 0.28s ease, box-shadow 0.28s ease; }
+    .refund-promise-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(59, 47, 42, 0.1); }
+    .refund-promise-icon { font-size: 2rem; display: block; margin-bottom: 14px; opacity: 0.85; }
+    .refund-promise-card h2 { margin: 0 0 14px; font-family: "Cormorant Garamond", serif; font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 500; letter-spacing: -0.03em; color: var(--lux-espresso); }
+    .refund-promise-card p { margin: 0 auto 12px; max-width: 740px; color: #5b4a43; line-height: 1.85; font-size: 1rem; }
+    .refund-promise-card p:last-of-type { margin-bottom: 0; }
+    .refund-promise-strong { display: inline-block; margin-top: 18px; padding: 12px 22px; border-radius: 999px; background: linear-gradient(135deg, #d6b19a, #a97c66); color: #fffaf7; font-weight: 700; font-size: 0.92rem; letter-spacing: 0.04em; box-shadow: 0 8px 20px rgba(185, 143, 122, 0.22); }
+    .refund-policy-card { border-radius: 24px; background: rgba(255, 250, 247, 0.92); border: 1px solid rgba(223, 210, 200, 0.9); box-shadow: 0 6px 18px var(--lux-shadow); padding: 36px 32px; text-align: left; transition: box-shadow 0.28s ease; }
+    .refund-policy-card:hover { box-shadow: 0 16px 44px rgba(59, 47, 42, 0.1); }
+    .refund-policy-meta { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 999px; background: rgba(255, 250, 247, 0.9); color: #6f5143; border: 1px solid rgba(214, 190, 174, 0.8); font-size: 0.74rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 24px; }
+    .refund-policy-card h3 { margin: 28px 0 10px; font-family: "Cormorant Garamond", serif; font-size: 1.4rem; font-weight: 500; letter-spacing: -0.02em; color: var(--lux-espresso); }
+    .refund-policy-card h3:first-of-type { margin-top: 0; }
+    .refund-policy-card p { margin: 0 0 14px; color: #5b4a43; line-height: 1.85; font-size: 0.97rem; }
+    .refund-policy-card p:last-child { margin-bottom: 0; }
+    .refund-policy-card ul { margin: 0 0 16px 20px; padding: 0; color: #5b4a43; line-height: 1.85; font-size: 0.97rem; }
+    .refund-policy-card li { margin-bottom: 6px; }
+    .refund-highlight { padding: 20px 22px; border-radius: 20px; background: linear-gradient(180deg, rgba(247,241,237,0.9), rgba(244,235,229,0.95)); border: 1px solid rgba(223, 210, 200, 0.7); margin: 16px 0 20px; display: grid; gap: 12px; }
+    .refund-highlight p { margin: 0 !important; font-size: 0.95rem; }
+    .refund-divider { height: 1px; background: linear-gradient(90deg, rgba(200,166,161,0.3), transparent); margin: 8px 0 4px; border: none; }
+    .refund-contact-card { border-radius: 24px; background: linear-gradient(135deg, rgba(200,166,161,0.1), rgba(198,167,125,0.08)); border: 1px solid rgba(214, 190, 174, 0.8); box-shadow: 0 6px 18px var(--lux-shadow); padding: 32px 28px; transition: transform 0.28s ease, box-shadow 0.28s ease; }
+    .refund-contact-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(59, 47, 42, 0.1); }
+    .refund-contact-card h2 { margin: 0 0 12px; font-family: "Cormorant Garamond", serif; font-size: clamp(1.7rem, 2.5vw, 2.2rem); font-weight: 500; letter-spacing: -0.03em; color: var(--lux-espresso); }
+    .refund-contact-card p { margin: 0 0 12px; color: var(--lux-muted); line-height: 1.8; font-size: 0.97rem; }
+    .refund-cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+    .btn-primary { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 12px 22px; border-radius: 999px; text-decoration: none; background: linear-gradient(135deg, #d6b19a, #a97c66); color: #fffaf7; font-weight: 700; font-size: 0.92rem; letter-spacing: 0.04em; box-shadow: 0 10px 24px rgba(185, 143, 122, 0.22); transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 34px rgba(185, 143, 122, 0.28); filter: brightness(1.04); }
+    .btn-secondary { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 12px 22px; border-radius: 999px; text-decoration: none; background: rgba(255, 250, 247, 0.95); border: 1px solid rgba(223, 210, 200, 0.9); color: var(--lux-espresso); font-weight: 600; font-size: 0.92rem; transition: transform 0.18s ease, background 0.18s ease; }
+    .btn-secondary:hover { background: var(--lux-blush); transform: translateY(-2px); }
+    .site-footer { background: radial-gradient(circle at top, rgba(200, 166, 161, 0.16), transparent 36%), linear-gradient(180deg, #f5eee9 0%, #eee5df 100%); }
+    .footer-title { color: var(--lux-espresso); letter-spacing: -0.035em; }
+    .footer-eyebrow { color: #b08d7d; }
+    @media (max-width: 980px) { .refund-hero-grid { grid-template-columns: 1fr; } .refund-hero-copy { padding: 36px 28px; } }
+    @media (max-width: 700px) { .refund-page { padding: 10px 10px 0; } .refund-hero-copy { padding: 28px 18px; } .refund-title { font-size: 2.6rem; } .refund-policy-card { padding: 28px 20px; } }
   </style>
 </head>
 <body>
 
 <div class="page-auth">
   <a href="categories.html" id="categoriesLink" class="auth-link">Categories</a>
-
   <a href="shop.html" id="shopLink" class="auth-link">Boutique</a>
-
+  <a href="messages.html" id="messagesLink" class="auth-link" style="display:none; position:relative;">
+    Messages
+    <span id="msgNavBadge" style="display:none; position:absolute; top:-6px; right:-10px; background:linear-gradient(135deg,#d6b19a,#a97c66); color:#fffaf7; font-size:0.68rem; font-weight:700; padding:2px 6px; border-radius:999px; line-height:1.2; min-width:18px; text-align:center;">0</span>
+  </a>
   <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
-
   <a href="login.html" id="loginLink" class="auth-link">Log In</a>
-
   <a href="dashboard.html" id="dashboardLink" class="auth-link" style="display:none;">Dashboard</a>
-
   <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
 </div>
 
-  <main class="refund-page">
-    <div class="refund-stack">
-
-      <section class="card refund-hero-card">
-        <div class="refund-hero-grid">
-          <div class="refund-hero-copy">
-            <a href="index.html" class="refund-logo-wrap" aria-label="Go to homepage">
-              <img src="images/logo.png" alt="Our Wedding Day Hub" class="refund-logo">
-            </a>
-
-            <p class="eyebrow">refund policy</p>
-            <h1 class="refund-title">Refund Policy</h1>
-
-            <p class="refund-intro">
-              This policy outlines how refunds are handled for Our Wedding Day Hub services, including vendor setup fees and subscription payments.
-            </p>
-
-            <p class="refund-intro">
-              We want our policies to feel clear, fair, and easy to understand before you make a payment.
-            </p>
-          </div>
-
-          <div class="refund-hero-image-wrap">
-            <img src="images/bouquet.png" alt="White bridal bouquet" class="refund-hero-image">
-          </div>
+<main class="refund-page">
+  <div class="refund-stack">
+    <section class="refund-hero-card">
+      <div class="refund-hero-grid">
+        <div class="refund-hero-copy">
+          <a href="index.html" class="refund-logo-wrap" aria-label="Go to homepage">
+            <img src="images/logo.png" alt="Our Wedding Day Hub" class="refund-logo" loading="lazy">
+          </a>
+          <p class="refund-kicker">Refund Policy</p>
+          <h1 class="refund-title">Refund Policy</h1>
+          <p class="refund-script">we want you to feel confident ♡</p>
+          <p class="refund-intro">We want every vendor to feel confident joining Our Wedding Day Hub. This policy explains how our refund process works, what is covered, and how to request a refund if you need one.</p>
         </div>
-      </section>
-
-      <section class="card refund-policy-card">
-        <span class="refund-policy-meta">Effective Date: 20 March 2026</span>
-
-        <h3>1. Overview</h3>
-        <p>
-          This Refund Policy applies to all payments made to Our Wedding Day Hub, including vendor setup fees and subscription fees.
-          By making a payment, you agree to this policy.
-        </p>
-
-        <h3>2. Vendor Setup Fee</h3>
-        <p>
-          The one-time setup fee, such as the $50 vendor setup fee, covers the creation and activation of your vendor account,
-          access to the platform, and the ability to build and manage your listing.
-        </p>
-
-        <div class="refund-highlight">
-          <p><strong>The account setup fee is non-refundable</strong> once payment has been made, including if:</p>
-          <ul>
-            <li>you change your mind;</li>
-            <li>you decide not to use the platform;</li>
-            <li>you do not complete your profile; or</li>
-            <li>you do not receive enquiries or bookings.</li>
-          </ul>
+        <div class="refund-hero-image-wrap">
+          <img src="images/header4.png" alt="Wedding planning editorial" class="refund-hero-image" loading="lazy">
         </div>
+      </div>
+    </section>
 
-        <h3>3. Subscription Fees</h3>
-        <p>
-          If your plan includes a recurring subscription, you will be billed according to your selected plan.
-        </p>
-        <p>
-          Vendors may cancel their subscription at any time.
-        </p>
-        <p>
-          If a vendor chooses to cancel, we offer a refund of up to 60 days, or 2 months, of subscription fees.
-        </p>
-        <p>
-          This refund applies to subscription fees only and does not apply to the one-time account setup fee.
-        </p>
-        <p>
-          Any refund will be processed back to the original payment method where possible.
-        </p>
+    <section class="trust-strip">
+      <p>Trusted by wedding vendors across Australia &amp; worldwide • Proudly independent • Built with heart</p>
+    </section>
 
-        <h3>4. Exceptional Circumstances</h3>
-        <p>
-          In rare cases, we may also consider an additional refund or adjustment at our discretion, including:
-        </p>
-        <ul>
-          <li>duplicate payments;</li>
-          <li>technical errors that prevent access to the platform; or</li>
-          <li>other situations we deem reasonable.</li>
-        </ul>
-        <p>
-          Any additional approved refunds will be assessed on a case-by-case basis and are not guaranteed.
-        </p>
-
-        <h3>5. No Guarantee of Results</h3>
-        <p>
-          Our Wedding Day Hub is a platform designed to increase visibility and connection opportunities.
-          We do not guarantee enquiries, leads, bookings, or business outcomes.
-        </p>
-        <p>
-          Lack of results does not qualify for a refund.
-        </p>
-
-        <h3>6. Payment Providers</h3>
-        <p>
-          Payments may be processed through third-party providers such as Stripe or similar platforms.
-          Refunds, if approved, will be issued via the original payment method where possible.
-        </p>
-
-        <h3>7. Contact</h3>
-        <p>
-          If you believe you are eligible for a refund under this policy, please contact us through the website with your account details and reason for the request.
-        </p>
-      </section>
-
-      <section class="card refund-contact-card">
-        <h2>Need help with a refund question?</h2>
-        <p>
-          If you are unsure whether your situation falls under this policy, please contact us and include your account details and the reason for your request.
-        </p>
-        <p>
-          We will review eligible requests in line with this policy and respond as soon as possible.
-        </p>
-
-        <div class="refund-cta-row">
-          <a href="contact.html" class="pretty-button">Contact Us</a>
-          <a href="pricing.html" class="apply-button">View Pricing</a>
-        </div>
-      </section>
-
+    <div class="refund-promise-card">
+      <span class="refund-promise-icon">✦</span>
+      <h2>Our 60 Day Satisfaction Guarantee</h2>
+      <p>We believe in what we've built, and we want you to feel comfortable trying it. If you join as a vendor and decide within your first 60 days that the subscription isn't right for you, we will refund your first two months of subscription fees.</p>
+      <p>This gives you a genuine opportunity to experience the platform, build your profile, and see how it feels for your business — without the pressure of committing to something long term before you're ready.</p>
+      <span class="refund-promise-strong">✦ 60 day guarantee on your subscription</span>
     </div>
-  </main>
+
+    <section class="refund-policy-card">
+      <span class="refund-policy-meta">✦ Effective Date: 20 March 2026</span>
+      <h3>1. Overview</h3>
+      <p>This Refund Policy applies to vendor subscriptions purchased through Our Wedding Day Hub. It explains what fees are refundable, under what conditions a refund may be granted, and how to request one.</p>
+      <hr class="refund-divider">
+      <h3>2. Setup Fee</h3>
+      <p>The one-off vendor account setup fee is <strong>non-refundable</strong> in all circumstances.</p>
+      <p>This fee covers the cost of creating and activating your vendor account, setting up your profile space, and onboarding your business to the platform. This work is performed at the time of account creation regardless of whether you continue using the platform, and so this fee cannot be returned once paid.</p>
+      <hr class="refund-divider">
+      <h3>3. Subscription Fees — 60 Day Guarantee</h3>
+      <p>Vendor subscription fees are eligible for a refund under our 60 day satisfaction guarantee:</p>
+      <div class="refund-highlight">
+        <p>If you request a refund within the first <strong>60 days</strong> of your subscription start date, we will refund up to <strong>2 months of subscription fees</strong>.</p>
+        <p>This refund covers subscription payments only and does not apply to the one-off setup fee.</p>
+        <p>To be eligible, your refund request must be submitted within 60 days of your subscription start date.</p>
+        <p>Refunds will be issued to the original payment method where possible. Processing times may vary depending on your bank or payment provider.</p>
+      </div>
+      <hr class="refund-divider">
+      <h3>4. Subscription Fees After 60 Days</h3>
+      <p>Subscription fees paid outside of the 60 day guarantee window are generally non-refundable. If you cancel your subscription after 60 days, your subscription will remain active until the end of the current billing period and will not renew after that point.</p>
+      <p>We do not offer partial refunds for unused time within a billing period unless required by applicable law.</p>
+      <hr class="refund-divider">
+      <h3>5. How to Request a Refund</h3>
+      <p>To request a refund, please contact us through the website contact form within 60 days of your subscription start date. Please include:</p>
+      <ul>
+        <li>your business name and the email address used to create your account;</li>
+        <li>the date you signed up; and</li>
+        <li>a brief note confirming you are requesting a refund under the 60 day guarantee.</li>
+      </ul>
+      <p>We will review your request and respond as promptly as possible. Approved refunds will be processed to the original payment method where available.</p>
+      <hr class="refund-divider">
+      <h3>6. Subscription Cancellation</h3>
+      <p>You may cancel your subscription at any time by contacting us. Cancellation means your subscription will not renew at the end of the current billing cycle. Your listing will remain active until the end of the period already paid for.</p>
+      <hr class="refund-divider">
+      <h3>7. Australian Consumer Law</h3>
+      <p>Nothing in this Refund Policy limits or excludes any rights you may have under the Australian Consumer Law or other applicable legislation where those rights cannot be excluded.</p>
+      <hr class="refund-divider">
+      <h3>8. Changes to This Policy</h3>
+      <p>We may update this Refund Policy from time to time. Any updates will be published on this page and will apply going forward. We encourage you to review it periodically.</p>
+      <hr class="refund-divider">
+      <h3>9. Contact</h3>
+      <p>If you have any questions about this policy or would like to request a refund, please get in touch through the contact page on the website.</p>
+    </section>
+
+    <section class="refund-contact-card">
+      <span style="display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:999px;background:rgba(255,250,247,0.9);color:#6f5143;border:1px solid rgba(214,190,174,0.8);font-size:0.74rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:16px;">✦ Need help?</span>
+      <h2>Questions or refund requests?</h2>
+      <p>If you'd like to request a refund or have any questions about this policy, please contact us and we'll respond as soon as we can.</p>
+      <p>We want every vendor to feel good about joining, and we'll always do our best to help.</p>
+      <div class="refund-cta-row">
+        <a href="contact.html" class="btn-primary">Contact Us</a>
+        <a href="pricing.html" class="btn-secondary">View Pricing</a>
+      </div>
+    </section>
+  </div>
+</main>
 
 <footer class="site-footer">
   <div class="footer-content">
-    <p class="footer-eyebrow">wedding vendor directory</p>
-
-    <h2 class="footer-title">
-      Everything your wedding deserves.
-    </h2>
-
-    <p class="footer-text">
-      Browse trusted wedding businesses, discover local favourites, and connect
-      with the people who can bring your day to life.
-    </p>
-
+    <p class="footer-eyebrow">wedding planning directory</p>
+    <h2 class="footer-title">Everything your wedding deserves.</h2>
+    <p class="footer-text">Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.</p>
     <div class="footer-links">
       <a href="about.html">About Us</a>
       <a href="how-it-works.html">How It Works</a>
@@ -368,15 +184,12 @@
       <a href="https://www.equaldex.com/equality-index" target="_blank" rel="noopener noreferrer">Global Equality Index</a>
       <a href="#" onclick="return false;">Events4Us (Coming Soon)</a>
     </div>
-
-    <p class="footer-tagline">
-      Proudly inclusive • Worldwide • Built with heart
-    </p>
-
+    <p class="footer-tagline">Proudly inclusive • Worldwide • Built with heart</p>
     <p class="footer-abn">© 2026 Our Wedding Day Hub</p>
     <p class="footer-abn">ABN 76 688 637 041 • Australia</p>
   </div>
 </footer>
-  <script type="module" src="nav.js"></script>
+
+<script type="module" src="nav.js"></script>
 </body>
 </html>
