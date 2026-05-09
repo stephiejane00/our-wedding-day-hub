@@ -6,438 +6,108 @@
   <title>How It Works | Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    /* ── Root tokens ── */
     :root {
-      --lux-espresso: #3b2f2a;
-      --lux-rose:     #c8a6a1;
-      --lux-champagne:#c6a77d;
-      --lux-cream:    #fffaf7;
-      --lux-blush:    #f4e7df;
-      --lux-border:   rgba(216, 197, 189, 0.55);
-      --lux-muted:    #9b8579;
-      --lux-shadow:   rgba(59, 47, 42, 0.08);
+      --lux-espresso: #3b2f2a; --lux-rose: #c8a6a1; --lux-champagne: #c6a77d;
+      --lux-cream: #fffaf7; --lux-blush: #f4e7df; --lux-border: rgba(216, 197, 189, 0.55);
+      --lux-muted: #9b8579; --lux-shadow: rgba(59, 47, 42, 0.08);
     }
+    body { background: radial-gradient(circle at top left, rgba(200, 166, 161, 0.12), transparent 32%), #f7f1ed; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes heroFadeIn { from { opacity: 0; transform: scale(1.01); } to { opacity: 1; transform: scale(1); } }
 
-    body {
-      background:
-        radial-gradient(circle at top left, rgba(200, 166, 161, 0.12), transparent 32%),
-        #f7f1ed;
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(14px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes heroFadeIn {
-      from { opacity: 0; transform: scale(1.01); }
-      to   { opacity: 1; transform: scale(1); }
-    }
-
-    /* ── PAGE ── */
-    .how-page {
-      max-width: 1200px;
-      margin: 0 auto 60px;
-      padding: 18px 20px 0;
-    }
-
+    .how-page { max-width: 1200px; margin: 0 auto 60px; padding: 18px 20px 0; }
     .how-stack { display: grid; gap: 24px; }
 
-    /* ── HERO ── */
-    .how-hero-card {
-      border-radius: 36px;
-      border: 1px solid rgba(227, 219, 212, 0.9);
-      box-shadow: 0 24px 70px var(--lux-shadow);
-      background:
-        radial-gradient(circle at top left, rgba(200, 166, 161, 0.18), transparent 34%),
-        linear-gradient(135deg, #fffaf7, #f4ebe5);
-      overflow: hidden;
-      padding: 0;
-    }
-
-    .how-hero-grid {
-      display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      align-items: stretch;
-      min-height: 540px;
-    }
-
-    .how-hero-copy {
-      padding: 52px 48px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .how-hero-copy > * {
-      animation: fadeUp 0.8s ease forwards;
-      opacity: 0;
-    }
+    .how-hero-card { border-radius: 36px; border: 1px solid rgba(227, 219, 212, 0.9); box-shadow: 0 24px 70px var(--lux-shadow); background: radial-gradient(circle at top left, rgba(200, 166, 161, 0.18), transparent 34%), linear-gradient(135deg, #fffaf7, #f4ebe5); overflow: hidden; padding: 0; }
+    .how-hero-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; align-items: stretch; min-height: 540px; }
+    .how-hero-copy { padding: 52px 48px; display: flex; flex-direction: column; justify-content: center; }
+    .how-hero-copy > * { animation: fadeUp 0.8s ease forwards; opacity: 0; }
     .how-hero-copy > *:nth-child(1) { animation-delay: 0.05s; }
     .how-hero-copy > *:nth-child(2) { animation-delay: 0.1s; }
     .how-hero-copy > *:nth-child(3) { animation-delay: 0.18s; }
     .how-hero-copy > *:nth-child(4) { animation-delay: 0.26s; }
     .how-hero-copy > *:nth-child(5) { animation-delay: 0.34s; }
-
-    .how-logo-wrap {
-      display: inline-block;
-      margin-bottom: 22px;
-    }
-
-    .how-logo {
-      width: 108px;
-      display: block;
-      transition: transform 0.3s ease;
-    }
+    .how-logo-wrap { display: inline-block; margin-bottom: 22px; }
+    .how-logo { width: 108px; display: block; transition: transform 0.3s ease; }
     .how-logo:hover { transform: scale(1.04); }
+    .how-kicker { margin: 0 0 12px; font-size: 0.78rem; letter-spacing: 0.28em; text-transform: uppercase; color: #b08d7d; opacity: 0.85; }
+    .how-title { margin: 0 0 14px; font-family: "Cormorant Garamond", serif; font-size: clamp(2.8rem, 4.5vw, 4rem); font-weight: 500; line-height: 0.96; letter-spacing: -0.045em; color: var(--lux-espresso); text-shadow: 0 10px 30px rgba(59, 47, 42, 0.08); }
+    .how-script { margin: 0 0 18px; font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 1.3rem; color: #c69b84; opacity: 0.9; letter-spacing: 0.02em; }
+    .how-subtitle { margin: 0; max-width: 480px; color: var(--lux-muted); line-height: 1.8; font-size: 0.97rem; }
+    .how-hero-image-wrap { position: relative; overflow: hidden; min-height: 100%; background: #f4ece6; }
+    .how-hero-image-wrap::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(59, 47, 42, 0.08), transparent 45%), radial-gradient(circle at top right, rgba(255, 250, 247, 0.14), transparent 38%); pointer-events: none; }
+    .how-hero-image { width: 100%; height: 100%; display: block; object-fit: cover; filter: brightness(0.98) contrast(0.94) saturate(0.92); opacity: 0; animation: heroFadeIn 0.9s ease forwards; transition: transform 0.9s ease, filter 0.4s ease; }
+    .how-hero-image-wrap:hover .how-hero-image { transform: scale(1.035); filter: brightness(1) contrast(0.96) saturate(0.96); }
 
-    .how-kicker {
-      margin: 0 0 12px;
-      font-size: 0.78rem;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: #b08d7d;
-      opacity: 0.85;
-    }
-
-    .how-title {
-      margin: 0 0 14px;
-      font-family: "Cormorant Garamond", serif;
-      font-size: clamp(2.8rem, 4.5vw, 4rem);
-      font-weight: 500;
-      line-height: 0.96;
-      letter-spacing: -0.045em;
-      color: var(--lux-espresso);
-      text-shadow: 0 10px 30px rgba(59, 47, 42, 0.08);
-    }
-
-    .how-script {
-      margin: 0 0 18px;
-      font-family: "Cormorant Garamond", serif;
-      font-style: italic;
-      font-size: 1.3rem;
-      color: #c69b84;
-      opacity: 0.9;
-      letter-spacing: 0.02em;
-    }
-
-    .how-subtitle {
-      margin: 0;
-      max-width: 480px;
-      color: var(--lux-muted);
-      line-height: 1.8;
-      font-size: 0.97rem;
-    }
-
-    /* Hero image */
-    .how-hero-image-wrap {
-      position: relative;
-      overflow: hidden;
-      min-height: 100%;
-      background: #f4ece6;
-    }
-
-    .how-hero-image-wrap::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(90deg, rgba(59, 47, 42, 0.08), transparent 45%),
-        radial-gradient(circle at top right, rgba(255, 250, 247, 0.14), transparent 38%);
-      pointer-events: none;
-    }
-
-    .how-hero-image {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover;
-      filter: brightness(0.98) contrast(0.94) saturate(0.92);
-      opacity: 0;
-      animation: heroFadeIn 0.9s ease forwards;
-      transition: transform 0.9s ease, filter 0.4s ease;
-    }
-    .how-hero-image-wrap:hover .how-hero-image {
-      transform: scale(1.035);
-      filter: brightness(1) contrast(0.96) saturate(0.96);
-    }
-
-    /* Trust strip */
-    .trust-strip {
-      text-align: center;
-      padding: 16px 20px 6px;
-      font-size: 0.82rem;
-      letter-spacing: 0.12em;
-      color: #9b8579;
-      opacity: 0.7;
-    }
+    .trust-strip { text-align: center; padding: 16px 20px 6px; font-size: 0.82rem; letter-spacing: 0.12em; color: #9b8579; opacity: 0.7; }
     .trust-strip p { margin: 0; }
 
-    /* Section kicker */
-    .section-kicker-wrap {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 20px;
-    }
-    .section-kicker {
-      font-size: 0.74rem;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: #b08d7d;
-      white-space: nowrap;
-    }
-    .section-kicker-line {
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(90deg, rgba(200,166,161,0.4), transparent);
-    }
+    .section-kicker-wrap { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+    .section-kicker { font-size: 0.74rem; letter-spacing: 0.28em; text-transform: uppercase; color: #b08d7d; white-space: nowrap; }
+    .section-kicker-line { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(200,166,161,0.4), transparent); }
 
-    /* ── SHARED CARD BASE ── */
-    .lux-card {
-      position: relative;
-      border-radius: 24px;
-      background: rgba(255, 250, 247, 0.92);
-      border: 1px solid rgba(223, 210, 200, 0.9);
-      box-shadow: 0 6px 18px var(--lux-shadow);
-      padding: 32px 28px;
-      transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
-    }
-    .lux-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 22px 52px rgba(59, 47, 42, 0.11);
-      border-color: rgba(198, 167, 125, 0.55);
-    }
-    .lux-card h2 {
-      margin: 0 0 12px;
-      font-family: "Cormorant Garamond", serif;
-      font-size: clamp(1.8rem, 3vw, 2.4rem);
-      font-weight: 500;
-      letter-spacing: -0.03em;
-      color: var(--lux-espresso);
-    }
-    .lux-card h3 {
-      margin: 0 0 10px;
-      font-family: "Cormorant Garamond", serif;
-      font-size: 1.45rem;
-      font-weight: 500;
-      letter-spacing: -0.02em;
-      color: var(--lux-espresso);
-    }
-    .lux-card p {
-      margin: 0 0 14px;
-      color: var(--lux-muted);
-      line-height: 1.8;
-      font-size: 0.97rem;
-    }
+    .lux-card { position: relative; border-radius: 24px; background: rgba(255, 250, 247, 0.92); border: 1px solid rgba(223, 210, 200, 0.9); box-shadow: 0 6px 18px var(--lux-shadow); padding: 32px 28px; transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease; }
+    .lux-card:hover { transform: translateY(-5px); box-shadow: 0 22px 52px rgba(59, 47, 42, 0.11); border-color: rgba(198, 167, 125, 0.55); }
+    .lux-card h2 { margin: 0 0 12px; font-family: "Cormorant Garamond", serif; font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 500; letter-spacing: -0.03em; color: var(--lux-espresso); }
+    .lux-card h3 { margin: 0 0 10px; font-family: "Cormorant Garamond", serif; font-size: 1.45rem; font-weight: 500; letter-spacing: -0.02em; color: var(--lux-espresso); }
+    .lux-card p { margin: 0 0 14px; color: var(--lux-muted); line-height: 1.8; font-size: 0.97rem; }
     .lux-card p:last-child { margin-bottom: 0; }
 
-    /* Image cards — no padding, no hover lift */
-    .lux-image-card {
-      border-radius: 24px;
-      border: 1px solid rgba(223, 210, 200, 0.9);
-      box-shadow: 0 6px 18px var(--lux-shadow);
-      overflow: hidden;
-      padding: 0;
-      transition: box-shadow 0.3s ease;
-    }
-    .lux-image-card:hover {
-      box-shadow: 0 18px 48px rgba(59, 47, 42, 0.12);
-    }
-    .lux-image-card img {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover;
-      filter: brightness(0.98) contrast(0.94) saturate(0.92);
-      transition: transform 0.45s ease, filter 0.35s ease;
-    }
-    .lux-image-card:hover img {
-      transform: scale(1.04);
-      filter: brightness(1) contrast(0.96) saturate(0.96);
-    }
+    .lux-image-card { border-radius: 24px; border: 1px solid rgba(223, 210, 200, 0.9); box-shadow: 0 6px 18px var(--lux-shadow); overflow: hidden; padding: 0; transition: box-shadow 0.3s ease; }
+    .lux-image-card:hover { box-shadow: 0 18px 48px rgba(59, 47, 42, 0.12); }
+    .lux-image-card img { width: 100%; height: 100%; display: block; object-fit: cover; filter: brightness(0.98) contrast(0.94) saturate(0.92); transition: transform 0.45s ease, filter 0.35s ease; }
+    .lux-image-card:hover img { transform: scale(1.04); filter: brightness(1) contrast(0.96) saturate(0.96); }
 
-    /* ── STEPS GRID ── */
-    .how-steps-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 18px;
-    }
+    .how-steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px; }
+    .how-step-card { padding: 28px 24px; }
+    .how-step-number { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, rgba(214,177,154,0.5), rgba(169,124,102,0.3)); border: 1px solid rgba(214, 190, 174, 0.6); color: #5b3d32; display: inline-flex; align-items: center; justify-content: center; font-family: "Cormorant Garamond", serif; font-weight: 600; font-size: 1.1rem; margin-bottom: 16px; }
 
-    .how-step-card {
-      padding: 28px 24px;
-    }
-
-    .how-step-number {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, rgba(214,177,154,0.5), rgba(169,124,102,0.3));
-      border: 1px solid rgba(214, 190, 174, 0.6);
-      color: #5b3d32;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-family: "Cormorant Garamond", serif;
-      font-weight: 600;
-      font-size: 1.1rem;
-      margin-bottom: 16px;
-    }
-
-    /* ── TWO-COL LAYOUTS ── */
-    .how-two-col {
-      display: grid;
-      grid-template-columns: 1.02fr 0.98fr;
-      gap: 24px;
-      align-items: stretch;
-    }
-
-    .how-two-col-reverse {
-      display: grid;
-      grid-template-columns: 0.98fr 1.02fr;
-      gap: 24px;
-      align-items: stretch;
-    }
-
+    .how-two-col { display: grid; grid-template-columns: 1.02fr 0.98fr; gap: 24px; align-items: stretch; }
+    .how-two-col-reverse { display: grid; grid-template-columns: 0.98fr 1.02fr; gap: 24px; align-items: stretch; }
     .how-image-tall { min-height: 380px; }
     .how-image-tall img { height: 100%; }
 
-    /* ── BENEFITS GRID ── */
-    .how-benefits-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
-    }
-
+    .how-benefits-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
     .how-benefit-card { padding: 28px 24px; }
+    .how-benefit-icon { font-size: 1.6rem; margin-bottom: 14px; display: block; opacity: 0.85; }
 
-    .how-benefit-icon {
-      font-size: 1.6rem;
-      margin-bottom: 14px;
-      display: block;
-      opacity: 0.85;
+    /* ── AFFORDABILITY ── */
+    .how-affordability-card {
+      background: linear-gradient(135deg, rgba(214,177,154,0.15), rgba(169,124,102,0.06));
+      border-color: rgba(198, 167, 125, 0.55);
     }
+    .how-affordability-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: start; }
+    .how-affordability-grid .lux-card { background: rgba(255,253,251,0.95); }
+    .how-affordability-stat { font-family: "Cormorant Garamond", serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 500; color: #a97c66; letter-spacing: -0.03em; margin: 0 0 6px; line-height: 1; }
 
-    /* ── CTA SECTION ── */
-    .how-cta-grid {
-      display: grid;
-      grid-template-columns: 0.94fr 1.06fr;
-      gap: 24px;
-      align-items: stretch;
-    }
+    .how-cta-grid { display: grid; grid-template-columns: 0.94fr 1.06fr; gap: 24px; align-items: stretch; }
+    .how-cta-copy { display: flex; flex-direction: column; justify-content: center; padding: 36px 32px; }
+    .how-cta-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 22px; }
 
-    .how-cta-copy {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 36px 32px;
-    }
+    .btn-primary { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 12px 22px; border-radius: 999px; text-decoration: none; background: linear-gradient(135deg, #d6b19a, #a97c66); color: #fffaf7; font-weight: 700; font-size: 0.92rem; letter-spacing: 0.04em; box-shadow: 0 10px 24px rgba(185, 143, 122, 0.22); transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 34px rgba(185, 143, 122, 0.28); filter: brightness(1.04); }
+    .btn-secondary { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 12px 22px; border-radius: 999px; text-decoration: none; background: rgba(255, 250, 247, 0.95); border: 1px solid rgba(223, 210, 200, 0.9); color: var(--lux-espresso); font-weight: 600; font-size: 0.92rem; transition: transform 0.18s ease, background 0.18s ease; }
+    .btn-secondary:hover { background: var(--lux-blush); transform: translateY(-2px); }
 
-    .how-cta-actions {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 22px;
-    }
+    .lux-badge { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 999px; background: rgba(255, 250, 247, 0.9); color: #6f5143; border: 1px solid rgba(214, 190, 174, 0.8); font-size: 0.74rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 16px; backdrop-filter: blur(8px); }
 
-    /* Buttons — matching homepage exactly */
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 46px;
-      padding: 12px 22px;
-      border-radius: 999px;
-      text-decoration: none;
-      background: linear-gradient(135deg, #d6b19a, #a97c66);
-      color: #fffaf7;
-      font-weight: 700;
-      font-size: 0.92rem;
-      letter-spacing: 0.04em;
-      box-shadow: 0 10px 24px rgba(185, 143, 122, 0.22);
-      transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
-    }
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 16px 34px rgba(185, 143, 122, 0.28);
-      filter: brightness(1.04);
-    }
-
-    .btn-secondary {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 46px;
-      padding: 12px 22px;
-      border-radius: 999px;
-      text-decoration: none;
-      background: rgba(255, 250, 247, 0.95);
-      border: 1px solid rgba(223, 210, 200, 0.9);
-      color: var(--lux-espresso);
-      font-weight: 600;
-      font-size: 0.92rem;
-      transition: transform 0.18s ease, background 0.18s ease;
-    }
-    .btn-secondary:hover {
-      background: var(--lux-blush);
-      transform: translateY(-2px);
-    }
-
-    /* Mini badge */
-    .lux-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 7px 14px;
-      border-radius: 999px;
-      background: rgba(255, 250, 247, 0.9);
-      color: #6f5143;
-      border: 1px solid rgba(214, 190, 174, 0.8);
-      font-size: 0.74rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 16px;
-      backdrop-filter: blur(8px);
-    }
-
-    /* Footer */
-    .site-footer {
-      background:
-        radial-gradient(circle at top, rgba(200, 166, 161, 0.16), transparent 36%),
-        linear-gradient(180deg, #f5eee9 0%, #eee5df 100%);
-    }
+    .site-footer { background: radial-gradient(circle at top, rgba(200, 166, 161, 0.16), transparent 36%), linear-gradient(180deg, #f5eee9 0%, #eee5df 100%); }
     .footer-title { color: var(--lux-espresso); letter-spacing: -0.035em; }
     .footer-eyebrow { color: #b08d7d; }
 
-    /* ── RESPONSIVE ── */
-    @media (max-width: 980px) {
-      .how-hero-grid,
-      .how-two-col,
-      .how-two-col-reverse,
-      .how-benefits-grid,
-      .how-cta-grid {
-        grid-template-columns: 1fr;
-      }
-      .how-hero-copy { padding: 36px 28px; }
-      .how-steps-grid { grid-template-columns: repeat(2, 1fr); }
-      .how-image-tall { min-height: 280px; }
-    }
-
-    @media (max-width: 640px) {
-      .how-page { padding: 10px 10px 0; }
-      .how-hero-copy { padding: 28px 18px; }
-      .how-title { font-size: 2.6rem; }
-      .how-steps-grid { grid-template-columns: 1fr; }
-      .lux-card { padding: 24px 20px; }
-      .how-cta-copy { padding: 28px 22px; }
-    }
+    @media (max-width: 980px) { .how-hero-grid, .how-two-col, .how-two-col-reverse, .how-benefits-grid, .how-cta-grid, .how-affordability-grid { grid-template-columns: 1fr; } .how-hero-copy { padding: 36px 28px; } .how-steps-grid { grid-template-columns: repeat(2, 1fr); } .how-image-tall { min-height: 280px; } }
+    @media (max-width: 640px) { .how-page { padding: 10px 10px 0; } .how-hero-copy { padding: 28px 18px; } .how-title { font-size: 2.6rem; } .how-steps-grid { grid-template-columns: 1fr; } .lux-card { padding: 24px 20px; } .how-cta-copy { padding: 28px 22px; } }
   </style>
 </head>
-
 <body>
+
 <div class="page-auth">
   <a href="categories.html" id="categoriesLink" class="auth-link">Categories</a>
   <a href="shop.html" id="shopLink" class="auth-link">Boutique</a>
+  <a href="messages.html" id="messagesLink" class="auth-link" style="display:none; position:relative;">
+    Messages
+    <span id="msgNavBadge" style="display:none; position:absolute; top:-6px; right:-10px; background:linear-gradient(135deg,#d6b19a,#a97c66); color:#fffaf7; font-size:0.68rem; font-weight:700; padding:2px 6px; border-radius:999px; line-height:1.2; min-width:18px; text-align:center;">0</span>
+  </a>
   <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
   <a href="login.html" id="loginLink" class="auth-link">Log In</a>
   <a href="dashboard.html" id="dashboardLink" class="auth-link" style="display:none;">Dashboard</a>
@@ -447,39 +117,27 @@
 <main class="how-page">
   <div class="how-stack">
 
-    <!-- ── HERO ── -->
     <section class="how-hero-card">
       <div class="how-hero-grid">
         <div class="how-hero-copy">
           <a href="index.html" class="how-logo-wrap" aria-label="Go to homepage">
-            <img src="images/logo.png" alt="Our Wedding Day Hub" class="how-logo">
+            <img src="images/logo.png" alt="Our Wedding Day Hub" class="how-logo" loading="lazy">
           </a>
-
           <p class="how-kicker">Trusted wedding vendors worldwide</p>
-
-          <h1 class="how-title">
-            A simple way to connect<br>couples and vendors
-          </h1>
-
+          <h1 class="how-title">A simple way to connect<br>couples and vendors</h1>
           <p class="how-script">beautifully, in one place ♡</p>
-
-          <p class="how-subtitle">
-            Our Wedding Day Hub helps couples discover beautiful wedding businesses, while giving vendors a lovely way to be seen by people actively planning their day.
-          </p>
+          <p class="how-subtitle">Our Wedding Day Hub helps couples discover beautiful wedding businesses, while giving vendors a lovely way to be seen by people actively planning their day.</p>
         </div>
-
         <div class="how-hero-image-wrap">
-          <img src="images/modern-couple-sunglasses.png" alt="Modern wedding couple portrait" class="how-hero-image">
+          <img src="images/modern-couple-sunglasses.png" alt="Modern wedding couple portrait" class="how-hero-image" loading="lazy">
         </div>
       </div>
     </section>
 
-    <!-- Trust strip -->
     <section class="trust-strip">
-      <p>Trusted by wedding vendors across Australia & worldwide • Founding members now joining • Growing daily</p>
+      <p>Trusted by wedding vendors across Australia &amp; worldwide • Proudly independent • Built with heart</p>
     </section>
 
-    <!-- ── STEPS ── -->
     <div class="section-kicker-wrap" style="padding: 0 4px;">
       <span class="section-kicker">How It Works</span>
       <span class="section-kicker-line"></span>
@@ -491,25 +149,21 @@
         <h3>Browse</h3>
         <p>Couples can explore vendors by category and location in one beautifully organised place.</p>
       </article>
-
       <article class="lux-card how-step-card">
         <div class="how-step-number">2</div>
         <h3>Discover</h3>
         <p>View profiles, explore imagery, and find businesses that align with the style and feel of your day.</p>
       </article>
-
       <article class="lux-card how-step-card">
         <div class="how-step-number">3</div>
         <h3>Connect</h3>
         <p>Reach out directly to vendors you love, making the process feel simpler and more personal.</p>
       </article>
-
       <article class="lux-card how-step-card">
         <div class="how-step-number">4</div>
         <h3>Be Seen</h3>
         <p>Vendors showcase their work to couples who are actively searching for exactly what they offer.</p>
       </article>
-
       <article class="lux-card how-step-card">
         <div class="how-step-number">5</div>
         <h3>Shop the Boutique</h3>
@@ -517,7 +171,6 @@
       </article>
     </div>
 
-    <!-- ── FOR COUPLES ── -->
     <div class="how-two-col">
       <article class="lux-card">
         <span class="lux-badge">✦ For Couples</span>
@@ -525,18 +178,15 @@
         <p>Browse wedding vendors by category and location, all in one place. Explore profiles, discover local favourites, and connect directly with the businesses that feel like the right fit for your wedding.</p>
         <p>Designed to make the search feel simpler, calmer, and far less overwhelming — so you can focus on the joy of planning.</p>
       </article>
-
       <div class="lux-image-card how-image-tall">
-        <img src="images/cta.png" alt="Elegant bridal bouquet detail">
+        <img src="images/cta.png" alt="Elegant bridal bouquet detail" loading="lazy">
       </div>
     </div>
 
-    <!-- ── FOR VENDORS ── -->
     <div class="how-two-col-reverse">
       <div class="lux-image-card how-image-tall">
-        <img src="images/arm.png" alt="Modern wedding couple portrait">
+        <img src="images/arm.png" alt="Modern wedding couple portrait" loading="lazy">
       </div>
-
       <article class="lux-card">
         <span class="lux-badge">✦ For Vendors</span>
         <h2>A beautiful home for your business</h2>
@@ -545,7 +195,6 @@
       </article>
     </div>
 
-    <!-- ── THE BOUTIQUE ── -->
     <div class="how-two-col">
       <article class="lux-card">
         <span class="lux-badge">✦ The Boutique</span>
@@ -554,13 +203,33 @@
         <p>Vendors can list gift cards, vouchers, special offers, jewellery, bridal accessories, favours, keepsakes, cake boxes, wellness experiences and other thoughtful wedding products.</p>
         <p>Some listings may link to the vendor's own payment or booking page, while others may ask customers to enquire first — giving vendors full flexibility.</p>
       </article>
-
       <div class="lux-image-card how-image-tall">
-        <img src="images/hero-2.png" alt="Elegant wedding boutique inspiration">
+        <img src="images/hero-2.png" alt="Elegant wedding boutique inspiration" loading="lazy">
       </div>
     </div>
 
-    <!-- ── BENEFITS ── -->
+    <!-- ── AFFORDABILITY ── -->
+    <div class="section-kicker-wrap" style="padding: 0 4px;">
+      <span class="section-kicker">Genuinely Affordable</span>
+      <span class="section-kicker-line"></span>
+    </div>
+
+    <article class="lux-card how-affordability-card">
+      <span class="lux-badge">✦ A refreshing difference</span>
+      <h2>So much more affordable than anywhere else</h2>
+      <p style="max-width:720px;">Most wedding advertising platforms charge hundreds — sometimes thousands — of dollars a year just to be listed. We believe that's simply not fair for the independent, passionate businesses that make weddings beautiful. Our pricing is a fraction of what you'd pay elsewhere, with no commissions, no booking fees, and no pay-to-rank games. Just a stunning profile that works hard for you, at a price that actually makes sense.</p>
+      <div class="how-affordability-grid" style="margin-top:20px;">
+        <article class="lux-card">
+          <p class="how-affordability-stat">No commissions</p>
+          <p style="margin:0;">Every booking you make through the hub is entirely yours. We never take a cut.</p>
+        </article>
+        <article class="lux-card">
+          <p class="how-affordability-stat">No surprises</p>
+          <p style="margin:0;">One simple, transparent price. No hidden fees, no locked features, no confusing tiers designed to push you to spend more.</p>
+        </article>
+      </div>
+    </article>
+
     <div class="section-kicker-wrap" style="padding: 0 4px;">
       <span class="section-kicker">Getting Started</span>
       <span class="section-kicker-line"></span>
@@ -572,13 +241,11 @@
         <h3>Getting started</h3>
         <p>Sign up, select your preferred tier, and complete your business profile with your details, imagery, and information.</p>
       </article>
-
       <article class="lux-card how-benefit-card">
         <span class="how-benefit-icon">♡</span>
         <h3>Go live</h3>
         <p>Once your profile is ready and live, couples can begin discovering your business through the platform.</p>
       </article>
-
       <article class="lux-card how-benefit-card">
         <span class="how-benefit-icon">✦</span>
         <h3>Why join</h3>
@@ -586,18 +253,15 @@
       </article>
     </div>
 
-    <!-- ── CTA ── -->
     <div class="how-cta-grid">
       <div class="lux-image-card">
-        <img src="images/couple-garden.png" alt="Romantic garden wedding couple" style="aspect-ratio: 1/1;">
+        <img src="images/couple-garden.png" alt="Romantic garden wedding couple" style="aspect-ratio: 1/1;" loading="lazy">
       </div>
-
       <article class="lux-card how-cta-copy">
         <span class="lux-badge">✦ Thoughtfully designed</span>
         <h2>Built for both sides of the wedding</h2>
         <p>Whether you are planning your wedding or growing your business, Our Wedding Day Hub is designed to feel elegant, easy to use, and thoughtfully curated.</p>
-        <p>Couples get a more inspiring way to search. Vendors get a beautiful place to be seen. And the whole experience feels more refined from start to finish.</p>
-
+        <p>Couples get a more inspiring way to search. Vendors get a beautiful place to be seen — at a price that feels refreshingly fair. And the whole experience feels more refined from start to finish.</p>
         <div class="how-cta-actions">
           <a href="categories.html" class="btn-primary">Browse Categories</a>
           <a href="signup.html" class="btn-secondary">Join as Vendor</a>
@@ -610,7 +274,7 @@
 
 <footer class="site-footer">
   <div class="footer-content">
-    <p class="footer-eyebrow">wedding vendor directory</p>
+    <p class="footer-eyebrow">wedding planning directory</p>
     <h2 class="footer-title">Everything your wedding deserves.</h2>
     <p class="footer-text">Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.</p>
     <div class="footer-links">
@@ -630,37 +294,6 @@
   </div>
 </footer>
 
-<script type="module">
-  import { auth, onAuthStateChanged, signOut } from "./firebase.js";
-
-  const joinLink      = document.getElementById("joinLink");
-  const loginLink     = document.getElementById("loginLink");
-  const dashboardLink = document.getElementById("dashboardLink");
-  const logoutLink    = document.getElementById("logoutLink");
-
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      joinLink.style.display      = "none";
-      loginLink.style.display     = "none";
-      dashboardLink.style.display = "inline-block";
-      logoutLink.style.display    = "inline-block";
-    } else {
-      joinLink.style.display      = "inline-flex";
-      loginLink.style.display     = "inline-block";
-      dashboardLink.style.display = "none";
-      logoutLink.style.display    = "none";
-    }
-  });
-
-  logoutLink.addEventListener("click", async () => {
-    try {
-      await signOut(auth);
-      window.location.href = "index.html";
-    } catch (error) {
-      console.error("Logout failed:", error);
-    }
-  });
-</script>
-
+<script type="module" src="nav.js"></script>
 </body>
 </html>
