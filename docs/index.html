@@ -6,7 +6,6 @@
   <title>Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    
     .vendors-carousel-topbar {
       position: relative;
       display: flex;
@@ -51,7 +50,6 @@
       font-weight: 600;
       transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
     }
-
     .vendors-all-link:hover {
       background: #f5e7de;
       border-color: #d8c3b6;
@@ -81,53 +79,30 @@
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
       transition: transform 0.2s ease, opacity 0.2s ease, background 0.2s ease;
     }
+    .vendors-arrow:hover { transform: translateY(-1px); background: #ead9cd; }
+    .vendors-arrow:disabled { opacity: 0.45; cursor: default; transform: none; }
 
-    .vendors-arrow:hover {
-      transform: translateY(-1px);
-      background: #ead9cd;
+    .vendors-carousel-viewport {
+      flex: 1;
+      overflow: hidden;
+      min-width: 0;
+      cursor: grab;
+      touch-action: pan-y;
+      user-select: none;
     }
+    .vendors-carousel-viewport:active { cursor: grabbing; }
 
-    .vendors-arrow:disabled {
-      opacity: 0.45;
-      cursor: default;
-      transform: none;
+    .vendors-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+      align-items: stretch;
+      transition: opacity 0.22s ease, transform 0.22s ease;
     }
+    .vendors-grid.is-sliding-left { opacity: 0; transform: translateX(-18px); }
+    .vendors-grid.is-sliding-right { opacity: 0; transform: translateX(18px); }
 
-.vendors-carousel-viewport {
-  flex: 1;
-  overflow: hidden;
-  min-width: 0;
-  cursor: grab;
-  touch-action: pan-y;
-  user-select: none;
-}
-
-.vendors-carousel-viewport:active {
-  cursor: grabbing;
-}
-
-.vendors-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 22px;
-  align-items: stretch;
-  transition: opacity 0.22s ease, transform 0.22s ease;
-}
-
-.vendors-grid.is-sliding-left {
-  opacity: 0;
-  transform: translateX(-18px);
-}
-
-.vendors-grid.is-sliding-right {
-  opacity: 0;
-  transform: translateX(18px);
-}
-
-    .vendor-card {
-      min-height: 100%;
-      cursor: pointer;
-    }
+    .vendor-card { min-height: 100%; cursor: pointer; }
 
     .vendors-dots {
       display: flex;
@@ -148,11 +123,7 @@
       cursor: pointer;
       transition: transform 0.2s ease, background 0.2s ease;
     }
-
-    .vendors-dot.active {
-      background: #b79d8d;
-      transform: scale(1.15);
-    }
+    .vendors-dot.active { background: #b79d8d; transform: scale(1.15); }
 
     .vendors-meta {
       display: flex;
@@ -168,15 +139,9 @@
       text-align: center;
     }
 
-    .vendors-slide-status,
-    .vendors-total-count {
-      margin: 0;
-    }
+    .vendors-slide-status, .vendors-total-count { margin: 0; }
 
-    .empty-message {
-      text-align: center;
-      margin-top: 20px;
-    }
+    .empty-message { text-align: center; margin-top: 20px; }
 
     .category-cards-grid.category-cards-grid-home {
       display: grid;
@@ -192,20 +157,9 @@
       justify-content: center;
       min-height: 100%;
     }
-
-    .category-card-more .category-card-content {
-      padding: 26px 24px;
-      text-align: left;
-    }
-
-    .category-card-more h3 {
-      margin-bottom: 10px;
-    }
-
-    .category-card-more p {
-      margin-bottom: 16px;
-    }
-
+    .category-card-more .category-card-content { padding: 26px 24px; text-align: left; }
+    .category-card-more h3 { margin-bottom: 10px; }
+    .category-card-more p { margin-bottom: 16px; }
     .category-card-more-badge {
       display: inline-flex;
       align-items: center;
@@ -219,385 +173,87 @@
       font-size: 0.92rem;
     }
 
-    .lux-hero-image {
-      opacity: 0;
-      animation: heroFadeIn 0.9s ease forwards;
-    }
+    .lux-hero-image { opacity: 0; animation: heroFadeIn 0.9s ease forwards; }
+    @keyframes heroFadeIn { from { opacity: 0; transform: scale(1.01); } to { opacity: 1; transform: scale(1); } }
 
-    @keyframes heroFadeIn {
-      from {
-        opacity: 0;
-        transform: scale(1.01);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-/* Aesthetic glow-up */
-:root {
-  --lux-espresso: #3b2f2a;
-  --lux-rose: #c8a6a1;
-  --lux-champagne: #c6a77d;
-  --lux-cream: #fffaf7;
-}
+    :root { --lux-espresso: #3b2f2a; --lux-rose: #c8a6a1; --lux-champagne: #c6a77d; --lux-cream: #fffaf7; }
 
-body {
-  background:
-    radial-gradient(circle at top left, rgba(200, 166, 161, 0.12), transparent 32%),
-    #f7f1ed;
-}
+    body { background: radial-gradient(circle at top left, rgba(200, 166, 161, 0.12), transparent 32%), #f7f1ed; }
 
-.lux-hero {
-  padding-top: 22px;
-}
+    .lux-hero { padding-top: 22px; background: #f7f1ed; }
+    .lux-hero-inner { box-shadow: none; overflow: hidden; }
 
-.lux-hero-inner {
-  box-shadow: none;
-  overflow: hidden;
-}
-    .lux-hero {
-  background: #f7f1ed;
-}
-    
-.lux-kicker,
-.section-kicker,
-.category-kicker {
-  letter-spacing: 0.28em;  
-  font-size: 0.78rem;      
-  opacity: 0.85;           
-  color: #b08d7d;
-}
-    
-.lux-title {
-  color: var(--lux-espresso);
-  letter-spacing: -0.045em;
-}
+    .lux-kicker, .section-kicker, .category-kicker { letter-spacing: 0.28em; font-size: 0.78rem; opacity: 0.85; color: #b08d7d; }
+    .lux-title { color: var(--lux-espresso); letter-spacing: -0.045em; }
+    .lux-script { color: #c69b84; }
 
-.lux-script {
-  color: #c69b84;
-}
+    .lux-hero-image-wrap { position: relative; overflow: hidden; }
+    .lux-hero-image-wrap::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(59, 47, 42, 0.08), transparent 45%), radial-gradient(circle at top right, rgba(255, 250, 247, 0.14), transparent 38%); pointer-events: none; }
+    .lux-hero-image { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.98) contrast(0.94) saturate(0.92); transition: transform 0.9s ease, filter 0.4s ease; }
+    .lux-hero-image-wrap:hover .lux-hero-image { transform: scale(1.035); filter: brightness(1) contrast(0.96) saturate(0.96); }
 
-.lux-hero-image-wrap {
-  position: relative;
-  overflow: hidden;
-}
+    .search-bar { box-shadow: 0 18px 42px rgba(59, 47, 42, 0.12); border-radius: 999px; padding: 6px; background: rgba(255, 250, 247, 0.9); backdrop-filter: blur(10px); border: 1px solid rgba(223, 210, 200, 0.7); transition: box-shadow 0.25s ease, transform 0.25s ease; }
+    .search-bar:focus-within { box-shadow: 0 24px 60px rgba(59, 47, 42, 0.18); transform: translateY(-2px); }
+    .search-bar button, .vendor-profile-btn, .category-card-more-badge { background: linear-gradient(135deg, #d6b19a, #a97c66); letter-spacing: 0.04em; color: #fffaf7; box-shadow: 0 10px 24px rgba(185, 143, 122, 0.22); transition: transform 0.18s ease, box-shadow 0.18s ease; }
+    .search-bar button:hover, .vendor-profile-btn:hover, .category-card-more-badge:hover { transform: translateY(-2px); filter: brightness(1.03); }
 
-.lux-hero-image-wrap::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(90deg, rgba(59, 47, 42, 0.08), transparent 45%),
-    radial-gradient(circle at top right, rgba(255, 250, 247, 0.14), transparent 38%);
-  pointer-events: none;
-}
+    .vendors-carousel-section { position: relative; padding-top: 40px; padding-bottom: 10px; background: transparent; box-shadow: none; overflow: hidden; }
 
-.lux-hero-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: brightness(0.98) contrast(0.94) saturate(0.92);
-  transition: transform 0.9s ease, filter 0.4s ease;
-}
+    .vendor-card, .category-card { position: relative; border-radius: 24px; overflow: hidden; background: rgba(255, 250, 247, 0.92); border: 1px solid rgba(223, 210, 200, 0.9); box-shadow: 0 6px 18px rgba(59, 47, 42, 0.04); transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease; }
+    .vendor-card:hover, .category-card:hover { transform: translateY(-7px); box-shadow: 0 24px 60px rgba(59, 47, 42, 0.12); border-color: rgba(198, 167, 125, 0.65); }
+    .vendor-card img, .category-card img { filter: brightness(0.98) contrast(0.95) saturate(0.92); transition: transform 0.45s ease, filter 0.35s ease; }
+    .vendor-card:hover img, .category-card:hover img { transform: scale(1.045); filter: brightness(1) contrast(0.97) saturate(0.97); }
 
-.lux-hero-image-wrap:hover .lux-hero-image {
-  transform: scale(1.035);
-  filter: brightness(1) contrast(0.96) saturate(0.96);
-}
+    .vendor-featured-badge { position: absolute; top: 18px; left: 18px; z-index: 2; display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px; border-radius: 999px; background: rgba(255, 250, 247, 0.9); color: #6f5143; border: 1px solid rgba(214, 190, 174, 0.8); font-size: 0.74rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; backdrop-filter: blur(8px); }
 
-.search-bar {
-  box-shadow: 0 18px 42px rgba(59, 47, 42, 0.12);
-  border-radius: 999px;
-  padding: 6px;
-  background: rgba(255, 250, 247, 0.9);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(223, 210, 200, 0.7);
-  transition: box-shadow 0.25s ease, transform 0.25s ease;
-}
+    .vendors-arrow, .vendors-all-link, .location-pill { transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease; }
+    .vendors-arrow:hover, .vendors-all-link:hover, .location-pill:hover { transform: translateY(-3px); box-shadow: 0 12px 26px rgba(59, 47, 42, 0.08); }
 
-.search-bar:focus-within {
-  box-shadow: 0 24px 60px rgba(59, 47, 42, 0.18);
-  transform: translateY(-2px);
-}
+    .site-footer { background: radial-gradient(circle at top, rgba(200, 166, 161, 0.16), transparent 36%), linear-gradient(180deg, #f5eee9 0%, #eee5df 100%); }
+    .footer-title { color: var(--lux-espresso); letter-spacing: -0.035em; }
+    .footer-eyebrow { color: #b08d7d; }
 
-.search-bar button,
-.vendor-profile-btn,
-.category-card-more-badge {
-  background: linear-gradient(135deg, #d6b19a, #a97c66);
-  letter-spacing: 0.04em;
-  color: #fffaf7;
-  box-shadow: 0 10px 24px rgba(185, 143, 122, 0.22);
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
-}
+    .lux-title { text-shadow: 0 10px 30px rgba(59, 47, 42, 0.08); }
+    .trust-strip, .category-intro { background: #f7f1ed; }
+    .lux-script { opacity: 0.9; letter-spacing: 0.02em; }
 
-.search-bar button:hover,
-.vendor-profile-btn:hover,
-.category-card-more-badge:hover {
-  transform: translateY(-2px);
-  filter: brightness(1.03);
-}
+    .lux-hero-copy > * { animation: fadeUp 0.8s ease forwards; opacity: 0; }
+    .lux-hero-copy > *:nth-child(1) { animation-delay: 0.05s; }
+    .lux-hero-copy > *:nth-child(2) { animation-delay: 0.1s; }
+    .lux-hero-copy > *:nth-child(3) { animation-delay: 0.2s; }
+    .lux-hero-copy > *:nth-child(4) { animation-delay: 0.3s; }
+    .lux-hero-copy > *:nth-child(5) { animation-delay: 0.4s; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
 
-.vendors-carousel-section {
-  position: relative;
-  padding-top: 40px;
-  padding-bottom: 10px;
-  background: transparent;
-  box-shadow: none;
-  overflow: hidden;
-}
+    .trust-strip { text-align: center; padding: 18px 20px 8px; font-size: 0.82rem; letter-spacing: 0.12em; color: #9b8579; opacity: 0.7; }
+    .trust-strip p { margin: 0; }
 
-.vendor-card,
-.category-card {
-  position: relative;
-  border-radius: 24px;
-  overflow: hidden;
-  background: rgba(255, 250, 247, 0.92);
-  border: 1px solid rgba(223, 210, 200, 0.9);
-  box-shadow: 0 6px 18px rgba(59, 47, 42, 0.04);
-  transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
-}
+    .hero-cta { display: flex; gap: 12px; margin-top: 22px; flex-wrap: wrap; }
+    .hero-primary, .hero-secondary { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 12px 18px; border-radius: 999px; font-weight: 700; text-decoration: none; transition: all 0.2s ease; }
+    .hero-primary { background: linear-gradient(135deg, #d6b19a, #a97c66); color: #fffaf7; box-shadow: 0 10px 24px rgba(185, 143, 122, 0.22); }
+    .hero-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 34px rgba(185, 143, 122, 0.28); }
+    .hero-secondary { background: #fffaf7; border: 1px solid #e2d3c8; color: #5b4a43; }
+    .hero-secondary:hover { background: #f5e7de; transform: translateY(-2px); }
 
-.vendor-card:hover,
-.category-card:hover {
-  transform: translateY(-7px);
-  box-shadow: 0 24px 60px rgba(59, 47, 42, 0.12);
-  border-color: rgba(198, 167, 125, 0.65);
-}
-
-.vendor-card img,
-.category-card img {
-  filter: brightness(0.98) contrast(0.95) saturate(0.92);
-  transition: transform 0.45s ease, filter 0.35s ease;
-}
-
-.vendor-card:hover img,
-.category-card:hover img {
-  transform: scale(1.045);
-  filter: brightness(1) contrast(0.97) saturate(0.97);
-}
-
-.vendor-featured-badge {
-  position: absolute;
-  top: 18px;
-  left: 18px;
-  z-index: 2;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 7px 12px;
-  border-radius: 999px;
-  background: rgba(255, 250, 247, 0.9);
-  color: #6f5143;
-  border: 1px solid rgba(214, 190, 174, 0.8);
-  font-size: 0.74rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  backdrop-filter: blur(8px);
-}
-
-.vendors-arrow,
-.vendors-all-link,
-.location-pill {
-  transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
-}
-
-.vendors-arrow:hover,
-.vendors-all-link:hover,
-.location-pill:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 26px rgba(59, 47, 42, 0.08);
-}
-
-.homepage-section {
-  position: relative;
-}
-
-.site-footer {
-  background:
-    radial-gradient(circle at top, rgba(200, 166, 161, 0.16), transparent 36%),
-    linear-gradient(180deg, #f5eee9 0%, #eee5df 100%);
-}
-
-.footer-title {
-  color: var(--lux-espresso);
-  letter-spacing: -0.035em;
-}
-
-.footer-eyebrow {
-  color: #b08d7d;
-}
-
-    /* ✨ Hero luxury polish (SAFE) */
-.lux-title {
-  text-shadow: 0 10px 30px rgba(59, 47, 42, 0.08);
-}
-
-    .trust-strip,
-.category-intro {
-  background: #f7f1ed;
-}
-
-.lux-script {
-  opacity: 0.9;
-  letter-spacing: 0.02em;
-}
-
-.lux-hero-copy > * {
-  animation: fadeUp 0.8s ease forwards;
-  opacity: 0;
-}
-
-.lux-hero-copy > *:nth-child(1) { animation-delay: 0.05s; }
-.lux-hero-copy > *:nth-child(2) { animation-delay: 0.1s; }
-.lux-hero-copy > *:nth-child(3) { animation-delay: 0.2s; }
-.lux-hero-copy > *:nth-child(4) { animation-delay: 0.3s; }
-.lux-hero-copy > *:nth-child(5) { animation-delay: 0.4s; }
-
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
- .trust-strip {
-  text-align: center;
-  padding: 18px 20px 8px;
-  font-size: 0.82rem;    
-  letter-spacing: 0.12em; 
-  color: #9b8579;
-  opacity: 0.7;         
-}
-
-.trust-strip p {
-  margin: 0;
-}
-
-    .hero-cta {
-  display: flex;
-  gap: 12px;
-  margin-top: 22px;
-  flex-wrap: wrap;
-}
-
-.hero-primary,
-.hero-secondary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 46px;
-  padding: 12px 18px;
-  border-radius: 999px;
-  font-weight: 700;
-  text-decoration: none;
-  transition: all 0.2s ease;
-}
-
-.hero-primary {
-  background: linear-gradient(135deg, #d6b19a, #a97c66);
-  color: #fffaf7;
-  box-shadow: 0 10px 24px rgba(185, 143, 122, 0.22);
-}
-
-.hero-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 16px 34px rgba(185, 143, 122, 0.28);
-}
-
-.hero-secondary {
-  background: #fffaf7;
-  border: 1px solid #e2d3c8;
-  color: #5b4a43;
-}
-
-.hero-secondary:hover {
-  background: #f5e7de;
-  transform: translateY(-2px);
-}
-   
     @media (max-width: 980px) {
-      .vendors-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .category-cards-grid.category-cards-grid-home {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .vendors-carousel-topbar {
-        justify-content: center;
-        padding-top: 46px;
-      }
-
-      .vendors-carousel-note-wrap {
-        max-width: calc(100% - 40px);
-      }
+      .vendors-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .category-cards-grid.category-cards-grid-home { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .vendors-carousel-topbar { justify-content: center; padding-top: 46px; }
+      .vendors-carousel-note-wrap { max-width: calc(100% - 40px); }
     }
-
     @media (max-width: 700px) {
-      .vendors-carousel-section {
-        width: min(100%, calc(100% - 20px));
-        border-radius: 0 0 24px 24px;
-        padding-top: 40px;
-        padding-bottom: 10px;
-      }
-
-      .vendors-carousel-topbar {
-        justify-content: center;
-        padding: 42px 14px 12px;
-      }
-
-      .vendors-carousel-note-wrap {
-        position: static;
-        left: auto;
-        transform: none;
-        width: 100%;
-        max-width: 100%;
-        order: -1;
-        pointer-events: auto;
-      }
-
-      .vendors-carousel-shell {
-        gap: 8px;
-        padding: 0 10px;
-      }
-
-      .vendors-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .vendors-arrow {
-        width: 42px;
-        height: 42px;
-        flex-basis: 42px;
-        font-size: 1.2rem;
-      }
-
-      .category-cards-grid.category-cards-grid-home {
-        grid-template-columns: 1fr;
-      }
+      .vendors-carousel-section { width: min(100%, calc(100% - 20px)); border-radius: 0 0 24px 24px; padding-top: 40px; padding-bottom: 10px; }
+      .vendors-carousel-topbar { justify-content: center; padding: 42px 14px 12px; }
+      .vendors-carousel-note-wrap { position: static; left: auto; transform: none; width: 100%; max-width: 100%; order: -1; pointer-events: auto; }
+      .vendors-carousel-shell { gap: 8px; padding: 0 10px; }
+      .vendors-grid { grid-template-columns: 1fr; }
+      .vendors-arrow { width: 42px; height: 42px; flex-basis: 42px; font-size: 1.2rem; }
+      .category-cards-grid.category-cards-grid-home { grid-template-columns: 1fr; }
     }
-
     @media (max-width: 520px) {
-      .vendors-carousel-section {
-        width: min(100%, calc(100% - 16px));
-      }
-
-      .vendors-arrow {
-        width: 38px;
-        height: 38px;
-        flex-basis: 38px;
-        font-size: 1rem;
-      }
-
-      .vendors-dots {
-        margin-top: 14px;
-      }
+      .vendors-carousel-section { width: min(100%, calc(100% - 16px)); }
+      .vendors-arrow { width: 38px; height: 38px; flex-basis: 38px; font-size: 1rem; }
+      .vendors-dots { margin-top: 14px; }
     }
   </style>
 </head>
@@ -605,15 +261,14 @@ body {
 
 <div class="page-auth">
   <a href="categories.html" id="categoriesLink" class="auth-link">Categories</a>
-
   <a href="shop.html" id="shopLink" class="auth-link">Boutique</a>
-
+  <a href="messages.html" id="messagesLink" class="auth-link" style="display:none; position:relative;">
+    Messages
+    <span id="msgNavBadge" style="display:none; position:absolute; top:-6px; right:-10px; background:linear-gradient(135deg,#d6b19a,#a97c66); color:#fffaf7; font-size:0.68rem; font-weight:700; padding:2px 6px; border-radius:999px; line-height:1.2; min-width:18px; text-align:center;">0</span>
+  </a>
   <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
-
   <a href="login.html" id="loginLink" class="auth-link">Log In</a>
-
   <a href="dashboard.html" id="dashboardLink" class="auth-link" style="display:none;">Dashboard</a>
-
   <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
 </div>
 
@@ -622,45 +277,32 @@ body {
       <div class="lux-hero-inner">
         <div class="lux-hero-copy">
           <a href="index.html" class="lux-logo-wrap" aria-label="Go to homepage">
-            <img src="images/logo.png" alt="Our Wedding Day Hub" class="lux-logo">
+            <img src="images/logo.png" alt="Our Wedding Day Hub" class="lux-logo" loading="eager" fetchpriority="high">
           </a>
-
           <p class="lux-kicker">Trusted wedding vendors worldwide</p>
-          
-<h1 class="lux-title">
-  Find the people behind <br>
-  unforgettable weddings
-</h1>
-
-          <p class="lux-script">
-            all in one place ♡
-          </p>
-<div class="search-wrap hero-search-wrap">
-  <div class="search-bar">
-    <span class="search-icon" aria-hidden="true">⌕</span>
-    <input type="text" id="searchInput" placeholder="Search by vendor, location, category...">
-    <button type="button" id="searchBtn">Search</button>
-  </div>
-</div>
-
-<div class="hero-cta">
-  <a href="signup.html" class="hero-primary">Join as a Vendor</a>
-  <a href="categories.html" class="hero-secondary">Browse Vendors</a>
-</div>
-
-</div> 
-        
+          <h1 class="lux-title">Find the people behind <br>unforgettable weddings</h1>
+          <p class="lux-script">all in one place ♡</p>
+          <div class="search-wrap hero-search-wrap">
+            <div class="search-bar">
+              <span class="search-icon" aria-hidden="true">⌕</span>
+              <input type="text" id="searchInput" placeholder="Search by vendor, location, category...">
+              <button type="button" id="searchBtn">Search</button>
+            </div>
+          </div>
+          <div class="hero-cta">
+            <a href="signup.html" class="hero-primary">Join as a Vendor</a>
+            <a href="categories.html" class="hero-secondary">Browse Vendors</a>
+          </div>
+        </div>
         <div class="lux-hero-image-wrap">
-          <img id="heroImage" src="images/hero-1.png" alt="Elegant wedding couple" class="lux-hero-image">
+          <img id="heroImage" src="images/hero-1.png" alt="Elegant wedding couple" class="lux-hero-image" loading="eager" fetchpriority="high">
         </div>
       </div>
     </section>
+
     <section class="trust-strip">
-  <p>
-    Trusted by wedding vendors across Australia & worldwide •
-    Founding members now joining • Growing daily
-  </p>
-</section>
+      <p>Trusted by wedding vendors across Australia &amp; worldwide • Proudly independent • Built with heart</p>
+    </section>
 
     <section class="category-intro">
       <p class="category-kicker">Featured Partners</p>
@@ -681,11 +323,9 @@ body {
 
       <div class="vendors-carousel-shell">
         <button type="button" id="prevVendorsBtn" class="vendors-arrow" aria-label="Previous vendors">&#8249;</button>
-
         <div class="vendors-carousel-viewport">
           <section id="vendorsGrid" class="vendors-grid"></section>
         </div>
-
         <button type="button" id="nextVendorsBtn" class="vendors-arrow" aria-label="Next vendors">&#8250;</button>
       </div>
 
@@ -696,7 +336,6 @@ body {
         <p id="vendorsTotalCount" class="vendors-total-count"></p>
       </div>
 
-      <p class="vendors-growing-note">We’re growing, and new partners are joining. Be one of the first to be seen.</p>
       <p id="emptyMessage" class="empty-message" style="display:none;">No live vendors found yet.</p>
     </section>
 
@@ -712,45 +351,40 @@ body {
 
       <div class="category-cards-grid category-cards-grid-home">
         <a href="categories.html?type=venues" class="category-card">
-          <img src="images/venue.png" alt="Venues">
+          <img src="images/venue.png" alt="Venues" loading="lazy">
           <div class="category-card-content">
             <h3>Venues</h3>
             <p>Discover stunning spaces for ceremonies and receptions.</p>
           </div>
         </a>
-
         <a href="categories.html?type=styling_florals&subcategory=wedding_florist" class="category-card">
-          <img src="images/flor.png" alt="Florists">
+          <img src="images/flor.png" alt="Florists" loading="lazy">
           <div class="category-card-content">
             <h3>Florists</h3>
             <p>Beautiful blooms and floral styling for your day.</p>
           </div>
         </a>
-
         <a href="categories.html?type=photo_video" class="category-card">
-          <img src="images/photog.png" alt="Photography and Video">
+          <img src="images/photog.png" alt="Photography and Video" loading="lazy">
           <div class="category-card-content">
             <h3>Photo &amp; Video</h3>
             <p>Capture every beautiful moment with trusted creatives.</p>
           </div>
         </a>
-
         <a href="categories.html?type=beauty" class="category-card">
-          <img src="images/hair.png" alt="Beauty">
+          <img src="images/hair.png" alt="Beauty" loading="lazy">
           <div class="category-card-content">
             <h3>Beauty</h3>
             <p>Makeup, hair, nails, tanning and beauty experts for your wedding day.</p>
           </div>
         </a>
-
         <a href="categories.html?type=ceremony_services&subcategory=wedding_celebrant" class="category-card">
-          <img src="images/officiant.png" alt="Celebrants">
+          <img src="images/officiant.png" alt="Celebrants" loading="lazy">
           <div class="category-card-content">
             <h3>Ceremonies</h3>
             <p>Find celebrants and ceremony services to make your day feel personal and meaningful.</p>
           </div>
         </a>
-
         <a href="categories.html" class="category-card category-card-more">
           <div class="category-card-content">
             <h3>Explore Everything</h3>
@@ -770,7 +404,6 @@ body {
           <span></span>
         </div>
       </div>
-
       <div class="location-pills">
         <a href="categories.html?location=Australia%20%26%20New%20Zealand" class="location-pill">Australia &amp; New Zealand</a>
         <a href="categories.html?location=United%20Kingdom%20%26%20Ireland" class="location-pill">United Kingdom &amp; Ireland</a>
@@ -785,17 +418,9 @@ body {
 
   <footer class="site-footer">
     <div class="footer-content">
-      <p class="footer-eyebrow">wedding vendor directory</p>
-
-      <h2 class="footer-title">
-        Everything your wedding deserves.
-      </h2>
-
-      <p class="footer-text">
-        Browse trusted wedding businesses, discover local favourites, and connect
-        with the people who can bring your day to life.
-      </p>
-
+      <p class="footer-eyebrow">wedding planning directory</p>
+      <h2 class="footer-title">Everything your wedding deserves.</h2>
+      <p class="footer-text">Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.</p>
       <div class="footer-links">
         <a href="about.html">About Us</a>
         <a href="how-it-works.html">How It Works</a>
@@ -807,25 +432,14 @@ body {
         <a href="https://www.equaldex.com/equality-index" target="_blank" rel="noopener noreferrer">Global Equality Index</a>
         <a href="#" onclick="return false;">Events4Us (Coming Soon)</a>
       </div>
-
-      <p class="footer-tagline">
-        Proudly inclusive • Worldwide • Built with heart
-      </p>
-
+      <p class="footer-tagline">Proudly inclusive • Worldwide • Built with heart</p>
       <p class="footer-abn">© 2026 Our Wedding Day Hub</p>
       <p class="footer-abn">ABN 76 688 637 041 • Australia</p>
     </div>
   </footer>
 
   <script type="module">
-    import {
-      db,
-      auth,
-      collection,
-      getDocs,
-      onAuthStateChanged,
-      signOut
-    } from "./firebase.js";
+    import { db, auth, collection, getDocs, onAuthStateChanged, signOut } from "./firebase.js";
 
     const vendorsGrid = document.getElementById("vendorsGrid");
     const emptyMessage = document.getElementById("emptyMessage");
@@ -836,7 +450,6 @@ body {
     const vendorsDots = document.getElementById("vendorsDots");
     const vendorsSlideStatus = document.getElementById("vendorsSlideStatus");
     const vendorsTotalCount = document.getElementById("vendorsTotalCount");
-
     const joinLink = document.getElementById("joinLink");
     const loginLink = document.getElementById("loginLink");
     const dashboardLink = document.getElementById("dashboardLink");
@@ -846,75 +459,45 @@ body {
     let filteredVendors = [];
     let currentSlide = 0;
 
-    function cleanArray(arr) {
-      return Array.isArray(arr) ? arr.filter(Boolean) : [];
-    }
-
-    function normalise(value) {
-      return String(value || "").toLowerCase().trim();
-    }
-
+    function cleanArray(arr) { return Array.isArray(arr) ? arr.filter(Boolean) : []; }
+    function normalise(value) { return String(value || "").toLowerCase().trim(); }
     function formatText(value) {
       if (!value) return "";
-      return String(value)
-        .replace(/_/g, " ")
-        .replace(/-/g, " ")
-        .replace(/\s+/g, " ")
-        .trim()
-        .replace(/\b\w/g, char => char.toUpperCase());
+      return String(value).replace(/_/g, " ").replace(/-/g, " ").replace(/\s+/g, " ").trim().replace(/\b\w/g, char => char.toUpperCase());
     }
 
     function getCardImage(vendor) {
-      if (vendor.coverImageUrl && String(vendor.coverImageUrl).trim()) return vendor.coverImageUrl;
+      if (vendor.coverImageUrl?.trim()) return vendor.coverImageUrl;
       if (Array.isArray(vendor.images) && vendor.images.length > 0) return vendor.images[0];
-      if (vendor.profileImageUrl && String(vendor.profileImageUrl).trim()) return vendor.profileImageUrl;
-      if (vendor.logoUrl && String(vendor.logoUrl).trim()) return vendor.logoUrl;
-      if (vendor.coverImage && String(vendor.coverImage).trim()) return vendor.coverImage;
-      if (vendor.profileImage && String(vendor.profileImage).trim()) return vendor.profileImage;
+      if (vendor.profileImageUrl?.trim()) return vendor.profileImageUrl;
+      if (vendor.logoUrl?.trim()) return vendor.logoUrl;
+      if (vendor.coverImage?.trim()) return vendor.coverImage;
+      if (vendor.profileImage?.trim()) return vendor.profileImage;
       return "images/bouquet.png";
     }
 
     function getShortBio(vendor) {
-      const source =
-        (vendor.shortBio || "").trim() ||
-        (vendor.tagline || "").trim() ||
-        (vendor.bio || "").trim() ||
-        (vendor.description || "").trim();
-
+      const source = (vendor.shortBio || "").trim() || (vendor.tagline || "").trim() || (vendor.bio || "").trim() || (vendor.description || "").trim();
       if (!source) return "Beautiful vendor profile coming soon.";
       return source.length > 88 ? source.slice(0, 88).trim() + "..." : source;
     }
 
     function getCategoryLine(vendor) {
-      const categories = Array.isArray(vendor.categories) && vendor.categories.length
-        ? vendor.categories
-        : vendor.category
-          ? [vendor.category]
-          : [];
-
+      const categories = Array.isArray(vendor.categories) && vendor.categories.length ? vendor.categories : vendor.category ? [vendor.category] : [];
       const cleaned = cleanArray(categories);
       if (!cleaned.length) return "";
       return cleaned.slice(0, 3).map(formatText).join(" • ");
     }
 
     function getLocationLine(vendor) {
-      if (vendor.serviceAreas && String(vendor.serviceAreas).trim()) {
-        return formatText(vendor.serviceAreas.trim());
-      }
-
+      if (vendor.serviceAreas?.trim()) return formatText(vendor.serviceAreas.trim());
       const regions = cleanArray(vendor.regions);
       if (regions.length) return regions.slice(0, 3).map(formatText).join(" • ");
-
       const states = cleanArray(vendor.states);
       if (states.length) return states.map(formatText).join(" • ");
-
       const countries = cleanArray(vendor.countries);
       if (countries.length) return countries.map(formatText).join(" • ");
-
-      if (vendor.displayLocation && String(vendor.displayLocation).trim()) {
-        return formatText(vendor.displayLocation.trim());
-      }
-
+      if (vendor.displayLocation?.trim()) return formatText(vendor.displayLocation.trim());
       return "";
     }
 
@@ -923,11 +506,9 @@ body {
         const aPriority = a.priorityPlacement === true ? 1 : 0;
         const bPriority = b.priorityPlacement === true ? 1 : 0;
         if (bPriority !== aPriority) return bPriority - aPriority;
-
         const aFeatured = a.featuredPlacement === true ? 1 : 0;
         const bFeatured = b.featuredPlacement === true ? 1 : 0;
         if (bFeatured !== aFeatured) return bFeatured - aFeatured;
-
         const aUpdated = a.updatedAt?.seconds || a.createdAt?.seconds || 0;
         const bUpdated = b.updatedAt?.seconds || b.createdAt?.seconds || 0;
         return bUpdated - aUpdated;
@@ -936,9 +517,7 @@ body {
 
     function goToVendor(vendor) {
       sessionStorage.setItem("selectedVendorId", vendor.docId);
-      if (vendor.uid) {
-        sessionStorage.setItem("selectedVendorUid", vendor.uid);
-      }
+      if (vendor.uid) sessionStorage.setItem("selectedVendorUid", vendor.uid);
       window.location.href = `vendor.html?id=${vendor.docId}`;
     }
 
@@ -948,61 +527,38 @@ body {
       return 3;
     }
 
-    function getTotalSlides(vendors) {
-      const cardsPerSlide = getCardsPerSlide();
-      return Math.max(1, Math.ceil(vendors.length / cardsPerSlide));
-    }
+    function getTotalSlides(vendors) { return Math.max(1, Math.ceil(vendors.length / getCardsPerSlide())); }
 
     function updateArrowState(vendors) {
       const totalSlides = getTotalSlides(vendors);
       const disableControls = vendors.length <= getCardsPerSlide();
-
       prevVendorsBtn.disabled = disableControls || currentSlide <= 0;
       nextVendorsBtn.disabled = disableControls || currentSlide >= totalSlides - 1;
     }
 
     function renderDots(vendors) {
       vendorsDots.innerHTML = "";
-
       const totalSlides = getTotalSlides(vendors);
       if (vendors.length <= getCardsPerSlide()) return;
-
       for (let i = 0; i < totalSlides; i++) {
         const dot = document.createElement("button");
         dot.type = "button";
         dot.className = `vendors-dot ${i === currentSlide ? "active" : ""}`;
         dot.setAttribute("aria-label", `Go to vendor slide ${i + 1}`);
-
-        dot.addEventListener("click", () => {
-          currentSlide = i;
-          renderVendors(filteredVendors);
-        });
-
+        dot.addEventListener("click", () => { currentSlide = i; renderVendors(filteredVendors); });
         vendorsDots.appendChild(dot);
       }
     }
 
     function updateMeta(vendors) {
       const totalSlides = getTotalSlides(vendors);
-
-      if (!vendors.length) {
-        vendorsSlideStatus.textContent = "";
-        vendorsTotalCount.textContent = "";
-        return;
-      }
-
-      if (vendors.length <= getCardsPerSlide()) {
-        vendorsSlideStatus.textContent = "Showing featured vendors";
-      } else {
-        vendorsSlideStatus.textContent = `Page ${currentSlide + 1} of ${totalSlides}`;
-      }
-
+      if (!vendors.length) { vendorsSlideStatus.textContent = ""; vendorsTotalCount.textContent = ""; return; }
+      vendorsSlideStatus.textContent = vendors.length <= getCardsPerSlide() ? "Showing featured vendors" : `Page ${currentSlide + 1} of ${totalSlides}`;
       vendorsTotalCount.textContent = `${vendors.length} featured vendor${vendors.length === 1 ? "" : "s"}`;
     }
 
     function renderVendors(vendors) {
       vendorsGrid.innerHTML = "";
-
       if (!vendors.length) {
         emptyMessage.style.display = "block";
         prevVendorsBtn.style.display = "none";
@@ -1012,40 +568,24 @@ body {
         vendorsTotalCount.textContent = "";
         return;
       }
-
       emptyMessage.style.display = "none";
       prevVendorsBtn.style.display = "inline-flex";
       nextVendorsBtn.style.display = "inline-flex";
-
       const cardsPerSlide = getCardsPerSlide();
       const totalSlides = getTotalSlides(vendors);
-
-      if (currentSlide > totalSlides - 1) {
-        currentSlide = totalSlides - 1;
-      }
-
+      if (currentSlide > totalSlides - 1) currentSlide = totalSlides - 1;
       const start = currentSlide * cardsPerSlide;
-      const end = start + cardsPerSlide;
-      const visibleVendors = vendors.slice(start, end);
-
+      const visibleVendors = vendors.slice(start, start + cardsPerSlide);
       visibleVendors.forEach((vendor) => {
         const card = document.createElement("article");
         card.className = "vendor-card";
-
         const image = getCardImage(vendor);
         const name = String(vendor.businessName || "Vendor").trim();
         const categoryLine = getCategoryLine(vendor);
         const locationLine = getLocationLine(vendor);
         const bio = getShortBio(vendor);
-        const badgeText =
-  vendor.priorityPlacement === true
-    ? "Editor’s Pick"
-    : vendor.featuredPlacement === true
-      ? "Featured"
-      : "Partner";
-
         card.innerHTML = `
-<img src="${image}" alt="${name}" loading="lazy">
+          <img src="${image}" alt="${name}" loading="lazy">
           <h3>${name}</h3>
           ${categoryLine ? `<p class="vendor-category-line">${categoryLine}</p>` : ""}
           ${locationLine ? `<p class="vendor-location-line">${locationLine}</p>` : ""}
@@ -1054,81 +594,26 @@ body {
             <button type="button" class="vendor-profile-btn">View Profile</button>
           </div>
         `;
-
-        card.addEventListener("click", () => {
-          goToVendor(vendor);
-        });
-
-        const profileBtn = card.querySelector(".vendor-profile-btn");
-        profileBtn.addEventListener("click", (event) => {
-          event.stopPropagation();
-          goToVendor(vendor);
-        });
-
+        card.addEventListener("click", () => goToVendor(vendor));
+        card.querySelector(".vendor-profile-btn").addEventListener("click", (event) => { event.stopPropagation(); goToVendor(vendor); });
         vendorsGrid.appendChild(card);
       });
-
       updateArrowState(vendors);
       renderDots(vendors);
       updateMeta(vendors);
-    }
-
-    function hasVendorAccess(vendor) {
-      const plan = normalise(vendor.plan);
-      const accessType = normalise(vendor.accessType);
-      const accountStatus = normalise(vendor.accountStatus);
-
-      const hasPaidAccess =
-        vendor.subscriptionActive === true || vendor.paidSetupFee === true;
-
-      const hasComplimentaryAccess =
-        vendor.complimentaryPlan === true ||
-        vendor.foundingVendor === true ||
-        vendor.plan === "complimentary" ||
-        vendor.plan === "free" ||
-        vendor.plan === "founding" ||
-        plan === "complimentary" ||
-        plan === "free" ||
-        plan === "founding" ||
-        accessType === "complimentary-invite" ||
-        accessType === "founding-vendor";
-
-      const isApprovedAccount =
-        !accountStatus ||
-        accountStatus === "active" ||
-        accountStatus === "approved" ||
-        accountStatus === "live";
-
-      return isApprovedAccount && (hasPaidAccess || hasComplimentaryAccess);
     }
 
     async function loadVendors() {
       try {
         const snapshot = await getDocs(collection(db, "vendors"));
         const liveVendors = [];
-
         snapshot.forEach((docSnap) => {
           const vendor = docSnap.data();
-
-          const hasLiveProfile =
-            vendor &&
-            vendor.businessName &&
-            vendor.profileVisible !== false &&
-            vendor.published !== false;
-
-          if (
-            vendor &&
-            hasLiveProfile
-          ) {
-            liveVendors.push({
-              ...vendor,
-              docId: docSnap.id
-            });
-          }
+          const hasLiveProfile = vendor && vendor.businessName && vendor.profileVisible !== false && vendor.published !== false;
+          if (vendor && hasLiveProfile) liveVendors.push({ ...vendor, docId: docSnap.id });
         });
-
- allVendors = sortVendors(liveVendors).sort(() => Math.random() - 0.5);
-filteredVendors = [...allVendors];
+        allVendors = sortVendors(liveVendors).sort(() => Math.random() - 0.5);
+        filteredVendors = [...allVendors];
         currentSlide = 0;
         renderVendors(filteredVendors);
       } catch (error) {
@@ -1137,61 +622,27 @@ filteredVendors = [...allVendors];
         emptyMessage.textContent = "There was a problem loading vendors.";
         prevVendorsBtn.style.display = "none";
         nextVendorsBtn.style.display = "none";
-        vendorsDots.innerHTML = "";
-        vendorsSlideStatus.textContent = "";
-        vendorsTotalCount.textContent = "";
       }
     }
 
     function goToSearchResults() {
       const term = searchInput.value.trim();
-
-      if (!term) {
-        window.location.href = "categories.html";
-        return;
-      }
-
-      const params = new URLSearchParams();
-      params.set("search", term);
-      window.location.href = `categories.html?${params.toString()}`;
+      if (!term) { window.location.href = "categories.html"; return; }
+      window.location.href = `categories.html?search=${encodeURIComponent(term)}`;
     }
 
-    function getRandomItem(array) {
-      return array[Math.floor(Math.random() * array.length)];
-    }
+    function getRandomItem(array) { return array[Math.floor(Math.random() * array.length)]; }
 
     function setRefreshImages() {
       const heroImage = document.getElementById("heroImage");
-
-      const heroImages = [
-        "images/hero-1.png",
-        "images/hero-2.png",
-        "images/hero-3.png",
-        "images/hero-4.png",
-        "images/hero-5.png",
-        "images/hero-6.png",
-        "images/hero-7.png"
-      ];
-
-      if (heroImage) {
-        heroImage.src = getRandomItem(heroImages);
-      }
+      const heroImages = ["images/hero-1.png","images/hero-2.png","images/hero-3.png","images/hero-4.png","images/hero-5.png","images/hero-6.png","images/hero-7.png"];
+      if (heroImage) heroImage.src = getRandomItem(heroImages);
     }
 
-    prevVendorsBtn.addEventListener("click", () => {
-      if (currentSlide > 0) {
-        currentSlide--;
-        renderVendors(filteredVendors);
-      }
-    });
-
+    prevVendorsBtn.addEventListener("click", () => { if (currentSlide > 0) { currentSlide--; renderVendors(filteredVendors); } });
     nextVendorsBtn.addEventListener("click", () => {
       const totalSlides = getTotalSlides(filteredVendors);
-      if (currentSlide < totalSlides - 1) {
-        currentSlide++;
-      } else {
-        currentSlide = 0;
-      }
+      currentSlide = currentSlide < totalSlides - 1 ? currentSlide + 1 : 0;
       renderVendors(filteredVendors);
     });
 
@@ -1200,120 +651,38 @@ filteredVendors = [...allVendors];
       clearTimeout(resizeTimeout);
       resizeTimeout = setTimeout(() => {
         const totalSlides = getTotalSlides(filteredVendors);
-        if (currentSlide > totalSlides - 1) {
-          currentSlide = Math.max(0, totalSlides - 1);
-        }
+        if (currentSlide > totalSlides - 1) currentSlide = Math.max(0, totalSlides - 1);
         renderVendors(filteredVendors);
       }, 120);
     });
 
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        joinLink.style.display = "none";
-        loginLink.style.display = "none";
-        dashboardLink.style.display = "inline-block";
-        logoutLink.style.display = "inline-block";
-      } else {
-        joinLink.style.display = "inline-flex";
-        loginLink.style.display = "inline-block";
-        dashboardLink.style.display = "none";
-        logoutLink.style.display = "none";
-      }
-    });
+    // Swipe / drag support
+    let swipeStartX = 0;
+    let swipeEndX = 0;
+    let isVendorDragging = false;
+    const vendorsViewport = document.querySelector(".vendors-carousel-viewport");
 
-    logoutLink.addEventListener("click", async () => {
-      try {
-        await signOut(auth);
-        window.location.href = "index.html";
-      } catch (error) {
-        console.error("Logout failed:", error);
-      }
-    });
-
-    searchBtn.addEventListener("click", goToSearchResults);
-    searchInput.addEventListener("keydown", (event) => {
-      if (event.key === "Enter") {
-        event.preventDefault();
-        goToSearchResults();
-      }
-    });
-// Swipe / drag support for vendor carousel
-let swipeStartX = 0;
-let swipeEndX = 0;
-let isVendorDragging = false;
-
-const vendorsViewport = document.querySelector(".vendors-carousel-viewport");
-
-function glideVendorSlide(direction) {
-  const totalSlides = getTotalSlides(filteredVendors);
-
-  if (direction === "next" && currentSlide >= totalSlides - 1) return;
-  if (direction === "prev" && currentSlide <= 0) return;
-
-  vendorsGrid.classList.add(
-    direction === "next" ? "is-sliding-left" : "is-sliding-right"
-  );
-
-  setTimeout(() => {
-    if (direction === "next") {
-      currentSlide++;
-    } else {
-      currentSlide--;
+    function handleVendorSwipe() {
+      const swipeDistance = swipeStartX - swipeEndX;
+      if (Math.abs(swipeDistance) < 50) return;
+      const totalSlides = getTotalSlides(filteredVendors);
+      if (swipeDistance > 0 && currentSlide < totalSlides - 1) { currentSlide++; renderVendors(filteredVendors); }
+      else if (swipeDistance < 0 && currentSlide > 0) { currentSlide--; renderVendors(filteredVendors); }
     }
 
-    renderVendors(filteredVendors);
+    if (vendorsViewport) {
+      vendorsViewport.addEventListener("touchstart", (e) => { swipeStartX = e.touches[0].clientX; }, { passive: true });
+      vendorsViewport.addEventListener("touchend", (e) => { swipeEndX = e.changedTouches[0].clientX; handleVendorSwipe(); });
+      vendorsViewport.addEventListener("mousedown", (e) => { isVendorDragging = true; swipeStartX = e.clientX; });
+      vendorsViewport.addEventListener("mouseup", (e) => { if (!isVendorDragging) return; isVendorDragging = false; swipeEndX = e.clientX; handleVendorSwipe(); });
+      vendorsViewport.addEventListener("mouseleave", () => { isVendorDragging = false; });
+    }
 
-    requestAnimationFrame(() => {
-      vendorsGrid.classList.remove("is-sliding-left", "is-sliding-right");
-    });
-  }, 180);
-}
-function handleVendorSwipe() {
-  const swipeDistance = swipeStartX - swipeEndX;
-  const swipeThreshold = 50;
+    searchBtn.addEventListener("click", goToSearchResults);
+    searchInput.addEventListener("keydown", (event) => { if (event.key === "Enter") { event.preventDefault(); goToSearchResults(); } });
 
-  if (Math.abs(swipeDistance) < swipeThreshold) return;
-
-  const totalSlides = getTotalSlides(filteredVendors);
-
-  if (swipeDistance > 0 && currentSlide < totalSlides - 1) {
-    currentSlide++;
-    renderVendors(filteredVendors);
-  } else if (swipeDistance < 0 && currentSlide > 0) {
-    currentSlide--;
-    renderVendors(filteredVendors);
-  }
-}
-
-if (vendorsViewport) {
-  vendorsViewport.addEventListener("touchstart", (event) => {
-    swipeStartX = event.touches[0].clientX;
-  }, { passive: true });
-
-  vendorsViewport.addEventListener("touchend", (event) => {
-    swipeEndX = event.changedTouches[0].clientX;
-    handleVendorSwipe();
-  });
-
-  vendorsViewport.addEventListener("mousedown", (event) => {
-    isVendorDragging = true;
-    swipeStartX = event.clientX;
-  });
-
-  vendorsViewport.addEventListener("mouseup", (event) => {
-    if (!isVendorDragging) return;
-    isVendorDragging = false;
-    swipeEndX = event.clientX;
-    handleVendorSwipe();
-  });
-
-  vendorsViewport.addEventListener("mouseleave", () => {
-    isVendorDragging = false;
-  });
-}
-
-setRefreshImages();
-loadVendors();
+    setRefreshImages();
+    loadVendors();
   </script>
 
   <script type="module" src="nav.js"></script>
