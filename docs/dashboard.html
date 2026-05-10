@@ -7,984 +7,177 @@
   <link rel="stylesheet" href="style.css">
   <style>
     :root {
-      --lux-espresso: #3b2f2a;
-      --lux-rose:     #c8a6a1;
-      --lux-champagne:#c6a77d;
-      --lux-cream:    #fffaf7;
-      --lux-blush:    #f4e7df;
-      --lux-border:   rgba(216, 197, 189, 0.55);
-      --lux-muted:    #9b8579;
-      --lux-shadow:   rgba(59, 47, 42, 0.08);
+      --lux-espresso: #3b2f2a; --lux-rose: #c8a6a1; --lux-champagne: #c6a77d;
+      --lux-cream: #fffaf7; --lux-blush: #f4e7df; --lux-border: rgba(216, 197, 189, 0.55);
+      --lux-muted: #9b8579; --lux-shadow: rgba(59, 47, 42, 0.08);
     }
+    body { background: radial-gradient(circle at top left, rgba(200, 166, 161, 0.12), transparent 32%), #f7f1ed; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes heroFadeIn { from { opacity: 0; transform: scale(1.01); } to { opacity: 1; transform: scale(1); } }
 
-    body {
-      background:
-        radial-gradient(circle at top left, rgba(200, 166, 161, 0.12), transparent 32%),
-        #f7f1ed;
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(14px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes heroFadeIn {
-      from { opacity: 0; transform: scale(1.01); }
-      to   { opacity: 1; transform: scale(1); }
-    }
-
-    /* ── PAGE ── */
-    .dashboard-page {
-      max-width: 1280px;
-      margin: 0 auto 48px;
-      padding: 18px 20px 0;
-    }
-
+    .dashboard-page { max-width: 1280px; margin: 0 auto 48px; padding: 18px 20px 0; }
     .dashboard-stack { display: grid; gap: 24px; }
 
-    /* ── HERO ── */
-    .dashboard-hero-card {
-      border-radius: 36px;
-      border: 1px solid rgba(227, 219, 212, 0.9);
-      box-shadow: 0 24px 70px var(--lux-shadow);
-      background:
-        radial-gradient(circle at top left, rgba(200, 166, 161, 0.18), transparent 34%),
-        linear-gradient(135deg, #fffaf7, #f4ebe5);
-      overflow: hidden;
-      padding: 0;
-    }
-
-    .dashboard-hero-grid {
-      display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      align-items: stretch;
-      min-height: 520px;
-    }
-
-    .dashboard-hero-copy {
-      padding: 52px 48px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .dashboard-hero-copy > * {
-      animation: fadeUp 0.8s ease forwards;
-      opacity: 0;
-    }
+    .dashboard-hero-card { border-radius: 36px; border: 1px solid rgba(227, 219, 212, 0.9); box-shadow: 0 24px 70px var(--lux-shadow); background: radial-gradient(circle at top left, rgba(200, 166, 161, 0.18), transparent 34%), linear-gradient(135deg, #fffaf7, #f4ebe5); overflow: hidden; padding: 0; }
+    .dashboard-hero-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; align-items: stretch; min-height: 520px; }
+    .dashboard-hero-copy { padding: 52px 48px; display: flex; flex-direction: column; justify-content: center; }
+    .dashboard-hero-copy > * { animation: fadeUp 0.8s ease forwards; opacity: 0; }
     .dashboard-hero-copy > *:nth-child(1) { animation-delay: 0.05s; }
     .dashboard-hero-copy > *:nth-child(2) { animation-delay: 0.1s; }
     .dashboard-hero-copy > *:nth-child(3) { animation-delay: 0.18s; }
     .dashboard-hero-copy > *:nth-child(4) { animation-delay: 0.26s; }
     .dashboard-hero-copy > *:nth-child(5) { animation-delay: 0.34s; }
-
-    .dashboard-logo-wrap {
-      display: inline-flex;
-      align-items: center;
-      justify-content: flex-start;
-      margin-bottom: 20px;
-      text-decoration: none;
-    }
-
-    .dashboard-logo {
-      width: 104px;
-      display: block;
-      transition: transform 0.3s ease;
-    }
+    .dashboard-logo-wrap { display: inline-flex; align-items: center; justify-content: flex-start; margin-bottom: 20px; text-decoration: none; }
+    .dashboard-logo { width: 104px; display: block; transition: transform 0.3s ease; }
     .dashboard-logo:hover { transform: scale(1.04); }
+    .dashboard-kicker { margin: 0 0 12px; font-size: 0.78rem; letter-spacing: 0.28em; text-transform: uppercase; color: #b08d7d; opacity: 0.85; }
+    .dashboard-hero-title { margin: 0 0 14px; font-family: "Cormorant Garamond", serif; font-size: clamp(2.6rem, 4.5vw, 4rem); font-weight: 500; line-height: 0.96; letter-spacing: -0.045em; color: var(--lux-espresso); text-shadow: 0 10px 30px rgba(59, 47, 42, 0.08); }
+    .dashboard-hero-script { margin: 0 0 16px; font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 1.3rem; color: #c69b84; opacity: 0.9; letter-spacing: 0.02em; }
+    .dashboard-hero-text { margin: 0; max-width: 520px; color: var(--lux-muted); line-height: 1.8; font-size: 0.97rem; }
+    .dashboard-hero-image-wrap { position: relative; overflow: hidden; min-height: 100%; background: #f4ece6; }
+    .dashboard-hero-image-wrap::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(59, 47, 42, 0.08), transparent 45%), radial-gradient(circle at top right, rgba(255, 250, 247, 0.14), transparent 38%); pointer-events: none; }
+    .dashboard-hero-image { width: 100%; height: 100%; display: block; object-fit: cover; filter: brightness(0.98) contrast(0.94) saturate(0.92); opacity: 0; animation: heroFadeIn 0.9s ease forwards; transition: transform 0.9s ease, filter 0.4s ease; }
+    .dashboard-hero-image-wrap:hover .dashboard-hero-image { transform: scale(1.035); filter: brightness(1) contrast(0.96) saturate(0.96); }
+    .dashboard-actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-top: 22px; }
 
-    .dashboard-kicker {
-      margin: 0 0 12px;
-      font-size: 0.78rem;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: #b08d7d;
-      opacity: 0.85;
-    }
+    .pretty-button, .apply-button { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 12px 22px; border-radius: 999px; border: none; font: inherit; font-weight: 700; font-size: 0.92rem; letter-spacing: 0.04em; cursor: pointer; text-decoration: none; transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease; }
+    .pretty-button { background: linear-gradient(135deg, #d6b19a, #a97c66); color: #fffaf7; box-shadow: 0 10px 24px rgba(185, 143, 122, 0.22); }
+    .pretty-button:hover { transform: translateY(-2px); box-shadow: 0 16px 34px rgba(185, 143, 122, 0.28); filter: brightness(1.04); }
+    .apply-button { background: rgba(255, 250, 247, 0.95); border: 1px solid rgba(223, 210, 200, 0.9); color: var(--lux-espresso); }
+    .apply-button:hover { background: var(--lux-blush); transform: translateY(-2px); }
 
-    .dashboard-hero-title {
-      margin: 0 0 14px;
-      font-family: "Cormorant Garamond", serif;
-      font-size: clamp(2.6rem, 4.5vw, 4rem);
-      font-weight: 500;
-      line-height: 0.96;
-      letter-spacing: -0.045em;
-      color: var(--lux-espresso);
-      text-shadow: 0 10px 30px rgba(59, 47, 42, 0.08);
-    }
+    .dashboard-panel { border-radius: 24px; border: 1px solid rgba(223, 210, 200, 0.9); background: rgba(255, 250, 247, 0.92); box-shadow: 0 6px 18px var(--lux-shadow); overflow: hidden; transition: box-shadow 0.28s ease; }
+    .dashboard-panel:hover { box-shadow: 0 14px 40px rgba(59, 47, 42, 0.09); }
+    .panel-toggle-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 26px; cursor: pointer; user-select: none; transition: background 0.18s ease; }
+    .panel-toggle-header:hover { background: rgba(244, 231, 223, 0.35); }
+    .dashboard-panel.panel-static { padding: 28px 26px; }
+    .panel-header-left { display: flex; align-items: center; gap: 14px; }
+    .panel-header-icon { width: 38px; height: 38px; border-radius: 12px; background: linear-gradient(135deg, rgba(214, 177, 154, 0.28), rgba(169, 124, 102, 0.14)); border: 1px solid rgba(214, 177, 154, 0.35); display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; color: #a97c66; }
+    .panel-header-title { margin: 0 0 2px; font-family: "Cormorant Garamond", serif; font-size: clamp(1.2rem, 2vw, 1.5rem); font-weight: 500; letter-spacing: -0.02em; color: var(--lux-espresso); }
+    .panel-header-subtitle { margin: 0; color: var(--lux-muted); font-size: 0.87rem; line-height: 1.4; }
+    .panel-toggle-chevron { width: 32px; height: 32px; border-radius: 50%; border: 1px solid rgba(223, 210, 200, 0.8); background: rgba(255, 250, 247, 0.9); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.18s ease; color: var(--lux-muted); }
+    .panel-toggle-chevron svg { display: block; transition: transform 0.25s ease; }
+    .panel-toggle-header[aria-expanded="true"] .panel-toggle-chevron { background: rgba(244, 231, 223, 0.9); }
+    .panel-toggle-header[aria-expanded="true"] .panel-toggle-chevron svg { transform: rotate(180deg); }
+    .panel-body { overflow: hidden; transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease; max-height: 0; opacity: 0; }
+    .panel-body.open { max-height: 9999px; opacity: 1; }
+    .panel-body-inner { padding: 0 26px 26px; }
+    .panel-divider { height: 1px; background: rgba(223, 210, 200, 0.6); margin: 0 26px; }
 
-    .dashboard-hero-script {
-      margin: 0 0 16px;
-      font-family: "Cormorant Garamond", serif;
-      font-style: italic;
-      font-size: 1.3rem;
-      color: #c69b84;
-      opacity: 0.9;
-      letter-spacing: 0.02em;
-    }
+    .dashboard-controls { display: flex; justify-content: flex-end; gap: 10px; align-items: center; margin-bottom: -8px; }
+    .ctrl-btn { background: none; border: 1px solid rgba(223, 210, 200, 0.8); border-radius: 999px; padding: 7px 16px; font: inherit; font-size: 0.82rem; font-weight: 600; color: var(--lux-muted); cursor: pointer; letter-spacing: 0.02em; transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease; }
+    .ctrl-btn:hover { background: var(--lux-blush); color: var(--lux-espresso); transform: translateY(-1px); }
 
-    .dashboard-hero-text {
-      margin: 0;
-      max-width: 520px;
-      color: var(--lux-muted);
-      line-height: 1.8;
-      font-size: 0.97rem;
-    }
+    .dashboard-section-title { margin: 0 0 6px; font-family: "Cormorant Garamond", serif; font-size: clamp(1.4rem, 2vw, 1.75rem); font-weight: 500; letter-spacing: -0.025em; color: var(--lux-espresso); text-align: left; }
+    .dashboard-subtitle { margin: 0; color: var(--lux-muted); line-height: 1.65; font-size: 0.93rem; text-align: left; }
+    .dashboard-card-header { display: flex; flex-direction: column; gap: 5px; margin-bottom: 18px; }
+    .dashboard-help { color: var(--lux-muted); font-size: 0.88rem; margin-top: 10px; text-align: left; line-height: 1.65; }
+    .dashboard-card-soft { margin-top: 14px; padding: 22px; border-radius: 20px; background: linear-gradient(180deg, #fffdfb 0%, #fff8f4 100%); border: 1px solid rgba(223, 210, 200, 0.7); }
+    .dashboard-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .dashboard-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; }
 
-    .dashboard-hero-image-wrap {
-      position: relative;
-      overflow: hidden;
-      min-height: 100%;
-      background: #f4ece6;
-    }
-    .dashboard-hero-image-wrap::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(90deg, rgba(59, 47, 42, 0.08), transparent 45%),
-        radial-gradient(circle at top right, rgba(255, 250, 247, 0.14), transparent 38%);
-      pointer-events: none;
-    }
-    .dashboard-hero-image {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover;
-      filter: brightness(0.98) contrast(0.94) saturate(0.92);
-      opacity: 0;
-      animation: heroFadeIn 0.9s ease forwards;
-      transition: transform 0.9s ease, filter 0.4s ease;
-    }
-    .dashboard-hero-image-wrap:hover .dashboard-hero-image {
-      transform: scale(1.035);
-      filter: brightness(1) contrast(0.96) saturate(0.96);
-    }
+    .status-wrap { display: flex; flex-wrap: wrap; gap: 10px; justify-content: flex-start; margin-top: 6px; }
+    .status-pill { display: inline-flex; align-items: center; padding: 8px 14px; border-radius: 999px; background: rgba(247, 241, 237, 0.9); border: 1px solid rgba(223, 210, 200, 0.7); color: #5f493d; font-size: 0.84rem; font-weight: 600; }
+    .inline-toggle { display: flex; align-items: center; gap: 12px; justify-content: flex-start; flex-wrap: wrap; }
+    .inline-toggle input[type="checkbox"] { width: 18px; height: 18px; accent-color: #a97c66; }
 
-    .dashboard-actions {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      align-items: center;
-      margin-top: 22px;
-    }
+    .dashboard-field label { display: block; margin-bottom: 7px; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: #8d7369; }
+    .dashboard-field input, .dashboard-field textarea, .dashboard-field select { width: 100%; border: 1px solid #eadfd6; border-radius: 14px; background: #fffdfb; padding: 13px 15px; font-size: 0.95rem; color: #2d221c; box-sizing: border-box; transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease; font: inherit; }
+    .dashboard-field input:focus, .dashboard-field textarea:focus, .dashboard-field select:focus { outline: none; border-color: #d6bcad; box-shadow: 0 0 0 4px rgba(217, 194, 178, 0.16); background: #ffffff; }
+    .dashboard-field textarea { resize: vertical; min-height: 120px; }
 
-    /* ── SHARED BUTTON ── */
-    .pretty-button, .apply-button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 46px;
-      padding: 12px 22px;
-      border-radius: 999px;
-      border: none;
-      font: inherit;
-      font-weight: 700;
-      font-size: 0.92rem;
-      letter-spacing: 0.04em;
-      cursor: pointer;
-      text-decoration: none;
-      transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
-    }
-
-    .pretty-button {
-      background: linear-gradient(135deg, #d6b19a, #a97c66);
-      color: #fffaf7;
-      box-shadow: 0 10px 24px rgba(185, 143, 122, 0.22);
-    }
-    .pretty-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 16px 34px rgba(185, 143, 122, 0.28);
-      filter: brightness(1.04);
-    }
-
-    .apply-button {
-      background: rgba(255, 250, 247, 0.95);
-      border: 1px solid rgba(223, 210, 200, 0.9);
-      color: var(--lux-espresso);
-    }
-    .apply-button:hover {
-      background: var(--lux-blush);
-      transform: translateY(-2px);
-    }
-
-    /* ── COLLAPSIBLE PANELS ── */
-    .dashboard-panel {
-      border-radius: 24px;
-      border: 1px solid rgba(223, 210, 200, 0.9);
-      background: rgba(255, 250, 247, 0.92);
-      box-shadow: 0 6px 18px var(--lux-shadow);
-      overflow: hidden;
-      transition: box-shadow 0.28s ease;
-    }
-    .dashboard-panel:hover {
-      box-shadow: 0 14px 40px rgba(59, 47, 42, 0.09);
-    }
-
-    /* Panel toggle header */
-    .panel-toggle-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 22px 26px;
-      cursor: pointer;
-      user-select: none;
-      transition: background 0.18s ease;
-    }
-    .panel-toggle-header:hover {
-      background: rgba(244, 231, 223, 0.35);
-    }
-
-    /* Non-collapsible panels (hero, status, save bar) keep normal padding */
-    .dashboard-panel.panel-static {
-      padding: 28px 26px;
-    }
-
-    .panel-header-left {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .panel-header-icon {
-      width: 38px;
-      height: 38px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, rgba(214, 177, 154, 0.28), rgba(169, 124, 102, 0.14));
-      border: 1px solid rgba(214, 177, 154, 0.35);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1rem;
-      flex-shrink: 0;
-      color: #a97c66;
-    }
-
-    .panel-header-text {}
-
-    .panel-header-title {
-      margin: 0 0 2px;
-      font-family: "Cormorant Garamond", serif;
-      font-size: clamp(1.2rem, 2vw, 1.5rem);
-      font-weight: 500;
-      letter-spacing: -0.02em;
-      color: var(--lux-espresso);
-    }
-
-    .panel-header-subtitle {
-      margin: 0;
-      color: var(--lux-muted);
-      font-size: 0.87rem;
-      line-height: 1.4;
-    }
-
-    .panel-toggle-chevron {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      border: 1px solid rgba(223, 210, 200, 0.8);
-      background: rgba(255, 250, 247, 0.9);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      transition: background 0.18s ease, transform 0.25s ease;
-      color: var(--lux-muted);
-    }
-    .panel-toggle-chevron svg {
-      display: block;
-      transition: transform 0.25s ease;
-    }
-
-    .panel-toggle-header[aria-expanded="true"] .panel-toggle-chevron {
-      background: rgba(244, 231, 223, 0.9);
-    }
-    .panel-toggle-header[aria-expanded="true"] .panel-toggle-chevron svg {
-      transform: rotate(180deg);
-    }
-
-    /* Panel body */
-    .panel-body {
-      overflow: hidden;
-      transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease;
-      max-height: 0;
-      opacity: 0;
-    }
-    .panel-body.open {
-      max-height: 9999px;
-      opacity: 1;
-    }
-
-    .panel-body-inner {
-      padding: 0 26px 26px;
-    }
-
-    .panel-divider {
-      height: 1px;
-      background: rgba(223, 210, 200, 0.6);
-      margin: 0 26px;
-    }
-
-    /* ── Expand/collapse all ── */
-    .dashboard-controls {
-      display: flex;
-      justify-content: flex-end;
-      gap: 10px;
-      align-items: center;
-      margin-bottom: -8px;
-    }
-
-    .ctrl-btn {
-      background: none;
-      border: 1px solid rgba(223, 210, 200, 0.8);
-      border-radius: 999px;
-      padding: 7px 16px;
-      font: inherit;
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: var(--lux-muted);
-      cursor: pointer;
-      letter-spacing: 0.02em;
-      transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease;
-    }
-    .ctrl-btn:hover {
-      background: var(--lux-blush);
-      color: var(--lux-espresso);
-      transform: translateY(-1px);
-    }
-
-    /* ── SECTION TITLES (inside panels) ── */
-    .dashboard-section-title {
-      margin: 0 0 6px;
-      font-family: "Cormorant Garamond", serif;
-      font-size: clamp(1.4rem, 2vw, 1.75rem);
-      font-weight: 500;
-      letter-spacing: -0.025em;
-      color: var(--lux-espresso);
-      text-align: left;
-    }
-
-    .dashboard-subtitle {
-      margin: 0;
-      color: var(--lux-muted);
-      line-height: 1.65;
-      font-size: 0.93rem;
-      text-align: left;
-    }
-
-    .dashboard-card-header {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      margin-bottom: 18px;
-    }
-
-    .dashboard-help {
-      color: var(--lux-muted);
-      font-size: 0.88rem;
-      margin-top: 10px;
-      text-align: left;
-      line-height: 1.65;
-    }
-
-    .dashboard-card-soft {
-      margin-top: 14px;
-      padding: 22px;
-      border-radius: 20px;
-      background: linear-gradient(180deg, #fffdfb 0%, #fff8f4 100%);
-      border: 1px solid rgba(223, 210, 200, 0.7);
-    }
-
-    /* ── GRIDS ── */
-    .dashboard-grid-2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
-    }
-
-    .dashboard-grid-3 {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 18px;
-    }
-
-    /* ── STATUS PILLS ── */
-    .status-wrap {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: flex-start;
-      margin-top: 6px;
-    }
-
-    .status-pill {
-      display: inline-flex;
-      align-items: center;
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: rgba(247, 241, 237, 0.9);
-      border: 1px solid rgba(223, 210, 200, 0.7);
-      color: #5f493d;
-      font-size: 0.84rem;
-      font-weight: 600;
-    }
-
-    .inline-toggle {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      justify-content: flex-start;
-      flex-wrap: wrap;
-    }
-
-    .inline-toggle input[type="checkbox"] {
-      width: 18px;
-      height: 18px;
-      accent-color: #a97c66;
-    }
-
-    /* ── FORM FIELDS ── */
-    .dashboard-field label {
-      display: block;
-      margin-bottom: 7px;
-      font-size: 0.82rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      color: #8d7369;
-    }
-
-    .dashboard-field input,
-    .dashboard-field textarea,
-    .dashboard-field select {
-      width: 100%;
-      border: 1px solid #eadfd6;
-      border-radius: 14px;
-      background: #fffdfb;
-      padding: 13px 15px;
-      font-size: 0.95rem;
-      color: #2d221c;
-      box-sizing: border-box;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-      font: inherit;
-    }
-
-    .dashboard-field input:focus,
-    .dashboard-field textarea:focus,
-    .dashboard-field select:focus {
-      outline: none;
-      border-color: #d6bcad;
-      box-shadow: 0 0 0 4px rgba(217, 194, 178, 0.16);
-      background: #ffffff;
-    }
-
-    .dashboard-field textarea {
-      resize: vertical;
-      min-height: 120px;
-    }
-
-    /* ── MEDIA UPLOADERS ── */
-    .media-uploader-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
-    }
-
-    .upload-box {
-      border: 1px dashed rgba(198, 167, 125, 0.5);
-      background: linear-gradient(180deg, #fffdfb 0%, #fff7f2 100%);
-      border-radius: 20px;
-      padding: 20px;
-      text-align: left;
-    }
-
-    .upload-box h3 {
-      margin: 0 0 8px;
-      font-family: "Cormorant Garamond", serif;
-      font-size: 1.15rem;
-      font-weight: 500;
-      color: var(--lux-espresso);
-    }
-
+    .media-uploader-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .upload-box { border: 1px dashed rgba(198, 167, 125, 0.5); background: linear-gradient(180deg, #fffdfb 0%, #fff7f2 100%); border-radius: 20px; padding: 20px; text-align: left; }
+    .upload-box h3 { margin: 0 0 8px; font-family: "Cormorant Garamond", serif; font-size: 1.15rem; font-weight: 500; color: var(--lux-espresso); }
     .pretty-upload-input { display: none; }
+    .pretty-upload-label { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 11px 20px; border-radius: 999px; background: linear-gradient(135deg, #d6b19a, #a97c66); color: #fffaf7; font-weight: 700; font-size: 0.9rem; cursor: pointer; box-shadow: 0 8px 20px rgba(185, 143, 122, 0.2); transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease; }
+    .pretty-upload-label:hover { transform: translateY(-2px); box-shadow: 0 14px 28px rgba(185, 143, 122, 0.28); filter: brightness(1.04); }
+    .selected-file-note { margin-top: 10px; color: var(--lux-muted); font-size: 0.88rem; line-height: 1.55; }
 
-    .pretty-upload-label {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 44px;
-      padding: 11px 20px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, #d6b19a, #a97c66);
-      color: #fffaf7;
-      font-weight: 700;
-      font-size: 0.9rem;
-      cursor: pointer;
-      box-shadow: 0 8px 20px rgba(185, 143, 122, 0.2);
-      transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
-    }
-    .pretty-upload-label:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 14px 28px rgba(185, 143, 122, 0.28);
-      filter: brightness(1.04);
-    }
+    .media-preview-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 16px; margin-top: 16px; }
+    .media-preview-item { background: rgba(255, 250, 247, 0.95); border: 1px solid rgba(223, 210, 200, 0.7); border-radius: 18px; padding: 10px; transition: transform 0.25s ease, box-shadow 0.25s ease; }
+    .media-preview-item:hover { transform: translateY(-4px); box-shadow: 0 18px 38px rgba(59, 47, 42, 0.09); }
+    .media-preview-item img, .media-preview-item video { width: 100%; display: block; border-radius: 12px; background: var(--lux-blush); object-fit: cover; max-height: 220px; }
 
-    .selected-file-note {
-      margin-top: 10px;
-      color: var(--lux-muted);
-      font-size: 0.88rem;
-      line-height: 1.55;
-    }
-
-    /* ── MEDIA PREVIEW ── */
-    .media-preview-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-      gap: 16px;
-      margin-top: 16px;
-    }
-
-    .media-preview-item {
-      background: rgba(255, 250, 247, 0.95);
-      border: 1px solid rgba(223, 210, 200, 0.7);
-      border-radius: 18px;
-      padding: 10px;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
-    .media-preview-item:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 18px 38px rgba(59, 47, 42, 0.09);
-    }
-
-    .media-preview-item img,
-    .media-preview-item video {
-      width: 100%;
-      display: block;
-      border-radius: 12px;
-      background: var(--lux-blush);
-      object-fit: cover;
-      max-height: 220px;
-    }
-
-    /* ── BRAND ASSETS ── */
-    .brand-assets-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(220px, 260px));
-      gap: 20px;
-      align-items: start;
-      justify-content: start;
-    }
-
-    .asset-box {
-      background: linear-gradient(180deg, #fffdfb 0%, #fff8f4 100%);
-      border: 1px solid rgba(223, 210, 200, 0.7);
-      border-radius: 22px;
-      padding: 18px;
-      text-align: center;
-    }
-
-    .asset-preview-circle,
-    .asset-preview-square {
-      width: 148px;
-      height: 148px;
-      margin: 0 auto 14px;
-      border-radius: 24px;
-      overflow: hidden;
-      background: var(--lux-blush);
-      border: 1px solid rgba(223, 210, 200, 0.7);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+    .brand-assets-grid { display: grid; grid-template-columns: repeat(2, minmax(220px, 260px)); gap: 20px; align-items: start; justify-content: start; }
+    .asset-box { background: linear-gradient(180deg, #fffdfb 0%, #fff8f4 100%); border: 1px solid rgba(223, 210, 200, 0.7); border-radius: 22px; padding: 18px; text-align: center; }
+    .asset-preview-circle, .asset-preview-square { width: 148px; height: 148px; margin: 0 auto 14px; border-radius: 24px; overflow: hidden; background: var(--lux-blush); border: 1px solid rgba(223, 210, 200, 0.7); display: flex; align-items: center; justify-content: center; }
     .asset-preview-circle img { width: 100%; height: 100%; object-fit: cover; }
     .asset-preview-square img { width: 100%; height: 100%; object-fit: contain; padding: 8px; background: #fff; }
+    .asset-empty { color: var(--lux-muted); font-size: 0.84rem; padding: 10px; line-height: 1.5; }
 
-    .asset-empty {
-      color: var(--lux-muted);
-      font-size: 0.84rem;
-      padding: 10px;
-      line-height: 1.5;
-    }
-
-    /* ── PILL CHECKBOXES ── */
-    .mini-pill-grid,
-    .weekday-pill-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      padding-top: 4px;
-    }
-
+    .mini-pill-grid, .weekday-pill-grid { display: flex; flex-wrap: wrap; gap: 10px; padding-top: 4px; }
     .dropdown-content-form { display: block; width: 100%; padding-top: 4px; }
-
-    .category-dropdown {
-      display: block;
-      width: 100%;
-      margin-bottom: 12px;
-      border: 1px solid rgba(223, 210, 200, 0.7);
-      border-radius: 18px;
-      background: rgba(255, 250, 247, 0.92);
-      overflow: hidden;
-    }
-
-    .category-dropdown summary {
-      padding: 15px 18px;
-      cursor: pointer;
-      font-weight: 700;
-      font-size: 0.9rem;
-      list-style: none;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      color: var(--lux-espresso);
-    }
+    .category-dropdown { display: block; width: 100%; margin-bottom: 12px; border: 1px solid rgba(223, 210, 200, 0.7); border-radius: 18px; background: rgba(255, 250, 247, 0.92); overflow: hidden; }
+    .category-dropdown summary { padding: 15px 18px; cursor: pointer; font-weight: 700; font-size: 0.9rem; list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 12px; color: var(--lux-espresso); }
     .category-dropdown summary::-webkit-details-marker { display: none; }
-    .category-dropdown summary::after {
-      content: "⌄";
-      font-size: 1.1rem;
-      color: var(--lux-muted);
-      transition: transform 0.2s ease;
-    }
+    .category-dropdown summary::after { content: "⌄"; font-size: 1.1rem; color: var(--lux-muted); transition: transform 0.2s ease; }
     .category-dropdown[open] summary::after { transform: rotate(180deg); }
+    .category-dropdown-count { margin-left: auto; font-size: 0.8rem; font-weight: 600; color: var(--lux-muted); background: rgba(247, 241, 237, 0.9); border: 1px solid rgba(223, 210, 200, 0.7); border-radius: 999px; padding: 4px 10px; white-space: nowrap; }
+    .category-dropdown-inner { padding: 0 18px 18px; display: flex; flex-wrap: wrap; gap: 10px; border-top: 1px solid rgba(223, 210, 200, 0.5); }
+    .mini-pill-grid label, .dropdown-content-form label, .weekday-pill-grid label { display: inline-flex; align-items: center; margin: 0; position: relative; }
+    .mini-pill-grid input, .dropdown-content-form input, .weekday-pill-grid input { position: absolute; opacity: 0; pointer-events: none; }
+    .mini-pill-grid span, .dropdown-content-form span, .weekday-pill-grid span { display: inline-block; padding: 9px 14px; border-radius: 999px; background: rgba(247, 241, 237, 0.9); border: 1px solid rgba(223, 210, 200, 0.7); color: #3a2d27; font-size: 0.87rem; line-height: 1.2; cursor: pointer; transition: all 0.18s ease; }
+    .mini-pill-grid label:hover span, .dropdown-content-form label:hover span, .weekday-pill-grid label:hover span { background: var(--lux-blush); border-color: rgba(198, 167, 125, 0.5); transform: translateY(-1px); }
+    .mini-pill-grid input:checked + span, .dropdown-content-form input:checked + span, .weekday-pill-grid input:checked + span { background: linear-gradient(135deg, #d6b19a, #a97c66); color: #fffaf7; border-color: transparent; box-shadow: 0 6px 16px rgba(185, 143, 122, 0.22); }
+    .category-group-title, .region-heading { width: 100%; margin: 14px 0 4px; font-size: 0.78rem; font-weight: 700; color: #8d7369; text-transform: uppercase; letter-spacing: 0.08em; }
+    .small-text { color: var(--lux-muted); font-size: 0.88rem; margin: 0; line-height: 1.6; }
 
-    .category-dropdown-count {
-      margin-left: auto;
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--lux-muted);
-      background: rgba(247, 241, 237, 0.9);
-      border: 1px solid rgba(223, 210, 200, 0.7);
-      border-radius: 999px;
-      padding: 4px 10px;
-      white-space: nowrap;
-    }
-
-    .category-dropdown-inner {
-      padding: 0 18px 18px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      border-top: 1px solid rgba(223, 210, 200, 0.5);
-    }
-
-    .mini-pill-grid label,
-    .dropdown-content-form label,
-    .weekday-pill-grid label {
-      display: inline-flex;
-      align-items: center;
-      margin: 0;
-      position: relative;
-    }
-
-    .mini-pill-grid input,
-    .dropdown-content-form input,
-    .weekday-pill-grid input {
-      position: absolute;
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .mini-pill-grid span,
-    .dropdown-content-form span,
-    .weekday-pill-grid span {
-      display: inline-block;
-      padding: 9px 14px;
-      border-radius: 999px;
-      background: rgba(247, 241, 237, 0.9);
-      border: 1px solid rgba(223, 210, 200, 0.7);
-      color: #3a2d27;
-      font-size: 0.87rem;
-      line-height: 1.2;
-      cursor: pointer;
-      transition: all 0.18s ease;
-    }
-
-    .mini-pill-grid label:hover span,
-    .dropdown-content-form label:hover span,
-    .weekday-pill-grid label:hover span {
-      background: var(--lux-blush);
-      border-color: rgba(198, 167, 125, 0.5);
-      transform: translateY(-1px);
-    }
-
-    .mini-pill-grid input:checked + span,
-    .dropdown-content-form input:checked + span,
-    .weekday-pill-grid input:checked + span {
-      background: linear-gradient(135deg, #d6b19a, #a97c66);
-      color: #fffaf7;
-      border-color: transparent;
-      box-shadow: 0 6px 16px rgba(185, 143, 122, 0.22);
-    }
-
-    .category-group-title,
-    .region-heading {
-      width: 100%;
-      margin: 14px 0 4px;
-      font-size: 0.78rem;
-      font-weight: 700;
-      color: #8d7369;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .small-text {
-      color: var(--lux-muted);
-      font-size: 0.88rem;
-      margin: 0;
-      line-height: 1.6;
-    }
-
-    /* ── BOOKING ── */
     .booking-layout { display: grid; gap: 18px; }
-
-    .booking-subcard {
-      background: linear-gradient(180deg, #fffdfb 0%, #fff8f4 100%);
-      border: 1px solid rgba(223, 210, 200, 0.7);
-      border-radius: 20px;
-      padding: 20px;
-    }
-
-    .booking-subcard h3 {
-      margin: 0 0 6px;
-      font-family: "Cormorant Garamond", serif;
-      font-size: 1.15rem;
-      font-weight: 500;
-      color: var(--lux-espresso);
-    }
-
-    .remove-media-btn,
-    .date-add-btn,
-    .date-remove-btn,
-    .bulk-add-btn {
-      border: none;
-      border-radius: 14px;
-      padding: 10px 14px;
-      background: linear-gradient(135deg, #d6b19a, #a97c66);
-      color: #fffaf7;
-      cursor: pointer;
-      font-weight: 700;
-      font-size: 0.88rem;
-      transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
-      box-shadow: 0 6px 16px rgba(185, 143, 122, 0.18);
-    }
+    .booking-subcard { background: linear-gradient(180deg, #fffdfb 0%, #fff8f4 100%); border: 1px solid rgba(223, 210, 200, 0.7); border-radius: 20px; padding: 20px; }
+    .booking-subcard h3 { margin: 0 0 6px; font-family: "Cormorant Garamond", serif; font-size: 1.15rem; font-weight: 500; color: var(--lux-espresso); }
+    .remove-media-btn, .date-add-btn, .date-remove-btn, .bulk-add-btn { border: none; border-radius: 14px; padding: 10px 14px; background: linear-gradient(135deg, #d6b19a, #a97c66); color: #fffaf7; cursor: pointer; font-weight: 700; font-size: 0.88rem; transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease; box-shadow: 0 6px 16px rgba(185, 143, 122, 0.18); }
     .remove-media-btn { width: 100%; margin-top: 10px; }
-    .date-remove-btn {
-      margin-top: 0;
-      padding: 6px 10px;
-      border-radius: 999px;
-      font-size: 0.82rem;
-    }
-    .remove-media-btn:hover,
-    .date-add-btn:hover,
-    .date-remove-btn:hover,
-    .bulk-add-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 22px rgba(185, 143, 122, 0.26);
-      filter: brightness(1.04);
-    }
-
-    .media-order-actions {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      margin-top: 10px;
-    }
-
-    .media-order-btn {
-      border: 1px solid rgba(223, 210, 200, 0.7);
-      border-radius: 12px;
-      padding: 9px 12px;
-      background: rgba(255, 250, 247, 0.95);
-      color: var(--lux-espresso);
-      font-weight: 600;
-      font-size: 0.86rem;
-      cursor: pointer;
-      transition: background 0.18s ease, transform 0.18s ease;
-    }
+    .date-remove-btn { margin-top: 0; padding: 6px 10px; border-radius: 999px; font-size: 0.82rem; }
+    .remove-media-btn:hover, .date-add-btn:hover, .date-remove-btn:hover, .bulk-add-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(185, 143, 122, 0.26); filter: brightness(1.04); }
+    .media-order-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
+    .media-order-btn { border: 1px solid rgba(223, 210, 200, 0.7); border-radius: 12px; padding: 9px 12px; background: rgba(255, 250, 247, 0.95); color: var(--lux-espresso); font-weight: 600; font-size: 0.86rem; cursor: pointer; transition: background 0.18s ease, transform 0.18s ease; }
     .media-order-btn:hover { background: var(--lux-blush); transform: translateY(-1px); }
-
-    .media-cover-label,
-    .cover-photo-badge {
-      display: inline-block;
-      margin-bottom: 8px;
-      padding: 6px 12px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, #d6b19a, #a97c66);
-      color: #fffaf7;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-    }
-
-    .date-manager-top {
-      display: flex;
-      gap: 12px;
-      align-items: end;
-      flex-wrap: wrap;
-    }
+    .cover-photo-badge { display: inline-block; margin-bottom: 8px; padding: 6px 12px; border-radius: 999px; background: linear-gradient(135deg, #d6b19a, #a97c66); color: #fffaf7; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; }
+    .date-manager-top { display: flex; gap: 12px; align-items: end; flex-wrap: wrap; }
     .date-manager-top .dashboard-field { flex: 1 1 220px; }
-
-    .bulk-date-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr auto;
-      gap: 12px;
-      align-items: end;
-      margin-top: 14px;
-    }
-
-    .date-chip-list {
-      margin-top: 18px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .date-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 9px 12px;
-      border-radius: 999px;
-      background: rgba(247, 241, 237, 0.9);
-      border: 1px solid rgba(223, 210, 200, 0.7);
-      color: #3a2d27;
-      font-size: 0.86rem;
-    }
-
-    .calendar-tip-box {
-      margin-top: 12px;
-      padding: 14px 16px;
-      border-radius: 16px;
-      background: rgba(244, 231, 223, 0.5);
-      border: 1px solid rgba(214, 190, 174, 0.6);
-      color: #7b6558;
-      font-size: 0.9rem;
-      line-height: 1.65;
-    }
-
-    /* ── BOUTIQUE ── */
-    .account-settings-card {
-      background: linear-gradient(180deg, #fff8f4 0%, #fffdfb 100%);
-    }
-
-    .dashboard-save-bar {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-
+    .bulk-date-grid { display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 12px; align-items: end; margin-top: 14px; }
+    .date-chip-list { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 10px; }
+    .date-chip { display: inline-flex; align-items: center; gap: 8px; padding: 9px 12px; border-radius: 999px; background: rgba(247, 241, 237, 0.9); border: 1px solid rgba(223, 210, 200, 0.7); color: #3a2d27; font-size: 0.86rem; }
+    .calendar-tip-box { margin-top: 12px; padding: 14px 16px; border-radius: 16px; background: rgba(244, 231, 223, 0.5); border: 1px solid rgba(214, 190, 174, 0.6); color: #7b6558; font-size: 0.9rem; line-height: 1.65; }
+    .account-settings-card { background: linear-gradient(180deg, #fff8f4 0%, #fffdfb 100%); }
+    .dashboard-save-bar { display: flex; justify-content: center; align-items: center; gap: 14px; flex-wrap: wrap; }
     .dashboard-save-bar .pretty-button { min-width: 220px; }
+    .form-message { text-align: center; margin-top: 12px; color: var(--lux-muted); font-size: 0.9rem; min-height: 1.2em; }
 
-    .form-message {
-      text-align: center;
-      margin-top: 12px;
-      color: var(--lux-muted);
-      font-size: 0.9rem;
-      min-height: 1.2em;
-    }
-
-    /* ── MESSAGES SUMMARY CARD ── */
-    .messages-summary-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-top: 4px;
-    }
-
+    /* ── MESSAGES SUMMARY — single clean box ── */
     .msg-summary-box {
       background: linear-gradient(180deg, #fffdfb 0%, #fff8f4 100%);
       border: 1px solid rgba(223, 210, 200, 0.7);
       border-radius: 20px;
-      padding: 20px 22px;
+      padding: 22px 24px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
+      margin-top: 4px;
     }
+    .msg-summary-box h3 { margin: 0; font-family: "Cormorant Garamond", serif; font-size: 1.15rem; font-weight: 500; color: var(--lux-espresso); display: flex; align-items: center; gap: 8px; }
+    .msg-unread-badge { display: inline-flex; align-items: center; justify-content: center; min-width: 22px; height: 22px; border-radius: 999px; background: linear-gradient(135deg, #d6b19a, #a97c66); color: #fffaf7; font-size: 0.72rem; font-weight: 700; padding: 0 6px; }
+    .msg-summary-preview { color: var(--lux-muted); font-size: 0.87rem; line-height: 1.55; margin: 0; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+    .msg-summary-link { display: inline-flex; align-items: center; gap: 6px; font-size: 0.88rem; font-weight: 700; color: #a97c66; text-decoration: none; transition: color 0.18s ease, gap 0.18s ease; }
+    .msg-summary-link:hover { color: #7a5540; gap: 10px; }
 
-    .msg-summary-box h3 {
-      margin: 0;
-      font-family: "Cormorant Garamond", serif;
-      font-size: 1.1rem;
-      font-weight: 500;
-      color: var(--lux-espresso);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+    .site-footer { background: radial-gradient(circle at top, rgba(200, 166, 161, 0.16), transparent 36%), linear-gradient(180deg, #f5eee9 0%, #eee5df 100%); }
+    .footer-title { color: var(--lux-espresso); letter-spacing: -0.035em; }
+    .footer-eyebrow { color: #b08d7d; }
 
-    .msg-unread-badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 22px;
-      height: 22px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, #d6b19a, #a97c66);
-      color: #fffaf7;
-      font-size: 0.72rem;
-      font-weight: 700;
-      padding: 0 6px;
-      vertical-align: middle;
-    }
-
-    .msg-summary-preview {
-      color: var(--lux-muted);
-      font-size: 0.87rem;
-      line-height: 1.55;
-      margin: 0;
-      overflow: hidden;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-    }
-
-    .msg-summary-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.88rem;
-      font-weight: 700;
-      color: #a97c66;
-      text-decoration: none;
-      transition: color 0.18s ease, gap 0.18s ease;
-    }
-    .msg-summary-link:hover {
-      color: #7a5540;
-      gap: 10px;
-    }
-
-    /* ── RESPONSIVE ── */
     @media (max-width: 1080px) {
-      .dashboard-hero-grid,
-      .dashboard-grid-2,
-      .dashboard-grid-3,
-      .media-uploader-grid,
-      .brand-assets-grid,
-      .bulk-date-grid,
-      .messages-summary-grid { grid-template-columns: 1fr; }
+      .dashboard-hero-grid, .dashboard-grid-2, .dashboard-grid-3, .media-uploader-grid, .brand-assets-grid, .bulk-date-grid { grid-template-columns: 1fr; }
       .dashboard-hero-copy { padding: 38px 28px; }
     }
-
     @media (max-width: 700px) {
       .dashboard-page { padding: 10px 10px 0; }
-      .dashboard-panel,
-      .dashboard-card-soft,
-      .booking-subcard,
-      .dashboard-hero-card { border-radius: 22px; }
+      .dashboard-panel, .dashboard-card-soft, .booking-subcard, .dashboard-hero-card { border-radius: 22px; }
       .dashboard-hero-copy { padding: 28px 20px; }
       .dashboard-hero-title { font-size: clamp(2.4rem, 10vw, 3rem); }
       .dashboard-actions { flex-direction: column; align-items: stretch; }
-      .dashboard-actions .pretty-button,
-      .dashboard-actions .apply-button,
-      .pretty-upload-label,
-      .date-add-btn,
-      .bulk-add-btn,
-      .remove-media-btn { width: 100%; }
-      .asset-preview-circle,
-      .asset-preview-square { width: 130px; height: 130px; }
+      .dashboard-actions .pretty-button, .dashboard-actions .apply-button, .pretty-upload-label, .date-add-btn, .bulk-add-btn, .remove-media-btn { width: 100%; }
+      .asset-preview-circle, .asset-preview-square { width: 130px; height: 130px; }
       .media-preview-grid { grid-template-columns: 1fr; }
       .date-chip { width: 100%; justify-content: space-between; }
       .dashboard-save-bar { flex-direction: column; }
@@ -1000,8 +193,9 @@
 <div class="page-auth">
   <a href="categories.html" id="categoriesLink" class="auth-link">Categories</a>
   <a href="shop.html" id="shopLink" class="auth-link">Boutique</a>
-  <a href="messages.html" id="messagesNavLink" class="auth-link" style="display:none;">
-    Messages <span id="navMsgBadge" style="display:none; background:linear-gradient(135deg,#d6b19a,#a97c66); color:#fffaf7; font-size:0.7rem; font-weight:700; padding:2px 7px; border-radius:999px; margin-left:4px; vertical-align:middle;"></span>
+  <a href="messages.html" id="messagesNavLink" class="auth-link" style="display:none; position:relative;">
+    Messages
+    <span id="navMsgBadge" style="display:none; position:absolute; top:-6px; right:-10px; background:linear-gradient(135deg,#d6b19a,#a97c66); color:#fffaf7; font-size:0.68rem; font-weight:700; padding:2px 6px; border-radius:999px; line-height:1.2; min-width:18px; text-align:center;">0</span>
   </a>
   <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
   <a href="login.html" id="loginLink" class="auth-link">Log In</a>
@@ -1012,7 +206,7 @@
 <main class="dashboard-page">
   <div class="dashboard-stack">
 
-    <!-- ── HERO (static, not collapsible) ── -->
+    <!-- ── HERO ── -->
     <section class="dashboard-hero-card">
       <div class="dashboard-hero-grid">
         <div class="dashboard-hero-copy">
@@ -1050,9 +244,7 @@
             <p class="panel-header-subtitle">Account status and profile visibility</p>
           </div>
         </div>
-        <div class="panel-toggle-chevron">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
+        <div class="panel-toggle-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       </div>
       <div class="panel-divider"></div>
       <div class="panel-body open" id="body-status">
@@ -1062,45 +254,34 @@
             <span class="status-pill" id="subscriptionStatusText">Plan access: loading...</span>
             <span class="status-pill" id="viewsStatusText">Profile views: 0</span>
           </div>
-          <div class="inline-toggle" style="margin-top: 18px;">
+          <div class="inline-toggle" style="margin-top:18px;">
             <input type="checkbox" id="profileLive">
             <label for="profileLive" style="margin:0;">Make my profile live on the hub</label>
           </div>
-          <p class="dashboard-help" style="margin-top:14px;">
-            Turn this on when you are ready for couples to see your profile. Your listing can appear when your account is active and you have either a paid plan or complimentary vendor access.
-          </p>
+          <p class="dashboard-help" style="margin-top:14px;">Turn this on when you are ready for couples to see your profile. Your listing can appear when your account is active and you have either a paid plan or complimentary vendor access.</p>
         </div>
       </div>
     </section>
 
-    <!-- ── MESSAGES & ENQUIRIES SUMMARY ── -->
+    <!-- ── MESSAGES SUMMARY ── -->
     <section class="dashboard-panel" data-section="messages-summary">
       <div class="panel-toggle-header" role="button" aria-expanded="true" aria-controls="body-messages-summary" tabindex="0">
         <div class="panel-header-left">
           <div class="panel-header-icon">✉</div>
           <div class="panel-header-text">
-            <h2 class="panel-header-title">Messages &amp; Enquiries</h2>
-            <p class="panel-header-subtitle">Conversations and booking requests from couples</p>
+            <h2 class="panel-header-title">Messages</h2>
+            <p class="panel-header-subtitle">Conversations from couples — reply from your inbox</p>
           </div>
         </div>
-        <div class="panel-toggle-chevron">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
+        <div class="panel-toggle-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       </div>
       <div class="panel-divider"></div>
       <div class="panel-body open" id="body-messages-summary">
         <div class="panel-body-inner" style="padding-top:18px;">
-          <div class="messages-summary-grid">
-            <div class="msg-summary-box">
-              <h3>Messages <span class="msg-unread-badge" id="msgUnreadBadge" style="display:none;">0</span></h3>
-              <p class="msg-summary-preview" id="msgSummaryPreview">No messages yet.</p>
-              <a href="messages.html" class="msg-summary-link">Open messages →</a>
-            </div>
-            <div class="msg-summary-box">
-              <h3>Enquiries <span class="msg-unread-badge" id="enqUnreadBadge" style="display:none;">0</span></h3>
-              <p class="msg-summary-preview" id="enqSummaryPreview">No enquiries yet.</p>
-              <a href="messages.html#enquiries" class="msg-summary-link">Open enquiries →</a>
-            </div>
+          <div class="msg-summary-box">
+            <h3>Messages <span class="msg-unread-badge" id="msgUnreadBadge" style="display:none;">0</span></h3>
+            <p class="msg-summary-preview" id="msgSummaryPreview">No messages yet. Conversations begin when a couple messages you from your vendor profile ♡</p>
+            <a href="messages.html" class="msg-summary-link">Open messages →</a>
           </div>
         </div>
       </div>
@@ -1116,82 +297,38 @@
             <p class="panel-header-subtitle">Name, contact info, social links &amp; bio</p>
           </div>
         </div>
-        <div class="panel-toggle-chevron">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
+        <div class="panel-toggle-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       </div>
       <div class="panel-divider"></div>
       <div class="panel-body" id="body-business">
         <div class="panel-body-inner">
           <div class="dashboard-card-soft" style="margin-top:16px;">
             <div class="dashboard-grid-2">
-              <div class="dashboard-field">
-                <label for="businessName">Business Name</label>
-                <input type="text" id="businessName">
-              </div>
-              <div class="dashboard-field">
-                <label for="email">Business Email</label>
-                <input type="email" id="email">
-              </div>
+              <div class="dashboard-field"><label for="businessName">Business Name</label><input type="text" id="businessName"></div>
+              <div class="dashboard-field"><label for="email">Business Email</label><input type="email" id="email"></div>
             </div>
             <div class="dashboard-grid-3" style="margin-top:14px;">
-              <div class="dashboard-field">
-                <label for="phone">Phone</label>
-                <input type="text" id="phone">
-              </div>
-              <div class="dashboard-field">
-                <label for="instagram">Instagram</label>
-                <input type="text" id="instagram" placeholder="@yourhandle or full link">
-              </div>
-              <div class="dashboard-field">
-                <label for="website">Website</label>
-                <input type="text" id="website" placeholder="https://yourwebsite.com">
-              </div>
+              <div class="dashboard-field"><label for="phone">Phone</label><input type="text" id="phone"></div>
+              <div class="dashboard-field"><label for="instagram">Instagram</label><input type="text" id="instagram" placeholder="@yourhandle or full link"></div>
+              <div class="dashboard-field"><label for="website">Website</label><input type="text" id="website" placeholder="https://yourwebsite.com"></div>
             </div>
             <div class="dashboard-grid-3" style="margin-top:14px;">
-              <div class="dashboard-field">
-                <label for="facebook">Facebook</label>
-                <input type="text" id="facebook" placeholder="https://facebook.com/...">
-              </div>
-              <div class="dashboard-field">
-                <label for="tiktok">TikTok</label>
-                <input type="text" id="tiktok" placeholder="https://tiktok.com/...">
-              </div>
-              <div class="dashboard-field">
-                <label for="youtube">YouTube</label>
-                <input type="text" id="youtube" placeholder="https://youtube.com/...">
-              </div>
+              <div class="dashboard-field"><label for="facebook">Facebook</label><input type="text" id="facebook" placeholder="https://facebook.com/..."></div>
+              <div class="dashboard-field"><label for="tiktok">TikTok</label><input type="text" id="tiktok" placeholder="https://tiktok.com/..."></div>
+              <div class="dashboard-field"><label for="youtube">YouTube</label><input type="text" id="youtube" placeholder="https://youtube.com/..."></div>
             </div>
             <div class="dashboard-grid-3" style="margin-top:14px;">
-              <div class="dashboard-field">
-                <label for="pinterest">Pinterest</label>
-                <input type="text" id="pinterest" placeholder="https://pinterest.com/...">
-              </div>
-              <div class="dashboard-field">
-                <label for="linkedin">LinkedIn</label>
-                <input type="text" id="linkedin" placeholder="https://linkedin.com/...">
-              </div>
-              <div class="dashboard-field">
-                <label for="x">X (Twitter)</label>
-                <input type="text" id="x" placeholder="https://x.com/...">
-              </div>
+              <div class="dashboard-field"><label for="pinterest">Pinterest</label><input type="text" id="pinterest" placeholder="https://pinterest.com/..."></div>
+              <div class="dashboard-field"><label for="linkedin">LinkedIn</label><input type="text" id="linkedin" placeholder="https://linkedin.com/..."></div>
+              <div class="dashboard-field"><label for="x">X (Twitter)</label><input type="text" id="x" placeholder="https://x.com/..."></div>
             </div>
             <p class="dashboard-help">Only the links you fill in will appear on your public profile.</p>
             <div class="dashboard-grid-2" style="margin-top:14px;">
-              <div class="dashboard-field">
-                <label for="serviceAreas">Service Areas Summary</label>
-                <input type="text" id="serviceAreas" placeholder="Brisbane, Gold Coast, Sunshine Coast or Manila, Philippines">
-              </div>
-              <div class="dashboard-field">
-                <label for="displayLocation">Display Location</label>
-                <input type="text" id="displayLocation" placeholder="Brisbane, Queensland or Manila, Philippines">
-              </div>
+              <div class="dashboard-field"><label for="serviceAreas">Service Areas Summary</label><input type="text" id="serviceAreas" placeholder="Brisbane, Gold Coast, Sunshine Coast or Manila, Philippines"></div>
+              <div class="dashboard-field"><label for="displayLocation">Display Location</label><input type="text" id="displayLocation" placeholder="Brisbane, Queensland or Manila, Philippines"></div>
             </div>
             <p class="dashboard-help">Use clear location wording here so couples can find you more easily in search results.</p>
-            <div class="dashboard-field" style="margin-top:14px;">
-              <label for="bio">Bio</label>
-              <textarea id="bio" rows="6" placeholder="Tell couples about your business..."></textarea>
-            </div>
+            <div class="dashboard-field" style="margin-top:14px;"><label for="bio">Bio</label><textarea id="bio" rows="6" placeholder="Tell couples about your business..."></textarea></div>
           </div>
         </div>
       </div>
@@ -1207,9 +344,7 @@
             <p class="panel-header-subtitle">Booking link, notes &amp; unavailable dates</p>
           </div>
         </div>
-        <div class="panel-toggle-chevron">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
+        <div class="panel-toggle-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       </div>
       <div class="panel-divider"></div>
       <div class="panel-body" id="body-booking">
@@ -1219,28 +354,16 @@
               <h3>Booking Link &amp; Availability</h3>
               <p class="dashboard-help">Add your booking page and a short status update so couples know whether you are taking enquiries right now.</p>
               <div class="dashboard-grid-2">
-                <div class="dashboard-field">
-                  <label for="bookingLink">Booking Link</label>
-                  <input type="text" id="bookingLink" placeholder="https://calendly.com/... or your booking page">
-                </div>
-                <div class="dashboard-field">
-                  <label for="availabilityStatus">Availability Status</label>
-                  <input type="text" id="availabilityStatus" placeholder="Now booking 2026 weddings">
-                </div>
+                <div class="dashboard-field"><label for="bookingLink">Booking Link</label><input type="text" id="bookingLink" placeholder="https://calendly.com/... or your booking page"></div>
+                <div class="dashboard-field"><label for="availabilityStatus">Availability Status</label><input type="text" id="availabilityStatus" placeholder="Now booking 2026 weddings"></div>
               </div>
-              <div class="dashboard-field" style="margin-top:14px;">
-                <label for="bookingNotes">Booking Notes</label>
-                <textarea id="bookingNotes" rows="4" placeholder="Share anything couples should know before booking, like weekday availability, lead times, travel details, or busy seasons."></textarea>
-              </div>
+              <div class="dashboard-field" style="margin-top:14px;"><label for="bookingNotes">Booking Notes</label><textarea id="bookingNotes" rows="4" placeholder="Share anything couples should know before booking, like weekday availability, lead times, travel details, or busy seasons."></textarea></div>
             </div>
             <div class="booking-subcard">
               <h3>Block One Unavailable Date</h3>
               <p class="dashboard-help">Add a single date when you are already booked or not available.</p>
               <div class="date-manager-top">
-                <div class="dashboard-field">
-                  <label for="blockedDateInput">Unavailable Date</label>
-                  <input type="date" id="blockedDateInput">
-                </div>
+                <div class="dashboard-field"><label for="blockedDateInput">Unavailable Date</label><input type="date" id="blockedDateInput"></div>
                 <button type="button" id="addBlockedDateBtn" class="date-add-btn">Add Date</button>
               </div>
             </div>
@@ -1257,23 +380,9 @@
                 <label><input type="checkbox" value="6"><span>Saturday</span></label>
               </div>
               <div class="bulk-date-grid">
-                <div class="dashboard-field">
-                  <label for="bulkStartDate">Start Date</label>
-                  <input type="date" id="bulkStartDate">
-                </div>
-                <div class="dashboard-field">
-                  <label for="bulkEndDate">End Date</label>
-                  <input type="date" id="bulkEndDate">
-                </div>
-                <div class="dashboard-field">
-                  <label for="bulkMonthsPreset">Quick Range</label>
-                  <select id="bulkMonthsPreset">
-                    <option value="">Custom dates</option>
-                    <option value="3">Next 3 months</option>
-                    <option value="6">Next 6 months</option>
-                    <option value="12">Next 12 months</option>
-                  </select>
-                </div>
+                <div class="dashboard-field"><label for="bulkStartDate">Start Date</label><input type="date" id="bulkStartDate"></div>
+                <div class="dashboard-field"><label for="bulkEndDate">End Date</label><input type="date" id="bulkEndDate"></div>
+                <div class="dashboard-field"><label for="bulkMonthsPreset">Quick Range</label><select id="bulkMonthsPreset"><option value="">Custom dates</option><option value="3">Next 3 months</option><option value="6">Next 6 months</option><option value="12">Next 12 months</option></select></div>
                 <button type="button" id="bulkAddBtn" class="bulk-add-btn">Block Selected Days</button>
               </div>
             </div>
@@ -1281,9 +390,7 @@
               <h3>Unavailable Dates</h3>
               <p class="dashboard-help">These dates will be treated as unavailable on your public profile calendar and enquiry form.</p>
               <div id="blockedDateList" class="date-chip-list"></div>
-              <div class="calendar-tip-box">
-                Your booking link will show as a Book Now button on your public profile if filled in. Couples will also be able to choose a preferred date using the enquiry form, and unavailable dates will be checked before they send it.
-              </div>
+              <div class="calendar-tip-box">Your booking link will show as a Book Now button on your public profile if filled in. Couples will also be able to choose a preferred date using the enquiry form, and unavailable dates will be checked before they send it.</div>
             </div>
           </div>
         </div>
@@ -1300,9 +407,7 @@
             <p class="panel-header-subtitle">Your profile image and brand logo</p>
           </div>
         </div>
-        <div class="panel-toggle-chevron">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
+        <div class="panel-toggle-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       </div>
       <div class="panel-divider"></div>
       <div class="panel-body" id="body-assets">
@@ -1310,19 +415,13 @@
           <div class="dashboard-card-soft" style="margin-top:16px;">
             <div class="brand-assets-grid">
               <div class="asset-box">
-                <div class="asset-preview-circle">
-                  <div class="asset-empty" id="profileImageEmpty">No profile image yet</div>
-                  <img id="profileImagePreview" style="display:none;" alt="Profile image preview">
-                </div>
+                <div class="asset-preview-circle"><div class="asset-empty" id="profileImageEmpty">No profile image yet</div><img id="profileImagePreview" style="display:none;" alt="Profile image preview"></div>
                 <input type="file" id="profileImageFile" class="pretty-upload-input" accept="image/*">
                 <label for="profileImageFile" class="pretty-upload-label">Upload Profile Picture</label>
                 <div id="profileImageFileName" class="selected-file-note"></div>
               </div>
               <div class="asset-box">
-                <div class="asset-preview-square">
-                  <div class="asset-empty" id="logoEmpty">No logo yet</div>
-                  <img id="logoPreview" style="display:none;" alt="Logo preview">
-                </div>
+                <div class="asset-preview-square"><div class="asset-empty" id="logoEmpty">No logo yet</div><img id="logoPreview" style="display:none;" alt="Logo preview"></div>
                 <input type="file" id="logoFile" class="pretty-upload-input" accept="image/*">
                 <label for="logoFile" class="pretty-upload-label">Upload Logo</label>
                 <div id="logoFileName" class="selected-file-note"></div>
@@ -1343,27 +442,15 @@
             <p class="panel-header-subtitle">Photos and videos showcasing your work</p>
           </div>
         </div>
-        <div class="panel-toggle-chevron">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
+        <div class="panel-toggle-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       </div>
       <div class="panel-divider"></div>
       <div class="panel-body" id="body-media">
         <div class="panel-body-inner">
           <div class="dashboard-card-soft" style="margin-top:16px;">
             <div class="media-uploader-grid">
-              <div class="upload-box">
-                <h3>Upload Photos</h3>
-                <input type="file" id="galleryImageFiles" class="pretty-upload-input" accept="image/*" multiple>
-                <label for="galleryImageFiles" class="pretty-upload-label">Choose Photos</label>
-                <div id="galleryImageFileName" class="selected-file-note"></div>
-              </div>
-              <div class="upload-box">
-                <h3>Upload Videos</h3>
-                <input type="file" id="galleryVideoFiles" class="pretty-upload-input" accept="video/*" multiple>
-                <label for="galleryVideoFiles" class="pretty-upload-label">Choose Videos</label>
-                <div id="galleryVideoFileName" class="selected-file-note"></div>
-              </div>
+              <div class="upload-box"><h3>Upload Photos</h3><input type="file" id="galleryImageFiles" class="pretty-upload-input" accept="image/*" multiple><label for="galleryImageFiles" class="pretty-upload-label">Choose Photos</label><div id="galleryImageFileName" class="selected-file-note"></div></div>
+              <div class="upload-box"><h3>Upload Videos</h3><input type="file" id="galleryVideoFiles" class="pretty-upload-input" accept="video/*" multiple><label for="galleryVideoFiles" class="pretty-upload-label">Choose Videos</label><div id="galleryVideoFileName" class="selected-file-note"></div></div>
             </div>
             <div id="imagePreview" class="media-preview-grid"></div>
             <div id="videoPreview" class="media-preview-grid"></div>
@@ -1382,17 +469,11 @@
             <p class="panel-header-subtitle">Words that describe your aesthetic</p>
           </div>
         </div>
-        <div class="panel-toggle-chevron">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
+        <div class="panel-toggle-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       </div>
       <div class="panel-divider"></div>
       <div class="panel-body" id="body-styles">
-        <div class="panel-body-inner">
-          <div class="dashboard-card-soft" style="margin-top:16px;">
-            <div id="styleTagOptions" class="mini-pill-grid"></div>
-          </div>
-        </div>
+        <div class="panel-body-inner"><div class="dashboard-card-soft" style="margin-top:16px;"><div id="styleTagOptions" class="mini-pill-grid"></div></div></div>
       </div>
     </section>
 
@@ -1406,9 +487,7 @@
             <p class="panel-header-subtitle">Services you offer on the hub</p>
           </div>
         </div>
-        <div class="panel-toggle-chevron">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
+        <div class="panel-toggle-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       </div>
       <div class="panel-divider"></div>
       <div class="panel-body" id="body-categories">
@@ -1431,9 +510,7 @@
             <p class="panel-header-subtitle">Where you genuinely work</p>
           </div>
         </div>
-        <div class="panel-toggle-chevron">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
+        <div class="panel-toggle-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       </div>
       <div class="panel-divider"></div>
       <div class="panel-body" id="body-countries">
@@ -1456,17 +533,13 @@
             <p class="panel-header-subtitle">Refine where you work within each country</p>
           </div>
         </div>
-        <div class="panel-toggle-chevron">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
+        <div class="panel-toggle-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       </div>
       <div class="panel-divider"></div>
       <div class="panel-body" id="body-states">
         <div class="panel-body-inner">
           <div class="dashboard-card-soft" style="margin-top:16px;">
-            <div id="stateOptions" class="dropdown-content-form">
-              <p class="small-text">Select countries first.</p>
-            </div>
+            <div id="stateOptions" class="dropdown-content-form"><p class="small-text">Select countries first.</p></div>
             <p class="dashboard-help">Add your main states, provinces or territories so couples can narrow their search more easily.</p>
           </div>
         </div>
@@ -1483,17 +556,13 @@
             <p class="panel-header-subtitle">Specific areas where couples can find you</p>
           </div>
         </div>
-        <div class="panel-toggle-chevron">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
+        <div class="panel-toggle-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       </div>
       <div class="panel-divider"></div>
       <div class="panel-body" id="body-regions">
         <div class="panel-body-inner">
           <div class="dashboard-card-soft" style="margin-top:16px;">
-            <div id="regionOptions" class="dropdown-content-form">
-              <p class="small-text">Select states, provinces or territories first.</p>
-            </div>
+            <div id="regionOptions" class="dropdown-content-form"><p class="small-text">Select states, provinces or territories first.</p></div>
             <p class="dashboard-help">Choose the cities, regions or local areas you service. The more accurate this is, the easier it is for couples to find you.</p>
           </div>
         </div>
@@ -1510,9 +579,7 @@
             <p class="panel-header-subtitle">Boutique listings for couples and guests</p>
           </div>
         </div>
-        <div class="panel-toggle-chevron">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
+        <div class="panel-toggle-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       </div>
       <div class="panel-divider"></div>
       <div class="panel-body" id="body-boutique">
@@ -1520,11 +587,9 @@
           <div class="dashboard-card-soft" style="margin-top:16px;">
             <div class="calendar-tip-box" style="margin-bottom:16px;">
               <strong>What can you list?</strong><br><br>
-              Gift cards, vouchers, special offers, jewellery, favours, keepsakes, bridal accessories, cake boxes, wellness experiences and wedding-related products.
-              <br><br>
+              Gift cards, vouchers, special offers, jewellery, favours, keepsakes, bridal accessories, cake boxes, wellness experiences and wedding-related products.<br><br>
               Couples and guests can browse these through the <strong>Boutique</strong> link at the top of the website.
             </div>
-
             <div id="boutiqueAccessAllowed" style="display:none;">
               <div class="status-wrap" style="margin-bottom:14px;">
                 <span class="status-pill" id="stripeStatusText">Stripe: loading...</span>
@@ -1536,81 +601,25 @@
               </div>
               <div class="calendar-tip-box">You can use your own payment method, ask customers to enquire first, or connect Stripe later for direct checkout.</div>
               <div class="dashboard-grid-2" style="margin-top:18px;">
-                <div class="dashboard-field">
-                  <label for="productName">Listing Name</label>
-                  <input type="text" id="productName" placeholder="Gift card, bridal voucher, jewellery set, favour box...">
-                </div>
-                <div class="dashboard-field">
-                  <label for="productPrice">Price / Value</label>
-                  <input type="number" id="productPrice" min="0" step="0.01" placeholder="49.00">
-                </div>
+                <div class="dashboard-field"><label for="productName">Listing Name</label><input type="text" id="productName" placeholder="Gift card, bridal voucher, jewellery set, favour box..."></div>
+                <div class="dashboard-field"><label for="productPrice">Price / Value</label><input type="number" id="productPrice" min="0" step="0.01" placeholder="49.00"></div>
               </div>
               <div class="dashboard-grid-2" style="margin-top:14px;">
-                <div class="dashboard-field">
-                  <label for="productCategory">Listing Type</label>
-                  <select id="productCategory">
-                    <option value="">Choose type</option>
-                    <option value="gift_card">Gift Card</option>
-                    <option value="voucher">Voucher / Offer</option>
-                    <option value="product">Physical Product</option>
-                    <option value="jewellery">Jewellery</option>
-                    <option value="bridal_accessories">Bridal Accessories</option>
-                    <option value="wedding_favours">Wedding Favours</option>
-                    <option value="keepsakes">Keepsakes</option>
-                    <option value="experience">Experience</option>
-                    <option value="other">Other</option>
-                  </select>
-                </div>
-                <div class="dashboard-field">
-                  <label for="productStock">Quantity Available</label>
-                  <input type="number" id="productStock" min="0" step="1" placeholder="10">
-                </div>
+                <div class="dashboard-field"><label for="productCategory">Listing Type</label><select id="productCategory"><option value="">Choose type</option><option value="gift_card">Gift Card</option><option value="voucher">Voucher / Offer</option><option value="product">Physical Product</option><option value="jewellery">Jewellery</option><option value="bridal_accessories">Bridal Accessories</option><option value="wedding_favours">Wedding Favours</option><option value="keepsakes">Keepsakes</option><option value="experience">Experience</option><option value="other">Other</option></select></div>
+                <div class="dashboard-field"><label for="productStock">Quantity Available</label><input type="number" id="productStock" min="0" step="1" placeholder="10"></div>
               </div>
-              <div class="dashboard-field" style="margin-top:14px;">
-                <label for="productDescription">What's Included</label>
-                <textarea id="productDescription" rows="4" placeholder="Explain what they receive, how it works, inclusions, expiry dates for vouchers, lead times, sizing, colours or custom options."></textarea>
-              </div>
+              <div class="dashboard-field" style="margin-top:14px;"><label for="productDescription">What's Included</label><textarea id="productDescription" rows="4" placeholder="Explain what they receive, how it works, inclusions, expiry dates for vouchers, lead times, sizing, colours or custom options."></textarea></div>
               <div class="dashboard-grid-2" style="margin-top:18px;">
-                <div class="dashboard-field">
-                  <label for="paymentMethod">How do you want to get paid?</label>
-                  <select id="paymentMethod">
-                    <option value="own">Use my own payment method</option>
-                    <option value="stripe">Sell through the hub with Stripe</option>
-                    <option value="enquiry">Customer enquires first</option>
-                  </select>
-                </div>
-                <div class="dashboard-field">
-                  <label for="productPurchaseLink">Payment / Booking Link</label>
-                  <input type="text" id="productPurchaseLink" placeholder="Website checkout, payment link, booking link or Instagram link">
-                </div>
+                <div class="dashboard-field"><label for="paymentMethod">How do you want to get paid?</label><select id="paymentMethod"><option value="own">Use my own payment method</option><option value="stripe">Sell through the hub with Stripe</option><option value="enquiry">Customer enquires first</option></select></div>
+                <div class="dashboard-field"><label for="productPurchaseLink">Payment / Booking Link</label><input type="text" id="productPurchaseLink" placeholder="Website checkout, payment link, booking link or Instagram link"></div>
               </div>
               <p class="dashboard-help">If you use your own payment method, add the link customers should use. If they need to enquire first, you can leave this blank.</p>
               <div class="dashboard-grid-2" style="margin-top:14px;">
-                <div class="dashboard-field">
-                  <label for="fulfilmentMethod">How will customers receive this?</label>
-                  <select id="fulfilmentMethod">
-                    <option value="email">Email delivery</option>
-                    <option value="pickup">Local pickup</option>
-                    <option value="local_delivery">Local delivery</option>
-                    <option value="domestic_shipping">Ships within your country</option>
-                    <option value="international_shipping">Ships internationally</option>
-                    <option value="enquiry">Arrange after enquiry</option>
-                  </select>
-                </div>
-                <div class="dashboard-field">
-                  <label for="fulfilmentDetails">Delivery / Pickup / Redemption Details</label>
-                  <input type="text" id="fulfilmentDetails" placeholder="Brisbane pickup, ships Australia-wide, emailed within 24 hours...">
-                </div>
+                <div class="dashboard-field"><label for="fulfilmentMethod">How will customers receive this?</label><select id="fulfilmentMethod"><option value="email">Email delivery</option><option value="pickup">Local pickup</option><option value="local_delivery">Local delivery</option><option value="domestic_shipping">Ships within your country</option><option value="international_shipping">Ships internationally</option><option value="enquiry">Arrange after enquiry</option></select></div>
+                <div class="dashboard-field"><label for="fulfilmentDetails">Delivery / Pickup / Redemption Details</label><input type="text" id="fulfilmentDetails" placeholder="Brisbane pickup, ships Australia-wide, emailed within 24 hours..."></div>
               </div>
               <div class="dashboard-grid-2" style="margin-top:14px;">
-                <div class="dashboard-field">
-                  <label for="productStatus">Listing Visibility</label>
-                  <select id="productStatus">
-                    <option value="draft">Draft - not visible yet</option>
-                    <option value="live">Live - show in Boutique</option>
-                    <option value="sold_out">Sold Out</option>
-                  </select>
-                </div>
+                <div class="dashboard-field"><label for="productStatus">Listing Visibility</label><select id="productStatus"><option value="draft">Draft - not visible yet</option><option value="live">Live - show in Boutique</option><option value="sold_out">Sold Out</option></select></div>
               </div>
               <div class="upload-box" style="margin-top:14px;">
                 <h3>Listing Images</h3>
@@ -1628,14 +637,9 @@
                 <div id="boutiqueProductList" class="media-preview-grid"></div>
               </div>
             </div>
-
             <div id="boutiqueAccessLocked" style="display:none;">
               <p class="dashboard-help" style="margin-top:0;">Boutique access is included for Founding Vendors and our highest membership tier.</p>
-              <div class="calendar-tip-box" style="margin-top:14px;">
-                <strong>Want to sell through the Boutique?</strong><br><br>
-                The Boutique lets eligible vendors list gift cards, vouchers, products, jewellery, favours, keepsakes and wedding extras for couples and guests to browse.<br><br>
-                Founding Vendors receive this access for free as part of their founding vendor benefits.
-              </div>
+              <div class="calendar-tip-box" style="margin-top:14px;"><strong>Want to sell through the Boutique?</strong><br><br>The Boutique lets eligible vendors list gift cards, vouchers, products, jewellery, favours, keepsakes and wedding extras for couples and guests to browse.<br><br>Founding Vendors receive this access for free as part of their founding vendor benefits.</div>
               <div class="dashboard-actions" style="justify-content:flex-start; margin-top:16px;">
                 <a href="pricing.html" class="pretty-button">View Membership Options</a>
                 <a href="contact.html" class="apply-button">Ask About Boutique Access</a>
@@ -1656,28 +660,17 @@
             <p class="panel-header-subtitle">Name, login email and password</p>
           </div>
         </div>
-        <div class="panel-toggle-chevron">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
+        <div class="panel-toggle-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       </div>
       <div class="panel-divider"></div>
       <div class="panel-body" id="body-account">
         <div class="panel-body-inner">
           <div class="dashboard-card-soft" style="margin-top:16px;">
             <div class="dashboard-grid-2">
-              <div class="dashboard-field">
-                <label for="accountName">Your Name</label>
-                <input type="text" id="accountName" placeholder="Your name">
-              </div>
-              <div class="dashboard-field">
-                <label for="accountEmail">Login Email</label>
-                <input type="email" id="accountEmail" placeholder="you@example.com">
-              </div>
+              <div class="dashboard-field"><label for="accountName">Your Name</label><input type="text" id="accountName" placeholder="Your name"></div>
+              <div class="dashboard-field"><label for="accountEmail">Login Email</label><input type="email" id="accountEmail" placeholder="you@example.com"></div>
             </div>
-            <div class="dashboard-field" style="margin-top:14px;">
-              <label for="accountPassword">New Password</label>
-              <input type="password" id="accountPassword" placeholder="Leave blank if not changing">
-            </div>
+            <div class="dashboard-field" style="margin-top:14px;"><label for="accountPassword">New Password</label><input type="password" id="accountPassword" placeholder="Leave blank if not changing"></div>
             <div class="dashboard-actions" style="justify-content:flex-start; margin-top:16px;">
               <button type="button" id="saveAccountBtn" class="pretty-button">Update Account</button>
             </div>
@@ -1688,7 +681,7 @@
       </div>
     </section>
 
-    <!-- ── SAVE BAR (static) ── -->
+    <!-- ── SAVE BAR ── -->
     <section class="dashboard-panel panel-static">
       <div class="dashboard-save-bar">
         <button type="button" id="saveBtn" class="pretty-button">Save Changes</button>
@@ -1701,7 +694,7 @@
 
 <footer class="site-footer">
   <div class="footer-content">
-    <p class="footer-eyebrow">wedding vendor directory</p>
+    <p class="footer-eyebrow">wedding planning directory</p>
     <h2 class="footer-title">Everything your wedding deserves.</h2>
     <p class="footer-text">Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.</p>
     <div class="footer-links">
@@ -1721,63 +714,30 @@
   </div>
 </footer>
 
-<!-- ── COLLAPSIBLE PANEL LOGIC ── -->
 <script>
-  // Wire up all collapsible panels
   document.querySelectorAll(".panel-toggle-header").forEach(header => {
     const bodyId = header.getAttribute("aria-controls");
     const body = document.getElementById(bodyId);
     if (!body) return;
-
     function toggle(forceOpen) {
       const isOpen = typeof forceOpen === "boolean" ? forceOpen : header.getAttribute("aria-expanded") !== "true";
       header.setAttribute("aria-expanded", isOpen ? "true" : "false");
-      if (isOpen) {
-        body.classList.add("open");
-      } else {
-        body.classList.remove("open");
-      }
+      isOpen ? body.classList.add("open") : body.classList.remove("open");
     }
-
     header.addEventListener("click", () => toggle());
     header.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); } });
-
-    // Store toggle fn on element for expand/collapse all
     header._toggle = toggle;
   });
-
-  document.getElementById("expandAllBtn").addEventListener("click", () => {
-    document.querySelectorAll(".panel-toggle-header").forEach(h => h._toggle && h._toggle(true));
-  });
-  document.getElementById("collapseAllBtn").addEventListener("click", () => {
-    document.querySelectorAll(".panel-toggle-header").forEach(h => h._toggle && h._toggle(false));
-  });
+  document.getElementById("expandAllBtn").addEventListener("click", () => { document.querySelectorAll(".panel-toggle-header").forEach(h => h._toggle && h._toggle(true)); });
+  document.getElementById("collapseAllBtn").addEventListener("click", () => { document.querySelectorAll(".panel-toggle-header").forEach(h => h._toggle && h._toggle(false)); });
 </script>
 
 <script type="module">
 import {
-  auth,
-  db,
-  storage,
-  onAuthStateChanged,
-  doc,
-  getDoc,
-  setDoc,
-  serverTimestamp,
-  ref,
-  uploadBytes,
-  getDownloadURL,
-  collection,
-  addDoc,
-  getDocs,
-  query,
-  where,
-  orderBy,
-  deleteDoc,
-  updateDoc,
-  increment
+  auth, db, storage, onAuthStateChanged, doc, getDoc, setDoc, serverTimestamp,
+  ref, uploadBytes, getDownloadURL, collection, addDoc, getDocs,
+  query, where, orderBy, deleteDoc, updateDoc, increment
 } from "./firebase.js";
-
 import { onSnapshot } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 import { updateEmail, updatePassword } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 import { LOCATION_DATA } from "./locations.js";
@@ -1860,9 +820,7 @@ import { LOCATION_DATA } from "./locations.js";
   const boutiqueMessage = document.getElementById("boutiqueMessage");
   const boutiqueProductList = document.getElementById("boutiqueProductList");
   const msgUnreadBadge = document.getElementById("msgUnreadBadge");
-  const enqUnreadBadge = document.getElementById("enqUnreadBadge");
   const msgSummaryPreview = document.getElementById("msgSummaryPreview");
-  const enqSummaryPreview = document.getElementById("enqSummaryPreview");
   const navMsgBadge = document.getElementById("navMsgBadge");
   const messagesNavLink = document.getElementById("messagesNavLink");
 
@@ -1873,18 +831,9 @@ import { LOCATION_DATA } from "./locations.js";
   let currentGalleryImages = [];
   let currentGalleryVideos = [];
   let currentBlockedDates = [];
-  let currentVendorAccess = {
-    subscriptionActive: false, paidSetupFee: false, complimentaryPlan: false,
-    plan: "", accessType: "", membershipTier: "", tier: "", shopAccess: false,
-    accountStatus: "active", profileVisible: false, published: false
-  };
+  let currentVendorAccess = { subscriptionActive: false, paidSetupFee: false, complimentaryPlan: false, plan: "", accessType: "", membershipTier: "", tier: "", shopAccess: false, accountStatus: "active", profileVisible: false, published: false };
 
-  const STYLE_TAGS = [
-    "Indoor","Outdoor","Luxury","Modern","Romantic","Coastal","Boho","Minimal",
-    "Classic","Editorial","Garden","Rustic","Elegant","Destination","Intimate",
-    "Bold","Timeless","Whimsical"
-  ];
-
+  const STYLE_TAGS = ["Indoor","Outdoor","Luxury","Modern","Romantic","Coastal","Boho","Minimal","Classic","Editorial","Garden","Rustic","Elegant","Destination","Intimate","Bold","Timeless","Whimsical"];
   const CATEGORY_GROUPS = [
     { title: "Photo & Video", items: [["wedding_photographer","Photographer"],["wedding_videographer","Videographer"],["wedding_content_creator","Content Creator"],["photo_and_video_team","Photo & Video Team"],["engagement_photographer","Engagement Photographer"],["drone_operator","Drone Operator"]] },
     { title: "Beauty", items: [["wedding_makeup_artist","Makeup Artist"],["wedding_hair_stylist","Hair Stylist"],["nail_artist","Nail Artist"],["beauty_salon","Beauty Salon"],["spray_tan","Tanning"],["skin_aesthetics","Skin & Aesthetics"],["brow_artist","Brow Artist"],["lash_artist","Lash Artist"],["barber_grooming","Barber / Grooming"]] },
@@ -1908,525 +857,145 @@ import { LOCATION_DATA } from "./locations.js";
     { title: "Accommodation", items: [["guest_accommodation","Guest Accommodation"],["bridal_suite","Bridal Suite"],["honeymoon_stay","Honeymoon Stay"]] }
   ];
 
-  function getCheckedValues(container) {
-    return Array.from(container.querySelectorAll("input:checked")).map(input => input.value);
-  }
+  function getCheckedValues(container) { return Array.from(container.querySelectorAll("input:checked")).map(i => i.value); }
+  function createPillCheckbox(value, labelText, checked = false, name = "") { const label = document.createElement("label"); const input = document.createElement("input"); const span = document.createElement("span"); input.type = "checkbox"; input.value = value; if (name) input.name = name; input.checked = checked; span.textContent = labelText; label.appendChild(input); label.appendChild(span); return label; }
+  function hasVendorAccess(v) { return (!v.accountStatus || v.accountStatus === "active") && (v.subscriptionActive === true || v.paidSetupFee === true || v.complimentaryPlan === true || v.plan === "complimentary" || v.accessType === "complimentary-invite"); }
+  function hasShopAccess(v) { return (!v.accountStatus || v.accountStatus === "active") && (v.complimentaryPlan === true || v.plan === "complimentary" || v.accessType === "complimentary-invite" || v.shopAccess === true || ["platinum_prestige","platinum-prestige","platinum prestige"].some(p => v.plan === p || v.membershipTier === p || v.tier === p)); }
+  function getPlanAccessLabel(v) { if (v.complimentaryPlan === true || v.plan === "complimentary" || v.accessType === "complimentary-invite") return "complimentary"; if (v.subscriptionActive === true) return "active subscription"; if (v.paidSetupFee === true) return "setup paid"; return "inactive"; }
+  function getProfileViews(v) { return typeof v.profileViews === "number" ? v.profileViews : typeof v.viewCount === "number" ? v.viewCount : typeof v.views === "number" ? v.views : 0; }
+  function updateViewProfileVisibility(v) { viewProfileBtn.style.display = (profileLive.checked && hasVendorAccess(v)) ? "inline-flex" : "none"; }
+  function updateBoutiqueAccessVisibility(v) { const ok = hasShopAccess(v); boutiqueAccessAllowed.style.display = ok ? "block" : "none"; boutiqueAccessLocked.style.display = ok ? "none" : "block"; }
+  function renderStyleTags(sel = []) { styleTagOptions.innerHTML = ""; STYLE_TAGS.forEach(t => styleTagOptions.appendChild(createPillCheckbox(t, t, sel.includes(t), "styleTags"))); }
 
-  function createPillCheckbox(value, labelText, checked = false, name = "") {
-    const label = document.createElement("label");
-    const input = document.createElement("input");
-    const span = document.createElement("span");
-    input.type = "checkbox";
-    input.value = value;
-    if (name) input.name = name;
-    input.checked = checked;
-    span.textContent = labelText;
-    label.appendChild(input);
-    label.appendChild(span);
-    return label;
-  }
-
-  function hasVendorAccess(vendorData) {
-    const hasPaidAccess = vendorData.subscriptionActive === true || vendorData.paidSetupFee === true;
-    const hasComplimentaryAccess = vendorData.complimentaryPlan === true || vendorData.plan === "complimentary" || vendorData.accessType === "complimentary-invite";
-    const isApprovedAccount = !vendorData.accountStatus || vendorData.accountStatus === "active";
-    return isApprovedAccount && (hasPaidAccess || hasComplimentaryAccess);
-  }
-
-  function hasShopAccess(vendorData) {
-    const isComplimentary = vendorData.complimentaryPlan === true || vendorData.plan === "complimentary" || vendorData.accessType === "complimentary-invite";
-    const isPlatinumPrestige = vendorData.plan === "platinum_prestige" || vendorData.plan === "platinum-prestige" || vendorData.plan === "platinum prestige" || vendorData.membershipTier === "platinum_prestige" || vendorData.membershipTier === "platinum-prestige" || vendorData.membershipTier === "platinum prestige" || vendorData.tier === "platinum_prestige" || vendorData.tier === "platinum-prestige" || vendorData.tier === "platinum prestige" || vendorData.shopAccess === true;
-    const isApprovedAccount = !vendorData.accountStatus || vendorData.accountStatus === "active";
-    return isApprovedAccount && (isComplimentary || isPlatinumPrestige);
-  }
-
-  function getPlanAccessLabel(vendorData) {
-    if (vendorData.complimentaryPlan === true || vendorData.plan === "complimentary" || vendorData.accessType === "complimentary-invite") return "complimentary";
-    if (vendorData.subscriptionActive === true) return "active subscription";
-    if (vendorData.paidSetupFee === true) return "setup paid";
-    return "inactive";
-  }
-
-  function getProfileViews(vendorData) {
-    if (typeof vendorData.profileViews === "number") return vendorData.profileViews;
-    if (typeof vendorData.viewCount === "number") return vendorData.viewCount;
-    if (typeof vendorData.views === "number") return vendorData.views;
-    return 0;
-  }
-
-  function updateViewProfileVisibility(vendorData) {
-    const isLive = profileLive.checked === true || vendorData.profileVisible === true || vendorData.published === true;
-    const canBeShown = hasVendorAccess(vendorData);
-    viewProfileBtn.style.display = isLive && canBeShown ? "inline-flex" : "none";
-  }
-
-  function updateBoutiqueAccessVisibility(vendorData) {
-    const allowed = hasShopAccess(vendorData);
-    boutiqueAccessAllowed.style.display = allowed ? "block" : "none";
-    boutiqueAccessLocked.style.display = allowed ? "none" : "block";
-  }
-
-  function renderStyleTags(selected = []) {
-    styleTagOptions.innerHTML = "";
-    STYLE_TAGS.forEach(tag => { styleTagOptions.appendChild(createPillCheckbox(tag, tag, selected.includes(tag), "styleTags")); });
-  }
-
-  function renderCategoryOptions(selected = []) {
+  function renderCategoryOptions(sel = []) {
     categoryOptions.innerHTML = "";
-    CATEGORY_GROUPS.forEach(group => {
-      const selectedCount = group.items.filter(([value]) => selected.includes(value)).length;
-      const details = document.createElement("details");
-      details.className = "category-dropdown";
-      details.open = selectedCount > 0;
-      const summary = document.createElement("summary");
-      const title = document.createElement("span");
-      title.textContent = group.title;
-      const count = document.createElement("span");
-      count.className = "category-dropdown-count";
-      count.textContent = selectedCount > 0 ? `${selectedCount} selected` : "Tap to choose";
-      summary.appendChild(title);
-      summary.appendChild(count);
-      details.appendChild(summary);
-      const inner = document.createElement("div");
-      inner.className = "category-dropdown-inner";
-      group.items.forEach(([value, label]) => { inner.appendChild(createPillCheckbox(value, label, selected.includes(value), "categories")); });
-      details.appendChild(inner);
-      categoryOptions.appendChild(details);
+    CATEGORY_GROUPS.forEach(g => {
+      const selCount = g.items.filter(([v]) => sel.includes(v)).length;
+      const det = document.createElement("details"); det.className = "category-dropdown"; det.open = selCount > 0;
+      const sum = document.createElement("summary"); const ti = document.createElement("span"); ti.textContent = g.title; const co = document.createElement("span"); co.className = "category-dropdown-count"; co.textContent = selCount > 0 ? `${selCount} selected` : "Tap to choose"; sum.appendChild(ti); sum.appendChild(co); det.appendChild(sum);
+      const inn = document.createElement("div"); inn.className = "category-dropdown-inner"; g.items.forEach(([v, l]) => inn.appendChild(createPillCheckbox(v, l, sel.includes(v), "categories"))); det.appendChild(inn);
+      categoryOptions.appendChild(det);
     });
   }
 
-  function renderCountries(selectedCountries = []) {
-    countryOptions.innerHTML = "";
-    const countries = Object.keys(LOCATION_DATA).sort((a, b) => a.localeCompare(b));
-    if (!countries.length) { countryOptions.innerHTML = '<p class="small-text">No countries found.</p>'; return; }
-    countries.forEach(country => { countryOptions.appendChild(createPillCheckbox(country, country, selectedCountries.includes(country), "countries")); });
-    countryOptions.querySelectorAll("input").forEach(input => { input.addEventListener("change", () => { renderStates([]); renderRegions([]); }); });
-  }
+  function renderCountries(sel = []) { countryOptions.innerHTML = ""; Object.keys(LOCATION_DATA).sort((a,b) => a.localeCompare(b)).forEach(c => countryOptions.appendChild(createPillCheckbox(c, c, sel.includes(c), "countries"))); countryOptions.querySelectorAll("input").forEach(i => i.addEventListener("change", () => { renderStates([]); renderRegions([]); })); }
+  function renderStates(sel = []) { const sc = getCheckedValues(countryOptions); stateOptions.innerHTML = ""; regionOptions.innerHTML = '<p class="small-text">Select countries first.</p>'; if (!sc.length) { stateOptions.innerHTML = '<p class="small-text">Select countries first.</p>'; return; } let has = false; sc.forEach(c => { const cd = LOCATION_DATA[c]; if (!cd) return; const h = document.createElement("div"); h.className = "region-heading"; h.textContent = c; stateOptions.appendChild(h); Object.keys(cd).sort((a,b) => a.localeCompare(b)).forEach(s => { has = true; stateOptions.appendChild(createPillCheckbox(s, s, sel.includes(s), "states")); }); }); if (!has) { stateOptions.innerHTML = '<p class="small-text">No states found.</p>'; return; } stateOptions.querySelectorAll("input").forEach(i => i.addEventListener("change", () => renderRegions(getCheckedValues(regionOptions)))); }
+  function renderRegions(prev = []) { const sc = getCheckedValues(countryOptions); const ss = getCheckedValues(stateOptions); regionOptions.innerHTML = ""; if (!sc.length || !ss.length) { regionOptions.innerHTML = '<p class="small-text">Select states first.</p>'; return; } let has = false; sc.forEach(c => { const cd = LOCATION_DATA[c]; if (!cd) return; ss.forEach(s => { const rs = cd[s]; if (!rs?.length) return; has = true; const h = document.createElement("div"); h.className = "region-heading"; h.textContent = `${c} — ${s}`; regionOptions.appendChild(h); rs.forEach(r => regionOptions.appendChild(createPillCheckbox(r, r, prev.includes(r), "regions"))); }); }); if (!has) regionOptions.innerHTML = '<p class="small-text">No regions found.</p>'; }
 
-  function renderStates(selectedStates = []) {
-    const selectedCountries = getCheckedValues(countryOptions);
-    stateOptions.innerHTML = "";
-    regionOptions.innerHTML = '<p class="small-text">Select countries first.</p>';
-    if (!selectedCountries.length) { stateOptions.innerHTML = '<p class="small-text">Select countries first.</p>'; return; }
-    let hasStates = false;
-    selectedCountries.forEach(country => {
-      const countryData = LOCATION_DATA[country];
-      if (!countryData) return;
-      const heading = document.createElement("div");
-      heading.className = "region-heading";
-      heading.textContent = country;
-      stateOptions.appendChild(heading);
-      Object.keys(countryData).sort((a, b) => a.localeCompare(b)).forEach(state => {
-        hasStates = true;
-        stateOptions.appendChild(createPillCheckbox(state, state, selectedStates.includes(state), "states"));
-      });
-    });
-    if (!hasStates) { stateOptions.innerHTML = '<p class="small-text">No states, provinces or territories found.</p>'; return; }
-    stateOptions.querySelectorAll("input").forEach(input => { input.addEventListener("change", () => { renderRegions(getCheckedValues(regionOptions)); }); });
-  }
+  function setSingleImagePreview(url, img, empty) { if (url) { img.src = url; img.style.display = "block"; empty.style.display = "none"; } else { img.removeAttribute("src"); img.style.display = "none"; empty.style.display = "block"; } }
+  function buildMediaCard(type, url, onRemove, index = 0) { const wrap = document.createElement("div"); wrap.className = "media-preview-item"; if (type === "image" && index === 0) { const b = document.createElement("div"); b.className = "cover-photo-badge"; b.textContent = "Cover photo"; wrap.appendChild(b); } if (type === "image") { const img = document.createElement("img"); img.src = url; img.loading = "lazy"; wrap.appendChild(img); const ctrl = document.createElement("div"); ctrl.className = "media-order-controls"; const up = document.createElement("button"); up.type = "button"; up.className = "media-order-btn"; up.textContent = "Move Up"; up.disabled = index === 0; up.addEventListener("click", () => moveImageUp(index)); const dn = document.createElement("button"); dn.type = "button"; dn.className = "media-order-btn"; dn.textContent = "Move Down"; dn.disabled = index === currentGalleryImages.length - 1; dn.addEventListener("click", () => moveImageDown(index)); ctrl.appendChild(up); ctrl.appendChild(dn); wrap.appendChild(ctrl); } else { const v = document.createElement("video"); v.src = url; v.controls = true; v.preload = "metadata"; wrap.appendChild(v); } const rm = document.createElement("button"); rm.type = "button"; rm.className = "remove-media-btn"; rm.textContent = "Remove"; rm.addEventListener("click", onRemove); wrap.appendChild(rm); return wrap; }
+  function moveImageUp(i) { if (i <= 0) return; [currentGalleryImages[i-1], currentGalleryImages[i]] = [currentGalleryImages[i], currentGalleryImages[i-1]]; setImagePreview(); }
+  function moveImageDown(i) { if (i >= currentGalleryImages.length - 1) return; [currentGalleryImages[i+1], currentGalleryImages[i]] = [currentGalleryImages[i], currentGalleryImages[i+1]]; setImagePreview(); }
+  function setImagePreview() { imagePreview.innerHTML = ""; currentGalleryImages.forEach((u, i) => imagePreview.appendChild(buildMediaCard("image", u, () => { currentGalleryImages = currentGalleryImages.filter(x => x !== u); setImagePreview(); }, i))); }
+  function setVideoPreview() { videoPreview.innerHTML = ""; currentGalleryVideos.slice(0, 8).forEach(u => videoPreview.appendChild(buildMediaCard("video", u, () => { currentGalleryVideos = currentGalleryVideos.filter(x => x !== u); setVideoPreview(); }))); }
+  function showSelectedFileNames(input, el, multi) { const f = Array.from(input.files || []); el.textContent = f.length ? (multi ? `${f.length} file${f.length===1?"":"s"} selected` : f[0].name) : ""; }
+  function previewLocalSingleImage(file, img, empty) { if (!file) return; img.src = URL.createObjectURL(file); img.style.display = "block"; empty.style.display = "none"; }
+  function toLocalDateString(d) { return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`; }
+  function formatDateForDisplay(s) { return s ? new Date(s+"T00:00:00").toLocaleDateString("en-AU", { day:"numeric", month:"short", year:"numeric" }) : ""; }
+  function addMonthsToDate(d, m) { const c = new Date(d); c.setMonth(c.getMonth() + m); return c; }
 
-  function renderRegions(previouslyChecked = []) {
-    const selectedCountries = getCheckedValues(countryOptions);
-    const selectedStates = getCheckedValues(stateOptions);
-    regionOptions.innerHTML = "";
-    if (!selectedCountries.length || !selectedStates.length) { regionOptions.innerHTML = '<p class="small-text">Select states, provinces or territories first.</p>'; return; }
-    let hasRegions = false;
-    selectedCountries.forEach(country => {
-      const countryData = LOCATION_DATA[country];
-      if (!countryData) return;
-      selectedStates.forEach(state => {
-        const regions = countryData[state];
-        if (!regions || !regions.length) return;
-        hasRegions = true;
-        const heading = document.createElement("div");
-        heading.className = "region-heading";
-        heading.textContent = `${country} — ${state}`;
-        regionOptions.appendChild(heading);
-        regions.forEach(region => { regionOptions.appendChild(createPillCheckbox(region, region, previouslyChecked.includes(region), "regions")); });
-      });
-    });
-    if (!hasRegions) { regionOptions.innerHTML = '<p class="small-text">No regions or cities found for the selected areas.</p>'; }
-  }
+  function renderBlockedDates() { blockedDateList.innerHTML = ""; if (!currentBlockedDates.length) { blockedDateList.innerHTML = '<p class="small-text">No unavailable dates added yet.</p>'; return; } currentBlockedDates.slice().sort().forEach(dv => { const chip = document.createElement("div"); chip.className = "date-chip"; const t = document.createElement("span"); t.textContent = formatDateForDisplay(dv); const rm = document.createElement("button"); rm.type = "button"; rm.className = "date-remove-btn"; rm.textContent = "Remove"; rm.addEventListener("click", () => { currentBlockedDates = currentBlockedDates.filter(d => d !== dv); renderBlockedDates(); }); chip.appendChild(t); chip.appendChild(rm); blockedDateList.appendChild(chip); }); }
+  function addBlockedDate() { const v = blockedDateInput.value; if (!v) return; if (!currentBlockedDates.includes(v)) currentBlockedDates.push(v); currentBlockedDates = [...new Set(currentBlockedDates)].sort(); blockedDateInput.value = ""; renderBlockedDates(); }
+  function applyBulkWeekdayBlock() { const wd = Array.from(weekdayOptions.querySelectorAll("input:checked")).map(i => Number(i.value)); if (!wd.length) { message.textContent = "Please choose at least one weekday."; return; } let sv = bulkStartDate.value; let ev = bulkEndDate.value; const pm = bulkMonthsPreset.value; const today = toLocalDateString(new Date()); if (!sv) { sv = today; bulkStartDate.value = sv; } if (!ev && pm) { ev = toLocalDateString(addMonthsToDate(new Date(sv+"T00:00:00"), Number(pm))); bulkEndDate.value = ev; } if (!ev) { message.textContent = "Please choose an end date."; return; } if (ev < sv) { message.textContent = "End date must be after start date."; return; } const sd = new Date(sv+"T00:00:00"); const ed = new Date(ev+"T00:00:00"); let added = 0; const ex = new Set(currentBlockedDates); for (let d = new Date(sd); d <= ed; d.setDate(d.getDate()+1)) { if (wd.includes(d.getDay())) { const ds = toLocalDateString(d); if (!ex.has(ds)) { ex.add(ds); added++; } } } currentBlockedDates = Array.from(ex).sort(); renderBlockedDates(); message.textContent = added ? `${added} date${added===1?"":"s"} added.` : "No new dates added."; }
 
-  function setSingleImagePreview(url, imgEl, emptyEl) {
-    if (url) { imgEl.src = url; imgEl.style.display = "block"; emptyEl.style.display = "none"; }
-    else { imgEl.removeAttribute("src"); imgEl.style.display = "none"; emptyEl.style.display = "block"; }
-  }
-
-  function buildMediaCard(type, url, onRemove, index = 0) {
-    const wrap = document.createElement("div");
-    wrap.className = "media-preview-item";
-    if (type === "image" && index === 0) {
-      const coverBadge = document.createElement("div");
-      coverBadge.className = "cover-photo-badge";
-      coverBadge.textContent = "Cover photo";
-      wrap.appendChild(coverBadge);
-    }
-    if (type === "image") {
-      const img = document.createElement("img");
-      img.src = url; img.alt = "Vendor image preview"; img.loading = "lazy";
-      wrap.appendChild(img);
-      const controls = document.createElement("div");
-      controls.className = "media-order-controls";
-      const moveUpBtn = document.createElement("button");
-      moveUpBtn.type = "button"; moveUpBtn.className = "media-order-btn"; moveUpBtn.textContent = "Move Up"; moveUpBtn.disabled = index === 0;
-      moveUpBtn.addEventListener("click", () => moveImageUp(index));
-      const moveDownBtn = document.createElement("button");
-      moveDownBtn.type = "button"; moveDownBtn.className = "media-order-btn"; moveDownBtn.textContent = "Move Down"; moveDownBtn.disabled = index === currentGalleryImages.length - 1;
-      moveDownBtn.addEventListener("click", () => moveImageDown(index));
-      controls.appendChild(moveUpBtn); controls.appendChild(moveDownBtn);
-      wrap.appendChild(controls);
-    } else {
-      const video = document.createElement("video");
-      video.src = url; video.controls = true; video.preload = "metadata";
-      wrap.appendChild(video);
-    }
-    const removeBtn = document.createElement("button");
-    removeBtn.type = "button"; removeBtn.className = "remove-media-btn"; removeBtn.textContent = "Remove";
-    removeBtn.addEventListener("click", onRemove);
-    wrap.appendChild(removeBtn);
-    return wrap;
-  }
-
-  function moveImageUp(index) { if (index <= 0) return; const temp = currentGalleryImages[index - 1]; currentGalleryImages[index - 1] = currentGalleryImages[index]; currentGalleryImages[index] = temp; setImagePreview(); }
-  function moveImageDown(index) { if (index >= currentGalleryImages.length - 1) return; const temp = currentGalleryImages[index + 1]; currentGalleryImages[index + 1] = currentGalleryImages[index]; currentGalleryImages[index] = temp; setImagePreview(); }
-  function setImagePreview() { imagePreview.innerHTML = ""; currentGalleryImages.forEach((imgUrl, index) => { imagePreview.appendChild(buildMediaCard("image", imgUrl, () => removeImageUrl(imgUrl), index)); }); }
-  function setVideoPreview() { videoPreview.innerHTML = ""; currentGalleryVideos.slice(0, 8).forEach(url => { videoPreview.appendChild(buildMediaCard("video", url, () => removeVideoUrl(url))); }); }
-  function removeImageUrl(urlToRemove) { currentGalleryImages = currentGalleryImages.filter(url => url !== urlToRemove); setImagePreview(); }
-  function removeVideoUrl(urlToRemove) { currentGalleryVideos = currentGalleryVideos.filter(url => url !== urlToRemove); setVideoPreview(); }
-
-  function showSelectedFileNames(input, targetEl, multiple = false) {
-    const files = Array.from(input.files || []);
-    if (!files.length) { targetEl.textContent = ""; return; }
-    targetEl.textContent = multiple ? `${files.length} file${files.length === 1 ? "" : "s"} selected` : files[0].name;
-  }
-
-  function previewLocalSingleImage(file, previewEl, emptyEl) {
-    if (!file) return;
-    previewEl.src = URL.createObjectURL(file);
-    previewEl.style.display = "block";
-    emptyEl.style.display = "none";
-  }
-
-  function formatDateForDisplay(dateString) {
-    if (!dateString) return "";
-    return new Date(dateString + "T00:00:00").toLocaleDateString("en-AU", { day: "numeric", month: "short", year: "numeric" });
-  }
-
-  function toLocalDateString(dateObj) {
-    const y = dateObj.getFullYear();
-    const m = String(dateObj.getMonth() + 1).padStart(2, "0");
-    const d = String(dateObj.getDate()).padStart(2, "0");
-    return `${y}-${m}-${d}`;
-  }
-
-  function renderBlockedDates() {
-    blockedDateList.innerHTML = "";
-    if (!currentBlockedDates.length) { blockedDateList.innerHTML = '<p class="small-text">No unavailable dates added yet.</p>'; return; }
-    currentBlockedDates.slice().sort().forEach(dateValue => {
-      const chip = document.createElement("div"); chip.className = "date-chip";
-      const text = document.createElement("span"); text.textContent = formatDateForDisplay(dateValue);
-      const removeBtn = document.createElement("button"); removeBtn.type = "button"; removeBtn.className = "date-remove-btn"; removeBtn.textContent = "Remove";
-      removeBtn.addEventListener("click", () => { currentBlockedDates = currentBlockedDates.filter(d => d !== dateValue); renderBlockedDates(); });
-      chip.appendChild(text); chip.appendChild(removeBtn);
-      blockedDateList.appendChild(chip);
-    });
-  }
-
-  function addBlockedDate() {
-    const dateValue = blockedDateInput.value;
-    if (!dateValue) return;
-    if (!currentBlockedDates.includes(dateValue)) currentBlockedDates.push(dateValue);
-    currentBlockedDates = [...new Set(currentBlockedDates)].sort();
-    blockedDateInput.value = "";
-    renderBlockedDates();
-  }
-
-  function getSelectedWeekdays() { return Array.from(weekdayOptions.querySelectorAll("input:checked")).map(input => Number(input.value)); }
-  function addMonthsToDate(dateObj, months) { const copy = new Date(dateObj); copy.setMonth(copy.getMonth() + months); return copy; }
-
-  function applyBulkWeekdayBlock() {
-    const selectedWeekdays = getSelectedWeekdays();
-    if (!selectedWeekdays.length) { message.textContent = "Please choose at least one weekday to bulk block."; return; }
-    let startValue = bulkStartDate.value; let endValue = bulkEndDate.value;
-    const presetMonths = bulkMonthsPreset.value;
-    const today = new Date(); const todayString = toLocalDateString(today);
-    if (!startValue) { startValue = todayString; bulkStartDate.value = startValue; }
-    if (!endValue && presetMonths) { const presetEnd = addMonthsToDate(new Date(startValue + "T00:00:00"), Number(presetMonths)); endValue = toLocalDateString(presetEnd); bulkEndDate.value = endValue; }
-    if (!endValue) { message.textContent = "Please choose an end date or use a quick range."; return; }
-    if (endValue < startValue) { message.textContent = "The end date must be after the start date."; return; }
-    const startDate = new Date(startValue + "T00:00:00"); const endDate = new Date(endValue + "T00:00:00");
-    let addedCount = 0; const existing = new Set(currentBlockedDates);
-    for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
-      if (selectedWeekdays.includes(d.getDay())) { const dateString = toLocalDateString(d); if (!existing.has(dateString)) { existing.add(dateString); addedCount += 1; } }
-    }
-    currentBlockedDates = Array.from(existing).sort();
-    renderBlockedDates();
-    message.textContent = addedCount ? `${addedCount} unavailable date${addedCount === 1 ? "" : "s"} added.` : "No new unavailable dates were added.";
-  }
-
-  profileImageFile.addEventListener("change", (e) => { const file = e.target.files?.[0]; showSelectedFileNames(profileImageFile, profileImageFileName, false); if (file) previewLocalSingleImage(file, profileImagePreview, profileImageEmpty); });
-  logoFile.addEventListener("change", (e) => { const file = e.target.files?.[0]; showSelectedFileNames(logoFile, logoFileName, false); if (file) previewLocalSingleImage(file, logoPreview, logoEmpty); });
-  galleryImageFiles.addEventListener("change", () => { showSelectedFileNames(galleryImageFiles, galleryImageFileName, true); });
-  galleryVideoFiles.addEventListener("change", () => { showSelectedFileNames(galleryVideoFiles, galleryVideoFileName, true); });
-  productImageFiles.addEventListener("change", () => { showSelectedFileNames(productImageFiles, productImageFileName, true); });
+  profileImageFile.addEventListener("change", e => { showSelectedFileNames(profileImageFile, profileImageFileName, false); if (e.target.files?.[0]) previewLocalSingleImage(e.target.files[0], profileImagePreview, profileImageEmpty); });
+  logoFile.addEventListener("change", e => { showSelectedFileNames(logoFile, logoFileName, false); if (e.target.files?.[0]) previewLocalSingleImage(e.target.files[0], logoPreview, logoEmpty); });
+  galleryImageFiles.addEventListener("change", () => showSelectedFileNames(galleryImageFiles, galleryImageFileName, true));
+  galleryVideoFiles.addEventListener("change", () => showSelectedFileNames(galleryVideoFiles, galleryVideoFileName, true));
+  productImageFiles.addEventListener("change", () => showSelectedFileNames(productImageFiles, productImageFileName, true));
   profileLive.addEventListener("change", () => { currentVendorAccess.profileVisible = profileLive.checked; currentVendorAccess.published = profileLive.checked; updateViewProfileVisibility(currentVendorAccess); });
   addBlockedDateBtn.addEventListener("click", addBlockedDate);
-  blockedDateInput.addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); addBlockedDate(); } });
+  blockedDateInput.addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); addBlockedDate(); } });
   bulkAddBtn.addEventListener("click", applyBulkWeekdayBlock);
-  bulkMonthsPreset.addEventListener("change", () => {
-    const presetMonths = bulkMonthsPreset.value;
-    if (!presetMonths) return;
-    const baseDate = bulkStartDate.value ? new Date(bulkStartDate.value + "T00:00:00") : new Date();
-    if (!bulkStartDate.value) bulkStartDate.value = toLocalDateString(baseDate);
-    bulkEndDate.value = toLocalDateString(addMonthsToDate(baseDate, Number(presetMonths)));
-  });
+  bulkMonthsPreset.addEventListener("change", () => { const pm = bulkMonthsPreset.value; if (!pm) return; const base = bulkStartDate.value ? new Date(bulkStartDate.value+"T00:00:00") : new Date(); if (!bulkStartDate.value) bulkStartDate.value = toLocalDateString(base); bulkEndDate.value = toLocalDateString(addMonthsToDate(base, Number(pm))); });
 
-  async function uploadFileToStorage(file, folder, uid) {
-    const safeName = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9._-]/g, "_")}`;
-    const storageRef = ref(storage, `${folder}/${uid}/${safeName}`);
-    await uploadBytes(storageRef, file);
-    return await getDownloadURL(storageRef);
-  }
+  async function uploadFileToStorage(file, folder, uid) { const name = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9._-]/g,"_")}`; const r = ref(storage, `${folder}/${uid}/${name}`); await uploadBytes(r, file); return await getDownloadURL(r); }
+  function updateStripeStatus(v = {}) { if (stripeStatusText) stripeStatusText.textContent = (v.stripeConnected === true || v.stripeChargesEnabled === true || v.stripeAccountId) ? "Stripe: connected" : "Stripe: not connected"; }
+  function clearProductForm() { [productName, productPrice, productCategory, productStock, productDescription, productPurchaseLink, productImageFiles].forEach(el => el.value = ""); paymentMethod.value = "own"; fulfilmentMethod.value = "email"; fulfilmentDetails.value = ""; productStatus.value = "draft"; productImageFileName.textContent = ""; }
 
-  function updateStripeStatus(vendorData = {}) {
-    const connected = vendorData.stripeConnected === true || vendorData.stripeChargesEnabled === true || vendorData.stripeAccountId;
-    if (stripeStatusText) stripeStatusText.textContent = connected ? "Stripe: connected" : "Stripe: not connected";
-  }
-
-  function clearProductForm() {
-    productName.value = ""; productPrice.value = ""; productCategory.value = ""; productStock.value = "";
-    productDescription.value = ""; paymentMethod.value = "own"; productPurchaseLink.value = "";
-    fulfilmentMethod.value = "email"; fulfilmentDetails.value = ""; productStatus.value = "draft";
-    productImageFiles.value = ""; productImageFileName.textContent = "";
-  }
-
-  function renderBoutiqueProducts() {
-    boutiqueProductList.innerHTML = "";
-    if (productCountText) productCountText.textContent = `Products: ${currentBoutiqueProducts.length}`;
-    if (!currentBoutiqueProducts.length) { boutiqueProductList.innerHTML = '<p class="small-text">No boutique products added yet.</p>'; return; }
-    currentBoutiqueProducts.forEach(product => {
-      const card = document.createElement("div"); card.className = "media-preview-item";
-      const imageUrl = Array.isArray(product.images) && product.images.length ? product.images[0] : "";
-      if (imageUrl) { const img = document.createElement("img"); img.src = imageUrl; img.alt = product.name || "Boutique product"; img.loading = "lazy"; card.appendChild(img); }
-      const title = document.createElement("h3"); title.textContent = product.name || "Untitled product";
-      const price = document.createElement("p"); price.className = "small-text"; price.textContent = product.price ? `$${Number(product.price).toFixed(2)}` : "Price not set";
-      const status = document.createElement("p"); status.className = "small-text"; status.textContent = `Status: ${product.status || "draft"}`;
-      const stock = document.createElement("p"); stock.className = "small-text"; stock.textContent = `Stock: ${product.stock ?? 0}`;
-      card.appendChild(title); card.appendChild(price); card.appendChild(status); card.appendChild(stock);
-      boutiqueProductList.appendChild(card);
-    });
-  }
-
-  async function loadBoutiqueProducts(uid) {
-    if (!uid) return;
-    const productsQuery = query(collection(db, "boutiqueProducts"), where("vendorId", "==", uid), orderBy("createdAt", "desc"));
-    const snap = await getDocs(productsQuery);
-    currentBoutiqueProducts = snap.docs.map(productDoc => ({ id: productDoc.id, ...productDoc.data() }));
-    renderBoutiqueProducts();
-  }
-
-  async function saveBoutiqueProduct() {
-    if (!currentUser) return;
-    if (!hasShopAccess(currentVendorAccess)) { boutiqueMessage.textContent = "Boutique access is not active on this account."; return; }
-    const name = productName.value.trim(); const price = Number(productPrice.value || 0);
-    if (!name) { boutiqueMessage.textContent = "Please add a product name."; return; }
-    if (!price || price < 0) { boutiqueMessage.textContent = "Please add a valid product price."; return; }
-    boutiqueMessage.textContent = "Uploading product...";
-    try {
-      const imageUrls = [];
-      if (productImageFiles.files?.length) { for (const file of Array.from(productImageFiles.files)) { imageUrls.push(await uploadFileToStorage(file, "boutique-product-images", currentUser.uid)); } }
-      await addDoc(collection(db, "boutiqueProducts"), {
-        vendorId: currentUser.uid, vendorName: businessName.value.trim(), name, price,
-        category: productCategory.value, stock: Number(productStock.value || 0),
-        description: productDescription.value.trim(), paymentMethod: paymentMethod.value,
-        purchaseLink: productPurchaseLink.value.trim(), fulfilmentMethod: fulfilmentMethod.value,
-        fulfilmentDetails: fulfilmentDetails.value.trim(), status: productStatus.value || "draft",
-        images: imageUrls, visible: productStatus.value === "live", createdAt: serverTimestamp(), updatedAt: serverTimestamp()
-      });
-      clearProductForm(); await loadBoutiqueProducts(currentUser.uid);
-      boutiqueMessage.textContent = "Product added successfully.";
-    } catch (error) { console.error(error); boutiqueMessage.textContent = "There was a problem adding this product."; }
-  }
+  function renderBoutiqueProducts() { boutiqueProductList.innerHTML = ""; if (productCountText) productCountText.textContent = `Products: ${currentBoutiqueProducts.length}`; if (!currentBoutiqueProducts.length) { boutiqueProductList.innerHTML = '<p class="small-text">No boutique products added yet.</p>'; return; } currentBoutiqueProducts.forEach(p => { const card = document.createElement("div"); card.className = "media-preview-item"; const iu = Array.isArray(p.images) && p.images.length ? p.images[0] : ""; if (iu) { const img = document.createElement("img"); img.src = iu; img.loading = "lazy"; card.appendChild(img); } const t = document.createElement("h3"); t.textContent = p.name || "Untitled"; const pr = document.createElement("p"); pr.className = "small-text"; pr.textContent = p.price ? `$${Number(p.price).toFixed(2)}` : "Price not set"; const st = document.createElement("p"); st.className = "small-text"; st.textContent = `Status: ${p.status || "draft"}`; const sk = document.createElement("p"); sk.className = "small-text"; sk.textContent = `Stock: ${p.stock ?? 0}`; card.appendChild(t); card.appendChild(pr); card.appendChild(st); card.appendChild(sk); boutiqueProductList.appendChild(card); }); }
+  async function loadBoutiqueProducts(uid) { const snap = await getDocs(query(collection(db, "boutiqueProducts"), where("vendorId", "==", uid), orderBy("createdAt", "desc"))); currentBoutiqueProducts = snap.docs.map(d => ({ id: d.id, ...d.data() })); renderBoutiqueProducts(); }
+  async function saveBoutiqueProduct() { if (!currentUser || !hasShopAccess(currentVendorAccess)) { boutiqueMessage.textContent = "Boutique access is not active."; return; } const name = productName.value.trim(); const price = Number(productPrice.value || 0); if (!name) { boutiqueMessage.textContent = "Please add a product name."; return; } if (!price || price < 0) { boutiqueMessage.textContent = "Please add a valid price."; return; } boutiqueMessage.textContent = "Uploading..."; try { const imgs = []; if (productImageFiles.files?.length) { for (const f of Array.from(productImageFiles.files)) imgs.push(await uploadFileToStorage(f, "boutique-product-images", currentUser.uid)); } await addDoc(collection(db, "boutiqueProducts"), { vendorId: currentUser.uid, vendorName: businessName.value.trim(), name, price, category: productCategory.value, stock: Number(productStock.value||0), description: productDescription.value.trim(), paymentMethod: paymentMethod.value, purchaseLink: productPurchaseLink.value.trim(), fulfilmentMethod: fulfilmentMethod.value, fulfilmentDetails: fulfilmentDetails.value.trim(), status: productStatus.value||"draft", images: imgs, visible: productStatus.value === "live", createdAt: serverTimestamp(), updatedAt: serverTimestamp() }); clearProductForm(); await loadBoutiqueProducts(currentUser.uid); boutiqueMessage.textContent = "Product added successfully."; } catch (err) { console.error(err); boutiqueMessage.textContent = "There was a problem adding this product."; } }
 
   async function loadVendorData(uid) {
     const userSnap = await getDoc(doc(db, "users", uid));
     if (!userSnap.exists() || userSnap.data().role !== "vendor") { window.location.href = "login.html"; return; }
     const userData = userSnap.data();
     const vendorSnap = await getDoc(doc(db, "vendors", uid));
-    const vendorData = vendorSnap.exists() ? vendorSnap.data() : {};
-
-    currentVendorAccess = {
-      subscriptionActive: vendorData.subscriptionActive === true, paidSetupFee: vendorData.paidSetupFee === true,
-      complimentaryPlan: vendorData.complimentaryPlan === true, plan: vendorData.plan || "",
-      accessType: vendorData.accessType || "", membershipTier: vendorData.membershipTier || "",
-      tier: vendorData.tier || "", shopAccess: vendorData.shopAccess === true,
-      accountStatus: vendorData.accountStatus || "active", profileVisible: vendorData.profileVisible === true,
-      published: vendorData.published === true
-    };
-
-    businessName.value = vendorData.businessName || ""; email.value = vendorData.email || currentUser.email || "";
-    accountName.value = userData.name || ""; accountEmail.value = userData.email || currentUser.email || "";
-    phone.value = vendorData.phone || ""; instagram.value = vendorData.instagram || "";
-    website.value = vendorData.website || ""; facebook.value = vendorData.facebook || "";
-    tiktok.value = vendorData.tiktok || ""; youtube.value = vendorData.youtube || "";
-    pinterest.value = vendorData.pinterest || ""; linkedin.value = vendorData.linkedin || "";
-    x.value = vendorData.x || ""; serviceAreas.value = vendorData.serviceAreas || "";
-    displayLocation.value = vendorData.displayLocation || ""; bookingLink.value = vendorData.bookingLink || "";
-    availabilityStatus.value = vendorData.availabilityStatus || ""; bookingNotes.value = vendorData.bookingNotes || "";
-    bio.value = vendorData.bio || "";
-    currentBlockedDates = Array.isArray(vendorData.blockedDates) ? vendorData.blockedDates.filter(Boolean) : [];
-    currentProfileImageUrl = vendorData.profileImageUrl || ""; currentLogoUrl = vendorData.logoUrl || "";
-    currentGalleryImages = Array.isArray(vendorData.images) ? [...vendorData.images] : [];
-    currentGalleryVideos = Array.isArray(vendorData.videos) ? [...vendorData.videos] : [];
-    profileLive.checked = vendorData.profileVisible === true || vendorData.published === true;
-    accountStatusText.textContent = `Account status: ${vendorData.accountStatus || "active"}`;
-    subscriptionStatusText.textContent = `Plan access: ${getPlanAccessLabel(vendorData)}`;
-    viewsStatusText.textContent = `Profile views: ${getProfileViews(vendorData)}`;
-
-    renderStyleTags(Array.isArray(vendorData.styleTags) ? vendorData.styleTags : []);
-    renderCategoryOptions(Array.isArray(vendorData.categories) ? vendorData.categories : []);
-
-    const selectedCountries = Array.isArray(vendorData.countries) && vendorData.countries.length ? vendorData.countries : vendorData.country ? [vendorData.country] : ["Australia"];
-    renderCountries(selectedCountries);
-    renderStates(Array.isArray(vendorData.states) ? vendorData.states : []);
-    renderRegions(Array.isArray(vendorData.regions) ? vendorData.regions : []);
-
+    const vd = vendorSnap.exists() ? vendorSnap.data() : {};
+    currentVendorAccess = { subscriptionActive: vd.subscriptionActive===true, paidSetupFee: vd.paidSetupFee===true, complimentaryPlan: vd.complimentaryPlan===true, plan: vd.plan||"", accessType: vd.accessType||"", membershipTier: vd.membershipTier||"", tier: vd.tier||"", shopAccess: vd.shopAccess===true, accountStatus: vd.accountStatus||"active", profileVisible: vd.profileVisible===true, published: vd.published===true };
+    businessName.value = vd.businessName||""; email.value = vd.email||currentUser.email||""; accountName.value = userData.name||""; accountEmail.value = userData.email||currentUser.email||"";
+    phone.value = vd.phone||""; instagram.value = vd.instagram||""; website.value = vd.website||""; facebook.value = vd.facebook||""; tiktok.value = vd.tiktok||""; youtube.value = vd.youtube||""; pinterest.value = vd.pinterest||""; linkedin.value = vd.linkedin||""; x.value = vd.x||""; serviceAreas.value = vd.serviceAreas||""; displayLocation.value = vd.displayLocation||""; bookingLink.value = vd.bookingLink||""; availabilityStatus.value = vd.availabilityStatus||""; bookingNotes.value = vd.bookingNotes||""; bio.value = vd.bio||"";
+    currentBlockedDates = Array.isArray(vd.blockedDates) ? vd.blockedDates.filter(Boolean) : [];
+    currentProfileImageUrl = vd.profileImageUrl||""; currentLogoUrl = vd.logoUrl||"";
+    currentGalleryImages = Array.isArray(vd.images) ? [...vd.images] : []; currentGalleryVideos = Array.isArray(vd.videos) ? [...vd.videos] : [];
+    profileLive.checked = vd.profileVisible===true || vd.published===true;
+    accountStatusText.textContent = `Account status: ${vd.accountStatus||"active"}`;
+    subscriptionStatusText.textContent = `Plan access: ${getPlanAccessLabel(vd)}`;
+    viewsStatusText.textContent = `Profile views: ${getProfileViews(vd)}`;
+    renderStyleTags(Array.isArray(vd.styleTags) ? vd.styleTags : []);
+    renderCategoryOptions(Array.isArray(vd.categories) ? vd.categories : []);
+    const selCountries = Array.isArray(vd.countries) && vd.countries.length ? vd.countries : vd.country ? [vd.country] : ["Australia"];
+    renderCountries(selCountries); renderStates(Array.isArray(vd.states) ? vd.states : []); renderRegions(Array.isArray(vd.regions) ? vd.regions : []);
     viewProfileBtn.href = `vendor.html?id=${uid}`;
     setSingleImagePreview(currentProfileImageUrl, profileImagePreview, profileImageEmpty);
     setSingleImagePreview(currentLogoUrl, logoPreview, logoEmpty);
     setImagePreview(); setVideoPreview(); renderBlockedDates();
-    updateViewProfileVisibility(currentVendorAccess);
-    updateBoutiqueAccessVisibility(vendorData);
-    updateStripeStatus(vendorData);
-    if (hasShopAccess(vendorData)) await loadBoutiqueProducts(uid);
+    updateViewProfileVisibility(currentVendorAccess); updateBoutiqueAccessVisibility(vd); updateStripeStatus(vd);
+    if (hasShopAccess(vd)) await loadBoutiqueProducts(uid);
     loadMessagesSummary(uid);
-
-    // Show messages link in nav for logged-in vendors
     if (messagesNavLink) messagesNavLink.style.display = "inline-flex";
   }
 
-  function timeAgo(ts) {
-    if (!ts) return "";
-    const d = ts.toDate ? ts.toDate() : new Date(ts);
-    const diff = Math.floor((Date.now() - d) / 1000);
-    if (diff < 60) return "just now";
-    if (diff < 3600) return `${Math.floor(diff/60)}m ago`;
-    if (diff < 86400) return `${Math.floor(diff/3600)}h ago`;
-    return d.toLocaleDateString("en-AU", { day:"numeric", month:"short" });
-  }
-
   function loadMessagesSummary(uid) {
-    // Messages summary
     onSnapshot(
       query(collection(db, "conversations"), where("vendorId", "==", uid), orderBy("lastMessageAt", "desc")),
       (snap) => {
-        let totalUnread = 0;
-        snap.forEach(convDoc => { totalUnread += (convDoc.data().vendorUnread || 0); });
-        if (totalUnread > 0) {
-          msgUnreadBadge.textContent = totalUnread;
-          msgUnreadBadge.style.display = "inline-flex";
-          if (navMsgBadge) { navMsgBadge.textContent = totalUnread; navMsgBadge.style.display = "inline"; }
+        let total = 0;
+        snap.forEach(d => { total += (d.data().vendorUnread || 0); });
+        if (total > 0) {
+          msgUnreadBadge.textContent = total; msgUnreadBadge.style.display = "inline-flex";
+          if (navMsgBadge) { navMsgBadge.textContent = total; navMsgBadge.style.display = "inline"; }
         } else {
           msgUnreadBadge.style.display = "none";
           if (navMsgBadge) navMsgBadge.style.display = "none";
         }
         if (!snap.empty) {
           const latest = snap.docs[0].data();
-          msgSummaryPreview.textContent = latest.lastMessage ? `${latest.coupleName || "Couple"}: ${latest.lastMessage}` : "No messages yet.";
+          msgSummaryPreview.textContent = latest.lastMessage
+            ? `${latest.coupleName || "Couple"}: ${latest.lastMessage}`
+            : "No messages yet. Conversations begin when a couple messages you from your vendor profile ♡";
         } else {
-          msgSummaryPreview.textContent = "No messages yet.";
-        }
-      }
-    );
-
-    // Enquiries summary
-    onSnapshot(
-      query(collection(db, "enquiries"), where("vendorId", "==", uid), orderBy("createdAt", "desc")),
-      (snap) => {
-        let newCount = 0;
-        snap.forEach(enqDoc => { if (enqDoc.data().status === "new") newCount++; });
-        if (newCount > 0) { enqUnreadBadge.textContent = newCount; enqUnreadBadge.style.display = "inline-flex"; }
-        else { enqUnreadBadge.style.display = "none"; }
-        if (!snap.empty) {
-          const latest = snap.docs[0].data();
-          enqSummaryPreview.textContent = latest.coupleName ? `${latest.coupleName}: ${latest.message ? latest.message.substring(0, 80) + (latest.message.length > 80 ? "…" : "") : "No message"}` : "No enquiries yet.";
-        } else {
-          enqSummaryPreview.textContent = "No enquiries yet.";
+          msgSummaryPreview.textContent = "No messages yet. Conversations begin when a couple messages you from your vendor profile ♡";
         }
       }
     );
   }
 
-  async function saveAccountSettings() {
-    if (!currentUser) return;
-    accountMessage.textContent = "Updating account...";
-    try {
-      const newName = accountName.value.trim(); const newEmail = accountEmail.value.trim().toLowerCase(); const newPassword = accountPassword.value.trim();
-      await setDoc(doc(db, "users", currentUser.uid), { name: newName, email: newEmail, role: "vendor", updatedAt: serverTimestamp() }, { merge: true });
-      if (newEmail && newEmail !== currentUser.email) await updateEmail(currentUser, newEmail);
-      if (newPassword) { if (newPassword.length < 6) { accountMessage.textContent = "Password must be at least 6 characters."; return; } await updatePassword(currentUser, newPassword); }
-      await setDoc(doc(db, "vendors", currentUser.uid), { email: newEmail }, { merge: true });
-      email.value = newEmail; accountPassword.value = "";
-      accountMessage.textContent = "Account details updated successfully.";
-    } catch (error) { console.error(error); accountMessage.textContent = "Could not update account details. You may need to log in again before changing email or password."; }
-  }
+  async function saveAccountSettings() { if (!currentUser) return; accountMessage.textContent = "Updating account..."; try { const n = accountName.value.trim(); const e = accountEmail.value.trim().toLowerCase(); const p = accountPassword.value.trim(); await setDoc(doc(db,"users",currentUser.uid), { name:n, email:e, role:"vendor", updatedAt:serverTimestamp() }, { merge:true }); if (e && e !== currentUser.email) await updateEmail(currentUser, e); if (p) { if (p.length < 6) { accountMessage.textContent = "Password must be at least 6 characters."; return; } await updatePassword(currentUser, p); } await setDoc(doc(db,"vendors",currentUser.uid), { email:e }, { merge:true }); email.value = e; accountPassword.value = ""; accountMessage.textContent = "Account details updated successfully."; } catch (err) { console.error(err); accountMessage.textContent = "Could not update. You may need to log in again first."; } }
 
   async function saveVendorData() {
-    if (!currentUser) return;
-    message.textContent = "Saving...";
+    if (!currentUser) return; message.textContent = "Saving...";
     try {
-      const vendorSnap = await getDoc(doc(db, "vendors", currentUser.uid));
-      const existingVendorData = vendorSnap.exists() ? vendorSnap.data() : {};
-      currentVendorAccess = {
-        subscriptionActive: existingVendorData.subscriptionActive === true, paidSetupFee: existingVendorData.paidSetupFee === true,
-        complimentaryPlan: existingVendorData.complimentaryPlan === true, plan: existingVendorData.plan || "",
-        accessType: existingVendorData.accessType || "", membershipTier: existingVendorData.membershipTier || "",
-        tier: existingVendorData.tier || "", shopAccess: existingVendorData.shopAccess === true,
-        accountStatus: existingVendorData.accountStatus || "active", profileVisible: existingVendorData.profileVisible === true,
-        published: existingVendorData.published === true
-      };
-      const selectedStyleTags = getCheckedValues(styleTagOptions);
-      const selectedCategories = getCheckedValues(categoryOptions);
-      const selectedCountries = getCheckedValues(countryOptions);
-      const selectedStates = getCheckedValues(stateOptions);
-      const selectedRegions = getCheckedValues(regionOptions);
-      let finalProfileImageUrl = currentProfileImageUrl; let finalLogoUrl = currentLogoUrl;
-      let galleryImages = [...currentGalleryImages]; let galleryVideos = [...currentGalleryVideos];
-      if (profileImageFile.files?.[0]) finalProfileImageUrl = await uploadFileToStorage(profileImageFile.files[0], "vendor-profile-images", currentUser.uid);
-      if (logoFile.files?.[0]) finalLogoUrl = await uploadFileToStorage(logoFile.files[0], "vendor-logos", currentUser.uid);
-      if (galleryImageFiles.files?.length) { const uploaded = []; for (const file of Array.from(galleryImageFiles.files)) { uploaded.push(await uploadFileToStorage(file, "vendor-gallery-images", currentUser.uid)); } galleryImages = [...galleryImages, ...uploaded]; }
-      if (galleryVideoFiles.files?.length) { const uploaded = []; for (const file of Array.from(galleryVideoFiles.files)) { uploaded.push(await uploadFileToStorage(file, "vendor-gallery-videos", currentUser.uid)); } galleryVideos = [...galleryVideos, ...uploaded]; }
-      galleryImages = [...new Set(galleryImages)]; galleryVideos = [...new Set(galleryVideos)];
-      currentBlockedDates = [...new Set(currentBlockedDates)].sort();
-      const finalCoverImageUrl = galleryImages[0] || "";
-      const shopAccess = hasShopAccess(currentVendorAccess);
-      await setDoc(doc(db, "vendors", currentUser.uid), {
-        uid: currentUser.uid, businessName: businessName.value.trim(), email: email.value.trim().toLowerCase(),
-        phone: phone.value.trim(), instagram: instagram.value.trim(), website: website.value.trim(),
-        facebook: facebook.value.trim(), tiktok: tiktok.value.trim(), youtube: youtube.value.trim(),
-        pinterest: pinterest.value.trim(), linkedin: linkedin.value.trim(), x: x.value.trim(),
-        serviceAreas: serviceAreas.value.trim(), displayLocation: displayLocation.value.trim(),
-        bookingLink: bookingLink.value.trim(), availabilityStatus: availabilityStatus.value.trim(),
-        bookingNotes: bookingNotes.value.trim(), blockedDates: currentBlockedDates, bio: bio.value.trim(),
-        profileImageUrl: finalProfileImageUrl, logoUrl: finalLogoUrl, coverImageUrl: finalCoverImageUrl,
-        images: galleryImages, videos: galleryVideos, styleTags: selectedStyleTags,
-        categories: selectedCategories, countries: selectedCountries, country: selectedCountries[0] || "",
-        states: selectedStates, regions: selectedRegions, profileVisible: profileLive.checked,
-        published: profileLive.checked, shopAccess: shopAccess, updatedAt: serverTimestamp()
-      }, { merge: true });
-      currentProfileImageUrl = finalProfileImageUrl; currentLogoUrl = finalLogoUrl;
-      currentGalleryImages = galleryImages; currentGalleryVideos = galleryVideos;
-      currentVendorAccess = { ...currentVendorAccess, shopAccess, profileVisible: profileLive.checked, published: profileLive.checked };
+      const vSnap = await getDoc(doc(db,"vendors",currentUser.uid)); const ev = vSnap.exists() ? vSnap.data() : {};
+      currentVendorAccess = { subscriptionActive: ev.subscriptionActive===true, paidSetupFee: ev.paidSetupFee===true, complimentaryPlan: ev.complimentaryPlan===true, plan: ev.plan||"", accessType: ev.accessType||"", membershipTier: ev.membershipTier||"", tier: ev.tier||"", shopAccess: ev.shopAccess===true, accountStatus: ev.accountStatus||"active", profileVisible: ev.profileVisible===true, published: ev.published===true };
+      const st = getCheckedValues(styleTagOptions); const cats = getCheckedValues(categoryOptions); const cos = getCheckedValues(countryOptions); const sts = getCheckedValues(stateOptions); const regs = getCheckedValues(regionOptions);
+      let pi = currentProfileImageUrl; let li = currentLogoUrl; let gi = [...currentGalleryImages]; let gv = [...currentGalleryVideos];
+      if (profileImageFile.files?.[0]) pi = await uploadFileToStorage(profileImageFile.files[0], "vendor-profile-images", currentUser.uid);
+      if (logoFile.files?.[0]) li = await uploadFileToStorage(logoFile.files[0], "vendor-logos", currentUser.uid);
+      if (galleryImageFiles.files?.length) { const u = []; for (const f of Array.from(galleryImageFiles.files)) u.push(await uploadFileToStorage(f, "vendor-gallery-images", currentUser.uid)); gi = [...gi, ...u]; }
+      if (galleryVideoFiles.files?.length) { const u = []; for (const f of Array.from(galleryVideoFiles.files)) u.push(await uploadFileToStorage(f, "vendor-gallery-videos", currentUser.uid)); gv = [...gv, ...u]; }
+      gi = [...new Set(gi)]; gv = [...new Set(gv)]; currentBlockedDates = [...new Set(currentBlockedDates)].sort();
+      const cover = gi[0] || ""; const shop = hasShopAccess(currentVendorAccess);
+      await setDoc(doc(db,"vendors",currentUser.uid), { uid:currentUser.uid, businessName:businessName.value.trim(), email:email.value.trim().toLowerCase(), phone:phone.value.trim(), instagram:instagram.value.trim(), website:website.value.trim(), facebook:facebook.value.trim(), tiktok:tiktok.value.trim(), youtube:youtube.value.trim(), pinterest:pinterest.value.trim(), linkedin:linkedin.value.trim(), x:x.value.trim(), serviceAreas:serviceAreas.value.trim(), displayLocation:displayLocation.value.trim(), bookingLink:bookingLink.value.trim(), availabilityStatus:availabilityStatus.value.trim(), bookingNotes:bookingNotes.value.trim(), blockedDates:currentBlockedDates, bio:bio.value.trim(), profileImageUrl:pi, logoUrl:li, coverImageUrl:cover, images:gi, videos:gv, styleTags:st, categories:cats, countries:cos, country:cos[0]||"", states:sts, regions:regs, profileVisible:profileLive.checked, published:profileLive.checked, shopAccess:shop, updatedAt:serverTimestamp() }, { merge:true });
+      currentProfileImageUrl = pi; currentLogoUrl = li; currentGalleryImages = gi; currentGalleryVideos = gv;
+      currentVendorAccess = { ...currentVendorAccess, shopAccess:shop, profileVisible:profileLive.checked, published:profileLive.checked };
       profileImageFile.value = ""; logoFile.value = ""; galleryImageFiles.value = ""; galleryVideoFiles.value = "";
       profileImageFileName.textContent = ""; logoFileName.textContent = ""; galleryImageFileName.textContent = ""; galleryVideoFileName.textContent = "";
-      setSingleImagePreview(currentProfileImageUrl, profileImagePreview, profileImageEmpty);
-      setSingleImagePreview(currentLogoUrl, logoPreview, logoEmpty);
-      setImagePreview(); setVideoPreview(); renderBlockedDates();
-      updateViewProfileVisibility(currentVendorAccess);
-      updateBoutiqueAccessVisibility(currentVendorAccess);
+      setSingleImagePreview(pi, profileImagePreview, profileImageEmpty); setSingleImagePreview(li, logoPreview, logoEmpty);
+      setImagePreview(); setVideoPreview(); renderBlockedDates(); updateViewProfileVisibility(currentVendorAccess); updateBoutiqueAccessVisibility(currentVendorAccess);
       message.textContent = "Your changes have been saved.";
-    } catch (error) { console.error(error); message.textContent = "There was a problem saving your changes."; }
+    } catch (err) { console.error(err); message.textContent = "There was a problem saving your changes."; }
   }
 
   saveBtn.addEventListener("click", saveVendorData);
