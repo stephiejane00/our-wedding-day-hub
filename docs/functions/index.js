@@ -1,10 +1,15 @@
 const { onRequest } = require("firebase-functions/v2/https");
+const { onObjectFinalized } = require("firebase-functions/v2/storage");
 const { defineSecret } = require("firebase-functions/params");
 const admin = require("firebase-admin");
 const express = require("express");
 const cors = require("cors");
 const Stripe = require("stripe");
 const { Resend } = require("resend");
+const sharp = require("sharp");
+const path = require("path");
+const os = require("os");
+const fs = require("fs");
 
 admin.initializeApp();
 
@@ -34,6 +39,157 @@ const PRICE_IDS = {
   elite: "price_1TGp1ZIfhRO5Mn4BqfzdgLud",
   platinum: "price_1TGp2pIfhRO5Mn4B3lrSq0Dj"
 };
+
+// ── WEBP IMAGE CONVERSION ──
+// Automatically converts uploaded images to WebP when vendors upload photos
+exports.convertToWebP = onObjectFinalized(
+  { memory: "512MiB", timeoutSeconds: 120 },
+  async (event) => {
+    const filePath = event.data.name;
+    const contentType = event.data.contentType;
+    const bucket = admin.storage().bucket(event.data.bucket);
+
+    // Only process images
+    if (!contentType || !contentType.startsWith("image/")) return;
+
+    // Skip if already a WebP
+    if (contentType === "image/webp") return;
+
+    // Skip if it's a thumbnail or already processed
+    if (filePath.includes("_webp") || filePath.includes("thumb_")) return;
+
+    // Only process vendor images
+    const vendorFolders = [
+      "vendor-gallery-images",
+      "vendor-profile-images",
+      "vendor-logos",
+      "vendor-gallery-videos",
+      "boutique-product-images"
+    ];
+    const isVendorImage = vendorFolders.some(folder => filePath.includes(folder));
+    if (!isVendorImage) return;
+
+    console.log(`Converting to WebP: ${filePath}`);
+
+    const fileName = path.basename(filePath);
+    const fileDir = path.dirname(filePath);
+    const fileNameWithoutExt = path.basename(fileName, path.extname(fileName));
+    const webpFileName = `${fileNameWithoutExt}.webp`;
+    const webpFilePath = path.join(fileDir, webpFileName);
+    const tempFilePath = path.join(os.tmpdir(), fileName);
+    const tempWebpPath = path.join(os.tmpdir(), webpFileName);
+
+    try {
+      // Download the original file
+      await bucket.file(filePath).download({ destination: tempFilePath });
+
+      // Convert to WebP at quality 85
+      await sharp(tempFilePath)
+        .webp({ quality: 85 })
+        .toFile(tempWebpPath);
+
+      // Upload the WebP version to the same folder
+      await bucket.upload(tempWebpPath, {
+        destination: webpFilePath,
+        metadata: {
+          contentType: "image/webp",
+          cacheControl: "public, max-age=31536000"
+        }
+      });
+
+      // Get the public download URL of the new WebP file
+      const webpFile = bucket.file(webpFilePath);
+      await webpFile.makePublic();
+      const webpUrl = `https://storage.googleapis.com/${event.data.bucket}/${webpFilePath}`;
+
+      // Update Firestore — find the vendor doc that has this original URL and swap it
+      const originalFile = bucket.file(filePath);
+      await originalFile.makePublic();
+      const originalUrl = `https://storage.googleapis.com/${event.data.bucket}/${filePath}`;
+
+      await updateFirestoreImageUrl(originalUrl, webpUrl, filePath);
+
+      // Delete the original non-WebP file to save storage
+      await bucket.file(filePath).delete();
+
+      console.log(`Successfully converted ${filePath} → ${webpFilePath}`);
+    } catch (err) {
+      console.error(`WebP conversion error for ${filePath}:`, err);
+    } finally {
+      // Clean up temp files
+      if (fs.existsSync(tempFilePath)) fs.unlinkSync(tempFilePath);
+      if (fs.existsSync(tempWebpPath)) fs.unlinkSync(tempWebpPath);
+    }
+  }
+);
+
+// Finds the vendor in Firestore that has the old image URL and replaces it with the WebP URL
+async function updateFirestoreImageUrl(oldUrl, newUrl, filePath) {
+  try {
+    // Work out which vendor this belongs to from the file path
+    // Path format: vendor-gallery-images/{uid}/timestamp-filename.jpg
+    const parts = filePath.split("/");
+    if (parts.length < 2) return;
+    const uid = parts[1];
+
+    const vendorRef = db.collection("vendors").doc(uid);
+    const vendorSnap = await vendorRef.get();
+    if (!vendorSnap.exists) return;
+
+    const vendorData = vendorSnap.data();
+    const updates = {};
+
+    // Check coverImageUrl
+    if (vendorData.coverImageUrl === oldUrl) {
+      updates.coverImageUrl = newUrl;
+    }
+
+    // Check profileImageUrl
+    if (vendorData.profileImageUrl === oldUrl) {
+      updates.profileImageUrl = newUrl;
+    }
+
+    // Check logoUrl
+    if (vendorData.logoUrl === oldUrl) {
+      updates.logoUrl = newUrl;
+    }
+
+    // Check images array
+    if (Array.isArray(vendorData.images)) {
+      const updatedImages = vendorData.images.map(url => url === oldUrl ? newUrl : url);
+      if (JSON.stringify(updatedImages) !== JSON.stringify(vendorData.images)) {
+        updates.images = updatedImages;
+        // Also update coverImageUrl if it was the first image
+        if (!updates.coverImageUrl && vendorData.images[0] === oldUrl) {
+          updates.coverImageUrl = newUrl;
+        }
+      }
+    }
+
+    if (Object.keys(updates).length > 0) {
+      await vendorRef.update(updates);
+      console.log(`Updated Firestore for vendor ${uid}:`, updates);
+    }
+
+    // Also check boutique products
+    const productsSnap = await db.collection("boutiqueProducts")
+      .where("vendorId", "==", uid)
+      .get();
+
+    for (const productDoc of productsSnap.docs) {
+      const product = productDoc.data();
+      if (Array.isArray(product.images)) {
+        const updatedImages = product.images.map(url => url === oldUrl ? newUrl : url);
+        if (JSON.stringify(updatedImages) !== JSON.stringify(product.images)) {
+          await productDoc.ref.update({ images: updatedImages });
+          console.log(`Updated boutique product ${productDoc.id}`);
+        }
+      }
+    }
+  } catch (err) {
+    console.error("Firestore URL update error:", err);
+  }
+}
 
 async function getConstantContactAccessToken() {
   const tokenRef = db.collection("constantContact").doc("tokens");
@@ -177,7 +333,6 @@ app.post("/add-to-constant-contact", async (req, res) => {
 });
 
 // ── MESSAGE NOTIFICATION ──
-// Called when a new message is sent — notifies the recipient
 app.post("/send-message-notification", async (req, res) => {
   try {
     const {
@@ -193,8 +348,6 @@ app.post("/send-message-notification", async (req, res) => {
       return res.status(400).json({ error: "Missing required fields." });
     }
 
-    // Smart notification — only send if recipient has no unread messages already
-    // (prevents spam if someone sends multiple messages quickly)
     const convSnap = await db.collection("conversations").doc(conversationId).get();
     if (!convSnap.exists) {
       return res.status(404).json({ error: "Conversation not found." });
@@ -205,7 +358,6 @@ app.post("/send-message-notification", async (req, res) => {
       ? (conv.vendorUnread || 0)
       : (conv.coupleUnread || 0);
 
-    // Only send email if this is the first unread message
     if (unreadCount > 1) {
       return res.json({ success: true, skipped: true, reason: "Already has unread messages." });
     }
@@ -236,29 +388,20 @@ app.post("/send-message-notification", async (req, res) => {
             <tr>
               <td align="center">
                 <table width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;">
-
-                  <!-- Logo -->
                   <tr>
                     <td align="center" style="padding-bottom: 28px;">
                       <img src="${SITE_URL}/images/logo.png" alt="Our Wedding Day Hub" width="90" style="display:block;">
                     </td>
                   </tr>
-
-                  <!-- Card -->
                   <tr>
                     <td style="background:#fffaf7; border-radius:24px; border:1px solid rgba(223,210,200,0.9); padding:40px 36px;">
-
                       <p style="margin:0 0 8px; font-size:12px; letter-spacing:0.2em; text-transform:uppercase; color:#b08d7d;">New Message</p>
-
                       <h1 style="margin:0 0 16px; font-family:'Georgia',serif; font-size:28px; font-weight:400; color:#3b2f2a; line-height:1.1;">
                         ${senderName} sent you a message
                       </h1>
-
                       <p style="margin:0 0 24px; color:#9b8579; line-height:1.75; font-size:15px;">
                         Hi ${recipientName || "there"}, you have a new message waiting for you on Our Wedding Day Hub.
                       </p>
-
-                      <!-- Message preview -->
                       <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:28px;">
                         <tr>
                           <td style="background:#f4e7df; border-radius:16px; padding:20px 22px; border-left:3px solid #a97c66;">
@@ -269,8 +412,6 @@ app.post("/send-message-notification", async (req, res) => {
                           </td>
                         </tr>
                       </table>
-
-                      <!-- CTA -->
                       <table width="100%" cellpadding="0" cellspacing="0">
                         <tr>
                           <td align="center">
@@ -280,16 +421,12 @@ app.post("/send-message-notification", async (req, res) => {
                           </td>
                         </tr>
                       </table>
-
                       <p style="margin:28px 0 0; color:#b08d7d; font-size:13px; text-align:center; line-height:1.7;">
                         You're receiving this because someone messaged you on<br>
                         <a href="${SITE_URL}" style="color:#a97c66;">ourweddingdayhub.com</a>
                       </p>
-
                     </td>
                   </tr>
-
-                  <!-- Footer -->
                   <tr>
                     <td align="center" style="padding-top:24px;">
                       <p style="margin:0; color:#b08d7d; font-size:12px; line-height:1.7;">
@@ -298,7 +435,6 @@ app.post("/send-message-notification", async (req, res) => {
                       </p>
                     </td>
                   </tr>
-
                 </table>
               </td>
             </tr>
@@ -316,7 +452,6 @@ app.post("/send-message-notification", async (req, res) => {
 });
 
 // ── ENQUIRY NOTIFICATION ──
-// Called when a couple submits a booking enquiry — notifies the vendor
 app.post("/send-enquiry-notification", async (req, res) => {
   try {
     const {
@@ -350,29 +485,20 @@ app.post("/send-enquiry-notification", async (req, res) => {
             <tr>
               <td align="center">
                 <table width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;">
-
-                  <!-- Logo -->
                   <tr>
                     <td align="center" style="padding-bottom: 28px;">
                       <img src="${SITE_URL}/images/logo.png" alt="Our Wedding Day Hub" width="90" style="display:block;">
                     </td>
                   </tr>
-
-                  <!-- Card -->
                   <tr>
                     <td style="background:#fffaf7; border-radius:24px; border:1px solid rgba(223,210,200,0.9); padding:40px 36px;">
-
                       <p style="margin:0 0 8px; font-size:12px; letter-spacing:0.2em; text-transform:uppercase; color:#b08d7d;">New Enquiry</p>
-
                       <h1 style="margin:0 0 16px; font-family:'Georgia',serif; font-size:28px; font-weight:400; color:#3b2f2a; line-height:1.1;">
                         ${coupleName} sent you a booking enquiry
                       </h1>
-
                       <p style="margin:0 0 24px; color:#9b8579; line-height:1.75; font-size:15px;">
                         Hi ${vendorName || "there"}, you have a new booking enquiry on Our Wedding Day Hub.
                       </p>
-
-                      <!-- Enquiry details -->
                       <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:20px;">
                         <tr>
                           <td style="background:#f4e7df; border-radius:16px; padding:20px 22px; border-left:3px solid #a97c66;">
@@ -383,13 +509,9 @@ app.post("/send-enquiry-notification", async (req, res) => {
                           </td>
                         </tr>
                       </table>
-
-                      <!-- Reply hint -->
                       <p style="margin:0 0 24px; color:#9b8579; font-size:14px; line-height:1.7;">
                         Reply directly to <a href="mailto:${coupleEmail}" style="color:#a97c66;">${coupleEmail}</a> or view the enquiry in your dashboard.
                       </p>
-
-                      <!-- CTA -->
                       <table width="100%" cellpadding="0" cellspacing="0">
                         <tr>
                           <td align="center">
@@ -399,16 +521,12 @@ app.post("/send-enquiry-notification", async (req, res) => {
                           </td>
                         </tr>
                       </table>
-
                       <p style="margin:28px 0 0; color:#b08d7d; font-size:13px; text-align:center; line-height:1.7;">
                         You're receiving this because someone enquired through your profile on<br>
                         <a href="${SITE_URL}" style="color:#a97c66;">ourweddingdayhub.com</a>
                       </p>
-
                     </td>
                   </tr>
-
-                  <!-- Footer -->
                   <tr>
                     <td align="center" style="padding-top:24px;">
                       <p style="margin:0; color:#b08d7d; font-size:12px; line-height:1.7;">
@@ -417,7 +535,6 @@ app.post("/send-enquiry-notification", async (req, res) => {
                       </p>
                     </td>
                   </tr>
-
                 </table>
               </td>
             </tr>
