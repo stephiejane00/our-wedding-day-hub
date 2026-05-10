@@ -553,14 +553,10 @@
   </div>
 
   <!-- TABS -->
-  <div class="messages-tabs">
+  <div class="messages-tabs" style="display:none;">
     <button class="tab-btn active" data-tab="messages" onclick="switchTab('messages')">
       Messages
       <span class="tab-badge" id="msgTabBadge" style="display:none;">0</span>
-    </button>
-    <button class="tab-btn" data-tab="enquiries" onclick="switchTab('enquiries')">
-      Enquiries
-      <span class="tab-badge" id="enqTabBadge" style="display:none;">0</span>
     </button>
   </div>
 
@@ -605,18 +601,6 @@
     </div>
   </div>
 
-  <!-- ENQUIRIES TAB -->
-  <div class="tab-panel" id="tab-enquiries">
-    <div class="messages-panel">
-      <div id="enquiryList" class="enquiry-list">
-        <div class="empty-state"><p>Loading…</p></div>
-      </div>
-      <div id="enquiryEmpty" style="display:none;" class="empty-state">
-        <p>No enquiries yet</p>
-        <small>Enquiries submitted through your vendor profile will appear here.</small>
-      </div>
-    </div>
-  </div>
 
 </main>
 
@@ -684,16 +668,11 @@ import {
   const replyForm       = document.getElementById("replyForm");
   const replyBody       = document.getElementById("replyBody");
   const replyStatus     = document.getElementById("replyStatus");
-  const enquiryList     = document.getElementById("enquiryList");
-  const enquiryEmpty    = document.getElementById("enquiryEmpty");
   const msgTabBadge     = document.getElementById("msgTabBadge");
-  const enqTabBadge     = document.getElementById("enqTabBadge");
   const navMsgBadge     = document.getElementById("navMsgBadge");
   const messagesNavLink = document.getElementById("messagesNavLink");
   const pageSubtitle    = document.getElementById("pageSubtitle");
   const backLink        = document.getElementById("backLink");
-  const tabEnquiries    = document.querySelector('[data-tab="enquiries"]');
-  const tabPanelEnq     = document.getElementById("tab-enquiries");
 
   function timeAgo(ts) {
     if (!ts) return "";
@@ -853,10 +832,6 @@ import {
 
   // ── COUPLE: load their sent conversations ──
   function loadCoupleConversations(uid) {
-    // Hide the enquiries tab entirely for couples
-    if (tabEnquiries)  tabEnquiries.style.display  = "none";
-    if (tabPanelEnq)   tabPanelEnq.style.display   = "none";
-
     onSnapshot(
       query(collection(db, "conversations"), where("coupleId", "==", uid), orderBy("lastMessageAt", "desc")),
       (snap) => {
@@ -894,57 +869,6 @@ import {
     );
   }
 
-  // ── VENDOR: enquiries tab ──
-  function loadEnquiries(uid) {
-    onSnapshot(
-      query(collection(db, "enquiries"), where("vendorId", "==", uid), orderBy("createdAt", "desc")),
-      (snap) => {
-        enquiryList.innerHTML = "";
-        let newCount = 0;
-        if (snap.empty) { enquiryEmpty.style.display = "block"; return; }
-        enquiryEmpty.style.display = "none";
-        snap.forEach(enqDoc => {
-          const e = enqDoc.data();
-          if (e.status === "new") newCount++;
-          const item = document.createElement("div");
-          item.className = "enquiry-item" + (e.status === "new" ? " new-enquiry" : "");
-          const header = document.createElement("div");
-          header.className = "enquiry-header";
-          const nameWrap = document.createElement("div");
-          const nameEl = document.createElement("p"); nameEl.className = "enquiry-name"; nameEl.textContent = e.coupleName || "Couple";
-          const emailEl = document.createElement("p"); emailEl.className = "enquiry-email"; emailEl.textContent = e.coupleEmail || "";
-          nameWrap.appendChild(nameEl); nameWrap.appendChild(emailEl);
-          const dateBadge = document.createElement("span");
-          dateBadge.className = "enquiry-date-badge";
-          dateBadge.textContent = e.preferredDate ? `Preferred date: ${e.preferredDate}` : "No date specified";
-          header.appendChild(nameWrap); header.appendChild(dateBadge);
-          const msgEl = document.createElement("p"); msgEl.className = "enquiry-message"; msgEl.textContent = e.message || "";
-          const statusRow = document.createElement("div"); statusRow.className = "enquiry-status-row";
-          ["new", "responded", "declined"].forEach(s => {
-            const btn = document.createElement("button"); btn.type = "button";
-            btn.className = "enquiry-status-btn" + (e.status === s ? " active" : "");
-            btn.textContent = s.charAt(0).toUpperCase() + s.slice(1);
-            btn.addEventListener("click", async () => {
-              try { await updateDoc(doc(db, "enquiries", enqDoc.id), { status: s }); } catch (err) { console.error(err); }
-            });
-            statusRow.appendChild(btn);
-          });
-          item.appendChild(header);
-          item.appendChild(msgEl);
-          item.appendChild(statusRow);
-          if (e.coupleEmail) {
-            const hint = document.createElement("p"); hint.className = "enquiry-reply-hint";
-            hint.textContent = `Reply directly to ${e.coupleEmail}`;
-            item.appendChild(hint);
-          }
-          enquiryList.appendChild(item);
-        });
-        if (newCount > 0) { enqTabBadge.textContent = newCount; enqTabBadge.style.display = "inline-flex"; }
-        else enqTabBadge.style.display = "none";
-      }
-    );
-  }
-
   // ── AUTH & ROLE DETECTION ──
   onAuthStateChanged(auth, async (user) => {
     if (!user) { window.location.href = "login.html"; return; }
@@ -956,7 +880,6 @@ import {
       const userSnap = await getDoc(doc(db, "users", user.uid));
       userRole = userSnap.exists() ? (userSnap.data().role || "couple") : "couple";
     } catch {
-      // Fall back: check vendors collection
       try {
         const vendorSnap = await getDoc(doc(db, "vendors", user.uid));
         userRole = vendorSnap.exists() ? "vendor" : "couple";
@@ -964,10 +887,9 @@ import {
     }
 
     if (userRole === "vendor") {
-      pageSubtitle.textContent = "Your conversations and enquiries from couples";
+      pageSubtitle.textContent = "Your conversations from couples";
       backLink.href = "dashboard.html";
       loadVendorConversations(user.uid);
-      loadEnquiries(user.uid);
     } else {
       pageSubtitle.textContent = "Your conversations with wedding vendors";
       backLink.href = "couple-dashboard.html";
