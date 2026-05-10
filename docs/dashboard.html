@@ -145,6 +145,9 @@
     .dashboard-save-bar .pretty-button { min-width: 220px; }
     .form-message { text-align: center; margin-top: 12px; color: var(--lux-muted); font-size: 0.9rem; min-height: 1.2em; }
 
+    .panel-save-row { display: flex; align-items: center; gap: 14px; margin-top: 20px; padding-top: 18px; border-top: 1px solid rgba(223, 210, 200, 0.5); }
+    .panel-save-msg { font-size: 0.88rem; color: var(--lux-muted); font-style: italic; font-family: "Cormorant Garamond", serif; min-height: 1.2em; }
+
     /* ── MESSAGES SUMMARY — single clean box ── */
     .msg-summary-box {
       background: linear-gradient(180deg, #fffdfb 0%, #fff8f4 100%);
@@ -219,7 +222,6 @@
           <p class="dashboard-hero-text">Update your business details, upload your brand assets and media, choose your categories and service locations, and control when your profile appears.</p>
           <div class="dashboard-actions">
             <a href="#" id="viewProfileBtn" class="apply-button" style="display:none;">View Public Profile</a>
-            <button type="button" id="saveTopBtn" class="pretty-button">Save Changes</button>
           </div>
         </div>
         <div class="dashboard-hero-image-wrap">
@@ -259,6 +261,10 @@
             <label for="profileLive" style="margin:0;">Make my profile live on the hub</label>
           </div>
           <p class="dashboard-help" style="margin-top:14px;">Turn this on when you are ready for couples to see your profile. Your listing can appear when your account is active and you have either a paid plan or complimentary vendor access.</p>
+          <div class="panel-save-row">
+            <button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button>
+            <span class="panel-save-msg" id="msg-status"></span>
+          </div>
         </div>
       </div>
     </section>
@@ -329,6 +335,10 @@
             </div>
             <p class="dashboard-help">Use clear location wording here so couples can find you more easily in search results.</p>
             <div class="dashboard-field" style="margin-top:14px;"><label for="bio">Bio</label><textarea id="bio" rows="6" placeholder="Tell couples about your business..."></textarea></div>
+            <div class="panel-save-row">
+              <button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button>
+              <span class="panel-save-msg" id="msg-business"></span>
+            </div>
           </div>
         </div>
       </div>
@@ -392,6 +402,10 @@
               <div id="blockedDateList" class="date-chip-list"></div>
               <div class="calendar-tip-box">Your booking link will show as a Book Now button on your public profile if filled in. Couples will also be able to choose a preferred date using the enquiry form, and unavailable dates will be checked before they send it.</div>
             </div>
+            <div class="panel-save-row">
+              <button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button>
+              <span class="panel-save-msg" id="msg-booking"></span>
+            </div>
           </div>
         </div>
       </div>
@@ -427,6 +441,10 @@
                 <div id="logoFileName" class="selected-file-note"></div>
               </div>
             </div>
+            <div class="panel-save-row">
+              <button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button>
+              <span class="panel-save-msg" id="msg-assets"></span>
+            </div>
           </div>
         </div>
       </div>
@@ -454,6 +472,10 @@
             </div>
             <div id="imagePreview" class="media-preview-grid"></div>
             <div id="videoPreview" class="media-preview-grid"></div>
+            <div class="panel-save-row">
+              <button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button>
+              <span class="panel-save-msg" id="msg-media"></span>
+            </div>
           </div>
         </div>
       </div>
@@ -473,7 +495,13 @@
       </div>
       <div class="panel-divider"></div>
       <div class="panel-body" id="body-styles">
-        <div class="panel-body-inner"><div class="dashboard-card-soft" style="margin-top:16px;"><div id="styleTagOptions" class="mini-pill-grid"></div></div></div>
+        <div class="panel-body-inner">
+          <div class="dashboard-card-soft" style="margin-top:16px;"><div id="styleTagOptions" class="mini-pill-grid"></div></div>
+          <div class="panel-save-row">
+            <button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button>
+            <span class="panel-save-msg" id="msg-styles"></span>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -496,6 +524,10 @@
             <div id="categoryOptions" class="dropdown-content-form"></div>
             <p class="dashboard-help">Choose the specific services you offer. These match the categories couples browse on the website.</p>
           </div>
+          <div class="panel-save-row">
+            <button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button>
+            <span class="panel-save-msg" id="msg-categories"></span>
+          </div>
         </div>
       </div>
     </section>
@@ -507,7 +539,7 @@
           <div class="panel-header-icon">✶</div>
           <div class="panel-header-text">
             <h2 class="panel-header-title">Countries You Service</h2>
-            <p class="panel-header-subtitle">Where you work</p>
+            <p class="panel-header-subtitle">Where you genuinely work</p>
           </div>
         </div>
         <div class="panel-toggle-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
@@ -518,6 +550,10 @@
           <div class="dashboard-card-soft" style="margin-top:16px;">
             <div id="countryOptions" class="dropdown-content-form"></div>
             <p class="dashboard-help">Select the countries you genuinely service. This helps your profile appear in country and broader region searches like Asia, Europe, North America and more.</p>
+          </div>
+          <div class="panel-save-row">
+            <button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button>
+            <span class="panel-save-msg" id="msg-countries"></span>
           </div>
         </div>
       </div>
@@ -542,6 +578,10 @@
             <div id="stateOptions" class="dropdown-content-form"><p class="small-text">Select countries first.</p></div>
             <p class="dashboard-help">Add your main states, provinces or territories so couples can narrow their search more easily.</p>
           </div>
+          <div class="panel-save-row">
+            <button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button>
+            <span class="panel-save-msg" id="msg-states"></span>
+          </div>
         </div>
       </div>
     </section>
@@ -564,6 +604,10 @@
           <div class="dashboard-card-soft" style="margin-top:16px;">
             <div id="regionOptions" class="dropdown-content-form"><p class="small-text">Select states, provinces or territories first.</p></div>
             <p class="dashboard-help">Choose the cities, regions or local areas you service. The more accurate this is, the easier it is for couples to find you.</p>
+          </div>
+          <div class="panel-save-row">
+            <button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button>
+            <span class="panel-save-msg" id="msg-regions"></span>
           </div>
         </div>
       </div>
@@ -681,13 +725,6 @@
       </div>
     </section>
 
-    <!-- ── SAVE BAR ── -->
-    <section class="dashboard-panel panel-static">
-      <div class="dashboard-save-bar">
-        <button type="button" id="saveBtn" class="pretty-button">Save Changes</button>
-      </div>
-      <p id="message" class="form-message"></p>
-    </section>
 
   </div>
 </main>
@@ -785,10 +822,7 @@ import { LOCATION_DATA } from "./locations.js";
   const logoPreview = document.getElementById("logoPreview");
   const logoEmpty = document.getElementById("logoEmpty");
   const profileLive = document.getElementById("profileLive");
-  const saveBtn = document.getElementById("saveBtn");
-  const saveTopBtn = document.getElementById("saveTopBtn");
   const viewProfileBtn = document.getElementById("viewProfileBtn");
-  const message = document.getElementById("message");
   const accountStatusText = document.getElementById("accountStatusText");
   const subscriptionStatusText = document.getElementById("subscriptionStatusText");
   const viewsStatusText = document.getElementById("viewsStatusText");
@@ -974,8 +1008,9 @@ import { LOCATION_DATA } from "./locations.js";
 
   async function saveAccountSettings() { if (!currentUser) return; accountMessage.textContent = "Updating account..."; try { const n = accountName.value.trim(); const e = accountEmail.value.trim().toLowerCase(); const p = accountPassword.value.trim(); await setDoc(doc(db,"users",currentUser.uid), { name:n, email:e, role:"vendor", updatedAt:serverTimestamp() }, { merge:true }); if (e && e !== currentUser.email) await updateEmail(currentUser, e); if (p) { if (p.length < 6) { accountMessage.textContent = "Password must be at least 6 characters."; return; } await updatePassword(currentUser, p); } await setDoc(doc(db,"vendors",currentUser.uid), { email:e }, { merge:true }); email.value = e; accountPassword.value = ""; accountMessage.textContent = "Account details updated successfully."; } catch (err) { console.error(err); accountMessage.textContent = "Could not update. You may need to log in again first."; } }
 
-  async function saveVendorData() {
-    if (!currentUser) return; message.textContent = "Saving...";
+  async function saveVendorData(showMsg) {
+    const show = showMsg || (() => {});
+    if (!currentUser) return;
     try {
       const vSnap = await getDoc(doc(db,"vendors",currentUser.uid)); const ev = vSnap.exists() ? vSnap.data() : {};
       currentVendorAccess = { subscriptionActive: ev.subscriptionActive===true, paidSetupFee: ev.paidSetupFee===true, complimentaryPlan: ev.complimentaryPlan===true, plan: ev.plan||"", accessType: ev.accessType||"", membershipTier: ev.membershipTier||"", tier: ev.tier||"", shopAccess: ev.shopAccess===true, accountStatus: ev.accountStatus||"active", profileVisible: ev.profileVisible===true, published: ev.published===true };
@@ -994,12 +1029,22 @@ import { LOCATION_DATA } from "./locations.js";
       profileImageFileName.textContent = ""; logoFileName.textContent = ""; galleryImageFileName.textContent = ""; galleryVideoFileName.textContent = "";
       setSingleImagePreview(pi, profileImagePreview, profileImageEmpty); setSingleImagePreview(li, logoPreview, logoEmpty);
       setImagePreview(); setVideoPreview(); renderBlockedDates(); updateViewProfileVisibility(currentVendorAccess); updateBoutiqueAccessVisibility(currentVendorAccess);
-      message.textContent = "Your changes have been saved.";
-    } catch (err) { console.error(err); message.textContent = "There was a problem saving your changes."; }
+      show("Your changes have been saved ♡");
+    } catch (err) { console.error(err); show("There was a problem saving your changes."); }
   }
 
-  saveBtn.addEventListener("click", saveVendorData);
-  saveTopBtn.addEventListener("click", saveVendorData);
+  // ── GLOBAL SAVE — called by each panel's Save button ──
+  window.saveVendorProfile = async function(btn) {
+    const row = btn.closest(".panel-save-row");
+    const msgEl = row ? row.querySelector(".panel-save-msg") : null;
+    const show = (text) => { if (msgEl) msgEl.textContent = text; };
+    show("Saving…");
+    btn.disabled = true;
+    await saveVendorData(show);
+    btn.disabled = false;
+    setTimeout(() => show(""), 3000);
+  };
+
   saveAccountBtn.addEventListener("click", saveAccountSettings);
   saveProductBtn.addEventListener("click", saveBoutiqueProduct);
 
