@@ -7,525 +7,108 @@
   <link rel="stylesheet" href="style.css">
   <style>
     :root {
-      --lux-espresso: #3b2f2a;
-      --lux-rose:     #c8a6a1;
-      --lux-champagne:#c6a77d;
-      --lux-cream:    #fffaf7;
-      --lux-blush:    #f4e7df;
-      --lux-border:   rgba(216, 197, 189, 0.55);
-      --lux-muted:    #9b8579;
-      --lux-shadow:   rgba(59, 47, 42, 0.08);
+      --lux-espresso: #3b2f2a; --lux-rose: #c8a6a1; --lux-champagne: #c6a77d;
+      --lux-cream: #fffaf7; --lux-blush: #f4e7df; --lux-border: rgba(216, 197, 189, 0.55);
+      --lux-muted: #9b8579; --lux-shadow: rgba(59, 47, 42, 0.08);
     }
+    body { background: radial-gradient(circle at top left, rgba(200, 166, 161, 0.12), transparent 32%), #f7f1ed; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes heroFadeIn { from { opacity: 0; transform: scale(1.01); } to { opacity: 1; transform: scale(1); } }
 
-    body {
-      background:
-        radial-gradient(circle at top left, rgba(200, 166, 161, 0.12), transparent 32%),
-        #f7f1ed;
-    }
+    .page-auth { position: sticky; top: 0; z-index: 200; background: rgba(247, 241, 237, 0.96); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(223, 210, 200, 0.5); }
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(10px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+    /* ── HERO ── */
+    .messages-hero-card { border-radius: 36px; border: 1px solid rgba(227, 219, 212, 0.9); box-shadow: 0 24px 70px var(--lux-shadow); background: radial-gradient(circle at top left, rgba(200, 166, 161, 0.18), transparent 34%), linear-gradient(135deg, #fffaf7, #f4ebe5); overflow: hidden; padding: 0; max-width: 1100px; margin: 18px auto 0; }
+    .messages-hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; align-items: stretch; min-height: 300px; }
+    .messages-hero-copy { padding: 44px 48px; display: flex; flex-direction: column; justify-content: center; }
+    .messages-hero-copy > * { animation: fadeUp 0.8s ease forwards; opacity: 0; }
+    .messages-hero-copy > *:nth-child(1) { animation-delay: 0.05s; }
+    .messages-hero-copy > *:nth-child(2) { animation-delay: 0.1s; }
+    .messages-hero-copy > *:nth-child(3) { animation-delay: 0.18s; }
+    .messages-hero-copy > *:nth-child(4) { animation-delay: 0.26s; }
+    .messages-hero-logo { width: 52px; display: block; margin-bottom: 14px; transition: transform 0.3s ease; }
+    .messages-hero-logo:hover { transform: scale(1.04); }
+    .messages-hero-kicker { margin: 0 0 10px; font-size: 0.78rem; letter-spacing: 0.28em; text-transform: uppercase; color: #b08d7d; opacity: 0.85; }
+    .messages-hero-title { margin: 0 0 10px; font-family: "Cormorant Garamond", serif; font-size: clamp(2.2rem, 4vw, 3.2rem); font-weight: 500; line-height: 0.96; letter-spacing: -0.045em; color: var(--lux-espresso); }
+    .messages-hero-script { margin: 0; font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 1.1rem; color: #c69b84; opacity: 0.9; }
+    .messages-hero-image-wrap { position: relative; overflow: hidden; min-height: 100%; background: #f4ece6; }
+    .messages-hero-image-wrap::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(59, 47, 42, 0.08), transparent 45%); pointer-events: none; }
+    .messages-hero-image { width: 100%; height: 100%; display: block; object-fit: cover; filter: brightness(0.98) contrast(0.94) saturate(0.92); opacity: 0; animation: heroFadeIn 0.9s ease forwards; }
+    @media (max-width: 800px) { .messages-hero-grid { grid-template-columns: 1fr; } .messages-hero-copy { padding: 28px 20px; } .messages-hero-image-wrap { min-height: 180px; } }
 
-    .messages-page {
-      max-width: 1100px;
-      margin: 0 auto 48px;
-      padding: 18px 20px 0;
-      animation: fadeUp 0.5s ease forwards;
-    }
-
-    /* ── PAGE HEADER ── */
-    .messages-page-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 28px;
-      flex-wrap: wrap;
-    }
-
-    .messages-back-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--lux-muted);
-      text-decoration: none;
-      font-size: 0.88rem;
-      font-weight: 600;
-      transition: color 0.18s ease;
-    }
+    /* ── PAGE ── */
+    .messages-page { max-width: 1100px; margin: 0 auto 48px; padding: 20px 20px 0; animation: fadeUp 0.5s ease forwards; }
+    .messages-page-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
+    .messages-back-link { display: inline-flex; align-items: center; gap: 8px; color: var(--lux-muted); text-decoration: none; font-size: 0.88rem; font-weight: 600; transition: color 0.18s ease; }
     .messages-back-link:hover { color: var(--lux-espresso); }
-
-    .messages-page-title {
-      font-family: "Cormorant Garamond", serif;
-      font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 500;
-      letter-spacing: -0.04em;
-      color: var(--lux-espresso);
-      margin: 0;
-      line-height: 1;
-    }
-
-    .messages-page-subtitle {
-      color: var(--lux-muted);
-      font-size: 0.93rem;
-      margin: 6px 0 0;
-    }
+    .messages-page-subtitle { color: var(--lux-muted); font-size: 0.93rem; margin: 4px 0 0; }
 
     /* ── TABS ── */
-    .messages-tabs {
-      display: flex;
-      gap: 4px;
-      margin-bottom: 20px;
-      background: rgba(255, 250, 247, 0.8);
-      border: 1px solid rgba(223, 210, 200, 0.8);
-      border-radius: 18px;
-      padding: 5px;
-      width: fit-content;
-    }
-
-    .tab-btn {
-      padding: 10px 22px;
-      border-radius: 14px;
-      border: none;
-      background: transparent;
-      font: inherit;
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: var(--lux-muted);
-      cursor: pointer;
-      transition: all 0.18s ease;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+    .messages-tabs { display: flex; gap: 4px; margin-bottom: 20px; background: rgba(255, 250, 247, 0.8); border: 1px solid rgba(223, 210, 200, 0.8); border-radius: 18px; padding: 5px; width: fit-content; }
+    .tab-btn { padding: 10px 22px; border-radius: 14px; border: none; background: transparent; font: inherit; font-size: 0.9rem; font-weight: 600; color: var(--lux-muted); cursor: pointer; transition: all 0.18s ease; display: flex; align-items: center; gap: 8px; }
     .tab-btn:hover { color: var(--lux-espresso); background: rgba(244, 231, 223, 0.4); }
-    .tab-btn.active {
-      background: linear-gradient(135deg, #d6b19a, #a97c66);
-      color: #fffaf7;
-      box-shadow: 0 4px 14px rgba(185, 143, 122, 0.2);
-    }
+    .tab-btn.active { background: linear-gradient(135deg, #d6b19a, #a97c66); color: #fffaf7; box-shadow: 0 4px 14px rgba(185, 143, 122, 0.2); }
+    .tab-badge { display: inline-flex; align-items: center; justify-content: center; min-width: 20px; height: 20px; border-radius: 999px; background: rgba(169, 124, 102, 0.15); color: inherit; font-size: 0.72rem; font-weight: 700; padding: 0 6px; }
     .tab-btn.active .tab-badge { background: rgba(255,255,255,0.3); }
 
-    .tab-badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 20px;
-      height: 20px;
-      border-radius: 999px;
-      background: rgba(169, 124, 102, 0.15);
-      color: inherit;
-      font-size: 0.72rem;
-      font-weight: 700;
-      padding: 0 6px;
-    }
-
     /* ── PANEL ── */
-    .messages-panel {
-      border-radius: 24px;
-      border: 1px solid rgba(223, 210, 200, 0.9);
-      background: rgba(255, 250, 247, 0.95);
-      box-shadow: 0 6px 24px var(--lux-shadow);
-      overflow: hidden;
-    }
+    .messages-panel { border-radius: 24px; border: 1px solid rgba(223, 210, 200, 0.9); background: rgba(255, 250, 247, 0.95); box-shadow: 0 6px 24px var(--lux-shadow); overflow: hidden; }
+    .messages-layout { display: grid; grid-template-columns: 320px 1fr; min-height: 600px; }
+    .messages-sidebar { border-right: 1px solid rgba(223, 210, 200, 0.7); overflow-y: auto; max-height: 700px; }
 
-    /* ── LAYOUT: sidebar + main ── */
-    .messages-layout {
-      display: grid;
-      grid-template-columns: 320px 1fr;
-      min-height: 600px;
-    }
+    /* ── SEARCH ── */
+    .sidebar-search { padding: 14px 14px 10px; border-bottom: 1px solid rgba(223, 210, 200, 0.5); }
+    .sidebar-search-label { display: block; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #b08d7d; margin-bottom: 7px; }
+    .sidebar-search-wrap { position: relative; }
+    .sidebar-search-icon { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); color: var(--lux-muted); font-size: 1rem; pointer-events: none; line-height: 1; }
+    .sidebar-search input { width: 100%; border: 1px solid #eadfd6; border-radius: 12px; background: #fffdfb; padding: 9px 12px 9px 32px; font-size: 0.88rem; color: #2d221c; box-sizing: border-box; font: inherit; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+    .sidebar-search input:focus { outline: none; border-color: #d6bcad; box-shadow: 0 0 0 3px rgba(217, 194, 178, 0.16); }
 
-    .messages-sidebar {
-      border-right: 1px solid rgba(223, 210, 200, 0.7);
-      overflow-y: auto;
-      max-height: 700px;
-    }
-
-    .sidebar-search {
-      padding: 16px 16px 12px;
-      border-bottom: 1px solid rgba(223, 210, 200, 0.5);
-    }
-
-    .sidebar-search input {
-      width: 100%;
-      border: 1px solid #eadfd6;
-      border-radius: 12px;
-      background: #fffdfb;
-      padding: 10px 14px;
-      font-size: 0.9rem;
-      color: #2d221c;
-      box-sizing: border-box;
-      font: inherit;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
-    }
-    .sidebar-search input:focus {
-      outline: none;
-      border-color: #d6bcad;
-      box-shadow: 0 0 0 3px rgba(217, 194, 178, 0.16);
-    }
-
-    /* ── CONVERSATION LIST ── */
+    /* ── CONV LIST ── */
     .conv-list { padding: 8px; }
-
-    .conv-item {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 10px;
-      align-items: start;
-      padding: 13px 14px;
-      border-radius: 16px;
-      cursor: pointer;
-      transition: all 0.18s ease;
-      margin-bottom: 2px;
-    }
+    .conv-item { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: start; padding: 13px 14px; border-radius: 16px; cursor: pointer; transition: all 0.18s ease; margin-bottom: 2px; }
     .conv-item:hover { background: rgba(244, 231, 223, 0.5); }
     .conv-item.active { background: linear-gradient(135deg, rgba(214, 177, 154, 0.22), rgba(169, 124, 102, 0.12)); }
     .conv-item.unread { border-left: 3px solid #a97c66; padding-left: 11px; }
+    .conv-name { margin: 0 0 3px; font-family: "Cormorant Garamond", serif; font-size: 1rem; font-weight: 500; color: var(--lux-espresso); display: flex; align-items: center; gap: 6px; }
+    .conv-preview { margin: 0; color: var(--lux-muted); font-size: 0.83rem; line-height: 1.4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 220px; }
+    .conv-time { font-size: 0.76rem; color: var(--lux-muted); white-space: nowrap; text-align: right; }
+    .msg-unread-dot { width: 8px; height: 8px; border-radius: 50%; background: #a97c66; flex-shrink: 0; }
 
-    .conv-name {
-      margin: 0 0 3px;
-      font-family: "Cormorant Garamond", serif;
-      font-size: 1rem;
-      font-weight: 500;
-      color: var(--lux-espresso);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .conv-preview {
-      margin: 0;
-      color: var(--lux-muted);
-      font-size: 0.83rem;
-      line-height: 1.4;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 220px;
-    }
-
-    .conv-time {
-      font-size: 0.76rem;
-      color: var(--lux-muted);
-      white-space: nowrap;
-      text-align: right;
-    }
-
-    .msg-unread-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #a97c66;
-      flex-shrink: 0;
-    }
-
-    /* ── THREAD / MAIN AREA ── */
-    .messages-main {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .messages-main-empty {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      gap: 12px;
-      color: var(--lux-muted);
-      font-family: "Cormorant Garamond", serif;
-      font-size: 1.2rem;
-      font-style: italic;
-    }
-
-    .thread-header {
-      padding: 18px 22px;
-      border-bottom: 1px solid rgba(223, 210, 200, 0.6);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .thread-header-name {
-      margin: 0;
-      font-family: "Cormorant Garamond", serif;
-      font-size: 1.4rem;
-      font-weight: 500;
-      color: var(--lux-espresso);
-    }
-
-    .thread-header-sub {
-      margin: 2px 0 0;
-      font-size: 0.83rem;
-      color: var(--lux-muted);
-    }
-
-    .thread-messages {
-      flex: 1;
-      overflow-y: auto;
-      padding: 20px 22px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      max-height: 460px;
-    }
-
+    /* ── THREAD ── */
+    .messages-main { display: flex; flex-direction: column; }
+    .messages-main-empty { flex: 1; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 12px; color: var(--lux-muted); font-family: "Cormorant Garamond", serif; font-size: 1.2rem; font-style: italic; }
+    .thread-header { padding: 18px 22px; border-bottom: 1px solid rgba(223, 210, 200, 0.6); display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .thread-header-name { margin: 0; font-family: "Cormorant Garamond", serif; font-size: 1.4rem; font-weight: 500; color: var(--lux-espresso); }
+    .thread-header-sub { margin: 2px 0 0; font-size: 0.83rem; color: var(--lux-muted); }
+    .thread-messages { flex: 1; overflow-y: auto; padding: 20px 22px; display: flex; flex-direction: column; gap: 12px; max-height: 460px; }
     .msg-bubble-wrap { display: flex; }
     .msg-bubble-wrap.mine { justify-content: flex-end; }
-
-    .msg-bubble {
-      max-width: 68%;
-      padding: 12px 16px;
-      border-radius: 18px;
-      line-height: 1.65;
-      font-size: 0.93rem;
-      word-break: break-word;
-    }
-    .msg-bubble.theirs {
-      background: rgba(247, 241, 237, 0.9);
-      border: 1px solid rgba(223, 210, 200, 0.7);
-      color: #4a3b34;
-      border-bottom-left-radius: 4px;
-    }
-    .msg-bubble.mine {
-      background: linear-gradient(135deg, #3b2f2a, #2a211d);
-      color: #fffaf7;
-      border-bottom-right-radius: 4px;
-    }
-
-    .msg-bubble-time {
-      font-size: 0.75rem;
-      color: var(--lux-muted);
-      margin-top: 4px;
-    }
+    .msg-bubble { max-width: 68%; padding: 12px 16px; border-radius: 18px; line-height: 1.65; font-size: 0.93rem; word-break: break-word; overflow-wrap: break-word; white-space: pre-wrap; }
+    .msg-bubble.theirs { background: rgba(247, 241, 237, 0.9); border: 1px solid rgba(223, 210, 200, 0.7); color: #4a3b34; border-bottom-left-radius: 4px; }
+    .msg-bubble.mine { background: linear-gradient(135deg, #3b2f2a, #2a211d); color: #fffaf7; border-bottom-right-radius: 4px; }
+    .msg-bubble-time { font-size: 0.75rem; color: var(--lux-muted); margin-top: 4px; }
     .msg-bubble-wrap.mine .msg-bubble-time { text-align: right; }
+    .thread-reply { padding: 14px 22px 20px; border-top: 1px solid rgba(223, 210, 200, 0.6); display: grid; gap: 10px; }
+    .thread-reply textarea { width: 100%; border: 1px solid #eadfd6; border-radius: 14px; background: #fffdfb; padding: 12px 14px; font: inherit; font-size: 0.94rem; color: #2d221c; box-sizing: border-box; resize: none; min-height: 80px; transition: border-color 0.2s, box-shadow 0.2s; }
+    .thread-reply textarea:focus { outline: none; border-color: #d6bcad; box-shadow: 0 0 0 4px rgba(217, 194, 178, 0.16); }
+    .thread-reply-actions { display: flex; align-items: center; gap: 12px; }
+    .pretty-button { display: inline-flex; align-items: center; justify-content: center; min-height: 42px; padding: 10px 22px; border-radius: 999px; border: none; font: inherit; font-weight: 700; font-size: 0.9rem; cursor: pointer; text-decoration: none; background: linear-gradient(135deg, #d6b19a, #a97c66); color: #fffaf7; box-shadow: 0 8px 20px rgba(185, 143, 122, 0.2); transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease; }
+    .pretty-button:hover { transform: translateY(-2px); box-shadow: 0 14px 28px rgba(185, 143, 122, 0.28); filter: brightness(1.04); }
+    .reply-status { font-size: 0.87rem; color: var(--lux-muted); }
 
-    .thread-reply {
-      padding: 14px 22px 20px;
-      border-top: 1px solid rgba(223, 210, 200, 0.6);
-      display: grid;
-      gap: 10px;
-    }
-
-    .thread-reply textarea {
-      width: 100%;
-      border: 1px solid #eadfd6;
-      border-radius: 14px;
-      background: #fffdfb;
-      padding: 12px 14px;
-      font: inherit;
-      font-size: 0.94rem;
-      color: #2d221c;
-      box-sizing: border-box;
-      resize: none;
-      min-height: 80px;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .thread-reply textarea:focus {
-      outline: none;
-      border-color: #d6bcad;
-      box-shadow: 0 0 0 4px rgba(217, 194, 178, 0.16);
-    }
-
-    .thread-reply-actions {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .pretty-button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 42px;
-      padding: 10px 22px;
-      border-radius: 999px;
-      border: none;
-      font: inherit;
-      font-weight: 700;
-      font-size: 0.9rem;
-      letter-spacing: 0.04em;
-      cursor: pointer;
-      text-decoration: none;
-      background: linear-gradient(135deg, #d6b19a, #a97c66);
-      color: #fffaf7;
-      box-shadow: 0 8px 20px rgba(185, 143, 122, 0.2);
-      transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
-    }
-    .pretty-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 14px 28px rgba(185, 143, 122, 0.28);
-      filter: brightness(1.04);
-    }
-
-    .apply-button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 42px;
-      padding: 10px 22px;
-      border-radius: 999px;
-      border: 1px solid rgba(223, 210, 200, 0.9);
-      font: inherit;
-      font-weight: 700;
-      font-size: 0.9rem;
-      cursor: pointer;
-      text-decoration: none;
-      background: rgba(255, 250, 247, 0.95);
-      color: var(--lux-espresso);
-      transition: background 0.18s ease, transform 0.18s ease;
-    }
-    .apply-button:hover { background: var(--lux-blush); transform: translateY(-2px); }
-
-    .reply-status {
-      font-size: 0.87rem;
-      color: var(--lux-muted);
-    }
-
-    /* ── ENQUIRIES ── */
-    .enquiry-list { padding: 16px; display: grid; gap: 12px; }
-
-    .enquiry-item {
-      padding: 18px 20px;
-      border-radius: 18px;
-      background: rgba(255, 250, 247, 0.95);
-      border: 1px solid rgba(223, 210, 200, 0.7);
-      transition: box-shadow 0.18s ease;
-    }
-    .enquiry-item:hover { box-shadow: 0 8px 22px var(--lux-shadow); }
-    .enquiry-item.new-enquiry { border-left: 3px solid #a97c66; }
-
-    .enquiry-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 12px;
-      margin-bottom: 10px;
-      flex-wrap: wrap;
-    }
-
-    .enquiry-name {
-      margin: 0 0 3px;
-      font-family: "Cormorant Garamond", serif;
-      font-size: 1.1rem;
-      font-weight: 500;
-      color: var(--lux-espresso);
-    }
-
-    .enquiry-email {
-      margin: 0;
-      font-size: 0.84rem;
-      color: var(--lux-muted);
-    }
-
-    .enquiry-date-badge {
-      display: inline-flex;
-      padding: 5px 12px;
-      border-radius: 999px;
-      background: rgba(244, 231, 223, 0.7);
-      border: 1px solid rgba(214, 190, 174, 0.6);
-      color: #6f5143;
-      font-size: 0.78rem;
-      font-weight: 700;
-      white-space: nowrap;
-    }
-
-    .enquiry-message {
-      margin: 0 0 14px;
-      color: #5b4a43;
-      line-height: 1.75;
-      font-size: 0.93rem;
-    }
-
-    .enquiry-status-row {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    .enquiry-status-btn {
-      padding: 7px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(223,210,200,0.8);
-      background: rgba(255,250,247,0.9);
-      color: var(--lux-espresso);
-      font: inherit;
-      font-size: 0.82rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.18s ease;
-    }
-    .enquiry-status-btn:hover { background: var(--lux-blush); transform: translateY(-1px); }
-    .enquiry-status-btn.active {
-      background: linear-gradient(135deg, #d6b19a, #a97c66);
-      color: #fffaf7;
-      border-color: transparent;
-    }
-
-    .enquiry-reply-hint {
-      margin: 10px 0 0;
-      font-size: 0.84rem;
-      color: var(--lux-muted);
-      font-style: italic;
-      font-family: "Cormorant Garamond", serif;
-    }
-
+    .empty-state { padding: 48px 24px; text-align: center; color: var(--lux-muted); }
+    .empty-state p { font-family: "Cormorant Garamond", serif; font-size: 1.2rem; font-style: italic; margin: 0 0 8px; }
+    .empty-state small { font-size: 0.87rem; }
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
 
-    /* ── EMPTY STATE ── */
-    .empty-state {
-      padding: 52px 24px;
-      text-align: center;
-      color: var(--lux-muted);
-    }
-    .empty-state p {
-      font-family: "Cormorant Garamond", serif;
-      font-size: 1.25rem;
-      font-style: italic;
-      margin: 0 0 8px;
-    }
-    .empty-state small { font-size: 0.87rem; }
+    .site-footer { background: radial-gradient(circle at top, rgba(200, 166, 161, 0.16), transparent 36%), linear-gradient(180deg, #f5eee9 0%, #eee5df 100%); }
+    .footer-title { color: var(--lux-espresso); letter-spacing: -0.035em; }
+    .footer-eyebrow { color: #b08d7d; }
 
-    /* ── UNREAD BADGE ── */
-    .msg-unread-badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 20px;
-      height: 20px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, #d6b19a, #a97c66);
-      color: #fffaf7;
-      font-size: 0.72rem;
-      font-weight: 700;
-      padding: 0 5px;
-      vertical-align: middle;
-    }
-
-    .small-text {
-      color: var(--lux-muted);
-      font-size: 0.88rem;
-      margin: 0;
-      line-height: 1.6;
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 800px) {
-      .messages-layout { grid-template-columns: 1fr; }
-      .messages-sidebar { border-right: none; border-bottom: 1px solid rgba(223, 210, 200, 0.7); max-height: 280px; }
-      .messages-page { padding: 10px 10px 0; }
-    }
-
-    @media (max-width: 600px) {
-      .messages-tabs { width: 100%; }
-      .tab-btn { flex: 1; justify-content: center; }
-    }
+    @media (max-width: 800px) { .messages-layout { grid-template-columns: 1fr; } .messages-sidebar { border-right: none; border-bottom: 1px solid rgba(223, 210, 200, 0.7); max-height: 280px; } .messages-page { padding: 10px 10px 0; } }
+    @media (max-width: 600px) { .messages-tabs { width: 100%; } .tab-btn { flex: 1; justify-content: center; } }
   </style>
 </head>
 <body>
@@ -536,45 +119,57 @@
   <a href="messages.html" id="messagesNavLink" class="auth-link" style="display:none;">
     Messages <span id="navMsgBadge" style="display:none; background:linear-gradient(135deg,#d6b19a,#a97c66); color:#fffaf7; font-size:0.7rem; font-weight:700; padding:2px 7px; border-radius:999px; margin-left:4px; vertical-align:middle;"></span>
   </a>
-  <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
   <a href="login.html" id="loginLink" class="auth-link">Log In</a>
+  <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
   <a href="dashboard.html" id="dashboardLink" class="auth-link" style="display:none;">Dashboard</a>
   <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
 </div>
 
+<!-- ── HERO ── -->
+<section class="messages-hero-card">
+  <div class="messages-hero-grid">
+    <div class="messages-hero-copy">
+      <a href="index.html" aria-label="Go to homepage">
+        <img src="images/logo.png" alt="Our Wedding Day Hub" class="messages-hero-logo" loading="eager">
+      </a>
+      <p class="messages-hero-kicker">Your conversations</p>
+      <h1 id="heroTitle" class="messages-hero-title">Messages</h1>
+      <p id="heroScript" class="messages-hero-script">every conversation, in one place ♡</p>
+    </div>
+    <div class="messages-hero-image-wrap">
+      <img id="heroImage" src="images/brides.png" alt="Wedding couple" class="messages-hero-image" loading="eager">
+    </div>
+  </div>
+</section>
+
 <main class="messages-page">
 
   <div class="messages-page-header">
-    <div>
-      <a id="backLink" href="dashboard.html" class="messages-back-link">← Back to dashboard</a>
-      <h1 class="messages-page-title">Messages</h1>
-      <p class="messages-page-subtitle" id="pageSubtitle">Your messages</p>
-    </div>
+    <p class="messages-page-subtitle" id="pageSubtitle">Your messages</p>
   </div>
 
-  <!-- TABS -->
   <div class="messages-tabs" style="display:none;">
     <button class="tab-btn active" data-tab="messages" onclick="switchTab('messages')">
-      Messages
-      <span class="tab-badge" id="msgTabBadge" style="display:none;">0</span>
+      Messages <span class="tab-badge" id="msgTabBadge" style="display:none;">0</span>
     </button>
   </div>
 
-  <!-- MESSAGES TAB -->
   <div class="tab-panel active" id="tab-messages">
     <div class="messages-panel">
       <div class="messages-layout">
-        <!-- Sidebar -->
         <div class="messages-sidebar">
           <div class="sidebar-search">
-            <input type="text" id="convSearch" placeholder="Search conversations…" oninput="filterConversations(this.value)">
+            <span class="sidebar-search-label">Search by name</span>
+            <div class="sidebar-search-wrap">
+              <span class="sidebar-search-icon">⌕</span>
+              <input type="text" id="convSearch" placeholder="Type a name…" oninput="filterConversations(this.value)">
+            </div>
           </div>
           <div id="convList" class="conv-list">
             <div class="empty-state"><p>Loading…</p></div>
           </div>
         </div>
 
-        <!-- Thread area -->
         <div class="messages-main" id="messagesMain">
           <div class="messages-main-empty" id="threadEmpty">
             <span style="font-size:2rem; opacity:0.3;">✉</span>
@@ -601,11 +196,13 @@
     </div>
   </div>
 
-
 </main>
 
 <footer class="site-footer">
   <div class="footer-content">
+    <a href="index.html" aria-label="Go to homepage" style="display:inline-block; margin-bottom:18px;">
+      <img src="images/logo.png" alt="Our Wedding Day Hub" style="width:72px; height:72px; object-fit:contain; opacity:0.7;">
+    </a>
     <p class="footer-eyebrow">wedding planning directory</p>
     <h2 class="footer-title">Everything your wedding deserves.</h2>
     <p class="footer-text">Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.</p>
@@ -630,21 +227,27 @@
   function switchTab(tab) {
     document.querySelectorAll(".tab-btn").forEach(b => b.classList.toggle("active", b.dataset.tab === tab));
     document.querySelectorAll(".tab-panel").forEach(p => p.classList.toggle("active", p.id === "tab-" + tab));
-    // If switching to enquiries, mark as visited
-    if (tab === "enquiries") sessionStorage.setItem("enqViewed", "1");
   }
-
-  // Open enquiries tab if hash is #enquiries
   if (window.location.hash === "#enquiries") switchTab("enquiries");
 
-  let allConversations = [];
-
   function filterConversations(query) {
-    const q = query.toLowerCase();
-    document.querySelectorAll(".conv-item[data-id]").forEach(item => {
+    const q = query.toLowerCase().trim();
+    const items = document.querySelectorAll(".conv-item[data-id]");
+    items.forEach(item => {
       const name = (item.dataset.name || "").toLowerCase();
       item.style.display = (!q || name.includes(q)) ? "" : "none";
     });
+    const list = document.getElementById("convList");
+    let hint = list.querySelector(".search-no-results");
+    const visible = [...items].filter(i => i.style.display !== "none");
+    if (q && visible.length === 0) {
+      if (!hint) {
+        hint = document.createElement("div");
+        hint.className = "empty-state search-no-results";
+        hint.innerHTML = `<p style="font-size:1rem;">No results</p><small>Try a different name</small>`;
+        list.appendChild(hint);
+      }
+    } else if (hint) { hint.remove(); }
   }
 </script>
 
@@ -654,56 +257,47 @@ import {
   query, where, orderBy, updateDoc, increment, serverTimestamp, onSnapshot
 } from "./firebase.js";
 
-  let currentUser = null;
-  let userRole    = null;   // "vendor" | "couple"
-  let activeConvId   = null;
-  let unsubMessages  = null;
+  let currentUser = null, userRole = null, activeConvId = null, unsubMessages = null;
 
-  const convList        = document.getElementById("convList");
-  const threadEmpty     = document.getElementById("threadEmpty");
-  const threadView      = document.getElementById("threadView");
-  const threadName      = document.getElementById("threadName");
-  const threadSub       = document.getElementById("threadSub");
-  const threadMsgs      = document.getElementById("threadMessages");
-  const replyForm       = document.getElementById("replyForm");
-  const replyBody       = document.getElementById("replyBody");
-  const replyStatus     = document.getElementById("replyStatus");
-  const msgTabBadge     = document.getElementById("msgTabBadge");
-  const navMsgBadge     = document.getElementById("navMsgBadge");
+  const convList = document.getElementById("convList");
+  const threadEmpty = document.getElementById("threadEmpty");
+  const threadView = document.getElementById("threadView");
+  const threadName = document.getElementById("threadName");
+  const threadSub = document.getElementById("threadSub");
+  const threadMsgs = document.getElementById("threadMessages");
+  const replyForm = document.getElementById("replyForm");
+  const replyBody = document.getElementById("replyBody");
+  const replyStatus = document.getElementById("replyStatus");
+  const msgTabBadge = document.getElementById("msgTabBadge");
+  const navMsgBadge = document.getElementById("navMsgBadge");
   const messagesNavLink = document.getElementById("messagesNavLink");
-  const pageSubtitle    = document.getElementById("pageSubtitle");
-  const backLink        = document.getElementById("backLink");
+  const pageSubtitle = document.getElementById("pageSubtitle");
+  const heroTitle = document.getElementById("heroTitle");
+  const heroScript = document.getElementById("heroScript");
+  const heroImage = document.getElementById("heroImage");
 
   function timeAgo(ts) {
     if (!ts) return "";
     const d = ts.toDate ? ts.toDate() : new Date(ts);
     const diff = Math.floor((Date.now() - d) / 1000);
     if (diff < 60) return "just now";
-    if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
-    if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
-    return d.toLocaleDateString("en-AU", { day: "numeric", month: "short" });
+    if (diff < 3600) return `${Math.floor(diff/60)}m ago`;
+    if (diff < 86400) return `${Math.floor(diff/3600)}h ago`;
+    return d.toLocaleDateString("en-AU", { day:"numeric", month:"short" });
   }
 
-  // ── OPEN THREAD ──
   function openThread(convId, otherName, otherSub, unreadField) {
     activeConvId = convId;
     threadName.textContent = otherName;
-    threadSub.textContent  = otherSub || "";
+    threadSub.textContent = otherSub || "";
     threadEmpty.style.display = "none";
-    threadView.style.display  = "flex";
+    threadView.style.display = "flex";
     threadMsgs.innerHTML = "";
     replyStatus.textContent = "";
     replyBody.value = "";
-
-    // Mark as read for this role
-    const markRead = {};
-    markRead[unreadField] = 0;
+    const markRead = {}; markRead[unreadField] = 0;
     updateDoc(doc(db, "conversations", convId), markRead).catch(() => {});
-
-    document.querySelectorAll(".conv-item[data-id]").forEach(el => {
-      el.classList.toggle("active", el.dataset.id === convId);
-    });
-
+    document.querySelectorAll(".conv-item[data-id]").forEach(el => el.classList.toggle("active", el.dataset.id === convId));
     if (unsubMessages) unsubMessages();
     unsubMessages = onSnapshot(
       query(collection(db, "conversations", convId, "messages"), orderBy("sentAt", "asc")),
@@ -712,7 +306,7 @@ import {
         snap.forEach(msgDoc => {
           const m = msgDoc.data();
           const isMine = m.senderId === currentUser?.uid;
-          const wrap   = document.createElement("div");
+          const wrap = document.createElement("div");
           wrap.className = "msg-bubble-wrap " + (isMine ? "mine" : "theirs");
           const bubble = document.createElement("div");
           bubble.className = "msg-bubble " + (isMine ? "mine" : "theirs");
@@ -721,8 +315,7 @@ import {
           timeEl.className = "msg-bubble-time";
           timeEl.textContent = timeAgo(m.sentAt);
           const inner = document.createElement("div");
-          inner.appendChild(bubble);
-          inner.appendChild(timeEl);
+          inner.appendChild(bubble); inner.appendChild(timeEl);
           wrap.appendChild(inner);
           threadMsgs.appendChild(wrap);
         });
@@ -731,7 +324,6 @@ import {
     );
   }
 
-  // ── REPLY FORM ──
   replyForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     if (!activeConvId || !currentUser) return;
@@ -739,172 +331,79 @@ import {
     if (!body) return;
     replyStatus.textContent = "Sending…";
     try {
-      await addDoc(collection(db, "conversations", activeConvId, "messages"), {
-        senderId: currentUser.uid, senderName: currentUser.email, body,
-        sentAt: serverTimestamp(), read: false
-      });
-      // Increment unread for the OTHER party
+      await addDoc(collection(db, "conversations", activeConvId, "messages"), { senderId: currentUser.uid, senderName: currentUser.email, body, sentAt: serverTimestamp(), read: false });
       const otherUnread = userRole === "vendor" ? "coupleUnread" : "vendorUnread";
       const upd = { lastMessage: body, lastMessageAt: serverTimestamp() };
       upd[otherUnread] = increment(1);
       await updateDoc(doc(db, "conversations", activeConvId), upd);
-      replyBody.value = "";
-      replyStatus.textContent = "";
-    } catch (err) {
-      console.error(err);
-      replyStatus.textContent = "Could not send. Please try again.";
-    }
+      replyBody.value = ""; replyStatus.textContent = "";
+    } catch (err) { console.error(err); replyStatus.textContent = "Could not send. Please try again."; }
   });
 
-  // ── BUILD CONV LIST ITEM ──
   function buildConvItem(convDoc, displayName, displaySub, unreadCount, unreadField) {
     const item = document.createElement("div");
     item.className = "conv-item" + (unreadCount > 0 ? " unread" : "") + (activeConvId === convDoc.id ? " active" : "");
-    item.dataset.id   = convDoc.id;
+    item.dataset.id = convDoc.id;
     item.dataset.name = displayName.toLowerCase();
-
     const left = document.createElement("div");
     const name = document.createElement("p");
-    name.className   = "conv-name";
-    name.textContent = displayName;
-    if (unreadCount > 0) {
-      const dot = document.createElement("span");
-      dot.className = "msg-unread-dot";
-      name.appendChild(dot);
-    }
+    name.className = "conv-name"; name.textContent = displayName;
+    if (unreadCount > 0) { const dot = document.createElement("span"); dot.className = "msg-unread-dot"; name.appendChild(dot); }
     const preview = document.createElement("p");
-    preview.className   = "conv-preview";
-    preview.textContent = convDoc.data().lastMessage || "";
-    left.appendChild(name);
-    left.appendChild(preview);
-
+    preview.className = "conv-preview"; preview.textContent = convDoc.data().lastMessage || "";
+    left.appendChild(name); left.appendChild(preview);
     const right = document.createElement("div");
-    right.className = "conv-time";
-    right.textContent = timeAgo(convDoc.data().lastMessageAt);
-    if (unreadCount > 0) {
-      const badge = document.createElement("div");
-      badge.style.cssText = "background:linear-gradient(135deg,#d6b19a,#a97c66);color:#fffaf7;font-size:0.7rem;font-weight:700;padding:2px 7px;border-radius:999px;margin-top:4px;text-align:center;";
-      badge.textContent = unreadCount;
-      right.appendChild(badge);
-    }
-
-    item.appendChild(left);
-    item.appendChild(right);
+    right.className = "conv-time"; right.textContent = timeAgo(convDoc.data().lastMessageAt);
+    if (unreadCount > 0) { const badge = document.createElement("div"); badge.style.cssText = "background:linear-gradient(135deg,#d6b19a,#a97c66);color:#fffaf7;font-size:0.7rem;font-weight:700;padding:2px 7px;border-radius:999px;margin-top:4px;text-align:center;"; badge.textContent = unreadCount; right.appendChild(badge); }
+    item.appendChild(left); item.appendChild(right);
     item.addEventListener("click", () => openThread(convDoc.id, displayName, displaySub, unreadField));
     return item;
   }
 
-  // ── VENDOR: load inbox (reply-only) ──
   function loadVendorConversations(uid) {
-    onSnapshot(
-      query(collection(db, "conversations"), where("vendorId", "==", uid), orderBy("lastMessageAt", "desc")),
-      (snap) => {
-        convList.innerHTML = "";
-        let totalUnread = 0;
-        if (snap.empty) {
-          convList.innerHTML = `
-            <div class="empty-state">
-              <p>No messages yet</p>
-              <small>Conversations begin when a couple messages you from your vendor profile ♡</small>
-            </div>`;
-          msgTabBadge.style.display = "none";
-          if (navMsgBadge) navMsgBadge.style.display = "none";
-          return;
-        }
-        snap.forEach(convDoc => {
-          const c       = convDoc.data();
-          const unread  = c.vendorUnread || 0;
-          totalUnread  += unread;
-          const item    = buildConvItem(convDoc, c.coupleName || c.coupleEmail || "Couple", c.coupleEmail || "", unread, "vendorUnread");
-          convList.appendChild(item);
-        });
-        if (totalUnread > 0) {
-          msgTabBadge.textContent  = totalUnread;
-          msgTabBadge.style.display = "inline-flex";
-          if (navMsgBadge) { navMsgBadge.textContent = totalUnread; navMsgBadge.style.display = "inline"; }
-        } else {
-          msgTabBadge.style.display = "none";
-          if (navMsgBadge) navMsgBadge.style.display = "none";
-        }
-      }
-    );
+    onSnapshot(query(collection(db, "conversations"), where("vendorId", "==", uid), orderBy("lastMessageAt", "desc")), (snap) => {
+      convList.innerHTML = ""; let totalUnread = 0;
+      if (snap.empty) { convList.innerHTML = `<div class="empty-state"><p>No messages yet</p><small>Conversations begin when a couple messages you from your vendor profile ♡</small></div>`; msgTabBadge.style.display = "none"; if (navMsgBadge) navMsgBadge.style.display = "none"; return; }
+      snap.forEach(convDoc => { const c = convDoc.data(); const unread = c.vendorUnread || 0; totalUnread += unread; convList.appendChild(buildConvItem(convDoc, c.coupleName || c.coupleEmail || "Couple", c.coupleEmail || "", unread, "vendorUnread")); });
+      if (totalUnread > 0) { msgTabBadge.textContent = totalUnread; msgTabBadge.style.display = "inline-flex"; if (navMsgBadge) { navMsgBadge.textContent = totalUnread; navMsgBadge.style.display = "inline"; } } else { msgTabBadge.style.display = "none"; if (navMsgBadge) navMsgBadge.style.display = "none"; }
+    });
   }
 
-  // ── COUPLE: load their sent conversations ──
   function loadCoupleConversations(uid) {
-    onSnapshot(
-      query(collection(db, "conversations"), where("coupleId", "==", uid), orderBy("lastMessageAt", "desc")),
-      (snap) => {
-        convList.innerHTML = "";
-        let totalUnread = 0;
-        if (snap.empty) {
-          convList.innerHTML = `
-            <div class="empty-state">
-              <p>No messages yet ♡</p>
-              <small>Browse vendors and send a message from their profile to start a conversation.</small>
-              <div style="margin-top:16px;">
-                <a href="categories.html" style="display:inline-flex;align-items:center;justify-content:center;padding:10px 22px;border-radius:999px;background:linear-gradient(135deg,#d6b19a,#a97c66);color:#fffaf7;font-weight:700;font-size:0.88rem;text-decoration:none;box-shadow:0 8px 20px rgba(185,143,122,0.2);">Browse Vendors</a>
-              </div>
-            </div>`;
-          msgTabBadge.style.display = "none";
-          if (navMsgBadge) navMsgBadge.style.display = "none";
-          return;
-        }
-        snap.forEach(convDoc => {
-          const c      = convDoc.data();
-          const unread = c.coupleUnread || 0;
-          totalUnread += unread;
-          const item   = buildConvItem(convDoc, c.vendorName || "Vendor", c.vendorEmail || "", unread, "coupleUnread");
-          convList.appendChild(item);
-        });
-        if (totalUnread > 0) {
-          msgTabBadge.textContent   = totalUnread;
-          msgTabBadge.style.display = "inline-flex";
-          if (navMsgBadge) { navMsgBadge.textContent = totalUnread; navMsgBadge.style.display = "inline"; }
-        } else {
-          msgTabBadge.style.display = "none";
-          if (navMsgBadge) navMsgBadge.style.display = "none";
-        }
-      }
-    );
+    onSnapshot(query(collection(db, "conversations"), where("coupleId", "==", uid), orderBy("lastMessageAt", "desc")), (snap) => {
+      convList.innerHTML = ""; let totalUnread = 0;
+      if (snap.empty) { convList.innerHTML = `<div class="empty-state"><p>No messages yet ♡</p><small>Browse vendors and send a message from their profile to start a conversation.</small><div style="margin-top:16px;"><a href="categories.html" style="display:inline-flex;align-items:center;justify-content:center;padding:10px 22px;border-radius:999px;background:linear-gradient(135deg,#d6b19a,#a97c66);color:#fffaf7;font-weight:700;font-size:0.88rem;text-decoration:none;">Browse Vendors</a></div></div>`; msgTabBadge.style.display = "none"; if (navMsgBadge) navMsgBadge.style.display = "none"; return; }
+      snap.forEach(convDoc => { const c = convDoc.data(); const unread = c.coupleUnread || 0; totalUnread += unread; convList.appendChild(buildConvItem(convDoc, c.vendorName || "Vendor", c.vendorEmail || "", unread, "coupleUnread")); });
+      if (totalUnread > 0) { msgTabBadge.textContent = totalUnread; msgTabBadge.style.display = "inline-flex"; if (navMsgBadge) { navMsgBadge.textContent = totalUnread; navMsgBadge.style.display = "inline"; } } else { msgTabBadge.style.display = "none"; if (navMsgBadge) navMsgBadge.style.display = "none"; }
+    });
   }
 
-  // ── AUTH & ROLE DETECTION ──
   onAuthStateChanged(auth, async (user) => {
     if (!user) { window.location.href = "login.html"; return; }
     currentUser = user;
     if (messagesNavLink) messagesNavLink.style.display = "inline-flex";
-
-    // Detect role
-    try {
-      const userSnap = await getDoc(doc(db, "users", user.uid));
-      userRole = userSnap.exists() ? (userSnap.data().role || "couple") : "couple";
-    } catch {
-      try {
-        const vendorSnap = await getDoc(doc(db, "vendors", user.uid));
-        userRole = vendorSnap.exists() ? "vendor" : "couple";
-      } catch { userRole = "couple"; }
-    }
+    try { const userSnap = await getDoc(doc(db, "users", user.uid)); userRole = userSnap.exists() ? (userSnap.data().role || "couple") : "couple"; }
+    catch { try { const vendorSnap = await getDoc(doc(db, "vendors", user.uid)); userRole = vendorSnap.exists() ? "vendor" : "couple"; } catch { userRole = "couple"; } }
 
     if (userRole === "vendor") {
       pageSubtitle.textContent = "Your conversations from couples";
-      backLink.href = "dashboard.html";
+      heroTitle.textContent = "Your Inbox";
+      heroScript.textContent = "every message from every couple ♡";
+      heroImage.src = "images/rain.jpg";
       loadVendorConversations(user.uid);
     } else {
       pageSubtitle.textContent = "Your conversations with wedding vendors";
-      backLink.href = "couple-dashboard.html";
       loadCoupleConversations(user.uid);
     }
 
-    // Open specific conv from URL param e.g. messages.html?conv=abc
     const convParam = new URLSearchParams(window.location.search).get("conv");
     if (convParam) {
       try {
         const convSnap = await getDoc(doc(db, "conversations", convParam));
         if (convSnap.exists()) {
           const c = convSnap.data();
-          const otherName  = userRole === "vendor" ? (c.coupleName || "Couple") : (c.vendorName || "Vendor");
-          const otherSub   = userRole === "vendor" ? (c.coupleEmail || "") : (c.vendorEmail || "");
+          const otherName = userRole === "vendor" ? (c.coupleName || "Couple") : (c.vendorName || "Vendor");
+          const otherSub = userRole === "vendor" ? (c.coupleEmail || "") : (c.vendorEmail || "");
           const unreadField = userRole === "vendor" ? "vendorUnread" : "coupleUnread";
           setTimeout(() => openThread(convParam, otherName, otherSub, unreadField), 600);
         }
