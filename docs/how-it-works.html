@@ -97,7 +97,8 @@
 
     @media (max-width: 980px) { .how-hero-grid, .how-two-col, .how-two-col-reverse, .how-benefits-grid, .how-cta-grid, .how-affordability-grid { grid-template-columns: 1fr; } .how-hero-copy { padding: 36px 28px; } .how-steps-grid { grid-template-columns: repeat(2, 1fr); } .how-image-tall { min-height: 280px; } }
     @media (max-width: 640px) { .how-page { padding: 10px 10px 0; } .how-hero-copy { padding: 28px 18px; } .how-title { font-size: 2.6rem; } .how-steps-grid { grid-template-columns: 1fr; } .lux-card { padding: 24px 20px; } .how-cta-copy { padding: 28px 22px; } }
-  </style>
+    .page-auth { position: sticky; top: 0; z-index: 200; background: rgba(247, 241, 237, 0.96); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(223, 210, 200, 0.5); }
+</style>
 </head>
 <body>
 
@@ -108,8 +109,8 @@
     Messages
     <span id="msgNavBadge" style="display:none; position:absolute; top:-6px; right:-10px; background:linear-gradient(135deg,#d6b19a,#a97c66); color:#fffaf7; font-size:0.68rem; font-weight:700; padding:2px 6px; border-radius:999px; line-height:1.2; min-width:18px; text-align:center;">0</span>
   </a>
-  <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
   <a href="login.html" id="loginLink" class="auth-link">Log In</a>
+  <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
   <a href="dashboard.html" id="dashboardLink" class="auth-link" style="display:none;">Dashboard</a>
   <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
 </div>
@@ -129,7 +130,7 @@
           <p class="how-subtitle">Our Wedding Day Hub helps couples discover beautiful wedding businesses, while giving vendors a lovely way to be seen by people actively planning their day.</p>
         </div>
         <div class="how-hero-image-wrap">
-          <img src="images/modern-couple-sunglasses.png" alt="Modern wedding couple portrait" class="how-hero-image" loading="lazy">
+          <img src="images/dip.png" alt="Golden hour wedding couple" class="how-hero-image" loading="lazy">
         </div>
       </div>
     </section>
@@ -204,7 +205,7 @@
         <p>Some listings may link to the vendor's own payment or booking page, while others may ask customers to enquire first — giving vendors full flexibility.</p>
       </article>
       <div class="lux-image-card how-image-tall">
-        <img src="images/hero-2.png" alt="Elegant wedding boutique inspiration" loading="lazy">
+        <img src="images/cutecar.jpg" alt="Elegant wedding couple on vintage car" loading="lazy">
       </div>
     </div>
 
@@ -214,16 +215,16 @@
       <span class="section-kicker-line"></span>
     </div>
 
-    <article class="lux-card how-affordability-card">
+    <article class="lux-card how-affordability-card" style="text-align:center;">
       <span class="lux-badge">✦ A refreshing difference</span>
       <h2>So much more affordable than anywhere else</h2>
-      <p style="max-width:720px;">Most wedding advertising platforms charge hundreds — sometimes thousands — of dollars a year just to be listed. We believe that's simply not fair for the independent, passionate businesses that make weddings beautiful. Our pricing is a fraction of what you'd pay elsewhere, with no commissions, no booking fees, and no pay-to-rank games. Just a stunning profile that works hard for you, at a price that actually makes sense.</p>
+      <p style="max-width:720px; margin-left:auto; margin-right:auto;">Most wedding advertising platforms charge hundreds — sometimes thousands — of dollars a year just to be listed. We believe that's simply not fair for the independent, passionate businesses that make weddings beautiful. Our pricing is a fraction of what you'd pay elsewhere, with no commissions, no booking fees, and no pay-to-rank games. Just a stunning profile that works hard for you, at a price that actually makes sense.</p>
       <div class="how-affordability-grid" style="margin-top:20px;">
-        <article class="lux-card">
+        <article class="lux-card" style="text-align:center;">
           <p class="how-affordability-stat">No commissions</p>
           <p style="margin:0;">Every booking you make through the hub is entirely yours. We never take a cut.</p>
         </article>
-        <article class="lux-card">
+        <article class="lux-card" style="text-align:center;">
           <p class="how-affordability-stat">No surprises</p>
           <p style="margin:0;">One simple, transparent price. No hidden fees, no locked features, no confusing tiers designed to push you to spend more.</p>
         </article>
@@ -255,7 +256,7 @@
 
     <div class="how-cta-grid">
       <div class="lux-image-card">
-        <img src="images/couple-garden.png" alt="Romantic garden wedding couple" style="aspect-ratio: 1/1;" loading="lazy">
+        <img src="images/sunset.jpg" alt="Golden hour wedding couple" style="aspect-ratio: 1/1;" loading="lazy">
       </div>
       <article class="lux-card how-cta-copy">
         <span class="lux-badge">✦ Thoughtfully designed</span>
@@ -274,6 +275,9 @@
 
 <footer class="site-footer">
   <div class="footer-content">
+    <a href="index.html" aria-label="Go to homepage" style="display:inline-block; margin-bottom:18px;">
+      <img src="images/logo.png" alt="Our Wedding Day Hub" style="width:72px; height:72px; object-fit:contain; opacity:0.7;">
+    </a>
     <p class="footer-eyebrow">wedding planning directory</p>
     <h2 class="footer-title">Everything your wedding deserves.</h2>
     <p class="footer-text">Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.</p>
