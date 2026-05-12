@@ -1188,7 +1188,7 @@
       }
       const filePath = `${folder}/${selectedVendorId}/${Date.now()}-${safeFileName(file.name)}`;
       const fileRef  = ref(storage, filePath);
-      await uploadBytes(fileRef, file);
+      await uploadBytes(fileRef, file, { contentType: file.type });
       const url = await getDownloadURL(fileRef);
       const upd = {};
       fields.forEach(f => upd[f] = url);
@@ -1207,7 +1207,7 @@
         for (const f of files) {
           if (!f.type.startsWith("image/")) continue;
           const fRef = ref(storage, `vendor-gallery-images/${selectedVendorId}/${Date.now()}-${safeFileName(f.name)}`);
-          await uploadBytes(fRef, f);
+          await uploadBytes(fRef, f, { contentType: f.type });
           urls.push(await getDownloadURL(fRef));
         }
         if (!urls.length) { uploadStatus.textContent = "No valid image files selected."; return; }
@@ -1263,7 +1263,7 @@
         for (const f of files) {
           if (!f.type.startsWith("video/")) continue;
           const fRef = ref(storage, `vendor-gallery-videos/${selectedVendorId}/${Date.now()}-${safeFileName(f.name)}`);
-          await uploadBytes(fRef, f);
+          await uploadBytes(fRef, f, { contentType: f.type });
           urls.push(await getDownloadURL(fRef));
         }
         if (!urls.length) { videoUploadStatus.textContent = "No valid video files."; return; }

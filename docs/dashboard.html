@@ -943,7 +943,7 @@ import { LOCATION_DATA } from "./locations.js";
   bulkAddBtn.addEventListener("click", applyBulkWeekdayBlock);
   bulkMonthsPreset.addEventListener("change", () => { const pm = bulkMonthsPreset.value; if (!pm) return; const base = bulkStartDate.value ? new Date(bulkStartDate.value+"T00:00:00") : new Date(); if (!bulkStartDate.value) bulkStartDate.value = toLocalDateString(base); bulkEndDate.value = toLocalDateString(addMonthsToDate(base, Number(pm))); });
 
-  async function uploadFileToStorage(file, folder, uid) { const name = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9._-]/g,"_")}`; const r = ref(storage, `${folder}/${uid}/${name}`); await uploadBytes(r, file); return await getDownloadURL(r); }
+  async function uploadFileToStorage(file, folder, uid) { const name = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9._-]/g,"_")}`; const r = ref(storage, `${folder}/${uid}/${name}`); await uploadBytes(r, file, { contentType: file.type }); return await getDownloadURL(r); }
   function updateStripeStatus(v = {}) { if (stripeStatusText) stripeStatusText.textContent = (v.stripeConnected === true || v.stripeChargesEnabled === true || v.stripeAccountId) ? "Stripe: connected" : "Stripe: not connected"; }
   function clearProductForm() { [productName, productPrice, productCategory, productStock, productDescription, productPurchaseLink, productImageFiles].forEach(el => el.value = ""); paymentMethod.value = "own"; fulfilmentMethod.value = "email"; fulfilmentDetails.value = ""; productStatus.value = "draft"; productImageFileName.textContent = ""; }
 
