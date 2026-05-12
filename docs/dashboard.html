@@ -189,19 +189,20 @@
       .panel-body-inner { padding: 0 18px 20px; }
       .panel-divider { margin: 0 18px; }
     }
-  </style>
+    .page-auth { position: sticky; top: 0; z-index: 200; background: rgba(247, 241, 237, 0.96); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(223, 210, 200, 0.5); }
+</style>
 </head>
 <body>
 
 <div class="page-auth">
   <a href="categories.html" id="categoriesLink" class="auth-link">Categories</a>
   <a href="shop.html" id="shopLink" class="auth-link">Boutique</a>
-  <a href="messages.html" id="messagesNavLink" class="auth-link" style="display:none; position:relative;">
+  <a href="messages.html" id="messagesLink" class="auth-link" style="display:none; position:relative;">
     Messages
-    <span id="navMsgBadge" style="display:none; position:absolute; top:-6px; right:-10px; background:linear-gradient(135deg,#d6b19a,#a97c66); color:#fffaf7; font-size:0.68rem; font-weight:700; padding:2px 6px; border-radius:999px; line-height:1.2; min-width:18px; text-align:center;">0</span>
+    <span id="msgNavBadge" style="display:none; position:absolute; top:-6px; right:-10px; background:linear-gradient(135deg,#d6b19a,#a97c66); color:#fffaf7; font-size:0.68rem; font-weight:700; padding:2px 6px; border-radius:999px; line-height:1.2; min-width:18px; text-align:center;">0</span>
   </a>
-  <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
   <a href="login.html" id="loginLink" class="auth-link">Log In</a>
+  <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
   <a href="dashboard.html" id="dashboardLink" class="auth-link" style="display:none;">Dashboard</a>
   <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
 </div>
@@ -225,7 +226,7 @@
           </div>
         </div>
         <div class="dashboard-hero-image-wrap">
-          <img src="images/modern-couple-sunglasses.png" alt="Modern wedding couple portrait" class="dashboard-hero-image">
+          <img src="images/rain.jpg" alt="Romantic couple on a bridge in the rain" class="dashboard-hero-image">
         </div>
       </div>
     </section>
@@ -731,6 +732,9 @@
 
 <footer class="site-footer">
   <div class="footer-content">
+    <a href="index.html" aria-label="Go to homepage" style="display:inline-block; margin-bottom:18px;">
+      <img src="images/logo.png" alt="Our Wedding Day Hub" style="width:72px; height:72px; object-fit:contain; opacity:0.7;">
+    </a>
     <p class="footer-eyebrow">wedding planning directory</p>
     <h2 class="footer-title">Everything your wedding deserves.</h2>
     <p class="footer-text">Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.</p>
@@ -943,7 +947,7 @@ import { LOCATION_DATA } from "./locations.js";
   bulkAddBtn.addEventListener("click", applyBulkWeekdayBlock);
   bulkMonthsPreset.addEventListener("change", () => { const pm = bulkMonthsPreset.value; if (!pm) return; const base = bulkStartDate.value ? new Date(bulkStartDate.value+"T00:00:00") : new Date(); if (!bulkStartDate.value) bulkStartDate.value = toLocalDateString(base); bulkEndDate.value = toLocalDateString(addMonthsToDate(base, Number(pm))); });
 
-  async function uploadFileToStorage(file, folder, uid) { const name = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9._-]/g,"_")}`; const r = ref(storage, `${folder}/${uid}/${name}`); await uploadBytes(r, file, { contentType: file.type }); return await getDownloadURL(r); }
+  async function uploadFileToStorage(file, folder, uid) { const name = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9._-]/g,"_")}`; const r = ref(storage, `${folder}/${uid}/${name}`); await uploadBytes(r, file); return await getDownloadURL(r); }
   function updateStripeStatus(v = {}) { if (stripeStatusText) stripeStatusText.textContent = (v.stripeConnected === true || v.stripeChargesEnabled === true || v.stripeAccountId) ? "Stripe: connected" : "Stripe: not connected"; }
   function clearProductForm() { [productName, productPrice, productCategory, productStock, productDescription, productPurchaseLink, productImageFiles].forEach(el => el.value = ""); paymentMethod.value = "own"; fulfilmentMethod.value = "email"; fulfilmentDetails.value = ""; productStatus.value = "draft"; productImageFileName.textContent = ""; }
 
