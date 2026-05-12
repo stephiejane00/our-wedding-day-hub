@@ -6,7 +6,6 @@
   <title>Join | Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    /* ── Root tokens matching homepage exactly ── */
     :root {
       --lux-espresso: #3b2f2a;
       --lux-rose: #c8a6a1;
@@ -20,468 +19,111 @@
         #f7f1ed;
     }
 
-    .signup-page {
-      max-width: 1200px;
-      margin: 0 auto 60px;
-      padding: 18px 20px 0;
-    }
+    .signup-page { max-width: 1200px; margin: 0 auto 60px; padding: 18px 20px 0; }
+    .signup-stack { display: grid; gap: 24px; }
 
-    .signup-stack {
-      display: grid;
-      gap: 24px;
-    }
-
-    /* ── HERO CARD ── */
-    .signup-hero-card {
-      border-radius: 36px;
-      border: 1px solid rgba(227, 219, 212, 0.9);
-      box-shadow: 0 24px 70px rgba(59, 47, 42, 0.08);
-      background:
-        radial-gradient(circle at top left, rgba(200, 166, 161, 0.18), transparent 34%),
-        linear-gradient(135deg, #fffaf7, #f4ebe5);
-      overflow: hidden;
-      padding: 0;
-    }
-
-    .signup-hero-grid {
-      display: grid;
-      grid-template-columns: 1.02fr 0.98fr;
-      align-items: stretch;
-      min-height: 540px;
-    }
-
-    .signup-hero-copy {
-      padding: 52px 48px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    /* Staggered fade-up — matches homepage */
-    .signup-hero-copy > * {
-      animation: fadeUp 0.8s ease forwards;
-      opacity: 0;
-    }
+    .signup-hero-card { border-radius: 36px; border: 1px solid rgba(227, 219, 212, 0.9); box-shadow: 0 24px 70px rgba(59, 47, 42, 0.08); background: radial-gradient(circle at top left, rgba(200, 166, 161, 0.18), transparent 34%), linear-gradient(135deg, #fffaf7, #f4ebe5); overflow: hidden; padding: 0; }
+    .signup-hero-grid { display: grid; grid-template-columns: 1.02fr 0.98fr; align-items: stretch; min-height: 540px; }
+    .signup-hero-copy { padding: 52px 48px; display: flex; flex-direction: column; justify-content: center; }
+    .signup-hero-copy > * { animation: fadeUp 0.8s ease forwards; opacity: 0; }
     .signup-hero-copy > *:nth-child(1) { animation-delay: 0.05s; }
     .signup-hero-copy > *:nth-child(2) { animation-delay: 0.1s; }
     .signup-hero-copy > *:nth-child(3) { animation-delay: 0.2s; }
     .signup-hero-copy > *:nth-child(4) { animation-delay: 0.3s; }
     .signup-hero-copy > *:nth-child(5) { animation-delay: 0.38s; }
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(14px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes heroFadeIn { from { opacity: 0; transform: scale(1.01); } to { opacity: 1; transform: scale(1); } }
 
-    .signup-logo-wrap {
-      display: inline-flex;
-      align-items: center;
-      justify-content: flex-start;
-      margin-bottom: 20px;
-    }
+    .signup-logo-wrap { display: inline-flex; align-items: center; justify-content: flex-start; margin-bottom: 20px; }
+    .signup-logo { width: 108px; display: block; }
+    .signup-kicker { margin: 0 0 12px; font-size: 0.78rem; letter-spacing: 0.28em; text-transform: uppercase; color: #b08d7d; opacity: 0.85; }
+    .signup-title { margin: 0 0 14px; font-family: "Cormorant Garamond", serif; font-size: clamp(2.8rem, 4.5vw, 4rem); font-weight: 500; line-height: 0.96; letter-spacing: -0.045em; color: var(--lux-espresso); text-shadow: 0 10px 30px rgba(59, 47, 42, 0.08); }
+    .signup-script { margin: 0 0 20px; font-family: "Cormorant Garamond", serif; font-size: 1.35rem; font-style: italic; color: #c69b84; opacity: 0.9; letter-spacing: 0.02em; }
+    .signup-intro { margin: 0; max-width: 480px; color: var(--muted); line-height: 1.8; font-size: 0.97rem; }
 
-    .signup-logo {
-      width: 108px;
-      display: block;
-    }
+    .signup-hero-image-wrap { position: relative; overflow: hidden; min-height: 100%; background: #f4ece6; }
+    .signup-hero-image-wrap::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(59, 47, 42, 0.08), transparent 45%), radial-gradient(circle at top right, rgba(255, 250, 247, 0.14), transparent 38%); pointer-events: none; }
+    .signup-hero-image { width: 100%; height: 100%; display: block; object-fit: cover; filter: brightness(0.98) contrast(0.94) saturate(0.92); transition: transform 0.9s ease, filter 0.4s ease; opacity: 0; animation: heroFadeIn 0.9s ease forwards; }
+    .signup-hero-image-wrap:hover .signup-hero-image { transform: scale(1.035); filter: brightness(1) contrast(0.96) saturate(0.96); }
 
-    .signup-kicker {
-      margin: 0 0 12px;
-      font-size: 0.78rem;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: #b08d7d;
-      opacity: 0.85;
-    }
-
-    .signup-title {
-      margin: 0 0 14px;
-      font-family: "Cormorant Garamond", serif;
-      font-size: clamp(2.8rem, 4.5vw, 4rem);
-      font-weight: 500;
-      line-height: 0.96;
-      letter-spacing: -0.045em;
-      color: var(--lux-espresso);
-      text-shadow: 0 10px 30px rgba(59, 47, 42, 0.08);
-    }
-
-    .signup-script {
-      margin: 0 0 20px;
-      font-family: "Cormorant Garamond", serif;
-      font-size: 1.35rem;
-      font-style: italic;
-      color: #c69b84;
-      opacity: 0.9;
-      letter-spacing: 0.02em;
-    }
-
-    .signup-intro {
-      margin: 0;
-      max-width: 480px;
-      color: var(--muted);
-      line-height: 1.8;
-      font-size: 0.97rem;
-    }
-
-    /* Hero image */
-    .signup-hero-image-wrap {
-      position: relative;
-      overflow: hidden;
-      min-height: 100%;
-      background: #f4ece6;
-    }
-
-    .signup-hero-image-wrap::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(90deg, rgba(59, 47, 42, 0.08), transparent 45%),
-        radial-gradient(circle at top right, rgba(255, 250, 247, 0.14), transparent 38%);
-      pointer-events: none;
-    }
-
-    .signup-hero-image {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover;
-      filter: brightness(0.98) contrast(0.94) saturate(0.92);
-      transition: transform 0.9s ease, filter 0.4s ease;
-      opacity: 0;
-      animation: heroFadeIn 0.9s ease forwards;
-    }
-
-    .signup-hero-image-wrap:hover .signup-hero-image {
-      transform: scale(1.035);
-      filter: brightness(1) contrast(0.96) saturate(0.96);
-    }
-
-    @keyframes heroFadeIn {
-      from { opacity: 0; transform: scale(1.01); }
-      to   { opacity: 1; transform: scale(1); }
-    }
-
-    /* Trust strip */
-    .trust-strip {
-      text-align: center;
-      padding: 16px 20px 6px;
-      font-size: 0.82rem;
-      letter-spacing: 0.12em;
-      color: #9b8579;
-      opacity: 0.7;
-    }
+    .trust-strip { text-align: center; padding: 16px 20px 6px; font-size: 0.82rem; letter-spacing: 0.12em; color: #9b8579; opacity: 0.7; }
     .trust-strip p { margin: 0; }
 
-    /* ── CONTENT GRID ── */
-    .signup-content-grid {
-      display: grid;
-      grid-template-columns: 0.92fr 1.08fr;
-      gap: 24px;
-      align-items: start;
-    }
+    .signup-content-grid { display: grid; grid-template-columns: 0.92fr 1.08fr; gap: 24px; align-items: start; }
 
-    .signup-info-card,
-    .signup-form-card {
-      position: relative;
-      border-radius: 24px;
-      overflow: hidden;
-      background: rgba(255, 250, 247, 0.92);
-      border: 1px solid rgba(223, 210, 200, 0.9);
-      box-shadow: 0 6px 18px rgba(59, 47, 42, 0.04);
-      padding: 32px 30px;
-      text-align: left;
-      transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
-    }
+    .signup-info-card, .signup-form-card { position: relative; border-radius: 24px; overflow: hidden; background: rgba(255, 250, 247, 0.92); border: 1px solid rgba(223, 210, 200, 0.9); box-shadow: 0 6px 18px rgba(59, 47, 42, 0.04); padding: 32px 30px; text-align: left; transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease; }
+    .signup-info-card:hover, .signup-form-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(59, 47, 42, 0.1); border-color: rgba(198, 167, 125, 0.55); }
+    .signup-info-card h2, .signup-form-card h2 { margin: 0 0 10px; color: var(--lux-espresso); letter-spacing: -0.03em; }
+    .signup-info-card p, .signup-form-card > p { margin: 0 0 14px; line-height: 1.8; color: var(--muted); }
 
-    .signup-info-card:hover,
-    .signup-form-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 20px 50px rgba(59, 47, 42, 0.1);
-      border-color: rgba(198, 167, 125, 0.55);
-    }
+    .signup-mini-badge { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 999px; background: rgba(255, 250, 247, 0.9); color: #6f5143; border: 1px solid rgba(214, 190, 174, 0.8); font-size: 0.74rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; backdrop-filter: blur(8px); margin-bottom: 16px; }
 
-    .signup-info-card h2,
-    .signup-form-card h2 {
-      margin: 0 0 10px;
-      color: var(--lux-espresso);
-      letter-spacing: -0.03em;
-    }
+    .signup-points { display: grid; gap: 12px; margin-top: 16px; }
+    .signup-point { padding: 16px 18px; border-radius: 18px; background: rgba(247, 241, 237, 0.9); border: 1px solid rgba(223, 210, 200, 0.7); color: var(--text); line-height: 1.75; font-size: 0.93rem; transition: background 0.2s ease, border-color 0.2s ease; }
+    .signup-point:hover { background: #f5e7de; border-color: rgba(198, 167, 125, 0.5); }
+    .signup-point strong { display: block; margin-bottom: 3px; color: var(--lux-espresso); font-size: 0.88rem; letter-spacing: 0.04em; text-transform: uppercase; }
 
-    .signup-info-card p,
-    .signup-form-card > p {
-      margin: 0 0 14px;
-      line-height: 1.8;
-      color: var(--muted);
-    }
+    .signup-form-card { background: linear-gradient(180deg, #fffdfb 0%, #fff8f3 100%); }
 
-    /* Mini badge */
-    .signup-mini-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 7px 14px;
-      border-radius: 999px;
-      background: rgba(255, 250, 247, 0.9);
-      color: #6f5143;
-      border: 1px solid rgba(214, 190, 174, 0.8);
-      font-size: 0.74rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      backdrop-filter: blur(8px);
-      margin-bottom: 16px;
-    }
+    .signup-form { display: grid; gap: 14px; margin-top: 18px; }
+    .signup-form label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.88rem; letter-spacing: 0.03em; color: #3b2d25; }
+    .signup-form input, .signup-form select { width: 100%; border: 1px solid #eadfd6; border-radius: 16px; background: #fffdfb; padding: 14px 16px; font-size: 0.96rem; color: #2d221c; box-sizing: border-box; transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease; }
+    .signup-form input:focus, .signup-form select:focus { outline: none; border-color: #d6bcad; box-shadow: 0 0 0 4px rgba(217, 194, 178, 0.16); background: #ffffff; }
 
-    .signup-points {
-      display: grid;
-      gap: 12px;
-      margin-top: 16px;
-    }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .field-soft { padding: 16px 18px; border-radius: 18px; background: rgba(247, 241, 237, 0.9); border: 1px solid rgba(223, 210, 200, 0.7); }
 
-    .signup-point {
-      padding: 16px 18px;
-      border-radius: 18px;
-      background: rgba(247, 241, 237, 0.9);
-      border: 1px solid rgba(223, 210, 200, 0.7);
-      color: var(--text);
-      line-height: 1.75;
-      font-size: 0.93rem;
-      transition: background 0.2s ease, border-color 0.2s ease;
-    }
+    .signup-plan-box { display: none; margin: 4px 0 8px; padding: 22px; border-radius: 22px; background: rgba(247, 241, 237, 0.9); border: 1px solid rgba(223, 210, 200, 0.7); }
+    .signup-plan-grid { display: grid; gap: 10px; margin-top: 14px; }
 
-    .signup-point:hover {
-      background: #f5e7de;
-      border-color: rgba(198, 167, 125, 0.5);
-    }
+    .plan-btn { width: 100%; display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 13px 20px; border-radius: 999px; border: 1px solid rgba(214, 190, 174, 0.8); background: rgba(255, 250, 247, 0.95); color: #3b2f2a; font-size: 0.94rem; font-weight: 600; cursor: pointer; transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease, border-color 0.18s ease; box-shadow: 0 4px 12px rgba(59, 47, 42, 0.05); }
+    .plan-btn:hover { background: linear-gradient(135deg, #d6b19a, #a97c66); color: #fffaf7; border-color: transparent; transform: translateY(-2px); box-shadow: 0 12px 28px rgba(185, 143, 122, 0.25); }
 
-    .signup-point strong {
-      display: block;
-      margin-bottom: 3px;
-      color: var(--lux-espresso);
-      font-size: 0.88rem;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-
-    /* Form card */
-    .signup-form-card {
-      background: linear-gradient(180deg, #fffdfb 0%, #fff8f3 100%);
-    }
-
-    .signup-form {
-      display: grid;
-      gap: 14px;
-      margin-top: 18px;
-    }
-
-    .signup-form label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: 600;
-      font-size: 0.88rem;
-      letter-spacing: 0.03em;
-      color: #3b2d25;
-    }
-
-    .signup-form input,
-    .signup-form select {
-      width: 100%;
-      border: 1px solid #eadfd6;
-      border-radius: 16px;
-      background: #fffdfb;
-      padding: 14px 16px;
-      font-size: 0.96rem;
-      color: #2d221c;
-      box-sizing: border-box;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-    }
-
-    .signup-form input:focus,
-    .signup-form select:focus {
-      outline: none;
-      border-color: #d6bcad;
-      box-shadow: 0 0 0 4px rgba(217, 194, 178, 0.16);
-      background: #ffffff;
-    }
-
-    .field-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
-
-    .field-soft {
-      padding: 16px 18px;
-      border-radius: 18px;
-      background: rgba(247, 241, 237, 0.9);
-      border: 1px solid rgba(223, 210, 200, 0.7);
-    }
-
-    /* Vendor plan box */
-    .signup-plan-box {
-      display: none;
-      margin: 4px 0 8px;
-      padding: 22px;
-      border-radius: 22px;
-      background: rgba(247, 241, 237, 0.9);
-      border: 1px solid rgba(223, 210, 200, 0.7);
-    }
-
-    .signup-plan-grid {
-      display: grid;
-      gap: 10px;
-      margin-top: 14px;
-    }
-
-    /* Plan buttons */
-    .plan-btn {
-      width: 100%;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 48px;
-      padding: 13px 20px;
-      border-radius: 999px;
-      border: 1px solid rgba(214, 190, 174, 0.8);
-      background: rgba(255, 250, 247, 0.95);
-      color: #3b2f2a;
-      font-size: 0.94rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease, border-color 0.18s ease;
-      box-shadow: 0 4px 12px rgba(59, 47, 42, 0.05);
-    }
-
-    .plan-btn:hover {
-      background: linear-gradient(135deg, #d6b19a, #a97c66);
-      color: #fffaf7;
-      border-color: transparent;
-      transform: translateY(-2px);
-      box-shadow: 0 12px 28px rgba(185, 143, 122, 0.25);
-    }
-
-    /* Submit button — matches homepage search gradient */
-    .signup-submit-btn {
-      width: 100%;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 50px;
-      padding: 14px 20px;
-      border-radius: 999px;
-      border: none;
-      background: linear-gradient(135deg, #d6b19a, #a97c66);
-      color: #fffaf7;
-      font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      cursor: pointer;
-      box-shadow: 0 10px 24px rgba(185, 143, 122, 0.22);
-      transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
-    }
-
-    .signup-submit-btn:hover {
-      transform: translateY(-2px);
-      filter: brightness(1.04);
-      box-shadow: 0 16px 34px rgba(185, 143, 122, 0.28);
-    }
-
+    .signup-submit-btn { width: 100%; display: inline-flex; align-items: center; justify-content: center; min-height: 50px; padding: 14px 20px; border-radius: 999px; border: none; background: linear-gradient(135deg, #d6b19a, #a97c66); color: #fffaf7; font-size: 1rem; font-weight: 700; letter-spacing: 0.04em; cursor: pointer; box-shadow: 0 10px 24px rgba(185, 143, 122, 0.22); transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease; }
+    .signup-submit-btn:hover { transform: translateY(-2px); filter: brightness(1.04); box-shadow: 0 16px 34px rgba(185, 143, 122, 0.28); }
     .signup-submit-btn:active { transform: translateY(0); }
 
-    /* Checkbox row */
-    .checkbox-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      margin: 6px 0 2px;
-      color: var(--muted);
-      font-size: 0.9rem;
-      line-height: 1.6;
-    }
+    .checkbox-row { display: flex; align-items: flex-start; gap: 10px; margin: 6px 0 2px; color: var(--muted); font-size: 0.9rem; line-height: 1.6; }
+    .checkbox-row input { width: auto !important; margin-top: 5px; }
+    .checkbox-row a { color: var(--lux-espresso); font-weight: 600; text-decoration: none; }
+    .checkbox-row a:hover { text-decoration: underline; }
 
-    .checkbox-row input {
-      width: auto !important;
-      margin-top: 5px;
-    }
-
-    .auth-switch-note,
-    .small-text {
-      color: var(--muted);
-      font-size: 0.91rem;
-      line-height: 1.8;
-      margin: 0;
-    }
-
-    .small-text a {
-      color: var(--lux-espresso);
-      font-weight: 600;
-      text-decoration: none;
-    }
-
+    .auth-switch-note, .small-text { color: var(--muted); font-size: 0.91rem; line-height: 1.8; margin: 0; }
+    .small-text a { color: var(--lux-espresso); font-weight: 600; text-decoration: none; }
     .small-text a:hover { text-decoration: underline; }
 
-    .form-message {
-      margin-top: 12px;
-      font-size: 0.9rem;
-      color: #6f5143;
-      text-align: center;
-      min-height: 1.2em;
-    }
+    .form-message { margin-top: 12px; font-size: 0.9rem; color: #6f5143; text-align: center; min-height: 1.2em; }
 
-    .auth-footer-text {
-      margin: 16px 0 0;
-      color: var(--muted);
-      line-height: 1.7;
-      font-size: 0.93rem;
-      text-align: center;
-    }
-
-    .auth-footer-text a {
-      color: var(--lux-espresso);
-      font-weight: 600;
-      text-decoration: none;
-    }
-
+    .auth-footer-text { margin: 16px 0 0; color: var(--muted); line-height: 1.7; font-size: 0.93rem; text-align: center; }
+    .auth-footer-text a { color: var(--lux-espresso); font-weight: 600; text-decoration: none; }
     .auth-footer-text a:hover { text-decoration: underline; }
 
-    /* Footer */
-    .site-footer {
-      background:
-        radial-gradient(circle at top, rgba(200, 166, 161, 0.16), transparent 36%),
-        linear-gradient(180deg, #f5eee9 0%, #eee5df 100%);
-    }
-
+    .site-footer { background: radial-gradient(circle at top, rgba(200, 166, 161, 0.16), transparent 36%), linear-gradient(180deg, #f5eee9 0%, #eee5df 100%); }
     .footer-title { color: var(--lux-espresso); letter-spacing: -0.035em; }
     .footer-eyebrow { color: #b08d7d; }
 
-    /* ── RESPONSIVE ── */
     @media (max-width: 980px) {
-      .signup-hero-grid,
-      .signup-content-grid,
-      .field-row {
-        grid-template-columns: 1fr;
-      }
+      .signup-hero-grid, .signup-content-grid, .field-row { grid-template-columns: 1fr; }
       .signup-hero-copy { padding: 36px 28px; }
       .signup-hero-image-wrap { min-height: 360px; }
     }
-
     @media (max-width: 700px) {
       .signup-page { padding: 10px 10px 0; }
       .signup-hero-copy { padding: 28px 20px; }
       .signup-title { font-size: 2.8rem; }
-      .signup-info-card,
-      .signup-form-card { padding: 24px 20px; }
+      .signup-info-card, .signup-form-card { padding: 24px 20px; }
     }
-  </style>
+    .page-auth { position: sticky; top: 0; z-index: 200; background: rgba(247, 241, 237, 0.96); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(223, 210, 200, 0.5); }
+</style>
 </head>
 <body>
 
 <div class="page-auth">
   <a href="categories.html" id="categoriesLink" class="auth-link">Categories</a>
   <a href="shop.html" id="shopLink" class="auth-link">Boutique</a>
-  <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
   <a href="login.html" id="loginLink" class="auth-link">Log In</a>
+  <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
   <a href="dashboard.html" id="dashboardLink" class="auth-link" style="display:none;">Dashboard</a>
   <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
 </div>
@@ -489,74 +131,41 @@
 <main class="signup-page">
   <div class="signup-stack">
 
-    <!-- ── HERO CARD ── -->
     <section class="signup-hero-card">
       <div class="signup-hero-grid">
         <div class="signup-hero-copy">
           <a href="index.html" class="signup-logo-wrap" aria-label="Go to homepage">
             <img src="images/logo.png" alt="Our Wedding Day Hub" class="signup-logo">
           </a>
-
           <p class="signup-kicker">Join the hub</p>
-
-          <h1 class="signup-title">
-            Your place in the<br>wedding world
-          </h1>
-
+          <h1 class="signup-title">Your place in the<br>wedding world</h1>
           <p class="signup-script">start something beautiful ♡</p>
-
-          <p class="signup-intro">
-            Whether you're a vendor building your presence or a couple finding your dream team — you're in the right place. Simple setup, beautiful results.
-          </p>
+          <p class="signup-intro">Whether you're a vendor building your presence or a couple finding your dream team — you're in the right place. Simple setup, beautiful results.</p>
         </div>
-
         <div class="signup-hero-image-wrap">
           <img src="images/bride.png" alt="Editorial bride portrait" class="signup-hero-image">
         </div>
       </div>
     </section>
 
-    <!-- Trust strip -->
     <section class="trust-strip">
-      <p>
-        Trusted by wedding vendors across Australia & worldwide •
-        Founding members now joining • Growing daily
-      </p>
+      <p>Trusted by wedding vendors across Australia &amp; worldwide • Proudly independent • Built with heart</p>
     </section>
 
-    <!-- ── CONTENT GRID ── -->
     <section class="signup-content-grid">
 
-      <!-- Info card -->
       <div class="signup-info-card">
         <span class="signup-mini-badge">✦ Getting started</span>
         <h2>Who is joining?</h2>
         <p>Whether you're growing a wedding business or planning your perfect day, your account starts here.</p>
-
         <div class="signup-points">
-          <div class="signup-point">
-            <strong>For vendors</strong>
-            Create your account and set up your full profile inside your dashboard.
-          </div>
-
-          <div class="signup-point">
-            <strong>For couples</strong>
-            Sign up free to save favourite vendors and build your inspiration space.
-          </div>
-
-          <div class="signup-point">
-            <strong>Simple setup</strong>
-            Get started in just a few steps, designed especially for weddings.
-          </div>
-
-          <div class="signup-point">
-            <strong>Finish later</strong>
-            Add categories, locations and details inside your dashboard after joining.
-          </div>
+          <div class="signup-point"><strong>For vendors</strong>Create your account and set up your full profile inside your dashboard.</div>
+          <div class="signup-point"><strong>For couples</strong>Sign up free to save favourite vendors and build your inspiration space.</div>
+          <div class="signup-point"><strong>Simple setup</strong>Get started in just a few steps, designed especially for weddings.</div>
+          <div class="signup-point"><strong>Finish later</strong>Add categories, locations and details inside your dashboard after joining.</div>
         </div>
       </div>
 
-      <!-- Form card -->
       <div class="signup-form-card">
         <span class="signup-mini-badge">✦ Create account</span>
         <h2>Join</h2>
@@ -581,9 +190,7 @@
               <strong>Vendor Launch Experience</strong>
               $50 one-time setup fee, charged together with your selected monthly plan at checkout.
             </div>
-
             <p class="small-text" style="margin-bottom: 10px;"><strong>Choose your monthly plan</strong></p>
-
             <div class="signup-plan-grid">
               <button type="button" class="plan-btn" onclick="startVendorCheckout('classic_listing')">Classic Listing · $4.75/month</button>
               <button type="button" class="plan-btn" onclick="startVendorCheckout('signature_spotlight')">Signature Spotlight · $5.95/month</button>
@@ -609,48 +216,39 @@
           </div>
 
           <div id="vendorFields" class="field-soft" style="display:none;">
-            <p id="vendorSetupNote" class="small-text">
-              Once payment is completed, you'll return here to finish creating your vendor account.
-            </p>
+            <p id="vendorSetupNote" class="small-text">Once payment is completed, you'll return here to finish creating your vendor account.</p>
           </div>
 
           <label class="checkbox-row">
             <input type="checkbox" id="emailConsent" required>
-            <span>
-              I agree to receive emails, updates, promotions and wedding-related communications from Our Wedding Day Hub. I understand I can unsubscribe at any time.
-            </span>
+            <span>I agree to receive emails, updates, promotions and wedding-related communications from Our Wedding Day Hub. I understand I can unsubscribe at any time.</span>
           </label>
 
-          <p class="small-text">
-            By creating an account, you agree to our
-            <a href="terms.html">Terms &amp; Conditions</a>
-            and
-            <a href="privacy.html">Privacy Policy</a>.
-          </p>
+          <label class="checkbox-row">
+            <input type="checkbox" id="termsConsent" required>
+            <span>I have read and agree to the <a href="terms.html" target="_blank">Terms &amp; Conditions</a> and <a href="privacy.html" target="_blank">Privacy Policy</a>.</span>
+          </label>
 
           <button type="submit" class="signup-submit-btn">Create Account</button>
         </form>
 
         <p id="message" class="form-message"></p>
 
-        <p class="auth-footer-text">
-          Already have an account? <a href="login.html">Log in here</a>
-        </p>
+        <p class="auth-footer-text">Already have an account? <a href="login.html">Log in here</a></p>
       </div>
 
     </section>
   </div>
 </main>
 
-<!-- ── FOOTER ── -->
 <footer class="site-footer">
   <div class="footer-content">
-    <p class="footer-eyebrow">wedding vendor directory</p>
+    <a href="index.html" aria-label="Go to homepage" style="display:inline-block; margin-bottom:18px;">
+      <img src="images/logo.png" alt="Our Wedding Day Hub" style="width:72px; height:72px; object-fit:contain; opacity:0.7;">
+    </a>
+    <p class="footer-eyebrow">wedding planning directory</p>
     <h2 class="footer-title">Everything your wedding deserves.</h2>
-    <p class="footer-text">
-      Browse trusted wedding businesses, discover local favourites, and connect
-      with the people who can bring your day to life.
-    </p>
+    <p class="footer-text">Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.</p>
     <div class="footer-links">
       <a href="about.html">About Us</a>
       <a href="how-it-works.html">How It Works</a>
@@ -668,7 +266,6 @@
   </div>
 </footer>
 
-<!-- ── SCRIPTS (logic unchanged) ── -->
 <script>
   function startVendorCheckout(plan) {
     const links = {
@@ -685,28 +282,23 @@
 
 <script type="module">
   import {
-    auth,
-    db,
-    createUserWithEmailAndPassword,
-    sendEmailVerification,
-    doc,
-    setDoc,
-    serverTimestamp
+    auth, db, createUserWithEmailAndPassword, sendEmailVerification,
+    doc, setDoc, serverTimestamp
   } from './firebase.js';
 
-  const signupForm     = document.getElementById('signupForm');
-  const message        = document.getElementById('message');
-  const typeSelect     = document.getElementById('type');
-  const vendorFields   = document.getElementById('vendorFields');
-  const vendorPlanBox  = document.getElementById('vendorPlanBox');
-  const vendorNotice   = document.getElementById('vendorNotice');
+  const signupForm      = document.getElementById('signupForm');
+  const message         = document.getElementById('message');
+  const typeSelect      = document.getElementById('type');
+  const vendorFields    = document.getElementById('vendorFields');
+  const vendorPlanBox   = document.getElementById('vendorPlanBox');
+  const vendorNotice    = document.getElementById('vendorNotice');
   const vendorSetupNote = document.getElementById('vendorSetupNote');
 
-  const urlParams = new URLSearchParams(window.location.search);
-  const inviteCode  = urlParams.get('invite');
-  const isPaid      = urlParams.get('paid') === 'true';
+  const urlParams    = new URLSearchParams(window.location.search);
+  const inviteCode   = urlParams.get('invite');
+  const isPaid       = urlParams.get('paid') === 'true';
   const selectedPlan = urlParams.get('plan') || '';
-  const presetType  = urlParams.get('type') || '';
+  const presetType   = urlParams.get('type') || '';
 
   const complimentaryInviteCode = 'foundingvendor2026';
   const isComplimentaryInvite   = inviteCode === complimentaryInviteCode;
@@ -729,13 +321,13 @@
 
   function updateVendorUI() {
     const isVendor = typeSelect.value === 'vendor';
-    vendorFields.style.display   = isVendor ? 'block' : 'none';
-    vendorPlanBox.style.display  = isVendor && !vendorHasAccess ? 'block' : 'none';
+    vendorFields.style.display  = isVendor ? 'block' : 'none';
+    vendorPlanBox.style.display = isVendor && !vendorHasAccess ? 'block' : 'none';
     if (vendorNotice) vendorNotice.style.display = isVendor && !vendorHasAccess ? 'block' : 'none';
     if (vendorSetupNote) {
       vendorSetupNote.textContent = vendorHasAccess
         ? 'Complete your profile inside your dashboard after signup.'
-        : 'Once payment is completed, you\'ll return here to finish creating your account.';
+        : "Once payment is completed, you'll return here to finish creating your account.";
     }
   }
 
@@ -751,15 +343,17 @@
     const email        = document.getElementById('email').value.trim().toLowerCase();
     const password     = document.getElementById('password').value;
     const emailConsent = document.getElementById('emailConsent').checked;
-
-    let createdUser = null;
+    const termsConsent = document.getElementById('termsConsent').checked;
 
     if (!type) { message.textContent = 'Please select Vendor or Couple.'; return; }
+    if (!termsConsent) { message.textContent = 'Please agree to the Terms & Conditions and Privacy Policy to continue.'; return; }
 
     if (type === 'vendor' && !vendorHasAccess) {
       message.textContent = 'Please complete checkout first, then return here to create your vendor account.';
       return;
     }
+
+    let createdUser = null;
 
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -771,39 +365,26 @@
       const finalShopAccess  = shouldHaveShopAccess(finalVendorPlan, isComplimentaryInvite);
 
       await setDoc(doc(db, 'users', createdUser.uid), {
-        uid: createdUser.uid,
-        email,
-        name,
-        role: type,
+        uid: createdUser.uid, email, name, role: type,
         plan: type === 'vendor' ? finalVendorPlan : 'free',
         accessType: type === 'vendor' ? finalAccessType : 'couple',
         membershipTier: type === 'vendor' ? finalVendorPlan : '',
         tier: type === 'vendor' ? finalVendorPlan : '',
         shopAccess: type === 'vendor' ? finalShopAccess : false,
-        favorites: [],
-        emailConsent,
+        favorites: [], emailConsent,
+        termsConsentAt: termsConsent ? serverTimestamp() : null,
         emailConsentAt: emailConsent ? serverTimestamp() : null,
         createdAt: serverTimestamp()
       });
 
       if (type === 'vendor') {
         await setDoc(doc(db, 'vendors', createdUser.uid), {
-          uid: createdUser.uid,
-          businessName: name,
-          email,
-          plan: finalVendorPlan,
-          accessType: finalAccessType,
-          membershipTier: finalVendorPlan,
-          tier: finalVendorPlan,
-          complimentaryPlan: isComplimentaryInvite,
-          shopAccess: finalShopAccess,
-          categories: [],
-          countries: [],
-          states: [],
-          regions: [],
-          profileVisible: false,
-          accountStatus: 'active',
-          createdAt: serverTimestamp()
+          uid: createdUser.uid, businessName: name, email,
+          plan: finalVendorPlan, accessType: finalAccessType,
+          membershipTier: finalVendorPlan, tier: finalVendorPlan,
+          complimentaryPlan: isComplimentaryInvite, shopAccess: finalShopAccess,
+          categories: [], countries: [], states: [], regions: [],
+          profileVisible: false, accountStatus: 'active', createdAt: serverTimestamp()
         });
       }
 
