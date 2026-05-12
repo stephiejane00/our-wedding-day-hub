@@ -214,7 +214,8 @@
       .pricing-setup-card { padding: 28px 20px; }
       .pricing-afford-card { padding: 24px 20px; }
     }
-  </style>
+    .page-auth { position: sticky; top: 0; z-index: 200; background: rgba(247, 241, 237, 0.96); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(223, 210, 200, 0.5); }
+</style>
 </head>
 
 <body>
@@ -225,8 +226,8 @@
     Messages
     <span id="msgNavBadge" style="display:none; position:absolute; top:-6px; right:-10px; background:linear-gradient(135deg,#d6b19a,#a97c66); color:#fffaf7; font-size:0.68rem; font-weight:700; padding:2px 6px; border-radius:999px; line-height:1.2; min-width:18px; text-align:center;">0</span>
   </a>
-  <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
   <a href="login.html" id="loginLink" class="auth-link">Log In</a>
+  <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
   <a href="dashboard.html" id="dashboardLink" class="auth-link" style="display:none;">Dashboard</a>
   <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
 </div>
@@ -249,7 +250,7 @@
           <p class="pricing-hero-highlight">✦ A fraction of the cost of other directories — with zero commission on your bookings, ever.</p>
         </div>
         <div class="pricing-hero-image-wrap">
-          <img src="images/modern-couple-sunglasses.png" alt="Modern wedding couple portrait" class="pricing-hero-image" loading="lazy">
+          <img src="images/love.png" alt="Dramatic veil wedding couple" class="pricing-hero-image" loading="lazy">
         </div>
       </div>
     </section>
@@ -385,7 +386,7 @@
 
     <div class="pricing-visual-grid">
       <div class="pricing-image-card">
-        <img src="images/bride.png" alt="Editorial bridal portrait" loading="lazy">
+        <img src="images/stair.png" alt="Bride on stairs" loading="lazy">
       </div>
       <article class="lux-card pricing-copy-card">
         <span class="lux-badge">✦ Your presence</span>
@@ -418,6 +419,9 @@
 
 <footer class="site-footer">
   <div class="footer-content">
+    <a href="index.html" aria-label="Go to homepage" style="display:inline-block; margin-bottom:18px;">
+      <img src="images/logo.png" alt="Our Wedding Day Hub" style="width:72px; height:72px; object-fit:contain; opacity:0.7;">
+    </a>
     <p class="footer-eyebrow">wedding planning directory</p>
     <h2 class="footer-title">Everything your wedding deserves.</h2>
     <p class="footer-text">Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.</p>
