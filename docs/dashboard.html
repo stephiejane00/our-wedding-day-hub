@@ -947,7 +947,39 @@ import { LOCATION_DATA } from "./locations.js";
   bulkAddBtn.addEventListener("click", applyBulkWeekdayBlock);
   bulkMonthsPreset.addEventListener("change", () => { const pm = bulkMonthsPreset.value; if (!pm) return; const base = bulkStartDate.value ? new Date(bulkStartDate.value+"T00:00:00") : new Date(); if (!bulkStartDate.value) bulkStartDate.value = toLocalDateString(base); bulkEndDate.value = toLocalDateString(addMonthsToDate(base, Number(pm))); });
 
-  async function uploadFileToStorage(file, folder, uid) { const name = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9._-]/g,"_")}`; const r = ref(storage, `${folder}/${uid}/${name}`); await uploadBytes(r, file); return await getDownloadURL(r); }
+  async function uploadFileToStorage(file, folder, uid) {
+    const safeBase = file.name.replace(/\.[^/.]+$/, "").replace(/[^a-zA-Z0-9._-]/g, "_");
+    const isImage = file.type.startsWith("image/");
+    let uploadFile = file;
+    let fileName = `${Date.now()}-${safeBase}`;
+    if (isImage) {
+      try {
+        uploadFile = await new Promise((resolve, reject) => {
+          const img = new Image();
+          img.onload = () => {
+            const canvas = document.createElement("canvas");
+            canvas.width = img.naturalWidth;
+            canvas.height = img.naturalHeight;
+            canvas.getContext("2d").drawImage(img, 0, 0);
+            canvas.toBlob(blob => {
+              if (!blob) reject(new Error("Conversion failed"));
+              else resolve(new File([blob], `${safeBase}.webp`, { type: "image/webp" }));
+            }, "image/webp", 0.9);
+          };
+          img.onerror = reject;
+          img.src = URL.createObjectURL(file);
+        });
+        fileName += ".webp";
+      } catch {
+        fileName += file.name.includes(".") ? file.name.slice(file.name.lastIndexOf(".")) : "";
+      }
+    } else {
+      fileName += file.name.includes(".") ? file.name.slice(file.name.lastIndexOf(".")) : "";
+    }
+    const r = ref(storage, `${folder}/${uid}/${fileName}`);
+    await uploadBytes(r, uploadFile, { contentType: uploadFile.type });
+    return await getDownloadURL(r);
+  }
   function updateStripeStatus(v = {}) { if (stripeStatusText) stripeStatusText.textContent = (v.stripeConnected === true || v.stripeChargesEnabled === true || v.stripeAccountId) ? "Stripe: connected" : "Stripe: not connected"; }
   function clearProductForm() { [productName, productPrice, productCategory, productStock, productDescription, productPurchaseLink, productImageFiles].forEach(el => el.value = ""); paymentMethod.value = "own"; fulfilmentMethod.value = "email"; fulfilmentDetails.value = ""; productStatus.value = "draft"; productImageFileName.textContent = ""; }
 
@@ -1026,7 +1058,7 @@ import { LOCATION_DATA } from "./locations.js";
       if (galleryVideoFiles.files?.length) { const u = []; for (const f of Array.from(galleryVideoFiles.files)) u.push(await uploadFileToStorage(f, "vendor-gallery-videos", currentUser.uid)); gv = [...gv, ...u]; }
       gi = [...new Set(gi)]; gv = [...new Set(gv)]; currentBlockedDates = [...new Set(currentBlockedDates)].sort();
       const cover = gi[0] || ""; const shop = hasShopAccess(currentVendorAccess);
-      await setDoc(doc(db,"vendors",currentUser.uid), { uid:currentUser.uid, businessName:businessName.value.trim(), email:email.value.trim().toLowerCase(), phone:phone.value.trim(), instagram:instagram.value.trim(), website:website.value.trim(), facebook:facebook.value.trim(), tiktok:tiktok.value.trim(), youtube:youtube.value.trim(), pinterest:pinterest.value.trim(), linkedin:linkedin.value.trim(), x:x.value.trim(), serviceAreas:serviceAreas.value.trim(), displayLocation:displayLocation.value.trim(), bookingLink:bookingLink.value.trim(), availabilityStatus:availabilityStatus.value.trim(), bookingNotes:bookingNotes.value.trim(), blockedDates:currentBlockedDates, bio:bio.value.trim(), profileImageUrl:pi, logoUrl:li, coverImageUrl:cover, images:gi, videos:gv, styleTags:st, categories:cats, countries:cos, country:cos[0]||"", states:sts, regions:regs, profileVisible:profileLive.checked, published:profileLive.checked, shopAccess:shop, updatedAt:serverTimestamp() }, { merge:true });
+      await setDoc(doc(db,"vendors",currentUser.uid), { uid:currentUser.uid, businessName:businessName.value.trim(), email:email.value.trim().toLowerCase(), phone:phone.value.trim(), instagram:instagram.value.trim(), website:website.value.trim(), facebook:facebook.value.trim(), tiktok:tiktok.value.trim(), youtube:youtube.value.trim(), pinterest:pinterest.value.trim(), linkedin:linkedin.value.trim(), x:x.value.trim(), serviceAreas:serviceAreas.value.trim(), displayLocation:displayLocation.value.trim(), bookingLink:bookingLink.value.trim(), availabilityStatus:availabilityStatus.value.trim(), bookingNotes:bookingNotes.value.trim(), blockedDates:currentBlockedDates, bio:bio.value.trim(), profileImageUrl:pi, logoUrl:li, coverImageUrl:cover, images:gi, galleryImages:gi, imageUrls:gi, videos:gv, galleryVideos:gv, videoUrls:gv, styleTags:st, categories:cats, countries:cos, country:cos[0]||"", states:sts, regions:regs, profileVisible:profileLive.checked, published:profileLive.checked, shopAccess:shop, updatedAt:serverTimestamp() }, { merge:true });
       currentProfileImageUrl = pi; currentLogoUrl = li; currentGalleryImages = gi; currentGalleryVideos = gv;
       currentVendorAccess = { ...currentVendorAccess, shopAccess:shop, profileVisible:profileLive.checked, published:profileLive.checked };
       profileImageFile.value = ""; logoFile.value = ""; galleryImageFiles.value = ""; galleryVideoFiles.value = "";
