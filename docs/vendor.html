@@ -42,7 +42,8 @@
     .vendor-gallery-stage:active { cursor: grabbing; }
     .vendor-gallery-stage::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(59, 47, 42, 0.08), transparent 45%), radial-gradient(circle at top right, rgba(255, 250, 247, 0.14), transparent 38%); pointer-events: none; }
     .vendor-gallery-media { width: 100%; height: 680px; display: block; background: #f4ebe5; }
-    .vendor-gallery-media img, .vendor-gallery-media video { width: 100%; height: 100%; display: block; object-fit: cover; filter: brightness(0.98) contrast(0.94) saturate(0.92); transition: filter 0.35s ease; }
+    .vendor-gallery-media img { width: 100%; height: 100%; display: block; object-fit: contain; background: #f4ebe5; filter: brightness(0.98) contrast(0.94) saturate(0.92); transition: filter 0.35s ease; }
+    .vendor-gallery-media video { width: 100%; height: 100%; display: block; object-fit: cover; filter: brightness(0.98) contrast(0.94) saturate(0.92); transition: filter 0.35s ease; }
 
     .vendor-gallery-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 46px; height: 46px; border: none; border-radius: 999px; background: rgba(255, 250, 247, 0.92); color: var(--lux-espresso); font-size: 28px; line-height: 1; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; box-shadow: 0 8px 22px rgba(59, 47, 42, 0.14); z-index: 2; transition: transform 0.22s ease, box-shadow 0.22s ease; }
     .vendor-gallery-arrow.left { left: 14px; }
@@ -106,7 +107,7 @@
     .sidebar-business-name { margin: 0 0 10px; font-family: "Cormorant Garamond", serif; font-size: 1.6rem; font-weight: 500; letter-spacing: -0.025em; color: var(--lux-espresso); }
     .sidebar-copy { margin: 0 0 10px; color: var(--lux-muted); line-height: 1.5; font-size: 0.9rem; }
     .vendor-logo-wrap { display: flex; justify-content: center; align-items: center; margin: 14px 0 18px; }
-    .vendor-logo { max-width: 170px; max-height: 90px; width: auto; height: auto; object-fit: contain; display: block; border-radius: 14px; background: #fffaf7; padding: 10px 14px; border: 1px solid #eadfd6; }
+    .vendor-logo { max-width: 220px; max-height: 130px; width: auto; height: auto; object-fit: contain; display: block; border-radius: 14px; background: #fffaf7; padding: 14px 18px; border: 1px solid #eadfd6; }
     .favorite-btn { width: 100%; margin: 10px 0 16px; }
     .favorite-btn.saved { background: linear-gradient(135deg, #c8a6a1, #a97b70); }
     .contact-stack { display: grid; gap: 10px; margin-top: 8px; }
@@ -198,10 +199,10 @@
         <p id="vendorAbout" class="vendor-about"></p>
       </section>
 
-      <!-- Availability & Enquiry -->
+      <!-- Availability Calendar -->
       <div class="vendor-card" id="enquiriesCard">
-        <h2 class="vendor-section-title">Check Availability &amp; Enquire</h2>
-        <p class="empty-block" id="calendarIntro">Select a date to check availability and send an enquiry.</p>
+        <h2 class="vendor-section-title">Check Availability</h2>
+        <p class="empty-block" id="calendarIntro">Select a date to check if this vendor is available — then send an enquiry below.</p>
         <div id="builtInCalendar" class="availability-calendar">
           <div class="cal-header">
             <button type="button" id="calPrevBtn" class="cal-nav">‹</button>
@@ -215,12 +216,17 @@
           <div id="calGrid" class="cal-grid"></div>
           <div id="calSelectedNote" class="cal-selected-note" style="display:none;"></div>
         </div>
-        <div id="enquiryFormWrap" style="margin-top:24px;">
-          <h3 class="vendor-section-title" style="font-size:1.2rem; margin-bottom:12px;">Send an Enquiry</h3>
+      </div>
+
+      <!-- Enquiry Form -->
+      <div class="vendor-card" id="enquiryFormCard">
+        <h2 class="vendor-section-title">Send an Enquiry</h2>
+        <p class="empty-block" style="margin-bottom:16px;">Fill in your details below and the vendor will be in touch. Select a date above and it will appear here automatically.</p>
+        <div id="enquiryFormWrap">
           <form id="enquiryForm" class="enquiry-form">
             <input type="text" id="enquiryName" placeholder="Your name" required>
             <input type="email" id="enquiryEmail" placeholder="Your email" required>
-            <input type="text" id="enquiryDate" placeholder="Preferred date (selected above or type your own)" readonly style="cursor:pointer;">
+            <input type="text" id="enquiryDate" placeholder="Preferred date — select from calendar above or type your own" readonly style="cursor:pointer; background:#fffdfb;">
             <textarea id="enquiryMessage" placeholder="Tell the vendor about your wedding — date, location, style, and anything else they should know..." required></textarea>
             <button type="submit" class="lux-btn">Send Enquiry</button>
           </form>
@@ -525,9 +531,19 @@ function renderCalendar() {
       cell.addEventListener("click", () => {
         selectedDate = dateStr;
         enquiryDate.value = prettyDate(dateStr);
-        calSelectedNote.textContent = `Selected: ${prettyDate(dateStr)} — fill in the enquiry form below and send it to the vendor.`;
+        calSelectedNote.textContent = `✓ ${prettyDate(dateStr)} looks available — scroll down to send your enquiry.`;
         show(calSelectedNote,"block");
         renderCalendar();
+        // Scroll to enquiry form and briefly highlight it
+        const formCard = document.getElementById("enquiryFormCard");
+        if (formCard) {
+          setTimeout(() => {
+            formCard.scrollIntoView({ behavior: "smooth", block: "start" });
+            formCard.style.transition = "box-shadow 0.4s ease";
+            formCard.style.boxShadow = "0 0 0 3px rgba(198,167,125,0.6), 0 8px 28px rgba(59,47,42,0.1)";
+            setTimeout(() => { formCard.style.boxShadow = ""; }, 1800);
+          }, 120);
+        }
       });
     }
     calGrid.appendChild(cell);
