@@ -107,7 +107,88 @@
       .category-vendor-btn, .categories-search-btn { width: 100%; }
     }
     .page-auth { position: sticky; top: 0; z-index: 200; background: rgba(247, 241, 237, 0.96); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(223, 210, 200, 0.5); }
-</style>
+/* Mobile polish for Categories page */
+@media (max-width: 700px) {
+  .categories-page {
+    padding: 8px 8px 36px;
+  }
+
+  .categories-hero {
+    padding: 0;
+    border-radius: 22px;
+    overflow: hidden;
+  }
+
+  .categories-hero-grid {
+    display: flex;
+    flex-direction: column;
+    min-height: auto;
+  }
+
+  .categories-hero-copy {
+    padding: 28px 16px 20px;
+  }
+
+  .categories-kicker {
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+  }
+
+  .categories-title {
+    font-size: clamp(2rem, 12vw, 2.8rem);
+    line-height: 0.95;
+  }
+
+  .categories-script {
+    font-size: 1.05rem;
+  }
+
+  .categories-subtitle {
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  .categories-hero-image-wrap {
+    height: 240px;
+    min-height: 240px;
+    max-height: 240px;
+  }
+
+  .categories-hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .categories-search-panel {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 14px;
+    border-radius: 18px;
+  }
+
+  .categories-search-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .categories-search-field select,
+  .categories-search-field input,
+  .categories-search-btn {
+    min-height: 46px;
+    font-size: 0.9rem;
+  }
+
+  .categories-results {
+    border-radius: 22px;
+    padding: 18px 10px 24px;
+  }
+
+  .category-vendor-card h3 {
+    font-size: 1.55rem;
+  }
+}
+  </style>
 </head>
 <body>
 
