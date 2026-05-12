@@ -63,7 +63,8 @@
     .footer-eyebrow { color: #b08d7d; }
     @media (max-width: 980px) { .contact-hero-grid, .contact-info-grid { grid-template-columns: 1fr; } .contact-hero-copy { padding: 36px 28px; } }
     @media (max-width: 700px) { .contact-page { padding: 10px 10px 0; } .contact-hero-copy { padding: 28px 18px; } .contact-title { font-size: 2.6rem; } .contact-info-card, .contact-form-card { padding: 24px 20px; } .contact-submit { width: 100%; } .contact-socials { flex-direction: column; } .contact-social-link { width: 100%; } }
-  </style>
+    .page-auth { position: sticky; top: 0; z-index: 200; background: rgba(247, 241, 237, 0.96); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(223, 210, 200, 0.5); }
+</style>
 </head>
 <body>
 
@@ -74,8 +75,8 @@
     Messages
     <span id="msgNavBadge" style="display:none; position:absolute; top:-6px; right:-10px; background:linear-gradient(135deg,#d6b19a,#a97c66); color:#fffaf7; font-size:0.68rem; font-weight:700; padding:2px 6px; border-radius:999px; line-height:1.2; min-width:18px; text-align:center;">0</span>
   </a>
-  <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
   <a href="login.html" id="loginLink" class="auth-link">Log In</a>
+  <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
   <a href="dashboard.html" id="dashboardLink" class="auth-link" style="display:none;">Dashboard</a>
   <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
 </div>
@@ -94,7 +95,7 @@
           <p class="contact-intro">Have a question, need support, or want to learn more? Send us a message and we'll get back to you as soon as we can — whether you're a couple or a vendor.</p>
         </div>
         <div class="contact-hero-image-wrap">
-          <img src="images/couple-garden.png" alt="Romantic wedding couple walking through a garden" class="contact-hero-image" loading="lazy">
+          <img src="images/brides.png" alt="Two brides under a floral arch" class="contact-hero-image" loading="lazy">
         </div>
       </div>
     </section>
@@ -150,6 +151,9 @@
 
 <footer class="site-footer">
   <div class="footer-content">
+    <a href="index.html" aria-label="Go to homepage" style="display:inline-block; margin-bottom:18px;">
+      <img src="images/logo.png" alt="Our Wedding Day Hub" style="width:72px; height:72px; object-fit:contain; opacity:0.7;">
+    </a>
     <p class="footer-eyebrow">wedding planning directory</p>
     <h2 class="footer-title">Everything your wedding deserves.</h2>
     <p class="footer-text">Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.</p>
