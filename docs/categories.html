@@ -17,7 +17,13 @@
 
     .categories-page { max-width: 1520px; margin: 0 auto; padding: 18px 20px 56px; }
 
-    .categories-hero { position: relative; background: radial-gradient(circle at top left, rgba(200, 166, 161, 0.18), transparent 34%), linear-gradient(135deg, #fffaf7, #f4ebe5); border: 1px solid rgba(227, 219, 212, 0.9); border-radius: 36px; padding: 52px 30px 36px; margin-bottom: 28px; text-align: center; box-shadow: 0 24px 70px var(--lux-shadow); overflow: hidden; }
+    .categories-hero { position: relative; background: radial-gradient(circle at top left, rgba(200, 166, 161, 0.18), transparent 34%), linear-gradient(135deg, #fffaf7, #f4ebe5); border: 1px solid rgba(227, 219, 212, 0.9); border-radius: 36px; padding: 0; margin-bottom: 28px; text-align: center; box-shadow: 0 24px 70px var(--lux-shadow); overflow: hidden; }
+    .categories-hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; align-items: stretch; min-height: 420px; }
+    .categories-hero-copy { padding: 52px 30px 36px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .categories-hero-image-wrap { position: relative; overflow: hidden; min-height: 100%; background: #f4ece6; }
+    .categories-hero-image-wrap::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(59, 47, 42, 0.08), transparent 45%); pointer-events: none; }
+    .categories-hero-image { width: 100%; height: 100%; display: block; object-fit: cover; filter: brightness(0.98) contrast(0.94) saturate(0.92); opacity: 0; animation: heroFadeIn 0.9s ease forwards; transition: transform 0.9s ease, filter 0.4s ease; }
+    .categories-hero-image-wrap:hover .categories-hero-image { transform: scale(1.035); filter: brightness(1) contrast(0.96) saturate(0.96); }
     .categories-hero::before, .categories-hero::after { content: ""; position: absolute; width: 260px; height: 260px; border-radius: 999px; background: radial-gradient(circle, rgba(200, 166, 161, 0.14), transparent 70%); pointer-events: none; }
     .categories-hero::before { top: -120px; left: -80px; }
     .categories-hero::after  { right: -90px; bottom: -130px; }
@@ -78,7 +84,7 @@
     .footer-eyebrow { color: #b08d7d; }
 
     @media (max-width: 1180px) { .categories-search-grid { grid-template-columns: 1fr 1fr; } .categories-search-btn { width: 100%; } }
-    @media (max-width: 980px) { .categories-page { padding: 16px 16px 48px; } .categories-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; } }
+    @media (max-width: 980px) { .categories-page { padding: 16px 16px 48px; } .categories-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; } .categories-hero-grid { grid-template-columns: 1fr; } .categories-hero-image-wrap { min-height: 280px; } }
     @media (max-width: 700px) {
       .categories-page { padding: 10px 10px 40px; }
       .categories-hero, .categories-results, .categories-search-panel { border-radius: 24px; }
@@ -100,7 +106,8 @@
       .category-vendor-card h3 { font-size: 1.8rem; }
       .category-vendor-btn, .categories-search-btn { width: 100%; }
     }
-  </style>
+    .page-auth { position: sticky; top: 0; z-index: 200; background: rgba(247, 241, 237, 0.96); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(223, 210, 200, 0.5); }
+</style>
 </head>
 <body>
 
@@ -111,46 +118,53 @@
     Messages
     <span id="msgNavBadge" style="display:none; position:absolute; top:-6px; right:-10px; background:linear-gradient(135deg,#d6b19a,#a97c66); color:#fffaf7; font-size:0.68rem; font-weight:700; padding:2px 6px; border-radius:999px; line-height:1.2; min-width:18px; text-align:center;">0</span>
   </a>
-  <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
   <a href="login.html" id="loginLink" class="auth-link">Log In</a>
+  <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
   <a href="dashboard.html" id="dashboardLink" class="auth-link" style="display:none;">Dashboard</a>
   <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
 </div>
 
 <main class="categories-page">
   <section class="categories-hero">
-    <a href="index.html" aria-label="Go to homepage">
-      <img src="images/logo.png" alt="Our Wedding Day Hub" class="categories-logo" loading="lazy">
-    </a>
-    <p class="categories-kicker">Browse wedding vendors</p>
-    <h1 class="categories-title" id="categoryPageTitle">All Categories</h1>
-    <p class="categories-script">find the people who make it perfect ♡</p>
-    <p class="categories-subtitle" id="categoryPageSubtitle">Discover trusted wedding vendors and explore beautiful businesses for every part of your day.</p>
-    <div class="categories-filter-wrap">
-      <div class="categories-filter-bar" id="categoriesFilterBar"></div>
-    </div>
-    <div class="categories-search-panel">
-      <div class="categories-search-grid">
-        <div class="categories-search-field">
-          <label for="mainCategorySelect">Category</label>
-          <select id="mainCategorySelect"><option value="all">All Categories</option></select>
+    <div class="categories-hero-grid">
+      <div class="categories-hero-copy">
+        <a href="index.html" aria-label="Go to homepage">
+          <img src="images/logo.png" alt="Our Wedding Day Hub" class="categories-logo" loading="lazy">
+        </a>
+        <p class="categories-kicker">Browse wedding vendors</p>
+        <h1 class="categories-title" id="categoryPageTitle">All Categories</h1>
+        <p class="categories-script">find the people who make it perfect ♡</p>
+        <p class="categories-subtitle" id="categoryPageSubtitle">Discover trusted wedding vendors and explore beautiful businesses for every part of your day.</p>
+        <div class="categories-filter-wrap">
+          <div class="categories-filter-bar" id="categoriesFilterBar"></div>
         </div>
-        <div class="categories-search-field">
-          <label for="subCategorySelect">Subcategory</label>
-          <select id="subCategorySelect"><option value="all">All Subcategories</option></select>
+        <div class="categories-search-panel">
+          <div class="categories-search-grid">
+            <div class="categories-search-field">
+              <label for="mainCategorySelect">Category</label>
+              <select id="mainCategorySelect"><option value="all">All Categories</option></select>
+            </div>
+            <div class="categories-search-field">
+              <label for="subCategorySelect">Subcategory</label>
+              <select id="subCategorySelect"><option value="all">All Subcategories</option></select>
+            </div>
+            <div class="categories-search-field">
+              <label for="locationSearch">Location</label>
+              <input type="text" id="locationSearch" placeholder="Suburb, city, state or country">
+            </div>
+            <div class="categories-search-field">
+              <label for="keywordSearch">Search</label>
+              <input type="text" id="keywordSearch" placeholder="Search vendor or keyword">
+            </div>
+            <button type="button" id="searchBtn" class="categories-search-btn">Search</button>
+          </div>
+          <div class="categories-clear-row">
+            <button type="button" id="clearFiltersBtn" class="categories-clear-btn">Clear filters</button>
+          </div>
         </div>
-        <div class="categories-search-field">
-          <label for="locationSearch">Location</label>
-          <input type="text" id="locationSearch" placeholder="Suburb, city, state or country">
-        </div>
-        <div class="categories-search-field">
-          <label for="keywordSearch">Search</label>
-          <input type="text" id="keywordSearch" placeholder="Search vendor or keyword">
-        </div>
-        <button type="button" id="searchBtn" class="categories-search-btn">Search</button>
       </div>
-      <div class="categories-clear-row">
-        <button type="button" id="clearFiltersBtn" class="categories-clear-btn">Clear filters</button>
+      <div class="categories-hero-image-wrap">
+        <img src="images/cutecar.jpg" alt="Elegant wedding couple on a vintage car" class="categories-hero-image" loading="lazy">
       </div>
     </div>
   </section>
@@ -166,6 +180,9 @@
 
 <footer class="site-footer">
   <div class="footer-content">
+    <a href="index.html" aria-label="Go to homepage" style="display:inline-block; margin-bottom:18px;">
+      <img src="images/logo.png" alt="Our Wedding Day Hub" style="width:72px; height:72px; object-fit:contain; opacity:0.7;">
+    </a>
     <p class="footer-eyebrow">wedding planning directory</p>
     <h2 class="footer-title">Everything your wedding deserves.</h2>
     <p class="footer-text">Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.</p>
