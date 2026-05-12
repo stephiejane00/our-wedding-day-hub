@@ -262,11 +262,11 @@
 
     function getCardImage(vendor) {
       if (vendor.coverImageUrl?.trim()) return vendor.coverImageUrl;
-      if (Array.isArray(vendor.images) && vendor.images.length > 0) return vendor.images[0];
+      const imgs = [...(Array.isArray(vendor.images) ? vendor.images : []), ...(Array.isArray(vendor.galleryImages) ? vendor.galleryImages : []), ...(Array.isArray(vendor.imageUrls) ? vendor.imageUrls : [])];
+      const first = imgs.find(s => s?.trim());
+      if (first) return first;
       if (vendor.profileImageUrl?.trim()) return vendor.profileImageUrl;
       if (vendor.logoUrl?.trim()) return vendor.logoUrl;
-      if (vendor.coverImage?.trim()) return vendor.coverImage;
-      if (vendor.profileImage?.trim()) return vendor.profileImage;
       return "images/bouquet.png";
     }
 
