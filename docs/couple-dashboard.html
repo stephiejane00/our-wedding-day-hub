@@ -155,7 +155,33 @@
     .inspiration-add { width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px; border-radius: 14px; border: 1.5px dashed rgba(198,167,125,0.6); background: transparent; color: #a08479; font: inherit; font-size: 0.88rem; cursor: pointer; margin-top: 8px; transition: background 0.18s, border-color 0.18s; }
     .inspiration-add:hover { background: rgba(244,231,223,0.5); border-color: rgba(198,167,125,0.8); }
 
-    /* ── MOBILE ── */
+    /* ── HERO IMAGE ── */
+    .couple-hero-card { border-radius: 36px; border: 1px solid rgba(227, 219, 212, 0.9); box-shadow: 0 24px 70px var(--lux-shadow); background: radial-gradient(circle at top left, rgba(200, 166, 161, 0.18), transparent 34%), linear-gradient(135deg, #fffaf7, #f4ebe5); overflow: hidden; padding: 0; margin-bottom: 0; }
+    .couple-hero-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; align-items: stretch; min-height: 420px; }
+    .couple-hero-copy { padding: 44px 48px; display: flex; flex-direction: column; justify-content: center; }
+    .couple-hero-copy > * { animation: fadeUp 0.8s ease forwards; opacity: 0; }
+    .couple-hero-copy > *:nth-child(1) { animation-delay: 0.05s; }
+    .couple-hero-copy > *:nth-child(2) { animation-delay: 0.12s; }
+    .couple-hero-copy > *:nth-child(3) { animation-delay: 0.2s; }
+    .couple-hero-copy > *:nth-child(4) { animation-delay: 0.28s; }
+    .couple-hero-kicker { margin: 0 0 10px; font-size: 0.78rem; letter-spacing: 0.28em; text-transform: uppercase; color: #b08d7d; opacity: 0.85; }
+    .couple-hero-title { margin: 0 0 10px; font-family: "Cormorant Garamond", serif; font-size: clamp(2.4rem, 4vw, 3.6rem); font-weight: 500; line-height: 0.96; letter-spacing: -0.045em; color: var(--lux-espresso); }
+    .couple-hero-script { margin: 0 0 16px; font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 1.2rem; color: #c69b84; opacity: 0.9; }
+    .couple-hero-sub { margin: 0; max-width: 420px; color: var(--lux-muted); line-height: 1.75; font-size: 0.95rem; }
+    .couple-hero-image-wrap { position: relative; overflow: hidden; min-height: 100%; background: #f4ece6; }
+    .couple-hero-image-wrap::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(59, 47, 42, 0.08), transparent 45%); pointer-events: none; }
+    .couple-hero-image { width: 100%; height: 100%; display: block; object-fit: cover; filter: brightness(0.98) contrast(0.94) saturate(0.92); opacity: 0; animation: heroFadeIn 0.9s ease forwards; transition: transform 0.9s ease; }
+    @keyframes heroFadeIn { from { opacity: 0; transform: scale(1.01); } to { opacity: 1; transform: scale(1); } }
+    .couple-hero-image-wrap:hover .couple-hero-image { transform: scale(1.035); }
+    @media (max-width: 980px) { .couple-hero-grid { grid-template-columns: 1fr; } .couple-hero-copy { padding: 32px 28px; } .couple-hero-image-wrap { min-height: 280px; } }
+
+    /* ── PROFILE PHOTO ── */
+    .profile-photo-wrap { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
+    .profile-photo-circle { width: 72px; height: 72px; border-radius: 999px; object-fit: cover; border: 2px solid rgba(214,190,174,0.8); background: var(--lux-blush); flex: 0 0 72px; }
+    .profile-photo-empty { width: 72px; height: 72px; border-radius: 999px; border: 2px dashed rgba(198,167,125,0.6); background: rgba(244,231,223,0.4); flex: 0 0 72px; display: flex; align-items: center; justify-content: center; color: #b08d7d; font-size: 1.4rem; }
+    .profile-photo-upload-label { display: inline-flex; align-items: center; justify-content: center; min-height: 38px; padding: 9px 18px; border-radius: 999px; background: linear-gradient(135deg, #d6b19a, #a97c66); color: #fffaf7; font: inherit; font-weight: 700; font-size: 0.85rem; cursor: pointer; box-shadow: 0 6px 16px rgba(185,143,122,0.2); transition: transform 0.18s ease; }
+    .profile-photo-upload-label:hover { transform: translateY(-1px); }
+    .profile-photo-status { font-size: 0.82rem; color: var(--lux-muted); margin-top: 4px; font-style: italic; }
     .site-footer { background: radial-gradient(circle at top, rgba(200, 166, 161, 0.16), transparent 36%), linear-gradient(180deg, #f5eee9 0%, #eee5df 100%); }
     .footer-title { color: var(--lux-espresso); letter-spacing: -0.035em; }
     .footer-eyebrow { color: #b08d7d; }
@@ -174,18 +200,33 @@
     <h1 id="topbarWeddingName">My Wedding Dashboard</h1>
   </div>
   <div class="couple-topbar-actions">
-    <a href="categories.html" class="couple-topbar-link">Browse Vendors</a>
+    <a href="categories.html" class="couple-topbar-link">Categories</a>
+    <a href="shop.html" class="couple-topbar-link">Boutique</a>
     <a href="messages.html" id="coupleMessagesLink" class="couple-topbar-link messages-link">
       Messages
       <span id="coupleMsgBadge" class="couple-topbar-badge">0</span>
     </a>
+    <a href="couple-dashboard.html" class="couple-topbar-link">Dashboard</a>
     <button type="button" id="coupleLogoutBtn" class="couple-topbar-btn">Log Out</button>
   </div>
 </header>
 
 <main class="couple-dashboard">
 
-  <!-- ── WELCOME CARD ── -->
+  <!-- ── HERO ── -->
+  <section class="couple-hero-card">
+    <div class="couple-hero-grid">
+      <div class="couple-hero-copy">
+        <p class="couple-hero-kicker">Your Wedding Hub</p>
+        <h1 id="coupleHeroTitle" class="couple-hero-title">Your love story<br>starts here</h1>
+        <p class="couple-hero-script">everything in one place ♡</p>
+        <p class="couple-hero-sub" style="text-align:left;">Save your favourite vendors, track your checklist, manage your budget, and message the people who'll make your day unforgettable.</p>
+      </div>
+      <div class="couple-hero-image-wrap">
+        <img src="images/cutecar.jpg" alt="Romantic wedding couple on a vintage car" class="couple-hero-image" loading="eager">
+      </div>
+    </div>
+  </section>
   <section class="couple-welcome-card">
     <div>
       <p class="couple-welcome-kicker">Welcome back</p>
@@ -260,6 +301,20 @@
       <!-- Wedding Details -->
       <div class="couple-sidebar-card">
         <h2>Wedding Details</h2>
+
+        <!-- Profile Photo -->
+        <div class="profile-photo-wrap">
+          <div id="profilePhotoPreviewWrap">
+            <div class="profile-photo-empty" id="profilePhotoEmpty">♡</div>
+            <img id="profilePhotoImg" class="profile-photo-circle" style="display:none;" alt="Your profile photo">
+          </div>
+          <div>
+            <input type="file" id="profilePhotoInput" accept="image/*" style="display:none;">
+            <label for="profilePhotoInput" class="profile-photo-upload-label">Upload Photo</label>
+            <p class="profile-photo-status" id="profilePhotoStatus">Shown to vendors when you message them</p>
+          </div>
+        </div>
+
         <div class="couple-date-form">
           <div>
             <label for="partner1Name">Partner 1 Name</label>
@@ -336,6 +391,9 @@
 
 <footer class="site-footer">
   <div class="footer-content">
+    <a href="index.html" aria-label="Go to homepage" style="display:inline-block; margin-bottom:18px;">
+      <img src="images/logo.png" alt="Our Wedding Day Hub" style="width:72px; height:72px; object-fit:contain; opacity:0.7;">
+    </a>
     <p class="footer-eyebrow">wedding planning directory</p>
     <h2 class="footer-title">Everything your wedding deserves.</h2>
     <p class="footer-text">Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.</p>
@@ -357,7 +415,7 @@
 </footer>
 
 <script type="module">
-import { db, auth, doc, getDoc, setDoc, updateDoc, onAuthStateChanged, signOut, collection, query, where, onSnapshot, orderBy, limit } from "./firebase.js";
+import { db, auth, storage, doc, getDoc, setDoc, updateDoc, onAuthStateChanged, signOut, collection, query, where, onSnapshot, orderBy, limit, ref, uploadBytes, getDownloadURL } from "./firebase.js";
 
 let currentUser = null;
 let userData = {};
@@ -398,6 +456,9 @@ function applyUserData() {
   document.getElementById("topbarWeddingName").textContent = weddingName + " — Dashboard";
   document.getElementById("welcomeTitle").textContent = p1 && p2 ? `${p1} & ${p2}` : "Your Wedding";
   document.getElementById("welcomeSub").textContent = "Everything you need to plan your perfect day — saved favourites, messages, your checklist, budget, and more.";
+  // Update hero title
+  const heroTitle = document.getElementById("coupleHeroTitle");
+  if (heroTitle && p1 && p2) heroTitle.innerHTML = `${p1} &amp; ${p2}`;
   document.getElementById("partner1Name").value = p1;
   document.getElementById("partner2Name").value = p2;
   if (userData.weddingDate) {
@@ -410,6 +471,13 @@ function applyUserData() {
   budgetCategories = Array.isArray(userData.budgetCategories) ? userData.budgetCategories : [];
   checklistItems = Array.isArray(userData.checklist) ? userData.checklist : getDefaultChecklist();
   inspirationImages = Array.isArray(userData.inspirationImages) ? userData.inspirationImages : [];
+  // Show profile photo if saved
+  if (userData.profilePhotoUrl) {
+    const img = document.getElementById("profilePhotoImg");
+    const empty = document.getElementById("profilePhotoEmpty");
+    if (img) { img.src = userData.profilePhotoUrl; img.style.display = "block"; }
+    if (empty) empty.style.display = "none";
+  }
   renderBudget();
   renderChecklist();
   renderFavourites();
@@ -429,7 +497,30 @@ function updateCountdown(dateStr) {
   else el.textContent = "♡";
 }
 
-// ── SAVE DETAILS ──
+// ── PROFILE PHOTO UPLOAD ──
+document.getElementById("profilePhotoInput").addEventListener("change", async (e) => {
+  const file = e.target.files?.[0];
+  if (!file || !currentUser) return;
+  const statusEl = document.getElementById("profilePhotoStatus");
+  statusEl.textContent = "Uploading...";
+  try {
+    const fileRef = ref(storage, `couple-profile-photos/${currentUser.uid}/${Date.now()}-${file.name.replace(/[^a-zA-Z0-9._-]/g, "_")}`);
+    await uploadBytes(fileRef, file);
+    const url = await getDownloadURL(fileRef);
+    await setDoc(doc(db, "users", currentUser.uid), { profilePhotoUrl: url }, { merge: true });
+    userData.profilePhotoUrl = url;
+    const img = document.getElementById("profilePhotoImg");
+    const empty = document.getElementById("profilePhotoEmpty");
+    if (img) { img.src = url; img.style.display = "block"; }
+    if (empty) empty.style.display = "none";
+    statusEl.textContent = "Photo saved ♡";
+    setTimeout(() => { statusEl.textContent = "Shown to vendors when you message them"; }, 2500);
+  } catch (err) {
+    console.error(err);
+    statusEl.textContent = "Upload failed. Please try again.";
+  }
+  e.target.value = "";
+});
 document.getElementById("saveDetailsBtn").addEventListener("click", async () => {
   const p1 = document.getElementById("partner1Name").value.trim();
   const p2 = document.getElementById("partner2Name").value.trim();
@@ -641,17 +732,19 @@ function renderInspiration() {
 }
 
 document.getElementById("addInspirationBtn").addEventListener("click", () => { document.getElementById("inspirationFileInput").click(); });
-document.getElementById("inspirationFileInput").addEventListener("change", (e) => {
+document.getElementById("inspirationFileInput").addEventListener("change", async (e) => {
   const files = Array.from(e.target.files);
-  files.forEach(file => {
-    const reader = new FileReader();
-    reader.onload = async (ev) => {
-      inspirationImages.push(ev.target.result);
+  if (!files.length || !currentUser) return;
+  for (const file of files) {
+    try {
+      const fileRef = ref(storage, `couple-inspiration/${currentUser.uid}/${Date.now()}-${file.name.replace(/[^a-zA-Z0-9._-]/g, "_")}`);
+      await uploadBytes(fileRef, file);
+      const url = await getDownloadURL(fileRef);
+      inspirationImages.push(url);
       renderInspiration();
-      try { await setDoc(doc(db, "users", currentUser.uid), { inspirationImages }, { merge: true }); } catch {}
-    };
-    reader.readAsDataURL(file);
-  });
+      await setDoc(doc(db, "users", currentUser.uid), { inspirationImages }, { merge: true });
+    } catch (err) { console.error("Inspiration upload failed:", err); }
+  }
   e.target.value = "";
 });
 </script>
