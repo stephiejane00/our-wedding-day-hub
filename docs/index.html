@@ -286,17 +286,9 @@
           <a href="index.html" class="lux-logo-wrap" aria-label="Go to homepage">
             <img src="images/logo.png" alt="Our Wedding Day Hub" class="lux-logo" loading="eager" fetchpriority="high">
           </a>
-<p class="lux-kicker">TRUSTED WEDDING VENDORS WORLDWIDE</p>
-
-<h1 class="lux-title">
-  The new era of <br>
-  wedding planning
-</h1>
-
-<p class="lux-script">
-  for the weddings <br>
-  everyone remembers ♡
-</p>
+          <p class="lux-kicker">Trusted wedding vendors worldwide</p>
+          <h1 class="lux-title">Find the people behind <br>unforgettable weddings</h1>
+          <p class="lux-script">all in one place ♡</p>
           <div class="search-wrap hero-search-wrap">
             <div class="search-bar">
               <span class="search-icon" aria-hidden="true">⌕</span>
@@ -485,11 +477,11 @@
 
     function getCardImage(vendor) {
       if (vendor.coverImageUrl?.trim()) return vendor.coverImageUrl;
-      if (Array.isArray(vendor.images) && vendor.images.length > 0) return vendor.images[0];
+      const imgs = [...(Array.isArray(vendor.images) ? vendor.images : []), ...(Array.isArray(vendor.galleryImages) ? vendor.galleryImages : []), ...(Array.isArray(vendor.imageUrls) ? vendor.imageUrls : [])];
+      const first = imgs.find(s => s?.trim());
+      if (first) return first;
       if (vendor.profileImageUrl?.trim()) return vendor.profileImageUrl;
       if (vendor.logoUrl?.trim()) return vendor.logoUrl;
-      if (vendor.coverImage?.trim()) return vendor.coverImage;
-      if (vendor.profileImage?.trim()) return vendor.profileImage;
       return "images/bouquet.png";
     }
 
@@ -656,8 +648,8 @@
         "images/hero-1.png",
         "images/sunset.jpg",
         "images/rain.jpg",
-        "images/bride.png",
-        "images/kiss.png",
+        "images/stunner.png",
+        "images/dipkiss.png",
         "images/stair.png",
         "images/brides.png",
         "images/cutecar.jpg",
