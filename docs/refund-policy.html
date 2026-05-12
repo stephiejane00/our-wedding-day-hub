@@ -63,7 +63,8 @@
     .footer-eyebrow { color: #b08d7d; }
     @media (max-width: 980px) { .refund-hero-grid { grid-template-columns: 1fr; } .refund-hero-copy { padding: 36px 28px; } }
     @media (max-width: 700px) { .refund-page { padding: 10px 10px 0; } .refund-hero-copy { padding: 28px 18px; } .refund-title { font-size: 2.6rem; } .refund-policy-card { padding: 28px 20px; } }
-  </style>
+    .page-auth { position: sticky; top: 0; z-index: 200; background: rgba(247, 241, 237, 0.96); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(223, 210, 200, 0.5); }
+</style>
 </head>
 <body>
 
@@ -74,8 +75,8 @@
     Messages
     <span id="msgNavBadge" style="display:none; position:absolute; top:-6px; right:-10px; background:linear-gradient(135deg,#d6b19a,#a97c66); color:#fffaf7; font-size:0.68rem; font-weight:700; padding:2px 6px; border-radius:999px; line-height:1.2; min-width:18px; text-align:center;">0</span>
   </a>
-  <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
   <a href="login.html" id="loginLink" class="auth-link">Log In</a>
+  <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
   <a href="dashboard.html" id="dashboardLink" class="auth-link" style="display:none;">Dashboard</a>
   <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
 </div>
@@ -94,7 +95,7 @@
           <p class="refund-intro">We want every vendor to feel confident joining Our Wedding Day Hub. This policy explains how our refund process works, what is covered, and how to request a refund if you need one.</p>
         </div>
         <div class="refund-hero-image-wrap">
-          <img src="images/header4.png" alt="Wedding planning editorial" class="refund-hero-image" loading="lazy">
+          <img src="images/carcouple.jpg" alt="Wedding planning editorial" class="refund-hero-image" loading="lazy">
         </div>
       </div>
     </section>
@@ -170,6 +171,9 @@
 
 <footer class="site-footer">
   <div class="footer-content">
+    <a href="index.html" aria-label="Go to homepage" style="display:inline-block; margin-bottom:18px;">
+      <img src="images/logo.png" alt="Our Wedding Day Hub" style="width:72px; height:72px; object-fit:contain; opacity:0.7;">
+    </a>
     <p class="footer-eyebrow">wedding planning directory</p>
     <h2 class="footer-title">Everything your wedding deserves.</h2>
     <p class="footer-text">Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.</p>
