@@ -6,7 +6,6 @@
   <title>Log In | Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    /* ── Root tokens matching homepage exactly ── */
     :root {
       --lux-espresso: #3b2f2a;
       --lux-rose: #c8a6a1;
@@ -20,531 +19,100 @@
         #f7f1ed;
     }
 
-    /* ── Auth bar ── */
-    .page-auth {
-      /* inherits from style.css */
-    }
+    .login-page { max-width: 1200px; margin: 0 auto 60px; padding: 18px 20px 0; }
+    .login-stack { display: grid; gap: 24px; }
 
-    /* ── Page wrapper ── */
-    .login-page {
-      max-width: 1200px;
-      margin: 0 auto 60px;
-      padding: 18px 20px 0;
-    }
-
-    .login-stack {
-      display: grid;
-      gap: 24px;
-    }
-
-    /* ── HERO CARD — mirrors lux-hero-inner from homepage ── */
-    .login-hero-card {
-      border-radius: 36px;
-      border: 1px solid rgba(227, 219, 212, 0.9);
-      box-shadow: 0 24px 70px rgba(59, 47, 42, 0.08);
-      background:
-        radial-gradient(circle at top left, rgba(200, 166, 161, 0.18), transparent 34%),
-        linear-gradient(135deg, #fffaf7, #f4ebe5);
-      overflow: hidden;
-      padding: 0;
-    }
-
-    .login-hero-grid {
-      display: grid;
-      grid-template-columns: 1.02fr 0.98fr;
-      align-items: stretch;
-      min-height: 520px;
-    }
-
-    .login-hero-copy {
-      padding: 52px 48px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    /* Staggered fade-up — matches homepage lux-hero-copy */
-    .login-hero-copy > * {
-      animation: fadeUp 0.8s ease forwards;
-      opacity: 0;
-    }
+    .login-hero-card { border-radius: 36px; border: 1px solid rgba(227, 219, 212, 0.9); box-shadow: 0 24px 70px rgba(59, 47, 42, 0.08); background: radial-gradient(circle at top left, rgba(200, 166, 161, 0.18), transparent 34%), linear-gradient(135deg, #fffaf7, #f4ebe5); overflow: hidden; padding: 0; }
+    .login-hero-grid { display: grid; grid-template-columns: 1.02fr 0.98fr; align-items: stretch; min-height: 520px; }
+    .login-hero-copy { padding: 52px 48px; display: flex; flex-direction: column; justify-content: center; }
+    .login-hero-copy > * { animation: fadeUp 0.8s ease forwards; opacity: 0; }
     .login-hero-copy > *:nth-child(1) { animation-delay: 0.05s; }
     .login-hero-copy > *:nth-child(2) { animation-delay: 0.1s; }
     .login-hero-copy > *:nth-child(3) { animation-delay: 0.2s; }
     .login-hero-copy > *:nth-child(4) { animation-delay: 0.3s; }
     .login-hero-copy > *:nth-child(5) { animation-delay: 0.38s; }
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(14px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes heroFadeIn { from { opacity: 0; transform: scale(1.01); } to { opacity: 1; transform: scale(1); } }
 
-    .login-logo-wrap {
-      display: inline-flex;
-      align-items: center;
-      justify-content: flex-start;
-      margin-bottom: 20px;
-    }
+    .login-logo-wrap { display: inline-flex; align-items: center; justify-content: flex-start; margin-bottom: 20px; }
+    .login-logo { width: 108px; display: block; }
+    .login-kicker { margin: 0 0 12px; font-size: 0.78rem; letter-spacing: 0.28em; text-transform: uppercase; color: #b08d7d; opacity: 0.85; }
+    .login-title { margin: 0 0 14px; font-family: "Cormorant Garamond", serif; font-size: clamp(2.8rem, 4.5vw, 4rem); font-weight: 500; line-height: 0.96; letter-spacing: -0.045em; color: var(--lux-espresso); text-shadow: 0 10px 30px rgba(59, 47, 42, 0.08); }
+    .login-script { margin: 0 0 20px; font-family: "Cormorant Garamond", serif; font-size: 1.35rem; font-style: italic; color: #c69b84; opacity: 0.9; letter-spacing: 0.02em; }
+    .login-intro { margin: 0; max-width: 480px; color: var(--muted); line-height: 1.8; font-size: 0.97rem; }
 
-    .login-logo {
-      width: 108px;
-      display: block;
-    }
+    .login-hero-image-wrap { position: relative; overflow: hidden; min-height: 100%; background: #f4ece6; }
+    .login-hero-image-wrap::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(59, 47, 42, 0.08), transparent 45%), radial-gradient(circle at top right, rgba(255, 250, 247, 0.14), transparent 38%); pointer-events: none; }
+    .login-hero-image { width: 100%; height: 100%; display: block; object-fit: cover; filter: brightness(0.98) contrast(0.94) saturate(0.92); transition: transform 0.9s ease, filter 0.4s ease; opacity: 0; animation: heroFadeIn 0.9s ease forwards; }
+    .login-hero-image-wrap:hover .login-hero-image { transform: scale(1.035); filter: brightness(1) contrast(0.96) saturate(0.96); }
 
-    /* Kicker — identical to .lux-kicker */
-    .login-kicker {
-      margin: 0 0 12px;
-      font-size: 0.78rem;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: #b08d7d;
-      opacity: 0.85;
-    }
-
-    /* Title — identical to .lux-title */
-    .login-title {
-      margin: 0 0 14px;
-      font-family: "Cormorant Garamond", serif;
-      font-size: clamp(2.8rem, 4.5vw, 4rem);
-      font-weight: 500;
-      line-height: 0.96;
-      letter-spacing: -0.045em;
-      color: var(--lux-espresso);
-      text-shadow: 0 10px 30px rgba(59, 47, 42, 0.08);
-    }
-
-    /* Script line — identical to .lux-script */
-    .login-script {
-      margin: 0 0 20px;
-      font-family: "Cormorant Garamond", serif;
-      font-size: 1.35rem;
-      font-style: italic;
-      color: #c69b84;
-      opacity: 0.9;
-      letter-spacing: 0.02em;
-    }
-
-    .login-intro {
-      margin: 0;
-      max-width: 480px;
-      color: var(--muted);
-      line-height: 1.8;
-      font-size: 0.97rem;
-    }
-
-    /* Hero image — identical treatment to homepage */
-    .login-hero-image-wrap {
-      position: relative;
-      overflow: hidden;
-      min-height: 100%;
-      background: #f4ece6;
-    }
-
-    .login-hero-image-wrap::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(90deg, rgba(59, 47, 42, 0.08), transparent 45%),
-        radial-gradient(circle at top right, rgba(255, 250, 247, 0.14), transparent 38%);
-      pointer-events: none;
-    }
-
-    .login-hero-image {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover;
-      filter: brightness(0.98) contrast(0.94) saturate(0.92);
-      transition: transform 0.9s ease, filter 0.4s ease;
-      opacity: 0;
-      animation: heroFadeIn 0.9s ease forwards;
-    }
-
-    .login-hero-image-wrap:hover .login-hero-image {
-      transform: scale(1.035);
-      filter: brightness(1) contrast(0.96) saturate(0.96);
-    }
-
-    @keyframes heroFadeIn {
-      from { opacity: 0; transform: scale(1.01); }
-      to   { opacity: 1; transform: scale(1); }
-    }
-
-    /* Trust strip — matches homepage exactly */
-    .trust-strip {
-      text-align: center;
-      padding: 16px 20px 6px;
-      font-size: 0.82rem;
-      letter-spacing: 0.12em;
-      color: #9b8579;
-      opacity: 0.7;
-    }
+    .trust-strip { text-align: center; padding: 16px 20px 6px; font-size: 0.82rem; letter-spacing: 0.12em; color: #9b8579; opacity: 0.7; }
     .trust-strip p { margin: 0; }
 
-    /* ── CONTENT GRID ── */
-    .login-content-grid {
-      display: grid;
-      grid-template-columns: 0.92fr 1.08fr;
-      gap: 24px;
-      align-items: start;
-    }
+    .login-content-grid { display: grid; grid-template-columns: 0.92fr 1.08fr; gap: 24px; align-items: start; }
 
-    /* Info card — matches vendor-card / category-card feel */
-    .login-info-card,
-    .login-form-card {
-      position: relative;
-      border-radius: 24px;
-      overflow: hidden;
-      background: rgba(255, 250, 247, 0.92);
-      border: 1px solid rgba(223, 210, 200, 0.9);
-      box-shadow: 0 6px 18px rgba(59, 47, 42, 0.04);
-      padding: 32px 30px;
-      text-align: left;
-      transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
-    }
+    .login-info-card, .login-form-card { position: relative; border-radius: 24px; overflow: hidden; background: rgba(255, 250, 247, 0.92); border: 1px solid rgba(223, 210, 200, 0.9); box-shadow: 0 6px 18px rgba(59, 47, 42, 0.04); padding: 32px 30px; text-align: left; transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease; }
+    .login-info-card:hover, .login-form-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(59, 47, 42, 0.1); border-color: rgba(198, 167, 125, 0.55); }
+    .login-info-card h2, .login-form-card h2 { margin: 0 0 10px; text-align: left; color: var(--lux-espresso); letter-spacing: -0.03em; }
+    .login-info-card p, .login-form-card > p { margin: 0 0 14px; line-height: 1.8; color: var(--muted); }
 
-    .login-info-card:hover,
-    .login-form-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 20px 50px rgba(59, 47, 42, 0.1);
-      border-color: rgba(198, 167, 125, 0.55);
-    }
+    .login-mini-badge { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 999px; background: rgba(255, 250, 247, 0.9); color: #6f5143; border: 1px solid rgba(214, 190, 174, 0.8); font-size: 0.74rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; backdrop-filter: blur(8px); margin-bottom: 16px; }
 
-    .login-info-card h2,
-    .login-form-card h2 {
-      margin: 0 0 10px;
-      text-align: left;
-      color: var(--lux-espresso);
-      letter-spacing: -0.03em;
-    }
+    .login-points { display: grid; gap: 12px; margin-top: 16px; }
+    .login-point { padding: 16px 18px; border-radius: 18px; background: rgba(247, 241, 237, 0.9); border: 1px solid rgba(223, 210, 200, 0.7); color: var(--text); line-height: 1.75; font-size: 0.93rem; transition: background 0.2s ease, border-color 0.2s ease; }
+    .login-point:hover { background: #f5e7de; border-color: rgba(198, 167, 125, 0.5); }
+    .login-point strong { display: block; margin-bottom: 3px; color: var(--lux-espresso); font-size: 0.88rem; letter-spacing: 0.04em; text-transform: uppercase; }
 
-    .login-info-card p,
-    .login-form-card > p {
-      margin: 0 0 14px;
-      line-height: 1.8;
-      color: var(--muted);
-    }
+    .login-form-card { background: linear-gradient(180deg, #fffdfb 0%, #fff8f3 100%); }
+    .login-form { display: grid; gap: 14px; margin-top: 18px; }
+    .login-form label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.88rem; letter-spacing: 0.03em; color: #3b2d25; }
+    .login-form input { width: 100%; border: 1px solid #eadfd6; border-radius: 16px; background: #fffdfb; padding: 14px 16px; font-size: 0.96rem; color: #2d221c; box-sizing: border-box; transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease; }
+    .login-form input:focus { outline: none; border-color: #d6bcad; box-shadow: 0 0 0 4px rgba(217, 194, 178, 0.16); background: #ffffff; }
 
-    /* Mini badge — matching vendor-featured-badge style */
-    .login-mini-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 7px 14px;
-      border-radius: 999px;
-      background: rgba(255, 250, 247, 0.9);
-      color: #6f5143;
-      border: 1px solid rgba(214, 190, 174, 0.8);
-      font-size: 0.74rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      backdrop-filter: blur(8px);
-      margin-bottom: 16px;
-    }
+    .login-submit-btn { width: 100%; display: inline-flex; align-items: center; justify-content: center; min-height: 50px; padding: 14px 20px; border-radius: 999px; border: none; background: linear-gradient(135deg, #d6b19a, #a97c66); color: #fffaf7; font-size: 1rem; font-weight: 700; letter-spacing: 0.04em; cursor: pointer; box-shadow: 0 10px 24px rgba(185, 143, 122, 0.22); transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease; }
+    .login-submit-btn:hover { transform: translateY(-2px); filter: brightness(1.04); box-shadow: 0 16px 34px rgba(185, 143, 122, 0.28); }
+    .login-submit-btn:active { transform: translateY(0); }
 
-    .login-points {
-      display: grid;
-      gap: 12px;
-      margin-top: 16px;
-    }
-
-    .login-point {
-      padding: 16px 18px;
-      border-radius: 18px;
-      background: rgba(247, 241, 237, 0.9);
-      border: 1px solid rgba(223, 210, 200, 0.7);
-      color: var(--text);
-      line-height: 1.75;
-      font-size: 0.93rem;
-      transition: background 0.2s ease, border-color 0.2s ease;
-    }
-
-    .login-point:hover {
-      background: #f5e7de;
-      border-color: rgba(198, 167, 125, 0.5);
-    }
-
-    .login-point strong {
-      display: block;
-      margin-bottom: 3px;
-      color: var(--lux-espresso);
-      font-size: 0.88rem;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-
-    /* Form card */
-    .login-form-card {
-      background: linear-gradient(180deg, #fffdfb 0%, #fff8f3 100%);
-    }
-
-    .login-form {
-      display: grid;
-      gap: 14px;
-      margin-top: 18px;
-    }
-
-    .login-form label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: 600;
-      font-size: 0.88rem;
-      letter-spacing: 0.03em;
-      color: #3b2d25;
-    }
-
-    .login-form input {
-      width: 100%;
-      border: 1px solid #eadfd6;
-      border-radius: 16px;
-      background: #fffdfb;
-      padding: 14px 16px;
-      font-size: 0.96rem;
-      color: #2d221c;
-      box-sizing: border-box;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-    }
-
-    .login-form input:focus {
-      outline: none;
-      border-color: #d6bcad;
-      box-shadow: 0 0 0 4px rgba(217, 194, 178, 0.16);
-      background: #ffffff;
-    }
-
-    /* CTA button — matches homepage search-bar button gradient */
-    .login-submit-btn {
-      width: 100%;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 50px;
-      padding: 14px 20px;
-      border-radius: 999px;
-      border: none;
-      background: linear-gradient(135deg, #d6b19a, #a97c66);
-      color: #fffaf7;
-      font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      cursor: pointer;
-      box-shadow: 0 10px 24px rgba(185, 143, 122, 0.22);
-      transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
-    }
-
-    .login-submit-btn:hover {
-      transform: translateY(-2px);
-      filter: brightness(1.04);
-      box-shadow: 0 16px 34px rgba(185, 143, 122, 0.28);
-    }
-
-    .login-submit-btn:active {
-      transform: translateY(0);
-    }
-
-    .forgot-password-btn {
-      background: none;
-      border: none;
-      color: #8d7369;
-      text-decoration: underline;
-      cursor: pointer;
-      font: inherit;
-      font-size: 0.9rem;
-      padding: 0;
-      transition: opacity 0.18s ease;
-    }
-
+    .forgot-password-btn { background: none; border: none; color: #8d7369; text-decoration: underline; cursor: pointer; font: inherit; font-size: 0.9rem; padding: 0; transition: opacity 0.18s ease; }
     .forgot-password-btn:hover { opacity: 0.7; }
+    .login-links-row { margin-top: 14px; text-align: center; }
 
-    .login-links-row {
-      margin-top: 14px;
-      text-align: center;
-    }
-
-    .auth-footer-text {
-      margin: 16px 0 0;
-      color: var(--muted);
-      line-height: 1.7;
-      font-size: 0.93rem;
-      text-align: center;
-    }
-
-    .auth-footer-text a {
-      color: var(--lux-espresso);
-      font-weight: 600;
-      text-decoration: none;
-    }
-
+    .auth-footer-text { margin: 16px 0 0; color: var(--muted); line-height: 1.7; font-size: 0.93rem; text-align: center; }
+    .auth-footer-text a { color: var(--lux-espresso); font-weight: 600; text-decoration: none; }
     .auth-footer-text a:hover { text-decoration: underline; }
 
-    .form-message {
-      margin-top: 12px;
-      font-size: 0.9rem;
-      color: #6f5143;
-      text-align: center;
-      min-height: 1.2em;
-    }
+    .form-message { margin-top: 12px; font-size: 0.9rem; color: #6f5143; text-align: center; min-height: 1.2em; }
 
-    /* ── RESET MODAL ── */
-    .reset-modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(34, 26, 22, 0.5);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      z-index: 3000;
-      backdrop-filter: blur(4px);
-    }
-
+    .reset-modal { position: fixed; inset: 0; background: rgba(34, 26, 22, 0.5); display: none; align-items: center; justify-content: center; padding: 20px; z-index: 3000; backdrop-filter: blur(4px); }
     .reset-modal.open { display: flex; }
+    .reset-modal-card { width: 100%; max-width: 520px; background: linear-gradient(135deg, #fffaf7, #f4ebe5); border: 1px solid rgba(223, 210, 200, 0.9); border-radius: 32px; box-shadow: 0 32px 80px rgba(62, 44, 34, 0.2); padding: 36px 32px 28px; position: relative; animation: fadeUp 0.35s ease forwards; }
+    .reset-modal-close { position: absolute; top: 16px; right: 16px; width: 38px; height: 38px; border-radius: 50%; border: 1px solid rgba(214, 190, 174, 0.8); background: rgba(255, 250, 247, 0.9); color: #4d3a32; cursor: pointer; font-size: 1.1rem; line-height: 1; display: inline-flex; align-items: center; justify-content: center; transition: background 0.2s ease, transform 0.18s ease; }
+    .reset-modal-close:hover { background: #f5e7de; transform: scale(1.08); }
+    .reset-modal-kicker { text-align: center; font-size: 0.78rem; letter-spacing: 0.28em; text-transform: uppercase; color: #b08d7d; margin: 0 0 10px; }
+    .reset-modal-title { margin: 0 0 10px; font-family: "Cormorant Garamond", serif; font-size: 2rem; font-weight: 500; letter-spacing: -0.03em; color: var(--lux-espresso); text-align: center; }
+    .reset-modal-copy { margin: 0 0 22px; color: #8c7f75; font-size: 0.95rem; line-height: 1.75; text-align: center; }
+    .reset-modal label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.88rem; color: #3b2d25; }
+    .reset-modal input { width: 100%; border: 1px solid #eadfd6; border-radius: 16px; background: #fffdfb; padding: 14px 16px; font-size: 0.96rem; color: #2d221c; box-sizing: border-box; margin-bottom: 16px; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+    .reset-modal input:focus { outline: none; border-color: #d6bcad; box-shadow: 0 0 0 4px rgba(217, 194, 178, 0.16); background: #ffffff; }
+    .reset-help-note { margin: 14px 0 0; color: #9b8579; font-size: 0.88rem; line-height: 1.7; text-align: center; }
 
-    .reset-modal-card {
-      width: 100%;
-      max-width: 520px;
-      background: linear-gradient(135deg, #fffaf7, #f4ebe5);
-      border: 1px solid rgba(223, 210, 200, 0.9);
-      border-radius: 32px;
-      box-shadow: 0 32px 80px rgba(62, 44, 34, 0.2);
-      padding: 36px 32px 28px;
-      position: relative;
-      animation: fadeUp 0.35s ease forwards;
-    }
+    .site-footer { background: radial-gradient(circle at top, rgba(200, 166, 161, 0.16), transparent 36%), linear-gradient(180deg, #f5eee9 0%, #eee5df 100%); }
+    .footer-title { color: var(--lux-espresso); letter-spacing: -0.035em; }
+    .footer-eyebrow { color: #b08d7d; }
 
-    .reset-modal-close {
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      border: 1px solid rgba(214, 190, 174, 0.8);
-      background: rgba(255, 250, 247, 0.9);
-      color: #4d3a32;
-      cursor: pointer;
-      font-size: 1.1rem;
-      line-height: 1;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.2s ease, transform 0.18s ease;
-    }
-
-    .reset-modal-close:hover {
-      background: #f5e7de;
-      transform: scale(1.08);
-    }
-
-    .reset-modal-kicker {
-      text-align: center;
-      font-size: 0.78rem;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: #b08d7d;
-      margin: 0 0 10px;
-    }
-
-    .reset-modal-title {
-      margin: 0 0 10px;
-      font-family: "Cormorant Garamond", serif;
-      font-size: 2rem;
-      font-weight: 500;
-      letter-spacing: -0.03em;
-      color: var(--lux-espresso);
-      text-align: center;
-    }
-
-    .reset-modal-copy {
-      margin: 0 0 22px;
-      color: #8c7f75;
-      font-size: 0.95rem;
-      line-height: 1.75;
-      text-align: center;
-    }
-
-    .reset-modal label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: 600;
-      font-size: 0.88rem;
-      color: #3b2d25;
-    }
-
-    .reset-modal input {
-      width: 100%;
-      border: 1px solid #eadfd6;
-      border-radius: 16px;
-      background: #fffdfb;
-      padding: 14px 16px;
-      font-size: 0.96rem;
-      color: #2d221c;
-      box-sizing: border-box;
-      margin-bottom: 16px;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .reset-modal input:focus {
-      outline: none;
-      border-color: #d6bcad;
-      box-shadow: 0 0 0 4px rgba(217, 194, 178, 0.16);
-      background: #ffffff;
-    }
-
-    .reset-help-note {
-      margin: 14px 0 0;
-      color: #9b8579;
-      font-size: 0.88rem;
-      line-height: 1.7;
-      text-align: center;
-    }
-
-    /* ── FOOTER (exact match to homepage) ── */
-    .site-footer {
-      background:
-        radial-gradient(circle at top, rgba(200, 166, 161, 0.16), transparent 36%),
-        linear-gradient(180deg, #f5eee9 0%, #eee5df 100%);
-    }
-
-    .footer-title {
-      color: var(--lux-espresso);
-      letter-spacing: -0.035em;
-    }
-
-    .footer-eyebrow {
-      color: #b08d7d;
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 980px) {
-      .login-hero-grid,
-      .login-content-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .login-hero-copy { padding: 36px 28px; }
-
-      .login-hero-image-wrap { min-height: 360px; }
-    }
-
-    @media (max-width: 700px) {
-      .login-page { padding: 10px 10px 0; }
-      .login-hero-copy { padding: 28px 20px; }
-      .login-title { font-size: 2.8rem; }
-      .login-info-card,
-      .login-form-card { padding: 24px 20px; }
-    }
-  </style>
+    @media (max-width: 980px) { .login-hero-grid, .login-content-grid { grid-template-columns: 1fr; } .login-hero-copy { padding: 36px 28px; } .login-hero-image-wrap { min-height: 360px; } }
+    @media (max-width: 700px) { .login-page { padding: 10px 10px 0; } .login-hero-copy { padding: 28px 20px; } .login-title { font-size: 2.8rem; } .login-info-card, .login-form-card { padding: 24px 20px; } }
+    .page-auth { position: sticky; top: 0; z-index: 200; background: rgba(247, 241, 237, 0.96); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(223, 210, 200, 0.5); }
+</style>
 </head>
 <body>
 
 <div class="page-auth">
   <a href="categories.html" id="categoriesLink" class="auth-link">Categories</a>
   <a href="shop.html" id="shopLink" class="auth-link">Boutique</a>
-  <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
   <a href="login.html" id="loginLink" class="auth-link">Log In</a>
+  <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
   <a href="dashboard.html" id="dashboardLink" class="auth-link" style="display:none;">Dashboard</a>
   <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
 </div>
@@ -552,139 +120,88 @@
 <main class="login-page">
   <div class="login-stack">
 
-    <!-- ── HERO CARD ── -->
     <section class="login-hero-card">
       <div class="login-hero-grid">
         <div class="login-hero-copy">
           <a href="index.html" class="login-logo-wrap" aria-label="Go to homepage">
             <img src="images/logo.png" alt="Our Wedding Day Hub" class="login-logo">
           </a>
-
           <p class="login-kicker">Welcome back</p>
-
-          <h1 class="login-title">
-            Your love story<br>continues here
-          </h1>
-
+          <h1 class="login-title">Your love story<br>continues here</h1>
           <p class="login-script">♡</p>
-
-          <p class="login-intro">
-            Sign in to manage your account, update your details, and continue building your presence on the platform — whether you're a vendor or a couple planning your perfect day.
-          </p>
+          <p class="login-intro">Sign in to manage your account, update your details, and continue building your presence on the platform — whether you're a vendor or a couple planning your perfect day.</p>
         </div>
-
         <div class="login-hero-image-wrap">
-          <img src="images/bride.png" alt="Modern wedding couple portrait" class="login-hero-image">
+          <img src="images/cutecar.jpg" alt="Romantic wedding couple on a vintage car" class="login-hero-image">
         </div>
       </div>
     </section>
 
-    <!-- Trust strip -->
     <section class="trust-strip">
-      <p>
-        Trusted by wedding vendors across Australia & worldwide •
-        Founding members now joining • Growing daily
-      </p>
+      <p>Trusted by wedding vendors across Australia &amp; worldwide • Proudly independent • Built with heart</p>
     </section>
 
-    <!-- ── CONTENT GRID ── -->
     <section class="login-content-grid">
 
-      <!-- Info card -->
       <div class="login-info-card">
         <span class="login-mini-badge">✦ Your account</span>
         <h2>Everything in one place</h2>
         <p>Log in to access your dashboard and continue wherever you left off.</p>
-
         <div class="login-points">
-          <div class="login-point">
-            <strong>For vendors</strong>
-            Update your business profile, images, locations, categories, and account settings.
-          </div>
-
-          <div class="login-point">
-            <strong>For couples</strong>
-            Return to your saved favourites and continue exploring beautiful wedding vendors.
-          </div>
-
-          <div class="login-point">
-            <strong>Need help?</strong>
-            Forgotten your password? Reset it below and you'll be back in moments.
-          </div>
+          <div class="login-point"><strong>For vendors</strong>Update your business profile, images, locations, categories, and account settings.</div>
+          <div class="login-point"><strong>For couples</strong>Return to your saved favourites and continue exploring beautiful wedding vendors.</div>
+          <div class="login-point"><strong>Need help?</strong>Forgotten your password? Reset it below and you'll be back in moments.</div>
         </div>
       </div>
 
-      <!-- Form card -->
       <div class="login-form-card">
         <span class="login-mini-badge">✦ Sign in</span>
         <h2>Welcome back</h2>
         <p>Sign in to manage your wedding hub account.</p>
-
         <form id="loginForm" class="login-form">
           <div>
             <label for="email">Email address</label>
             <input type="email" id="email" placeholder="you@example.com" required>
           </div>
-
           <div>
             <label for="password">Password</label>
             <input type="password" id="password" placeholder="••••••••" required>
           </div>
-
           <button type="submit" class="login-submit-btn">Log In</button>
         </form>
-
         <p id="message" class="form-message"></p>
-
         <div class="login-links-row">
-          <button type="button" id="forgotPasswordBtn" class="forgot-password-btn">
-            Forgot your password?
-          </button>
+          <button type="button" id="forgotPasswordBtn" class="forgot-password-btn">Forgot your password?</button>
         </div>
-
-        <p class="auth-footer-text">
-          Don't have an account yet? <a href="signup.html">Create one here</a>
-        </p>
+        <p class="auth-footer-text">Don't have an account yet? <a href="signup.html">Create one here</a></p>
       </div>
 
     </section>
   </div>
 </main>
 
-<!-- ── RESET MODAL ── -->
 <div id="resetModal" class="reset-modal" aria-hidden="true">
   <div class="reset-modal-card">
     <button type="button" id="closeResetModal" class="reset-modal-close" aria-label="Close">×</button>
-
     <p class="reset-modal-kicker">Account recovery</p>
     <h2 class="reset-modal-title">Reset your password</h2>
-    <p class="reset-modal-copy">
-      Enter your email address and we'll send you a link to reset your password right away.
-    </p>
-
+    <p class="reset-modal-copy">Enter your email address and we'll send you a link to reset your password right away.</p>
     <label for="resetEmail">Email address</label>
     <input type="email" id="resetEmail" placeholder="you@example.com">
-
-    <button type="button" id="sendResetBtn" class="login-submit-btn">
-      Send Reset Email
-    </button>
-
+    <button type="button" id="sendResetBtn" class="login-submit-btn">Send Reset Email</button>
     <p id="resetMessage" class="form-message"></p>
-    <p class="reset-help-note">
-      If it doesn't arrive straight away, please check your junk or spam folder — it usually lands within a minute or two.
-    </p>
+    <p class="reset-help-note">If it doesn't arrive straight away, please check your junk or spam folder — it usually lands within a minute or two.</p>
   </div>
 </div>
 
-<!-- ── FOOTER (identical to homepage) ── -->
 <footer class="site-footer">
   <div class="footer-content">
-    <p class="footer-eyebrow">wedding vendor directory</p>
+    <a href="index.html" aria-label="Go to homepage" style="display:inline-block; margin-bottom:18px;">
+      <img src="images/logo.png" alt="Our Wedding Day Hub" style="width:72px; height:72px; object-fit:contain; opacity:0.7;">
+    </a>
+    <p class="footer-eyebrow">wedding planning directory</p>
     <h2 class="footer-title">Everything your wedding deserves.</h2>
-    <p class="footer-text">
-      Browse trusted wedding businesses, discover local favourites, and connect
-      with the people who can bring your day to life.
-    </p>
+    <p class="footer-text">Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.</p>
     <div class="footer-links">
       <a href="about.html">About Us</a>
       <a href="how-it-works.html">How It Works</a>
@@ -702,20 +219,9 @@
   </div>
 </footer>
 
-<!-- ── SCRIPTS (logic unchanged, only UI updated) ── -->
 <script type="module">
-  import {
-    auth,
-    db,
-    signInWithEmailAndPassword,
-    signOut,
-    doc,
-    getDoc
-  } from './firebase.js';
-
-  import {
-    sendPasswordResetEmail
-  } from 'https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js';
+  import { auth, db, signInWithEmailAndPassword, signOut, doc, getDoc } from './firebase.js';
+  import { sendPasswordResetEmail } from 'https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js';
 
   const loginForm       = document.getElementById('loginForm');
   const message         = document.getElementById('message');
@@ -748,32 +254,26 @@
     message.textContent = '';
     const email    = document.getElementById('email').value.trim().toLowerCase();
     const password = document.getElementById('password').value;
-
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
       await user.reload();
-
       if (!user.emailVerified) {
         await signOut(auth);
         message.textContent = 'Please verify your email before logging in.';
         return;
       }
-
       const userRef  = doc(db, 'users', user.uid);
       const userSnap = await getDoc(userRef);
-
       if (!userSnap.exists()) {
         await signOut(auth);
         message.textContent = 'We could not find your account details in the database.';
         return;
       }
-
       const userData    = userSnap.data();
       const redirectUrl = getDashboardUrl(userData.role);
       message.textContent = 'Login successful! Redirecting…';
       setTimeout(() => { window.location.href = redirectUrl; }, 800);
-
     } catch (error) {
       console.error(error);
       message.textContent = 'Login failed: ' + error.message;
@@ -788,17 +288,9 @@
   sendResetBtn.addEventListener('click', async () => {
     const emailValue = resetEmail.value.trim().toLowerCase();
     resetMessage.textContent = '';
-
-    if (!emailValue) {
-      resetMessage.textContent = 'Please enter your email address.';
-      return;
-    }
-
+    if (!emailValue) { resetMessage.textContent = 'Please enter your email address.'; return; }
     try {
-      await sendPasswordResetEmail(auth, emailValue, {
-        url: 'https://ourweddingdayhub.com/login.html',
-        handleCodeInApp: false
-      });
+      await sendPasswordResetEmail(auth, emailValue, { url: 'https://ourweddingdayhub.com/login.html', handleCodeInApp: false });
       resetMessage.textContent = 'Reset email sent! Once updated, return here and sign in.';
     } catch (error) {
       console.error(error);
