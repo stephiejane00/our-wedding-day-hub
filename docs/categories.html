@@ -237,6 +237,10 @@
               <label for="keywordSearch">Search</label>
               <input type="text" id="keywordSearch" placeholder="Search style, availability, vendor or keyword">
             </div>
+            <div class="categories-search-field">
+  <label for="dateSearch">Wedding Date</label>
+  <input type="date" id="dateSearch">
+</div>
             <button type="button" id="searchBtn" class="categories-search-btn">Search</button>
           </div>
           <div class="categories-clear-row">
@@ -297,6 +301,7 @@
     const subCategorySelect = document.getElementById("subCategorySelect");
     const locationSearch = document.getElementById("locationSearch");
     const keywordSearch = document.getElementById("keywordSearch");
+  const dateSearch = document.getElementById("dateSearch");
     const searchBtn = document.getElementById("searchBtn");
     const clearFiltersBtn = document.getElementById("clearFiltersBtn");
     const joinLink = document.getElementById("joinLink");
@@ -510,11 +515,26 @@ function getKeywordSearchText(vendor) {
       return locationText.includes(q);
     }
 
-    function vendorMatchesKeyword(vendor, keywordValue) {
-      const q = String(keywordValue||"").trim().toLowerCase();
-      if (!q) return true;
-      return getKeywordSearchText(vendor).includes(q);
-    }
+ function vendorMatchesKeyword(vendor, keywordValue) {
+  const q = String(keywordValue||"").trim().toLowerCase();
+  if (!q) return true;
+  return getKeywordSearchText(vendor).includes(q);
+}
+
+function normalizeDateValue(value) {
+  if (!value) return "";
+  if (typeof value === "string") return value.slice(0, 10);
+  if (value.toDate) return value.toDate().toISOString().slice(0, 10);
+  return "";
+}
+
+function vendorMatchesDate(vendor, dateValue) {
+  const q = String(dateValue || "").trim();
+  if (!q) return true;
+
+  const blockedDates = cleanArray(vendor.blockedDates).map(normalizeDateValue);
+  return !blockedDates.includes(q);
+}
 
     function renderVendors(vendors) {
       categoriesGrid.innerHTML = "";
@@ -559,16 +579,23 @@ function getKeywordSearchText(vendor) {
       window.history.replaceState({}, "", nextUrl);
     }
 
-    function applyFilters() {
-      const mainCategory = mainCategorySelect.value || "all";
-      const subcategory = subCategorySelect.value || "all";
-      const location = locationSearch.value.trim();
-      const keyword = keywordSearch.value.trim();
+   function applyFilters() {
+  const mainCategory = mainCategorySelect.value || "all";
+  const subcategory = subCategorySelect.value || "all";
+  const location = locationSearch.value.trim();
+  const keyword = keywordSearch.value.trim();
+  const date = dateSearch.value.trim();
       const headerConfig = CATEGORY_GROUPS[mainCategory] || CATEGORY_GROUPS.all;
       categoryPageTitle.textContent = headerConfig.title;
       categoryPageSubtitle.textContent = headerConfig.subtitle;
       document.querySelectorAll(".categories-filter-pill").forEach((pill) => { pill.classList.toggle("active", pill.dataset.type === mainCategory); });
-      const filtered = allLiveVendors.filter(vendor => vendorMatchesMainCategory(vendor, mainCategory) && vendorMatchesSubcategory(vendor, subcategory) && vendorMatchesLocation(vendor, location) && vendorMatchesKeyword(vendor, keyword));
+const filtered = allLiveVendors.filter(vendor =>
+  vendorMatchesMainCategory(vendor, mainCategory) &&
+  vendorMatchesSubcategory(vendor, subcategory) &&
+  vendorMatchesLocation(vendor, location) &&
+  vendorMatchesKeyword(vendor, keyword) &&
+  vendorMatchesDate(vendor, date)
+);
       renderVendors(filtered);
       updateUrlFromFilters();
     }
