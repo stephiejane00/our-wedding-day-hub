@@ -557,6 +557,9 @@ const testimonialDateInput = document.getElementById("testimonialDateInput");
       taglineInput.value = getTagline(selectedVendor);
       bioInput.value = getBio(selectedVendor);
       servicesInput.value = getServices(selectedVendor);
+      testimonialQuoteInput.value = selectedVendor.testimonials?.[0]?.quote || "";
+testimonialNameInput.value = selectedVendor.testimonials?.[0]?.name || "";
+testimonialDateInput.value = selectedVendor.testimonials?.[0]?.date || "";
       publishedInput.value = (selectedVendor.published === false || selectedVendor.profileVisible === false) ? "false" : "true";
       featuredInput.value = selectedVendor.featured === true ? "true" : "false";
       subscriptionInput.value = getSubscription(selectedVendor);
@@ -730,6 +733,13 @@ const testimonialDateInput = document.getElementById("testimonialDateInput");
         about:             bioInput.value.trim(),
         description:       bioInput.value.trim(),
         services:          servicesInput.value.trim(),
+        testimonials: [
+  {
+    quote: testimonialQuoteInput.value.trim(),
+    name: testimonialNameInput.value.trim(),
+    date: testimonialDateInput.value.trim()
+  }
+],
         packages:          servicesInput.value.trim(),
         inclusions:        servicesInput.value.trim(),
         published:         visible,
