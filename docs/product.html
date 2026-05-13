@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Boutique Product | Our Wedding Day Hub</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body { background:#fffaf7; color:#3b2f2a; }
+    .product-page { max-width:1100px; margin:0 auto; padding:32px 18px 70px; }
+    .product-card { display:grid; grid-template-columns:1fr 1fr; gap:32px; background:#fff; border:1px solid #eadfd6; border-radius:28px; padding:24px; box-shadow:0 18px 45px rgba(59,47,42,.08); }
+    .product-image { width:100%; border-radius:22px; object-fit:cover; background:#f4e7df; }
+    .product-title { font-family:"Cormorant Garamond", serif; font-size:clamp(2.2rem,5vw,4rem); margin:0 0 10px; }
+    .product-price { font-size:1.4rem; font-weight:800; margin:0 0 18px; }
+    .product-text { color:#7d6d64; line-height:1.7; }
+    .product-btn { display:inline-flex; margin-top:18px; padding:13px 22px; border-radius:999px; background:#3b2f2a; color:#fffaf7; text-decoration:none; font-weight:800; }
+    @media (max-width:800px){ .product-card{ grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  <main class="product-page">
+    <a href="shop.html" style="color:#7d6d64; text-decoration:none;">← Back to Boutique</a>
+
+    <section id="productWrap" class="product-card" style="margin-top:20px;">
+      Loading product...
+    </section>
+  </main>
+
+  <script type="module">
+    import {
+      db,
+      doc,
+      getDoc
+    } from "./firebase.js";
+
+    const productWrap = document.getElementById("productWrap");
+    const params = new URLSearchParams(window.location.search);
+    const productId = params.get("id");
+
+    function money(value) {
+      const number = Number(value || 0);
+      return `$${number.toFixed(2)}`;
+    }
+
+    async function loadProduct() {
+      if (!productId) {
+        productWrap.innerHTML = "<p>Product not found.</p>";
+        return;
+      }
+
+      try {
+        const snap = await getDoc(doc(db, "boutiqueProducts", productId));
+
+        if (!snap.exists()) {
+          productWrap.innerHTML = "<p>Product not found.</p>";
+          return;
+        }
+
+        const product = snap.data();
+
+        const image = Array.isArray(product.images) && product.images.length
+          ? product.images[0]
+          : "images/logo.png";
+
+        const purchaseButton = product.purchaseLink
+          ? `<a class="product-btn" href="${product.purchaseLink}" target="_blank" rel="noopener">Buy / Enquire</a>`
+          : `<a class="product-btn" href="vendor.html?id=${product.vendorId}">Enquire with Vendor</a>`;
+
+        productWrap.innerHTML = `
+          <div>
+            <img class="product-image" src="${image}" alt="${product.name || "Boutique product"}">
+          </div>
+
+          <div>
+            <p style="letter-spacing:.18em; text-transform:uppercase; color:#b08d7d; font-size:.78rem;">Our Wedding Day Hub Boutique</p>
+            <h1 class="product-title">${product.name || "Boutique Product"}</h1>
+            <p class="product-price">${money(product.price)}</p>
+
+            <p class="product-text">${product.description || ""}</p>
+
+            <p class="product-text"><strong>Vendor:</strong> ${product.vendorName || "Wedding vendor"}</p>
+            <p class="product-text"><strong>Delivery / collection:</strong> ${product.fulfilmentDetails || "Details arranged with vendor."}</p>
+            <p class="product-text"><strong>Status:</strong> ${product.status || "live"}</p>
+
+            ${purchaseButton}
+
+            <br><br>
+            <a href="vendor.html?id=${product.vendorId}" style="color:#a97c66;">View vendor profile</a>
+          </div>
+        `;
+      } catch (error) {
+        console.error(error);
+        productWrap.innerHTML = "<p>There was a problem loading this product.</p>";
+      }
+    }
+
+    loadProduct();
+  </script>
+</body>
+</html>
