@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leave a Kind Word | Our Wedding Day Hub</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <main class="homepage-section" style="max-width:760px; margin:60px auto;">
+    <div class="section-heading">
+      <p class="section-kicker">Kind Words</p>
+      <h1 class="footer-title">Share your experience</h1>
+      <p class="footer-text">Leave a kind word for Our Wedding Day Hub. Testimonials are reviewed before appearing publicly.</p>
+    </div>
+
+    <form id="testimonialForm" class="enquiry-form" style="margin-top:30px;">
+      <input id="nameInput" type="text" placeholder="Your name or business name" required>
+
+      <select id="roleInput" required>
+        <option value="">I am a...</option>
+        <option value="Wedding Vendor">Wedding Vendor</option>
+        <option value="Couple">Couple</option>
+      </select>
+
+      <textarea id="quoteInput" placeholder="Write your testimonial here..." required></textarea>
+
+      <button type="submit" class="hero-primary">Submit testimonial ♡</button>
+    </form>
+
+    <p id="statusMessage" style="margin-top:18px; text-align:center;"></p>
+  </main>
+
+  <script type="module">
+    import { db, auth, collection, addDoc, serverTimestamp, onAuthStateChanged } from "./firebase.js";
+
+    const form = document.getElementById("testimonialForm");
+    const nameInput = document.getElementById("nameInput");
+    const roleInput = document.getElementById("roleInput");
+    const quoteInput = document.getElementById("quoteInput");
+    const statusMessage = document.getElementById("statusMessage");
+
+    let currentUser = null;
+
+    onAuthStateChanged(auth, (user) => {
+      currentUser = user;
+
+      if (!user) {
+        statusMessage.textContent = "Please log in first to leave a testimonial.";
+        form.style.display = "none";
+
+        setTimeout(() => {
+          window.location.href = "login.html";
+        }, 1200);
+      }
+    });
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      if (!currentUser) {
+        statusMessage.textContent = "Please log in first.";
+        return;
+      }
+
+      try {
+        statusMessage.textContent = "Submitting...";
+
+        await addDoc(collection(db, "siteTestimonials"), {
+          name: nameInput.value.trim(),
+          role: roleInput.value,
+          quote: quoteInput.value.trim(),
+          visible: false,
+          approved: false,
+          userId: currentUser.uid,
+          userEmail: currentUser.email,
+          createdAt: serverTimestamp()
+        });
+
+        form.reset();
+        statusMessage.textContent = "Thank you! Your testimonial has been submitted for review ♡";
+      } catch (err) {
+        console.error(err);
+        statusMessage.textContent = "Something went wrong. Please try again.";
+      }
+    });
+  </script>
+</body>
+</html>
