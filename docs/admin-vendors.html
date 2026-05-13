@@ -485,8 +485,32 @@ const testimonialDateInput = document.getElementById("testimonialDateInput");
       const term = normalise(searchInput.value);
       const filter = filterInput.value;
       let filtered = vendors.filter(v => {
-        const hay = [v.id, v.businessName, v.email, v.phone, v.category, v.location, getBio(v), getTagline(v), getSubscription(v), getPaymentStatus(v), getInviteCode(v), v.stripeCustomerId, v.stripeSubscriptionId, cleanArr(v.categories).join(" ")].join(" ").toLowerCase();
-        return hay.includes(term);
+        const hay = [
+  v.id,
+  v.businessName,
+  v.email,
+  v.phone,
+  v.category,
+  v.location,
+  v.displayLocation,
+  v.serviceAreas,
+  getBio(v),
+  getTagline(v),
+  getServices(v),
+  getSubscription(v),
+  getPaymentStatus(v),
+  getInviteCode(v),
+  v.stripeCustomerId,
+  v.stripeSubscriptionId,
+  v.availabilityStatus,
+  v.bookingNotes,
+  cleanArr(v.blockedDates).join(" "),
+  cleanArr(v.categories).join(" "),
+  cleanArr(v.styleTags).join(" "),
+  cleanArr(v.regions).join(" "),
+  cleanArr(v.states).join(" "),
+  cleanArr(v.countries).join(" ")
+].join(" ").toLowerCase();
       });
       if (filter === "free-link") filtered = filtered.filter(usedFreeLink);
       if (filter === "paid") filtered = filtered.filter(isPaidCustomer);
