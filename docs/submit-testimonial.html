@@ -5,86 +5,398 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Leave a Kind Word | Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css">
+
+  <style>
+    body {
+      background: #f7f1ed;
+    }
+
+    .testimonial-hero {
+      position: relative;
+      min-height: 520px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background-image: url("images/city.jpg");
+      background-size: cover;
+      background-position: center bottom;
+      overflow: hidden;
+    }
+
+    .testimonial-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(247,241,237,0.86), rgba(247,241,237,0.48), rgba(247,241,237,0.82)),
+        radial-gradient(circle at center, rgba(255,250,247,0.9), rgba(255,250,247,0.16));
+    }
+
+    .testimonial-hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      padding: 60px 20px;
+    }
+
+    .testimonial-title {
+      margin: 14px 0 12px;
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      line-height: 0.95;
+      letter-spacing: -0.05em;
+      color: #2f2622;
+    }
+
+    .testimonial-subtitle {
+      max-width: 540px;
+      margin: 26px auto 0;
+      color: #8f6f60;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1.35rem;
+      font-style: italic;
+      line-height: 1.55;
+    }
+
+    .testimonial-section {
+      padding: 0 20px 90px;
+      margin-top: -80px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .testimonial-card {
+      max-width: 760px;
+      margin: 0 auto;
+      background: rgba(255,250,247,0.96);
+      border: 1px solid rgba(223,210,200,0.95);
+      border-radius: 32px;
+      padding: 52px;
+      box-shadow: 0 24px 70px rgba(59,47,42,0.1);
+    }
+
+    .testimonial-form-heading {
+      text-align: center;
+      margin-bottom: 34px;
+    }
+
+    .testimonial-heart {
+      display: block;
+      color: #c69b84;
+      font-size: 2rem;
+      margin-bottom: 8px;
+    }
+
+    .testimonial-form-heading h2 {
+      margin: 0 0 12px;
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(2.2rem, 5vw, 3rem);
+      font-weight: 500;
+      letter-spacing: -0.04em;
+      color: #2f2622;
+    }
+
+    .testimonial-form-heading p {
+      max-width: 540px;
+      margin: 0 auto;
+      color: #7d6d64;
+      line-height: 1.7;
+    }
+
+    .testimonial-form {
+      display: grid;
+      gap: 20px;
+    }
+
+    .testimonial-field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .testimonial-field label {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #4a3d37;
+    }
+
+    .testimonial-field input,
+    .testimonial-field select,
+    .testimonial-field textarea {
+      width: 100%;
+      border-radius: 18px;
+      border: 1px solid #e2d3c8;
+      background: #fffdfb;
+      padding: 15px 17px;
+      font-family: inherit;
+      font-size: 1rem;
+      color: #2f2622;
+      box-sizing: border-box;
+    }
+
+    .testimonial-field textarea {
+      min-height: 170px;
+      resize: vertical;
+    }
+
+    .testimonial-field input:focus,
+    .testimonial-field select:focus,
+    .testimonial-field textarea:focus {
+      outline: none;
+      border-color: #c8a48f;
+      box-shadow: 0 0 0 4px rgba(200,164,143,0.14);
+    }
+
+    .testimonial-submit-btn {
+      width: 100%;
+      min-height: 58px;
+      margin-top: 6px;
+      border: none;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #d6b19a, #a97c66);
+      color: #fffaf7;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 12px 28px rgba(185,143,122,0.25);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .testimonial-submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 34px rgba(185,143,122,0.32);
+    }
+
+    .testimonial-status {
+      margin-top: 18px;
+      text-align: center;
+      color: #7d6d64;
+      min-height: 24px;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1.1rem;
+      font-style: italic;
+    }
+
+    .testimonial-footer-note {
+      margin: 46px auto 0;
+      text-align: center;
+      color: #2f2622;
+    }
+
+    .testimonial-footer-note h3 {
+      margin: 0;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 2rem;
+      font-weight: 500;
+    }
+
+    .testimonial-footer-note p {
+      margin: 8px 0 0;
+      color: #c69b84;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1.35rem;
+      font-style: italic;
+    }
+
+    @media (max-width: 700px) {
+      .testimonial-hero {
+        min-height: 440px;
+      }
+
+      .testimonial-section {
+        padding: 0 14px 70px;
+        margin-top: -60px;
+      }
+
+      .testimonial-card {
+        padding: 30px 22px;
+        border-radius: 24px;
+      }
+    }
+  </style>
 </head>
 
 <body>
-  <main class="homepage-section" style="max-width:760px; margin:60px auto;">
-    <div class="section-heading">
+
+<div class="page-auth">
+  <a href="categories.html" id="categoriesLink" class="auth-link">Categories</a>
+  <a href="shop.html" id="shopLink" class="auth-link">Boutique</a>
+  <a href="messages.html" id="messagesLink" class="auth-link" style="display:none; position:relative;">
+    Messages
+    <span id="msgNavBadge" style="display:none; position:absolute; top:-6px; right:-10px; background:linear-gradient(135deg,#d6b19a,#a97c66); color:#fffaf7; font-size:0.68rem; font-weight:700; padding:2px 6px; border-radius:999px; line-height:1.2; min-width:18px; text-align:center;">0</span>
+  </a>
+  <a href="login.html" id="loginLink" class="auth-link">Log In</a>
+  <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
+  <a href="dashboard.html" id="dashboardLink" class="auth-link" style="display:none;">Dashboard</a>
+  <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
+</div>
+
+<main>
+  <section class="testimonial-hero">
+    <div class="testimonial-hero-content">
       <p class="section-kicker">Kind Words</p>
-      <h1 class="footer-title">Share your experience</h1>
-      <p class="footer-text">Leave a kind word for Our Wedding Day Hub. Testimonials are reviewed before appearing publicly.</p>
+
+      <h1 class="testimonial-title">
+        Share your<br>experience
+      </h1>
+
+      <div class="category-divider">
+        <span></span>
+        <span class="heart">♡</span>
+        <span></span>
+      </div>
+
+      <p class="testimonial-subtitle">
+        Your kind words help other couples and vendors feel confident choosing the right people for their big day.
+      </p>
+    </div>
+  </section>
+
+  <section class="testimonial-section">
+    <div class="testimonial-card">
+      <div class="testimonial-form-heading">
+        <span class="testimonial-heart">♡</span>
+        <h2>Leave a kind word</h2>
+        <p>
+          We'd love to hear about your experience with Our Wedding Day Hub.
+          Testimonials are reviewed before appearing publicly.
+        </p>
+      </div>
+
+      <form id="testimonialForm" class="testimonial-form">
+        <div class="testimonial-field">
+          <label for="nameInput">Your name or business name</label>
+          <input id="nameInput" type="text" placeholder="Enter your name or business name" required>
+        </div>
+
+        <div class="testimonial-field">
+          <label for="roleInput">I am a...</label>
+          <select id="roleInput" required>
+            <option value="">Select an option</option>
+            <option value="Wedding Vendor">Wedding Vendor</option>
+            <option value="Couple">Couple</option>
+          </select>
+        </div>
+
+        <div class="testimonial-field">
+          <label for="quoteInput">Your testimonial</label>
+          <textarea id="quoteInput" placeholder="Write your testimonial here..." required></textarea>
+        </div>
+
+        <button type="submit" class="testimonial-submit-btn">
+          Submit testimonial ♡
+        </button>
+      </form>
+
+      <p id="statusMessage" class="testimonial-status"></p>
     </div>
 
-    <form id="testimonialForm" class="enquiry-form" style="margin-top:30px;">
-      <input id="nameInput" type="text" placeholder="Your name or business name" required>
+    <div class="testimonial-footer-note">
+      <h3>Thank you for supporting our community</h3>
+      <p>Together, we make weddings unforgettable.</p>
+    </div>
+  </section>
+</main>
 
-      <select id="roleInput" required>
-        <option value="">I am a...</option>
-        <option value="Wedding Vendor">Wedding Vendor</option>
-        <option value="Couple">Couple</option>
-      </select>
+<footer class="site-footer">
+  <div class="footer-content">
+    <a href="index.html" aria-label="Go to homepage" style="display:inline-block; margin-bottom:18px;">
+      <img src="images/logo.png" alt="Our Wedding Day Hub" style="width:72px; height:72px; object-fit:contain; opacity:0.7;">
+    </a>
+    <p class="footer-eyebrow">wedding planning directory</p>
+    <h2 class="footer-title">Everything your wedding deserves.</h2>
+    <p class="footer-text">Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.</p>
+    <div class="footer-links">
+      <a href="about.html">About Us</a>
+      <a href="how-it-works.html">How It Works</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="contact.html">Contact Us</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms &amp; Conditions</a>
+      <a href="refund-policy.html">Refund Policy</a>
+      <a href="https://www.equaldex.com/equality-index" target="_blank" rel="noopener noreferrer">Global Equality Index</a>
+      <a href="#" onclick="return false;">Events4Us (Coming Soon)</a>
+    </div>
+    <p class="footer-tagline">Proudly inclusive • Worldwide • Built with heart</p>
+    <p class="footer-abn">© 2026 Our Wedding Day Hub</p>
+    <p class="footer-abn">ABN 76 688 637 041 • Australia</p>
+  </div>
+</footer>
 
-      <textarea id="quoteInput" placeholder="Write your testimonial here..." required></textarea>
+<script type="module">
+  import { db, auth, collection, addDoc, serverTimestamp, onAuthStateChanged, signOut } from "./firebase.js";
 
-      <button type="submit" class="hero-primary">Submit testimonial ♡</button>
-    </form>
+  const form = document.getElementById("testimonialForm");
+  const nameInput = document.getElementById("nameInput");
+  const roleInput = document.getElementById("roleInput");
+  const quoteInput = document.getElementById("quoteInput");
+  const statusMessage = document.getElementById("statusMessage");
 
-    <p id="statusMessage" style="margin-top:18px; text-align:center;"></p>
-  </main>
+  const joinLink = document.getElementById("joinLink");
+  const loginLink = document.getElementById("loginLink");
+  const dashboardLink = document.getElementById("dashboardLink");
+  const logoutLink = document.getElementById("logoutLink");
 
-  <script type="module">
-    import { db, auth, collection, addDoc, serverTimestamp, onAuthStateChanged } from "./firebase.js";
+  let currentUser = null;
 
-    const form = document.getElementById("testimonialForm");
-    const nameInput = document.getElementById("nameInput");
-    const roleInput = document.getElementById("roleInput");
-    const quoteInput = document.getElementById("quoteInput");
-    const statusMessage = document.getElementById("statusMessage");
+  onAuthStateChanged(auth, (user) => {
+    currentUser = user;
 
-    let currentUser = null;
+    if (user) {
+      joinLink.style.display = "none";
+      loginLink.style.display = "none";
+      dashboardLink.style.display = "inline-block";
+      logoutLink.style.display = "inline-block";
+    } else {
+      joinLink.style.display = "inline-block";
+      loginLink.style.display = "inline-block";
+      dashboardLink.style.display = "none";
+      logoutLink.style.display = "none";
 
-    onAuthStateChanged(auth, (user) => {
-      currentUser = user;
+      statusMessage.textContent = "Please log in first to leave a testimonial.";
+      form.style.display = "none";
+    }
+  });
 
-      if (!user) {
-        statusMessage.textContent = "Please log in first to leave a testimonial.";
-        form.style.display = "none";
+  logoutLink.addEventListener("click", async () => {
+    try {
+      await signOut(auth);
+      window.location.href = "index.html";
+    } catch {}
+  });
 
-        setTimeout(() => {
-          window.location.href = "login.html";
-        }, 1200);
-      }
-    });
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
+    if (!currentUser) {
+      statusMessage.textContent = "Please log in first.";
+      return;
+    }
 
-      if (!currentUser) {
-        statusMessage.textContent = "Please log in first.";
-        return;
-      }
+    try {
+      statusMessage.textContent = "Submitting...";
 
-      try {
-        statusMessage.textContent = "Submitting...";
+      await addDoc(collection(db, "siteTestimonials"), {
+        name: nameInput.value.trim(),
+        role: roleInput.value,
+        quote: quoteInput.value.trim(),
+        visible: false,
+        approved: false,
+        userId: currentUser.uid,
+        userEmail: currentUser.email,
+        createdAt: serverTimestamp()
+      });
 
-        await addDoc(collection(db, "siteTestimonials"), {
-          name: nameInput.value.trim(),
-          role: roleInput.value,
-          quote: quoteInput.value.trim(),
-          visible: false,
-          approved: false,
-          userId: currentUser.uid,
-          userEmail: currentUser.email,
-          createdAt: serverTimestamp()
-        });
+      form.reset();
+      statusMessage.textContent = "Thank you! Your testimonial has been submitted for review ♡";
+    } catch (err) {
+      console.error(err);
+      statusMessage.textContent = "Something went wrong. Please try again.";
+    }
+  });
+</script>
 
-        form.reset();
-        statusMessage.textContent = "Thank you! Your testimonial has been submitted for review ♡";
-      } catch (err) {
-        console.error(err);
-        statusMessage.textContent = "Something went wrong. Please try again.";
-      }
-    });
-  </script>
+<script type="module" src="nav.js"></script>
 </body>
 </html>
