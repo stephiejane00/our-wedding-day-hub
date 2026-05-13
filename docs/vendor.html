@@ -860,7 +860,8 @@ async function loadVendor() {
     renderCalendar();
     const category = Array.isArray(vendorData.categories) && vendorData.categories.length ? vendorData.categories.map(formatText).join(" • ") : formatText(vendorData.category||"");
     const about = vendorData.bio || vendorData.shortBio || vendorData.description || "Beautiful vendor profile coming soon.";
-    businessNameEl.textContent = name; sidebarBusinessNameEl.textContent = name; topbarBusinessName.textContent = name;
+  businessNameEl.textContent = name;
+sidebarBusinessNameEl.textContent = name;
     vendorAboutEl.textContent = about;
     setOrHide(vendorCategoryEl, category); setOrHide(vendorTaglineEl, formatText(vendorData.tagline||"")); setOrHide(sidebarCategoryEl, category);
     const profileImg = vendorData.profileImageUrl || vendorData.profileImage || "";
