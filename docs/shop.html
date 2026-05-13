@@ -200,7 +200,7 @@ function renderProducts(products) {
     const vendorName = product.vendorName || product.businessName || "";
     const description = product.description || product.shortDescription || "";
     const priceDisplay = formatPrice(product.price, product.currency);
-    const productLink = product.link || product.url || product.purchaseLink || (product.vendorId ? `vendor.html?id=${product.vendorId}` : "#");
+    const productLink = `product.html?id=${product.docId}`;
     card.innerHTML = `
       <div class="shop-card-image-wrap">
         <img src="${imageUrl}" alt="${name}" class="shop-card-image" loading="lazy">
@@ -210,7 +210,7 @@ function renderProducts(products) {
         <h2 class="shop-card-name">${name}</h2>
         ${description ? `<p class="shop-card-desc">${description.length > 100 ? description.slice(0,100)+"..." : description}</p>` : ""}
         ${priceDisplay ? `<p class="shop-card-price">${priceDisplay}</p>` : ""}
-        <a href="${productLink}" class="shop-card-btn" ${productLink !== "#" ? 'target="_blank" rel="noopener noreferrer"' : ""}>View Product</a>
+        <a href="${productLink}" class="shop-card-btn">View Product</a>
       </div>
     `;
     shopGrid.appendChild(card);
