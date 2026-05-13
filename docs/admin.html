@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Main Admin | Our Wedding Day Hub</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --text:#3b2f2a;
+      --muted:#8c7f75;
+      --cream:#fffaf7;
+      --border:#eadfd6;
+      --soft:#fff8f4;
+      --accent:#b98f7a;
+      --danger:#9b3d35;
+      --success:#3a5e38;
+    }
+
+    * { box-sizing:border-box; }
+
+    body {
+      margin:0;
+      font-family:'DM Sans', sans-serif;
+      background: radial-gradient(circle at top left, rgba(200,166,161,.14), transparent 32%), #f7f1ed;
+      color:var(--text);
+    }
+
+    .page {
+      max-width:1100px;
+      margin:0 auto;
+      padding:28px 20px 70px;
+    }
+
+    .hero,
+    .card {
+      background:linear-gradient(180deg, #fffdfa, #fff8f4);
+      border:1px solid var(--border);
+      border-radius:28px;
+      padding:26px;
+      box-shadow:0 18px 40px rgba(45,31,24,.05);
+      margin-bottom:18px;
+    }
+
+    .logo {
+      width:88px;
+      margin-bottom:16px;
+    }
+
+    .eyebrow {
+      text-transform:uppercase;
+      letter-spacing:.22em;
+      font-size:.75rem;
+      color:var(--accent);
+      font-weight:700;
+      margin:0 0 8px;
+    }
+
+    h1, h2 {
+      font-family:'Cormorant Garamond', serif;
+      font-weight:500;
+      letter-spacing:-.03em;
+      margin:0;
+    }
+
+    h1 {
+      font-size:clamp(2.7rem, 6vw, 4.4rem);
+      line-height:.9;
+    }
+
+    h2 {
+      font-size:2rem;
+      margin-bottom:8px;
+    }
+
+    p {
+      color:var(--muted);
+      line-height:1.65;
+    }
+
+    .status {
+      display:inline-flex;
+      margin-top:18px;
+      padding:10px 15px;
+      border-radius:999px;
+      background:#f6eee8;
+      border:1px solid var(--border);
+      font-weight:700;
+      font-size:.9rem;
+    }
+
+    .status.ok { color:var(--success); background:#e5ede4; }
+    .status.err { color:var(--danger); background:#f9e8e8; }
+
+    .grid {
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:16px;
+    }
+
+    .admin-link {
+      display:block;
+      text-decoration:none;
+      color:var(--text);
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:24px;
+      padding:22px;
+      transition:.2s ease;
+    }
+
+    .admin-link:hover {
+      transform:translateY(-2px);
+      box-shadow:0 14px 30px rgba(45,31,24,.08);
+    }
+
+    .admin-link strong {
+      display:block;
+      font-family:'Cormorant Garamond', serif;
+      font-size:1.8rem;
+      font-weight:500;
+      margin-bottom:4px;
+    }
+
+    .admin-link span {
+      color:var(--muted);
+      font-size:.95rem;
+      line-height:1.5;
+    }
+
+    .hidden { display:none !important; }
+
+    .testimonial {
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:22px;
+      padding:18px;
+      margin-top:12px;
+    }
+
+    .testimonial blockquote {
+      margin:0 0 12px;
+      font-family:'Cormorant Garamond', serif;
+      font-size:1.35rem;
+      line-height:1.25;
+    }
+
+    .meta {
+      font-size:.88rem;
+      color:var(--muted);
+      margin-bottom:14px;
+    }
+
+    .actions {
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    button, .button {
+      border:none;
+      border-radius:999px;
+      padding:11px 16px;
+      font-family:'DM Sans', sans-serif;
+      font-weight:800;
+      cursor:pointer;
+      text-decoration:none;
+      display:inline-flex;
+      color:#fff;
+      background:linear-gradient(135deg, #d8b59f, #b98f7a);
+    }
+
+    button.secondary, .button.secondary {
+      background:#eadfd8;
+      color:var(--text);
+    }
+
+    button.danger {
+      background:#f4d8d5;
+      color:var(--danger);
+    }
+
+    .empty {
+      padding:20px;
+      border:1px dashed var(--border);
+      border-radius:20px;
+      background:#fffaf7;
+      color:var(--muted);
+      text-align:center;
+    }
+
+    @media (max-width:760px) {
+      .grid { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <section class="hero">
+      <a href="index.html"><img src="images/logo.png" class="logo" alt="Our Wedding Day Hub"></a>
+      <p class="eyebrow">admin portal</p>
+      <h1>Main Admin</h1>
+      <p>Manage vendors, couples, and testimonials awaiting review.</p>
+      <div id="authStatus" class="status">Checking admin access…</div>
+    </section>
+
+    <div id="adminTools" class="hidden">
+      <section class="card">
+        <h2>Admin Pages</h2>
+        <div class="grid">
+          <a class="admin-link" href="admin-vendors.html">
+            <strong>Vendor Admin</strong>
+            <span>Edit vendors, profiles, galleries, pricing, visibility and boutique access.</span>
+          </a>
+
+          <a class="admin-link" href="admin-couples.html">
+            <strong>Couples Admin</strong>
+            <span>View, search, edit and manage couple accounts.</span>
+          </a>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Testimonials Awaiting Review</h2>
+        <p id="testimonialMessage">Loading testimonials…</p>
+        <div id="testimonialList"></div>
+      </section>
+    </div>
+  </main>
+
+  <script type="module">
+    import {
+      auth,
+      db,
+      onAuthStateChanged,
+      collection,
+      getDocs,
+      doc,
+      updateDoc
+    } from "./firebase.js";
+
+    const ADMIN_EMAILS = ["stephanie@ourweddingdayhub.com"];
+
+    const authStatus = document.getElementById("authStatus");
+    const adminTools = document.getElementById("adminTools");
+    const testimonialMessage = document.getElementById("testimonialMessage");
+    const testimonialList = document.getElementById("testimonialList");
+
+    let vendors = [];
+    let pendingTestimonials = [];
+
+    function isAdmin(user) {
+      return user && ADMIN_EMAILS.includes(user.email);
+    }
+
+    function esc(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function isPendingTestimonial(testimonial) {
+      const status = String(testimonial.status || "").toLowerCase();
+
+      return (
+        testimonial &&
+        testimonial.quote &&
+        (
+          testimonial.approved === false ||
+          status === "pending" ||
+          status === "awaiting_review" ||
+          testimonial.visible === false
+        )
+      );
+    }
+
+    async function loadTestimonials() {
+      testimonialMessage.textContent = "Loading testimonials…";
+      testimonialList.innerHTML = "";
+
+      const snapshot = await getDocs(collection(db, "vendors"));
+
+      vendors = snapshot.docs.map(docSnap => ({
+        id: docSnap.id,
+        ...docSnap.data()
+      }));
+
+      pendingTestimonials = [];
+
+      vendors.forEach(vendor => {
+        const testimonials = Array.isArray(vendor.testimonials)
+          ? vendor.testimonials
+          : [];
+
+        testimonials.forEach((testimonial, index) => {
+          if (isPendingTestimonial(testimonial)) {
+            pendingTestimonials.push({
+              vendorId: vendor.id,
+              vendorName: vendor.businessName || "Unnamed vendor",
+              index,
+              testimonial,
+              allTestimonials: testimonials
+            });
+          }
+        });
+      });
+
+      renderTestimonials();
+    }
+
+    function renderTestimonials() {
+      if (!pendingTestimonials.length) {
+        testimonialMessage.textContent = "";
+        testimonialList.innerHTML = `
+          <div class="empty">
+            No testimonials awaiting review.
+          </div>
+        `;
+        return;
+      }
+
+      testimonialMessage.textContent =
+        `${pendingTestimonials.length} testimonial${pendingTestimonials.length === 1 ? "" : "s"} awaiting review.`;
+
+      testimonialList.innerHTML = pendingTestimonials.map((item, itemIndex) => {
+        const t = item.testimonial;
+
+        return `
+          <article class="testimonial">
+            <blockquote>“${esc(t.quote)}”</blockquote>
+            <div class="meta">
+              <strong>${esc(t.name || "No client name")}</strong>
+              ${t.date ? ` · ${esc(t.date)}` : ""}
+              <br>
+              Vendor: ${esc(item.vendorName)}
+            </div>
+
+            <div class="actions">
+              <button type="button" data-action="approve" data-index="${itemIndex}">
+                Approve
+              </button>
+
+              <button type="button" class="danger" data-action="remove" data-index="${itemIndex}">
+                Delete
+              </button>
+
+              <a class="button secondary" href="admin-vendors.html">
+                Open Vendor Admin
+              </a>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    async function approveTestimonial(item) {
+      const updatedTestimonials = item.allTestimonials.map((testimonial, index) => {
+        if (index !== item.index) return testimonial;
+
+        return {
+          ...testimonial,
+          approved: true,
+          visible: true,
+          status: "approved",
+          reviewedAt: new Date()
+        };
+      });
+
+      await updateDoc(doc(db, "vendors", item.vendorId), {
+        testimonials: updatedTestimonials,
+        updatedAt: new Date()
+      });
+
+      await loadTestimonials();
+    }
+
+    async function removeTestimonial(item) {
+      const confirmed = confirm("Delete this testimonial?");
+      if (!confirmed) return;
+
+      const updatedTestimonials = item.allTestimonials.filter((_, index) => {
+        return index !== item.index;
+      });
+
+      await updateDoc(doc(db, "vendors", item.vendorId), {
+        testimonials: updatedTestimonials,
+        updatedAt: new Date()
+      });
+
+      await loadTestimonials();
+    }
+
+    testimonialList.addEventListener("click", async (event) => {
+      const button = event.target.closest("button[data-action]");
+      if (!button) return;
+
+      const item = pendingTestimonials[Number(button.dataset.index)];
+      if (!item) return;
+
+      button.disabled = true;
+
+      try {
+        if (button.dataset.action === "approve") {
+          await approveTestimonial(item);
+        }
+
+        if (button.dataset.action === "remove") {
+          await removeTestimonial(item);
+        }
+      } catch (error) {
+        console.error(error);
+        alert("Could not update testimonial. Check your Firestore rules.");
+      } finally {
+        button.disabled = false;
+      }
+    });
+
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        authStatus.className = "status err";
+        authStatus.innerHTML = `Please log in first: <a href="login.html">Log in</a>`;
+        return;
+      }
+
+      if (!isAdmin(user)) {
+        authStatus.className = "status err";
+        authStatus.textContent = "Logged in, but this account is not approved for admin access.";
+        return;
+      }
+
+      authStatus.className = "status ok";
+      authStatus.textContent = `Admin access approved: ${user.email}`;
+      adminTools.classList.remove("hidden");
+
+      try {
+        await loadTestimonials();
+      } catch (error) {
+        console.error(error);
+        testimonialMessage.textContent = "Could not load testimonials. Check Firebase rules and firebase.js exports.";
+      }
+    });
+  </script>
+</body>
+</html>
