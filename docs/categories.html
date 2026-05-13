@@ -632,8 +632,15 @@ const filtered = allLiveVendors.filter(vendor =>
     searchBtn.addEventListener("click", applyFilters);
     locationSearch.addEventListener("keydown", (event) => { if (event.key === "Enter") { event.preventDefault(); applyFilters(); } });
     keywordSearch.addEventListener("keydown", (event) => { if (event.key === "Enter") { event.preventDefault(); applyFilters(); } });
-    clearFiltersBtn.addEventListener("click", () => { mainCategorySelect.value = "all"; buildSubcategoryOptions("all"); subCategorySelect.value = "all"; locationSearch.value = ""; keywordSearch.value = ""; applyFilters(); });
-
+    clearFiltersBtn.addEventListener("click", () => {
+  mainCategorySelect.value = "all";
+  buildSubcategoryOptions("all");
+  subCategorySelect.value = "all";
+  locationSearch.value = "";
+  keywordSearch.value = "";
+  dateSearch.value = "";
+  applyFilters();
+});
     buildFilterPills();
     renderPageHeader();
     syncInitialFilters();
