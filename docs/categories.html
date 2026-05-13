@@ -450,9 +450,25 @@
       return parts.join(" ").toLowerCase().replace(/\s+/g," ").trim();
     }
 
-    function getKeywordSearchText(vendor) {
-      return `${vendor.businessName||""} ${vendor.bio||""} ${vendor.shortBio||""} ${vendor.description||""} ${vendor.tagline||""} ${vendor.serviceAreas||""} ${vendor.displayLocation||""} ${cleanArray(vendor.categories).join(" ")} ${cleanArray(vendor.regions).join(" ")} ${cleanArray(vendor.states).join(" ")} ${cleanArray(vendor.countries).join(" ")} ${cleanArray(vendor.styleTags).join(" ")}`.toLowerCase();
-    }
+function getKeywordSearchText(vendor) {
+  return `
+    ${vendor.businessName || ""}
+    ${vendor.bio || ""}
+    ${vendor.shortBio || ""}
+    ${vendor.description || ""}
+    ${vendor.tagline || ""}
+    ${vendor.serviceAreas || ""}
+    ${vendor.displayLocation || ""}
+    ${vendor.availabilityStatus || ""}
+    ${vendor.bookingNotes || ""}
+    ${cleanArray(vendor.blockedDates).join(" ")}
+    ${cleanArray(vendor.categories).join(" ")}
+    ${cleanArray(vendor.regions).join(" ")}
+    ${cleanArray(vendor.states).join(" ")}
+    ${cleanArray(vendor.countries).join(" ")}
+    ${cleanArray(vendor.styleTags).join(" ")}
+  `.toLowerCase();
+}
 
     function vendorMatchesMainCategory(vendor, mainCategory) {
       if (mainCategory === "all") return true;
