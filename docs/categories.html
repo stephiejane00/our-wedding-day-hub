@@ -304,18 +304,34 @@
 </head>
 <body>
 
-<div class="page-auth">
-  <a href="categories.html" id="categoriesLink" class="auth-link">Categories</a>
-  <a href="shop.html" id="shopLink" class="auth-link">Boutique</a>
-  <a href="messages.html" id="messagesLink" class="auth-link" style="display:none; position:relative;">
-    Messages
-    <span id="msgNavBadge" style="display:none; position:absolute; top:-6px; right:-10px; background:linear-gradient(135deg,#d6b19a,#a97c66); color:#fffaf7; font-size:0.68rem; font-weight:700; padding:2px 6px; border-radius:999px; line-height:1.2; min-width:18px; text-align:center;">0</span>
+<header class="site-topbar">
+  <a href="index.html" class="site-topbar-logo-wrap" aria-label="Go to homepage">
+    <img src="images/logo1.png" alt="Our Wedding Day Hub" class="site-topbar-logo">
   </a>
-  <a href="login.html" id="loginLink" class="auth-link">Log In</a>
-  <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
-  <a href="dashboard.html" id="dashboardLink" class="auth-link" style="display:none;">Dashboard</a>
-  <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
-</div>
+
+  <div class="site-topbar-title">
+    <h1>Our Wedding Day Hub</h1>
+  </div>
+
+  <nav class="site-topbar-actions">
+    <a href="categories.html" class="site-topbar-link">Categories</a>
+
+    <a href="shop.html" class="site-topbar-link">Boutique</a>
+
+    <a href="messages.html" id="messagesLink" class="site-topbar-link" style="display:none; position:relative;">
+      Messages
+      <span id="msgNavBadge" style="display:none; position:absolute; top:-6px; right:-10px; background:linear-gradient(135deg,#d6b19a,#a97c66); color:#fffaf7; font-size:0.68rem; font-weight:700; padding:2px 6px; border-radius:999px; line-height:1.2; min-width:18px; text-align:center;">0</span>
+    </a>
+
+    <a href="login.html" id="loginLink" class="site-topbar-link">Log In</a>
+
+    <a href="signup.html" id="joinLink" class="site-topbar-btn">Join</a>
+
+    <a href="dashboard.html" id="dashboardLink" class="site-topbar-link" style="display:none;">Dashboard</a>
+
+    <button id="logoutLink" class="site-topbar-btn" style="display:none;">Log Out</button>
+  </nav>
+</header>
 
 <main class="categories-page">
   <section class="categories-hero">
