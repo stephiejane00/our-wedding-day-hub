@@ -511,6 +511,9 @@ const testimonialDateInput = document.getElementById("testimonialDateInput");
   cleanArr(v.states).join(" "),
   cleanArr(v.countries).join(" ")
 ].join(" ").toLowerCase();
+
+                return !term || hay.includes(term);
+        
       });
       if (filter === "free-link") filtered = filtered.filter(usedFreeLink);
       if (filter === "paid") filtered = filtered.filter(isPaidCustomer);
