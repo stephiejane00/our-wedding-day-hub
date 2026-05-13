@@ -985,18 +985,75 @@ import { LOCATION_DATA } from "./locations.js";
   function updateStripeStatus(v = {}) { if (stripeStatusText) stripeStatusText.textContent = (v.stripeConnected === true || v.stripeChargesEnabled === true || v.stripeAccountId) ? "Stripe: connected" : "Stripe: not connected"; }
   function clearProductForm() { [productName, productPrice, productCategory, productStock, productDescription, productPurchaseLink, productImageFiles].forEach(el => el.value = ""); paymentMethod.value = "own"; fulfilmentMethod.value = "email"; fulfilmentDetails.value = ""; productStatus.value = "draft"; productImageFileName.textContent = ""; }
 
-  function renderBoutiqueProducts() { boutiqueProductList.innerHTML = ""; if (productCountText) productCountText.textContent = `Products: ${currentBoutiqueProducts.length}`; if (!currentBoutiqueProducts.length) { boutiqueProductList.innerHTML = '<p class="small-text">No boutique products added yet.</p>'; return; } currentBoutiqueProducts.forEach(p => { const card = document.createElement("div"); card.className = "media-preview-item"; const iu = Array.isArray(p.images) && p.images.length ? p.images[0] : ""; if (iu) { const img = document.createElement("img"); img.src = iu; img.loading = "lazy"; card.appendChild(img); } const t = document.createElement("h3"); t.textContent = p.name || "Untitled"; const pr = document.createElement("p"); pr.className = "small-text"; pr.textContent = p.price ? `$${Number(p.price).toFixed(2)}` : "Price not set"; const st = document.createElement("p"); st.className = "small-text"; st.textContent = `Status: ${p.status || "draft"}`; const sk = document.createElement("p"); sk.className = "small-text"; sk.textContent = `Stock: ${p.stock ?? 0}`; card.appendChild(t); card.appendChild(pr); card.appendChild(st); card.appendChild(sk); boutiqueProductList.appendChild(card); }); }
-  async function loadBoutiqueProducts(uid) { const snap = await getDocs(query(collection(db, "boutiqueProducts"), where("vendorId", "==", uid), orderBy("createdAt", "desc"))); currentBoutiqueProducts = snap.docs.map(d => ({ id: d.id, ...d.data() })); renderBoutiqueProducts(); }
-  async function deleteBoutiqueProduct(productId) {
-  const confirmed = confirm("Delete this product?");
+ function renderBoutiqueProducts() {
+  boutiqueProductList.innerHTML = "";
 
-  if (!confirmed) return;
+  if (productCountText) {
+    productCountText.textContent = `Products: ${currentBoutiqueProducts.length}`;
+  }
 
-  try {
-    await deleteDoc(doc(db, "boutiqueProducts", productId));
+  if (!currentBoutiqueProducts.length) {
+    boutiqueProductList.innerHTML =
+      '<p class="small-text">No boutique products added yet.</p>';
+    return;
+  }
 
-    boutiqueMessage.textContent = "Product deleted.";
+  currentBoutiqueProducts.forEach(p => {
+    const card = document.createElement("div");
+    card.className = "media-preview-item";
 
+    const iu =
+      Array.isArray(p.images) && p.images.length
+        ? p.images[0]
+        : "";
+
+    if (iu) {
+      const img = document.createElement("img");
+      img.src = iu;
+      img.loading = "lazy";
+      card.appendChild(img);
+    }
+
+    const t = document.createElement("h3");
+    t.textContent = p.name || "Untitled";
+
+    const pr = document.createElement("p");
+    pr.className = "small-text";
+    pr.textContent = p.price
+      ? `$${Number(p.price).toFixed(2)}`
+      : "Price not set";
+
+    const st = document.createElement("p");
+    st.className = "small-text";
+    st.textContent = `Status: ${p.status || "draft"}`;
+
+    const sk = document.createElement("p");
+    sk.className = "small-text";
+    sk.textContent = `Stock: ${p.stock ?? 0}`;
+
+    const viewBtn = document.createElement("a");
+    viewBtn.className = "apply-button";
+    viewBtn.href = `product.html?id=${p.id}`;
+    viewBtn.textContent = "View Product";
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.className = "remove-media-btn";
+    deleteBtn.textContent = "Delete Product";
+
+    deleteBtn.addEventListener("click", () => {
+      deleteBoutiqueProduct(p.id);
+    });
+
+    card.appendChild(t);
+    card.appendChild(pr);
+    card.appendChild(st);
+    card.appendChild(sk);
+    card.appendChild(viewBtn);
+    card.appendChild(deleteBtn);
+
+    boutiqueProductList.appendChild(card);
+  });
+}
     loadBoutiqueProducts(currentUser.uid);
 
   } catch (error) {
