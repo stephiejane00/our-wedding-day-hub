@@ -499,7 +499,6 @@ const params   = new URLSearchParams(window.location.search);
 const vendorId = params.get("id");
 
 const businessNameEl        = document.getElementById("businessName");
-const topbarBusinessName    = document.getElementById("topbarBusinessName");
 const vendorCategoryEl      = document.getElementById("vendorCategory");
 const vendorTaglineEl       = document.getElementById("vendorTagline");
 const vendorAboutEl         = document.getElementById("vendorAbout");
@@ -838,10 +837,21 @@ msgForm.addEventListener("submit", async (e) => {
 async function trackView(id) { try { await updateDoc(doc(db,"vendors",id), { profileViews: increment(1) }); } catch {} }
 
 async function loadVendor() {
-  if (!vendorId) { businessNameEl.textContent = "Vendor not found"; sidebarBusinessNameEl.textContent = "Vendor not found"; topbarBusinessName.textContent = "Vendor not found"; return; }
+  if (!vendorId) {
+    businessNameEl.textContent = "Vendor not found";
+    sidebarBusinessNameEl.textContent = "Vendor not found";
+    return;
+  }
+
   try {
     const snap = await getDoc(doc(db,"vendors",vendorId));
-    if (!snap.exists()) { businessNameEl.textContent = "Vendor not found"; sidebarBusinessNameEl.textContent = "Vendor not found"; topbarBusinessName.textContent = "Vendor not found"; return; }
+
+    if (!snap.exists()) {
+      businessNameEl.textContent = "Vendor not found";
+      sidebarBusinessNameEl.textContent = "Vendor not found";
+      return;
+    }
+
     vendorData = snap.data();
     trackView(vendorId);
     const name = vendorData.businessName || "Vendor";
