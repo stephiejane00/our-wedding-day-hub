@@ -879,7 +879,11 @@ renderLocations(vendorData);
     setLink(tiktokBtn,    vendorData.tiktok||"");
     setLink(youtubeBtn,   vendorData.youtube||"");
     updateFavBtn(vendorId);
-  } catch (err) { console.error("Error loading vendor:", err); businessNameEl.textContent = "There was a problem loading this vendor"; sidebarBusinessNameEl.textContent = "Vendor profile"; topbarBusinessName.textContent = "Vendor profile"; }
+  } catch (err) { 
+  console.error("Error loading vendor:", err); 
+  businessNameEl.textContent = "There was a problem loading this vendor"; 
+  sidebarBusinessNameEl.textContent = "Vendor profile"; 
+}
 }
 
 onAuthStateChanged(auth, (user) => {
