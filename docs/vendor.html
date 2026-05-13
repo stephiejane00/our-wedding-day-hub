@@ -121,6 +121,37 @@
 
     .booking-frame { width: 100%; min-height: 720px; border: 0; border-radius: 16px; background: #fffaf7; }
     .empty-block { color: var(--lux-muted); margin: 0; line-height: 1.7; font-size: 0.95rem; }
+    .testimonial-list {
+  display: grid;
+  gap: 14px;
+}
+
+.testimonial-item {
+  padding: 20px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(223, 210, 200, 0.8);
+}
+
+.testimonial-quote {
+  margin: 0 0 14px;
+  color: #5b4a43;
+  line-height: 1.75;
+  font-size: 0.98rem;
+  font-style: italic;
+}
+
+.testimonial-name {
+  margin: 0;
+  color: var(--lux-espresso);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.testimonial-date {
+  color: var(--lux-muted);
+  font-weight: 500;
+}
 
     /* ── MESSAGE MODAL ── */
     .msg-modal-backdrop { position: fixed; inset: 0; background: rgba(34, 26, 22, 0.5); display: none; align-items: center; justify-content: center; padding: 20px; z-index: 4000; backdrop-filter: blur(4px); }
@@ -199,6 +230,12 @@
         <p id="vendorAbout" class="vendor-about"></p>
       </section>
 
+      <!-- Testimonials -->
+<section class="vendor-card" id="testimonialsCard" style="display:none;">
+  <h2 class="vendor-section-title">Kind Words</h2>
+  <div id="vendorTestimonials"></div>
+</section>
+      
       <!-- Availability Calendar -->
       <div class="vendor-card" id="enquiriesCard">
         <h2 class="vendor-section-title">Check Availability</h2>
@@ -397,6 +434,8 @@ const msgModalTitle         = document.getElementById("msgModalTitle");
 const msgForm               = document.getElementById("msgForm");
 const msgBody               = document.getElementById("msgBody");
 const msgStatus             = document.getElementById("msgStatus");
+  const testimonialsCard      = document.getElementById("testimonialsCard");
+const vendorTestimonials    = document.getElementById("vendorTestimonials");
 
 const favoritesKey = "favoriteVendors";
 let galleryItems      = [];
@@ -587,6 +626,29 @@ function renderBooking(v) {
   else { hide(bookingEmbedWrap); show(bookingFallback,"block"); bookingFallbackBtn.href=link; }
 }
 
+  function renderTestimonials(v) {
+  const testimonials = Array.isArray(v.testimonials)
+    ? v.testimonials.filter(t => t && t.quote && String(t.quote).trim())
+    : [];
+
+  if (!testimonials.length) {
+    hide(testimonialsCard);
+    return;
+  }
+
+  vendorTestimonials.className = "testimonial-list";
+  vendorTestimonials.innerHTML = testimonials.map(t => `
+    <div class="testimonial-item">
+      <p class="testimonial-quote">“${String(t.quote || "").trim()}”</p>
+      <p class="testimonial-name">
+        ${String(t.name || "Happy client").trim()}
+        ${t.date ? `<span class="testimonial-date"> · ${String(t.date).trim()}</span>` : ""}
+      </p>
+    </div>
+  `).join("");
+
+  show(testimonialsCard, "block");
+}
 function renderLocations(v) {
   const loc = formatText(v.displayLocation||"");
   const sa  = formatText(v.serviceAreas||"");
@@ -674,7 +736,9 @@ async function loadVendor() {
     const logo = vendorData.logoUrl || vendorData.logo || "";
     if (logo) { logoImage.src=logo; show(logoWrap,"flex"); } else hide(logoWrap);
     galleryItems = buildGallery(vendorData); updateGallery();
-    renderBooking(vendorData); renderLocations(vendorData);
+    renderBooking(vendorData);
+renderTestimonials(vendorData);
+renderLocations(vendorData);
     setLink(websiteBtn,   vendorData.website||"");
     setLink(emailBtn,     vendorEmailAddress ? `mailto:${vendorEmailAddress}` : "");
     setLink(instagramBtn, vendorData.instagram||"");
