@@ -195,7 +195,12 @@ function renderProducts(products) {
   products.forEach(product => {
     const card = document.createElement("article");
     card.className = "shop-card";
-    const imageUrl = product.imageUrl || product.image || product.coverImage || "images/bouquet.png";
+    const imageUrl =
+  product.imageUrl ||
+  product.image ||
+  product.coverImage ||
+  (Array.isArray(product.images) && product.images.length ? product.images[0] : "") ||
+  "images/bouquet.png";
     const name = product.name || product.productName || "Product";
     const vendorName = product.vendorName || product.businessName || "";
     const description = product.description || product.shortDescription || "";
