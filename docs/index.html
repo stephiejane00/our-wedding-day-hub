@@ -132,7 +132,7 @@
     }
 
     .lux-logo-wrap { display: inline-block; margin-bottom: 4px; }
-    .lux-logo { width: 52px !important; max-width: 52px !important; opacity: 0.75; }
+    .lux-logo { width: 80px !important; max-width: 80px !important; opacity: 0.9; }
 
     .lux-kicker {
       font-family: var(--font-sans);
@@ -1357,7 +1357,7 @@
       const categoryLine = getCategoryLine(vendor);
       const locationLine = getLocationLine(vendor);
       const bio          = getShortBio(vendor);
-      const isFeatured   = vendor.featuredPlacement === true || vendor.priorityPlacement === true;
+      const isFeatured   = false;
 
       card.innerHTML = `
         <div class="vendor-card-img-wrap">
