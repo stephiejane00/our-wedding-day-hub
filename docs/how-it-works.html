@@ -6,425 +6,493 @@
   <title>How It Works | Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
+    /* ── TOKENS ── */
     :root {
-      --lux-espresso: #3b2f2a; --lux-rose: #c8a6a1; --lux-champagne: #c6a77d;
-      --lux-cream: #fffaf7; --lux-blush: #f4e7df; --lux-border: rgba(216, 197, 189, 0.55);
-      --lux-muted: #9b8579; --lux-shadow: rgba(59, 47, 42, 0.08);
+      --ink:        #1A1A16;
+      --ink-mid:    #4A4A44;
+      --ink-muted:  #8A8A82;
+      --ink-ghost:  #C0C0B8;
+      --ink-rule:   #DDDDD8;
+      --cream:      #FAFAF8;
+      --cream-warm: #F4F0EA;
+      --cream-deep: #EDE8E0;
+      --gold:       #9A7A5A;
+      --gold-light: #C4A882;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans:  'Plus Jakarta Sans', 'Helvetica Neue', Arial, sans-serif;
     }
-    body { background: radial-gradient(circle at top left, rgba(200, 166, 161, 0.12), transparent 32%), #f7f1ed; }
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes heroFadeIn { from { opacity: 0; transform: scale(1.01); } to { opacity: 1; transform: scale(1); } }
 
-    .how-page { max-width: 1200px; margin: 0 auto 60px; padding: 18px 20px 0; }
-    .how-stack { display: grid; gap: 24px; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--cream); font-family: var(--font-sans); color: var(--ink); -webkit-font-smoothing: antialiased; }
 
-    .how-hero-card { border-radius: 36px; border: 1px solid rgba(227, 219, 212, 0.9); box-shadow: 0 24px 70px var(--lux-shadow); background: radial-gradient(circle at top left, rgba(200, 166, 161, 0.18), transparent 34%), linear-gradient(135deg, #fffaf7, #f4ebe5); overflow: hidden; padding: 0; }
-    .how-hero-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; align-items: stretch; min-height: 540px; }
-    .how-hero-copy { padding: 52px 48px; display: flex; flex-direction: column; justify-content: center; }
-    .how-hero-copy > * { animation: fadeUp 0.8s ease forwards; opacity: 0; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ── TOPBAR ── */
+    .site-topbar {
+      background: var(--cream); border-bottom: 1px solid var(--ink-rule);
+      padding: 0 36px; display: flex; align-items: center; gap: 20px;
+      min-height: 64px; position: sticky; top: 0; z-index: 200;
+    }
+    .site-topbar-logo-wrap { display: inline-flex; align-items: center; }
+    .site-topbar-logo { width: 44px; height: 44px; object-fit: contain; }
+    .site-topbar-title { flex: 1; }
+    .site-topbar-title h1 { font-family: var(--font-serif); font-size: 1.05rem; font-weight: 400; letter-spacing: 0.01em; color: var(--ink); }
+    .site-topbar-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .site-topbar-link, .site-topbar-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 34px; padding: 6px 14px; font-family: var(--font-sans);
+      font-size: 0.75rem; letter-spacing: 0.06em; text-decoration: none; white-space: nowrap; transition: all 0.2s ease;
+    }
+    .site-topbar-link { color: var(--ink-muted); border: none; background: none; }
+    .site-topbar-link:hover { color: var(--ink); }
+    .site-topbar-btn { background: var(--ink); color: var(--cream); font-weight: 600; border: none; cursor: pointer; }
+    .site-topbar-btn:hover { background: var(--ink-mid); }
+
+    /* ── HERO ── */
+    .how-hero {
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: stretch; border-bottom: 1px solid var(--ink);
+    }
+    .how-hero-copy {
+      padding: 48px 40px 40px; display: flex; flex-direction: column;
+      justify-content: space-between; border-right: 1px solid var(--ink-rule);
+    }
+    .how-hero-copy > * { animation: fadeUp 0.7s ease forwards; opacity: 0; }
     .how-hero-copy > *:nth-child(1) { animation-delay: 0.05s; }
-    .how-hero-copy > *:nth-child(2) { animation-delay: 0.1s; }
-    .how-hero-copy > *:nth-child(3) { animation-delay: 0.18s; }
-    .how-hero-copy > *:nth-child(4) { animation-delay: 0.26s; }
-    .how-hero-copy > *:nth-child(5) { animation-delay: 0.34s; }
-    .how-logo-wrap { display: inline-block; margin-bottom: 22px; }
-    .how-logo { width: 108px; display: block; transition: transform 0.3s ease; }
-    .how-logo:hover { transform: scale(1.04); }
-    .how-kicker { margin: 0 0 12px; font-size: 0.78rem; letter-spacing: 0.28em; text-transform: uppercase; color: #b08d7d; opacity: 0.85; }
-    .how-title { margin: 0 0 14px; font-family: "Cormorant Garamond", serif; font-size: clamp(2.8rem, 4.5vw, 4rem); font-weight: 500; line-height: 0.96; letter-spacing: -0.045em; color: var(--lux-espresso); text-shadow: 0 10px 30px rgba(59, 47, 42, 0.08); }
-    .how-script { margin: 0 0 18px; font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 1.3rem; color: #c69b84; opacity: 0.9; letter-spacing: 0.02em; }
-    .how-subtitle { margin: 0; max-width: 480px; color: var(--lux-muted); line-height: 1.8; font-size: 0.97rem; }
-    .how-hero-image-wrap { position: relative; overflow: hidden; min-height: 100%; background: #f4ece6; }
-    .how-hero-image-wrap::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(59, 47, 42, 0.08), transparent 45%), radial-gradient(circle at top right, rgba(255, 250, 247, 0.14), transparent 38%); pointer-events: none; }
-    .how-hero-image { width: 100%; height: 100%; display: block; object-fit: cover; filter: brightness(0.98) contrast(0.94) saturate(0.92); opacity: 0; animation: heroFadeIn 0.9s ease forwards; transition: transform 0.9s ease, filter 0.4s ease; }
-    .how-hero-image-wrap:hover .how-hero-image { transform: scale(1.035); filter: brightness(1) contrast(0.96) saturate(0.96); }
+    .how-hero-copy > *:nth-child(2) { animation-delay: 0.12s; }
+    .how-hero-copy > *:nth-child(3) { animation-delay: 0.2s; }
+    .how-hero-copy > *:nth-child(4) { animation-delay: 0.3s; }
+    .how-hero-copy > *:nth-child(5) { animation-delay: 0.38s; }
 
-    .trust-strip { text-align: center; padding: 16px 20px 6px; font-size: 0.82rem; letter-spacing: 0.12em; color: #9b8579; opacity: 0.7; }
-    .trust-strip p { margin: 0; }
+    .how-logo { width: 80px; opacity: 0.9; display: block; }
+    .how-kicker { font-family: var(--font-sans); font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-ghost); }
+    .how-title { font-family: var(--font-serif); font-size: clamp(2.2rem, 3.8vw, 3.4rem); font-weight: 300; line-height: 0.95; letter-spacing: -0.03em; color: var(--ink); }
+    .how-script { font-family: var(--font-serif); font-style: italic; font-size: 1.15rem; color: var(--gold); letter-spacing: 0.01em; }
+    .how-subtitle { font-family: var(--font-sans); font-size: 0.88rem; color: var(--ink-muted); line-height: 1.75; max-width: 420px; }
 
-    .section-kicker-wrap { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
-    .section-kicker { font-size: 0.74rem; letter-spacing: 0.28em; text-transform: uppercase; color: #b08d7d; white-space: nowrap; }
-    .section-kicker-line { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(200,166,161,0.4), transparent); }
+    .how-hero-image-wrap {
+      position: relative; overflow: hidden; background: var(--cream-deep);
+      min-height: clamp(380px, 46vw, 580px);
+    }
+    .how-hero-image { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform 0.9s ease; }
+    .how-hero-image-wrap:hover .how-hero-image { transform: scale(1.025); }
 
-    .lux-card { position: relative; border-radius: 24px; background: rgba(255, 250, 247, 0.92); border: 1px solid rgba(223, 210, 200, 0.9); box-shadow: 0 6px 18px var(--lux-shadow); padding: 32px 28px; transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease; }
-    .lux-card:hover { transform: translateY(-5px); box-shadow: 0 22px 52px rgba(59, 47, 42, 0.11); border-color: rgba(198, 167, 125, 0.55); }
-    .lux-card h2 { margin: 0 0 12px; font-family: "Cormorant Garamond", serif; font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 500; letter-spacing: -0.03em; color: var(--lux-espresso); }
-    .lux-card h3 { margin: 0 0 10px; font-family: "Cormorant Garamond", serif; font-size: 1.45rem; font-weight: 500; letter-spacing: -0.02em; color: var(--lux-espresso); }
-    .lux-card p { margin: 0 0 14px; color: var(--lux-muted); line-height: 1.8; font-size: 0.97rem; }
-    .lux-card p:last-child { margin-bottom: 0; }
+    /* ── TRUST STRIP ── */
+    .trust-strip { display: flex; border-bottom: 1px solid var(--ink-rule); }
+    .trust-strip span {
+      flex: 1; text-align: center; padding: 10px 16px;
+      font-family: var(--font-sans); font-size: 0.68rem; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--ink-ghost);
+      border-right: 1px solid var(--ink-rule);
+    }
+    .trust-strip span:last-child { border-right: none; }
 
-    .lux-image-card { border-radius: 24px; border: 1px solid rgba(223, 210, 200, 0.9); box-shadow: 0 6px 18px var(--lux-shadow); overflow: hidden; padding: 0; transition: box-shadow 0.3s ease; }
-    .lux-image-card:hover { box-shadow: 0 18px 48px rgba(59, 47, 42, 0.12); }
-    .lux-image-card img { width: 100%; height: 100%; display: block; object-fit: cover; filter: brightness(0.98) contrast(0.94) saturate(0.92); transition: transform 0.45s ease, filter 0.35s ease; }
-    .lux-image-card:hover img { transform: scale(1.04); filter: brightness(1) contrast(0.96) saturate(0.96); }
+    /* ── SECTION SCAFFOLDING ── */
+    .section-head {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      padding: 36px 36px 0; border-top: 1px solid var(--ink); gap: 16px;
+    }
+    .section-kicker { font-family: var(--font-sans); font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-ghost); margin-bottom: 5px; }
+    .section-title { font-family: var(--font-serif); font-size: 1.7rem; font-weight: 300; letter-spacing: -0.02em; color: var(--ink); line-height: 1; }
+    .section-script { font-family: var(--font-serif); font-style: italic; font-size: 1rem; color: var(--gold); display: block; margin-top: 2px; }
 
-    .how-steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px; }
-    .how-step-card { padding: 28px 24px; }
-    .how-step-number { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, rgba(214,177,154,0.5), rgba(169,124,102,0.3)); border: 1px solid rgba(214, 190, 174, 0.6); color: #5b3d32; display: inline-flex; align-items: center; justify-content: center; font-family: "Cormorant Garamond", serif; font-weight: 600; font-size: 1.1rem; margin-bottom: 16px; }
+    /* ── STEPS ── */
+    .how-steps { border-bottom: 1px solid var(--ink-rule); }
+    .how-steps-grid {
+      display: grid; grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 0; background: var(--ink-rule); margin-top: 20px;
+    }
+    .how-step-cell {
+      background: var(--cream); padding: 28px 22px 32px;
+      border-right: 0.5px solid var(--ink-rule);
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .how-step-cell:last-child { border-right: none; }
+    .how-step-cell:nth-child(even) { background: var(--cream-warm); }
+    .how-step-number {
+      width: 36px; height: 36px; border: 0.5px solid var(--ink-rule);
+      display: inline-flex; align-items: center; justify-content: center;
+      font-family: var(--font-serif); font-size: 1rem; color: var(--ink-muted);
+      flex-shrink: 0;
+    }
+    .how-step-title { font-family: var(--font-serif); font-size: 1.2rem; font-weight: 300; color: var(--ink); line-height: 1.1; }
+    .how-step-body { font-family: var(--font-sans); font-size: 0.78rem; color: var(--ink-muted); line-height: 1.65; }
 
-    .how-two-col { display: grid; grid-template-columns: 1.02fr 0.98fr; gap: 24px; align-items: stretch; }
-    .how-two-col-reverse { display: grid; grid-template-columns: 0.98fr 1.02fr; gap: 24px; align-items: stretch; }
-    .how-image-tall { min-height: 380px; }
-    .how-image-tall img { height: 100%; }
+    /* ── TWO COL SECTIONS ── */
+    .how-feature { border-bottom: 1px solid var(--ink-rule); }
+    .how-feature-grid {
+      display: grid; gap: 0; background: var(--ink-rule); margin-top: 20px;
+    }
+    .how-feature-grid.image-right { grid-template-columns: 1fr 1fr; }
+    .how-feature-grid.image-left  { grid-template-columns: 1fr 1fr; }
 
-    .how-benefits-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
-    .how-benefit-card { padding: 28px 24px; }
-    .how-benefit-icon { font-size: 1.6rem; margin-bottom: 14px; display: block; opacity: 0.85; }
+    .how-feature-copy { background: var(--cream); padding: 40px 36px; display: flex; flex-direction: column; justify-content: center; }
+    .how-feature-copy.warm { background: var(--cream-warm); }
+    .how-feature-label { font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-ghost); margin-bottom: 10px; }
+    .how-feature-title { font-family: var(--font-serif); font-size: 1.7rem; font-weight: 300; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 14px; line-height: 1.1; }
+    .how-feature-body { font-family: var(--font-sans); font-size: 0.86rem; color: var(--ink-muted); line-height: 1.8; margin-bottom: 12px; }
+    .how-feature-body:last-child { margin-bottom: 0; }
+
+    .how-feature-image { overflow: hidden; min-height: 360px; }
+    .how-feature-image img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
+    .how-feature-image:hover img { transform: scale(1.03); }
 
     /* ── AFFORDABILITY ── */
-    .how-affordability-card {
-      background: linear-gradient(135deg, rgba(214,177,154,0.15), rgba(169,124,102,0.06));
-      border-color: rgba(198, 167, 125, 0.55);
+    .how-afford { border-bottom: 1px solid var(--ink-rule); }
+    .how-afford-inner { margin-top: 20px; }
+    .how-afford-intro { background: var(--cream-warm); padding: 28px 36px; border-bottom: 0.5px solid var(--ink-rule); }
+    .how-afford-intro p { font-family: var(--font-sans); font-size: 0.88rem; color: var(--ink-muted); line-height: 1.8; max-width: 760px; }
+    .how-afford-stats { display: grid; grid-template-columns: 1fr 1fr; background: var(--ink-rule); gap: 0; }
+    .how-afford-stat { background: var(--cream); padding: 28px 32px; border-right: 0.5px solid var(--ink-rule); }
+    .how-afford-stat:last-child { border-right: none; }
+    .how-afford-stat-num { font-family: var(--font-serif); font-size: 1.8rem; font-weight: 300; color: var(--ink); margin-bottom: 8px; letter-spacing: -0.02em; display: block; }
+    .how-afford-stat p { font-family: var(--font-sans); font-size: 0.82rem; color: var(--ink-muted); line-height: 1.65; }
+
+    /* ── GETTING STARTED ── */
+    .how-start { border-bottom: 1px solid var(--ink-rule); }
+    .how-start-grid {
+      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0; background: var(--ink-rule); margin-top: 20px;
     }
-    .how-affordability-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: start; }
-    .how-affordability-grid .lux-card { background: rgba(255,253,251,0.95); }
-    .how-affordability-stat { font-family: "Cormorant Garamond", serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 500; color: #a97c66; letter-spacing: -0.03em; margin: 0 0 6px; line-height: 1; }
+    .how-start-cell { background: var(--cream); padding: 28px 24px 32px; border-right: 0.5px solid var(--ink-rule); }
+    .how-start-cell:last-child { border-right: none; }
+    .how-start-cell:nth-child(2) { background: var(--cream-warm); }
+    .how-start-icon { font-family: var(--font-serif); font-size: 1.4rem; color: var(--gold-light); display: block; margin-bottom: 12px; }
+    .how-start-title { font-family: var(--font-serif); font-size: 1.2rem; font-weight: 300; color: var(--ink); margin-bottom: 8px; }
+    .how-start-body { font-family: var(--font-sans); font-size: 0.82rem; color: var(--ink-muted); line-height: 1.65; }
 
-    .how-cta-grid { display: grid; grid-template-columns: 0.94fr 1.06fr; gap: 24px; align-items: stretch; }
-    .how-cta-copy { display: flex; flex-direction: column; justify-content: center; padding: 36px 32px; }
-    .how-cta-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 22px; }
+    /* ── CTA ── */
+    .how-cta { border-bottom: 1px solid var(--ink-rule); }
+    .how-cta-grid {
+      display: grid; grid-template-columns: 0.9fr 1.1fr;
+      gap: 0; background: var(--ink-rule); margin-top: 20px;
+    }
+    .how-cta-image { overflow: hidden; min-height: 360px; }
+    .how-cta-image img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
+    .how-cta-image:hover img { transform: scale(1.03); }
+    .how-cta-copy { background: var(--ink); padding: 40px 36px; display: flex; flex-direction: column; justify-content: center; }
+    .how-cta-copy h2 { font-family: var(--font-serif); font-size: 1.8rem; font-weight: 300; letter-spacing: -0.02em; color: var(--cream); margin-bottom: 14px; line-height: 1.1; }
+    .how-cta-copy p { font-family: var(--font-sans); font-size: 0.86rem; color: rgba(250,250,248,0.55); line-height: 1.8; margin-bottom: 12px; }
+    .how-cta-copy p:last-of-type { margin-bottom: 0; }
+    .how-cta-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 22px; }
 
-    .btn-primary { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 12px 22px; border-radius: 999px; text-decoration: none; background: linear-gradient(135deg, #d6b19a, #a97c66); color: #fffaf7; font-weight: 700; font-size: 0.92rem; letter-spacing: 0.04em; box-shadow: 0 10px 24px rgba(185, 143, 122, 0.22); transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease; }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 34px rgba(185, 143, 122, 0.28); filter: brightness(1.04); }
-    .btn-secondary { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 12px 22px; border-radius: 999px; text-decoration: none; background: rgba(255, 250, 247, 0.95); border: 1px solid rgba(223, 210, 200, 0.9); color: var(--lux-espresso); font-weight: 600; font-size: 0.92rem; transition: transform 0.18s ease, background 0.18s ease; }
-    .btn-secondary:hover { background: var(--lux-blush); transform: translateY(-2px); }
+    /* Buttons */
+    .btn-primary { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 10px 22px; font-family: var(--font-sans); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink); background: var(--cream); text-decoration: none; border: none; transition: background 0.2s; cursor: pointer; }
+    .btn-primary:hover { background: var(--cream-warm); }
+    .btn-secondary { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 10px 22px; font-family: var(--font-sans); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cream); background: none; text-decoration: none; border: 0.5px solid rgba(255,255,255,0.3); transition: all 0.2s; }
+    .btn-secondary:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.6); }
 
-    .lux-badge { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 999px; background: rgba(255, 250, 247, 0.9); color: #6f5143; border: 1px solid rgba(214, 190, 174, 0.8); font-size: 0.74rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 16px; backdrop-filter: blur(8px); }
+    /* ── FOOTER ── */
+    .site-footer { background: var(--ink); border-top: 1px solid var(--ink-mid); }
+    .footer-content { padding: 40px 36px 32px; display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: start; }
+    .footer-logo-col { display: flex; flex-direction: column; gap: 6px; }
+    .footer-eyebrow { font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-muted); }
+    .footer-title { font-family: var(--font-serif); font-size: 1.4rem; font-weight: 300; color: var(--cream); letter-spacing: -0.02em; margin: 4px 0 6px; }
+    .footer-text { font-family: var(--font-sans); font-size: 0.78rem; color: var(--ink-muted); line-height: 1.6; max-width: 360px; }
+    .footer-tagline { font-family: var(--font-serif); font-style: italic; font-size: 0.95rem; color: var(--gold-light); margin-top: 16px; }
+    .footer-abn { font-family: var(--font-sans); font-size: 0.68rem; color: var(--ink-muted); margin-top: 4px; }
+    .footer-links-col { display: flex; flex-direction: column; gap: 10px; align-items: flex-end; }
+    .footer-links { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
+    .footer-links a { font-family: var(--font-sans); font-size: 0.72rem; letter-spacing: 0.06em; color: var(--ink-muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--cream); }
 
-    .site-footer { background: radial-gradient(circle at top, rgba(200, 166, 161, 0.16), transparent 36%), linear-gradient(180deg, #f5eee9 0%, #eee5df 100%); }
-    .footer-title { color: var(--lux-espresso); letter-spacing: -0.035em; }
-    .footer-eyebrow { color: #b08d7d; }
-.site-topbar {
-  background: radial-gradient(circle at top left, rgba(200,166,161,0.18), transparent 34%),
-    linear-gradient(135deg, #fffaf7, #f4ebe5);
-  border-bottom: 1px solid rgba(223,210,200,0.9);
-  box-shadow: 0 6px 24px rgba(59,47,42,0.08);
-  padding: 0 34px;
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  min-height: 72px;
-  position: sticky;
-  top: 0;
-  z-index: 200;
-  flex-wrap: wrap;
-}
-
-.site-topbar-logo-wrap {
-  display: inline-flex;
-  align-items: center;
-}
-
-.site-topbar-logo {
-  width: 52px;
-  height: 52px;
-  object-fit: contain;
-}
-
-.site-topbar-title {
-  flex: 1;
-}
-
-.site-topbar-title h1 {
-  margin: 0;
-  font-family: "Cormorant Garamond", serif;
-  font-size: 1.15rem;
-  font-weight: 500;
-  letter-spacing: -0.01em;
-  color: #3b2f2a;
-}
-
-.site-topbar-actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.site-topbar-link,
-.site-topbar-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 38px;
-  padding: 7px 14px;
-  border-radius: 999px;
-  font-size: 0.8rem;
-  text-decoration: none;
-  white-space: nowrap;
-}
-
-.site-topbar-link {
-  background: rgba(255,250,247,0.9);
-  border: 1px solid rgba(223,210,200,0.9);
-  color: #3b2f2a;
-}
-
-.site-topbar-btn {
-  border: none;
-  background: linear-gradient(135deg, #d6b19a, #a97c66);
-  color: #fffaf7;
-  font-weight: 700;
-}
-
-.site-topbar-link:hover,
-.site-topbar-btn:hover {
-  transform: translateY(-1px);
-}
-
-@media (max-width: 700px) {
-  .site-topbar {
-    padding: 12px 16px;
-    gap: 14px;
-    justify-content: center;
-  }
-
-  .site-topbar-logo {
-    width: 42px;
-    height: 42px;
-  }
-
-  .site-topbar-title {
-    flex: unset;
-  }
-
-  .site-topbar-title h1 {
-    font-size: 0.95rem;
-    text-align: center;
-  }
-
-  .site-topbar-actions {
-    width: 100%;
-    justify-content: center;
-    gap: 10px;
-  }
-
-  .site-topbar-link,
-  .site-topbar-btn {
-    min-height: 36px;
-    padding: 6px 14px;
-    font-size: 0.78rem;
-  }
-}
-    @media (max-width: 980px) { .how-hero-grid, .how-two-col, .how-two-col-reverse, .how-benefits-grid, .how-cta-grid, .how-affordability-grid { grid-template-columns: 1fr; } .how-hero-copy { padding: 36px 28px; } .how-steps-grid { grid-template-columns: repeat(2, 1fr); } .how-image-tall { min-height: 280px; } }
-    @media (max-width: 640px) { .how-page { padding: 10px 10px 0; } .how-hero-copy { padding: 28px 18px; } .how-title { font-size: 2.6rem; } .how-steps-grid { grid-template-columns: 1fr; } .lux-card { padding: 24px 20px; } .how-cta-copy { padding: 28px 22px; } }
-    
-</style>
+    /* ── RESPONSIVE ── */
+    @media (max-width: 980px) {
+      .how-hero { grid-template-columns: 1fr; }
+      .how-hero-copy { border-right: none; border-bottom: 1px solid var(--ink-rule); }
+      .how-hero-image-wrap { min-height: 300px; }
+      .how-steps-grid { grid-template-columns: repeat(2, 1fr); }
+      .how-step-cell:nth-child(even) { border-right: none; }
+      .how-feature-grid.image-right,
+      .how-feature-grid.image-left { grid-template-columns: 1fr; }
+      .how-afford-stats { grid-template-columns: 1fr; }
+      .how-afford-stat { border-right: none; border-bottom: 0.5px solid var(--ink-rule); }
+      .how-afford-stat:last-child { border-bottom: none; }
+      .how-start-grid { grid-template-columns: 1fr; }
+      .how-start-cell { border-right: none; border-bottom: 0.5px solid var(--ink-rule); }
+      .how-start-cell:last-child { border-bottom: none; }
+      .how-cta-grid { grid-template-columns: 1fr; }
+      .footer-content { grid-template-columns: 1fr; gap: 24px; }
+      .footer-links-col { align-items: flex-start; }
+      .footer-links { align-items: flex-start; }
+    }
+    @media (max-width: 700px) {
+      .site-topbar { padding: 0 16px; min-height: 56px; }
+      .how-hero-copy { padding: 28px 20px; }
+      .how-hero-image-wrap { min-height: 260px; }
+      .how-steps-grid { grid-template-columns: 1fr; }
+      .how-step-cell { border-right: none; border-bottom: 0.5px solid var(--ink-rule); }
+      .how-step-cell:last-child { border-bottom: none; }
+      .how-feature-copy, .how-afford-intro, .how-afford-stat,
+      .how-start-cell, .how-cta-copy { padding: 24px 20px; }
+      .section-head { padding: 24px 20px 0; flex-wrap: wrap; gap: 6px; }
+      .trust-strip { display: none; }
+      .footer-content { padding: 28px 20px 24px; }
+    }
+  </style>
 </head>
 <body>
 
+<!-- ── TOPBAR ── -->
 <header class="site-topbar">
   <a href="index.html" class="site-topbar-logo-wrap" aria-label="Go to homepage">
     <img src="images/logo1.png" alt="Our Wedding Day Hub" class="site-topbar-logo">
   </a>
-
-  <div class="site-topbar-title">
-    <h1>Our Wedding Day Hub</h1>
-  </div>
-
+  <div class="site-topbar-title"><h1>Our Wedding Day Hub</h1></div>
   <nav class="site-topbar-actions">
     <a href="categories.html" class="site-topbar-link">Categories</a>
-
     <a href="shop.html" class="site-topbar-link">Boutique</a>
-
     <a href="messages.html" id="messagesLink" class="site-topbar-link" style="display:none; position:relative;">
       Messages
-      <span id="msgNavBadge" style="display:none; position:absolute; top:-6px; right:-10px; background:linear-gradient(135deg,#d6b19a,#a97c66); color:#fffaf7; font-size:0.68rem; font-weight:700; padding:2px 6px; border-radius:999px; line-height:1.2; min-width:18px; text-align:center;">0</span>
+      <span id="msgNavBadge" style="display:none; position:absolute; top:-6px; right:-10px; background:var(--ink); color:var(--cream); font-size:0.64rem; font-weight:700; padding:2px 6px; border-radius:999px; line-height:1.2; min-width:18px; text-align:center;">0</span>
     </a>
-
     <a href="login.html" id="loginLink" class="site-topbar-link">Log In</a>
-
     <a href="signup.html" id="joinLink" class="site-topbar-btn">Join</a>
-
     <a href="dashboard.html" id="dashboardLink" class="site-topbar-link" style="display:none;">Dashboard</a>
-
     <button id="logoutLink" class="site-topbar-btn" style="display:none;">Log Out</button>
   </nav>
 </header>
 
-<main class="how-page">
-  <div class="how-stack">
+<main>
 
-    <section class="how-hero-card">
-      <div class="how-hero-grid">
-        <div class="how-hero-copy">
-          <a href="index.html" class="how-logo-wrap" aria-label="Go to homepage">
-            <img src="images/logo1.png" alt="Our Wedding Day Hub" class="how-logo" loading="lazy">
-          </a>
-          <p class="how-kicker">Trusted wedding vendors worldwide</p>
-          <h1 class="how-title">A simple way to connect<br>couples and vendors</h1>
-          <p class="how-script">beautifully, in one place ♡</p>
-          <p class="how-subtitle">Our Wedding Day Hub helps couples discover beautiful wedding businesses, while giving vendors a lovely way to be seen by people actively planning their day.</p>
-        </div>
-        <div class="how-hero-image-wrap">
-          <img src="images/stair.png" alt="Golden hour wedding couple" class="how-hero-image" loading="lazy">
-        </div>
+  <!-- ── HERO ── -->
+  <section class="how-hero">
+    <div class="how-hero-copy">
+      <a href="index.html" aria-label="Go to homepage">
+        <img src="images/logo1.png" alt="Our Wedding Day Hub" class="how-logo" loading="eager">
+      </a>
+      <p class="how-kicker">Trusted wedding vendors worldwide</p>
+      <h1 class="how-title">A simple way to connect<br>couples and vendors</h1>
+      <p class="how-script">beautifully, in one place ♡</p>
+      <p class="how-subtitle">Our Wedding Day Hub helps couples discover beautiful wedding businesses, while giving vendors a lovely way to be seen by people actively planning their day.</p>
+    </div>
+    <div class="how-hero-image-wrap">
+      <img src="images/stair.png" alt="Golden hour wedding couple" class="how-hero-image" loading="lazy">
+    </div>
+  </section>
+
+  <!-- ── TRUST STRIP ── -->
+  <div class="trust-strip">
+    <span>Trusted across Australia &amp; worldwide</span>
+    <span>Proudly independent</span>
+    <span>Built with heart</span>
+    <span>Proudly inclusive</span>
+  </div>
+
+  <!-- ── STEPS ── -->
+  <section class="how-steps">
+    <div class="section-head">
+      <div>
+        <p class="section-kicker">How It Works</p>
+        <h2 class="section-title">Five simple steps</h2>
+        <span class="section-script">from discovery to connection ♡</span>
       </div>
-    </section>
-
-    <section class="trust-strip">
-      <p>Trusted by wedding vendors across Australia &amp; worldwide • Proudly independent • Built with heart</p>
-    </section>
-
-    <div class="section-kicker-wrap" style="padding: 0 4px;">
-      <span class="section-kicker">How It Works</span>
-      <span class="section-kicker-line"></span>
     </div>
-
     <div class="how-steps-grid">
-      <article class="lux-card how-step-card">
-        <div class="how-step-number">1</div>
-        <h3>Browse</h3>
-        <p>Couples can explore vendors by category and location in one beautifully organised place.</p>
-      </article>
-      <article class="lux-card how-step-card">
-        <div class="how-step-number">2</div>
-        <h3>Discover</h3>
-        <p>View profiles, explore imagery, and find businesses that align with the style and feel of your day.</p>
-      </article>
-      <article class="lux-card how-step-card">
-        <div class="how-step-number">3</div>
-        <h3>Connect</h3>
-        <p>Reach out directly to vendors you love, making the process feel simpler and more personal.</p>
-      </article>
-      <article class="lux-card how-step-card">
-        <div class="how-step-number">4</div>
-        <h3>Be Seen</h3>
-        <p>Vendors showcase their work to couples who are actively searching for exactly what they offer.</p>
-      </article>
-      <article class="lux-card how-step-card">
-        <div class="how-step-number">5</div>
-        <h3>Shop the Boutique</h3>
-        <p>Browse gifts, vouchers, jewellery, favours, keepsakes and special offers from our vendors.</p>
-      </article>
+      <div class="how-step-cell">
+        <span class="how-step-number">1</span>
+        <p class="how-step-title">Browse</p>
+        <p class="how-step-body">Couples can explore vendors by category and location in one beautifully organised place.</p>
+      </div>
+      <div class="how-step-cell">
+        <span class="how-step-number">2</span>
+        <p class="how-step-title">Discover</p>
+        <p class="how-step-body">View profiles, explore imagery, and find businesses that align with the style and feel of your day.</p>
+      </div>
+      <div class="how-step-cell">
+        <span class="how-step-number">3</span>
+        <p class="how-step-title">Connect</p>
+        <p class="how-step-body">Reach out directly to vendors you love, making the process feel simpler and more personal.</p>
+      </div>
+      <div class="how-step-cell">
+        <span class="how-step-number">4</span>
+        <p class="how-step-title">Be Seen</p>
+        <p class="how-step-body">Vendors showcase their work to couples who are actively searching for exactly what they offer.</p>
+      </div>
+      <div class="how-step-cell">
+        <span class="how-step-number">5</span>
+        <p class="how-step-title">Shop the Boutique</p>
+        <p class="how-step-body">Browse gifts, vouchers, jewellery, favours, keepsakes and special offers from our vendors.</p>
+      </div>
     </div>
+  </section>
 
-    <div class="how-two-col">
-      <article class="lux-card">
-        <span class="lux-badge">✦ For Couples</span>
-        <h2>Finding your dream team made simple</h2>
-        <p>Browse wedding vendors by category and location, all in one place. Explore profiles, discover local favourites, and connect directly with the businesses that feel like the right fit for your wedding.</p>
-        <p>Designed to make the search feel simpler, calmer, and far less overwhelming — so you can focus on the joy of planning.</p>
-      </article>
-      <div class="lux-image-card how-image-tall">
+  <!-- ── FOR COUPLES ── -->
+  <section class="how-feature">
+    <div class="section-head">
+      <div>
+        <p class="section-kicker">For Couples</p>
+        <h2 class="section-title">Finding your dream team made simple</h2>
+      </div>
+    </div>
+    <div class="how-feature-grid image-right">
+      <div class="how-feature-copy">
+        <p class="how-feature-label">For Couples</p>
+        <h2 class="how-feature-title">Finding your dream team made simple</h2>
+        <p class="how-feature-body">Browse wedding vendors by category and location, all in one place. Explore profiles, discover local favourites, and connect directly with the businesses that feel like the right fit for your wedding.</p>
+        <p class="how-feature-body">Designed to make the search feel simpler, calmer, and far less overwhelming — so you can focus on the joy of planning.</p>
+      </div>
+      <div class="how-feature-image">
         <img src="images/cta.png" alt="Elegant bridal bouquet detail" loading="lazy">
       </div>
     </div>
+  </section>
 
-    <div class="how-two-col-reverse">
-      <div class="lux-image-card how-image-tall">
+  <!-- ── FOR VENDORS ── -->
+  <section class="how-feature">
+    <div class="section-head">
+      <div>
+        <p class="section-kicker">For Vendors</p>
+        <h2 class="section-title">A beautiful home for your business</h2>
+      </div>
+    </div>
+    <div class="how-feature-grid image-left">
+      <div class="how-feature-image">
         <img src="images/arm.png" alt="Modern wedding couple portrait" loading="lazy">
       </div>
-      <article class="lux-card">
-        <span class="lux-badge">✦ For Vendors</span>
-        <h2>A beautiful home for your business</h2>
-        <p>Create your profile, choose the listing level that suits your business, and showcase what you offer to couples who are actively searching for wedding services.</p>
-        <p>Your profile gives couples a clear place to view your business, learn more about your services, and decide if you feel like the right fit for their day.</p>
-      </article>
+      <div class="how-feature-copy warm">
+        <p class="how-feature-label">For Vendors</p>
+        <h2 class="how-feature-title">A beautiful home for your business</h2>
+        <p class="how-feature-body">Create your profile, choose the listing level that suits your business, and showcase what you offer to couples who are actively searching for wedding services.</p>
+        <p class="how-feature-body">Your profile gives couples a clear place to view your business, learn more about your services, and decide if you feel like the right fit for their day.</p>
+      </div>
     </div>
+  </section>
 
-    <div class="how-two-col">
-      <article class="lux-card">
-        <span class="lux-badge">✦ The Boutique</span>
-        <h2>A special shopping space</h2>
-        <p>The Boutique is a curated shopping space inside Our Wedding Day Hub where couples and guests can discover wedding-related extras from our vendors.</p>
-        <p>Vendors can list gift cards, vouchers, special offers, jewellery, bridal accessories, favours, keepsakes, cake boxes, wellness experiences and other thoughtful wedding products.</p>
-        <p>Some listings may link to the vendor's own payment or booking page, while others may ask customers to enquire first — giving vendors full flexibility.</p>
-      </article>
-      <div class="lux-image-card how-image-tall">
+  <!-- ── THE BOUTIQUE ── -->
+  <section class="how-feature">
+    <div class="section-head">
+      <div>
+        <p class="section-kicker">The Boutique</p>
+        <h2 class="section-title">A special shopping space</h2>
+      </div>
+    </div>
+    <div class="how-feature-grid image-right">
+      <div class="how-feature-copy">
+        <p class="how-feature-label">The Boutique</p>
+        <h2 class="how-feature-title">A special shopping space</h2>
+        <p class="how-feature-body">The Boutique is a curated shopping space inside Our Wedding Day Hub where couples and guests can discover wedding-related extras from our vendors.</p>
+        <p class="how-feature-body">Vendors can list gift cards, vouchers, special offers, jewellery, bridal accessories, favours, keepsakes, cake boxes, wellness experiences and other thoughtful wedding products.</p>
+        <p class="how-feature-body">Some listings may link to the vendor's own payment or booking page, while others may ask customers to enquire first — giving vendors full flexibility.</p>
+      </div>
+      <div class="how-feature-image">
         <img src="images/cutecar.jpg" alt="Elegant wedding couple on vintage car" loading="lazy">
       </div>
     </div>
+  </section>
 
-    <!-- ── AFFORDABILITY ── -->
-    <div class="section-kicker-wrap" style="padding: 0 4px;">
-      <span class="section-kicker">Genuinely Affordable</span>
-      <span class="section-kicker-line"></span>
-    </div>
-
-    <article class="lux-card how-affordability-card" style="text-align:center;">
-      <span class="lux-badge">✦ A refreshing difference</span>
-      <h2>So much more affordable than anywhere else</h2>
-      <p style="max-width:720px; margin-left:auto; margin-right:auto;">Most wedding advertising platforms charge hundreds — sometimes thousands — of dollars a year just to be listed. We believe that's simply not fair for the independent, passionate businesses that make weddings beautiful. Our pricing is a fraction of what you'd pay elsewhere, with no commissions, no booking fees, and no pay-to-rank games. Just a stunning profile that works hard for you, at a price that actually makes sense.</p>
-      <div class="how-affordability-grid" style="margin-top:20px;">
-        <article class="lux-card" style="text-align:center;">
-          <p class="how-affordability-stat">No commissions</p>
-          <p style="margin:0;">Every booking you make through the hub is entirely yours. We never take a cut.</p>
-        </article>
-        <article class="lux-card" style="text-align:center;">
-          <p class="how-affordability-stat">No surprises</p>
-          <p style="margin:0;">One simple, transparent price. No hidden fees, no locked features, no confusing tiers designed to push you to spend more.</p>
-        </article>
+  <!-- ── AFFORDABILITY ── -->
+  <section class="how-afford">
+    <div class="section-head">
+      <div>
+        <p class="section-kicker">Genuinely Affordable</p>
+        <h2 class="section-title">So much more affordable than anywhere else</h2>
+        <span class="section-script">for real, independent businesses ♡</span>
       </div>
-    </article>
-
-    <div class="section-kicker-wrap" style="padding: 0 4px;">
-      <span class="section-kicker">Getting Started</span>
-      <span class="section-kicker-line"></span>
     </div>
-
-    <div class="how-benefits-grid">
-      <article class="lux-card how-benefit-card">
-        <span class="how-benefit-icon">✦</span>
-        <h3>Getting started</h3>
-        <p>Sign up, select your preferred tier, and complete your business profile with your details, imagery, and information.</p>
-      </article>
-      <article class="lux-card how-benefit-card">
-        <span class="how-benefit-icon">♡</span>
-        <h3>Go live</h3>
-        <p>Once your profile is ready and live, couples can begin discovering your business through the platform.</p>
-      </article>
-      <article class="lux-card how-benefit-card">
-        <span class="how-benefit-icon">✦</span>
-        <h3>Why join</h3>
-        <p>A simple, elegant way to bring the right people together in one beautiful space — built with care for both sides.</p>
-      </article>
+    <div class="how-afford-inner">
+      <div class="how-afford-intro">
+        <p>Most wedding advertising platforms charge hundreds — sometimes thousands — of dollars a year just to be listed. We believe that's simply not fair for the independent, passionate businesses that make weddings beautiful. Our pricing is a fraction of what you'd pay elsewhere, with no commissions, no booking fees, and no pay-to-rank games. Just a stunning profile that works hard for you, at a price that actually makes sense.</p>
+      </div>
+      <div class="how-afford-stats">
+        <div class="how-afford-stat">
+          <span class="how-afford-stat-num">No commissions</span>
+          <p>Every booking you make through the hub is entirely yours. We never take a cut.</p>
+        </div>
+        <div class="how-afford-stat">
+          <span class="how-afford-stat-num">No surprises</span>
+          <p>One simple, transparent price. No hidden fees, no locked features, no confusing tiers designed to push you to spend more.</p>
+        </div>
+      </div>
     </div>
+  </section>
 
+  <!-- ── GETTING STARTED ── -->
+  <section class="how-start">
+    <div class="section-head">
+      <div>
+        <p class="section-kicker">Getting Started</p>
+        <h2 class="section-title">Simple from day one</h2>
+      </div>
+    </div>
+    <div class="how-start-grid">
+      <div class="how-start-cell">
+        <span class="how-start-icon">✦</span>
+        <p class="how-start-title">Getting started</p>
+        <p class="how-start-body">Sign up, select your preferred tier, and complete your business profile with your details, imagery, and information.</p>
+      </div>
+      <div class="how-start-cell">
+        <span class="how-start-icon">♡</span>
+        <p class="how-start-title">Go live</p>
+        <p class="how-start-body">Once your profile is ready and live, couples can begin discovering your business through the platform.</p>
+      </div>
+      <div class="how-start-cell">
+        <span class="how-start-icon">✦</span>
+        <p class="how-start-title">Why join</p>
+        <p class="how-start-body">A simple, elegant way to bring the right people together in one beautiful space — built with care for both sides.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA ── -->
+  <section class="how-cta">
+    <div class="section-head">
+      <div>
+        <p class="section-kicker">Thoughtfully Designed</p>
+        <h2 class="section-title">Built for both sides of the wedding</h2>
+      </div>
+    </div>
     <div class="how-cta-grid">
-      <div class="lux-image-card">
-        <img src="images/sunset.jpg" alt="Golden hour wedding couple" style="aspect-ratio: 1/1;" loading="lazy">
+      <div class="how-cta-image">
+        <img src="images/sunset.jpg" alt="Golden hour wedding couple" loading="lazy">
       </div>
-      <article class="lux-card how-cta-copy">
-        <span class="lux-badge">✦ Thoughtfully designed</span>
+      <div class="how-cta-copy">
         <h2>Built for both sides of the wedding</h2>
         <p>Whether you are planning your wedding or growing your business, Our Wedding Day Hub is designed to feel elegant, easy to use, and thoughtfully curated.</p>
         <p>Couples get a more inspiring way to search. Vendors get a beautiful place to be seen — at a price that feels refreshingly fair. And the whole experience feels more refined from start to finish.</p>
         <div class="how-cta-actions">
-          <a href="categories.html" class="btn-primary">Browse Categories</a>
-          <a href="signup.html" class="btn-secondary">Join as Vendor</a>
+          <a href="categories.html" class="btn-primary">Browse Categories →</a>
+          <a href="signup.html" class="btn-secondary">Join as vendor</a>
         </div>
-      </article>
+      </div>
     </div>
+  </section>
 
-  </div>
 </main>
 
+<!-- ── FOOTER ── -->
 <footer class="site-footer">
   <div class="footer-content">
-    <a href="index.html" aria-label="Go to homepage" style="display:inline-block; margin-bottom:18px;">
-      <img src="images/logo1.png" alt="Our Wedding Day Hub" style="width:72px; height:72px; object-fit:contain; opacity:0.7;">
-    </a>
-    <p class="footer-eyebrow">wedding planning directory</p>
-    <h2 class="footer-title">Everything your wedding deserves.</h2>
-    <p class="footer-text">Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.</p>
-    <div class="footer-links">
-      <a href="about.html">About Us</a>
-      <a href="how-it-works.html">How It Works</a>
-      <a href="pricing.html">Pricing</a>
-      <a href="contact.html">Contact Us</a>
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="terms.html">Terms &amp; Conditions</a>
-      <a href="refund-policy.html">Refund Policy</a>
-      <a href="https://www.equaldex.com/equality-index" target="_blank" rel="noopener noreferrer">Global Equality Index</a>
-      <a href="#" onclick="return false;">Events4Us (Coming Soon)</a>
+    <div class="footer-logo-col">
+      <a href="index.html" aria-label="Go to homepage">
+        <img src="images/logo1.png" alt="Our Wedding Day Hub" style="width:52px; height:52px; object-fit:contain; opacity:0.5; margin-bottom:6px;">
+      </a>
+      <p class="footer-eyebrow">Wedding planning directory</p>
+      <h2 class="footer-title">Everything your wedding deserves.</h2>
+      <p class="footer-text">Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.</p>
+      <p class="footer-tagline">everything your wedding day deserves. ♡</p>
+      <p class="footer-abn">© 2026 Our Wedding Day Hub</p>
+      <p class="footer-abn">ABN 76 688 637 041 • Australia</p>
     </div>
-    <p class="footer-tagline">Proudly inclusive • Worldwide • Built with heart</p>
-    <p class="footer-abn">© 2026 Our Wedding Day Hub</p>
-    <p class="footer-abn">ABN 76 688 637 041 • Australia</p>
+    <div class="footer-links-col">
+      <div class="footer-links">
+        <a href="about.html">About Us</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="refund-policy.html">Refund Policy</a>
+        <a href="https://www.equaldex.com/equality-index" target="_blank" rel="noopener noreferrer">Global Equality Index</a>
+        <a href="#" onclick="return false;">Events4Us (Coming Soon)</a>
+      </div>
+      <p style="font-family:var(--font-sans); font-size:0.65rem; color:var(--ink-muted); margin-top:12px; letter-spacing:0.06em;">Proudly inclusive • Worldwide • Built with heart</p>
+    </div>
   </div>
 </footer>
 
