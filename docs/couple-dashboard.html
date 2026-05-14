@@ -450,8 +450,8 @@ async function loadUserData() {
 }
 
 function applyUserData() {
-  const p1 = userData.partnerOne || "";
-  const p2 = userData.partnerTwo || "";
+const p1 = userData.partnerOne || userData.partner1Name || userData.firstName || "";
+const p2 = userData.partnerTwo || userData.partner2Name || userData.partnerName || "";
   const weddingName = p1 && p2 ? `${p1} & ${p2}` : p1 || p2 || "My Wedding";
   document.getElementById("topbarWeddingName").textContent = weddingName + " — Dashboard";
   document.getElementById("welcomeTitle").textContent = p1 && p2 ? `${p1} & ${p2}` : "Your Wedding";
@@ -528,7 +528,16 @@ document.getElementById("saveDetailsBtn").addEventListener("click", async () => 
   const venue = document.getElementById("weddingVenue").value.trim();
   const statusEl = document.getElementById("detailsStatus");
   try {
-    await setDoc(doc(db, "users", currentUser.uid), { partnerOne: p1, partnerTwo: p2, weddingDate: date, weddingVenue: venue, role: "couple", updatedAt: new Date().toISOString() }, { merge: true });
+    await setDoc(doc(db, "users", currentUser.uid), {
+  partnerOne: p1,
+  partnerTwo: p2,
+  partner1Name: p1,
+  partner2Name: p2,
+  weddingDate: date,
+  weddingVenue: venue,
+  role: "couple",
+  updatedAt: new Date().toISOString()
+}, { merge: true });
     userData = { ...userData, partnerOne: p1, partnerTwo: p2, weddingDate: date, weddingVenue: venue };
     statusEl.textContent = "Details saved ♡";
     if (date) updateCountdown(date);
