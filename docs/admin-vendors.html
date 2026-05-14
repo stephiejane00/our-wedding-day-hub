@@ -732,7 +732,7 @@ testimonialDateInput.value = selectedVendor.testimonials?.[0]?.date || "";
 
 const fRef = ref(
   storage,
-  `${folder}/${selectedVendorId}/${fileName}`
+  `${folder}/${selectedVendor.uid || selectedVendorId}/${fileName}`
 );
       await uploadBytes(fRef, file, {
   contentType: file.type || "image/jpeg"
