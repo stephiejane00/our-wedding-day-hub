@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Wedding Dashboard | Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root { --lux-espresso: #3b2f2a; --lux-rose: #c8a6a1; --lux-champagne: #c6a77d; --lux-cream: #fffaf7; --lux-blush: #f4e7df; --lux-border: rgba(216, 197, 189, 0.55); --lux-muted: #9b8579; --lux-shadow: rgba(59, 47, 42, 0.08); }
     body { background: radial-gradient(circle at top left, rgba(200, 166, 161, 0.12), transparent 32%), #f7f1ed; }
@@ -298,7 +301,7 @@
   }
 }
     @media (max-width: 1100px) { .couple-grid { grid-template-columns: 1fr; } .couple-sidebar { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 700px) { .couple-topbar { padding: 0 14px; gap: 12px; } .couple-topbar-logo { width: 40px; height: 40px; } .couple-topbar-title h1 { font-size: 1.15rem; } .couple-topbar-actions { gap: 8px; } .couple-topbar-link { padding: 7px 12px; font-size: 0.82rem; } .couple-dashboard { padding: 14px 12px 40px; gap: 16px; } .couple-welcome-card { grid-template-columns: 1fr; } .couple-countdown-wrap { display: none; } .couple-grid { grid-template-columns: 1fr; } .couple-sidebar { grid-template-columns: 1fr; } .couple-favs-grid, .couple-quicklinks-grid, .inspiration-grid { grid-template-columns: 1fr; } }
+    
   </style>
 </head>
 <body>
@@ -552,7 +555,7 @@ onAuthStateChanged(auth, async (user) => {
   setupConversationsListener();
 });
 
-document.getElementById("coupleLogoutBtn").addEventListener("click", async () => {
+document.getElementById("logoutLink").addEventListener("click", async () => {
   if (unsubConversations) unsubConversations();
   await signOut(auth);
   window.location.href = "index.html";
@@ -571,8 +574,7 @@ function applyUserData() {
 const p1 = userData.partnerOne || userData.partner1Name || userData.firstName || "";
 const p2 = userData.partnerTwo || userData.partner2Name || userData.partnerName || "";
   const weddingName = p1 && p2 ? `${p1} & ${p2}` : p1 || p2 || "My Wedding";
-  document.getElementById("topbarWeddingName").textContent = weddingName + " — Dashboard";
-  document.getElementById("welcomeTitle").textContent = p1 && p2 ? `${p1} & ${p2}` : "Your Wedding";
+    document.getElementById("welcomeTitle").textContent = p1 && p2 ? `${p1} & ${p2}` : "Your Wedding";
   document.getElementById("welcomeSub").textContent = "Everything you need to plan your perfect day — saved favourites, messages, your checklist, budget, and more.";
   // Update hero title
   const heroTitle = document.getElementById("coupleHeroTitle");
@@ -660,7 +662,6 @@ document.getElementById("saveDetailsBtn").addEventListener("click", async () => 
     statusEl.textContent = "Details saved ♡";
     if (date) updateCountdown(date);
     const weddingName = p1 && p2 ? `${p1} & ${p2}` : p1 || p2 || "My Wedding";
-    document.getElementById("topbarWeddingName").textContent = weddingName + " — Dashboard";
     document.getElementById("welcomeTitle").textContent = p1 && p2 ? `${p1} & ${p2}` : "Your Wedding";
     setTimeout(() => { statusEl.textContent = ""; }, 2500);
   } catch (err) { console.error(err); statusEl.textContent = "Something went wrong."; }
