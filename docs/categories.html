@@ -6,397 +6,524 @@
   <title>Browse Categories | Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
+    /* ── DESIGN TOKENS (matches index.html) ── */
     :root {
-      --lux-espresso: #3b2f2a; --lux-rose: #c8a6a1; --lux-champagne: #c6a77d;
-      --lux-cream: #fffaf7; --lux-blush: #f4e7df; --lux-border: rgba(216, 197, 189, 0.55);
-      --lux-muted: #9b8579; --lux-shadow: rgba(59, 47, 42, 0.08);
+      --ink:        #1A1A16;
+      --ink-mid:    #4A4A44;
+      --ink-muted:  #8A8A82;
+      --ink-ghost:  #C0C0B8;
+      --ink-rule:   #DDDDD8;
+      --cream:      #FAFAF8;
+      --cream-warm: #F4F0EA;
+      --cream-deep: #EDE8E0;
+      --gold:       #9A7A5A;
+      --gold-light: #C4A882;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans:  'Plus Jakarta Sans', 'Helvetica Neue', Arial, sans-serif;
     }
-    body { background: radial-gradient(circle at top left, rgba(200, 166, 161, 0.12), transparent 32%), #f7f1ed; }
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes heroFadeIn { from { opacity: 0; transform: scale(1.01); } to { opacity: 1; transform: scale(1); } }
 
-    .categories-page { max-width: 1520px; margin: 0 auto; padding: 18px 20px 56px; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--cream); font-family: var(--font-sans); color: var(--ink); -webkit-font-smoothing: antialiased; }
 
-    .categories-hero { position: relative; background: radial-gradient(circle at top left, rgba(200, 166, 161, 0.18), transparent 34%), linear-gradient(135deg, #fffaf7, #f4ebe5); border: 1px solid rgba(227, 219, 212, 0.9); border-radius: 36px; padding: 0; margin-bottom: 28px; text-align: center; box-shadow: 0 24px 70px var(--lux-shadow); overflow: hidden; }
-    .categories-hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; align-items: stretch; min-height: 420px; }
-    .categories-hero-copy { padding: 52px 30px 36px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-    .categories-hero-image-wrap { position: relative; overflow: hidden; min-height: 100%; background: #f4ece6; }
-    .categories-hero-image-wrap::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(59, 47, 42, 0.08), transparent 45%); pointer-events: none; }
-    .categories-hero-image { width: 100%; height: 100%; display: block; object-fit: cover; filter: brightness(0.98) contrast(0.94) saturate(0.92); opacity: 0; animation: heroFadeIn 0.9s ease forwards; transition: transform 0.9s ease, filter 0.4s ease; }
-    .categories-hero-image-wrap:hover .categories-hero-image { transform: scale(1.035); filter: brightness(1) contrast(0.96) saturate(0.96); }
-    .categories-hero::before, .categories-hero::after { content: ""; position: absolute; width: 260px; height: 260px; border-radius: 999px; background: radial-gradient(circle, rgba(200, 166, 161, 0.14), transparent 70%); pointer-events: none; }
-    .categories-hero::before { top: -120px; left: -80px; }
-    .categories-hero::after  { right: -90px; bottom: -130px; }
-    .categories-hero > * { animation: fadeUp 0.8s ease forwards; opacity: 0; }
-    .categories-hero > *:nth-child(1) { animation-delay: 0.05s; }
-    .categories-hero > *:nth-child(2) { animation-delay: 0.1s; }
-    .categories-hero > *:nth-child(3) { animation-delay: 0.17s; }
-    .categories-hero > *:nth-child(4) { animation-delay: 0.24s; }
-    .categories-hero > *:nth-child(5) { animation-delay: 0.31s; }
-    .categories-hero > *:nth-child(6) { animation-delay: 0.38s; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 
-    .categories-logo { width: 88px; margin: 0 auto 18px; display: block; position: relative; z-index: 1; transition: transform 0.3s ease; }
-    .categories-logo:hover { transform: scale(1.04); }
-    .categories-kicker { margin: 0 0 12px; font-size: 0.78rem; letter-spacing: 0.28em; text-transform: uppercase; color: #b08d7d; opacity: 0.85; position: relative; z-index: 1; }
-    .categories-title { margin: 0; font-family: "Cormorant Garamond", serif; font-size: clamp(2.8rem, 5vw, 4.8rem); font-weight: 500; line-height: 0.95; letter-spacing: -0.045em; color: var(--lux-espresso); text-shadow: 0 10px 30px rgba(59, 47, 42, 0.08); position: relative; z-index: 1; }
-    .categories-script { margin: 10px 0 0; font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 1.25rem; color: #c69b84; opacity: 0.9; position: relative; z-index: 1; }
-    .categories-subtitle { max-width: 680px; margin: 14px auto 0; color: var(--lux-muted); line-height: 1.78; font-size: 0.97rem; position: relative; z-index: 1; }
-
-    .categories-filter-wrap { max-width: 1230px; margin: 28px auto 0; position: relative; z-index: 1; }
-    .categories-filter-bar { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
-    .categories-filter-pill { display: inline-flex; align-items: center; justify-content: center; padding: 10px 17px; min-height: 42px; border-radius: 999px; background: rgba(255, 250, 247, 0.9); border: 1px solid rgba(223, 210, 200, 0.9); color: #6e5a52; font-size: 0.88rem; font-weight: 500; text-decoration: none; white-space: nowrap; transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease; box-shadow: 0 4px 12px var(--lux-shadow); }
-    .categories-filter-pill:hover { transform: translateY(-2px); background: var(--lux-blush); border-color: rgba(198, 167, 125, 0.5); box-shadow: 0 10px 22px var(--lux-shadow); }
-    .categories-filter-pill.active { background: linear-gradient(135deg, #d6b19a, #a97c66); border-color: transparent; color: #fffaf7; box-shadow: 0 10px 24px rgba(185, 143, 122, 0.22); font-weight: 600; }
-    .categories-filter-pill.active:hover { transform: translateY(-2px); filter: brightness(1.04); }
-
-    .categories-search-panel { max-width: 1210px; margin: 24px auto 0; padding: 20px; border-radius: 28px; background: rgba(255, 250, 247, 0.92); border: 1px solid rgba(223, 210, 200, 0.9); box-shadow: 0 8px 28px var(--lux-shadow); position: relative; z-index: 1; }
-    .categories-search-grid { display: grid; grid-template-columns: 1fr 1fr 1.1fr 1.1fr auto; gap: 12px; align-items: end; }
-    .categories-search-field label { display: block; margin-bottom: 7px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #8d7369; }
-    .categories-search-field select, .categories-search-field input { width: 100%; min-height: 48px; border-radius: 14px; border: 1px solid #eadfd6; background: #fffdfb; padding: 12px 14px; font-size: 0.94rem; color: #2d221c; box-sizing: border-box; transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease; }
-    .categories-search-field select:focus, .categories-search-field input:focus { outline: none; border-color: #d6bcad; box-shadow: 0 0 0 4px rgba(217, 194, 178, 0.16); background: #ffffff; }
-    .categories-search-btn { min-height: 48px; border: none; border-radius: 999px; padding: 0 26px; background: linear-gradient(135deg, #d6b19a, #a97c66); color: #fffaf7; font-weight: 700; font-size: 0.94rem; cursor: pointer; box-shadow: 0 10px 24px rgba(185, 143, 122, 0.22); transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease; white-space: nowrap; }
-    .categories-search-btn:hover { transform: translateY(-2px); box-shadow: 0 16px 32px rgba(185, 143, 122, 0.28); filter: brightness(1.04); }
-    .categories-clear-row { display: flex; justify-content: flex-end; margin-top: 12px; }
-    .categories-clear-btn { border: none; background: transparent; color: var(--lux-muted); font-size: 0.88rem; text-decoration: underline; cursor: pointer; padding: 0; transition: opacity 0.18s ease; }
-    .categories-clear-btn:hover { opacity: 0.65; }
-
-    .categories-results { background: radial-gradient(circle at top left, rgba(200,166,161,0.08), transparent 40%), linear-gradient(180deg, rgba(238,231,225,0.95), rgba(232,224,218,0.98)); border: 1px solid rgba(223, 210, 200, 0.7); border-radius: 32px; padding: 28px 22px 36px; box-shadow: inset 0 1px 0 rgba(255,255,255,0.4); }
-    .categories-results-top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 22px; }
-    .categories-results-label { font-size: 0.9rem; color: var(--lux-muted); margin: 0; letter-spacing: 0.01em; }
-    .categories-results-label strong { color: var(--lux-espresso); font-weight: 600; }
-
-    .categories-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; align-items: stretch; }
-    .category-vendor-card { background: rgba(255, 250, 247, 0.94); border: 1px solid rgba(223, 210, 200, 0.9); border-radius: 24px; padding: 14px 14px 18px; text-align: left; box-shadow: 0 6px 18px var(--lux-shadow); transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease; cursor: pointer; display: flex; flex-direction: column; min-height: 100%; overflow: hidden; }
-    .category-vendor-card:hover { transform: translateY(-7px); box-shadow: 0 24px 60px rgba(59, 47, 42, 0.12); border-color: rgba(198, 167, 125, 0.65); }
-    .category-vendor-card img { width: 100%; border-radius: 16px; margin-bottom: 16px; aspect-ratio: 1.26 / 1; object-fit: cover; background: var(--lux-blush); display: block; filter: brightness(0.98) contrast(0.95) saturate(0.92); transition: transform 0.45s ease, filter 0.35s ease; }
-    .category-vendor-card:hover img { transform: scale(1.045); filter: brightness(1) contrast(0.97) saturate(0.97); }
-    .category-vendor-card h3 { margin: 0 0 7px; font-family: "Cormorant Garamond", serif; font-weight: 500; font-size: clamp(1.7rem, 2vw, 2.1rem); line-height: 1; letter-spacing: -0.025em; color: var(--lux-espresso); }
-    .category-vendor-card p { font-size: 0.93rem; color: var(--lux-muted); line-height: 1.65; margin: 0; }
-    .category-vendor-meta { font-size: 0.84rem; color: #8a7468; font-weight: 600; margin-bottom: 5px; letter-spacing: 0.01em; }
-    .category-vendor-location { font-size: 0.84rem; color: #a08479; margin-bottom: 8px; }
-    .category-vendor-actions { margin-top: auto; padding-top: 16px; }
-    .category-vendor-btn { border: none; background: linear-gradient(135deg, #d6b19a, #a97c66); color: #fffaf7; padding: 11px 20px; border-radius: 999px; font-size: 0.9rem; font-weight: 700; line-height: 1; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 8px 20px rgba(185, 143, 122, 0.2); transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease; }
-    .category-vendor-btn:hover { transform: translateY(-2px); box-shadow: 0 14px 28px rgba(185, 143, 122, 0.28); filter: brightness(1.04); }
-    .categories-empty { max-width: 600px; margin: 28px auto 0; color: var(--lux-muted); line-height: 1.75; text-align: center; font-style: italic; font-family: "Cormorant Garamond", serif; font-size: 1.1rem; }
-
-    .site-footer { background: radial-gradient(circle at top, rgba(200, 166, 161, 0.16), transparent 36%), linear-gradient(180deg, #f5eee9 0%, #eee5df 100%); }
-    .footer-title { color: var(--lux-espresso); letter-spacing: -0.035em; }
-    .footer-eyebrow { color: #b08d7d; }
-
-    @media (max-width: 1180px) { .categories-search-grid { grid-template-columns: 1fr 1fr; } .categories-search-btn { width: 100%; } }
-    @media (max-width: 980px) { .categories-page { padding: 16px 16px 48px; } .categories-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; } .categories-hero-grid { grid-template-columns: 1fr; } .categories-hero-image-wrap { min-height: 280px; } }
-
+    /* ── TOPBAR ── */
     .site-topbar {
-  background: radial-gradient(circle at top left, rgba(200,166,161,0.18), transparent 34%),
-    linear-gradient(135deg, #fffaf7, #f4ebe5);
-  border-bottom: 1px solid rgba(223,210,200,0.9);
-  box-shadow: 0 6px 24px rgba(59,47,42,0.08);
-  padding: 0 34px;
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  min-height: 72px;
-  position: sticky;
-  top: 0;
-  z-index: 200;
-  flex-wrap: wrap;
-}
+      background: var(--cream);
+      border-bottom: 1px solid var(--ink-rule);
+      padding: 0 36px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      min-height: 64px;
+      position: sticky;
+      top: 0;
+      z-index: 200;
+    }
+    .site-topbar-logo-wrap { display: inline-flex; align-items: center; }
+    .site-topbar-logo { width: 44px; height: 44px; object-fit: contain; }
+    .site-topbar-title { flex: 1; }
+    .site-topbar-title h1 {
+      font-family: var(--font-serif);
+      font-size: 1.05rem;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+      color: var(--ink);
+    }
+    .site-topbar-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .site-topbar-link,
+    .site-topbar-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 34px; padding: 6px 14px;
+      font-family: var(--font-sans); font-size: 0.75rem; letter-spacing: 0.06em;
+      text-decoration: none; white-space: nowrap; transition: all 0.2s ease;
+    }
+    .site-topbar-link { color: var(--ink-muted); border: none; background: none; }
+    .site-topbar-link:hover { color: var(--ink); }
+    .site-topbar-btn { background: var(--ink); color: var(--cream); font-weight: 600; border: none; cursor: pointer; }
+    .site-topbar-btn:hover { background: var(--ink-mid); }
 
-.site-topbar-logo-wrap {
-  display: inline-flex;
-  align-items: center;
-}
+    /* ── CATEGORIES HERO ── */
+    .categories-hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: stretch;
+      border-bottom: 1px solid var(--ink);
+    }
 
-.site-topbar-logo {
-  width: 52px;
-  height: 52px;
-  object-fit: contain;
-}
+    .categories-hero-copy {
+      padding: 48px 40px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-right: 1px solid var(--ink-rule);
+    }
+    .categories-hero-copy > * { animation: fadeUp 0.7s ease forwards; opacity: 0; }
+    .categories-hero-copy > *:nth-child(1) { animation-delay: 0.05s; }
+    .categories-hero-copy > *:nth-child(2) { animation-delay: 0.12s; }
+    .categories-hero-copy > *:nth-child(3) { animation-delay: 0.2s; }
+    .categories-hero-copy > *:nth-child(4) { animation-delay: 0.3s; }
+    .categories-hero-copy > *:nth-child(5) { animation-delay: 0.38s; }
+    .categories-hero-copy > *:nth-child(6) { animation-delay: 0.44s; }
 
-.site-topbar-title {
-  flex: 1;
-}
+    .categories-logo-wrap { display: inline-block; }
+    .categories-logo { width: 44px; height: 44px; object-fit: contain; opacity: 0.7; }
 
-.site-topbar-title h1 {
-  margin: 0;
-  font-family: "Cormorant Garamond", serif;
-  font-size: 1.15rem;
-  font-weight: 500;
-  letter-spacing: -0.01em;
-  color: #3b2f2a;
-}
+    .categories-kicker {
+      font-family: var(--font-sans); font-size: 0.68rem;
+      letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-ghost);
+    }
 
-.site-topbar-actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
+    .categories-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.2rem, 3.8vw, 3.4rem);
+      font-weight: 300; line-height: 0.95; letter-spacing: -0.03em; color: var(--ink);
+    }
 
-.site-topbar-link,
-.site-topbar-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 38px;
-  padding: 7px 14px;
-  border-radius: 999px;
-  font-size: 0.8rem;
-  text-decoration: none;
-  white-space: nowrap;
-}
+    .categories-script {
+      font-family: var(--font-serif); font-style: italic;
+      font-size: 1.15rem; color: var(--gold); letter-spacing: 0.01em;
+    }
 
-.site-topbar-link {
-  background: rgba(255,250,247,0.9);
-  border: 1px solid rgba(223,210,200,0.9);
-  color: #3b2f2a;
-}
+    /* ── FILTER PILLS ── */
+    .categories-filter-wrap { margin-top: 0; }
+    .categories-filter-bar {
+      display: flex; flex-wrap: wrap; gap: 6px;
+    }
+    .categories-filter-pill {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 6px 14px; min-height: 34px;
+      font-family: var(--font-sans); font-size: 0.7rem;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--ink-muted); text-decoration: none;
+      border: 0.5px solid var(--ink-rule);
+      background: none;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .categories-filter-pill:hover { color: var(--ink); border-color: var(--ink-muted); background: var(--cream-warm); }
+    .categories-filter-pill.active { background: var(--ink); color: var(--cream); border-color: var(--ink); }
 
-.site-topbar-btn {
-  border: none;
-  background: linear-gradient(135deg, #d6b19a, #a97c66);
-  color: #fffaf7;
-  font-weight: 700;
-}
+    /* ── SEARCH PANEL ── */
+    .categories-search-panel {
+      margin-top: 0;
+      padding: 0;
+      background: none;
+      border: none;
+      box-shadow: none;
+      border-radius: 0;
+    }
+    .categories-search-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border: 0.5px solid var(--ink-rule);
+    }
+    .categories-search-field { border-right: 0.5px solid var(--ink-rule); border-bottom: 0.5px solid var(--ink-rule); padding: 10px 14px; }
+    .categories-search-field:nth-child(even) { border-right: none; }
+    .categories-search-field:nth-last-child(-n+2) { border-bottom: none; }
+    .categories-search-field label {
+      display: block; margin-bottom: 5px;
+      font-family: var(--font-sans); font-size: 0.62rem;
+      font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-ghost);
+    }
+    .categories-search-field select,
+    .categories-search-field input {
+      width: 100%; border: none; background: transparent; outline: none;
+      padding: 2px 0; font-family: var(--font-sans);
+      font-size: 0.85rem; color: var(--ink);
+    }
+    .categories-search-field select option { background: var(--cream); }
+    .categories-search-field input::placeholder { color: var(--ink-ghost); }
 
-.site-topbar-link:hover,
-.site-topbar-btn:hover {
-  transform: translateY(-1px);
-}
+    .categories-search-btn-row {
+      display: flex; gap: 12px; align-items: center;
+      margin-top: 14px;
+    }
+    .categories-search-btn {
+      font-family: var(--font-sans); font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--cream); background: var(--ink);
+      border: none; padding: 10px 22px; cursor: pointer;
+      transition: background 0.2s;
+      min-height: 38px;
+    }
+    .categories-search-btn:hover { background: var(--ink-mid); }
+    .categories-clear-btn {
+      font-family: var(--font-sans); font-size: 0.7rem; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--ink-muted); background: none;
+      border: none; cursor: pointer; padding: 0; text-decoration: none;
+      border-bottom: 0.5px solid var(--ink-rule); padding-bottom: 1px;
+      transition: color 0.2s;
+    }
+    .categories-clear-btn:hover { color: var(--ink); }
 
-@media (max-width: 700px) {
-  .site-topbar {
-    padding: 12px 16px;
-    gap: 14px;
-    justify-content: center;
-  }
+    /* hidden legacy clear row — kept for JS compat */
+    .categories-clear-row { display: none; }
 
-  .site-topbar-logo {
-    width: 42px;
-    height: 42px;
-  }
+    /* ── HERO IMAGE ── */
+    .categories-hero-image-wrap {
+      position: relative; overflow: hidden;
+      background: var(--cream-deep);
+      min-height: 480px;
+    }
+    .categories-hero-image {
+      width: 100%; height: 100%; display: block;
+      object-fit: cover; object-position: center;
+      opacity: 0; animation: fadeUp 0.9s ease forwards;
+      animation-delay: 0.1s;
+      transition: transform 0.9s ease;
+    }
+    .categories-hero-image-wrap:hover .categories-hero-image { transform: scale(1.025); }
 
-  .site-topbar-title {
-    flex: unset;
-  }
+    /* ── TRUST STRIP ── */
+    .categories-trust-strip {
+      display: flex; gap: 0; border-bottom: 1px solid var(--ink-rule); overflow: hidden;
+    }
+    .categories-trust-strip span {
+      flex: 1; text-align: center; padding: 10px 16px;
+      font-family: var(--font-sans); font-size: 0.68rem;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-ghost);
+      border-right: 1px solid var(--ink-rule);
+    }
+    .categories-trust-strip span:last-child { border-right: none; }
 
-  .site-topbar-title h1 {
-    font-size: 0.95rem;
-    text-align: center;
-  }
+    /* ── RESULTS SECTION ── */
+    .categories-page { max-width: 100%; }
 
-  .site-topbar-actions {
-    width: 100%;
-    justify-content: center;
-    gap: 10px;
-  }
+    .categories-results-head {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: 28px 36px 0;
+      border-top: 1px solid var(--ink);
+    }
+    .categories-results-head-left {}
+    .categories-results-kicker {
+      font-family: var(--font-sans); font-size: 0.68rem;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-ghost);
+      margin-bottom: 4px;
+    }
+    .categories-results-title {
+      font-family: var(--font-serif); font-size: 1.5rem;
+      font-weight: 300; letter-spacing: -0.02em; color: var(--ink);
+    }
+    .categories-results-label {
+      font-family: var(--font-sans); font-size: 0.72rem;
+      letter-spacing: 0.06em; color: var(--ink-ghost);
+    }
+    .categories-results-label strong { color: var(--ink); font-weight: 600; }
 
-  .site-topbar-link,
-  .site-topbar-btn {
-    min-height: 36px;
-    padding: 6px 14px;
-    font-size: 0.78rem;
-  }
-}
-@media (max-width: 700px) {
-  .categories-page {
-    padding: 8px 8px 36px;
-  }
+    /* ── VENDOR GRID ── */
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0;
+      background: var(--ink-rule);
+      margin-top: 20px;
+    }
 
-  .categories-hero {
-    padding: 0;
-    border-radius: 22px;
-    overflow: hidden;
-  }
+    /* ── VENDOR CARD (image-first, matches index) ── */
+    .category-vendor-card {
+      background: var(--cream);
+      cursor: pointer;
+      overflow: hidden;
+      border-radius: 0;
+      border: none;
+      box-shadow: none;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: none;
+      min-height: 100%;
+    }
 
-  .categories-hero-grid {
-    display: flex;
-    flex-direction: column;
-    min-height: auto;
-  }
+    .category-vendor-card-img-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+      background: var(--cream-deep);
+      flex-shrink: 0;
+    }
+    .category-vendor-card-img-wrap img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform 0.6s ease; filter: none;
+    }
+    .category-vendor-card:hover .category-vendor-card-img-wrap img { transform: scale(1.04); }
 
-  .categories-hero-copy {
-    padding: 28px 16px 20px;
-  }
+    .category-vendor-card-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(20,18,14,0.78) 0%, rgba(20,18,14,0.22) 42%, transparent 68%);
+      opacity: 0; transition: opacity 0.38s ease; pointer-events: none;
+    }
+    .category-vendor-card:hover .category-vendor-card-overlay { opacity: 1; }
 
-  .categories-kicker {
-    font-size: 0.68rem;
-    letter-spacing: 0.18em;
-  }
+    .category-vendor-card-hover {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 18px 18px 16px;
+      transform: translateY(6px); opacity: 0;
+      transition: all 0.38s ease; pointer-events: none;
+    }
+    .category-vendor-card:hover .category-vendor-card-hover {
+      transform: translateY(0); opacity: 1; pointer-events: auto;
+    }
 
-  .categories-title {
-    font-size: clamp(2rem, 12vw, 2.8rem);
-    line-height: 0.95;
-  }
+    .category-vendor-card-bio {
+      font-family: var(--font-sans); font-size: 0.78rem;
+      color: rgba(255,255,255,0.8); line-height: 1.55; margin-bottom: 10px;
+    }
 
-  .categories-script {
-    font-size: 1.05rem;
-  }
+    .category-vendor-btn {
+      display: inline-block;
+      font-family: var(--font-sans); font-size: 0.68rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--cream); background: none;
+      border: 0.5px solid rgba(255,255,255,0.55);
+      padding: 7px 14px; cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+      border-radius: 0; box-shadow: none;
+    }
+    .category-vendor-btn:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.8); transform: none; filter: none; }
 
-  .categories-subtitle {
-    font-size: 0.9rem;
-    line-height: 1.55;
-  }
+    /* Info strip */
+    .category-vendor-info {
+      padding: 13px 16px 15px;
+      border-top: 0.5px solid var(--ink-rule);
+      flex: 1;
+      display: flex; flex-direction: column; gap: 2px;
+    }
+    .category-vendor-meta {
+      font-family: var(--font-sans); font-size: 0.65rem;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-ghost); margin: 0;
+    }
+    .category-vendor-name {
+      font-family: var(--font-serif); font-size: 1.05rem;
+      font-weight: 400; color: var(--ink); line-height: 1.2; margin: 0;
+    }
+    .category-vendor-location {
+      font-family: var(--font-sans); font-size: 0.7rem; color: var(--ink-ghost); margin: 0;
+    }
 
-  .categories-hero-image-wrap {
-    height: 240px;
-    min-height: 240px;
-    max-height: 240px;
-  }
+    /* hidden legacy actions div — kept for JS compat */
+    .category-vendor-actions { display: none; }
 
-  .categories-hero-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-  }
+    /* Empty state */
+    .categories-empty {
+      padding: 48px 36px; text-align: center;
+      font-family: var(--font-serif); font-style: italic;
+      font-size: 1.1rem; color: var(--ink-muted); line-height: 1.7;
+    }
 
-  .categories-search-panel {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 14px;
-    border-radius: 18px;
-  }
+    /* ── FOOTER ── */
+    .site-footer { background: var(--ink); border-top: 1px solid var(--ink-mid); }
+    .footer-content {
+      padding: 40px 36px 32px;
+      display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: start;
+    }
+    .footer-logo-col { display: flex; flex-direction: column; gap: 6px; }
+    .footer-eyebrow { font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-muted); }
+    .footer-title { font-family: var(--font-serif); font-size: 1.4rem; font-weight: 300; color: var(--cream); letter-spacing: -0.02em; margin: 4px 0 6px; }
+    .footer-text { font-family: var(--font-sans); font-size: 0.78rem; color: var(--ink-muted); line-height: 1.6; max-width: 360px; }
+    .footer-tagline { font-family: var(--font-serif); font-style: italic; font-size: 0.95rem; color: var(--gold-light); margin-top: 16px; }
+    .footer-abn { font-family: var(--font-sans); font-size: 0.68rem; color: var(--ink-muted); margin-top: 4px; }
+    .footer-links-col { display: flex; flex-direction: column; gap: 10px; align-items: flex-end; }
+    .footer-links { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
+    .footer-links a { font-family: var(--font-sans); font-size: 0.72rem; letter-spacing: 0.06em; color: var(--ink-muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--cream); }
 
-  .categories-search-grid {
-    grid-template-columns: 1fr;
-  }
+    /* ── RESPONSIVE ── */
+    @media (max-width: 980px) {
+      .categories-hero { grid-template-columns: 1fr; }
+      .categories-hero-copy { border-right: none; border-bottom: 1px solid var(--ink-rule); }
+      .categories-hero-image-wrap { min-height: 320px; }
+      .categories-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .footer-content { grid-template-columns: 1fr; gap: 24px; }
+      .footer-links-col { align-items: flex-start; }
+      .footer-links { align-items: flex-start; }
+    }
 
-  .categories-search-field select,
-  .categories-search-field input,
-  .categories-search-btn {
-    min-height: 46px;
-    font-size: 0.9rem;
-  }
+    @media (max-width: 700px) {
+      .site-topbar { padding: 0 16px; min-height: 56px; }
+      .categories-hero-copy { padding: 28px 20px 28px; }
+      .categories-hero-image-wrap { min-height: 240px; }
+      .categories-search-grid { grid-template-columns: 1fr; }
+      .categories-search-field { border-right: none; }
+      .categories-search-field:nth-child(even) { border-right: none; }
+      .categories-search-field:nth-last-child(-n+2) { border-bottom: 0.5px solid var(--ink-rule); }
+      .categories-search-field:last-child { border-bottom: none; }
+      .categories-grid { grid-template-columns: 1fr; }
+      .categories-results-head { padding: 20px 16px 0; flex-wrap: wrap; gap: 6px; }
+      .footer-content { padding: 28px 20px 24px; }
+      .categories-trust-strip { display: none; }
+    }
 
-  .categories-results {
-    border-radius: 22px;
-    padding: 18px 10px 24px;
-  }
-
-  .category-vendor-card h3 {
-    font-size: 1.55rem;
-  }
-}
+    @media (max-width: 1180px) {
+      .categories-search-grid { grid-template-columns: 1fr 1fr; }
+    }
   </style>
 </head>
 <body>
 
+<!-- ── TOPBAR ── -->
 <header class="site-topbar">
   <a href="index.html" class="site-topbar-logo-wrap" aria-label="Go to homepage">
     <img src="images/logo1.png" alt="Our Wedding Day Hub" class="site-topbar-logo">
   </a>
-
   <div class="site-topbar-title">
     <h1>Our Wedding Day Hub</h1>
   </div>
-
   <nav class="site-topbar-actions">
     <a href="categories.html" class="site-topbar-link">Categories</a>
-
     <a href="shop.html" class="site-topbar-link">Boutique</a>
-
     <a href="messages.html" id="messagesLink" class="site-topbar-link" style="display:none; position:relative;">
       Messages
-      <span id="msgNavBadge" style="display:none; position:absolute; top:-6px; right:-10px; background:linear-gradient(135deg,#d6b19a,#a97c66); color:#fffaf7; font-size:0.68rem; font-weight:700; padding:2px 6px; border-radius:999px; line-height:1.2; min-width:18px; text-align:center;">0</span>
+      <span id="msgNavBadge" style="display:none; position:absolute; top:-6px; right:-10px; background:var(--ink); color:var(--cream); font-size:0.64rem; font-weight:700; padding:2px 6px; border-radius:999px; line-height:1.2; min-width:18px; text-align:center;">0</span>
     </a>
-
     <a href="login.html" id="loginLink" class="site-topbar-link">Log In</a>
-
     <a href="signup.html" id="joinLink" class="site-topbar-btn">Join</a>
-
     <a href="dashboard.html" id="dashboardLink" class="site-topbar-link" style="display:none;">Dashboard</a>
-
     <button id="logoutLink" class="site-topbar-btn" style="display:none;">Log Out</button>
   </nav>
 </header>
 
 <main class="categories-page">
+
+  <!-- ── HERO ── -->
   <section class="categories-hero">
-    <div class="categories-hero-grid">
-      <div class="categories-hero-copy">
-        <a href="index.html" aria-label="Go to homepage">
-          <img src="images/logo1.png" alt="Our Wedding Day Hub" class="categories-logo" loading="lazy">
-        </a>
-        <p class="categories-kicker">Browse wedding vendors</p>
-        <h1 class="categories-title" id="categoryPageTitle">All Categories</h1>
-        <p class="categories-script">find the people who make it perfect ♡</p>
-        <p class="categories-subtitle" id="categoryPageSubtitle">Discover trusted wedding vendors and explore beautiful businesses for every part of your day.</p>
-        <div class="categories-filter-wrap">
-          <div class="categories-filter-bar" id="categoriesFilterBar"></div>
-        </div>
-        <div class="categories-search-panel">
-          <div class="categories-search-grid">
-            <div class="categories-search-field">
-              <label for="mainCategorySelect">Category</label>
-              <select id="mainCategorySelect"><option value="all">All Categories</option></select>
-            </div>
-            <div class="categories-search-field">
-              <label for="subCategorySelect">Subcategory</label>
-              <select id="subCategorySelect"><option value="all">All Subcategories</option></select>
-            </div>
-            <div class="categories-search-field">
-              <label for="locationSearch">Location</label>
-              <input type="text" id="locationSearch" placeholder="Suburb, city, state or country">
-            </div>
-            <div class="categories-search-field">
-              <label for="keywordSearch">Search</label>
-              <input type="text" id="keywordSearch" placeholder="Search style, availability, vendor or keyword">
-            </div>
-            <div class="categories-search-field">
-  <label for="dateSearch">Wedding Date</label>
-  <input type="date" id="dateSearch">
-</div>
-            <button type="button" id="searchBtn" class="categories-search-btn">Search</button>
+    <div class="categories-hero-copy">
+
+      <a href="index.html" class="categories-logo-wrap" aria-label="Go to homepage">
+        <img src="images/logo1.png" alt="Our Wedding Day Hub" class="categories-logo" loading="eager">
+      </a>
+
+      <p class="categories-kicker">Browse wedding vendors</p>
+      <h1 class="categories-title" id="categoryPageTitle">All Categories</h1>
+      <p class="categories-script">find the people who make it perfect ♡</p>
+
+      <div class="categories-filter-wrap">
+        <div class="categories-filter-bar" id="categoriesFilterBar"></div>
+      </div>
+
+      <div class="categories-search-panel">
+        <div class="categories-search-grid">
+          <div class="categories-search-field">
+            <label for="mainCategorySelect">Category</label>
+            <select id="mainCategorySelect"><option value="all">All Categories</option></select>
           </div>
-          <div class="categories-clear-row">
-            <button type="button" id="clearFiltersBtn" class="categories-clear-btn">Clear filters</button>
+          <div class="categories-search-field">
+            <label for="subCategorySelect">Subcategory</label>
+            <select id="subCategorySelect"><option value="all">All Subcategories</option></select>
+          </div>
+          <div class="categories-search-field">
+            <label for="locationSearch">Location</label>
+            <input type="text" id="locationSearch" placeholder="Suburb, city, state or country">
+          </div>
+          <div class="categories-search-field">
+            <label for="keywordSearch">Search</label>
+            <input type="text" id="keywordSearch" placeholder="Style, vendor, keyword...">
+          </div>
+          <div class="categories-search-field">
+            <label for="dateSearch">Wedding Date</label>
+            <input type="date" id="dateSearch">
           </div>
         </div>
+        <div class="categories-search-btn-row">
+          <button type="button" id="searchBtn" class="categories-search-btn">Search →</button>
+          <button type="button" id="clearFiltersBtn" class="categories-clear-btn">Clear filters</button>
+        </div>
+        <!-- kept for JS compat -->
+        <div class="categories-clear-row">
+          <button type="button" class="categories-clear-btn" style="display:none;"></button>
+        </div>
       </div>
-      <div class="categories-hero-image-wrap">
-        <img src="images/cutecar.jpg" alt="Elegant wedding couple on a vintage car" class="categories-hero-image" loading="lazy">
-      </div>
+
+    </div>
+
+    <div class="categories-hero-image-wrap">
+      <img src="images/cutecar.jpg" alt="Elegant wedding couple on a vintage car" class="categories-hero-image" loading="lazy">
     </div>
   </section>
 
-  <section class="categories-results">
-    <div class="categories-results-top">
+  <!-- ── TRUST STRIP ── -->
+  <div class="categories-trust-strip">
+    <span>Trusted across Australia &amp; worldwide</span>
+    <span>Proudly independent</span>
+    <span>Built with heart</span>
+    <span>Proudly inclusive</span>
+  </div>
+
+  <!-- ── RESULTS ── -->
+  <section>
+    <div class="categories-results-head">
+      <div class="categories-results-head-left">
+        <p class="categories-results-kicker">Results</p>
+        <h2 class="categories-results-title" id="categoryPageSubtitle">Discover trusted wedding vendors</h2>
+      </div>
       <p class="categories-results-label">Showing <strong id="resultsCount">0</strong> vendor(s)</p>
     </div>
+
     <section id="categoriesGrid" class="categories-grid"></section>
     <p id="categoriesEmpty" class="categories-empty" style="display:none;">No vendors found just yet for this search. Try another category, subcategory, location or keyword.</p>
   </section>
+
 </main>
 
+<!-- ── FOOTER ── -->
 <footer class="site-footer">
   <div class="footer-content">
-    <a href="index.html" aria-label="Go to homepage" style="display:inline-block; margin-bottom:18px;">
-      <img src="images/logo1.png" alt="Our Wedding Day Hub" style="width:72px; height:72px; object-fit:contain; opacity:0.7;">
-    </a>
-    <p class="footer-eyebrow">wedding planning directory</p>
-    <h2 class="footer-title">Everything your wedding deserves.</h2>
-    <p class="footer-text">Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.</p>
-    <div class="footer-links">
-      <a href="about.html">About Us</a>
-      <a href="how-it-works.html">How It Works</a>
-      <a href="pricing.html">Pricing</a>
-      <a href="contact.html">Contact Us</a>
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="terms.html">Terms &amp; Conditions</a>
-      <a href="refund-policy.html">Refund Policy</a>
-      <a href="https://www.equaldex.com/equality-index" target="_blank" rel="noopener noreferrer">Global Equality Index</a>
-      <a href="#" onclick="return false;">Events4Us (Coming Soon)</a>
+    <div class="footer-logo-col">
+      <a href="index.html" aria-label="Go to homepage">
+        <img src="images/logo1.png" alt="Our Wedding Day Hub" style="width:52px; height:52px; object-fit:contain; opacity:0.5; margin-bottom:6px;">
+      </a>
+      <p class="footer-eyebrow">Wedding planning directory</p>
+      <h2 class="footer-title">Everything your wedding deserves.</h2>
+      <p class="footer-text">Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.</p>
+      <p class="footer-tagline">everything your wedding day deserves. ♡</p>
+      <p class="footer-abn">© 2026 Our Wedding Day Hub</p>
+      <p class="footer-abn">ABN 76 688 637 041 • Australia</p>
     </div>
-    <p class="footer-tagline">Proudly inclusive • Worldwide • Built with heart</p>
-    <p class="footer-abn">© 2026 Our Wedding Day Hub</p>
-    <p class="footer-abn">ABN 76 688 637 041 • Australia</p>
+    <div class="footer-links-col">
+      <div class="footer-links">
+        <a href="about.html">About Us</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="refund-policy.html">Refund Policy</a>
+        <a href="https://www.equaldex.com/equality-index" target="_blank" rel="noopener noreferrer">Global Equality Index</a>
+        <a href="#" onclick="return false;">Events4Us (Coming Soon)</a>
+      </div>
+      <p style="font-family:var(--font-sans); font-size:0.65rem; color:var(--ink-muted); margin-top:12px; letter-spacing:0.06em;">Proudly inclusive • Worldwide • Built with heart</p>
+    </div>
   </div>
 </footer>
 
+<!-- ── ALL JAVASCRIPT COMPLETELY UNCHANGED ── -->
 <script type="module">
     import { db, auth, collection, getDocs, onAuthStateChanged, signOut } from "./firebase.js";
 
@@ -410,7 +537,7 @@
     const subCategorySelect = document.getElementById("subCategorySelect");
     const locationSearch = document.getElementById("locationSearch");
     const keywordSearch = document.getElementById("keywordSearch");
-  const dateSearch = document.getElementById("dateSearch");
+    const dateSearch = document.getElementById("dateSearch");
     const searchBtn = document.getElementById("searchBtn");
     const clearFiltersBtn = document.getElementById("clearFiltersBtn");
     const joinLink = document.getElementById("joinLink");
@@ -434,23 +561,7 @@
       food_drink: { title: "Food & Drink", subtitle: "Caterers, cake designers, dessert vendors and drinks services for every celebration style.", items: [["wedding_caterer","Caterer"],["wedding_cake_designer","Wedding Cake Designer"],["dessert_bar","Dessert Bar"],["mobile_bar","Mobile Bar"],["coffee_cart","Coffee Cart"],["food_truck","Food Truck"],["grazing_tables","Grazing Tables"],["cocktail_catering","Cocktail Catering"],["ice_cream_cart","Ice Cream Cart"]] },
       venues: { title: "Venues", subtitle: "Beautiful spaces for ceremonies, receptions, elopements and unforgettable celebrations.", items: [["wedding_venue","Wedding Venue"],["ceremony_venue","Ceremony Venue"],["reception_venue","Reception Venue"],["elopement_location","Elopement Location"],["outdoor_venue","Outdoor Venue"],["church_ceremony_venue","Church / Ceremony Venue"],["garden_venue","Garden Venue"],["winery_venue","Winery Venue"],["beach_venue","Beach Venue"]] },
       stationery_signage: { title: "Stationery & Signage", subtitle: "Invitations, signage and paper details to complete your wedding styling.", items: [["wedding_invitations","Invitations"],["wedding_stationery","Wedding Stationery"],["wedding_signage","Signage"],["calligraphy","Calligraphy"],["place_cards","Place Cards"],["seating_charts","Seating Charts"]] },
-      fashion: {
-  title: "Fashion",
-  subtitle: "Bridal fashion, formalwear and accessories for the wedding party.",
-  items: [
-    ["bridal_boutique","Bridal Boutique"],
-    ["bridesmaid_dresses","Bridesmaid Dresses"],
-    ["formal_wear","Formal Wear"],
-    ["suit_hire","Suit Hire"],
-    ["custom_designer","Custom Designer"],
-    ["wedding_dress_alterations","Dress Alterations"],
-    ["bridal_accessories","Bridal Accessories"],
-    ["bridal_shoes","Bridal Shoes"],
-    ["veils_headpieces","Veils & Headpieces"],
-    ["mother_of_the_bride_fashion","Mother of the Bride Fashion"],
-    ["mother_of_the_groom_fashion","Mother of the Groom Fashion"]
-  ]
-},
+      fashion: { title: "Fashion", subtitle: "Bridal fashion, formalwear and accessories for the wedding party.", items: [["bridal_boutique","Bridal Boutique"],["bridesmaid_dresses","Bridesmaid Dresses"],["formal_wear","Formal Wear"],["suit_hire","Suit Hire"],["custom_designer","Custom Designer"],["wedding_dress_alterations","Dress Alterations"],["bridal_accessories","Bridal Accessories"],["bridal_shoes","Bridal Shoes"],["veils_headpieces","Veils & Headpieces"],["mother_of_the_bride_fashion","Mother of the Bride Fashion"],["mother_of_the_groom_fashion","Mother of the Groom Fashion"]] },
       jewellery: { title: "Jewellery", subtitle: "Wedding rings, engagement rings and custom jewellery for lasting memories.", items: [["wedding_rings","Wedding Rings"],["engagement_rings","Engagement Rings"],["custom_jewellery","Custom Jewellery"],["permanent_jewellery","Permanent Jewellery"]] },
       transport: { title: "Transport", subtitle: "Wedding cars, guest transport and elegant arrival options.", items: [["wedding_cars","Wedding Cars"],["luxury_cars","Luxury Cars"],["vintage_cars","Vintage Cars"],["limousine","Limousine"],["guest_transport","Guest Transport"],["bus_charter","Bus Charter"],["horse_carriage","Horse & Carriage"]] },
       experiences_unique_services: { title: "Experiences & Unique Services", subtitle: "Special extra touches to make your day feel unforgettable and personal.", items: [["live_wedding_painter","Live Wedding Painter"],["photo_booth","Photo Booth"],["audio_guestbook","Audio Guestbook"],["wedding_content_creator_unique","Wedding Content Creator"],["fireworks_special_effects","Fireworks / Special Effects"],["dance_lessons","Dance Lessons"],["caricature_artist","Caricature Artist"],["tarot_reader","Tarot Reader"]] },
@@ -532,8 +643,7 @@
         const config = CATEGORY_GROUPS[key];
         if (!config) return;
         const option = document.createElement("option");
-        option.value = key;
-        option.textContent = config.title;
+        option.value = key; option.textContent = config.title;
         mainCategorySelect.appendChild(option);
       });
     }
@@ -580,25 +690,25 @@
       return parts.join(" ").toLowerCase().replace(/\s+/g," ").trim();
     }
 
-function getKeywordSearchText(vendor) {
-  return `
-    ${vendor.businessName || ""}
-    ${vendor.bio || ""}
-    ${vendor.shortBio || ""}
-    ${vendor.description || ""}
-    ${vendor.tagline || ""}
-    ${vendor.serviceAreas || ""}
-    ${vendor.displayLocation || ""}
-    ${vendor.availabilityStatus || ""}
-    ${vendor.bookingNotes || ""}
-    ${cleanArray(vendor.blockedDates).join(" ")}
-    ${cleanArray(vendor.categories).join(" ")}
-    ${cleanArray(vendor.regions).join(" ")}
-    ${cleanArray(vendor.states).join(" ")}
-    ${cleanArray(vendor.countries).join(" ")}
-    ${cleanArray(vendor.styleTags).join(" ")}
-  `.toLowerCase();
-}
+    function getKeywordSearchText(vendor) {
+      return `
+        ${vendor.businessName || ""}
+        ${vendor.bio || ""}
+        ${vendor.shortBio || ""}
+        ${vendor.description || ""}
+        ${vendor.tagline || ""}
+        ${vendor.serviceAreas || ""}
+        ${vendor.displayLocation || ""}
+        ${vendor.availabilityStatus || ""}
+        ${vendor.bookingNotes || ""}
+        ${cleanArray(vendor.blockedDates).join(" ")}
+        ${cleanArray(vendor.categories).join(" ")}
+        ${cleanArray(vendor.regions).join(" ")}
+        ${cleanArray(vendor.states).join(" ")}
+        ${cleanArray(vendor.countries).join(" ")}
+        ${cleanArray(vendor.styleTags).join(" ")}
+      `.toLowerCase();
+    }
 
     function vendorMatchesMainCategory(vendor, mainCategory) {
       if (mainCategory === "all") return true;
@@ -624,27 +734,27 @@ function getKeywordSearchText(vendor) {
       return locationText.includes(q);
     }
 
- function vendorMatchesKeyword(vendor, keywordValue) {
-  const q = String(keywordValue||"").trim().toLowerCase();
-  if (!q) return true;
-  return getKeywordSearchText(vendor).includes(q);
-}
+    function vendorMatchesKeyword(vendor, keywordValue) {
+      const q = String(keywordValue||"").trim().toLowerCase();
+      if (!q) return true;
+      return getKeywordSearchText(vendor).includes(q);
+    }
 
-function normalizeDateValue(value) {
-  if (!value) return "";
-  if (typeof value === "string") return value.slice(0, 10);
-  if (value.toDate) return value.toDate().toISOString().slice(0, 10);
-  return "";
-}
+    function normalizeDateValue(value) {
+      if (!value) return "";
+      if (typeof value === "string") return value.slice(0, 10);
+      if (value.toDate) return value.toDate().toISOString().slice(0, 10);
+      return "";
+    }
 
-function vendorMatchesDate(vendor, dateValue) {
-  const q = String(dateValue || "").trim();
-  if (!q) return true;
+    function vendorMatchesDate(vendor, dateValue) {
+      const q = String(dateValue || "").trim();
+      if (!q) return true;
+      const blockedDates = cleanArray(vendor.blockedDates).map(normalizeDateValue);
+      return !blockedDates.includes(q);
+    }
 
-  const blockedDates = cleanArray(vendor.blockedDates).map(normalizeDateValue);
-  return !blockedDates.includes(q);
-}
-
+    /* ── RENDER VENDORS — image-first cards matching index.html ── */
     function renderVendors(vendors) {
       categoriesGrid.innerHTML = "";
       resultsCount.textContent = String(vendors.length);
@@ -653,20 +763,26 @@ function vendorMatchesDate(vendor, dateValue) {
       vendors.forEach((vendor) => {
         const card = document.createElement("article");
         card.className = "category-vendor-card";
-        const image = getCardImage(vendor);
-        const name = (vendor.businessName || "Vendor").trim();
+        const image        = getCardImage(vendor);
+        const name         = (vendor.businessName || "Vendor").trim();
         const categoryLine = getCategoryLine(vendor);
         const locationLine = getLocationLine(vendor);
-        const bio = getShortBio(vendor);
+        const bio          = getShortBio(vendor);
         card.innerHTML = `
-          <img src="${image}" alt="${name}" loading="lazy">
-          <h3>${name}</h3>
-          ${categoryLine ? `<p class="category-vendor-meta">${categoryLine}</p>` : ""}
-          ${locationLine ? `<p class="category-vendor-location">${locationLine}</p>` : ""}
-          <p>${bio}</p>
-          <div class="category-vendor-actions">
-            <button type="button" class="category-vendor-btn">View Profile</button>
+          <div class="category-vendor-card-img-wrap">
+            <img src="${image}" alt="${name}" loading="lazy">
+            <div class="category-vendor-card-overlay"></div>
+            <div class="category-vendor-card-hover">
+              <p class="category-vendor-card-bio">${bio}</p>
+              <button type="button" class="category-vendor-btn">View Profile</button>
+            </div>
           </div>
+          <div class="category-vendor-info">
+            ${categoryLine ? `<p class="category-vendor-meta">${categoryLine}</p>` : ""}
+            <p class="category-vendor-name">${name}</p>
+            ${locationLine ? `<p class="category-vendor-location">${locationLine}</p>` : ""}
+          </div>
+          <div class="category-vendor-actions"></div>
         `;
         card.addEventListener("click", () => goToVendor(vendor));
         card.querySelector(".category-vendor-btn").addEventListener("click", (event) => { event.stopPropagation(); goToVendor(vendor); });
@@ -688,23 +804,23 @@ function vendorMatchesDate(vendor, dateValue) {
       window.history.replaceState({}, "", nextUrl);
     }
 
-   function applyFilters() {
-  const mainCategory = mainCategorySelect.value || "all";
-  const subcategory = subCategorySelect.value || "all";
-  const location = locationSearch.value.trim();
-  const keyword = keywordSearch.value.trim();
-  const date = dateSearch.value.trim();
+    function applyFilters() {
+      const mainCategory = mainCategorySelect.value || "all";
+      const subcategory = subCategorySelect.value || "all";
+      const location = locationSearch.value.trim();
+      const keyword = keywordSearch.value.trim();
+      const date = dateSearch.value.trim();
       const headerConfig = CATEGORY_GROUPS[mainCategory] || CATEGORY_GROUPS.all;
       categoryPageTitle.textContent = headerConfig.title;
       categoryPageSubtitle.textContent = headerConfig.subtitle;
       document.querySelectorAll(".categories-filter-pill").forEach((pill) => { pill.classList.toggle("active", pill.dataset.type === mainCategory); });
-const filtered = allLiveVendors.filter(vendor =>
-  vendorMatchesMainCategory(vendor, mainCategory) &&
-  vendorMatchesSubcategory(vendor, subcategory) &&
-  vendorMatchesLocation(vendor, location) &&
-  vendorMatchesKeyword(vendor, keyword) &&
-  vendorMatchesDate(vendor, date)
-);
+      const filtered = allLiveVendors.filter(vendor =>
+        vendorMatchesMainCategory(vendor, mainCategory) &&
+        vendorMatchesSubcategory(vendor, subcategory) &&
+        vendorMatchesLocation(vendor, location) &&
+        vendorMatchesKeyword(vendor, keyword) &&
+        vendorMatchesDate(vendor, date)
+      );
       renderVendors(filtered);
       updateUrlFromFilters();
     }
@@ -742,14 +858,15 @@ const filtered = allLiveVendors.filter(vendor =>
     locationSearch.addEventListener("keydown", (event) => { if (event.key === "Enter") { event.preventDefault(); applyFilters(); } });
     keywordSearch.addEventListener("keydown", (event) => { if (event.key === "Enter") { event.preventDefault(); applyFilters(); } });
     clearFiltersBtn.addEventListener("click", () => {
-  mainCategorySelect.value = "all";
-  buildSubcategoryOptions("all");
-  subCategorySelect.value = "all";
-  locationSearch.value = "";
-  keywordSearch.value = "";
-  dateSearch.value = "";
-  applyFilters();
-});
+      mainCategorySelect.value = "all";
+      buildSubcategoryOptions("all");
+      subCategorySelect.value = "all";
+      locationSearch.value = "";
+      keywordSearch.value = "";
+      dateSearch.value = "";
+      applyFilters();
+    });
+
     buildFilterPills();
     renderPageHeader();
     syncInitialFilters();
