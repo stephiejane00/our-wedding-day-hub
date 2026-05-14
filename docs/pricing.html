@@ -6,522 +6,450 @@
   <title>Pricing | Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
+    /* ── TOKENS ── */
     :root {
-      --lux-espresso: #3b2f2a;
-      --lux-rose:     #c8a6a1;
-      --lux-champagne:#c6a77d;
-      --lux-cream:    #fffaf7;
-      --lux-blush:    #f4e7df;
-      --lux-border:   rgba(216, 197, 189, 0.55);
-      --lux-muted:    #9b8579;
-      --lux-shadow:   rgba(59, 47, 42, 0.08);
+      --ink:        #1A1A16;
+      --ink-mid:    #4A4A44;
+      --ink-muted:  #8A8A82;
+      --ink-ghost:  #C0C0B8;
+      --ink-rule:   #DDDDD8;
+      --cream:      #FAFAF8;
+      --cream-warm: #F4F0EA;
+      --cream-deep: #EDE8E0;
+      --gold:       #9A7A5A;
+      --gold-light: #C4A882;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans:  'Plus Jakarta Sans', 'Helvetica Neue', Arial, sans-serif;
     }
 
-    body {
-      background:
-        radial-gradient(circle at top left, rgba(200, 166, 161, 0.12), transparent 32%),
-        #f7f1ed;
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--cream); font-family: var(--font-sans); color: var(--ink); -webkit-font-smoothing: antialiased; }
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(14px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes heroFadeIn {
-      from { opacity: 0; transform: scale(1.01); }
-      to   { opacity: 1; transform: scale(1); }
-    }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 
-    .pricing-page { max-width: 1280px; margin: 0 auto 60px; padding: 18px 20px 0; }
-    .pricing-stack { display: grid; gap: 24px; }
-
-    .pricing-hero-card {
-      border-radius: 36px;
-      border: 1px solid rgba(227, 219, 212, 0.9);
-      box-shadow: 0 24px 70px var(--lux-shadow);
-      background: radial-gradient(circle at top left, rgba(200, 166, 161, 0.18), transparent 34%), linear-gradient(135deg, #fffaf7, #f4ebe5);
-      overflow: hidden;
-      padding: 0;
+    /* ── TOPBAR ── */
+    .site-topbar {
+      background: var(--cream); border-bottom: 1px solid var(--ink-rule);
+      padding: 0 36px; display: flex; align-items: center; gap: 20px;
+      min-height: 64px; position: sticky; top: 0; z-index: 200;
     }
-
-    .pricing-hero-grid {
-      display: grid;
-      grid-template-columns: 1.02fr 0.98fr;
-      align-items: stretch;
-      min-height: 540px;
+    .site-topbar-logo-wrap { display: inline-flex; align-items: center; }
+    .site-topbar-logo { width: 44px; height: 44px; object-fit: contain; }
+    .site-topbar-title { flex: 1; }
+    .site-topbar-title h1 { font-family: var(--font-serif); font-size: 1.05rem; font-weight: 400; letter-spacing: 0.01em; color: var(--ink); }
+    .site-topbar-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .site-topbar-link, .site-topbar-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 34px; padding: 6px 14px; font-family: var(--font-sans);
+      font-size: 0.75rem; letter-spacing: 0.06em; text-decoration: none; white-space: nowrap; transition: all 0.2s ease;
     }
+    .site-topbar-link { color: var(--ink-muted); border: none; background: none; }
+    .site-topbar-link:hover { color: var(--ink); }
+    .site-topbar-btn { background: var(--ink); color: var(--cream); font-weight: 600; border: none; cursor: pointer; }
+    .site-topbar-btn:hover { background: var(--ink-mid); }
 
+    /* ── HERO ── */
+    .pricing-hero {
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: stretch; border-bottom: 1px solid var(--ink);
+    }
     .pricing-hero-copy {
-      padding: 52px 48px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+      padding: 48px 40px 40px; display: flex; flex-direction: column;
+      justify-content: space-between; border-right: 1px solid var(--ink-rule);
     }
-
-    .pricing-hero-copy > * { animation: fadeUp 0.8s ease forwards; opacity: 0; }
+    .pricing-hero-copy > * { animation: fadeUp 0.7s ease forwards; opacity: 0; }
     .pricing-hero-copy > *:nth-child(1) { animation-delay: 0.05s; }
-    .pricing-hero-copy > *:nth-child(2) { animation-delay: 0.1s; }
-    .pricing-hero-copy > *:nth-child(3) { animation-delay: 0.18s; }
-    .pricing-hero-copy > *:nth-child(4) { animation-delay: 0.26s; }
-    .pricing-hero-copy > *:nth-child(5) { animation-delay: 0.33s; }
+    .pricing-hero-copy > *:nth-child(2) { animation-delay: 0.12s; }
+    .pricing-hero-copy > *:nth-child(3) { animation-delay: 0.2s; }
+    .pricing-hero-copy > *:nth-child(4) { animation-delay: 0.28s; }
+    .pricing-hero-copy > *:nth-child(5) { animation-delay: 0.34s; }
     .pricing-hero-copy > *:nth-child(6) { animation-delay: 0.4s; }
+    .pricing-hero-copy > *:nth-child(7) { animation-delay: 0.46s; }
 
-    .pricing-logo-wrap { display: inline-flex; align-items: center; justify-content: flex-start; margin-bottom: 20px; }
-    .pricing-logo { width: 108px; display: block; transition: transform 0.3s ease; }
-    .pricing-logo:hover { transform: scale(1.04); }
+    .pricing-logo { width: 80px; opacity: 0.9; display: block; }
+    .pricing-kicker { font-family: var(--font-sans); font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-ghost); }
+    .pricing-hero-title { font-family: var(--font-serif); font-size: clamp(2.2rem, 3.8vw, 3.4rem); font-weight: 300; line-height: 0.95; letter-spacing: -0.03em; color: var(--ink); }
+    .pricing-hero-script { font-family: var(--font-serif); font-style: italic; font-size: 1.15rem; color: var(--gold); letter-spacing: 0.01em; }
+    .pricing-hero-text { font-family: var(--font-sans); font-size: 0.86rem; color: var(--ink-muted); line-height: 1.75; }
+    .pricing-hero-highlight { font-family: var(--font-sans); font-size: 0.82rem; color: var(--gold); font-weight: 600; letter-spacing: 0.02em; }
 
-    .pricing-kicker { margin: 0 0 12px; font-size: 0.78rem; letter-spacing: 0.28em; text-transform: uppercase; color: #b08d7d; opacity: 0.85; }
-
-    .pricing-hero-title {
-      margin: 0 0 14px;
-      font-family: "Cormorant Garamond", serif;
-      font-size: clamp(2.6rem, 4.5vw, 4rem);
-      font-weight: 500;
-      line-height: 0.96;
-      letter-spacing: -0.045em;
-      color: var(--lux-espresso);
-      text-shadow: 0 10px 30px rgba(59, 47, 42, 0.08);
+    .pricing-hero-image-wrap {
+      position: relative; overflow: hidden; background: var(--cream-deep);
+      min-height: clamp(380px, 46vw, 600px);
     }
+    .pricing-hero-image { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform 0.9s ease; }
+    .pricing-hero-image-wrap:hover .pricing-hero-image { transform: scale(1.025); }
 
-    .pricing-hero-script { margin: 0 0 16px; font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 1.3rem; color: #c69b84; opacity: 0.9; letter-spacing: 0.02em; }
-
-    .pricing-hero-text { margin: 0 0 10px; max-width: 480px; color: var(--lux-muted); line-height: 1.8; font-size: 0.97rem; }
-    .pricing-hero-text:last-child { margin-bottom: 0; }
-
-    .pricing-hero-highlight {
-      margin: 4px 0 0;
-      max-width: 480px;
-      color: #a97c66;
-      line-height: 1.8;
-      font-size: 0.97rem;
-      font-weight: 600;
+    /* ── TRUST STRIP ── */
+    .trust-strip { display: flex; border-bottom: 1px solid var(--ink-rule); }
+    .trust-strip span {
+      flex: 1; text-align: center; padding: 10px 16px;
+      font-family: var(--font-sans); font-size: 0.68rem; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--ink-ghost);
+      border-right: 1px solid var(--ink-rule);
     }
+    .trust-strip span:last-child { border-right: none; }
 
-    .pricing-hero-image-wrap { position: relative; overflow: hidden; min-height: 100%; background: #f4ece6; }
-    .pricing-hero-image-wrap::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(59, 47, 42, 0.08), transparent 45%), radial-gradient(circle at top right, rgba(255, 250, 247, 0.14), transparent 38%); pointer-events: none; }
-    .pricing-hero-image { width: 100%; height: 100%; display: block; object-fit: cover; filter: brightness(0.98) contrast(0.94) saturate(0.92); opacity: 0; animation: heroFadeIn 0.9s ease forwards; transition: transform 0.9s ease, filter 0.4s ease; }
-    .pricing-hero-image-wrap:hover .pricing-hero-image { transform: scale(1.035); filter: brightness(1) contrast(0.96) saturate(0.96); }
-
-    .trust-strip { text-align: center; padding: 16px 20px 6px; font-size: 0.82rem; letter-spacing: 0.12em; color: #9b8579; opacity: 0.7; }
-    .trust-strip p { margin: 0; }
-
-    .section-kicker-wrap { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
-    .section-kicker { font-size: 0.74rem; letter-spacing: 0.28em; text-transform: uppercase; color: #b08d7d; white-space: nowrap; }
-    .section-kicker-line { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(200,166,161,0.4), transparent); }
-
-    .lux-badge { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 999px; background: rgba(255, 250, 247, 0.9); color: #6f5143; border: 1px solid rgba(214, 190, 174, 0.8); font-size: 0.74rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 16px; }
-
-    .currency-indicator { text-align: center; font-size: 0.8rem; letter-spacing: 0.06em; color: #b08d7d; opacity: 0; transition: opacity 0.5s ease; padding: 0 0 4px; }
+    /* ── CURRENCY INDICATOR ── */
+    .currency-indicator {
+      text-align: center; padding: 10px 20px;
+      font-family: var(--font-sans); font-size: 0.72rem; letter-spacing: 0.08em;
+      color: var(--ink-muted); opacity: 0; transition: opacity 0.5s ease;
+      border-bottom: 0.5px solid var(--ink-rule);
+    }
     .currency-code { font-size: 0.7em; letter-spacing: 0.06em; opacity: 0.75; text-transform: uppercase; }
-    .currency-note { display: block; font-size: 0.62rem; letter-spacing: 0.05em; color: var(--lux-muted); opacity: 0.75; margin-top: 4px; font-style: italic; font-family: inherit; }
+    .currency-note { display: block; font-size: 0.62rem; letter-spacing: 0.05em; color: var(--ink-ghost); margin-top: 3px; font-style: italic; }
 
-    /* ── AFFORDABILITY CARD ── */
-    .pricing-afford-card {
-      border-radius: 24px;
-      background: linear-gradient(135deg, rgba(214,177,154,0.15), rgba(169,124,102,0.06));
-      border: 1px solid rgba(198, 167, 125, 0.55);
-      box-shadow: 0 6px 18px var(--lux-shadow);
-      padding: 32px 28px;
+    /* ── SECTION SCAFFOLDING ── */
+    .section-head {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      padding: 36px 36px 0; border-top: 1px solid var(--ink); gap: 16px;
     }
-    .pricing-afford-card h2 { margin: 0 0 12px; font-family: "Cormorant Garamond", serif; font-size: clamp(1.7rem, 2.5vw, 2.2rem); font-weight: 500; letter-spacing: -0.03em; color: var(--lux-espresso); }
-    .pricing-afford-card p { margin: 0 0 20px; color: var(--lux-muted); line-height: 1.8; font-size: 0.97rem; max-width: 760px; }
-    .pricing-afford-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px; }
-    .pricing-afford-stat { padding: 20px; border-radius: 18px; background: rgba(255,253,251,0.95); border: 1px solid rgba(223,210,200,0.7); }
-    .pricing-afford-stat-num { font-family: "Cormorant Garamond", serif; font-size: clamp(1.5rem,3vw,2rem); font-weight: 500; color: #a97c66; margin: 0 0 6px; letter-spacing: -0.03em; line-height: 1.1; }
-    .pricing-afford-stat p { color: var(--lux-muted); font-size: 0.9rem; line-height: 1.6; margin: 0; }
+    .section-kicker { font-family: var(--font-sans); font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-ghost); margin-bottom: 5px; }
+    .section-title { font-family: var(--font-serif); font-size: 1.7rem; font-weight: 300; letter-spacing: -0.02em; color: var(--ink); line-height: 1; }
+    .section-script { font-family: var(--font-serif); font-style: italic; font-size: 1rem; color: var(--gold); display: block; margin-top: 2px; }
 
-    .pricing-setup-card { border-radius: 24px; background: rgba(255, 250, 247, 0.92); border: 1px solid rgba(223, 210, 200, 0.9); box-shadow: 0 6px 18px var(--lux-shadow); padding: 36px 28px; text-align: center; transition: transform 0.28s ease, box-shadow 0.28s ease; }
-    .pricing-setup-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(59, 47, 42, 0.1); }
-    .pricing-setup-eyebrow { font-size: 0.74rem; letter-spacing: 0.28em; text-transform: uppercase; color: #b08d7d; margin: 0 0 10px; }
-    .pricing-setup-card h2 { margin: 0 0 12px; font-family: "Cormorant Garamond", serif; font-size: 2.2rem; font-weight: 500; letter-spacing: -0.03em; color: var(--lux-espresso); }
-    .pricing-setup-price { font-family: "Cormorant Garamond", serif; font-size: clamp(2.4rem, 4vw, 3.2rem); font-weight: 500; line-height: 1.1; color: var(--lux-espresso); letter-spacing: -0.03em; margin: 0 0 16px; transition: opacity 0.3s ease; }
-    .pricing-setup-copy { max-width: 720px; margin: 0 auto; color: var(--lux-muted); line-height: 1.8; font-size: 0.97rem; }
-    .pricing-setup-copy p { margin: 0; }
-    .pricing-setup-copy p + p { margin-top: 10px; }
+    /* ── AFFORDABILITY ── */
+    .pricing-afford { border-bottom: 1px solid var(--ink-rule); }
+    .pricing-afford-inner { margin-top: 20px; background: var(--ink-rule); }
+    .pricing-afford-copy { background: var(--cream-warm); padding: 32px 36px; border-bottom: 0.5px solid var(--ink-rule); }
+    .pricing-afford-copy p { font-family: var(--font-sans); font-size: 0.88rem; color: var(--ink-muted); line-height: 1.8; }
+    .pricing-afford-stats { display: grid; grid-template-columns: repeat(3, 1fr); background: var(--ink-rule); gap: 0; }
+    .pricing-afford-stat { background: var(--cream); padding: 24px 24px 28px; border-right: 0.5px solid var(--ink-rule); }
+    .pricing-afford-stat:last-child { border-right: none; }
+    .pricing-afford-stat-num { font-family: var(--font-serif); font-size: 1.5rem; font-weight: 300; color: var(--ink); margin-bottom: 8px; letter-spacing: -0.02em; line-height: 1.1; display: block; }
+    .pricing-afford-stat p { font-family: var(--font-sans); font-size: 0.8rem; color: var(--ink-muted); line-height: 1.6; }
 
-    .pricing-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 22px; align-items: start; }
+    /* ── SETUP FEE ── */
+    .pricing-setup { border-bottom: 1px solid var(--ink-rule); }
+    .pricing-setup-inner {
+      display: grid; grid-template-columns: auto 1fr;
+      gap: 0; background: var(--ink-rule); margin-top: 20px;
+    }
+    .pricing-setup-price-col { background: var(--ink); padding: 36px 40px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; min-width: 200px; }
+    .pricing-setup-eyebrow { font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(250,250,248,0.4); margin-bottom: 8px; }
+    .pricing-setup-price { font-family: var(--font-serif); font-size: clamp(2.2rem, 4vw, 3rem); font-weight: 300; line-height: 1.1; color: var(--cream); letter-spacing: -0.03em; transition: opacity 0.3s ease; }
+    .pricing-setup-price .currency-code { color: rgba(250,250,248,0.5); }
+    .pricing-setup-copy-col { background: var(--cream); padding: 32px 36px; display: flex; flex-direction: column; justify-content: center; }
+    .pricing-setup-copy-col h2 { font-family: var(--font-serif); font-size: 1.5rem; font-weight: 300; color: var(--ink); margin-bottom: 12px; letter-spacing: -0.02em; }
+    .pricing-setup-copy-col p { font-family: var(--font-sans); font-size: 0.86rem; color: var(--ink-muted); line-height: 1.8; margin-bottom: 10px; }
+    .pricing-setup-copy-col p:last-child { margin-bottom: 0; }
 
-    .pricing-card { position: relative; background: rgba(255, 250, 247, 0.94); border-radius: 24px; border: 1px solid rgba(223, 210, 200, 0.9); padding: 28px 22px 24px; text-align: left; box-shadow: 0 6px 18px var(--lux-shadow); transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease; display: flex; flex-direction: column; gap: 14px; height: fit-content; align-self: start; }
-    .pricing-card:hover { transform: translateY(-6px); box-shadow: 0 22px 52px rgba(59, 47, 42, 0.12); border-color: rgba(198, 167, 125, 0.6); }
-    .pricing-card h2 { font-family: "Cormorant Garamond", serif; font-size: 1.55rem; font-weight: 500; letter-spacing: -0.02em; margin: 0; color: var(--lux-espresso); line-height: 1.15; }
+    /* ── PRICING CARDS ── */
+    .pricing-plans { border-bottom: 1px solid var(--ink-rule); }
+    .pricing-grid {
+      display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0; background: var(--ink-rule); margin-top: 20px;
+    }
 
-    .pricing-price { font-family: "Cormorant Garamond", serif; font-size: 2.2rem; font-weight: 500; letter-spacing: -0.03em; line-height: 1.15; margin: 0; color: var(--lux-espresso); transition: opacity 0.3s ease; }
-    .pricing-price small { font-family: inherit; font-size: 1rem; color: var(--lux-muted); letter-spacing: 0; }
+    .pricing-card {
+      background: var(--cream); padding: 28px 22px 32px;
+      display: flex; flex-direction: column; gap: 16px;
+      position: relative; border-right: 0.5px solid var(--ink-rule);
+      transition: background 0.2s;
+    }
+    .pricing-card:last-child { border-right: none; }
+    .pricing-card:hover { background: var(--cream-warm); }
+    .pricing-card.pricing-platinum { background: var(--cream-warm); }
+    .pricing-card.pricing-platinum:hover { background: var(--cream-deep); }
 
-    .pricing-subtext { color: var(--lux-muted); font-size: 0.93rem; line-height: 1.72; margin: 0; }
+    .popular-badge {
+      display: inline-block;
+      font-family: var(--font-sans); font-size: 0.62rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--cream); background: var(--ink);
+      padding: 4px 10px; margin-bottom: -4px; align-self: flex-start;
+    }
 
-    .pricing-highlights { display: grid; gap: 9px; margin: 0; }
-    .pricing-highlight { display: flex; gap: 10px; align-items: flex-start; color: #5b4a43; line-height: 1.6; font-size: 0.92rem; }
-    .pricing-highlight-dot { width: 7px; height: 7px; border-radius: 999px; background: rgba(198, 167, 125, 0.7); flex: 0 0 7px; margin-top: 8px; }
+    .pricing-card h2 { font-family: var(--font-serif); font-size: 1.4rem; font-weight: 300; letter-spacing: -0.02em; color: var(--ink); line-height: 1.1; }
 
-    .pricing-includes { padding-top: 16px; border-top: 1px solid rgba(223, 210, 200, 0.6); display: grid; gap: 11px; }
-    .pricing-includes p { margin: 0; color: var(--lux-muted); line-height: 1.7; font-size: 0.92rem; }
-    .pricing-includes p strong { color: #4a3b34; }
-    .pricing-best-for { margin-top: 4px !important; padding-top: 12px; border-top: 1px solid rgba(223, 210, 200, 0.4); font-style: italic; }
+    .pricing-price { font-family: var(--font-serif); font-size: 2rem; font-weight: 300; letter-spacing: -0.03em; line-height: 1.1; color: var(--ink); transition: opacity 0.3s ease; }
+    .pricing-price small { font-family: var(--font-sans); font-size: 0.72rem; color: var(--ink-ghost); letter-spacing: 0.04em; font-weight: 400; }
 
-    .pricing-signature { box-shadow: 0 10px 28px rgba(185, 143, 122, 0.08); }
-    .pricing-elite { box-shadow: 0 14px 34px rgba(185, 143, 122, 0.12); border-color: rgba(214, 190, 174, 0.9); }
-    .pricing-platinum { box-shadow: 0 18px 42px rgba(185, 143, 122, 0.18); border-color: rgba(198, 167, 125, 0.7); transform: translateY(-8px); background: linear-gradient(160deg, #fffdfb, #fff5ee); }
-    .pricing-platinum:hover { transform: translateY(-12px); }
+    .pricing-subtext { font-family: var(--font-sans); font-size: 0.78rem; color: var(--ink-muted); line-height: 1.65; }
 
-    .popular-badge { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #d6b19a, #a97c66); color: #fffaf7; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; padding: 7px 14px; border-radius: 999px; white-space: nowrap; box-shadow: 0 6px 16px rgba(185, 143, 122, 0.3); }
+    .pricing-divider { height: 0.5px; background: var(--ink-rule); }
 
-    .pricing-feature-callout { padding: 16px; border-radius: 18px; background: linear-gradient(160deg, rgba(244,231,223,0.6), rgba(238,219,207,0.7)); border: 1px solid rgba(214, 190, 174, 0.7); }
-    .pricing-feature-label { display: inline-flex; align-items: center; padding: 5px 11px; border-radius: 999px; background: linear-gradient(135deg, #d6b19a, #a97c66); color: #fffaf7; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; }
-    .pricing-feature-callout p { margin: 0; font-size: 0.91rem; line-height: 1.65; color: #5b4a43; }
+    .pricing-highlights { display: grid; gap: 7px; }
+    .pricing-highlight { display: flex; gap: 8px; align-items: flex-start; font-family: var(--font-sans); font-size: 0.78rem; color: var(--ink-mid); line-height: 1.55; }
+    .pricing-highlight-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold-light); flex: 0 0 5px; margin-top: 7px; }
 
-    .pricing-visual-grid { display: grid; grid-template-columns: 0.94fr 1.06fr; gap: 24px; align-items: stretch; }
+    .pricing-includes { display: grid; gap: 10px; padding-top: 4px; }
+    .pricing-includes p { font-family: var(--font-sans); font-size: 0.78rem; color: var(--ink-muted); line-height: 1.7; }
+    .pricing-includes p strong { color: var(--ink); font-weight: 600; }
+    .pricing-best-for { padding-top: 10px; border-top: 0.5px solid var(--ink-rule); font-style: italic; }
 
-    .pricing-image-card { border-radius: 24px; border: 1px solid rgba(223, 210, 200, 0.9); box-shadow: 0 6px 18px var(--lux-shadow); overflow: hidden; padding: 0; transition: box-shadow 0.3s ease; }
-    .pricing-image-card:hover { box-shadow: 0 18px 48px rgba(59, 47, 42, 0.12); }
-    .pricing-image-card img { width: 100%; height: 100%; display: block; object-fit: cover; aspect-ratio: 1/1; filter: brightness(0.98) contrast(0.94) saturate(0.92); transition: transform 0.45s ease, filter 0.35s ease; }
-    .pricing-image-card:hover img { transform: scale(1.04); filter: brightness(1) contrast(0.96) saturate(0.96); }
+    .pricing-feature-callout { background: var(--cream-deep); padding: 14px 16px; }
+    .pricing-feature-label { display: inline-block; font-family: var(--font-sans); font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink); background: var(--gold-light); padding: 3px 10px; margin-bottom: 8px; }
+    .pricing-feature-callout p { font-family: var(--font-sans); font-size: 0.78rem; color: var(--ink-mid); line-height: 1.6; }
 
-    .lux-card { border-radius: 24px; background: rgba(255, 250, 247, 0.92); border: 1px solid rgba(223, 210, 200, 0.9); box-shadow: 0 6px 18px var(--lux-shadow); padding: 32px 28px; transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease; }
-    .lux-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(59, 47, 42, 0.1); border-color: rgba(198, 167, 125, 0.5); }
-    .lux-card h2 { margin: 0 0 12px; font-family: "Cormorant Garamond", serif; font-size: clamp(1.7rem, 2.5vw, 2.2rem); font-weight: 500; letter-spacing: -0.03em; color: var(--lux-espresso); }
-    .lux-card p { margin: 0 0 14px; color: var(--lux-muted); line-height: 1.8; font-size: 0.97rem; }
-    .lux-card p:last-child { margin-bottom: 0; }
+    /* ── VISUAL + COPY ── */
+    .pricing-visual { border-bottom: 1px solid var(--ink-rule); }
+    .pricing-visual-grid {
+      display: grid; grid-template-columns: 0.9fr 1.1fr;
+      gap: 0; background: var(--ink-rule); margin-top: 20px;
+    }
+    .pricing-visual-image { overflow: hidden; min-height: 360px; }
+    .pricing-visual-image img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
+    .pricing-visual-image:hover img { transform: scale(1.03); }
+    .pricing-visual-copy { background: var(--cream); padding: 40px 36px; display: flex; flex-direction: column; justify-content: center; }
+    .pricing-visual-copy h2 { font-family: var(--font-serif); font-size: 1.7rem; font-weight: 300; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 16px; line-height: 1.1; }
+    .pricing-visual-copy p { font-family: var(--font-sans); font-size: 0.86rem; color: var(--ink-muted); line-height: 1.8; margin-bottom: 12px; }
+    .pricing-visual-copy p:last-child { margin-bottom: 0; }
 
-    .pricing-copy-card { display: flex; flex-direction: column; justify-content: center; }
-    .pricing-refund-card { background: linear-gradient(180deg, #fffdfb 0%, #fff8f3 100%); }
-    .pricing-cta-card { background: linear-gradient(135deg, rgba(200,166,161,0.1), rgba(198,167,125,0.08)); }
+    /* ── GUARANTEE + CTA ── */
+    .pricing-guarantee { border-bottom: 1px solid var(--ink-rule); }
+    .pricing-guarantee-inner { background: var(--cream-warm); padding: 36px; margin-top: 20px; }
+    .pricing-guarantee-inner h2 { font-family: var(--font-serif); font-size: 1.5rem; font-weight: 300; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 12px; }
+    .pricing-guarantee-inner p { font-family: var(--font-sans); font-size: 0.86rem; color: var(--ink-muted); line-height: 1.8; margin-bottom: 10px; }
+    .pricing-guarantee-inner p:last-child { margin-bottom: 0; }
 
-    .pricing-cta-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+    .pricing-cta { border-bottom: 1px solid var(--ink-rule); }
+    .pricing-cta-inner { background: var(--ink); padding: 40px 36px; margin-top: 20px; display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
+    .pricing-cta-left h2 { font-family: var(--font-serif); font-size: 1.8rem; font-weight: 300; letter-spacing: -0.02em; color: var(--cream); margin-bottom: 8px; }
+    .pricing-cta-left p { font-family: var(--font-sans); font-size: 0.86rem; color: rgba(250,250,248,0.55); line-height: 1.7; max-width: 480px; }
+    .pricing-cta-actions { display: flex; gap: 10px; flex-wrap: wrap; flex-shrink: 0; }
 
-    .btn-primary { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 12px 22px; border-radius: 999px; text-decoration: none; background: linear-gradient(135deg, #d6b19a, #a97c66); color: #fffaf7; font-weight: 700; font-size: 0.92rem; letter-spacing: 0.04em; box-shadow: 0 10px 24px rgba(185, 143, 122, 0.22); transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease; }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 34px rgba(185, 143, 122, 0.28); filter: brightness(1.04); }
-    .btn-secondary { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 12px 22px; border-radius: 999px; text-decoration: none; background: rgba(255, 250, 247, 0.95); border: 1px solid rgba(223, 210, 200, 0.9); color: var(--lux-espresso); font-weight: 600; font-size: 0.92rem; transition: transform 0.18s ease, background 0.18s ease; }
-    .btn-secondary:hover { background: var(--lux-blush); transform: translateY(-2px); }
+    /* Buttons */
+    .btn-primary { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 10px 22px; font-family: var(--font-sans); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink); background: var(--cream); text-decoration: none; border: none; transition: background 0.2s; cursor: pointer; }
+    .btn-primary:hover { background: var(--cream-warm); }
+    .btn-secondary { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 10px 22px; font-family: var(--font-sans); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cream); background: none; text-decoration: none; border: 0.5px solid rgba(255,255,255,0.3); transition: all 0.2s; }
+    .btn-secondary:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.6); }
 
-    .site-footer { background: radial-gradient(circle at top, rgba(200, 166, 161, 0.16), transparent 36%), linear-gradient(180deg, #f5eee9 0%, #eee5df 100%); }
-    .footer-title { color: var(--lux-espresso); letter-spacing: -0.035em; }
-    .footer-eyebrow { color: #b08d7d; }
-.site-topbar {
-  background: radial-gradient(circle at top left, rgba(200,166,161,0.18), transparent 34%),
-    linear-gradient(135deg, #fffaf7, #f4ebe5);
-  border-bottom: 1px solid rgba(223,210,200,0.9);
-  box-shadow: 0 6px 24px rgba(59,47,42,0.08);
-  padding: 0 34px;
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  min-height: 72px;
-  position: sticky;
-  top: 0;
-  z-index: 200;
-  flex-wrap: wrap;
-}
+    /* ── FOOTER ── */
+    .site-footer { background: var(--ink); border-top: 1px solid var(--ink-mid); }
+    .footer-content { padding: 40px 36px 32px; display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: start; }
+    .footer-logo-col { display: flex; flex-direction: column; gap: 6px; }
+    .footer-eyebrow { font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-muted); }
+    .footer-title { font-family: var(--font-serif); font-size: 1.4rem; font-weight: 300; color: var(--cream); letter-spacing: -0.02em; margin: 4px 0 6px; }
+    .footer-text { font-family: var(--font-sans); font-size: 0.78rem; color: var(--ink-muted); line-height: 1.6; max-width: 360px; }
+    .footer-tagline { font-family: var(--font-serif); font-style: italic; font-size: 0.95rem; color: var(--gold-light); margin-top: 16px; }
+    .footer-abn { font-family: var(--font-sans); font-size: 0.68rem; color: var(--ink-muted); margin-top: 4px; }
+    .footer-links-col { display: flex; flex-direction: column; gap: 10px; align-items: flex-end; }
+    .footer-links { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
+    .footer-links a { font-family: var(--font-sans); font-size: 0.72rem; letter-spacing: 0.06em; color: var(--ink-muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--cream); }
 
-.site-topbar-logo-wrap {
-  display: inline-flex;
-  align-items: center;
-}
-
-.site-topbar-logo {
-  width: 52px;
-  height: 52px;
-  object-fit: contain;
-}
-
-.site-topbar-title {
-  flex: 1;
-}
-
-.site-topbar-title h1 {
-  margin: 0;
-  font-family: "Cormorant Garamond", serif;
-  font-size: 1.15rem;
-  font-weight: 500;
-  letter-spacing: -0.01em;
-  color: #3b2f2a;
-}
-
-.site-topbar-actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.site-topbar-link,
-.site-topbar-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 38px;
-  padding: 7px 14px;
-  border-radius: 999px;
-  font-size: 0.8rem;
-  text-decoration: none;
-  white-space: nowrap;
-}
-
-.site-topbar-link {
-  background: rgba(255,250,247,0.9);
-  border: 1px solid rgba(223,210,200,0.9);
-  color: #3b2f2a;
-}
-
-.site-topbar-btn {
-  border: none;
-  background: linear-gradient(135deg, #d6b19a, #a97c66);
-  color: #fffaf7;
-  font-weight: 700;
-}
-
-.site-topbar-link:hover,
-.site-topbar-btn:hover {
-  transform: translateY(-1px);
-}
-
-@media (max-width: 700px) {
-  .site-topbar {
-    padding: 12px 16px;
-    gap: 14px;
-    justify-content: center;
-  }
-
-  .site-topbar-logo {
-    width: 42px;
-    height: 42px;
-  }
-
-  .site-topbar-title {
-    flex: unset;
-  }
-
-  .site-topbar-title h1 {
-    font-size: 0.95rem;
-    text-align: center;
-  }
-
-  .site-topbar-actions {
-    width: 100%;
-    justify-content: center;
-    gap: 10px;
-  }
-
-  .site-topbar-link,
-  .site-topbar-btn {
-    min-height: 36px;
-    padding: 6px 14px;
-    font-size: 0.78rem;
-  }
-}
+    /* ── RESPONSIVE ── */
     @media (max-width: 1100px) {
       .pricing-grid { grid-template-columns: repeat(2, 1fr); }
-      .pricing-platinum { transform: none; }
-      .pricing-platinum:hover { transform: translateY(-6px); }
-      .pricing-visual-grid, .pricing-hero-grid { grid-template-columns: 1fr; }
-      .pricing-afford-grid { grid-template-columns: 1fr; }
+      .pricing-card { border-bottom: 0.5px solid var(--ink-rule); }
+      .pricing-card:nth-child(even) { border-right: none; }
+      .pricing-card:nth-last-child(-n+2) { border-bottom: none; }
+      .pricing-visual-grid { grid-template-columns: 1fr; }
+      .pricing-setup-inner { grid-template-columns: 1fr; }
+      .pricing-setup-price-col { min-width: unset; }
+    }
+    @media (max-width: 980px) {
+      .pricing-hero { grid-template-columns: 1fr; }
+      .pricing-hero-copy { border-right: none; border-bottom: 1px solid var(--ink-rule); }
+      .pricing-hero-image-wrap { min-height: 320px; }
+      .pricing-afford-stats { grid-template-columns: 1fr; }
+      .pricing-afford-stat { border-right: none; border-bottom: 0.5px solid var(--ink-rule); }
+      .pricing-afford-stat:last-child { border-bottom: none; }
+      .footer-content { grid-template-columns: 1fr; gap: 24px; }
+      .footer-links-col { align-items: flex-start; }
+      .footer-links { align-items: flex-start; }
     }
     @media (max-width: 700px) {
-      .pricing-page { padding: 10px 10px 0; }
-      .pricing-hero-copy { padding: 28px 18px; }
-      .pricing-hero-title { font-size: 2.5rem; }
+      .site-topbar { padding: 0 16px; min-height: 56px; }
+      .pricing-hero-copy { padding: 28px 20px; }
+      .pricing-hero-image-wrap { min-height: 260px; }
       .pricing-grid { grid-template-columns: 1fr; }
-      .lux-card { padding: 24px 20px; }
-      .pricing-setup-card { padding: 28px 20px; }
-      .pricing-afford-card { padding: 24px 20px; }
+      .pricing-card { border-right: none; border-bottom: 0.5px solid var(--ink-rule); }
+      .pricing-card:last-child { border-bottom: none; }
+      .section-head { padding: 24px 20px 0; flex-wrap: wrap; gap: 6px; }
+      .pricing-afford-copy, .pricing-setup-price-col, .pricing-setup-copy-col,
+      .pricing-guarantee-inner, .pricing-visual-copy { padding: 24px 20px; }
+      .pricing-cta-inner { padding: 28px 20px; flex-direction: column; }
+      .trust-strip { display: none; }
+      .footer-content { padding: 28px 20px 24px; }
     }
-</style>
+  </style>
 </head>
-
 <body>
+
+<!-- ── TOPBAR ── -->
 <header class="site-topbar">
   <a href="index.html" class="site-topbar-logo-wrap" aria-label="Go to homepage">
     <img src="images/logo1.png" alt="Our Wedding Day Hub" class="site-topbar-logo">
   </a>
-
-  <div class="site-topbar-title">
-    <h1>Our Wedding Day Hub</h1>
-  </div>
-
+  <div class="site-topbar-title"><h1>Our Wedding Day Hub</h1></div>
   <nav class="site-topbar-actions">
     <a href="categories.html" class="site-topbar-link">Categories</a>
-
     <a href="shop.html" class="site-topbar-link">Boutique</a>
-
     <a href="messages.html" id="messagesLink" class="site-topbar-link" style="display:none; position:relative;">
       Messages
-      <span id="msgNavBadge" style="display:none; position:absolute; top:-6px; right:-10px; background:linear-gradient(135deg,#d6b19a,#a97c66); color:#fffaf7; font-size:0.68rem; font-weight:700; padding:2px 6px; border-radius:999px; line-height:1.2; min-width:18px; text-align:center;">0</span>
+      <span id="msgNavBadge" style="display:none; position:absolute; top:-6px; right:-10px; background:var(--ink); color:var(--cream); font-size:0.64rem; font-weight:700; padding:2px 6px; border-radius:999px; line-height:1.2; min-width:18px; text-align:center;">0</span>
     </a>
-
     <a href="login.html" id="loginLink" class="site-topbar-link">Log In</a>
-
     <a href="signup.html" id="joinLink" class="site-topbar-btn">Join</a>
-
     <a href="dashboard.html" id="dashboardLink" class="site-topbar-link" style="display:none;">Dashboard</a>
-
     <button id="logoutLink" class="site-topbar-btn" style="display:none;">Log Out</button>
   </nav>
 </header>
 
-<main class="pricing-page">
-  <div class="pricing-stack">
+<main>
 
-    <section class="pricing-hero-card">
-      <div class="pricing-hero-grid">
-        <div class="pricing-hero-copy">
-          <a href="index.html" class="pricing-logo-wrap" aria-label="Go to homepage">
-            <img src="images/logo1.png" alt="Our Wedding Day Hub" class="pricing-logo" loading="lazy">
-          </a>
-    <p class="pricing-kicker">Pricing</p>
-
-<h1 class="pricing-hero-title">
-  Luxury visibility<br>without luxury pricing
-</h1>
-
-<p class="pricing-hero-script">
-  premium presence, tiny monthly cost ♡
-</p>
-
-<p class="pricing-hero-text">
-  Create a beautiful profile, connect with couples, and showcase your business at a price point designed for real wedding vendors.
-</p>
-
-<p class="pricing-hero-text">
-  No inflated advertising costs. No commissions on bookings. Just a polished space for your business to be discovered.
-</p>
-
-<p class="pricing-hero-text">
-  Choose the visibility level that suits your business now and upgrade anytime as your brand grows.
-</p>
-
-<p class="pricing-hero-highlight">
-  ✦ A fraction of what most wedding directories charge.
-</p>
- 
-        </div>
-        <div class="pricing-hero-image-wrap">
-          <img src="images/love.png" alt="Dramatic veil wedding couple" class="pricing-hero-image" loading="lazy">
-        </div>
-      </div>
-    </section>
-
-    <section class="trust-strip">
-      <p>Trusted by wedding vendors across Australia &amp; worldwide • Proudly independent • Built with heart</p>
-    </section>
-
-    <p class="currency-indicator" id="currency-indicator">Prices shown in AUD</p>
-
-    <!-- ── AFFORDABILITY ── -->
-    <div class="section-kicker-wrap" style="padding: 0 4px;">
-      <span class="section-kicker">Refreshingly Affordable</span>
-      <span class="section-kicker-line"></span>
+  <!-- ── HERO ── -->
+  <section class="pricing-hero">
+    <div class="pricing-hero-copy">
+      <a href="index.html" aria-label="Go to homepage">
+        <img src="images/logo1.png" alt="Our Wedding Day Hub" class="pricing-logo" loading="eager">
+      </a>
+      <p class="pricing-kicker">Pricing</p>
+      <h1 class="pricing-hero-title">Luxury visibility<br>without luxury pricing</h1>
+      <p class="pricing-hero-script">premium presence, tiny monthly cost ♡</p>
+      <p class="pricing-hero-text">Create a beautiful profile, connect with couples, and showcase your business at a price point designed for real wedding vendors.</p>
+      <p class="pricing-hero-text">No inflated advertising costs. No commissions on bookings. Just a polished space for your business to be discovered.</p>
+      <p class="pricing-hero-text">Choose the visibility level that suits your business now and upgrade anytime as your brand grows.</p>
+      <p class="pricing-hero-highlight">✦ A fraction of what most wedding directories charge.</p>
     </div>
+    <div class="pricing-hero-image-wrap">
+      <img src="images/love.png" alt="Dramatic veil wedding couple" class="pricing-hero-image" loading="lazy">
+    </div>
+  </section>
 
-    <div class="pricing-afford-card">
-      <span class="lux-badge">✦ A genuinely different price point</span>
-      <h2>So much more affordable than anywhere else</h2>
-      <p>Most wedding advertising platforms charge hundreds — sometimes thousands — of dollars a year just to appear in their directory. We think that's not fair for the passionate, independent businesses that make weddings beautiful. Our plans start from under $5 a month, with no commissions on bookings, no pay-to-rank games, and no hidden fees. Just a stunning profile that works hard for you, at a price that makes real sense for a small business.</p>
-      <div class="pricing-afford-grid">
+  <!-- ── TRUST STRIP ── -->
+  <div class="trust-strip">
+    <span>Trusted across Australia &amp; worldwide</span>
+    <span>Proudly independent</span>
+    <span>Built with heart</span>
+    <span>Proudly inclusive</span>
+  </div>
+
+  <!-- ── CURRENCY INDICATOR ── -->
+  <p class="currency-indicator" id="currency-indicator">Prices shown in AUD</p>
+
+  <!-- ── AFFORDABILITY ── -->
+  <section class="pricing-afford">
+    <div class="section-head">
+      <div>
+        <p class="section-kicker">Refreshingly Affordable</p>
+        <h2 class="section-title">So much more affordable than anywhere else</h2>
+        <span class="section-script">for real, independent businesses ♡</span>
+      </div>
+    </div>
+    <div class="pricing-afford-inner">
+      <div class="pricing-afford-copy">
+        <p>Most wedding advertising platforms charge hundreds — sometimes thousands — of dollars a year just to appear in their directory. We think that's not fair for the passionate, independent businesses that make weddings beautiful. Our plans start from under $5 a month, with no commissions on bookings, no pay-to-rank games, and no hidden fees. Just a stunning profile that works hard for you, at a price that makes real sense for a small business.</p>
+      </div>
+      <div class="pricing-afford-stats">
         <div class="pricing-afford-stat">
-          <p class="pricing-afford-stat-num">No commissions</p>
+          <span class="pricing-afford-stat-num">No commissions</span>
           <p>Every booking you make is entirely yours. We never take a cut — not now, not ever.</p>
         </div>
         <div class="pricing-afford-stat">
-          <p class="pricing-afford-stat-num">From $4.75 / mo</p>
+          <span class="pricing-afford-stat-num">From $4.75 / mo</span>
           <p>A fraction of what other directories charge, with everything you need already included.</p>
         </div>
         <div class="pricing-afford-stat">
-          <p class="pricing-afford-stat-num">No surprises</p>
+          <span class="pricing-afford-stat-num">No surprises</span>
           <p>One clear, transparent price. No hidden fees, no locked features, no confusing upsells.</p>
         </div>
       </div>
     </div>
+  </section>
 
-    <div class="section-kicker-wrap" style="padding: 0 4px;">
-      <span class="section-kicker">Getting Started</span>
-      <span class="section-kicker-line"></span>
+  <!-- ── SETUP FEE ── -->
+  <section class="pricing-setup">
+    <div class="section-head">
+      <div>
+        <p class="section-kicker">Getting Started</p>
+        <h2 class="section-title">One-time setup fee</h2>
+      </div>
     </div>
-
-    <div class="pricing-setup-card">
-      <p class="pricing-setup-eyebrow">one-off fee</p>
-      <h2>Setup Fee</h2>
-      <div class="pricing-setup-price" id="price-setup">$50 <span class="currency-code">AUD</span></div>
-      <div class="pricing-setup-copy">
+    <div class="pricing-setup-inner">
+      <div class="pricing-setup-price-col">
+        <p class="pricing-setup-eyebrow">One-off fee</p>
+        <div class="pricing-setup-price" id="price-setup">$50 <span class="currency-code">AUD</span></div>
+      </div>
+      <div class="pricing-setup-copy-col">
+        <h2>Setup Fee</h2>
         <p>A one-time onboarding fee to create and activate your account, set up your profile space, and get your business ready to be shown on the platform.</p>
         <p>With our 60 day satisfaction guarantee, your first two months of subscription can be refunded if you choose not to continue.</p>
       </div>
     </div>
+  </section>
 
-    <div class="section-kicker-wrap" style="padding: 0 4px;">
-      <span class="section-kicker">Monthly Plans</span>
-      <span class="section-kicker-line"></span>
+  <!-- ── PRICING PLANS ── -->
+  <section class="pricing-plans">
+    <div class="section-head">
+      <div>
+        <p class="section-kicker">Monthly Plans</p>
+        <h2 class="section-title">Choose your level of visibility</h2>
+      </div>
     </div>
-
     <div class="pricing-grid">
 
       <article class="pricing-card pricing-classic">
         <h2>The Edit</h2>
         <div class="pricing-price" id="price-classic">$4.75 <span class="currency-code">AUD</span> <small>/ month</small></div>
         <p class="pricing-subtext">A polished and affordable starting point for vendors wanting a beautiful professional presence online.</p>
+        <div class="pricing-divider"></div>
         <div class="pricing-highlights">
           <div class="pricing-highlight"><span class="pricing-highlight-dot"></span><span>Affordable starting point</span></div>
           <div class="pricing-highlight"><span class="pricing-highlight-dot"></span><span>Clean public profile</span></div>
           <div class="pricing-highlight"><span class="pricing-highlight-dot"></span><span>Visible in chosen categories and locations</span></div>
         </div>
-<div class="pricing-includes">
-  <p><strong>A beautiful professional profile</strong> featuring your business information, imagery, contact details, and category placement.</p>
-
-  <p><strong>Listed in your selected categories and locations</strong> so couples can discover your business while planning their wedding.</p>
-
-  <p><strong>A clean and affordable way to establish your presence</strong> on the platform without unnecessary extras.</p>
-
-  <p class="pricing-best-for"><strong>Best for:</strong> vendors wanting a polished starting presence at the lowest monthly price.</p>
-</div>
+        <div class="pricing-divider"></div>
+        <div class="pricing-includes">
+          <p><strong>A beautiful professional profile</strong> featuring your business information, imagery, contact details, and category placement.</p>
+          <p><strong>Listed in your selected categories and locations</strong> so couples can discover your business while planning their wedding.</p>
+          <p><strong>A clean and affordable way to establish your presence</strong> on the platform without unnecessary extras.</p>
+          <p class="pricing-best-for"><strong>Best for:</strong> vendors wanting a polished starting presence at the lowest monthly price.</p>
+        </div>
       </article>
 
       <article class="pricing-card pricing-signature">
         <h2>The Spotlight</h2>
         <div class="pricing-price" id="price-signature">$5.95 <span class="currency-code">AUD</span> <small>/ month</small></div>
         <p class="pricing-subtext">A stronger and more noticeable showcase designed to help your business stand out more confidently.</p>
+        <div class="pricing-divider"></div>
         <div class="pricing-highlights">
           <div class="pricing-highlight"><span class="pricing-highlight-dot"></span><span>Stronger first impression</span></div>
           <div class="pricing-highlight"><span class="pricing-highlight-dot"></span><span>More noticeable profile feel</span></div>
           <div class="pricing-highlight"><span class="pricing-highlight-dot"></span><span>Affordable step up from Classic</span></div>
         </div>
-<div class="pricing-includes">
-  <p><strong>Everything included in The Edit</strong>, with a more elevated overall presentation designed to help your business stand out more confidently.</p>
-
-  <p><strong>A stronger visual impression for couples browsing vendors</strong>, helping your profile feel more noticeable and established.</p>
-
-  <p><strong>Designed for vendors ready to increase visibility</strong> while still keeping things affordable and accessible.</p>
-
-  <p class="pricing-best-for"><strong>Best for:</strong> businesses wanting a stronger first impression and more profile impact.</p>
-</div>
+        <div class="pricing-divider"></div>
+        <div class="pricing-includes">
+          <p><strong>Everything included in The Edit</strong>, with a more elevated overall presentation designed to help your business stand out more confidently.</p>
+          <p><strong>A stronger visual impression for couples browsing vendors</strong>, helping your profile feel more noticeable and established.</p>
+          <p><strong>Designed for vendors ready to increase visibility</strong> while still keeping things affordable and accessible.</p>
+          <p class="pricing-best-for"><strong>Best for:</strong> businesses wanting a stronger first impression and more profile impact.</p>
+        </div>
       </article>
 
       <article class="pricing-card pricing-elite">
         <h2>The Feature</h2>
         <div class="pricing-price" id="price-elite">$7.25 <span class="currency-code">AUD</span> <small>/ month</small></div>
         <p class="pricing-subtext">A refined premium showcase for vendors wanting a more elevated and established presence across the platform.</p>
+        <div class="pricing-divider"></div>
         <div class="pricing-highlights">
           <div class="pricing-highlight"><span class="pricing-highlight-dot"></span><span>More elevated profile presence</span></div>
           <div class="pricing-highlight"><span class="pricing-highlight-dot"></span><span>Refined and fuller presentation</span></div>
           <div class="pricing-highlight"><span class="pricing-highlight-dot"></span><span>Built for stronger visibility</span></div>
         </div>
-<div class="pricing-includes">
-  <p><strong>Everything included in The Spotlight</strong>, with a more premium and refined presentation across the platform.</p>
-
-  <p><strong>Built for stronger visibility and brand presence</strong>, helping your business feel more established when couples compare vendors.</p>
-
-  <p><strong>A more elevated showcase overall</strong> for vendors wanting their profile to work harder for them visually.</p>
-
-  <p class="pricing-best-for"><strong>Best for:</strong> growing wedding businesses wanting stronger visibility and a more premium presence.</p>
-</div>
+        <div class="pricing-divider"></div>
+        <div class="pricing-includes">
+          <p><strong>Everything included in The Spotlight</strong>, with a more premium and refined presentation across the platform.</p>
+          <p><strong>Built for stronger visibility and brand presence</strong>, helping your business feel more established when couples compare vendors.</p>
+          <p><strong>A more elevated showcase overall</strong> for vendors wanting their profile to work harder for them visually.</p>
+          <p class="pricing-best-for"><strong>Best for:</strong> growing wedding businesses wanting stronger visibility and a more premium presence.</p>
+        </div>
       </article>
 
       <article class="pricing-card pricing-platinum">
-        <div class="popular-badge">MOST POPULAR</div>
+        <span class="popular-badge">Most popular</span>
         <h2>The Icon</h2>
         <div class="pricing-price" id="price-platinum">$9.95 <span class="currency-code">AUD</span> <small>/ month</small></div>
-        <p class="pricing-subtext">Our most elevated listing experience, including boutique access and the platform’s highest level of visibility.</p>
+        <p class="pricing-subtext">Our most elevated listing experience, including boutique access and the platform's highest level of visibility.</p>
+        <div class="pricing-divider"></div>
         <div class="pricing-highlights">
           <div class="pricing-highlight"><span class="pricing-highlight-dot"></span><span>Highest level of profile presence</span></div>
           <div class="pricing-highlight"><span class="pricing-highlight-dot"></span><span>Most polished and premium impression</span></div>
@@ -531,77 +459,102 @@
           <span class="pricing-feature-label">Premium Feature</span>
           <p><strong>Boutique access included</strong> allowing eligible vendors to upload products, vouchers, gift cards, and future boutique offerings directly through the platform.</p>
         </div>
-<div class="pricing-includes">
-  <p><strong>Everything included in The Feature</strong>, with the platform’s most elevated level of visibility and presentation.</p>
-
-  <p><strong>Includes boutique access</strong>, allowing eligible vendors to upload products, vouchers, gift cards, and future boutique offerings.</p>
-
-  <p><strong>Designed to deliver the strongest overall impression</strong> for vendors wanting maximum visibility across the platform.</p>
-
-  <p class="pricing-best-for"><strong>Best for:</strong> vendors wanting the highest level of exposure, presentation, and boutique access.</p>
-</div>
+        <div class="pricing-divider"></div>
+        <div class="pricing-includes">
+          <p><strong>Everything included in The Feature</strong>, with the platform's most elevated level of visibility and presentation.</p>
+          <p><strong>Includes boutique access</strong>, allowing eligible vendors to upload products, vouchers, gift cards, and future boutique offerings.</p>
+          <p><strong>Designed to deliver the strongest overall impression</strong> for vendors wanting maximum visibility across the platform.</p>
+          <p class="pricing-best-for"><strong>Best for:</strong> vendors wanting the highest level of exposure, presentation, and boutique access.</p>
+        </div>
       </article>
 
     </div>
+  </section>
 
+  <!-- ── VISUAL + COPY ── -->
+  <section class="pricing-visual">
+    <div class="section-head">
+      <div>
+        <p class="section-kicker">Your Presence</p>
+        <h2 class="section-title">Designed to help your business feel seen</h2>
+      </div>
+    </div>
     <div class="pricing-visual-grid">
-      <div class="pricing-image-card">
+      <div class="pricing-visual-image">
         <img src="images/stair.png" alt="Bride on stairs" loading="lazy">
       </div>
-      <article class="lux-card pricing-copy-card">
-        <span class="lux-badge">✦ Your presence</span>
+      <div class="pricing-visual-copy">
         <h2>Designed to help your business feel seen</h2>
         <p>Our Wedding Day Hub is built to feel elegant, simple, and beautiful to use. Your profile is designed to give couples a clear sense of your business, your style, and what you offer.</p>
         <p>As you move through the tiers, your business presentation becomes stronger — helping your listing feel more established and more noticeable when couples are exploring their options.</p>
         <p>Whether you want a simple presence or a more premium showcase, each level is designed to help your business appear polished and professional — at a price that genuinely works for independent businesses.</p>
-      </article>
+      </div>
     </div>
+  </section>
 
-    <article class="lux-card pricing-refund-card">
-      <span class="lux-badge">✦ Satisfaction guarantee</span>
+  <!-- ── GUARANTEE ── -->
+  <section class="pricing-guarantee">
+    <div class="section-head">
+      <div>
+        <p class="section-kicker">Satisfaction Guarantee</p>
+        <h2 class="section-title">60 day guarantee</h2>
+      </div>
+    </div>
+    <div class="pricing-guarantee-inner">
       <h2>60 Day Satisfaction Guarantee</h2>
       <p>We want you to feel confident when joining the platform. If you decide within your first 60 days that the subscription is not right for you, your first two months of subscription can be refunded.</p>
       <p>The one-time setup fee covers onboarding and account activation, while the monthly subscription covers your ongoing listing on the platform. For full details, please refer to our Refund Policy linked in the footer.</p>
-    </article>
+    </div>
+  </section>
 
-    <article class="lux-card pricing-cta-card">
-      <span class="lux-badge">✦ Ready to join?</span>
-      <h2>Start building your presence today</h2>
-      <p>Create your account, choose the listing level that suits your business, and start building a beautiful presence on the hub — at one of the most affordable price points in the industry.</p>
-      <div class="pricing-cta-actions">
-        <a href="signup.html" class="btn-primary">Join as Vendor</a>
-        <a href="contact.html" class="btn-secondary">Ask a Question</a>
+  <!-- ── CTA ── -->
+  <section class="pricing-cta">
+    <div class="pricing-cta-inner">
+      <div class="pricing-cta-left">
+        <h2>Start building your presence today</h2>
+        <p>Create your account, choose the listing level that suits your business, and start building a beautiful presence on the hub — at one of the most affordable price points in the industry.</p>
       </div>
-    </article>
+      <div class="pricing-cta-actions">
+        <a href="signup.html" class="btn-primary">Join as vendor →</a>
+        <a href="contact.html" class="btn-secondary">Ask a question</a>
+      </div>
+    </div>
+  </section>
 
-  </div>
 </main>
 
+<!-- ── FOOTER ── -->
 <footer class="site-footer">
   <div class="footer-content">
-    <a href="index.html" aria-label="Go to homepage" style="display:inline-block; margin-bottom:18px;">
-      <img src="images/logo1.png" alt="Our Wedding Day Hub" style="width:72px; height:72px; object-fit:contain; opacity:0.7;">
-    </a>
-    <p class="footer-eyebrow">wedding planning directory</p>
-    <h2 class="footer-title">Everything your wedding deserves.</h2>
-    <p class="footer-text">Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.</p>
-    <div class="footer-links">
-      <a href="about.html">About Us</a>
-      <a href="how-it-works.html">How It Works</a>
-      <a href="pricing.html">Pricing</a>
-      <a href="contact.html">Contact Us</a>
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="terms.html">Terms &amp; Conditions</a>
-      <a href="refund-policy.html">Refund Policy</a>
-      <a href="https://www.equaldex.com/equality-index" target="_blank" rel="noopener noreferrer">Global Equality Index</a>
-      <a href="#" onclick="return false;">Events4Us (Coming Soon)</a>
+    <div class="footer-logo-col">
+      <a href="index.html" aria-label="Go to homepage">
+        <img src="images/logo1.png" alt="Our Wedding Day Hub" style="width:52px; height:52px; object-fit:contain; opacity:0.5; margin-bottom:6px;">
+      </a>
+      <p class="footer-eyebrow">Wedding planning directory</p>
+      <h2 class="footer-title">Everything your wedding deserves.</h2>
+      <p class="footer-text">Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.</p>
+      <p class="footer-tagline">everything your wedding day deserves. ♡</p>
+      <p class="footer-abn">© 2026 Our Wedding Day Hub</p>
+      <p class="footer-abn">ABN 76 688 637 041 • Australia</p>
     </div>
-    <p class="footer-tagline">Proudly inclusive • Worldwide • Built with heart</p>
-    <p class="footer-abn">© 2026 Our Wedding Day Hub</p>
-    <p class="footer-abn">ABN 76 688 637 041 • Australia</p>
+    <div class="footer-links-col">
+      <div class="footer-links">
+        <a href="about.html">About Us</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="refund-policy.html">Refund Policy</a>
+        <a href="https://www.equaldex.com/equality-index" target="_blank" rel="noopener noreferrer">Global Equality Index</a>
+        <a href="#" onclick="return false;">Events4Us (Coming Soon)</a>
+      </div>
+      <p style="font-family:var(--font-sans); font-size:0.65rem; color:var(--ink-muted); margin-top:12px; letter-spacing:0.06em;">Proudly inclusive • Worldwide • Built with heart</p>
+    </div>
   </div>
 </footer>
 
+<!-- ── CURRENCY CONVERTER — COMPLETELY UNCHANGED ── -->
 <script>
 (async function() {
   const PRICES_AUD = { setup: 50, classic: 4.75, signature: 5.95, elite: 7.25, platinum: 9.95 };
