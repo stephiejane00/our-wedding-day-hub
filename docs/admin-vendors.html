@@ -735,29 +735,68 @@ const fRef = ref(
       await saveVendorUpdates(upd);
     }
 
-    uploadImagesBtn.addEventListener("click", async () => {
-      if (!selectedVendorId || !selectedVendor) return;
-      const files = Array.from(imageUploadInput.files || []);
-      if (!files.length) { uploadStatus.textContent = "Choose at least one image."; return; }
-      try {
-        uploadImagesBtn.disabled = true; uploadStatus.textContent = "Uploading…";
-        const current = cleanArr(selectedVendor.images);
-        const urls = [];
-        for (const f of files) { if (!f.type.startsWith("image/")) continue; const fileName = cleanUploadName(f);
+   uploadImagesBtn.addEventListener("click", async () => {
+  if (!selectedVendorId || !selectedVendor) return;
 
-const fRef = ref(
-  storage,
-  `vendor-gallery-images/${selectedVendorId}/${fileName}`
-);
-        const merged = [...current, ...urls];
-        const upd = { images: merged, galleryImages: merged, imageUrls: merged };
-        if (!selectedVendor.coverImageUrl) upd.coverImageUrl = merged[0] || "";
-        await saveVendorUpdates(upd);
-        imageUploadInput.value = ""; uploadStatus.textContent = "Images uploaded.";
-      } catch (e) { console.error(e); uploadStatus.textContent = "Upload failed."; }
-      finally { uploadImagesBtn.disabled = false; }
-    });
+  const files = Array.from(imageUploadInput.files || []);
 
+  if (!files.length) {
+    uploadStatus.textContent = "Choose at least one image.";
+    return;
+  }
+
+  try {
+    uploadImagesBtn.disabled = true;
+    uploadStatus.textContent = "Uploading…";
+
+    const current = cleanArr(selectedVendor.images);
+    const urls = [];
+
+    for (const f of files) {
+      if (!f.type.startsWith("image/")) continue;
+
+      const fileName = cleanUploadName(f);
+
+      const fRef = ref(
+        storage,
+        `vendor-gallery-images/${selectedVendorId}/${fileName}`
+      );
+
+      await uploadBytes(fRef, f, {
+        contentType: f.type || "image/jpeg"
+      });
+
+      urls.push(await getDownloadURL(fRef));
+    }
+
+    if (!urls.length) {
+      uploadStatus.textContent = "No valid image files selected.";
+      return;
+    }
+
+    const merged = [...current, ...urls];
+
+    const upd = {
+      images: merged,
+      galleryImages: merged,
+      imageUrls: merged
+    };
+
+    if (!selectedVendor.coverImageUrl) {
+      upd.coverImageUrl = merged[0] || "";
+    }
+
+    await saveVendorUpdates(upd);
+
+    imageUploadInput.value = "";
+    uploadStatus.textContent = "Images uploaded.";
+  } catch (e) {
+    console.error(e);
+    uploadStatus.textContent = "Upload failed.";
+  } finally {
+    uploadImagesBtn.disabled = false;
+  }
+});
     uploadProfileBtn.addEventListener("click", async () => {
       const file = profileUploadInput.files?.[0];
       if (!file) { setStatus("Choose a profile picture first.", "err"); return; }
@@ -783,7 +822,7 @@ const fRef = ref(
         const current = cleanArr(selectedVendor.videos);
         const urls = [];
         for (const f of files) { if (!f.type.startsWith("video/")) continue; const fRef = ref(storage, `vendor-gallery-videos/${selectedVendorId}/${Date.now()}-${safeFileName(f.name)}`); await uploadBytes(fRef, f, {
-  contentType: f.type || "image/jpeg"
+ contentType: f.type || "video/mp4"
 }); urls.push(await getDownloadURL(fRef)); }
         if (!urls.length) { videoUploadStatus.textContent = "No valid video files."; return; }
         await saveVendorUpdates({ videos: [...current, ...urls] });
