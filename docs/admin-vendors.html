@@ -706,7 +706,7 @@ testimonialDateInput.value = selectedVendor.testimonials?.[0]?.date || "";
     ? file.name.split(".").pop().toLowerCase()
     : "";
 
-  const ext = (typeExt || typeExt || "jpg")
+  const ext = (nameExt || typeExt || "jpg")
     .replace(/[^a-z0-9]/g, "");
 
   const base = file.name
