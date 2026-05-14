@@ -697,10 +697,38 @@ testimonialDateInput.value = selectedVendor.testimonials?.[0]?.date || "";
       await saveVendorUpdates(updates);
     }
 
+    function cleanUploadName(file, fallback = "image") {
+  const typeExt = file.type && file.type.includes("/")
+    ? file.type.split("/")[1].replace("jpeg", "jpg")
+    : "";
+
+  const nameExt = file.name.includes(".")
+    ? file.name.split(".").pop().toLowerCase()
+    : "";
+
+  const ext = (typeExt || nameExt || "jpg")
+    .replace(/[^a-z0-9]/g, "");
+
+  const base = file.name
+    .replace(/\.[^/.]+$/, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 32);
+
+  return `${Date.now()}-${base || fallback}.${ext}`;
+}
     async function uploadSingleImage(file, folder, fields) {
       if (!selectedVendorId || !file || !file.type.startsWith("image/")) { setStatus("Please choose a valid image file.", "err"); return; }
-      const fRef = ref(storage, `${folder}/${selectedVendorId}/${Date.now()}-${safeFileName(file.name)}`);
-      await uploadBytes(fRef, file);
+     const fileName = cleanUploadName(file);
+
+const fRef = ref(
+  storage,
+  `${folder}/${selectedVendorId}/${fileName}`
+);
+      await uploadBytes(fRef, file, {
+  contentType: file.type || "image/jpeg"
+});
       const url = await getDownloadURL(fRef);
       const upd = {};
       fields.forEach(f => upd[f] = url);
@@ -715,8 +743,12 @@ testimonialDateInput.value = selectedVendor.testimonials?.[0]?.date || "";
         uploadImagesBtn.disabled = true; uploadStatus.textContent = "Uploading…";
         const current = cleanArr(selectedVendor.images);
         const urls = [];
-        for (const f of files) { if (!f.type.startsWith("image/")) continue; const fRef = ref(storage, `vendor-gallery-images/${selectedVendorId}/${Date.now()}-${safeFileName(f.name)}`); await uploadBytes(fRef, f); urls.push(await getDownloadURL(fRef)); }
-        if (!urls.length) { uploadStatus.textContent = "No valid image files selected."; return; }
+        for (const f of files) { if (!f.type.startsWith("image/")) continue; const fileName = cleanUploadName(f);
+
+const fRef = ref(
+  storage,
+  `vendor-gallery-images/${selectedVendorId}/${fileName}`
+);
         const merged = [...current, ...urls];
         const upd = { images: merged, galleryImages: merged, imageUrls: merged };
         if (!selectedVendor.coverImageUrl) upd.coverImageUrl = merged[0] || "";
@@ -750,7 +782,9 @@ testimonialDateInput.value = selectedVendor.testimonials?.[0]?.date || "";
         uploadVideosBtn.disabled = true; videoUploadStatus.textContent = "Uploading…";
         const current = cleanArr(selectedVendor.videos);
         const urls = [];
-        for (const f of files) { if (!f.type.startsWith("video/")) continue; const fRef = ref(storage, `vendor-gallery-videos/${selectedVendorId}/${Date.now()}-${safeFileName(f.name)}`); await uploadBytes(fRef, f); urls.push(await getDownloadURL(fRef)); }
+        for (const f of files) { if (!f.type.startsWith("video/")) continue; const fRef = ref(storage, `vendor-gallery-videos/${selectedVendorId}/${Date.now()}-${safeFileName(f.name)}`); await uploadBytes(fRef, f, {
+  contentType: f.type || "image/jpeg"
+}); urls.push(await getDownloadURL(fRef)); }
         if (!urls.length) { videoUploadStatus.textContent = "No valid video files."; return; }
         await saveVendorUpdates({ videos: [...current, ...urls] });
         videoUploadInput.value = ""; videoUploadStatus.textContent = "Videos uploaded.";
