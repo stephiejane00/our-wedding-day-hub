@@ -695,8 +695,9 @@ testimonialDateInput.value = selectedVendor.testimonials?.[0]?.date || "";
       const updated = current.filter(i => i !== url);
       const updates = { [field]: updated };
       if (type === "image") {
-        updates.galleryImages = updated;
-        updates.imageUrls = updated;
+updates.galleryImages = updated;
+updates.imageUrls = updated;
+updates.media = updated;
         if (selectedVendor.coverImageUrl === url) updates.coverImageUrl = updated[0] || "";
       } else {
         updates.galleryVideos = updated;
