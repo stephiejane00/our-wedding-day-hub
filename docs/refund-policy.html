@@ -6,200 +6,234 @@
   <title>Refund Policy | Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
-    :root { --lux-espresso: #3b2f2a; --lux-rose: #c8a6a1; --lux-champagne: #c6a77d; --lux-cream: #fffaf7; --lux-blush: #f4e7df; --lux-border: rgba(216, 197, 189, 0.55); --lux-muted: #9b8579; --lux-shadow: rgba(59, 47, 42, 0.08); }
-    body { background: radial-gradient(circle at top left, rgba(200, 166, 161, 0.12), transparent 32%), #f7f1ed; }
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes heroFadeIn { from { opacity: 0; transform: scale(1.01); } to { opacity: 1; transform: scale(1); } }
-    .refund-page { max-width: 1200px; margin: 0 auto 60px; padding: 18px 20px 0; }
-    .refund-stack { display: grid; gap: 24px; }
-    .refund-hero-card { border-radius: 36px; border: 1px solid rgba(227, 219, 212, 0.9); box-shadow: 0 24px 70px var(--lux-shadow); background: radial-gradient(circle at top left, rgba(200, 166, 161, 0.18), transparent 34%), linear-gradient(135deg, #fffaf7, #f4ebe5); overflow: hidden; padding: 0; }
-    .refund-hero-grid { display: grid; grid-template-columns: 1.02fr 0.98fr; align-items: stretch; min-height: 520px; }
-    .refund-hero-copy { padding: 52px 48px; display: flex; flex-direction: column; justify-content: center; }
-    .refund-hero-copy > * { animation: fadeUp 0.8s ease forwards; opacity: 0; }
-    .refund-hero-copy > *:nth-child(1) { animation-delay: 0.05s; } .refund-hero-copy > *:nth-child(2) { animation-delay: 0.1s; } .refund-hero-copy > *:nth-child(3) { animation-delay: 0.18s; } .refund-hero-copy > *:nth-child(4) { animation-delay: 0.26s; } .refund-hero-copy > *:nth-child(5) { animation-delay: 0.34s; }
-    .refund-logo-wrap { display: inline-flex; align-items: center; justify-content: flex-start; margin-bottom: 20px; }
-    .refund-logo { width: 108px; display: block; transition: transform 0.3s ease; }
-    .refund-logo:hover { transform: scale(1.04); }
-    .refund-kicker { margin: 0 0 12px; font-size: 0.78rem; letter-spacing: 0.28em; text-transform: uppercase; color: #b08d7d; opacity: 0.85; }
-    .refund-title { margin: 0 0 14px; font-family: "Cormorant Garamond", serif; font-size: clamp(2.8rem, 4.5vw, 4rem); font-weight: 500; line-height: 0.96; letter-spacing: -0.045em; color: var(--lux-espresso); text-shadow: 0 10px 30px rgba(59, 47, 42, 0.08); }
-    .refund-script { margin: 0 0 18px; font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 1.3rem; color: #c69b84; opacity: 0.9; letter-spacing: 0.02em; }
-    .refund-intro { margin: 0; max-width: 480px; color: var(--lux-muted); line-height: 1.8; font-size: 0.97rem; }
-    .refund-hero-image-wrap { position: relative; overflow: hidden; min-height: 100%; background: #f4ece6; }
-    .refund-hero-image-wrap::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(59, 47, 42, 0.08), transparent 45%), radial-gradient(circle at top right, rgba(255, 250, 247, 0.14), transparent 38%); pointer-events: none; }
-    .refund-hero-image { width: 100%; height: 100%; display: block; object-fit: cover; filter: brightness(0.98) contrast(0.94) saturate(0.92); opacity: 0; animation: heroFadeIn 0.9s ease forwards; transition: transform 0.9s ease, filter 0.4s ease; }
-    .refund-hero-image-wrap:hover .refund-hero-image { transform: scale(1.035); filter: brightness(1) contrast(0.96) saturate(0.96); }
-    .trust-strip { text-align: center; padding: 16px 20px 6px; font-size: 0.82rem; letter-spacing: 0.12em; color: #9b8579; opacity: 0.7; }
-    .trust-strip p { margin: 0; }
-    .refund-promise-card { border-radius: 24px; background: linear-gradient(135deg, rgba(200,166,161,0.14), rgba(198,167,125,0.1)); border: 1px solid rgba(214, 190, 174, 0.8); box-shadow: 0 6px 18px var(--lux-shadow); padding: 32px 28px; text-align: center; transition: transform 0.28s ease, box-shadow 0.28s ease; }
-    .refund-promise-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(59, 47, 42, 0.1); }
-    .refund-promise-icon { font-size: 2rem; display: block; margin-bottom: 14px; opacity: 0.85; }
-    .refund-promise-card h2 { margin: 0 0 14px; font-family: "Cormorant Garamond", serif; font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 500; letter-spacing: -0.03em; color: var(--lux-espresso); }
-    .refund-promise-card p { margin: 0 auto 12px; max-width: 740px; color: #5b4a43; line-height: 1.85; font-size: 1rem; }
-    .refund-promise-card p:last-of-type { margin-bottom: 0; }
-    .refund-promise-strong { display: inline-block; margin-top: 18px; padding: 12px 22px; border-radius: 999px; background: linear-gradient(135deg, #d6b19a, #a97c66); color: #fffaf7; font-weight: 700; font-size: 0.92rem; letter-spacing: 0.04em; box-shadow: 0 8px 20px rgba(185, 143, 122, 0.22); }
-    .refund-policy-card { border-radius: 24px; background: rgba(255, 250, 247, 0.92); border: 1px solid rgba(223, 210, 200, 0.9); box-shadow: 0 6px 18px var(--lux-shadow); padding: 36px 32px; text-align: left; transition: box-shadow 0.28s ease; }
-    .refund-policy-card:hover { box-shadow: 0 16px 44px rgba(59, 47, 42, 0.1); }
-    .refund-policy-meta { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 999px; background: rgba(255, 250, 247, 0.9); color: #6f5143; border: 1px solid rgba(214, 190, 174, 0.8); font-size: 0.74rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 24px; }
-    .refund-policy-card h3 { margin: 28px 0 10px; font-family: "Cormorant Garamond", serif; font-size: 1.4rem; font-weight: 500; letter-spacing: -0.02em; color: var(--lux-espresso); }
-    .refund-policy-card h3:first-of-type { margin-top: 0; }
-    .refund-policy-card p { margin: 0 0 14px; color: #5b4a43; line-height: 1.85; font-size: 0.97rem; }
-    .refund-policy-card p:last-child { margin-bottom: 0; }
-    .refund-policy-card ul { margin: 0 0 16px 20px; padding: 0; color: #5b4a43; line-height: 1.85; font-size: 0.97rem; }
-    .refund-policy-card li { margin-bottom: 6px; }
-    .refund-highlight { padding: 20px 22px; border-radius: 20px; background: linear-gradient(180deg, rgba(247,241,237,0.9), rgba(244,235,229,0.95)); border: 1px solid rgba(223, 210, 200, 0.7); margin: 16px 0 20px; display: grid; gap: 12px; }
-    .refund-highlight p { margin: 0 !important; font-size: 0.95rem; }
-    .refund-divider { height: 1px; background: linear-gradient(90deg, rgba(200,166,161,0.3), transparent); margin: 8px 0 4px; border: none; }
-    .refund-contact-card { border-radius: 24px; background: linear-gradient(135deg, rgba(200,166,161,0.1), rgba(198,167,125,0.08)); border: 1px solid rgba(214, 190, 174, 0.8); box-shadow: 0 6px 18px var(--lux-shadow); padding: 32px 28px; transition: transform 0.28s ease, box-shadow 0.28s ease; }
-    .refund-contact-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(59, 47, 42, 0.1); }
-    .refund-contact-card h2 { margin: 0 0 12px; font-family: "Cormorant Garamond", serif; font-size: clamp(1.7rem, 2.5vw, 2.2rem); font-weight: 500; letter-spacing: -0.03em; color: var(--lux-espresso); }
-    .refund-contact-card p { margin: 0 0 12px; color: var(--lux-muted); line-height: 1.8; font-size: 0.97rem; }
-    .refund-cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
-    .btn-primary { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 12px 22px; border-radius: 999px; text-decoration: none; background: linear-gradient(135deg, #d6b19a, #a97c66); color: #fffaf7; font-weight: 700; font-size: 0.92rem; letter-spacing: 0.04em; box-shadow: 0 10px 24px rgba(185, 143, 122, 0.22); transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease; }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 34px rgba(185, 143, 122, 0.28); filter: brightness(1.04); }
-    .btn-secondary { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 12px 22px; border-radius: 999px; text-decoration: none; background: rgba(255, 250, 247, 0.95); border: 1px solid rgba(223, 210, 200, 0.9); color: var(--lux-espresso); font-weight: 600; font-size: 0.92rem; transition: transform 0.18s ease, background 0.18s ease; }
-    .btn-secondary:hover { background: var(--lux-blush); transform: translateY(-2px); }
-    .site-footer { background: radial-gradient(circle at top, rgba(200, 166, 161, 0.16), transparent 36%), linear-gradient(180deg, #f5eee9 0%, #eee5df 100%); }
-    .footer-title { color: var(--lux-espresso); letter-spacing: -0.035em; }
-    .footer-eyebrow { color: #b08d7d; }
+    /* ── TOKENS ── */
+    :root {
+      --ink:        #1A1A16;
+      --ink-mid:    #4A4A44;
+      --ink-muted:  #8A8A82;
+      --ink-ghost:  #C0C0B8;
+      --ink-rule:   #DDDDD8;
+      --cream:      #FAFAF8;
+      --cream-warm: #F4F0EA;
+      --cream-deep: #EDE8E0;
+      --gold:       #9A7A5A;
+      --gold-light: #C4A882;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans:  'Plus Jakarta Sans', 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--cream); font-family: var(--font-sans); color: var(--ink); -webkit-font-smoothing: antialiased; }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ── TOPBAR ── */
     .site-topbar {
-  background: radial-gradient(circle at top left, rgba(200,166,161,0.18), transparent 34%),
-    linear-gradient(135deg, #fffaf7, #f4ebe5);
-  border-bottom: 1px solid rgba(223,210,200,0.9);
-  box-shadow: 0 6px 24px rgba(59,47,42,0.08);
-  padding: 0 34px;
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  min-height: 72px;
-  position: sticky;
-  top: 0;
-  z-index: 200;
-  flex-wrap: wrap;
-}
+      background: var(--cream); border-bottom: 1px solid var(--ink-rule);
+      padding: 0 36px; display: flex; align-items: center; gap: 20px;
+      min-height: 64px; position: sticky; top: 0; z-index: 200;
+    }
+    .site-topbar-logo-wrap { display: inline-flex; align-items: center; }
+    .site-topbar-logo { width: 44px; height: 44px; object-fit: contain; }
+    .site-topbar-title { flex: 1; }
+    .site-topbar-title h1 { font-family: var(--font-serif); font-size: 1.05rem; font-weight: 400; letter-spacing: 0.01em; color: var(--ink); }
+    .site-topbar-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .site-topbar-link, .site-topbar-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 34px; padding: 6px 14px; font-family: var(--font-sans);
+      font-size: 0.75rem; letter-spacing: 0.06em; text-decoration: none; white-space: nowrap; transition: all 0.2s ease;
+    }
+    .site-topbar-link { color: var(--ink-muted); border: none; background: none; }
+    .site-topbar-link:hover { color: var(--ink); }
+    .site-topbar-btn { background: var(--ink); color: var(--cream); font-weight: 600; border: none; cursor: pointer; }
+    .site-topbar-btn:hover { background: var(--ink-mid); }
 
-.site-topbar-logo-wrap {
-  display: inline-flex;
-  align-items: center;
-}
+    /* ── HERO ── */
+    .refund-hero {
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: stretch; border-bottom: 1px solid var(--ink);
+    }
+    .refund-hero-copy {
+      padding: 48px 40px 40px; display: flex; flex-direction: column;
+      justify-content: space-between; border-right: 1px solid var(--ink-rule);
+    }
+    .refund-hero-copy > * { animation: fadeUp 0.7s ease forwards; opacity: 0; }
+    .refund-hero-copy > *:nth-child(1) { animation-delay: 0.05s; }
+    .refund-hero-copy > *:nth-child(2) { animation-delay: 0.12s; }
+    .refund-hero-copy > *:nth-child(3) { animation-delay: 0.2s; }
+    .refund-hero-copy > *:nth-child(4) { animation-delay: 0.3s; }
+    .refund-hero-copy > *:nth-child(5) { animation-delay: 0.38s; }
 
-.site-topbar-logo {
-  width: 52px;
-  height: 52px;
-  object-fit: contain;
-}
+    .refund-logo { width: 80px; opacity: 0.9; display: block; }
+    .refund-kicker { font-family: var(--font-sans); font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-ghost); }
+    .refund-title { font-family: var(--font-serif); font-size: clamp(2.2rem, 3.8vw, 3.4rem); font-weight: 300; line-height: 0.95; letter-spacing: -0.03em; color: var(--ink); }
+    .refund-script { font-family: var(--font-serif); font-style: italic; font-size: 1.15rem; color: var(--gold); letter-spacing: 0.01em; }
+    .refund-intro { font-family: var(--font-sans); font-size: 0.88rem; color: var(--ink-muted); line-height: 1.75; max-width: 420px; }
 
-.site-topbar-title {
-  flex: 1;
-}
+    .refund-hero-image-wrap {
+      position: relative; overflow: hidden; background: var(--cream-deep);
+      min-height: clamp(380px, 46vw, 580px);
+    }
+    .refund-hero-image { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform 0.9s ease; }
+    .refund-hero-image-wrap:hover .refund-hero-image { transform: scale(1.025); }
 
-.site-topbar-title h1 {
-  margin: 0;
-  font-family: "Cormorant Garamond", serif;
-  font-size: 1.15rem;
-  font-weight: 500;
-  letter-spacing: -0.01em;
-  color: #3b2f2a;
-}
+    /* ── TRUST STRIP ── */
+    .trust-strip { display: flex; border-bottom: 1px solid var(--ink-rule); }
+    .trust-strip span {
+      flex: 1; text-align: center; padding: 10px 16px;
+      font-family: var(--font-sans); font-size: 0.68rem; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--ink-ghost);
+      border-right: 1px solid var(--ink-rule);
+    }
+    .trust-strip span:last-child { border-right: none; }
 
-.site-topbar-actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
+    /* ── SECTION SCAFFOLDING ── */
+    .section-head {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      padding: 36px 36px 0; border-top: 1px solid var(--ink); gap: 16px;
+    }
+    .section-kicker { font-family: var(--font-sans); font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-ghost); margin-bottom: 5px; }
+    .section-title { font-family: var(--font-serif); font-size: 1.7rem; font-weight: 300; letter-spacing: -0.02em; color: var(--ink); line-height: 1; }
+    .section-script { font-family: var(--font-serif); font-style: italic; font-size: 1rem; color: var(--gold); display: block; margin-top: 2px; }
 
-.site-topbar-link,
-.site-topbar-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 38px;
-  padding: 7px 14px;
-  border-radius: 999px;
-  font-size: 0.8rem;
-  text-decoration: none;
-  white-space: nowrap;
-}
+    /* ── PROMISE ── */
+    .refund-promise { border-bottom: 1px solid var(--ink-rule); }
+    .refund-promise-inner {
+      display: grid; grid-template-columns: auto 1fr;
+      gap: 0; background: var(--ink-rule); margin-top: 20px;
+    }
+    .refund-promise-accent { background: var(--ink); padding: 36px 32px; display: flex; flex-direction: column; justify-content: center; align-items: center; min-width: 120px; }
+    .refund-promise-icon { font-family: var(--font-serif); font-size: 2rem; color: var(--cream); opacity: 0.5; }
+    .refund-promise-copy { background: var(--cream-warm); padding: 32px 36px; }
+    .refund-promise-copy h2 { font-family: var(--font-serif); font-size: 1.6rem; font-weight: 300; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 12px; }
+    .refund-promise-copy p { font-family: var(--font-sans); font-size: 0.88rem; color: var(--ink-mid); line-height: 1.8; margin-bottom: 10px; }
+    .refund-promise-copy p:last-of-type { margin-bottom: 0; }
+    .refund-promise-strong {
+      display: inline-block; margin-top: 16px;
+      font-family: var(--font-sans); font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--cream); background: var(--ink); padding: 8px 16px;
+    }
 
-.site-topbar-link {
-  background: rgba(255,250,247,0.9);
-  border: 1px solid rgba(223,210,200,0.9);
-  color: #3b2f2a;
-}
+    /* ── POLICY BODY ── */
+    .refund-policy { border-bottom: 1px solid var(--ink-rule); }
+    .refund-meta-bar {
+      background: var(--cream-deep); padding: 12px 36px;
+      border-bottom: 0.5px solid var(--ink-rule);
+      font-family: var(--font-sans); font-size: 0.68rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--ink-ghost);
+    }
+    .refund-policy-body { padding: 36px 36px 40px; }
 
-.site-topbar-btn {
-  border: none;
-  background: linear-gradient(135deg, #d6b19a, #a97c66);
-  color: #fffaf7;
-  font-weight: 700;
-}
+    .refund-policy-body h3 {
+      font-family: var(--font-serif); font-size: 1.2rem; font-weight: 400;
+      letter-spacing: -0.01em; color: var(--ink); margin: 32px 0 10px;
+      padding-top: 28px; border-top: 0.5px solid var(--ink-rule);
+    }
+    .refund-policy-body h3:first-child { margin-top: 0; padding-top: 0; border-top: none; }
 
-.site-topbar-link:hover,
-.site-topbar-btn:hover {
-  transform: translateY(-1px);
-}
+    .refund-policy-body p {
+      font-family: var(--font-sans); font-size: 0.86rem; color: var(--ink-muted);
+      line-height: 1.85; margin-bottom: 12px;
+    }
+    .refund-policy-body p:last-child { margin-bottom: 0; }
 
-@media (max-width: 700px) {
-  .site-topbar {
-    padding: 12px 16px;
-    gap: 14px;
-    justify-content: center;
-  }
+    .refund-policy-body ul { margin: 0 0 14px 0; padding: 0; list-style: none; }
+    .refund-policy-body ul li {
+      font-family: var(--font-sans); font-size: 0.86rem; color: var(--ink-muted);
+      line-height: 1.8; padding: 4px 0 4px 16px; position: relative;
+    }
+    .refund-policy-body ul li::before { content: '—'; position: absolute; left: 0; color: var(--ink-ghost); font-size: 0.8rem; }
 
-  .site-topbar-logo {
-    width: 42px;
-    height: 42px;
-  }
+    .refund-highlight {
+      background: var(--cream-warm); padding: 20px 22px;
+      border-left: 2px solid var(--gold-light); margin: 16px 0 20px;
+      display: grid; gap: 10px;
+    }
+    .refund-highlight p { margin: 0 !important; font-size: 0.84rem !important; }
 
-  .site-topbar-title {
-    flex: unset;
-  }
+    .refund-divider { display: none; }
 
-  .site-topbar-title h1 {
-    font-size: 0.95rem;
-    text-align: center;
-  }
+    /* ── CONTACT ── */
+    .refund-contact { border-bottom: 1px solid var(--ink-rule); }
+    .refund-contact-inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0; background: var(--ink-rule); margin-top: 20px;
+    }
+    .refund-contact-copy { background: var(--cream); padding: 36px; }
+    .refund-contact-copy h2 { font-family: var(--font-serif); font-size: 1.6rem; font-weight: 300; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 12px; }
+    .refund-contact-copy p { font-family: var(--font-sans); font-size: 0.86rem; color: var(--ink-muted); line-height: 1.8; margin-bottom: 10px; }
+    .refund-contact-copy p:last-of-type { margin-bottom: 0; }
+    .refund-cta-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+    .refund-contact-aside { background: var(--cream-warm); padding: 36px; display: flex; flex-direction: column; justify-content: center; }
+    .refund-contact-aside-label { font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-ghost); margin-bottom: 10px; }
+    .refund-contact-aside-quote { font-family: var(--font-serif); font-style: italic; font-size: 1.2rem; color: var(--ink-mid); line-height: 1.6; }
 
-  .site-topbar-actions {
-    width: 100%;
-    justify-content: center;
-    gap: 10px;
-  }
+    /* Buttons */
+    .btn-primary { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 10px 22px; font-family: var(--font-sans); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cream); background: var(--ink); text-decoration: none; border: none; transition: background 0.2s; cursor: pointer; }
+    .btn-primary:hover { background: var(--ink-mid); }
+    .btn-secondary { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 10px 22px; font-family: var(--font-sans); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink); background: none; text-decoration: none; border: 0.5px solid var(--ink-rule); transition: all 0.2s; }
+    .btn-secondary:hover { background: var(--cream-warm); border-color: var(--ink-muted); }
 
-  .site-topbar-link,
-  .site-topbar-btn {
-    min-height: 36px;
-    padding: 6px 14px;
-    font-size: 0.78rem;
-  }
-}
-    @media (max-width: 980px) { .refund-hero-grid { grid-template-columns: 1fr; } .refund-hero-copy { padding: 36px 28px; } }
-    @media (max-width: 700px) { .refund-page { padding: 10px 10px 0; } .refund-hero-copy { padding: 28px 18px; } .refund-title { font-size: 2.6rem; } .refund-policy-card { padding: 28px 20px; } }
-    
-</style>
+    /* ── FOOTER ── */
+    .site-footer { background: var(--ink); border-top: 1px solid var(--ink-mid); }
+    .footer-content { padding: 40px 36px 32px; display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: start; }
+    .footer-logo-col { display: flex; flex-direction: column; gap: 6px; }
+    .footer-eyebrow { font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-muted); }
+    .footer-title { font-family: var(--font-serif); font-size: 1.4rem; font-weight: 300; color: var(--cream); letter-spacing: -0.02em; margin: 4px 0 6px; }
+    .footer-text { font-family: var(--font-sans); font-size: 0.78rem; color: var(--ink-muted); line-height: 1.6; max-width: 360px; }
+    .footer-tagline { font-family: var(--font-serif); font-style: italic; font-size: 0.95rem; color: var(--gold-light); margin-top: 16px; }
+    .footer-abn { font-family: var(--font-sans); font-size: 0.68rem; color: var(--ink-muted); margin-top: 4px; }
+    .footer-links-col { display: flex; flex-direction: column; gap: 10px; align-items: flex-end; }
+    .footer-links { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
+    .footer-links a { font-family: var(--font-sans); font-size: 0.72rem; letter-spacing: 0.06em; color: var(--ink-muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--cream); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 980px) {
+      .refund-hero { grid-template-columns: 1fr; }
+      .refund-hero-copy { border-right: none; border-bottom: 1px solid var(--ink-rule); }
+      .refund-hero-image-wrap { min-height: 300px; }
+      .refund-promise-inner { grid-template-columns: 1fr; }
+      .refund-promise-accent { min-width: unset; flex-direction: row; padding: 20px 28px; }
+      .refund-contact-inner { grid-template-columns: 1fr; }
+      .footer-content { grid-template-columns: 1fr; gap: 24px; }
+      .footer-links-col { align-items: flex-start; }
+      .footer-links { align-items: flex-start; }
+    }
+    @media (max-width: 700px) {
+      .site-topbar { padding: 0 16px; min-height: 56px; }
+      .refund-hero-copy { padding: 28px 20px; }
+      .refund-hero-image-wrap { min-height: 260px; }
+      .refund-policy-body { padding: 24px 20px 28px; }
+      .refund-promise-copy, .refund-contact-copy, .refund-contact-aside { padding: 24px 20px; }
+      .section-head { padding: 24px 20px 0; flex-wrap: wrap; gap: 6px; }
+      .refund-meta-bar { padding: 12px 20px; }
+      .trust-strip { display: none; }
+      .footer-content { padding: 28px 20px 24px; }
+    }
+  </style>
 </head>
 <body>
+
+<!-- ── TOPBAR ── -->
 <header class="site-topbar">
   <a href="index.html" class="site-topbar-logo-wrap" aria-label="Go to homepage">
     <img src="images/logo1.png" alt="Our Wedding Day Hub" class="site-topbar-logo">
   </a>
-
-  <div class="site-topbar-title">
-    <h1>Our Wedding Day Hub</h1>
-  </div>
-
+  <div class="site-topbar-title"><h1>Our Wedding Day Hub</h1></div>
   <nav class="site-topbar-actions">
     <a href="categories.html" class="site-topbar-link">Categories</a>
     <a href="shop.html" class="site-topbar-link">Boutique</a>
-
     <a href="messages.html" id="messagesLink" class="site-topbar-link" style="display:none; position:relative;">
       Messages
-      <span id="msgNavBadge" style="display:none; position:absolute; top:-6px; right:-10px; background:linear-gradient(135deg,#d6b19a,#a97c66); color:#fffaf7; font-size:0.68rem; font-weight:700; padding:2px 6px; border-radius:999px; line-height:1.2; min-width:18px; text-align:center;">0</span>
+      <span id="msgNavBadge" style="display:none; position:absolute; top:-6px; right:-10px; background:var(--ink); color:var(--cream); font-size:0.64rem; font-weight:700; padding:2px 6px; border-radius:999px; line-height:1.2; min-width:18px; text-align:center;">0</span>
     </a>
-
     <a href="login.html" id="loginLink" class="site-topbar-link">Log In</a>
     <a href="signup.html" id="joinLink" class="site-topbar-btn">Join</a>
     <a href="dashboard.html" id="dashboardLink" class="site-topbar-link" style="display:none;">Dashboard</a>
@@ -207,46 +241,72 @@
   </nav>
 </header>
 
-<main class="refund-page">
-  <div class="refund-stack">
-    <section class="refund-hero-card">
-      <div class="refund-hero-grid">
-        <div class="refund-hero-copy">
-          <a href="index.html" class="refund-logo-wrap" aria-label="Go to homepage">
-            <img src="images/logo1.png" alt="Our Wedding Day Hub" class="refund-logo" loading="lazy">
-          </a>
-          <p class="refund-kicker">Refund Policy</p>
-          <h1 class="refund-title">Refund Policy</h1>
-          <p class="refund-script">we want you to feel confident ♡</p>
-          <p class="refund-intro">We want every vendor to feel confident joining Our Wedding Day Hub. This policy explains how our refund process works, what is covered, and how to request a refund if you need one.</p>
-        </div>
-        <div class="refund-hero-image-wrap">
-          <img src="images/carcouple.jpg" alt="Wedding planning editorial" class="refund-hero-image" loading="lazy">
-        </div>
-      </div>
-    </section>
+<main>
 
-    <section class="trust-strip">
-      <p>Trusted by wedding vendors across Australia &amp; worldwide • Proudly independent • Built with heart</p>
-    </section>
-
-    <div class="refund-promise-card">
-      <span class="refund-promise-icon">✦</span>
-      <h2>Our 60 Day Satisfaction Guarantee</h2>
-      <p>We believe in what we've built, and we want you to feel comfortable trying it. If you join as a vendor and decide within your first 60 days that the subscription isn't right for you, we will refund your first two months of subscription fees.</p>
-      <p>This gives you a genuine opportunity to experience the platform, build your profile, and see how it feels for your business — without the pressure of committing to something long term before you're ready.</p>
-      <span class="refund-promise-strong">✦ 60 day guarantee on your subscription</span>
+  <!-- ── HERO ── -->
+  <section class="refund-hero">
+    <div class="refund-hero-copy">
+      <a href="index.html" aria-label="Go to homepage">
+        <img src="images/logo1.png" alt="Our Wedding Day Hub" class="refund-logo" loading="eager">
+      </a>
+      <p class="refund-kicker">Refund Policy</p>
+      <h1 class="refund-title">Refund Policy</h1>
+      <p class="refund-script">we want you to feel confident ♡</p>
+      <p class="refund-intro">We want every vendor to feel confident joining Our Wedding Day Hub. This policy explains how our refund process works, what is covered, and how to request a refund if you need one.</p>
     </div>
+    <div class="refund-hero-image-wrap">
+      <img src="images/carcouple.jpg" alt="Wedding planning editorial" class="refund-hero-image" loading="lazy">
+    </div>
+  </section>
 
-    <section class="refund-policy-card">
-      <span class="refund-policy-meta">✦ Effective Date: 20 March 2026</span>
+  <!-- ── TRUST STRIP ── -->
+  <div class="trust-strip">
+    <span>Trusted across Australia &amp; worldwide</span>
+    <span>Proudly independent</span>
+    <span>Built with heart</span>
+    <span>Proudly inclusive</span>
+  </div>
+
+  <!-- ── PROMISE ── -->
+  <section class="refund-promise">
+    <div class="section-head">
+      <div>
+        <p class="section-kicker">Our Guarantee</p>
+        <h2 class="section-title">60 day satisfaction guarantee</h2>
+        <span class="section-script">join with confidence ♡</span>
+      </div>
+    </div>
+    <div class="refund-promise-inner">
+      <div class="refund-promise-accent">
+        <span class="refund-promise-icon">✦</span>
+      </div>
+      <div class="refund-promise-copy">
+        <h2>Our 60 Day Satisfaction Guarantee</h2>
+        <p>We believe in what we've built, and we want you to feel comfortable trying it. If you join as a vendor and decide within your first 60 days that the subscription isn't right for you, we will refund your first two months of subscription fees.</p>
+        <p>This gives you a genuine opportunity to experience the platform, build your profile, and see how it feels for your business — without the pressure of committing to something long term before you're ready.</p>
+        <span class="refund-promise-strong">✦ 60 day guarantee on your subscription</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── POLICY BODY ── -->
+  <section class="refund-policy">
+    <div class="section-head">
+      <div>
+        <p class="section-kicker">Refund Policy</p>
+        <h2 class="section-title">Full policy details</h2>
+      </div>
+    </div>
+    <div class="refund-meta-bar">Effective Date: 20 March 2026</div>
+    <div class="refund-policy-body">
+
       <h3>1. Overview</h3>
       <p>This Refund Policy applies to vendor subscriptions purchased through Our Wedding Day Hub. It explains what fees are refundable, under what conditions a refund may be granted, and how to request one.</p>
-      <hr class="refund-divider">
+
       <h3>2. Setup Fee</h3>
       <p>The one-off vendor account setup fee is <strong>non-refundable</strong> in all circumstances.</p>
       <p>This fee covers the cost of creating and activating your vendor account, setting up your profile space, and onboarding your business to the platform. This work is performed at the time of account creation regardless of whether you continue using the platform, and so this fee cannot be returned once paid.</p>
-      <hr class="refund-divider">
+
       <h3>3. Subscription Fees — 60 Day Guarantee</h3>
       <p>Vendor subscription fees are eligible for a refund under our 60 day satisfaction guarantee:</p>
       <div class="refund-highlight">
@@ -255,11 +315,11 @@
         <p>To be eligible, your refund request must be submitted within 60 days of your subscription start date.</p>
         <p>Refunds will be issued to the original payment method where possible. Processing times may vary depending on your bank or payment provider.</p>
       </div>
-      <hr class="refund-divider">
+
       <h3>4. Subscription Fees After 60 Days</h3>
       <p>Subscription fees paid outside of the 60 day guarantee window are generally non-refundable. If you cancel your subscription after 60 days, your subscription will remain active until the end of the current billing period and will not renew after that point.</p>
       <p>We do not offer partial refunds for unused time within a billing period unless required by applicable law.</p>
-      <hr class="refund-divider">
+
       <h3>5. How to Request a Refund</h3>
       <p>To request a refund, please contact us through the website contact form within 60 days of your subscription start date. Please include:</p>
       <ul>
@@ -268,55 +328,77 @@
         <li>a brief note confirming you are requesting a refund under the 60 day guarantee.</li>
       </ul>
       <p>We will review your request and respond as promptly as possible. Approved refunds will be processed to the original payment method where available.</p>
-      <hr class="refund-divider">
+
       <h3>6. Subscription Cancellation</h3>
       <p>You may cancel your subscription at any time by contacting us. Cancellation means your subscription will not renew at the end of the current billing cycle. Your listing will remain active until the end of the period already paid for.</p>
-      <hr class="refund-divider">
+
       <h3>7. Australian Consumer Law</h3>
       <p>Nothing in this Refund Policy limits or excludes any rights you may have under the Australian Consumer Law or other applicable legislation where those rights cannot be excluded.</p>
-      <hr class="refund-divider">
+
       <h3>8. Changes to This Policy</h3>
       <p>We may update this Refund Policy from time to time. Any updates will be published on this page and will apply going forward. We encourage you to review it periodically.</p>
-      <hr class="refund-divider">
+
       <h3>9. Contact</h3>
       <p>If you have any questions about this policy or would like to request a refund, please get in touch through the contact page on the website.</p>
-    </section>
 
-    <section class="refund-contact-card">
-      <span style="display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:999px;background:rgba(255,250,247,0.9);color:#6f5143;border:1px solid rgba(214,190,174,0.8);font-size:0.74rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:16px;">✦ Need help?</span>
-      <h2>Questions or refund requests?</h2>
-      <p>If you'd like to request a refund or have any questions about this policy, please contact us and we'll respond as soon as we can.</p>
-      <p>We want every vendor to feel good about joining, and we'll always do our best to help.</p>
-      <div class="refund-cta-row">
-        <a href="contact.html" class="btn-primary">Contact Us</a>
-        <a href="pricing.html" class="btn-secondary">View Pricing</a>
+    </div>
+  </section>
+
+  <!-- ── CONTACT ── -->
+  <section class="refund-contact">
+    <div class="section-head">
+      <div>
+        <p class="section-kicker">Need Help?</p>
+        <h2 class="section-title">Questions or refund requests?</h2>
       </div>
-    </section>
-  </div>
+    </div>
+    <div class="refund-contact-inner">
+      <div class="refund-contact-copy">
+        <h2>Questions or refund requests?</h2>
+        <p>If you'd like to request a refund or have any questions about this policy, please contact us and we'll respond as soon as we can.</p>
+        <p>We want every vendor to feel good about joining, and we'll always do our best to help.</p>
+        <div class="refund-cta-row">
+          <a href="contact.html" class="btn-primary">Contact us →</a>
+          <a href="pricing.html" class="btn-secondary">View Pricing</a>
+        </div>
+      </div>
+      <div class="refund-contact-aside">
+        <p class="refund-contact-aside-label">Our commitment</p>
+        <p class="refund-contact-aside-quote">"We want every vendor to feel good about joining, and we'll always do our best to help."</p>
+      </div>
+    </div>
+  </section>
+
 </main>
 
+<!-- ── FOOTER ── -->
 <footer class="site-footer">
   <div class="footer-content">
-    <a href="index.html" aria-label="Go to homepage" style="display:inline-block; margin-bottom:18px;">
-      <img src="images/logo1.png" alt="Our Wedding Day Hub" style="width:72px; height:72px; object-fit:contain; opacity:0.7;">
-    </a>
-    <p class="footer-eyebrow">wedding planning directory</p>
-    <h2 class="footer-title">Everything your wedding deserves.</h2>
-    <p class="footer-text">Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.</p>
-    <div class="footer-links">
-      <a href="about.html">About Us</a>
-      <a href="how-it-works.html">How It Works</a>
-      <a href="pricing.html">Pricing</a>
-      <a href="contact.html">Contact Us</a>
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="terms.html">Terms &amp; Conditions</a>
-      <a href="refund-policy.html">Refund Policy</a>
-      <a href="https://www.equaldex.com/equality-index" target="_blank" rel="noopener noreferrer">Global Equality Index</a>
-      <a href="#" onclick="return false;">Events4Us (Coming Soon)</a>
+    <div class="footer-logo-col">
+      <a href="index.html" aria-label="Go to homepage">
+        <img src="images/logo1.png" alt="Our Wedding Day Hub" style="width:52px; height:52px; object-fit:contain; opacity:0.5; margin-bottom:6px;">
+      </a>
+      <p class="footer-eyebrow">Wedding planning directory</p>
+      <h2 class="footer-title">Everything your wedding deserves.</h2>
+      <p class="footer-text">Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.</p>
+      <p class="footer-tagline">everything your wedding day deserves. ♡</p>
+      <p class="footer-abn">© 2026 Our Wedding Day Hub</p>
+      <p class="footer-abn">ABN 76 688 637 041 • Australia</p>
     </div>
-    <p class="footer-tagline">Proudly inclusive • Worldwide • Built with heart</p>
-    <p class="footer-abn">© 2026 Our Wedding Day Hub</p>
-    <p class="footer-abn">ABN 76 688 637 041 • Australia</p>
+    <div class="footer-links-col">
+      <div class="footer-links">
+        <a href="about.html">About Us</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="refund-policy.html">Refund Policy</a>
+        <a href="https://www.equaldex.com/equality-index" target="_blank" rel="noopener noreferrer">Global Equality Index</a>
+        <a href="#" onclick="return false;">Events4Us (Coming Soon)</a>
+      </div>
+      <p style="font-family:var(--font-sans); font-size:0.65rem; color:var(--ink-muted); margin-top:12px; letter-spacing:0.06em;">Proudly inclusive • Worldwide • Built with heart</p>
+    </div>
   </div>
 </footer>
 
