@@ -6,789 +6,397 @@
   <title>Join | Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
-<style>
-  :root {
-    --ink:#1A1A16;
-    --ink-mid:#4A4A44;
-    --ink-muted:#8A8A82;
-    --ink-ghost:#C0C0B8;
-    --ink-rule:#DDDDD8;
-    --cream:#FAFAF8;
-    --cream-warm:#F4F0EA;
-    --cream-deep:#EDE8E0;
-    --gold:#9A7A5A;
-    --gold-light:#C4A882;
-    --font-serif:'Cormorant Garamond', Georgia, serif;
-    --font-sans:'Plus Jakarta Sans','Helvetica Neue',Arial,sans-serif;
-  }
-
-  *,*::before,*::after{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-  }
-
-  html{
-    scroll-behavior:smooth;
-  }
-
-  body{
-    background:var(--cream);
-    font-family:var(--font-sans);
-    color:var(--ink);
-    -webkit-font-smoothing:antialiased;
-  }
-
-  @keyframes fadeUp{
-    from{
-      opacity:0;
-      transform:translateY(12px);
-    }
-    to{
-      opacity:1;
-      transform:translateY(0);
-    }
-  }
-
-  .signup-page{
-    max-width:100%;
-    margin:0;
-    padding:0 0 56px;
-  }
-
-  .signup-stack{
-    display:block;
-  }
-
-  .signup-hero-card{
-    border:none;
-    border-radius:0;
-    background:var(--cream);
-    overflow:hidden;
-    box-shadow:none;
-    margin:0;
-    border-bottom:1px solid var(--ink);
-  }
-
-  .signup-hero-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    align-items:stretch;
-    min-height:560px;
-  }
-
-  .signup-hero-copy{
-    padding:48px 40px 40px;
-    display:flex;
-    flex-direction:column;
-    justify-content:space-between;
-    border-right:1px solid var(--ink-rule);
-  }
-
-  .signup-hero-copy>*{
-    animation:fadeUp .7s ease forwards;
-    opacity:0;
-  }
-
-  .signup-hero-copy>*:nth-child(1){animation-delay:.05s}
-  .signup-hero-copy>*:nth-child(2){animation-delay:.12s}
-  .signup-hero-copy>*:nth-child(3){animation-delay:.2s}
-  .signup-hero-copy>*:nth-child(4){animation-delay:.3s}
-  .signup-hero-copy>*:nth-child(5){animation-delay:.38s}
-
-  .signup-logo-wrap{
-    display:inline-block;
-  }
-
-  .signup-logo{
-    width:80px;
-    opacity:.9;
-  }
-
-  .signup-kicker{
-    font-family:var(--font-sans);
-    font-size:.68rem;
-    letter-spacing:.22em;
-    text-transform:uppercase;
-    color:var(--ink-ghost);
-    margin-bottom:0;
-  }
-
-  .signup-title{
-    margin:12px 0 6px;
-    font-family:var(--font-serif);
-    font-size:clamp(2.5rem,4vw,4rem);
-    font-weight:300;
-    line-height:.95;
-    letter-spacing:-.04em;
-    color:var(--ink);
-    text-shadow:none;
-  }
-
-  .signup-script{
-    font-family:var(--font-serif);
-    font-style:italic;
-    font-size:1.2rem;
-    color:var(--gold);
-    margin-bottom:0;
-  }
-
-  .signup-intro{
-    max-width:460px;
-    color:var(--ink-muted);
-    line-height:1.8;
-    font-size:.88rem;
-  }
-
-  .signup-hero-image-wrap{
-    position:relative;
-    overflow:hidden;
-    background:var(--cream-deep);
-    min-height:100%;
-  }
-
-  .signup-hero-image-wrap::after{
-    display:none;
-  }
-
-  .signup-hero-image{
-    width:100%;
-    height:100%;
-    display:block;
-    object-fit:cover;
-    filter:none;
-    transition:transform .8s ease;
-  }
-
-  .signup-hero-image-wrap:hover .signup-hero-image{
-    transform:scale(1.025);
-  }
-
-  .trust-strip{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    padding:12px 20px;
-    border-bottom:1px solid var(--ink-rule);
-  }
-
-  .trust-strip p{
-    font-family:var(--font-sans);
-    font-size:.68rem;
-    letter-spacing:.14em;
-    text-transform:uppercase;
-    color:var(--ink-ghost);
-  }
-
-  .signup-content-grid{
-    display:grid;
-    grid-template-columns:.92fr 1.08fr;
-    gap:0;
-    background:var(--ink-rule);
-    border-bottom:1px solid var(--ink-rule);
-  }
-
-  .signup-info-card,
-  .signup-form-card{
-    border:none;
-    border-radius:0;
-    background:var(--cream);
-    box-shadow:none;
-    padding:40px 36px;
-    transition:none;
-  }
-
-  .signup-info-card:hover,
-  .signup-form-card:hover{
-    transform:none;
-    box-shadow:none;
-    border-color:transparent;
-  }
-
-  .signup-form-card{
-    border-left:1px solid var(--ink-rule);
-  }
-
-  .signup-mini-badge{
-    display:inline-flex;
-    align-items:center;
-    gap:6px;
-    padding:0;
-    border:none;
-    background:none;
-    color:var(--ink-ghost);
-    font-size:.65rem;
-    font-weight:700;
-    letter-spacing:.16em;
-    text-transform:uppercase;
-    margin-bottom:14px;
-  }
-
-  .signup-info-card h2,
-  .signup-form-card h2{
-    margin:0 0 10px;
-    font-family:var(--font-serif);
-    font-size:2rem;
-    font-weight:300;
-    letter-spacing:-.03em;
-    color:var(--ink);
-  }
-
-  .signup-info-card p,
-  .signup-form-card > p{
-    margin:0 0 14px;
-    line-height:1.8;
-    color:var(--ink-muted);
-    font-size:.88rem;
-  }
-
-  .signup-points{
-    display:grid;
-    gap:0;
-    margin-top:22px;
-    background:var(--ink-rule);
-  }
-
-  .signup-point{
-    padding:18px 20px;
-    background:var(--cream-warm);
-    border-top:1px solid var(--ink-rule);
-    color:var(--ink-muted);
-    line-height:1.75;
-    font-size:.84rem;
-    transition:none;
-  }
-
-  .signup-point:hover{
-    background:var(--cream-warm);
-    border-color:var(--ink-rule);
-  }
-
-  .signup-point strong{
-    display:block;
-    margin-bottom:4px;
-    color:var(--ink);
-    font-size:.7rem;
-    letter-spacing:.14em;
-    text-transform:uppercase;
-    font-family:var(--font-sans);
-  }
-
-  .signup-form{
-    display:grid;
-    gap:16px;
-    margin-top:22px;
-  }
-
-  .signup-form label{
-    display:block;
-    margin-bottom:8px;
-    font-weight:600;
-    font-size:.72rem;
-    letter-spacing:.12em;
-    text-transform:uppercase;
-    color:var(--ink-ghost);
-  }
-
-  .signup-form input,
-  .signup-form select{
-    width:100%;
-    border:none;
-    border-bottom:1px solid var(--ink-rule);
-    border-radius:0;
-    background:transparent;
-    padding:14px 0;
-    font-size:.92rem;
-    color:var(--ink);
-    transition:border-color .2s;
-  }
-
-  .signup-form input:focus,
-  .signup-form select:focus{
-    outline:none;
-    border-color:var(--gold);
-    box-shadow:none;
-    background:transparent;
-  }
-
-  .field-row{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:18px;
-  }
-
-  .field-soft{
-    padding:18px 20px;
-    border:none;
-    background:var(--cream-warm);
-  }
-
-  .signup-plan-box{
-    display:none;
-    margin:4px 0 8px;
-    padding:24px;
-    border:none;
-    border-top:1px solid var(--ink);
-    background:var(--cream-warm);
-  }
-
-  .signup-plan-grid{
-    display:grid;
-    gap:8px;
-    margin-top:16px;
-  }
-
-  .plan-btn{
-    width:100%;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    min-height:44px;
-    padding:12px 20px;
-    border:none;
-    background:var(--cream);
-    color:var(--ink);
-    font-family:var(--font-sans);
-    font-size:.72rem;
-    font-weight:700;
-    letter-spacing:.12em;
-    text-transform:uppercase;
-    cursor:pointer;
-    transition:background .2s,color .2s;
-    box-shadow:none;
-  }
-
-  .plan-btn:hover{
-    background:var(--ink);
-    color:var(--cream);
-    transform:none;
-    box-shadow:none;
-  }
-
-  .signup-submit-btn{
-    width:100%;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    min-height:46px;
-    padding:14px 20px;
-    border:none;
-    background:var(--ink);
-    color:var(--cream);
-    font-size:.72rem;
-    font-weight:700;
-    letter-spacing:.14em;
-    text-transform:uppercase;
-    cursor:pointer;
-    box-shadow:none;
-    transition:background .2s;
-  }
-
-  .signup-submit-btn:hover{
-    background:var(--ink-mid);
-    transform:none;
-    filter:none;
-    box-shadow:none;
-  }
-
-  .checkbox-row{
-    display:flex;
-    align-items:flex-start;
-    gap:10px;
-    margin:8px 0 2px;
-    color:var(--ink-muted);
-    font-size:.84rem;
-    line-height:1.7;
-  }
-
-  .checkbox-row input{
-    width:auto!important;
-    margin-top:5px;
-  }
-
-  .checkbox-row a,
-  .small-text a,
-  .auth-footer-text a{
-    color:var(--ink);
-    font-weight:600;
-    text-decoration:none;
-  }
-
-  .checkbox-row a:hover,
-  .small-text a:hover,
-  .auth-footer-text a:hover{
-    text-decoration:underline;
-  }
-
-  .auth-switch-note,
-  .small-text,
-  .auth-footer-text{
-    color:var(--ink-muted);
-    font-size:.84rem;
-    line-height:1.8;
-  }
-
-  .form-message{
-    margin-top:14px;
-    font-size:.88rem;
-    color:var(--gold);
-    text-align:center;
-    min-height:1.2em;
-  }
-
-  .site-footer{
-    background:var(--ink);
-    border-top:1px solid var(--ink-mid);
-  }
-
-  .footer-title{
-    color:var(--cream);
-    letter-spacing:-.02em;
-  }
-
-  .footer-eyebrow{
-    color:var(--ink-muted);
-  }
-
-  @media(max-width:980px){
-
-    .signup-hero-grid,
-    .signup-content-grid,
-    .field-row{
-      grid-template-columns:1fr;
+    /* ── TOKENS ── */
+    :root {
+      --ink:        #1A1A16;
+      --ink-mid:    #4A4A44;
+      --ink-muted:  #8A8A82;
+      --ink-ghost:  #C0C0B8;
+      --ink-rule:   #DDDDD8;
+      --cream:      #FAFAF8;
+      --cream-warm: #F4F0EA;
+      --cream-deep: #EDE8E0;
+      --gold:       #9A7A5A;
+      --gold-light: #C4A882;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans:  'Plus Jakarta Sans', 'Helvetica Neue', Arial, sans-serif;
     }
 
-    .signup-hero-copy{
-      border-right:none;
-      border-bottom:1px solid var(--ink-rule);
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--cream); font-family: var(--font-sans); color: var(--ink); -webkit-font-smoothing: antialiased; }
 
-    .signup-form-card{
-      border-left:none;
-      border-top:1px solid var(--ink-rule);
-    }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 
-    .signup-hero-image-wrap{
-      min-height:340px;
-    }
-  }
-
-  @media(max-width:700px){
-
-    .signup-hero-copy{
-      padding:28px 20px;
-    }
-
-    .signup-info-card,
-    .signup-form-card{
-      padding:28px 20px;
-    }
-
-    .signup-title{
-      font-size:2.7rem;
-    }
-
-    .trust-strip{
-      display:none;
-    }
-  }
+    /* ── TOPBAR ── */
     .site-topbar {
-  background: radial-gradient(circle at top left, rgba(200,166,161,0.18), transparent 34%),
-    linear-gradient(135deg, #fffaf7, #f4ebe5);
-  border-bottom: 1px solid rgba(223,210,200,0.9);
-  box-shadow: 0 6px 24px rgba(59,47,42,0.08);
-  padding: 0 34px;
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  min-height: 72px;
-  position: sticky;
-  top: 0;
-  z-index: 200;
-  flex-wrap: wrap;
-}
+      background: var(--cream); border-bottom: 1px solid var(--ink-rule);
+      padding: 0 36px; display: flex; align-items: center; gap: 20px;
+      min-height: 64px; position: sticky; top: 0; z-index: 200;
+    }
+    .site-topbar-logo-wrap { display: inline-flex; align-items: center; }
+    .site-topbar-logo { width: 44px; height: 44px; object-fit: contain; }
+    .site-topbar-title { flex: 1; }
+    .site-topbar-title h1 { font-family: var(--font-serif); font-size: 1.05rem; font-weight: 400; letter-spacing: 0.01em; color: var(--ink); }
+    .site-topbar-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .site-topbar-link, .site-topbar-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 34px; padding: 6px 14px; font-family: var(--font-sans);
+      font-size: 0.75rem; letter-spacing: 0.06em; text-decoration: none; white-space: nowrap; transition: all 0.2s ease;
+    }
+    .site-topbar-link { color: var(--ink-muted); border: none; background: none; }
+    .site-topbar-link:hover { color: var(--ink); }
+    .site-topbar-btn { background: var(--ink); color: var(--cream); font-weight: 600; border: none; cursor: pointer; }
+    .site-topbar-btn:hover { background: var(--ink-mid); }
 
-.site-topbar-logo-wrap {
-  display: inline-flex;
-  align-items: center;
-}
+    /* ── HERO ── */
+    .signup-hero-card { border-bottom: 1px solid var(--ink); }
+    .signup-hero-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: stretch; min-height: 560px;
+    }
+    .signup-hero-copy {
+      padding: 48px 40px 40px; display: flex; flex-direction: column;
+      justify-content: space-between; border-right: 1px solid var(--ink-rule);
+    }
+    .signup-hero-copy > * { animation: fadeUp 0.7s ease forwards; opacity: 0; }
+    .signup-hero-copy > *:nth-child(1) { animation-delay: 0.05s; }
+    .signup-hero-copy > *:nth-child(2) { animation-delay: 0.12s; }
+    .signup-hero-copy > *:nth-child(3) { animation-delay: 0.2s; }
+    .signup-hero-copy > *:nth-child(4) { animation-delay: 0.3s; }
+    .signup-hero-copy > *:nth-child(5) { animation-delay: 0.38s; }
 
-.site-topbar-logo {
-  width: 52px;
-  height: 52px;
-  object-fit: contain;
-}
+    .signup-logo { width: 80px; opacity: 0.9; display: block; }
+    .signup-kicker { font-family: var(--font-sans); font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-ghost); }
+    .signup-title { font-family: var(--font-serif); font-size: clamp(2.2rem, 3.8vw, 3.6rem); font-weight: 300; line-height: 0.95; letter-spacing: -0.03em; color: var(--ink); }
+    .signup-script { font-family: var(--font-serif); font-style: italic; font-size: 1.2rem; color: var(--gold); }
+    .signup-intro { font-family: var(--font-sans); font-size: 0.88rem; color: var(--ink-muted); line-height: 1.8; max-width: 420px; }
 
-.site-topbar-title {
-  flex: 1;
-}
+    .signup-hero-image-wrap {
+      position: relative; overflow: hidden; background: var(--cream-deep);
+      min-height: clamp(380px, 46vw, 580px);
+    }
+    .signup-hero-image { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform 0.8s ease; }
+    .signup-hero-image-wrap:hover .signup-hero-image { transform: scale(1.025); }
 
-.site-topbar-title h1 {
-  margin: 0;
-  font-family: "Cormorant Garamond", serif;
-  font-size: 1.15rem;
-  font-weight: 500;
-  letter-spacing: -0.01em;
-  color: #3b2f2a;
-}
+    /* ── TRUST STRIP ── */
+    .trust-strip { display: flex; border-bottom: 1px solid var(--ink-rule); }
+    .trust-strip span {
+      flex: 1; text-align: center; padding: 10px 16px;
+      font-family: var(--font-sans); font-size: 0.68rem; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--ink-ghost);
+      border-right: 1px solid var(--ink-rule);
+    }
+    .trust-strip span:last-child { border-right: none; }
 
-.site-topbar-actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
+    /* ── CONTENT GRID ── */
+    .signup-content-grid {
+      display: grid; grid-template-columns: 0.92fr 1.08fr;
+      gap: 0; background: var(--ink-rule); border-bottom: 1px solid var(--ink-rule);
+    }
+    .signup-info-card,
+    .signup-form-card {
+      border: none; border-radius: 0; background: var(--cream);
+      box-shadow: none; padding: 40px 36px; transition: none;
+    }
+    .signup-form-card { border-left: 1px solid var(--ink-rule); }
 
-.site-topbar-link,
-.site-topbar-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 38px;
-  padding: 7px 14px;
-  border-radius: 999px;
-  font-size: 0.8rem;
-  text-decoration: none;
-  white-space: nowrap;
-}
+    /* ── BADGE ── */
+    .signup-mini-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 0; border: none; background: none;
+      color: var(--ink-ghost); font-family: var(--font-sans);
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.16em;
+      text-transform: uppercase; margin-bottom: 14px;
+    }
 
-.site-topbar-link {
-  background: rgba(255,250,247,0.9);
-  border: 1px solid rgba(223,210,200,0.9);
-  color: #3b2f2a;
-}
+    .signup-info-card h2, .signup-form-card h2 {
+      font-family: var(--font-serif); font-size: 1.8rem; font-weight: 300;
+      letter-spacing: -0.03em; color: var(--ink); margin-bottom: 10px;
+    }
+    .signup-info-card p, .signup-form-card > p {
+      font-family: var(--font-sans); font-size: 0.88rem; color: var(--ink-muted); line-height: 1.8; margin-bottom: 14px;
+    }
 
-.site-topbar-btn {
-  border: none;
-  background: linear-gradient(135deg, #d6b19a, #a97c66);
-  color: #fffaf7;
-  font-weight: 700;
-}
+    /* ── INFO POINTS ── */
+    .signup-points { display: grid; gap: 0; margin-top: 22px; background: var(--ink-rule); }
+    .signup-point { padding: 18px 20px; background: var(--cream-warm); border-top: 1px solid var(--ink-rule); color: var(--ink-muted); line-height: 1.75; font-family: var(--font-sans); font-size: 0.84rem; }
+    .signup-point strong { display: block; margin-bottom: 4px; color: var(--ink); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; }
 
-.site-topbar-link:hover,
-.site-topbar-btn:hover {
-  transform: translateY(-1px);
-}
+    /* ── FORM ── */
+    .signup-form { display: grid; gap: 16px; margin-top: 22px; }
 
-@media (max-width: 700px) {
-  .site-topbar {
-    padding: 12px 16px;
-    gap: 14px;
-    justify-content: center;
-  }
+    .signup-form label {
+      display: block; margin-bottom: 8px;
+      font-family: var(--font-sans); font-weight: 600; font-size: 0.72rem;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-ghost);
+    }
 
-  .site-topbar-logo {
-    width: 42px;
-    height: 42px;
-  }
+    .signup-form input,
+    .signup-form select {
+      width: 100%; border: none; border-bottom: 1px solid var(--ink-rule);
+      border-radius: 0; background: transparent; padding: 14px 0;
+      font-family: var(--font-sans); font-size: 0.92rem; color: var(--ink);
+      transition: border-color 0.2s; outline: none;
+    }
+    .signup-form input:focus,
+    .signup-form select:focus { border-color: var(--gold); }
 
-  .site-topbar-title {
-    flex: unset;
-  }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .field-soft { padding: 18px 20px; border: none; background: var(--cream-warm); }
 
-  .site-topbar-title h1 {
-    font-size: 0.95rem;
-    text-align: center;
-  }
+    /* ── VENDOR PLAN BOX ── */
+    .signup-plan-box {
+      display: none; margin: 4px 0 8px; padding: 24px;
+      border: none; border-top: 1px solid var(--ink);
+      background: var(--cream-warm);
+    }
+    .signup-plan-grid { display: grid; gap: 8px; margin-top: 16px; }
 
-  .site-topbar-actions {
-    width: 100%;
-    justify-content: center;
-    gap: 10px;
-  }
+    .plan-btn {
+      width: 100%; display: inline-flex; align-items: center; justify-content: center;
+      min-height: 44px; padding: 12px 20px; border: 0.5px solid var(--ink-rule);
+      background: var(--cream); color: var(--ink);
+      font-family: var(--font-sans); font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      cursor: pointer; transition: background 0.2s, color 0.2s; box-shadow: none;
+    }
+    .plan-btn:hover { background: var(--ink); color: var(--cream); border-color: var(--ink); }
 
-  .site-topbar-link,
-  .site-topbar-btn {
-    min-height: 36px;
-    padding: 6px 14px;
-    font-size: 0.78rem;
-  }
-}
-</style>
+    /* ── SUBMIT ── */
+    .signup-submit-btn {
+      width: 100%; display: inline-flex; align-items: center; justify-content: center;
+      min-height: 46px; padding: 14px 20px; border: none;
+      background: var(--ink); color: var(--cream);
+      font-family: var(--font-sans); font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      cursor: pointer; transition: background 0.2s;
+    }
+    .signup-submit-btn:hover { background: var(--ink-mid); }
+
+    /* ── HELPERS ── */
+    .checkbox-row { display: flex; align-items: flex-start; gap: 10px; margin: 8px 0 2px; color: var(--ink-muted); font-family: var(--font-sans); font-size: 0.84rem; line-height: 1.7; }
+    .checkbox-row input { width: auto !important; margin-top: 5px; }
+    .checkbox-row a, .small-text a, .auth-footer-text a { color: var(--ink); font-weight: 600; text-decoration: none; }
+    .checkbox-row a:hover, .small-text a:hover, .auth-footer-text a:hover { text-decoration: underline; }
+    .auth-switch-note, .small-text, .auth-footer-text { font-family: var(--font-sans); color: var(--ink-muted); font-size: 0.84rem; line-height: 1.8; }
+    .form-message { margin-top: 14px; font-family: var(--font-sans); font-size: 0.88rem; color: var(--gold); text-align: center; min-height: 1.2em; }
+
+    /* ── FOOTER ── */
+    .site-footer { background: var(--ink); border-top: 1px solid var(--ink-mid); }
+    .footer-content { padding: 40px 36px 32px; display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: start; }
+    .footer-logo-col { display: flex; flex-direction: column; gap: 6px; }
+    .footer-eyebrow { font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-muted); }
+    .footer-title { font-family: var(--font-serif); font-size: 1.4rem; font-weight: 300; color: var(--cream); letter-spacing: -0.02em; margin: 4px 0 6px; }
+    .footer-text { font-family: var(--font-sans); font-size: 0.78rem; color: var(--ink-muted); line-height: 1.6; max-width: 360px; }
+    .footer-tagline { font-family: var(--font-serif); font-style: italic; font-size: 0.95rem; color: var(--gold-light); margin-top: 16px; }
+    .footer-abn { font-family: var(--font-sans); font-size: 0.68rem; color: var(--ink-muted); margin-top: 4px; }
+    .footer-links-col { display: flex; flex-direction: column; gap: 10px; align-items: flex-end; }
+    .footer-links { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
+    .footer-links a { font-family: var(--font-sans); font-size: 0.72rem; letter-spacing: 0.06em; color: var(--ink-muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--cream); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 980px) {
+      .signup-hero-grid, .signup-content-grid, .field-row { grid-template-columns: 1fr; }
+      .signup-hero-copy { border-right: none; border-bottom: 1px solid var(--ink-rule); }
+      .signup-hero-image-wrap { min-height: 340px; }
+      .signup-form-card { border-left: none; border-top: 1px solid var(--ink-rule); }
+      .footer-content { grid-template-columns: 1fr; gap: 24px; }
+      .footer-links-col { align-items: flex-start; }
+      .footer-links { align-items: flex-start; }
+    }
+    @media (max-width: 700px) {
+      .site-topbar { padding: 0 16px; min-height: 56px; }
+      .signup-hero-copy { padding: 28px 20px; }
+      .signup-info-card, .signup-form-card { padding: 28px 20px; }
+      .trust-strip { display: none; }
+      .footer-content { padding: 28px 20px 24px; }
+    }
+  </style>
 </head>
 <body>
 
+<!-- ── TOPBAR ── -->
 <header class="site-topbar">
   <a href="index.html" class="site-topbar-logo-wrap" aria-label="Go to homepage">
     <img src="images/logo1.png" alt="Our Wedding Day Hub" class="site-topbar-logo">
   </a>
-
-  <div class="site-topbar-title">
-    <h1>Our Wedding Day Hub</h1>
-  </div>
-
+  <div class="site-topbar-title"><h1>Our Wedding Day Hub</h1></div>
   <nav class="site-topbar-actions">
     <a href="categories.html" class="site-topbar-link">Categories</a>
-
     <a href="shop.html" class="site-topbar-link">Boutique</a>
-
     <a href="messages.html" id="messagesLink" class="site-topbar-link" style="display:none; position:relative;">
       Messages
-      <span id="msgNavBadge" style="display:none; position:absolute; top:-6px; right:-10px; background:linear-gradient(135deg,#d6b19a,#a97c66); color:#fffaf7; font-size:0.68rem; font-weight:700; padding:2px 6px; border-radius:999px; line-height:1.2; min-width:18px; text-align:center;">0</span>
+      <span id="msgNavBadge" style="display:none; position:absolute; top:-6px; right:-10px; background:var(--ink); color:var(--cream); font-size:0.64rem; font-weight:700; padding:2px 6px; border-radius:999px; line-height:1.2; min-width:18px; text-align:center;">0</span>
     </a>
-
     <a href="login.html" id="loginLink" class="site-topbar-link">Log In</a>
-
     <a href="signup.html" id="joinLink" class="site-topbar-btn">Join</a>
-
     <a href="dashboard.html" id="dashboardLink" class="site-topbar-link" style="display:none;">Dashboard</a>
-
     <button id="logoutLink" class="site-topbar-btn" style="display:none;">Log Out</button>
   </nav>
 </header>
 
-<main class="signup-page">
-  <div class="signup-stack">
+<main>
 
-    <section class="signup-hero-card">
-      <div class="signup-hero-grid">
-        <div class="signup-hero-copy">
-          <a href="index.html" class="signup-logo-wrap" aria-label="Go to homepage">
-            <img src="images/logo1.png" alt="Our Wedding Day Hub" class="signup-logo">
-          </a>
-          <p class="signup-kicker">Join the hub</p>
-          <h1 class="signup-title">Your place in the<br>wedding world</h1>
-          <p class="signup-script">start something beautiful ♡</p>
-          <p class="signup-intro">Whether you're a vendor building your presence or a couple finding your dream team — you're in the right place. Simple setup, beautiful results.</p>
-        </div>
-        <div class="signup-hero-image-wrap">
-          <img src="images/bride.png" alt="Editorial bride portrait" class="signup-hero-image">
-        </div>
+  <!-- ── HERO ── -->
+  <section class="signup-hero-card">
+    <div class="signup-hero-grid">
+      <div class="signup-hero-copy">
+        <a href="index.html" aria-label="Go to homepage">
+          <img src="images/logo1.png" alt="Our Wedding Day Hub" class="signup-logo">
+        </a>
+        <p class="signup-kicker">Join the hub</p>
+        <h1 class="signup-title">Your place in the<br>wedding world</h1>
+        <p class="signup-script">start something beautiful ♡</p>
+        <p class="signup-intro">Whether you're a vendor building your presence or a couple finding your dream team — you're in the right place. Simple setup, beautiful results.</p>
       </div>
-    </section>
-
-    <section class="trust-strip">
-      <p>Trusted by wedding vendors across Australia &amp; worldwide • Proudly independent • Built with heart</p>
-    </section>
-
-    <section class="signup-content-grid">
-
-      <div class="signup-info-card">
-        <span class="signup-mini-badge">✦ Getting started</span>
-        <h2>Who is joining?</h2>
-        <p>Whether you're growing a wedding business or planning your perfect day, your account starts here.</p>
-        <div class="signup-points">
-          <div class="signup-point"><strong>For vendors</strong>Create your account and set up your full profile inside your dashboard.</div>
-          <div class="signup-point"><strong>For couples</strong>Sign up free to save favourite vendors and build your inspiration space.</div>
-          <div class="signup-point"><strong>Simple setup</strong>Get started in just a few steps, designed especially for weddings.</div>
-          <div class="signup-point"><strong>Finish later</strong>Add categories, locations and details inside your dashboard after joining.</div>
-        </div>
+      <div class="signup-hero-image-wrap">
+        <img src="images/bride.png" alt="Editorial bride portrait" class="signup-hero-image" loading="lazy">
       </div>
+    </div>
+  </section>
 
-      <div class="signup-form-card">
-        <span class="signup-mini-badge">✦ Create account</span>
-        <h2>Join</h2>
-        <p class="small-text">Choose your account type below to get started.</p>
-
-        <form id="signupForm" class="signup-form">
-          <div>
-            <label for="type">I am a:</label>
-            <select id="type" required>
-              <option value="">Select</option>
-              <option value="vendor">Vendor</option>
-              <option value="couple">Couple</option>
-            </select>
-          </div>
-
-          <p id="vendorNotice" class="auth-switch-note">
-            Couples can join free. Vendors complete a secure checkout before finalising their account setup. Subscriptions can be cancelled at any time, with up to 60 days of fees refundable. The one-time setup fee is non-refundable.
-          </p>
-
-          <div id="vendorPlanBox" class="signup-plan-box">
-            <div class="signup-point" style="margin-bottom: 14px;">
-              <strong>One-Time Vendor Setup</strong>
-              A one-time onboarding fee to create and activate your vendor profile on Our Wedding Day Hub.
-            </div>
-            <p class="small-text" style="margin-bottom: 10px;"><strong>Choose your visibility level</strong></p>
-            <div class="signup-plan-grid">
-          <button type="button" class="plan-btn" onclick="startVendorCheckout('classic_listing')">The Edit · $4.75/month</button>
-
-<button type="button" class="plan-btn" onclick="startVendorCheckout('signature_spotlight')">The Spotlight · $5.95/month</button>
-
-<button type="button" class="plan-btn" onclick="startVendorCheckout('elite_feature')">The Feature · $7.25/month</button>
-
-<button type="button" class="plan-btn" onclick="startVendorCheckout('platinum_prestige')">The Icon · $9.95/month</button>
-            </div>
-          </div>
-
-          <div>
-            <label for="name">Name / Business Name:</label>
-            <input type="text" id="name" required>
-          </div>
-
-          <div class="field-row">
-            <div>
-              <label for="email">Email:</label>
-              <input type="email" id="email" required>
-            </div>
-            <div>
-              <label for="password">Password:</label>
-              <input type="password" id="password" minlength="6" required>
-            </div>
-          </div>
-
-          <div id="vendorFields" class="field-soft" style="display:none;">
-            <p id="vendorSetupNote" class="small-text">Once payment is completed, you'll return here to finish creating your vendor account.</p>
-          </div>
-
-          <label class="checkbox-row">
-            <input type="checkbox" id="emailConsent" required>
-            <span>I agree to receive emails, updates, promotions and wedding-related communications from Our Wedding Day Hub. I understand I can unsubscribe at any time.</span>
-          </label>
-
-          <label class="checkbox-row">
-            <input type="checkbox" id="termsConsent" required>
-            <span>I have read and agree to the <a href="terms.html" target="_blank">Terms &amp; Conditions</a> and <a href="privacy.html" target="_blank">Privacy Policy</a>.</span>
-          </label>
-
-          <button type="submit" class="signup-submit-btn">Create Account</button>
-        </form>
-
-        <p id="message" class="form-message"></p>
-
-        <p class="auth-footer-text">Already have an account? <a href="login.html">Log in here</a></p>
-      </div>
-
-    </section>
+  <!-- ── TRUST STRIP ── -->
+  <div class="trust-strip">
+    <span>Trusted across Australia &amp; worldwide</span>
+    <span>Proudly independent</span>
+    <span>Built with heart</span>
+    <span>Proudly inclusive</span>
   </div>
+
+  <!-- ── CONTENT ── -->
+  <section class="signup-content-grid">
+
+    <div class="signup-info-card">
+      <span class="signup-mini-badge">✦ Getting started</span>
+      <h2>Who is joining?</h2>
+      <p>Whether you're growing a wedding business or planning your perfect day, your account starts here.</p>
+      <div class="signup-points">
+        <div class="signup-point"><strong>For vendors</strong>Create your account and set up your full profile inside your dashboard.</div>
+        <div class="signup-point"><strong>For couples</strong>Sign up free to save favourite vendors and build your inspiration space.</div>
+        <div class="signup-point"><strong>Simple setup</strong>Get started in just a few steps, designed especially for weddings.</div>
+        <div class="signup-point"><strong>Finish later</strong>Add categories, locations and details inside your dashboard after joining.</div>
+      </div>
+    </div>
+
+    <div class="signup-form-card">
+      <span class="signup-mini-badge">✦ Create account</span>
+      <h2>Join</h2>
+      <p class="small-text">Choose your account type below to get started.</p>
+
+      <form id="signupForm" class="signup-form">
+        <div>
+          <label for="type">I am a:</label>
+          <select id="type" required>
+            <option value="">Select</option>
+            <option value="vendor">Vendor</option>
+            <option value="couple">Couple</option>
+          </select>
+        </div>
+
+        <p id="vendorNotice" class="auth-switch-note">
+          Couples can join free. Vendors complete a secure checkout before finalising their account setup. Subscriptions can be cancelled at any time, with up to 60 days of fees refundable. The one-time setup fee is non-refundable.
+        </p>
+
+        <div id="vendorPlanBox" class="signup-plan-box">
+          <div class="signup-point" style="margin-bottom: 14px;">
+            <strong>One-Time Vendor Setup</strong>
+            A one-time onboarding fee to create and activate your vendor profile on Our Wedding Day Hub.
+          </div>
+          <p class="small-text" style="margin-bottom: 10px;"><strong>Choose your visibility level</strong></p>
+          <div class="signup-plan-grid">
+            <button type="button" class="plan-btn" onclick="startVendorCheckout('classic_listing')">The Edit · $4.75/month</button>
+            <button type="button" class="plan-btn" onclick="startVendorCheckout('signature_spotlight')">The Spotlight · $5.95/month</button>
+            <button type="button" class="plan-btn" onclick="startVendorCheckout('elite_feature')">The Feature · $7.25/month</button>
+            <button type="button" class="plan-btn" onclick="startVendorCheckout('platinum_prestige')">The Icon · $9.95/month</button>
+          </div>
+        </div>
+
+        <div>
+          <label for="name">Name / Business Name:</label>
+          <input type="text" id="name" required>
+        </div>
+
+        <div class="field-row">
+          <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" required>
+          </div>
+          <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" minlength="6" required>
+          </div>
+        </div>
+
+        <div id="vendorFields" class="field-soft" style="display:none;">
+          <p id="vendorSetupNote" class="small-text">Once payment is completed, you'll return here to finish creating your vendor account.</p>
+        </div>
+
+        <label class="checkbox-row">
+          <input type="checkbox" id="emailConsent" required>
+          <span>I agree to receive emails, updates, promotions and wedding-related communications from Our Wedding Day Hub. I understand I can unsubscribe at any time.</span>
+        </label>
+
+        <label class="checkbox-row">
+          <input type="checkbox" id="termsConsent" required>
+          <span>I have read and agree to the <a href="terms.html" target="_blank">Terms &amp; Conditions</a> and <a href="privacy.html" target="_blank">Privacy Policy</a>.</span>
+        </label>
+
+        <button type="submit" class="signup-submit-btn">Create Account →</button>
+      </form>
+
+      <p id="message" class="form-message"></p>
+      <p class="auth-footer-text">Already have an account? <a href="login.html">Log in here</a></p>
+    </div>
+
+  </section>
+
 </main>
 
+<!-- ── FOOTER ── -->
 <footer class="site-footer">
   <div class="footer-content">
-    <a href="index.html" aria-label="Go to homepage" style="display:inline-block; margin-bottom:18px;">
-      <img src="images/logo1.png" alt="Our Wedding Day Hub" style="width:72px; height:72px; object-fit:contain; opacity:0.7;">
-    </a>
-    <p class="footer-eyebrow">wedding planning directory</p>
-    <h2 class="footer-title">Everything your wedding deserves.</h2>
-    <p class="footer-text">Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.</p>
-    <div class="footer-links">
-      <a href="about.html">About Us</a>
-      <a href="how-it-works.html">How It Works</a>
-      <a href="pricing.html">Pricing</a>
-      <a href="contact.html">Contact Us</a>
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="terms.html">Terms &amp; Conditions</a>
-      <a href="refund-policy.html">Refund Policy</a>
-      <a href="https://www.equaldex.com/equality-index" target="_blank" rel="noopener noreferrer">Global Equality Index</a>
-      <a href="#" onclick="return false;">Events4Us (Coming Soon)</a>
+    <div class="footer-logo-col">
+      <a href="index.html" aria-label="Go to homepage">
+        <img src="images/logo1.png" alt="Our Wedding Day Hub" style="width:52px; height:52px; object-fit:contain; opacity:0.5; margin-bottom:6px;">
+      </a>
+      <p class="footer-eyebrow">Wedding planning directory</p>
+      <h2 class="footer-title">Everything your wedding deserves.</h2>
+      <p class="footer-text">Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.</p>
+      <p class="footer-tagline">everything your wedding day deserves. ♡</p>
+      <p class="footer-abn">© 2026 Our Wedding Day Hub</p>
+      <p class="footer-abn">ABN 76 688 637 041 • Australia</p>
     </div>
-    <p class="footer-tagline">Proudly inclusive • Worldwide • Built with heart</p>
-    <p class="footer-abn">© 2026 Our Wedding Day Hub</p>
-    <p class="footer-abn">ABN 76 688 637 041 • Australia</p>
+    <div class="footer-links-col">
+      <div class="footer-links">
+        <a href="about.html">About Us</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="refund-policy.html">Refund Policy</a>
+        <a href="https://www.equaldex.com/equality-index" target="_blank" rel="noopener noreferrer">Global Equality Index</a>
+        <a href="#" onclick="return false;">Events4Us (Coming Soon)</a>
+      </div>
+      <p style="font-family:var(--font-sans); font-size:0.65rem; color:var(--ink-muted); margin-top:12px; letter-spacing:0.06em;">Proudly inclusive • Worldwide • Built with heart</p>
+    </div>
   </div>
 </footer>
 
+<!-- ── STRIPE CHECKOUT — COMPLETELY UNCHANGED ── -->
 <script>
   function startVendorCheckout(plan) {
     const links = {
-      classic_listing: "https://buy.stripe.com/cNibJ1eSg099flL49AdnW03",
-      signature_spotlight: "https://buy.stripe.com/7sY4gz6lKcVV5Lb21sdnW02",
-      elite_feature: "https://buy.stripe.com/eVq6oH39y5ttehH5dEdnW01",
-      platinum_prestige: "https://buy.stripe.com/bJe28reSg8FF4H70XodnW00"
+      classic_listing:       "https://buy.stripe.com/cNibJ1eSg099flL49AdnW03",
+      signature_spotlight:   "https://buy.stripe.com/7sY4gz6lKcVV5Lb21sdnW02",
+      elite_feature:         "https://buy.stripe.com/eVq6oH39y5ttehH5dEdnW01",
+      platinum_prestige:     "https://buy.stripe.com/bJe28reSg8FF4H70XodnW00"
     };
     const url = links[plan];
     if (!url) { alert("Something went wrong. Please try again."); return; }
@@ -796,6 +404,7 @@
   }
 </script>
 
+<!-- ── FIREBASE AUTH — COMPLETELY UNCHANGED ── -->
 <script type="module">
   import {
     auth, db, createUserWithEmailAndPassword, sendEmailVerification,
