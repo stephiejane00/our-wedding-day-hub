@@ -615,7 +615,23 @@ function updateGallery() {
     hide(mainImage); show(mainVideo,"block"); mainVideo.src=item.src;
   } else {
     mainVideo.pause(); mainVideo.removeAttribute("src"); mainVideo.load(); hide(mainVideo);
-    show(mainImage,"block"); mainImage.src=item.src;
+    show(mainImage,"block");
+    mainImage.onerror = () => {
+      console.warn("Broken gallery image skipped:", item.src);
+      const brokenUrl = item.src;
+      galleryItems = galleryItems.filter(g => g.src !== brokenUrl);
+      if (!galleryItems.length) {
+        mainImage.onerror = null;
+        mainImage.src = "images/header4.png";
+        prevMediaBtn.hidden = true;
+        nextMediaBtn.hidden = true;
+        hide(galleryDots);
+        return;
+      }
+      currentMediaIndex = currentMediaIndex % galleryItems.length;
+      updateGallery();
+    };
+    mainImage.src=item.src;
   }
   const multi = galleryItems.length > 1;
   prevMediaBtn.hidden = !multi;
@@ -816,13 +832,21 @@ async function loadVendor() {
   vendorData.profileImage ||
   vendorData.photoURL ||
   "";
-    if (profileImg) { profilePicEl.src=profileImg; show(profilePicEl,"block"); } else hide(profilePicEl);
+    if (profileImg) {
+      profilePicEl.onerror = () => { console.warn("Broken profile image:", profileImg); hide(profilePicEl); };
+      profilePicEl.src=profileImg;
+      show(profilePicEl,"block");
+    } else hide(profilePicEl);
     const logo =
   vendorData.logoUrl ||
   vendorData.logo ||
   vendorData.businessLogo ||
   "";
-    if (logo) { logoImage.src=logo; show(logoWrap,"flex"); } else hide(logoWrap);
+    if (logo) {
+      logoImage.onerror = () => { console.warn("Broken logo image:", logo); hide(logoWrap); };
+      logoImage.src=logo;
+      show(logoWrap,"flex");
+    } else hide(logoWrap);
     galleryItems = buildGallery(vendorData); updateGallery();
     renderBooking(vendorData);
     renderTestimonials(vendorData);
