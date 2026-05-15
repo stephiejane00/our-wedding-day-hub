@@ -785,11 +785,12 @@ const fRef = ref(
 
     const merged = [...current, ...urls];
 
-    const upd = {
-      images: merged,
-      galleryImages: merged,
-      imageUrls: merged
-    };
+const upd = {
+  images: merged,
+  galleryImages: merged,
+  imageUrls: merged,
+  media: merged
+};
 
     if (!selectedVendor.coverImageUrl) {
       upd.coverImageUrl = merged[0] || "";
