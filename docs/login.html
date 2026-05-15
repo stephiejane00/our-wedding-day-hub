@@ -6,740 +6,329 @@
   <title>Log In | Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
-<style>
-  :root {
-    --ink:#1A1A16;
-    --ink-mid:#4A4A44;
-    --ink-muted:#8A8A82;
-    --ink-ghost:#C0C0B8;
-    --ink-rule:#DDDDD8;
-    --cream:#FAFAF8;
-    --cream-warm:#F4F0EA;
-    --cream-deep:#EDE8E0;
-    --gold:#9A7A5A;
-    --gold-light:#C4A882;
-    --font-serif:'Cormorant Garamond', Georgia, serif;
-    --font-sans:'Plus Jakarta Sans','Helvetica Neue',Arial,sans-serif;
-  }
-
-  *,*::before,*::after{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-  }
-
-  html{
-    scroll-behavior:smooth;
-  }
-
-  body{
-    background:var(--cream);
-    font-family:var(--font-sans);
-    color:var(--ink);
-    -webkit-font-smoothing:antialiased;
-  }
-
-  @keyframes fadeUp{
-    from{
-      opacity:0;
-      transform:translateY(12px);
-    }
-    to{
-      opacity:1;
-      transform:translateY(0);
-    }
-  }
-
-  .login-page{
-    max-width:100%;
-    margin:0;
-    padding:0 0 56px;
-  }
-
-  .login-stack{
-    display:block;
-  }
-
-  .login-hero-card{
-    border:none;
-    border-radius:0;
-    background:var(--cream);
-    overflow:hidden;
-    box-shadow:none;
-    margin:0;
-    border-bottom:1px solid var(--ink);
-  }
-
-  .login-hero-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    align-items:stretch;
-    min-height:560px;
-  }
-
-  .login-hero-copy{
-    padding:48px 40px 40px;
-    display:flex;
-    flex-direction:column;
-    justify-content:space-between;
-    border-right:1px solid var(--ink-rule);
-  }
-
-  .login-hero-copy>*{
-    animation:fadeUp .7s ease forwards;
-    opacity:0;
-  }
-
-  .login-hero-copy>*:nth-child(1){animation-delay:.05s}
-  .login-hero-copy>*:nth-child(2){animation-delay:.12s}
-  .login-hero-copy>*:nth-child(3){animation-delay:.2s}
-  .login-hero-copy>*:nth-child(4){animation-delay:.3s}
-  .login-hero-copy>*:nth-child(5){animation-delay:.38s}
-
-  .login-logo-wrap{
-    display:inline-block;
-  }
-
-  .login-logo{
-    width:80px;
-    opacity:.9;
-  }
-
-  .login-kicker{
-    font-family:var(--font-sans);
-    font-size:.68rem;
-    letter-spacing:.22em;
-    text-transform:uppercase;
-    color:var(--ink-ghost);
-  }
-
-  .login-title{
-    margin:12px 0 6px;
-    font-family:var(--font-serif);
-    font-size:clamp(2.5rem,4vw,4rem);
-    font-weight:300;
-    line-height:.95;
-    letter-spacing:-.04em;
-    color:var(--ink);
-    text-shadow:none;
-  }
-
-  .login-script{
-    font-family:var(--font-serif);
-    font-style:italic;
-    font-size:1.2rem;
-    color:var(--gold);
-  }
-
-  .login-intro{
-    max-width:460px;
-    color:var(--ink-muted);
-    line-height:1.8;
-    font-size:.88rem;
-  }
-
-  .login-hero-image-wrap{
-    position:relative;
-    overflow:hidden;
-    background:var(--cream-deep);
-    min-height:100%;
-  }
-
-  .login-hero-image-wrap::after{
-    display:none;
-  }
-
-  .login-hero-image{
-    width:100%;
-    height:100%;
-    display:block;
-    object-fit:cover;
-    filter:none;
-    transition:transform .8s ease;
-  }
-
-  .login-hero-image-wrap:hover .login-hero-image{
-    transform:scale(1.025);
-  }
-
-  .trust-strip{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    padding:12px 20px;
-    border-bottom:1px solid var(--ink-rule);
-  }
-
-  .trust-strip p{
-    font-family:var(--font-sans);
-    font-size:.68rem;
-    letter-spacing:.14em;
-    text-transform:uppercase;
-    color:var(--ink-ghost);
-  }
-
-  .login-content-grid{
-    display:grid;
-    grid-template-columns:.92fr 1.08fr;
-    gap:0;
-    background:var(--ink-rule);
-    border-bottom:1px solid var(--ink-rule);
-  }
-
-  .login-info-card,
-  .login-form-card{
-    border:none;
-    border-radius:0;
-    background:var(--cream);
-    box-shadow:none;
-    padding:40px 36px;
-    transition:none;
-  }
-
-  .login-form-card{
-    border-left:1px solid var(--ink-rule);
-  }
-
-  .login-mini-badge{
-    display:inline-flex;
-    align-items:center;
-    gap:6px;
-    padding:0;
-    border:none;
-    background:none;
-    color:var(--ink-ghost);
-    font-size:.65rem;
-    font-weight:700;
-    letter-spacing:.16em;
-    text-transform:uppercase;
-    margin-bottom:14px;
-  }
-
-  .login-info-card h2,
-  .login-form-card h2{
-    margin:0 0 10px;
-    font-family:var(--font-serif);
-    font-size:2rem;
-    font-weight:300;
-    letter-spacing:-.03em;
-    color:var(--ink);
-  }
-
-  .login-info-card p,
-  .login-form-card > p{
-    margin:0 0 14px;
-    line-height:1.8;
-    color:var(--ink-muted);
-    font-size:.88rem;
-  }
-
-  .login-points{
-    display:grid;
-    gap:0;
-    margin-top:22px;
-    background:var(--ink-rule);
-  }
-
-  .login-point{
-    padding:18px 20px;
-    background:var(--cream-warm);
-    border-top:1px solid var(--ink-rule);
-    color:var(--ink-muted);
-    line-height:1.75;
-    font-size:.84rem;
-  }
-
-  .login-point strong{
-    display:block;
-    margin-bottom:4px;
-    color:var(--ink);
-    font-size:.7rem;
-    letter-spacing:.14em;
-    text-transform:uppercase;
-    font-family:var(--font-sans);
-  }
-
-  .login-form{
-    display:grid;
-    gap:16px;
-    margin-top:22px;
-  }
-
-  .login-form label{
-    display:block;
-    margin-bottom:8px;
-    font-weight:600;
-    font-size:.72rem;
-    letter-spacing:.12em;
-    text-transform:uppercase;
-    color:var(--ink-ghost);
-  }
-
-  .login-form input{
-    width:100%;
-    border:none;
-    border-bottom:1px solid var(--ink-rule);
-    border-radius:0;
-    background:transparent;
-    padding:14px 0;
-    font-size:.92rem;
-    color:var(--ink);
-    transition:border-color .2s;
-  }
-
-  .login-form input:focus{
-    outline:none;
-    border-color:var(--gold);
-    box-shadow:none;
-    background:transparent;
-  }
-
-  .login-submit-btn{
-    width:100%;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    min-height:46px;
-    padding:14px 20px;
-    border:none;
-    background:var(--ink);
-    color:var(--cream);
-    font-size:.72rem;
-    font-weight:700;
-    letter-spacing:.14em;
-    text-transform:uppercase;
-    cursor:pointer;
-    box-shadow:none;
-    transition:background .2s;
-  }
-
-  .login-submit-btn:hover{
-    background:var(--ink-mid);
-    transform:none;
-    filter:none;
-    box-shadow:none;
-  }
-
-  .forgot-password-btn{
-    background:none;
-    border:none;
-    color:var(--ink-muted);
-    text-decoration:none;
-    cursor:pointer;
-    font:inherit;
-    font-size:.78rem;
-    letter-spacing:.08em;
-    text-transform:uppercase;
-    padding:0;
-  }
-
-  .forgot-password-btn:hover{
-    color:var(--ink);
-  }
-
-  .login-links-row{
-    margin-top:18px;
-    text-align:center;
-  }
-
-  .auth-footer-text{
-    margin:18px 0 0;
-    color:var(--ink-muted);
-    line-height:1.8;
-    font-size:.84rem;
-    text-align:center;
-  }
-
-  .auth-footer-text a{
-    color:var(--ink);
-    font-weight:600;
-    text-decoration:none;
-  }
-
-  .auth-footer-text a:hover{
-    text-decoration:underline;
-  }
-
-  .form-message{
-    margin-top:14px;
-    font-size:.88rem;
-    color:var(--gold);
-    text-align:center;
-    min-height:1.2em;
-  }
-
-  .reset-modal{
-    position:fixed;
-    inset:0;
-    background:rgba(26,26,22,.45);
-    display:none;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-    z-index:3000;
-    backdrop-filter:blur(6px);
-  }
-
-  .reset-modal.open{
-    display:flex;
-  }
-
-  .reset-modal-card{
-    width:100%;
-    max-width:520px;
-    background:var(--cream);
-    border:1px solid var(--ink-rule);
-    border-radius:0;
-    box-shadow:none;
-    padding:42px 36px 32px;
-    position:relative;
-    animation:fadeUp .35s ease forwards;
-  }
-
-  .reset-modal-close{
-    position:absolute;
-    top:14px;
-    right:14px;
-    width:34px;
-    height:34px;
-    border:none;
-    background:none;
-    color:var(--ink-muted);
-    cursor:pointer;
-    font-size:1.2rem;
-  }
-
-  .reset-modal-close:hover{
-    color:var(--ink);
-  }
-
-  .reset-modal-kicker{
-    text-align:center;
-    font-size:.68rem;
-    letter-spacing:.22em;
-    text-transform:uppercase;
-    color:var(--ink-ghost);
-    margin:0 0 10px;
-  }
-
-  .reset-modal-title{
-    margin:0 0 10px;
-    font-family:var(--font-serif);
-    font-size:2.2rem;
-    font-weight:300;
-    letter-spacing:-.03em;
-    color:var(--ink);
-    text-align:center;
-  }
-
-  .reset-modal-copy{
-    margin:0 0 22px;
-    color:var(--ink-muted);
-    font-size:.88rem;
-    line-height:1.8;
-    text-align:center;
-  }
-
-  .reset-modal label{
-    display:block;
-    margin-bottom:8px;
-    font-weight:600;
-    font-size:.72rem;
-    letter-spacing:.12em;
-    text-transform:uppercase;
-    color:var(--ink-ghost);
-  }
-
-  .reset-modal input{
-    width:100%;
-    border:none;
-    border-bottom:1px solid var(--ink-rule);
-    border-radius:0;
-    background:transparent;
-    padding:14px 0;
-    font-size:.92rem;
-    color:var(--ink);
-    margin-bottom:18px;
-  }
-
-  .reset-modal input:focus{
-    outline:none;
-    border-color:var(--gold);
-    box-shadow:none;
-  }
-
-  .reset-help-note{
-    margin:16px 0 0;
-    color:var(--ink-muted);
-    font-size:.8rem;
-    line-height:1.8;
-    text-align:center;
-  }
-
-  .site-footer{
-    background:var(--ink);
-    border-top:1px solid var(--ink-mid);
-  }
-
-  .footer-title{
-    color:var(--cream);
-  }
-
-  .footer-eyebrow{
-    color:var(--ink-muted);
-  }
-
-  @media(max-width:980px){
-
-    .login-hero-grid,
-    .login-content-grid{
-      grid-template-columns:1fr;
+    /* ── TOKENS ── */
+    :root {
+      --ink:        #1A1A16;
+      --ink-mid:    #4A4A44;
+      --ink-muted:  #8A8A82;
+      --ink-ghost:  #C0C0B8;
+      --ink-rule:   #DDDDD8;
+      --cream:      #FAFAF8;
+      --cream-warm: #F4F0EA;
+      --cream-deep: #EDE8E0;
+      --gold:       #9A7A5A;
+      --gold-light: #C4A882;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans:  'Plus Jakarta Sans', 'Helvetica Neue', Arial, sans-serif;
     }
 
-    .login-hero-copy{
-      border-right:none;
-      border-bottom:1px solid var(--ink-rule);
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--cream); font-family: var(--font-sans); color: var(--ink); -webkit-font-smoothing: antialiased; }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ── TOPBAR ── */
+    .site-topbar {
+      background: var(--cream); border-bottom: 1px solid var(--ink-rule);
+      padding: 0 36px; display: flex; align-items: center; gap: 20px;
+      min-height: 64px; position: sticky; top: 0; z-index: 200;
     }
-
-    .login-form-card{
-      border-left:none;
-      border-top:1px solid var(--ink-rule);
+    .site-topbar-logo-wrap { display: inline-flex; align-items: center; }
+    .site-topbar-logo { width: 44px; height: 44px; object-fit: contain; }
+    .site-topbar-title { flex: 1; }
+    .site-topbar-title h1 { font-family: var(--font-serif); font-size: 1.05rem; font-weight: 400; letter-spacing: 0.01em; color: var(--ink); }
+    .site-topbar-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .site-topbar-link, .site-topbar-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 34px; padding: 6px 14px; font-family: var(--font-sans);
+      font-size: 0.75rem; letter-spacing: 0.06em; text-decoration: none; white-space: nowrap; transition: all 0.2s ease;
     }
+    .site-topbar-link { color: var(--ink-muted); border: none; background: none; }
+    .site-topbar-link:hover { color: var(--ink); }
+    .site-topbar-btn { background: var(--ink); color: var(--cream); font-weight: 600; border: none; cursor: pointer; }
+    .site-topbar-btn:hover { background: var(--ink-mid); }
 
-    .login-hero-image-wrap{
-      min-height:340px;
+    /* ── HERO ── */
+    .login-hero-card {
+      border-bottom: 1px solid var(--ink);
     }
-  }
+    .login-hero-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: stretch; min-height: 560px;
+    }
+    .login-hero-copy {
+      padding: 48px 40px 40px; display: flex; flex-direction: column;
+      justify-content: space-between; border-right: 1px solid var(--ink-rule);
+    }
+    .login-hero-copy > * { animation: fadeUp 0.7s ease forwards; opacity: 0; }
+    .login-hero-copy > *:nth-child(1) { animation-delay: 0.05s; }
+    .login-hero-copy > *:nth-child(2) { animation-delay: 0.12s; }
+    .login-hero-copy > *:nth-child(3) { animation-delay: 0.2s; }
+    .login-hero-copy > *:nth-child(4) { animation-delay: 0.3s; }
+    .login-hero-copy > *:nth-child(5) { animation-delay: 0.38s; }
 
-  @media(max-width:700px){
+    .login-logo { width: 80px; opacity: 0.9; display: block; }
+    .login-kicker { font-family: var(--font-sans); font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-ghost); }
+    .login-title { font-family: var(--font-serif); font-size: clamp(2.2rem, 3.8vw, 3.6rem); font-weight: 300; line-height: 0.95; letter-spacing: -0.03em; color: var(--ink); }
+    .login-script { font-family: var(--font-serif); font-style: italic; font-size: 1.2rem; color: var(--gold); }
+    .login-intro { font-family: var(--font-sans); font-size: 0.88rem; color: var(--ink-muted); line-height: 1.8; max-width: 420px; }
 
-    .login-hero-copy{
-      padding:28px 20px;
+    .login-hero-image-wrap {
+      position: relative; overflow: hidden; background: var(--cream-deep);
+      min-height: clamp(380px, 46vw, 580px);
+    }
+    .login-hero-image { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform 0.8s ease; }
+    .login-hero-image-wrap:hover .login-hero-image { transform: scale(1.025); }
+
+    /* ── TRUST STRIP ── */
+    .trust-strip { display: flex; border-bottom: 1px solid var(--ink-rule); }
+    .trust-strip span {
+      flex: 1; text-align: center; padding: 10px 16px;
+      font-family: var(--font-sans); font-size: 0.68rem; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--ink-ghost);
+      border-right: 1px solid var(--ink-rule);
+    }
+    .trust-strip span:last-child { border-right: none; }
+
+    /* ── CONTENT GRID ── */
+    .login-content-grid {
+      display: grid; grid-template-columns: 0.92fr 1.08fr;
+      gap: 0; background: var(--ink-rule);
+      border-bottom: 1px solid var(--ink-rule);
     }
 
     .login-info-card,
-    .login-form-card{
-      padding:28px 20px;
+    .login-form-card {
+      border: none; border-radius: 0; box-shadow: none;
+      padding: 40px 36px; background: var(--cream); transition: none;
+    }
+    .login-form-card { border-left: 1px solid var(--ink-rule); }
+
+    /* ── MINI BADGE ── */
+    .login-mini-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 0; border: none; background: none;
+      color: var(--ink-ghost); font-family: var(--font-sans);
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.16em;
+      text-transform: uppercase; margin-bottom: 14px;
     }
 
-    .login-title{
-      font-size:2.7rem;
+    .login-info-card h2,
+    .login-form-card h2 {
+      font-family: var(--font-serif); font-size: 1.8rem; font-weight: 300;
+      letter-spacing: -0.03em; color: var(--ink); margin-bottom: 10px;
     }
 
-    .trust-strip{
-      display:none;
+    .login-info-card p,
+    .login-form-card > p {
+      font-family: var(--font-sans); font-size: 0.88rem;
+      color: var(--ink-muted); line-height: 1.8; margin-bottom: 14px;
     }
-  }
-  background: radial-gradient(circle at top left, rgba(200,166,161,0.18), transparent 34%),
-    linear-gradient(135deg, #fffaf7, #f4ebe5);
-  border-bottom: 1px solid rgba(223,210,200,0.9);
-  box-shadow: 0 6px 24px rgba(59,47,42,0.08);
-  padding: 0 34px;
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  min-height: 72px;
-  position: sticky;
-  top: 0;
-  z-index: 200;
-  flex-wrap: wrap;
-}
 
-.site-topbar-logo-wrap {
-  display: inline-flex;
-  align-items: center;
-}
+    /* ── INFO POINTS ── */
+    .login-points { display: grid; gap: 0; margin-top: 22px; background: var(--ink-rule); }
+    .login-point { padding: 18px 20px; background: var(--cream-warm); border-top: 1px solid var(--ink-rule); color: var(--ink-muted); line-height: 1.75; font-family: var(--font-sans); font-size: 0.84rem; }
+    .login-point strong { display: block; margin-bottom: 4px; color: var(--ink); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; }
 
-.site-topbar-logo {
-  width: 52px;
-  height: 52px;
-  object-fit: contain;
-}
+    /* ── FORM ── */
+    .login-form { display: grid; gap: 16px; margin-top: 22px; }
 
-.site-topbar-title {
-  flex: 1;
-}
+    .login-form label {
+      display: block; margin-bottom: 8px;
+      font-family: var(--font-sans); font-weight: 600; font-size: 0.72rem;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-ghost);
+    }
 
-.site-topbar-title h1 {
-  margin: 0;
-  font-family: "Cormorant Garamond", serif;
-  font-size: 1.15rem;
-  font-weight: 500;
-  letter-spacing: -0.01em;
-  color: #3b2f2a;
-}
+    .login-form input {
+      width: 100%; border: none; border-bottom: 1px solid var(--ink-rule);
+      border-radius: 0; background: transparent; padding: 14px 0;
+      font-family: var(--font-sans); font-size: 0.92rem; color: var(--ink);
+      transition: border-color 0.2s; outline: none;
+    }
+    .login-form input:focus { border-color: var(--gold); }
 
-.site-topbar-actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
+    .login-submit-btn {
+      width: 100%; display: inline-flex; align-items: center; justify-content: center;
+      min-height: 46px; padding: 14px 20px; border: none;
+      background: var(--ink); color: var(--cream);
+      font-family: var(--font-sans); font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      cursor: pointer; transition: background 0.2s;
+    }
+    .login-submit-btn:hover { background: var(--ink-mid); }
 
-.site-topbar-link,
-.site-topbar-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 38px;
-  padding: 7px 14px;
-  border-radius: 999px;
-  font-size: 0.8rem;
-  text-decoration: none;
-  white-space: nowrap;
-}
+    .forgot-password-btn {
+      background: none; border: none; color: var(--ink-muted); cursor: pointer;
+      font-family: var(--font-sans); font-size: 0.78rem; letter-spacing: 0.08em;
+      text-transform: uppercase; padding: 0; text-decoration: none; transition: color 0.2s;
+    }
+    .forgot-password-btn:hover { color: var(--ink); }
 
-.site-topbar-link {
-  background: rgba(255,250,247,0.9);
-  border: 1px solid rgba(223,210,200,0.9);
-  color: #3b2f2a;
-}
+    .login-links-row { margin-top: 18px; text-align: center; }
 
-.site-topbar-btn {
-  border: none;
-  background: linear-gradient(135deg, #d6b19a, #a97c66);
-  color: #fffaf7;
-  font-weight: 700;
-}
+    .auth-footer-text { margin: 18px 0 0; font-family: var(--font-sans); font-size: 0.84rem; color: var(--ink-muted); line-height: 1.8; text-align: center; }
+    .auth-footer-text a { color: var(--ink); font-weight: 600; text-decoration: none; }
+    .auth-footer-text a:hover { text-decoration: underline; }
 
-.site-topbar-link:hover,
-.site-topbar-btn:hover {
-  transform: translateY(-1px);
-}
+    .form-message { margin-top: 14px; font-family: var(--font-sans); font-size: 0.88rem; color: var(--gold); text-align: center; min-height: 1.2em; }
 
-@media (max-width: 700px) {
-  .site-topbar {
-    padding: 12px 16px;
-    gap: 14px;
-    justify-content: center;
-  }
+    /* ── RESET MODAL ── */
+    .reset-modal {
+      position: fixed; inset: 0; background: rgba(26,26,22,0.45);
+      display: none; align-items: center; justify-content: center;
+      padding: 20px; z-index: 3000; backdrop-filter: blur(6px);
+    }
+    .reset-modal.open { display: flex; }
+    .reset-modal-card {
+      width: 100%; max-width: 520px; background: var(--cream);
+      border: 1px solid var(--ink-rule); border-radius: 0; box-shadow: none;
+      padding: 42px 36px 32px; position: relative;
+      animation: fadeUp 0.35s ease forwards;
+    }
+    .reset-modal-close {
+      position: absolute; top: 14px; right: 14px; width: 34px; height: 34px;
+      border: 0.5px solid var(--ink-rule); background: var(--cream); color: var(--ink-muted);
+      cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    .reset-modal-close:hover { background: var(--cream-warm); color: var(--ink); }
+    .reset-modal-kicker { text-align: center; font-family: var(--font-sans); font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-ghost); margin: 0 0 10px; }
+    .reset-modal-title { font-family: var(--font-serif); font-size: 2rem; font-weight: 300; letter-spacing: -0.03em; color: var(--ink); text-align: center; margin: 0 0 10px; }
+    .reset-modal-copy { font-family: var(--font-sans); font-size: 0.88rem; color: var(--ink-muted); line-height: 1.8; text-align: center; margin: 0 0 22px; }
+    .reset-modal label { display: block; margin-bottom: 8px; font-family: var(--font-sans); font-weight: 600; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-ghost); }
+    .reset-modal input { width: 100%; border: none; border-bottom: 1px solid var(--ink-rule); border-radius: 0; background: transparent; padding: 14px 0; font-family: var(--font-sans); font-size: 0.92rem; color: var(--ink); margin-bottom: 18px; outline: none; transition: border-color 0.2s; }
+    .reset-modal input:focus { border-color: var(--gold); }
+    .reset-help-note { margin: 16px 0 0; font-family: var(--font-sans); font-size: 0.8rem; color: var(--ink-muted); line-height: 1.8; text-align: center; }
 
-  .site-topbar-logo {
-    width: 42px;
-    height: 42px;
-  }
+    /* ── FOOTER ── */
+    .site-footer { background: var(--ink); border-top: 1px solid var(--ink-mid); }
+    .footer-content { padding: 40px 36px 32px; display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: start; }
+    .footer-logo-col { display: flex; flex-direction: column; gap: 6px; }
+    .footer-eyebrow { font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-muted); }
+    .footer-title { font-family: var(--font-serif); font-size: 1.4rem; font-weight: 300; color: var(--cream); letter-spacing: -0.02em; margin: 4px 0 6px; }
+    .footer-text { font-family: var(--font-sans); font-size: 0.78rem; color: var(--ink-muted); line-height: 1.6; max-width: 360px; }
+    .footer-tagline { font-family: var(--font-serif); font-style: italic; font-size: 0.95rem; color: var(--gold-light); margin-top: 16px; }
+    .footer-abn { font-family: var(--font-sans); font-size: 0.68rem; color: var(--ink-muted); margin-top: 4px; }
+    .footer-links-col { display: flex; flex-direction: column; gap: 10px; align-items: flex-end; }
+    .footer-links { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
+    .footer-links a { font-family: var(--font-sans); font-size: 0.72rem; letter-spacing: 0.06em; color: var(--ink-muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--cream); }
 
-  .site-topbar-title {
-    flex: unset;
-  }
-
-  .site-topbar-title h1 {
-    font-size: 0.95rem;
-    text-align: center;
-  }
-
-  .site-topbar-actions {
-    width: 100%;
-    justify-content: center;
-    gap: 10px;
-  }
-
-  .site-topbar-link,
-  .site-topbar-btn {
-    min-height: 36px;
-    padding: 6px 14px;
-    font-size: 0.78rem;
-  }
-}
-</style>
+    /* ── RESPONSIVE ── */
+    @media (max-width: 980px) {
+      .login-hero-grid, .login-content-grid { grid-template-columns: 1fr; }
+      .login-hero-copy { border-right: none; border-bottom: 1px solid var(--ink-rule); }
+      .login-hero-image-wrap { min-height: 340px; }
+      .login-form-card { border-left: none; border-top: 1px solid var(--ink-rule); }
+      .footer-content { grid-template-columns: 1fr; gap: 24px; }
+      .footer-links-col { align-items: flex-start; }
+      .footer-links { align-items: flex-start; }
+    }
+    @media (max-width: 700px) {
+      .site-topbar { padding: 0 16px; min-height: 56px; }
+      .login-hero-copy { padding: 28px 20px; }
+      .login-info-card, .login-form-card { padding: 28px 20px; }
+      .trust-strip { display: none; }
+      .footer-content { padding: 28px 20px 24px; }
+    }
+  </style>
 </head>
 <body>
+
+<!-- ── TOPBAR ── -->
 <header class="site-topbar">
   <a href="index.html" class="site-topbar-logo-wrap" aria-label="Go to homepage">
     <img src="images/logo1.png" alt="Our Wedding Day Hub" class="site-topbar-logo">
   </a>
-
-  <div class="site-topbar-title">
-    <h1>Our Wedding Day Hub</h1>
-  </div>
-
+  <div class="site-topbar-title"><h1>Our Wedding Day Hub</h1></div>
   <nav class="site-topbar-actions">
     <a href="categories.html" class="site-topbar-link">Categories</a>
-
     <a href="shop.html" class="site-topbar-link">Boutique</a>
-
     <a href="messages.html" id="messagesLink" class="site-topbar-link" style="display:none; position:relative;">
       Messages
-      <span id="msgNavBadge" style="display:none; position:absolute; top:-6px; right:-10px; background:linear-gradient(135deg,#d6b19a,#a97c66); color:#fffaf7; font-size:0.68rem; font-weight:700; padding:2px 6px; border-radius:999px; line-height:1.2; min-width:18px; text-align:center;">0</span>
+      <span id="msgNavBadge" style="display:none; position:absolute; top:-6px; right:-10px; background:var(--ink); color:var(--cream); font-size:0.64rem; font-weight:700; padding:2px 6px; border-radius:999px; line-height:1.2; min-width:18px; text-align:center;">0</span>
     </a>
-
     <a href="login.html" id="loginLink" class="site-topbar-link">Log In</a>
-
     <a href="signup.html" id="joinLink" class="site-topbar-btn">Join</a>
-
     <a href="dashboard.html" id="dashboardLink" class="site-topbar-link" style="display:none;">Dashboard</a>
-
     <button id="logoutLink" class="site-topbar-btn" style="display:none;">Log Out</button>
   </nav>
 </header>
 
-<main class="login-page">
-  <div class="login-stack">
+<main>
 
-    <section class="login-hero-card">
-      <div class="login-hero-grid">
-        <div class="login-hero-copy">
-          <a href="index.html" class="login-logo-wrap" aria-label="Go to homepage">
-            <img src="images/logo1.png" alt="Our Wedding Day Hub" class="login-logo">
-          </a>
-          <p class="login-kicker">Welcome back</p>
-          <h1 class="login-title">Your love story<br>continues here</h1>
-          <p class="login-script">♡</p>
-          <p class="login-intro">Sign in to manage your account, update your details, and continue building your presence on the platform — whether you're a vendor or a couple planning your perfect day.</p>
-        </div>
-        <div class="login-hero-image-wrap">
-          <img src="images/cutecar.jpg" alt="Romantic wedding couple on a vintage car" class="login-hero-image">
-        </div>
+  <!-- ── HERO ── -->
+  <section class="login-hero-card">
+    <div class="login-hero-grid">
+      <div class="login-hero-copy">
+        <a href="index.html" aria-label="Go to homepage">
+          <img src="images/logo1.png" alt="Our Wedding Day Hub" class="login-logo">
+        </a>
+        <p class="login-kicker">Welcome back</p>
+        <h1 class="login-title">Your love story<br>continues here</h1>
+        <p class="login-script">♡</p>
+        <p class="login-intro">Sign in to manage your account, update your details, and continue building your presence on the platform — whether you're a vendor or a couple planning your perfect day.</p>
       </div>
-    </section>
-
-    <section class="trust-strip">
-      <p>Trusted by wedding vendors across Australia &amp; worldwide • Proudly independent • Built with heart</p>
-    </section>
-
-    <section class="login-content-grid">
-
-      <div class="login-info-card">
-        <span class="login-mini-badge">✦ Your account</span>
-        <h2>Everything in one place</h2>
-        <p>Log in to access your dashboard and continue wherever you left off.</p>
-        <div class="login-points">
-          <div class="login-point"><strong>For vendors</strong>Update your business profile, images, locations, categories, and account settings.</div>
-          <div class="login-point"><strong>For couples</strong>Return to your saved favourites and continue exploring beautiful wedding vendors.</div>
-          <div class="login-point"><strong>Need help?</strong>Forgotten your password? Reset it below and you'll be back in moments.</div>
-        </div>
+      <div class="login-hero-image-wrap">
+        <img src="images/cutecar.jpg" alt="Romantic wedding couple on a vintage car" class="login-hero-image" loading="lazy">
       </div>
+    </div>
+  </section>
 
-      <div class="login-form-card">
-        <span class="login-mini-badge">✦ Sign in</span>
-        <h2>Welcome back</h2>
-        <p>Sign in to manage your wedding hub account.</p>
-        <form id="loginForm" class="login-form">
-          <div>
-            <label for="email">Email address</label>
-            <input type="email" id="email" placeholder="you@example.com" required>
-          </div>
-          <div>
-            <label for="password">Password</label>
-            <input type="password" id="password" placeholder="••••••••" required>
-          </div>
-          <button type="submit" class="login-submit-btn">Log In</button>
-        </form>
-        <p id="message" class="form-message"></p>
-        <div class="login-links-row">
-          <button type="button" id="forgotPasswordBtn" class="forgot-password-btn">Forgot your password?</button>
-        </div>
-        <p class="auth-footer-text">Don't have an account yet? <a href="signup.html">Create one here</a></p>
-      </div>
-
-    </section>
+  <!-- ── TRUST STRIP ── -->
+  <div class="trust-strip">
+    <span>Trusted across Australia &amp; worldwide</span>
+    <span>Proudly independent</span>
+    <span>Built with heart</span>
+    <span>Proudly inclusive</span>
   </div>
+
+  <!-- ── CONTENT ── -->
+  <section class="login-content-grid">
+
+    <div class="login-info-card">
+      <span class="login-mini-badge">✦ Your account</span>
+      <h2>Everything in one place</h2>
+      <p>Log in to access your dashboard and continue wherever you left off.</p>
+      <div class="login-points">
+        <div class="login-point"><strong>For vendors</strong>Update your business profile, images, locations, categories, and account settings.</div>
+        <div class="login-point"><strong>For couples</strong>Return to your saved favourites and continue exploring beautiful wedding vendors.</div>
+        <div class="login-point"><strong>Need help?</strong>Forgotten your password? Reset it below and you'll be back in moments.</div>
+      </div>
+    </div>
+
+    <div class="login-form-card">
+      <span class="login-mini-badge">✦ Sign in</span>
+      <h2>Welcome back</h2>
+      <p>Sign in to manage your wedding hub account.</p>
+      <form id="loginForm" class="login-form">
+        <div>
+          <label for="email">Email address</label>
+          <input type="email" id="email" placeholder="you@example.com" required>
+        </div>
+        <div>
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="login-submit-btn">Log In →</button>
+      </form>
+      <p id="message" class="form-message"></p>
+      <div class="login-links-row">
+        <button type="button" id="forgotPasswordBtn" class="forgot-password-btn">Forgot your password?</button>
+      </div>
+      <p class="auth-footer-text">Don't have an account yet? <a href="signup.html">Create one here</a></p>
+    </div>
+
+  </section>
+
 </main>
 
+<!-- ── RESET PASSWORD MODAL ── -->
 <div id="resetModal" class="reset-modal" aria-hidden="true">
   <div class="reset-modal-card">
     <button type="button" id="closeResetModal" class="reset-modal-close" aria-label="Close">×</button>
@@ -754,43 +343,50 @@
   </div>
 </div>
 
+<!-- ── FOOTER ── -->
 <footer class="site-footer">
   <div class="footer-content">
-    <a href="index.html" aria-label="Go to homepage" style="display:inline-block; margin-bottom:18px;">
-      <img src="images/logo1.png" alt="Our Wedding Day Hub" style="width:72px; height:72px; object-fit:contain; opacity:0.7;">
-    </a>
-    <p class="footer-eyebrow">wedding planning directory</p>
-    <h2 class="footer-title">Everything your wedding deserves.</h2>
-    <p class="footer-text">Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.</p>
-    <div class="footer-links">
-      <a href="about.html">About Us</a>
-      <a href="how-it-works.html">How It Works</a>
-      <a href="pricing.html">Pricing</a>
-      <a href="contact.html">Contact Us</a>
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="terms.html">Terms &amp; Conditions</a>
-      <a href="refund-policy.html">Refund Policy</a>
-      <a href="https://www.equaldex.com/equality-index" target="_blank" rel="noopener noreferrer">Global Equality Index</a>
-      <a href="#" onclick="return false;">Events4Us (Coming Soon)</a>
+    <div class="footer-logo-col">
+      <a href="index.html" aria-label="Go to homepage">
+        <img src="images/logo1.png" alt="Our Wedding Day Hub" style="width:52px; height:52px; object-fit:contain; opacity:0.5; margin-bottom:6px;">
+      </a>
+      <p class="footer-eyebrow">Wedding planning directory</p>
+      <h2 class="footer-title">Everything your wedding deserves.</h2>
+      <p class="footer-text">Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.</p>
+      <p class="footer-tagline">everything your wedding day deserves. ♡</p>
+      <p class="footer-abn">© 2026 Our Wedding Day Hub</p>
+      <p class="footer-abn">ABN 76 688 637 041 • Australia</p>
     </div>
-    <p class="footer-tagline">Proudly inclusive • Worldwide • Built with heart</p>
-    <p class="footer-abn">© 2026 Our Wedding Day Hub</p>
-    <p class="footer-abn">ABN 76 688 637 041 • Australia</p>
+    <div class="footer-links-col">
+      <div class="footer-links">
+        <a href="about.html">About Us</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="refund-policy.html">Refund Policy</a>
+        <a href="https://www.equaldex.com/equality-index" target="_blank" rel="noopener noreferrer">Global Equality Index</a>
+        <a href="#" onclick="return false;">Events4Us (Coming Soon)</a>
+      </div>
+      <p style="font-family:var(--font-sans); font-size:0.65rem; color:var(--ink-muted); margin-top:12px; letter-spacing:0.06em;">Proudly inclusive • Worldwide • Built with heart</p>
+    </div>
   </div>
 </footer>
 
+<!-- ── ALL JAVASCRIPT COMPLETELY UNCHANGED ── -->
 <script type="module">
   import { auth, db, signInWithEmailAndPassword, signOut, doc, getDoc } from './firebase.js';
   import { sendPasswordResetEmail } from 'https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js';
 
-  const loginForm       = document.getElementById('loginForm');
-  const message         = document.getElementById('message');
+  const loginForm         = document.getElementById('loginForm');
+  const message           = document.getElementById('message');
   const forgotPasswordBtn = document.getElementById('forgotPasswordBtn');
-  const resetModal      = document.getElementById('resetModal');
-  const closeResetModal = document.getElementById('closeResetModal');
-  const resetEmail      = document.getElementById('resetEmail');
-  const sendResetBtn    = document.getElementById('sendResetBtn');
-  const resetMessage    = document.getElementById('resetMessage');
+  const resetModal        = document.getElementById('resetModal');
+  const closeResetModal   = document.getElementById('closeResetModal');
+  const resetEmail        = document.getElementById('resetEmail');
+  const sendResetBtn      = document.getElementById('sendResetBtn');
+  const resetMessage      = document.getElementById('resetMessage');
 
   function getDashboardUrl(role) {
     if (role === 'couple') return 'https://ourweddingdayhub.com/couple-dashboard.html';
