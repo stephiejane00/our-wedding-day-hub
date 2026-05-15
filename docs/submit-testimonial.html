@@ -5,325 +5,326 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Leave a Kind Word | Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
-    body {
-      background: #f7f1ed;
+    /* ── TOKENS ── */
+    :root {
+      --ink:        #1A1A16;
+      --ink-mid:    #4A4A44;
+      --ink-muted:  #8A8A82;
+      --ink-ghost:  #C0C0B8;
+      --ink-rule:   #DDDDD8;
+      --cream:      #FAFAF8;
+      --cream-warm: #F4F0EA;
+      --cream-deep: #EDE8E0;
+      --gold:       #9A7A5A;
+      --gold-light: #C4A882;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans:  'Plus Jakarta Sans', 'Helvetica Neue', Arial, sans-serif;
     }
 
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--cream); font-family: var(--font-sans); color: var(--ink); -webkit-font-smoothing: antialiased; }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ── TOPBAR ── */
+    .site-topbar {
+      background: var(--cream); border-bottom: 1px solid var(--ink-rule);
+      padding: 0 36px; display: flex; align-items: center; gap: 20px;
+      min-height: 64px; position: sticky; top: 0; z-index: 200; flex-wrap: wrap;
+    }
+    .site-topbar-logo-wrap { display: inline-flex; align-items: center; }
+    .site-topbar-logo { width: 44px; height: 44px; object-fit: contain; }
+    .site-topbar-title { flex: 1; }
+    .site-topbar-title h1 { font-family: var(--font-serif); font-size: 1.05rem; font-weight: 400; letter-spacing: 0.01em; color: var(--ink); }
+    .site-topbar-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .site-topbar-link, .site-topbar-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 34px; padding: 6px 14px; font-family: var(--font-sans);
+      font-size: 0.75rem; letter-spacing: 0.06em; text-decoration: none; white-space: nowrap; transition: all 0.2s;
+    }
+    .site-topbar-link { color: var(--ink-muted); border: none; background: none; }
+    .site-topbar-link:hover { color: var(--ink); }
+    .site-topbar-btn { background: var(--ink); color: var(--cream); font-weight: 600; border: none; cursor: pointer; }
+    .site-topbar-btn:hover { background: var(--ink-mid); }
+
+    /* ── HERO ── */
     .testimonial-hero {
-      position: relative;
-      min-height: 520px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      background-image: url("images/city.jpg");
-      background-size: cover;
-      background-position: center bottom;
-      overflow: hidden;
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: stretch; border-bottom: 1px solid var(--ink);
+      min-height: 420px;
+    }
+    .testimonial-hero-copy {
+      padding: 52px 48px 44px; display: flex; flex-direction: column;
+      justify-content: space-between; border-right: 1px solid var(--ink-rule);
+    }
+    .testimonial-hero-copy > * { animation: fadeUp 0.7s ease forwards; opacity: 0; }
+    .testimonial-hero-copy > *:nth-child(1) { animation-delay: 0.05s; }
+    .testimonial-hero-copy > *:nth-child(2) { animation-delay: 0.12s; }
+    .testimonial-hero-copy > *:nth-child(3) { animation-delay: 0.2s; }
+    .testimonial-hero-copy > *:nth-child(4) { animation-delay: 0.3s; }
+
+    .testimonial-hero-logo { width: 80px; opacity: 0.9; display: block; }
+    .testimonial-hero-kicker { font-family: var(--font-sans); font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-ghost); }
+    .testimonial-title { font-family: var(--font-serif); font-size: clamp(2.4rem, 4vw, 3.8rem); font-weight: 300; line-height: 0.95; letter-spacing: -0.04em; color: var(--ink); }
+    .testimonial-subtitle { font-family: var(--font-serif); font-style: italic; font-size: 1.15rem; color: var(--gold); max-width: 420px; line-height: 1.55; }
+
+    .testimonial-hero-image-wrap {
+      overflow: hidden; background: var(--cream-deep);
+      min-height: clamp(380px, 46vw, 520px);
+    }
+    .testimonial-hero-image { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center bottom; transition: transform 0.9s ease; }
+    .testimonial-hero-image-wrap:hover .testimonial-hero-image { transform: scale(1.025); }
+
+    /* ── TRUST STRIP ── */
+    .trust-strip { display: flex; border-bottom: 1px solid var(--ink-rule); }
+    .trust-strip span {
+      flex: 1; text-align: center; padding: 10px 16px;
+      font-family: var(--font-sans); font-size: 0.68rem; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--ink-ghost);
+      border-right: 1px solid var(--ink-rule);
+    }
+    .trust-strip span:last-child { border-right: none; }
+
+    /* ── FORM SECTION ── */
+    .testimonial-section { border-bottom: 1px solid var(--ink-rule); }
+    .testimonial-section-inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0; background: var(--ink-rule);
     }
 
-    .testimonial-hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(90deg, rgba(247,241,237,0.86), rgba(247,241,237,0.48), rgba(247,241,237,0.82)),
-        radial-gradient(circle at center, rgba(255,250,247,0.9), rgba(255,250,247,0.16));
-    }
+    .testimonial-form-side { background: var(--cream); padding: 44px 48px; }
+    .testimonial-form-label { font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-ghost); margin-bottom: 10px; }
+    .testimonial-form-side h2 { font-family: var(--font-serif); font-size: 1.8rem; font-weight: 300; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 10px; }
+    .testimonial-form-side > p { font-family: var(--font-sans); font-size: 0.86rem; color: var(--ink-muted); line-height: 1.75; margin-bottom: 24px; }
 
-    .testimonial-hero-content {
-      position: relative;
-      z-index: 1;
-      max-width: 760px;
-      padding: 60px 20px;
-    }
-
-    .testimonial-title {
-      margin: 14px 0 12px;
-      font-family: "Cormorant Garamond", serif;
-      font-size: clamp(3rem, 7vw, 5.5rem);
-      line-height: 0.95;
-      letter-spacing: -0.05em;
-      color: #2f2622;
-    }
-
-    .testimonial-subtitle {
-      max-width: 540px;
-      margin: 26px auto 0;
-      color: #8f6f60;
-      font-family: "Cormorant Garamond", serif;
-      font-size: 1.35rem;
-      font-style: italic;
-      line-height: 1.55;
-    }
-
-    .testimonial-section {
-      padding: 0 20px 90px;
-      margin-top: -80px;
-      position: relative;
-      z-index: 2;
-    }
-
-    .testimonial-card {
-      max-width: 760px;
-      margin: 0 auto;
-      background: rgba(255,250,247,0.96);
-      border: 1px solid rgba(223,210,200,0.95);
-      border-radius: 32px;
-      padding: 52px;
-      box-shadow: 0 24px 70px rgba(59,47,42,0.1);
-    }
-
-    .testimonial-form-heading {
-      text-align: center;
-      margin-bottom: 34px;
-    }
-
-    .testimonial-heart {
-      display: block;
-      color: #c69b84;
-      font-size: 2rem;
-      margin-bottom: 8px;
-    }
-
-    .testimonial-form-heading h2 {
-      margin: 0 0 12px;
-      font-family: "Cormorant Garamond", serif;
-      font-size: clamp(2.2rem, 5vw, 3rem);
-      font-weight: 500;
-      letter-spacing: -0.04em;
-      color: #2f2622;
-    }
-
-    .testimonial-form-heading p {
-      max-width: 540px;
-      margin: 0 auto;
-      color: #7d6d64;
-      line-height: 1.7;
-    }
-
-    .testimonial-form {
-      display: grid;
-      gap: 20px;
-    }
-
-    .testimonial-field {
-      display: grid;
-      gap: 8px;
-    }
+    .testimonial-form { display: grid; gap: 0; background: var(--ink-rule); }
+    .testimonial-field { background: var(--cream); border-bottom: 0.5px solid var(--ink-rule); }
+    .testimonial-field:last-of-type { border-bottom: none; }
 
     .testimonial-field label {
-      font-size: 0.9rem;
-      font-weight: 700;
-      color: #4a3d37;
+      display: block; padding: 10px 16px 0;
+      font-family: var(--font-sans); font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-ghost);
     }
-
     .testimonial-field input,
     .testimonial-field select,
     .testimonial-field textarea {
-      width: 100%;
-      border-radius: 18px;
-      border: 1px solid #e2d3c8;
-      background: #fffdfb;
-      padding: 15px 17px;
-      font-family: inherit;
-      font-size: 1rem;
-      color: #2f2622;
-      box-sizing: border-box;
+      width: 100%; border: none; border-radius: 0; background: transparent;
+      padding: 10px 16px 14px; font-family: var(--font-sans);
+      font-size: 0.9rem; color: var(--ink); outline: none;
+      transition: background 0.2s; box-sizing: border-box;
     }
-
-    .testimonial-field textarea {
-      min-height: 170px;
-      resize: vertical;
-    }
-
     .testimonial-field input:focus,
     .testimonial-field select:focus,
-    .testimonial-field textarea:focus {
-      outline: none;
-      border-color: #c8a48f;
-      box-shadow: 0 0 0 4px rgba(200,164,143,0.14);
-    }
+    .testimonial-field textarea:focus { background: var(--cream-warm); }
+    .testimonial-field textarea { min-height: 160px; resize: vertical; }
+    .testimonial-field select { cursor: pointer; }
 
     .testimonial-submit-btn {
-      width: 100%;
-      min-height: 58px;
-      margin-top: 6px;
-      border: none;
-      border-radius: 999px;
-      background: linear-gradient(135deg, #d6b19a, #a97c66);
-      color: #fffaf7;
-      font-weight: 800;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      cursor: pointer;
-      box-shadow: 0 12px 28px rgba(185,143,122,0.25);
-      transition: transform 0.18s ease, box-shadow 0.18s ease;
+      width: 100%; min-height: 50px; margin-top: 16px; border: none;
+      font-family: var(--font-sans); font-weight: 700; font-size: 0.72rem;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      background: var(--ink); color: var(--cream); cursor: pointer; transition: background 0.2s;
     }
-
-    .testimonial-submit-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 16px 34px rgba(185,143,122,0.32);
-    }
+    .testimonial-submit-btn:hover { background: var(--ink-mid); transform: none; box-shadow: none; }
 
     .testimonial-status {
-      margin-top: 18px;
-      text-align: center;
-      color: #7d6d64;
-      min-height: 24px;
-      font-family: "Cormorant Garamond", serif;
-      font-size: 1.1rem;
-      font-style: italic;
+      margin-top: 14px; font-family: var(--font-serif); font-style: italic;
+      font-size: 1rem; color: var(--gold); min-height: 1.2em;
     }
 
-    .testimonial-footer-note {
-      margin: 46px auto 0;
-      text-align: center;
-      color: #2f2622;
-    }
+    /* ── ASIDE PANEL ── */
+    .testimonial-aside { background: var(--cream-warm); padding: 44px 40px; display: flex; flex-direction: column; justify-content: space-between; }
+    .testimonial-aside-label { font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-ghost); margin-bottom: 10px; }
+    .testimonial-aside-title { font-family: var(--font-serif); font-size: 1.5rem; font-weight: 300; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 10px; }
+    .testimonial-aside p { font-family: var(--font-sans); font-size: 0.86rem; color: var(--ink-muted); line-height: 1.8; margin-bottom: 10px; }
+    .testimonial-aside p:last-of-type { margin-bottom: 0; }
 
-    .testimonial-footer-note h3 {
-      margin: 0;
-      font-family: "Cormorant Garamond", serif;
-      font-size: 2rem;
-      font-weight: 500;
-    }
+    .testimonial-aside-quote { font-family: var(--font-serif); font-style: italic; font-size: 1.3rem; color: var(--ink-mid); line-height: 1.55; border-left: 2px solid var(--gold-light); padding-left: 18px; margin-top: 28px; }
 
-    .testimonial-footer-note p {
-      margin: 8px 0 0;
-      color: #c69b84;
-      font-family: "Cormorant Garamond", serif;
-      font-size: 1.35rem;
-      font-style: italic;
+    /* ── CLOSING ── */
+    .testimonial-closing {
+      padding: 48px 48px; text-align: center; background: var(--ink);
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
     }
+    .testimonial-closing h3 { font-family: var(--font-serif); font-size: 1.8rem; font-weight: 300; color: var(--cream); letter-spacing: -0.02em; }
+    .testimonial-closing p { font-family: var(--font-serif); font-style: italic; font-size: 1.1rem; color: var(--gold-light); }
 
+    /* ── FOOTER ── */
+    .site-footer { background: var(--ink); border-top: 1px solid var(--ink-mid); }
+    .footer-content { padding: 40px 36px 32px; display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: start; }
+    .footer-logo-col { display: flex; flex-direction: column; gap: 6px; }
+    .footer-eyebrow { font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-muted); }
+    .footer-title { font-family: var(--font-serif); font-size: 1.4rem; font-weight: 300; color: var(--cream); letter-spacing: -0.02em; margin: 4px 0 6px; }
+    .footer-text { font-family: var(--font-sans); font-size: 0.78rem; color: var(--ink-muted); line-height: 1.6; max-width: 360px; }
+    .footer-tagline { font-family: var(--font-serif); font-style: italic; font-size: 0.95rem; color: var(--gold-light); margin-top: 16px; }
+    .footer-abn { font-family: var(--font-sans); font-size: 0.68rem; color: var(--ink-muted); margin-top: 4px; }
+    .footer-links-col { display: flex; flex-direction: column; gap: 10px; align-items: flex-end; }
+    .footer-links { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
+    .footer-links a { font-family: var(--font-sans); font-size: 0.72rem; letter-spacing: 0.06em; color: var(--ink-muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--cream); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 980px) {
+      .testimonial-hero { grid-template-columns: 1fr; }
+      .testimonial-hero-copy { border-right: none; border-bottom: 1px solid var(--ink-rule); }
+      .testimonial-hero-image-wrap { min-height: 300px; }
+      .testimonial-section-inner { grid-template-columns: 1fr; }
+      .footer-content { grid-template-columns: 1fr; gap: 24px; }
+      .footer-links-col { align-items: flex-start; }
+      .footer-links { align-items: flex-start; }
+    }
     @media (max-width: 700px) {
-      .testimonial-hero {
-        min-height: 440px;
-      }
-
-      .testimonial-section {
-        padding: 0 14px 70px;
-        margin-top: -60px;
-      }
-
-      .testimonial-card {
-        padding: 30px 22px;
-        border-radius: 24px;
-      }
+      .site-topbar { padding: 0 16px; min-height: 56px; }
+      .testimonial-hero-copy { padding: 28px 20px; }
+      .testimonial-form-side, .testimonial-aside { padding: 28px 20px; }
+      .testimonial-closing { padding: 32px 20px; }
+      .trust-strip { display: none; }
+      .footer-content { padding: 28px 20px 24px; }
     }
   </style>
 </head>
-
 <body>
 
-<div class="page-auth">
-  <a href="categories.html" id="categoriesLink" class="auth-link">Categories</a>
-  <a href="shop.html" id="shopLink" class="auth-link">Boutique</a>
-  <a href="messages.html" id="messagesLink" class="auth-link" style="display:none; position:relative;">
-    Messages
-    <span id="msgNavBadge" style="display:none; position:absolute; top:-6px; right:-10px; background:linear-gradient(135deg,#d6b19a,#a97c66); color:#fffaf7; font-size:0.68rem; font-weight:700; padding:2px 6px; border-radius:999px; line-height:1.2; min-width:18px; text-align:center;">0</span>
+<!-- ── TOPBAR ── -->
+<header class="site-topbar">
+  <a href="index.html" class="site-topbar-logo-wrap" aria-label="Go to homepage">
+    <img src="images/logo1.png" alt="Our Wedding Day Hub" class="site-topbar-logo">
   </a>
-  <a href="login.html" id="loginLink" class="auth-link">Log In</a>
-  <a href="signup.html" id="joinLink" class="auth-link auth-pill">Join</a>
-  <a href="dashboard.html" id="dashboardLink" class="auth-link" style="display:none;">Dashboard</a>
-  <button id="logoutLink" class="auth-button" style="display:none;">Log Out</button>
-</div>
+  <div class="site-topbar-title"><h1>Our Wedding Day Hub</h1></div>
+  <nav class="site-topbar-actions">
+    <a href="categories.html" id="categoriesLink" class="site-topbar-link">Categories</a>
+    <a href="shop.html" id="shopLink" class="site-topbar-link">Boutique</a>
+    <a href="messages.html" id="messagesLink" class="site-topbar-link" style="display:none; position:relative;">
+      Messages
+      <span id="msgNavBadge" style="display:none; position:absolute; top:-6px; right:-10px; background:var(--ink); color:var(--cream); font-size:0.64rem; font-weight:700; padding:2px 6px; border-radius:999px; line-height:1.2; min-width:18px; text-align:center;">0</span>
+    </a>
+    <a href="login.html" id="loginLink" class="site-topbar-link">Log In</a>
+    <a href="signup.html" id="joinLink" class="site-topbar-btn">Join</a>
+    <a href="dashboard.html" id="dashboardLink" class="site-topbar-link" style="display:none;">Dashboard</a>
+    <button id="logoutLink" class="site-topbar-btn" style="display:none;">Log Out</button>
+  </nav>
+</header>
 
 <main>
+
+  <!-- ── HERO ── -->
   <section class="testimonial-hero">
-    <div class="testimonial-hero-content">
-      <p class="section-kicker">Kind Words</p>
-
-      <h1 class="testimonial-title">
-        Share your<br>experience
-      </h1>
-
-      <div class="category-divider">
-        <span></span>
-        <span class="heart">♡</span>
-        <span></span>
-      </div>
-
-      <p class="testimonial-subtitle">
-        Your kind words help other couples and vendors feel confident choosing the right people for their big day.
-      </p>
+    <div class="testimonial-hero-copy">
+      <a href="index.html" aria-label="Go to homepage">
+        <img src="images/logo1.png" alt="Our Wedding Day Hub" class="testimonial-hero-logo" loading="eager">
+      </a>
+      <p class="testimonial-hero-kicker">Kind Words</p>
+      <h1 class="testimonial-title">Share your<br>experience</h1>
+      <p class="testimonial-subtitle">Your kind words help other couples and vendors feel confident choosing the right people for their big day.</p>
+    </div>
+    <div class="testimonial-hero-image-wrap">
+      <img src="images/city.jpg" alt="Wedding editorial" class="testimonial-hero-image" loading="eager">
     </div>
   </section>
 
+  <!-- ── TRUST STRIP ── -->
+  <div class="trust-strip">
+    <span>Reviewed before publishing</span>
+    <span>Couples &amp; vendors welcome</span>
+    <span>Helps the whole community</span>
+    <span>Proudly inclusive</span>
+  </div>
+
+  <!-- ── FORM SECTION ── -->
   <section class="testimonial-section">
-    <div class="testimonial-card">
-      <div class="testimonial-form-heading">
-        <span class="testimonial-heart">♡</span>
+    <div class="testimonial-section-inner">
+
+      <div class="testimonial-form-side">
+        <p class="testimonial-form-label">Your testimonial</p>
         <h2>Leave a kind word</h2>
-        <p>
-          We'd love to hear about your experience with Our Wedding Day Hub.
-          Testimonials are reviewed before appearing publicly.
-        </p>
+        <p>We'd love to hear about your experience with Our Wedding Day Hub. Testimonials are reviewed before appearing publicly.</p>
+
+        <form id="testimonialForm" class="testimonial-form">
+          <div class="testimonial-field">
+            <label for="nameInput">Your name or business name</label>
+            <input id="nameInput" type="text" placeholder="Enter your name or business name" required>
+          </div>
+          <div class="testimonial-field">
+            <label for="roleInput">I am a...</label>
+            <select id="roleInput" required>
+              <option value="">Select an option</option>
+              <option value="Wedding Vendor">Wedding Vendor</option>
+              <option value="Couple">Couple</option>
+            </select>
+          </div>
+          <div class="testimonial-field">
+            <label for="quoteInput">Your testimonial</label>
+            <textarea id="quoteInput" placeholder="Write your testimonial here..." required></textarea>
+          </div>
+          <button type="submit" class="testimonial-submit-btn">Submit testimonial →</button>
+        </form>
+
+        <p id="statusMessage" class="testimonial-status"></p>
       </div>
 
-      <form id="testimonialForm" class="testimonial-form">
-        <div class="testimonial-field">
-          <label for="nameInput">Your name or business name</label>
-          <input id="nameInput" type="text" placeholder="Enter your name or business name" required>
+      <div class="testimonial-aside">
+        <div>
+          <p class="testimonial-aside-label">Why it matters</p>
+          <h3 class="testimonial-aside-title">Help others find<br>the right people</h3>
+          <p>When you share your experience, you make the wedding planning journey a little easier for every couple and vendor who comes after you.</p>
+          <p>Every testimonial is reviewed by our team before it appears publicly. We only publish genuine, respectful words.</p>
+          <p>Whether you're a vendor who's found a new community, or a couple who found their dream team here — your story matters.</p>
         </div>
+        <blockquote class="testimonial-aside-quote">
+          "Together, we make weddings unforgettable."
+        </blockquote>
+      </div>
 
-        <div class="testimonial-field">
-          <label for="roleInput">I am a...</label>
-          <select id="roleInput" required>
-            <option value="">Select an option</option>
-            <option value="Wedding Vendor">Wedding Vendor</option>
-            <option value="Couple">Couple</option>
-          </select>
-        </div>
-
-        <div class="testimonial-field">
-          <label for="quoteInput">Your testimonial</label>
-          <textarea id="quoteInput" placeholder="Write your testimonial here..." required></textarea>
-        </div>
-
-        <button type="submit" class="testimonial-submit-btn">
-          Submit testimonial ♡
-        </button>
-      </form>
-
-      <p id="statusMessage" class="testimonial-status"></p>
-    </div>
-
-    <div class="testimonial-footer-note">
-      <h3>Thank you for supporting our community</h3>
-      <p>Together, we make weddings unforgettable.</p>
     </div>
   </section>
+
+  <!-- ── CLOSING ── -->
+  <div class="testimonial-closing">
+    <h3>Thank you for supporting our community</h3>
+    <p>Together, we make weddings unforgettable. ♡</p>
+  </div>
+
 </main>
 
+<!-- ── FOOTER ── -->
 <footer class="site-footer">
   <div class="footer-content">
-    <a href="index.html" aria-label="Go to homepage" style="display:inline-block; margin-bottom:18px;">
-      <img src="images/logo.png" alt="Our Wedding Day Hub" style="width:72px; height:72px; object-fit:contain; opacity:0.7;">
-    </a>
-    <p class="footer-eyebrow">wedding planning directory</p>
-    <h2 class="footer-title">Everything your wedding deserves.</h2>
-    <p class="footer-text">Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.</p>
-    <div class="footer-links">
-      <a href="about.html">About Us</a>
-      <a href="how-it-works.html">How It Works</a>
-      <a href="pricing.html">Pricing</a>
-      <a href="contact.html">Contact Us</a>
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="terms.html">Terms &amp; Conditions</a>
-      <a href="refund-policy.html">Refund Policy</a>
-      <a href="https://www.equaldex.com/equality-index" target="_blank" rel="noopener noreferrer">Global Equality Index</a>
-      <a href="#" onclick="return false;">Events4Us (Coming Soon)</a>
+    <div class="footer-logo-col">
+      <a href="index.html" aria-label="Go to homepage">
+        <img src="images/logo1.png" alt="Our Wedding Day Hub" style="width:52px; height:52px; object-fit:contain; opacity:0.5; margin-bottom:6px;">
+      </a>
+      <p class="footer-eyebrow">Wedding planning directory</p>
+      <h2 class="footer-title">Everything your wedding deserves.</h2>
+      <p class="footer-text">Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.</p>
+      <p class="footer-tagline">everything your wedding day deserves. ♡</p>
+      <p class="footer-abn">© 2026 Our Wedding Day Hub</p>
+      <p class="footer-abn">ABN 76 688 637 041 • Australia</p>
     </div>
-    <p class="footer-tagline">Proudly inclusive • Worldwide • Built with heart</p>
-    <p class="footer-abn">© 2026 Our Wedding Day Hub</p>
-    <p class="footer-abn">ABN 76 688 637 041 • Australia</p>
+    <div class="footer-links-col">
+      <div class="footer-links">
+        <a href="about.html">About Us</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="refund-policy.html">Refund Policy</a>
+        <a href="https://www.equaldex.com/equality-index" target="_blank" rel="noopener noreferrer">Global Equality Index</a>
+        <a href="#" onclick="return false;">Events4Us (Coming Soon)</a>
+      </div>
+      <p style="font-family:var(--font-sans); font-size:0.65rem; color:var(--ink-muted); margin-top:12px; letter-spacing:0.06em;">Proudly inclusive • Worldwide • Built with heart</p>
+    </div>
   </div>
 </footer>
 
+<!-- ── ALL FIREBASE JS — COMPLETELY UNCHANGED ── -->
 <script type="module">
   import { db, auth, collection, addDoc, serverTimestamp, onAuthStateChanged, signOut } from "./firebase.js";
 
