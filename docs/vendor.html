@@ -539,14 +539,59 @@ favoriteBtn.addEventListener("click", () => {
 
 function buildGallery(v) {
   const items = [];
-  if (v.coverImageUrl?.trim()) { items.push({ type: "image", src: v.coverImageUrl }); }
-  [...cleanArray(v.images), ...cleanArray(v.galleryImages), ...cleanArray(v.imageUrls)].forEach(s => {
-    if (s && !items.some(i => i.src === s)) { items.push({ type: "image", src: s }); }
-  });
-  [...cleanArray(v.videos), ...cleanArray(v.videoUrls), ...cleanArray(v.galleryVideos)].forEach(s => {
-    if (s && !items.some(i => i.src === s)) { items.push({ type: "video", src: s }); }
-  });
-  if (!items.length) { items.push({ type: "image", src: "images/header4.png" }); }
+
+  function addImage(url) {
+    if (!url || typeof url !== "string") return;
+    const cleanUrl = url.trim();
+
+    if (!cleanUrl) return;
+
+    if (!items.some(i => i.src === cleanUrl)) {
+      items.push({
+        type: "image",
+        src: cleanUrl
+      });
+    }
+  }
+
+  function addVideo(url) {
+    if (!url || typeof url !== "string") return;
+    const cleanUrl = url.trim();
+
+    if (!cleanUrl) return;
+
+    if (!items.some(i => i.src === cleanUrl)) {
+      items.push({
+        type: "video",
+        src: cleanUrl
+      });
+    }
+  }
+
+  addImage(v.coverImageUrl);
+  addImage(v.coverImage);
+  addImage(v.mainImage);
+
+  [
+    ...cleanArray(v.images),
+    ...cleanArray(v.galleryImages),
+    ...cleanArray(v.imageUrls),
+    ...cleanArray(v.media)
+  ].forEach(addImage);
+
+  [
+    ...cleanArray(v.videos),
+    ...cleanArray(v.videoUrls),
+    ...cleanArray(v.galleryVideos)
+  ].forEach(addVideo);
+
+  if (!items.length) {
+    items.push({
+      type: "image",
+      src: "images/header4.png"
+    });
+  }
+
   return items;
 }
 
@@ -765,9 +810,18 @@ async function loadVendor() {
     sidebarBusinessNameEl.textContent = name;
     vendorAboutEl.textContent = about;
     setOrHide(vendorCategoryEl, category); setOrHide(vendorTaglineEl, formatText(vendorData.tagline||"")); setOrHide(sidebarCategoryEl, category);
-    const profileImg = vendorData.profileImageUrl || vendorData.profileImage || "";
+    const profileImg =
+  vendorData.profileImageUrl ||
+  vendorData.profilePhotoUrl ||
+  vendorData.profileImage ||
+  vendorData.photoURL ||
+  "";
     if (profileImg) { profilePicEl.src=profileImg; show(profilePicEl,"block"); } else hide(profilePicEl);
-    const logo = vendorData.logoUrl || vendorData.logo || "";
+    const logo =
+  vendorData.logoUrl ||
+  vendorData.logo ||
+  vendorData.businessLogo ||
+  "";
     if (logo) { logoImage.src=logo; show(logoWrap,"flex"); } else hide(logoWrap);
     galleryItems = buildGallery(vendorData); updateGallery();
     renderBooking(vendorData);
