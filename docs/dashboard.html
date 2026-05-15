@@ -24,7 +24,7 @@
       --gold-light: #C4A882;
       --font-serif: 'Cormorant Garamond', Georgia, serif;
       --font-sans:  'Plus Jakarta Sans', 'Helvetica Neue', Arial, sans-serif;
-      /* legacy aliases for dashboard components */
+      /* legacy aliases */
       --lux-espresso: #1A1A16;
       --lux-muted:    #8A8A82;
       --lux-cream:    #FAFAF8;
@@ -62,18 +62,11 @@
 
     /* ── PAGE ── */
     .dashboard-page { max-width: 100%; margin: 0 0 48px; padding: 0; }
-    .dashboard-stack { display: grid; gap: 0; border-left: none; border-right: none; }
+    .dashboard-stack { display: grid; gap: 0; }
 
     /* ── HERO ── */
-    .dashboard-hero-card {
-      border-bottom: 1px solid var(--ink);
-      background: var(--cream);
-      overflow: hidden;
-    }
-    .dashboard-hero-grid {
-      display: grid; grid-template-columns: 1.05fr 0.95fr;
-      align-items: stretch; min-height: 480px;
-    }
+    .dashboard-hero-card { border-bottom: 1px solid var(--ink); background: var(--cream); overflow: hidden; }
+    .dashboard-hero-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; align-items: stretch; min-height: 480px; }
     .dashboard-hero-copy {
       padding: 56px 48px 48px; display: flex; flex-direction: column;
       justify-content: space-between; border-right: 1px solid var(--ink-rule);
@@ -107,9 +100,9 @@
       cursor: pointer; text-decoration: none; transition: background 0.2s;
     }
     .pretty-button { background: var(--ink); color: var(--cream); }
-    .pretty-button:hover { background: var(--ink-mid); transform: none; filter: none; box-shadow: none; }
+    .pretty-button:hover { background: var(--ink-mid); }
     .apply-button { background: var(--cream-warm); color: var(--ink); border: 0.5px solid var(--ink-rule); }
-    .apply-button:hover { background: var(--cream-deep); transform: none; }
+    .apply-button:hover { background: var(--cream-deep); }
 
     /* ── EXPAND/COLLAPSE ── */
     .dashboard-controls {
@@ -123,18 +116,15 @@
       letter-spacing: 0.06em; text-transform: uppercase;
       color: var(--ink-muted); cursor: pointer; transition: background 0.2s, color 0.2s;
     }
-    .ctrl-btn:hover { background: var(--cream-deep); color: var(--ink); transform: none; }
+    .ctrl-btn:hover { background: var(--cream-deep); color: var(--ink); }
 
     /* ── PANELS ── */
     .dashboard-panel {
       border-bottom: 0.5px solid var(--ink-rule);
-      background: var(--cream);
-      overflow: hidden;
-      transition: none;
+      background: var(--cream); overflow: hidden;
       border-radius: 0; border-left: none; border-right: none; border-top: none;
       box-shadow: none;
     }
-    .dashboard-panel:hover { box-shadow: none; }
     .dashboard-panel.panel-static { padding: 28px 36px; }
 
     .panel-toggle-header {
@@ -215,10 +205,7 @@
 
     /* ── MEDIA ── */
     .media-uploader-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .upload-box {
-      border: 0.5px solid var(--ink-rule);
-      background: var(--cream); padding: 20px;
-    }
+    .upload-box { border: 0.5px solid var(--ink-rule); background: var(--cream); padding: 20px; }
     .upload-box h3 { font-family: var(--font-serif); font-size: 1.1rem; font-weight: 300; color: var(--ink); margin: 0 0 10px; }
     .pretty-upload-input { display: none; }
     .pretty-upload-label {
@@ -226,18 +213,13 @@
       min-height: 40px; padding: 10px 18px;
       font-family: var(--font-sans); font-size: 0.72rem; font-weight: 700;
       letter-spacing: 0.1em; text-transform: uppercase;
-      background: var(--ink); color: var(--cream); cursor: pointer;
-      transition: background 0.2s; box-shadow: none;
+      background: var(--ink); color: var(--cream); cursor: pointer; transition: background 0.2s;
     }
-    .pretty-upload-label:hover { background: var(--ink-mid); transform: none; filter: none; }
+    .pretty-upload-label:hover { background: var(--ink-mid); }
     .selected-file-note { margin-top: 10px; font-family: var(--font-sans); font-size: 0.78rem; color: var(--ink-muted); line-height: 1.55; }
 
     .media-preview-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px; margin-top: 16px; }
-    .media-preview-item {
-      background: var(--cream-warm); border: 0.5px solid var(--ink-rule); padding: 10px;
-      transition: none; border-radius: 0;
-    }
-    .media-preview-item:hover { transform: none; box-shadow: none; }
+    .media-preview-item { background: var(--cream-warm); border: 0.5px solid var(--ink-rule); padding: 10px; }
     .media-preview-item img, .media-preview-item video { width: 100%; display: block; background: var(--cream-deep); object-fit: cover; max-height: 200px; }
 
     /* ── BRAND ASSETS ── */
@@ -270,10 +252,10 @@
     }
     .mini-pill-grid label:hover span,
     .dropdown-content-form label:hover span,
-    .weekday-pill-grid label:hover span { background: var(--cream-warm); border-color: var(--ink-muted); transform: none; }
+    .weekday-pill-grid label:hover span { background: var(--cream-warm); border-color: var(--ink-muted); }
     .mini-pill-grid input:checked + span,
     .dropdown-content-form input:checked + span,
-    .weekday-pill-grid input:checked + span { background: var(--ink); color: var(--cream); border-color: var(--ink); box-shadow: none; }
+    .weekday-pill-grid input:checked + span { background: var(--ink); color: var(--cream); border-color: var(--ink); }
 
     .category-group-title, .region-heading { width: 100%; margin: 12px 0 4px; font-family: var(--font-sans); font-size: 0.7rem; font-weight: 700; color: var(--ink-ghost); text-transform: uppercase; letter-spacing: 0.1em; }
     .small-text { font-family: var(--font-sans); color: var(--ink-muted); font-size: 0.84rem; margin: 0; line-height: 1.6; }
@@ -287,21 +269,15 @@
       border: none; padding: 9px 14px;
       background: var(--ink); color: var(--cream);
       font-family: var(--font-sans); cursor: pointer; font-weight: 700; font-size: 0.72rem;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      transition: background 0.2s; box-shadow: none;
+      letter-spacing: 0.1em; text-transform: uppercase; transition: background 0.2s;
     }
     .remove-media-btn { width: 100%; margin-top: 10px; }
     .date-remove-btn { padding: 5px 10px; font-size: 0.68rem; }
-    .remove-media-btn:hover, .date-add-btn:hover, .date-remove-btn:hover, .bulk-add-btn:hover { background: var(--ink-mid); transform: none; filter: none; }
+    .remove-media-btn:hover, .date-add-btn:hover, .date-remove-btn:hover, .bulk-add-btn:hover { background: var(--ink-mid); }
 
     .media-order-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 8px; }
-    .media-order-btn {
-      border: 0.5px solid var(--ink-rule); padding: 8px 10px;
-      background: var(--cream); color: var(--ink);
-      font-family: var(--font-sans); font-weight: 600; font-size: 0.78rem;
-      cursor: pointer; transition: background 0.18s ease;
-    }
-    .media-order-btn:hover { background: var(--cream-warm); transform: none; }
+    .media-order-btn { border: 0.5px solid var(--ink-rule); padding: 8px 10px; background: var(--cream); color: var(--ink); font-family: var(--font-sans); font-weight: 600; font-size: 0.78rem; cursor: pointer; transition: background 0.18s ease; }
+    .media-order-btn:hover { background: var(--cream-warm); }
     .cover-photo-badge { display: inline-block; margin-bottom: 8px; padding: 4px 10px; background: var(--ink); color: var(--cream); font-family: var(--font-sans); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
 
     .date-manager-top { display: flex; gap: 12px; align-items: flex-end; flex-wrap: wrap; }
@@ -354,7 +330,6 @@
       .site-topbar { padding: 0 16px; min-height: 56px; }
       .panel-toggle-header { padding: 16px 20px; }
       .panel-body-inner { padding: 0 20px 24px; }
-      .panel-divider { margin: 0; }
       .dashboard-controls { padding: 12px 20px; }
       .dashboard-hero-copy { padding: 28px 20px; }
       .dashboard-actions { flex-direction: column; align-items: stretch; }
@@ -394,521 +369,537 @@
 
 <main class="dashboard-page">
 
-    <!-- ── HERO ── -->
-    <section class="dashboard-hero-card">
-      <div class="dashboard-hero-grid">
-        <div class="dashboard-hero-copy">
-          <a href="index.html" class="dashboard-logo-wrap" aria-label="Go to homepage">
-            <img src="images/logo1.png" alt="Our Wedding Day Hub" class="dashboard-logo">
-          </a>
-          <p class="dashboard-kicker">Vendor Dashboard</p>
-          <h1 class="dashboard-hero-title">Curate Your Vendor Profile</h1>
-          <p class="dashboard-hero-script">show couples what makes you special ♡</p>
-          <p class="dashboard-hero-text">Update your business details, upload your brand assets and media, choose your categories and service locations, and control when your profile appears.</p>
-          <div class="dashboard-actions">
-            <a href="#" id="viewProfileBtn" class="apply-button" style="display:none;">View Public Profile →</a>
-          </div>
-        </div>
-        <div class="dashboard-hero-image-wrap">
-          <img src="images/rain.jpg" alt="Romantic couple on a bridge in the rain" class="dashboard-hero-image">
+  <!-- ── HERO ── -->
+  <section class="dashboard-hero-card">
+    <div class="dashboard-hero-grid">
+      <div class="dashboard-hero-copy">
+        <a href="index.html" class="dashboard-logo-wrap" aria-label="Go to homepage">
+          <img src="images/logo1.png" alt="Our Wedding Day Hub" class="dashboard-logo">
+        </a>
+        <p class="dashboard-kicker">Vendor Dashboard</p>
+        <h1 class="dashboard-hero-title">Curate Your Vendor Profile</h1>
+        <p class="dashboard-hero-script">show couples what makes you special ♡</p>
+        <p class="dashboard-hero-text">Update your business details, upload your brand assets and media, choose your categories and service locations, and control when your profile appears.</p>
+        <div class="dashboard-actions">
+          <a href="#" id="viewProfileBtn" class="apply-button" style="display:none;">View Public Profile →</a>
         </div>
       </div>
-    </section>
-
-    <!-- ── EXPAND / COLLAPSE ALL ── -->
-    <div class="dashboard-controls">
-      <button class="ctrl-btn" id="expandAllBtn">Expand all</button>
-      <button class="ctrl-btn" id="collapseAllBtn">Collapse all</button>
+      <div class="dashboard-hero-image-wrap">
+        <img src="images/rain.jpg" alt="Romantic couple on a bridge in the rain" class="dashboard-hero-image">
+      </div>
     </div>
+  </section>
 
-    <!-- ── STATUS ── -->
-    <section class="dashboard-panel" data-section="status">
-      <div class="panel-toggle-header" role="button" aria-expanded="true" aria-controls="body-status" tabindex="0">
-        <div class="panel-header-left">
-          <div class="panel-header-icon">✦</div>
-          <div class="panel-header-text">
-            <h2 class="panel-header-title">Status</h2>
-            <p class="panel-header-subtitle">Account status and profile visibility</p>
-          </div>
+  <!-- ── EXPAND / COLLAPSE ALL ── -->
+  <div class="dashboard-controls">
+    <button class="ctrl-btn" id="expandAllBtn">Expand all</button>
+    <button class="ctrl-btn" id="collapseAllBtn">Collapse all</button>
+  </div>
+
+  <!-- ── STATUS ── -->
+  <section class="dashboard-panel" data-section="status">
+    <div class="panel-toggle-header" role="button" aria-expanded="true" aria-controls="body-status" tabindex="0">
+      <div class="panel-header-left">
+        <div class="panel-header-icon">✦</div>
+        <div class="panel-header-text">
+          <h2 class="panel-header-title">Status</h2>
+          <p class="panel-header-subtitle">Account status and profile visibility</p>
         </div>
-        <div class="panel-toggle-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       </div>
-      <div class="panel-divider"></div>
-      <div class="panel-body open" id="body-status">
-        <div class="panel-body-inner">
-          <div class="status-wrap" style="margin-top:16px;">
-            <span class="status-pill" id="accountStatusText">Account status: loading...</span>
-            <span class="status-pill" id="subscriptionStatusText">Plan access: loading...</span>
-            <span class="status-pill" id="viewsStatusText">Profile views: 0</span>
+      <div class="panel-toggle-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    </div>
+    <div class="panel-divider"></div>
+    <div class="panel-body open" id="body-status">
+      <div class="panel-body-inner">
+        <div class="status-wrap" style="margin-top:16px;">
+          <span class="status-pill" id="accountStatusText">Account status: loading...</span>
+          <span class="status-pill" id="subscriptionStatusText">Plan access: loading...</span>
+          <span class="status-pill" id="viewsStatusText">Profile views: 0</span>
+        </div>
+        <div class="inline-toggle" style="margin-top:18px;">
+          <input type="checkbox" id="profileLive">
+          <label for="profileLive" style="margin:0; font-family:var(--font-sans); font-size:0.86rem; color:var(--ink-mid);">Make my profile live on the hub</label>
+        </div>
+        <p class="dashboard-help">Turn this on when you are ready for couples to see your profile. Your listing can appear when your account is active and you have either a paid plan or complimentary vendor access.</p>
+        <div class="panel-save-row">
+          <button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button>
+          <span class="panel-save-msg" id="msg-status"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── MESSAGES SUMMARY ── -->
+  <section class="dashboard-panel" data-section="messages-summary">
+    <div class="panel-toggle-header" role="button" aria-expanded="true" aria-controls="body-messages-summary" tabindex="0">
+      <div class="panel-header-left">
+        <div class="panel-header-icon">✉</div>
+        <div class="panel-header-text">
+          <h2 class="panel-header-title">Messages</h2>
+          <p class="panel-header-subtitle">Conversations from couples — reply from your inbox</p>
+        </div>
+      </div>
+      <div class="panel-toggle-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    </div>
+    <div class="panel-divider"></div>
+    <div class="panel-body open" id="body-messages-summary">
+      <div class="panel-body-inner" style="padding-top:18px;">
+        <div class="msg-summary-box">
+          <h3>Messages <span class="msg-unread-badge" id="msgUnreadBadge" style="display:none;">0</span></h3>
+          <p class="msg-summary-preview" id="msgSummaryPreview">No messages yet. Conversations begin when a couple messages you from your vendor profile ♡</p>
+          <a href="messages.html" class="msg-summary-link">Open messages →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── BUSINESS DETAILS ── -->
+  <section class="dashboard-panel" data-section="business" style="text-align:left;">
+    <div class="panel-toggle-header" role="button" aria-expanded="false" aria-controls="body-business" tabindex="0">
+      <div class="panel-header-left">
+        <div class="panel-header-icon">◐</div>
+        <div class="panel-header-text">
+          <h2 class="panel-header-title">Business Details</h2>
+          <p class="panel-header-subtitle">Name, contact info, social links &amp; bio</p>
+        </div>
+      </div>
+      <div class="panel-toggle-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    </div>
+    <div class="panel-divider"></div>
+    <div class="panel-body" id="body-business">
+      <div class="panel-body-inner">
+        <div class="dashboard-card-soft">
+          <div class="dashboard-grid-2">
+            <div class="dashboard-field"><label for="businessName">Business Name</label><input type="text" id="businessName"></div>
+            <div class="dashboard-field"><label for="email">Business Email</label><input type="email" id="email"></div>
           </div>
-          <div class="inline-toggle" style="margin-top:18px;">
-            <input type="checkbox" id="profileLive">
-            <label for="profileLive" style="margin:0; font-family:var(--font-sans); font-size:0.86rem; color:var(--ink-mid);">Make my profile live on the hub</label>
+          <div class="dashboard-grid-3" style="margin-top:14px;">
+            <div class="dashboard-field"><label for="phone">Phone</label><input type="text" id="phone"></div>
+            <div class="dashboard-field"><label for="instagram">Instagram</label><input type="text" id="instagram" placeholder="@yourhandle or full link"></div>
+            <div class="dashboard-field"><label for="website">Website</label><input type="text" id="website" placeholder="https://yourwebsite.com"></div>
           </div>
-          <p class="dashboard-help">Turn this on when you are ready for couples to see your profile. Your listing can appear when your account is active and you have either a paid plan or complimentary vendor access.</p>
+          <div class="dashboard-grid-3" style="margin-top:14px;">
+            <div class="dashboard-field"><label for="facebook">Facebook</label><input type="text" id="facebook" placeholder="https://facebook.com/..."></div>
+            <div class="dashboard-field"><label for="tiktok">TikTok</label><input type="text" id="tiktok" placeholder="https://tiktok.com/..."></div>
+            <div class="dashboard-field"><label for="youtube">YouTube</label><input type="text" id="youtube" placeholder="https://youtube.com/..."></div>
+          </div>
+          <div class="dashboard-grid-3" style="margin-top:14px;">
+            <div class="dashboard-field"><label for="pinterest">Pinterest</label><input type="text" id="pinterest" placeholder="https://pinterest.com/..."></div>
+            <div class="dashboard-field"><label for="linkedin">LinkedIn</label><input type="text" id="linkedin" placeholder="https://linkedin.com/..."></div>
+            <div class="dashboard-field"><label for="x">X (Twitter)</label><input type="text" id="x" placeholder="https://x.com/..."></div>
+          </div>
+          <p class="dashboard-help">Only the links you fill in will appear on your public profile.</p>
+          <div class="dashboard-grid-2" style="margin-top:14px;">
+            <div class="dashboard-field"><label for="serviceAreas">Service Areas Summary</label><input type="text" id="serviceAreas" placeholder="Brisbane, Gold Coast, Sunshine Coast"></div>
+            <div class="dashboard-field"><label for="displayLocation">Display Location</label><input type="text" id="displayLocation" placeholder="Brisbane, Queensland"></div>
+          </div>
+          <p class="dashboard-help">Use clear location wording so couples can find you more easily in search results.</p>
+          <div class="dashboard-field" style="margin-top:14px;"><label for="bio">Bio</label><textarea id="bio" rows="6" placeholder="Tell couples about your business..."></textarea></div>
           <div class="panel-save-row">
             <button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button>
-            <span class="panel-save-msg" id="msg-status"></span>
+            <span class="panel-save-msg" id="msg-business"></span>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- ── MESSAGES SUMMARY ── -->
-    <section class="dashboard-panel" data-section="messages-summary">
-      <div class="panel-toggle-header" role="button" aria-expanded="true" aria-controls="body-messages-summary" tabindex="0">
-        <div class="panel-header-left">
-          <div class="panel-header-icon">✉</div>
-          <div class="panel-header-text">
-            <h2 class="panel-header-title">Messages</h2>
-            <p class="panel-header-subtitle">Conversations from couples — reply from your inbox</p>
-          </div>
-        </div>
-        <div class="panel-toggle-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      </div>
-      <div class="panel-divider"></div>
-      <div class="panel-body open" id="body-messages-summary">
-        <div class="panel-body-inner" style="padding-top:18px;">
-          <div class="msg-summary-box">
-            <h3>Messages <span class="msg-unread-badge" id="msgUnreadBadge" style="display:none;">0</span></h3>
-            <p class="msg-summary-preview" id="msgSummaryPreview">No messages yet. Conversations begin when a couple messages you from your vendor profile ♡</p>
-            <a href="messages.html" class="msg-summary-link">Open messages →</a>
-          </div>
+  <!-- ── BOOKING & AVAILABILITY ── -->
+  <section class="dashboard-panel" data-section="booking" style="text-align:left;">
+    <div class="panel-toggle-header" role="button" aria-expanded="false" aria-controls="body-booking" tabindex="0">
+      <div class="panel-header-left">
+        <div class="panel-header-icon">◆</div>
+        <div class="panel-header-text">
+          <h2 class="panel-header-title">Booking &amp; Availability</h2>
+          <p class="panel-header-subtitle">Booking link, notes &amp; unavailable dates</p>
         </div>
       </div>
-    </section>
-
-    <!-- ── BUSINESS DETAILS ── -->
-    <section class="dashboard-panel" data-section="business" style="text-align:left;">
-      <div class="panel-toggle-header" role="button" aria-expanded="false" aria-controls="body-business" tabindex="0">
-        <div class="panel-header-left">
-          <div class="panel-header-icon">◐</div>
-          <div class="panel-header-text">
-            <h2 class="panel-header-title">Business Details</h2>
-            <p class="panel-header-subtitle">Name, contact info, social links &amp; bio</p>
-          </div>
-        </div>
-        <div class="panel-toggle-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      </div>
-      <div class="panel-divider"></div>
-      <div class="panel-body" id="body-business">
-        <div class="panel-body-inner">
-          <div class="dashboard-card-soft">
+      <div class="panel-toggle-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    </div>
+    <div class="panel-divider"></div>
+    <div class="panel-body" id="body-booking">
+      <div class="panel-body-inner">
+        <div class="dashboard-card-soft booking-layout">
+          <div class="booking-subcard">
+            <h3>Booking Link &amp; Availability</h3>
+            <p class="dashboard-help">Add your booking page and a short status update so couples know whether you are taking enquiries right now.</p>
             <div class="dashboard-grid-2">
-              <div class="dashboard-field"><label for="businessName">Business Name</label><input type="text" id="businessName"></div>
-              <div class="dashboard-field"><label for="email">Business Email</label><input type="email" id="email"></div>
+              <div class="dashboard-field"><label for="bookingLink">Booking Link</label><input type="text" id="bookingLink" placeholder="https://calendly.com/... or your booking page"></div>
+              <div class="dashboard-field"><label for="availabilityStatus">Availability Status</label><input type="text" id="availabilityStatus" placeholder="Now booking 2026 weddings"></div>
             </div>
-            <div class="dashboard-grid-3" style="margin-top:14px;">
-              <div class="dashboard-field"><label for="phone">Phone</label><input type="text" id="phone"></div>
-              <div class="dashboard-field"><label for="instagram">Instagram</label><input type="text" id="instagram" placeholder="@yourhandle or full link"></div>
-              <div class="dashboard-field"><label for="website">Website</label><input type="text" id="website" placeholder="https://yourwebsite.com"></div>
+            <div class="dashboard-field" style="margin-top:14px;"><label for="bookingNotes">Booking Notes</label><textarea id="bookingNotes" rows="4" placeholder="Share anything couples should know before booking..."></textarea></div>
+          </div>
+          <div class="booking-subcard">
+            <h3>Block One Unavailable Date</h3>
+            <p class="dashboard-help">Add a single date when you are already booked or not available.</p>
+            <div class="date-manager-top">
+              <div class="dashboard-field"><label for="blockedDateInput">Unavailable Date</label><input type="date" id="blockedDateInput"></div>
+              <button type="button" id="addBlockedDateBtn" class="date-add-btn">Add Date</button>
             </div>
-            <div class="dashboard-grid-3" style="margin-top:14px;">
-              <div class="dashboard-field"><label for="facebook">Facebook</label><input type="text" id="facebook" placeholder="https://facebook.com/..."></div>
-              <div class="dashboard-field"><label for="tiktok">TikTok</label><input type="text" id="tiktok" placeholder="https://tiktok.com/..."></div>
-              <div class="dashboard-field"><label for="youtube">YouTube</label><input type="text" id="youtube" placeholder="https://youtube.com/..."></div>
+          </div>
+          <div class="booking-subcard">
+            <h3>Bulk Block Weekdays</h3>
+            <p class="dashboard-help">Great for vendors who never work certain days.</p>
+            <div id="weekdayOptions" class="weekday-pill-grid">
+              <label><input type="checkbox" value="0"><span>Sunday</span></label>
+              <label><input type="checkbox" value="1"><span>Monday</span></label>
+              <label><input type="checkbox" value="2"><span>Tuesday</span></label>
+              <label><input type="checkbox" value="3"><span>Wednesday</span></label>
+              <label><input type="checkbox" value="4"><span>Thursday</span></label>
+              <label><input type="checkbox" value="5"><span>Friday</span></label>
+              <label><input type="checkbox" value="6"><span>Saturday</span></label>
             </div>
-            <div class="dashboard-grid-3" style="margin-top:14px;">
-              <div class="dashboard-field"><label for="pinterest">Pinterest</label><input type="text" id="pinterest" placeholder="https://pinterest.com/..."></div>
-              <div class="dashboard-field"><label for="linkedin">LinkedIn</label><input type="text" id="linkedin" placeholder="https://linkedin.com/..."></div>
-              <div class="dashboard-field"><label for="x">X (Twitter)</label><input type="text" id="x" placeholder="https://x.com/..."></div>
+            <div class="bulk-date-grid">
+              <div class="dashboard-field"><label for="bulkStartDate">Start Date</label><input type="date" id="bulkStartDate"></div>
+              <div class="dashboard-field"><label for="bulkEndDate">End Date</label><input type="date" id="bulkEndDate"></div>
+              <div class="dashboard-field"><label for="bulkMonthsPreset">Quick Range</label><select id="bulkMonthsPreset"><option value="">Custom dates</option><option value="3">Next 3 months</option><option value="6">Next 6 months</option><option value="12">Next 12 months</option></select></div>
+              <button type="button" id="bulkAddBtn" class="bulk-add-btn">Block Selected Days</button>
             </div>
-            <p class="dashboard-help">Only the links you fill in will appear on your public profile.</p>
+          </div>
+          <div class="booking-subcard">
+            <h3>Unavailable Dates</h3>
+            <p class="dashboard-help">These dates will be marked unavailable on your public profile calendar and enquiry form.</p>
+            <div id="blockedDateList" class="date-chip-list"></div>
+            <div class="calendar-tip-box">Your booking link will show as a Book Now button on your public profile if filled in. Unavailable dates will be checked before couples send an enquiry.</div>
+          </div>
+          <div class="panel-save-row">
+            <button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button>
+            <span class="panel-save-msg" id="msg-booking"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PROFILE PICTURE & LOGO ── -->
+  <section class="dashboard-panel" data-section="assets" style="text-align:left;">
+    <div class="panel-toggle-header" role="button" aria-expanded="false" aria-controls="body-assets" tabindex="0">
+      <div class="panel-header-left">
+        <div class="panel-header-icon">✿</div>
+        <div class="panel-header-text">
+          <h2 class="panel-header-title">Profile Picture &amp; Logo</h2>
+          <p class="panel-header-subtitle">Your profile image and brand logo</p>
+        </div>
+      </div>
+      <div class="panel-toggle-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    </div>
+    <div class="panel-divider"></div>
+    <div class="panel-body" id="body-assets">
+      <div class="panel-body-inner">
+        <div class="dashboard-card-soft">
+          <div class="brand-assets-grid">
+            <div class="asset-box">
+              <div class="asset-preview-circle">
+                <div class="asset-empty" id="profileImageEmpty">No profile image yet</div>
+                <img id="profileImagePreview" style="display:none;" alt="Profile image preview">
+              </div>
+              <input type="file" id="profileImageFile" class="pretty-upload-input" accept="image/*">
+              <label for="profileImageFile" class="pretty-upload-label">Upload Profile Picture</label>
+              <div id="profileImageFileName" class="selected-file-note"></div>
+            </div>
+            <div class="asset-box">
+              <div class="asset-preview-square">
+                <div class="asset-empty" id="logoEmpty">No logo yet</div>
+                <img id="logoPreview" style="display:none;" alt="Logo preview">
+              </div>
+              <input type="file" id="logoFile" class="pretty-upload-input" accept="image/*">
+              <label for="logoFile" class="pretty-upload-label">Upload Logo</label>
+              <div id="logoFileName" class="selected-file-note"></div>
+            </div>
+          </div>
+          <div class="panel-save-row">
+            <button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button>
+            <span class="panel-save-msg" id="msg-assets"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── MEDIA UPLOADS ── -->
+  <section class="dashboard-panel" data-section="media" style="text-align:left;">
+    <div class="panel-toggle-header" role="button" aria-expanded="false" aria-controls="body-media" tabindex="0">
+      <div class="panel-header-left">
+        <div class="panel-header-icon">◈</div>
+        <div class="panel-header-text">
+          <h2 class="panel-header-title">Media Uploads</h2>
+          <p class="panel-header-subtitle">Photos and videos showcasing your work</p>
+        </div>
+      </div>
+      <div class="panel-toggle-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    </div>
+    <div class="panel-divider"></div>
+    <div class="panel-body" id="body-media">
+      <div class="panel-body-inner">
+        <div class="dashboard-card-soft">
+          <div class="media-uploader-grid">
+            <div class="upload-box">
+              <h3>Upload Photos</h3>
+              <input type="file" id="galleryImageFiles" class="pretty-upload-input" accept="image/*" multiple>
+              <label for="galleryImageFiles" class="pretty-upload-label">Choose Photos</label>
+              <div id="galleryImageFileName" class="selected-file-note"></div>
+            </div>
+            <div class="upload-box">
+              <h3>Upload Videos</h3>
+              <input type="file" id="galleryVideoFiles" class="pretty-upload-input" accept="video/*" multiple>
+              <label for="galleryVideoFiles" class="pretty-upload-label">Choose Videos</label>
+              <div id="galleryVideoFileName" class="selected-file-note"></div>
+            </div>
+          </div>
+          <div id="imagePreview" class="media-preview-grid"></div>
+          <div id="videoPreview" class="media-preview-grid"></div>
+          <div class="panel-save-row">
+            <button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button>
+            <span class="panel-save-msg" id="msg-media"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── STYLE TAGS ── -->
+  <section class="dashboard-panel" data-section="styles" style="text-align:left;">
+    <div class="panel-toggle-header" role="button" aria-expanded="false" aria-controls="body-styles" tabindex="0">
+      <div class="panel-header-left">
+        <div class="panel-header-icon">❋</div>
+        <div class="panel-header-text">
+          <h2 class="panel-header-title">Style Tags</h2>
+          <p class="panel-header-subtitle">Words that describe your aesthetic</p>
+        </div>
+      </div>
+      <div class="panel-toggle-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    </div>
+    <div class="panel-divider"></div>
+    <div class="panel-body" id="body-styles">
+      <div class="panel-body-inner">
+        <div class="dashboard-card-soft"><div id="styleTagOptions" class="mini-pill-grid"></div></div>
+        <div class="panel-save-row">
+          <button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button>
+          <span class="panel-save-msg" id="msg-styles"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CATEGORIES ── -->
+  <section class="dashboard-panel" data-section="categories" style="text-align:left;">
+    <div class="panel-toggle-header" role="button" aria-expanded="false" aria-controls="body-categories" tabindex="0">
+      <div class="panel-header-left">
+        <div class="panel-header-icon">◇</div>
+        <div class="panel-header-text">
+          <h2 class="panel-header-title">Categories</h2>
+          <p class="panel-header-subtitle">Services you offer on the hub</p>
+        </div>
+      </div>
+      <div class="panel-toggle-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    </div>
+    <div class="panel-divider"></div>
+    <div class="panel-body" id="body-categories">
+      <div class="panel-body-inner">
+        <div class="dashboard-card-soft">
+          <div id="categoryOptions" class="dropdown-content-form"></div>
+          <p class="dashboard-help">Choose the specific services you offer. These match the categories couples browse on the website.</p>
+        </div>
+        <div class="panel-save-row">
+          <button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button>
+          <span class="panel-save-msg" id="msg-categories"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── COUNTRIES ── -->
+  <section class="dashboard-panel" data-section="countries" style="text-align:left;">
+    <div class="panel-toggle-header" role="button" aria-expanded="false" aria-controls="body-countries" tabindex="0">
+      <div class="panel-header-left">
+        <div class="panel-header-icon">✶</div>
+        <div class="panel-header-text">
+          <h2 class="panel-header-title">Countries You Service</h2>
+          <p class="panel-header-subtitle">Where you genuinely work</p>
+        </div>
+      </div>
+      <div class="panel-toggle-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    </div>
+    <div class="panel-divider"></div>
+    <div class="panel-body" id="body-countries">
+      <div class="panel-body-inner">
+        <div class="dashboard-card-soft">
+          <div id="countryOptions" class="dropdown-content-form"></div>
+          <p class="dashboard-help">Select the countries you genuinely service.</p>
+        </div>
+        <div class="panel-save-row">
+          <button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button>
+          <span class="panel-save-msg" id="msg-countries"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── STATES ── -->
+  <section class="dashboard-panel" data-section="states" style="text-align:left;">
+    <div class="panel-toggle-header" role="button" aria-expanded="false" aria-controls="body-states" tabindex="0">
+      <div class="panel-header-left">
+        <div class="panel-header-icon">◎</div>
+        <div class="panel-header-text">
+          <h2 class="panel-header-title">States / Provinces / Territories</h2>
+          <p class="panel-header-subtitle">Refine where you work within each country</p>
+        </div>
+      </div>
+      <div class="panel-toggle-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    </div>
+    <div class="panel-divider"></div>
+    <div class="panel-body" id="body-states">
+      <div class="panel-body-inner">
+        <div class="dashboard-card-soft">
+          <div id="stateOptions" class="dropdown-content-form"><p class="small-text">Select countries first.</p></div>
+          <p class="dashboard-help">Add your main states, provinces or territories.</p>
+        </div>
+        <div class="panel-save-row">
+          <button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button>
+          <span class="panel-save-msg" id="msg-states"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── REGIONS ── -->
+  <section class="dashboard-panel" data-section="regions" style="text-align:left;">
+    <div class="panel-toggle-header" role="button" aria-expanded="false" aria-controls="body-regions" tabindex="0">
+      <div class="panel-header-left">
+        <div class="panel-header-icon">◉</div>
+        <div class="panel-header-text">
+          <h2 class="panel-header-title">Regions / Cities / Areas</h2>
+          <p class="panel-header-subtitle">Specific areas where couples can find you</p>
+        </div>
+      </div>
+      <div class="panel-toggle-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    </div>
+    <div class="panel-divider"></div>
+    <div class="panel-body" id="body-regions">
+      <div class="panel-body-inner">
+        <div class="dashboard-card-soft">
+          <div id="regionOptions" class="dropdown-content-form"><p class="small-text">Select states, provinces or territories first.</p></div>
+          <p class="dashboard-help">Choose the cities, regions or local areas you service.</p>
+        </div>
+        <div class="panel-save-row">
+          <button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button>
+          <span class="panel-save-msg" id="msg-regions"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── BOUTIQUE ── -->
+  <section class="dashboard-panel" data-section="boutique" style="text-align:left;">
+    <div class="panel-toggle-header" role="button" aria-expanded="false" aria-controls="body-boutique" tabindex="0">
+      <div class="panel-header-left">
+        <div class="panel-header-icon">✧</div>
+        <div class="panel-header-text">
+          <h2 class="panel-header-title">Sell Products, Gift Cards &amp; Vouchers</h2>
+          <p class="panel-header-subtitle">Boutique listings for couples and guests</p>
+        </div>
+      </div>
+      <div class="panel-toggle-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    </div>
+    <div class="panel-divider"></div>
+    <div class="panel-body" id="body-boutique">
+      <div class="panel-body-inner">
+        <div class="dashboard-card-soft">
+          <div class="calendar-tip-box" style="margin-bottom:16px;">
+            <strong>What can you list?</strong><br><br>
+            Gift cards, vouchers, special offers, jewellery, favours, keepsakes, bridal accessories, cake boxes, wellness experiences and wedding-related products.<br><br>
+            Couples and guests can browse these through the <strong>Boutique</strong> link at the top of the website.
+          </div>
+          <div id="boutiqueAccessAllowed" style="display:none;">
+            <div class="status-wrap" style="margin-bottom:14px;">
+              <span class="status-pill" id="stripeStatusText">Stripe: loading...</span>
+              <span class="status-pill" id="productCountText">Products: 0</span>
+            </div>
+            <div class="dashboard-actions" style="margin-bottom:14px;">
+              <button type="button" id="connectStripeBtn" class="pretty-button">Connect Stripe</button>
+              <a href="shop.html" class="apply-button">View Boutique Shop</a>
+            </div>
+            <div class="calendar-tip-box">You can use your own payment method, ask customers to enquire first, or connect Stripe later for direct checkout.</div>
+            <div class="dashboard-grid-2" style="margin-top:18px;">
+              <div class="dashboard-field"><label for="productName">Listing Name</label><input type="text" id="productName" placeholder="Gift card, bridal voucher, jewellery set, favour box..."></div>
+              <div class="dashboard-field"><label for="productPrice">Price / Value</label><input type="number" id="productPrice" min="0" step="0.01" placeholder="49.00"></div>
+            </div>
             <div class="dashboard-grid-2" style="margin-top:14px;">
-              <div class="dashboard-field"><label for="serviceAreas">Service Areas Summary</label><input type="text" id="serviceAreas" placeholder="Brisbane, Gold Coast, Sunshine Coast"></div>
-              <div class="dashboard-field"><label for="displayLocation">Display Location</label><input type="text" id="displayLocation" placeholder="Brisbane, Queensland"></div>
+              <div class="dashboard-field"><label for="productCategory">Listing Type</label><select id="productCategory"><option value="">Choose type</option><option value="gift_card">Gift Card</option><option value="voucher">Voucher / Offer</option><option value="product">Physical Product</option><option value="jewellery">Jewellery</option><option value="bridal_accessories">Bridal Accessories</option><option value="wedding_favours">Wedding Favours</option><option value="keepsakes">Keepsakes</option><option value="experience">Experience</option><option value="other">Other</option></select></div>
+              <div class="dashboard-field"><label for="productStock">Quantity Available</label><input type="number" id="productStock" min="0" step="1" placeholder="10"></div>
             </div>
-            <p class="dashboard-help">Use clear location wording so couples can find you more easily in search results.</p>
-            <div class="dashboard-field" style="margin-top:14px;"><label for="bio">Bio</label><textarea id="bio" rows="6" placeholder="Tell couples about your business..."></textarea></div>
-            <div class="panel-save-row">
-              <button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button>
-              <span class="panel-save-msg" id="msg-business"></span>
+            <div class="dashboard-field" style="margin-top:14px;"><label for="productDescription">What's Included</label><textarea id="productDescription" rows="4" placeholder="Explain what they receive, how it works, inclusions, expiry dates for vouchers, lead times, sizing, colours or custom options."></textarea></div>
+            <div class="dashboard-grid-2" style="margin-top:18px;">
+              <div class="dashboard-field"><label for="paymentMethod">How do you want to get paid?</label><select id="paymentMethod"><option value="own">Use my own payment method</option><option value="stripe">Sell through the hub with Stripe</option><option value="enquiry">Customer enquires first</option></select></div>
+              <div class="dashboard-field"><label for="productPurchaseLink">Payment / Booking Link</label><input type="text" id="productPurchaseLink" placeholder="Website checkout, payment link, booking link or Instagram link"></div>
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── BOOKING & AVAILABILITY ── -->
-    <section class="dashboard-panel" data-section="booking" style="text-align:left;">
-      <div class="panel-toggle-header" role="button" aria-expanded="false" aria-controls="body-booking" tabindex="0">
-        <div class="panel-header-left">
-          <div class="panel-header-icon">◆</div>
-          <div class="panel-header-text">
-            <h2 class="panel-header-title">Booking &amp; Availability</h2>
-            <p class="panel-header-subtitle">Booking link, notes &amp; unavailable dates</p>
-          </div>
-        </div>
-        <div class="panel-toggle-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      </div>
-      <div class="panel-divider"></div>
-      <div class="panel-body" id="body-booking">
-        <div class="panel-body-inner">
-          <div class="dashboard-card-soft booking-layout">
-            <div class="booking-subcard">
-              <h3>Booking Link &amp; Availability</h3>
-              <p class="dashboard-help">Add your booking page and a short status update so couples know whether you are taking enquiries right now.</p>
-              <div class="dashboard-grid-2">
-                <div class="dashboard-field"><label for="bookingLink">Booking Link</label><input type="text" id="bookingLink" placeholder="https://calendly.com/... or your booking page"></div>
-                <div class="dashboard-field"><label for="availabilityStatus">Availability Status</label><input type="text" id="availabilityStatus" placeholder="Now booking 2026 weddings"></div>
-              </div>
-              <div class="dashboard-field" style="margin-top:14px;"><label for="bookingNotes">Booking Notes</label><textarea id="bookingNotes" rows="4" placeholder="Share anything couples should know before booking..."></textarea></div>
+            <p class="dashboard-help">If you use your own payment method, add the link customers should use.</p>
+            <div class="dashboard-grid-2" style="margin-top:14px;">
+              <div class="dashboard-field"><label for="fulfilmentMethod">How will customers receive this?</label><select id="fulfilmentMethod"><option value="email">Email delivery</option><option value="pickup">Local pickup</option><option value="local_delivery">Local delivery</option><option value="domestic_shipping">Ships within your country</option><option value="international_shipping">Ships internationally</option><option value="enquiry">Arrange after enquiry</option></select></div>
+              <div class="dashboard-field"><label for="fulfilmentDetails">Delivery / Pickup / Redemption Details</label><input type="text" id="fulfilmentDetails" placeholder="Brisbane pickup, ships Australia-wide, emailed within 24 hours..."></div>
             </div>
-            <div class="booking-subcard">
-              <h3>Block One Unavailable Date</h3>
-              <p class="dashboard-help">Add a single date when you are already booked or not available.</p>
-              <div class="date-manager-top">
-                <div class="dashboard-field"><label for="blockedDateInput">Unavailable Date</label><input type="date" id="blockedDateInput"></div>
-                <button type="button" id="addBlockedDateBtn" class="date-add-btn">Add Date</button>
-              </div>
+            <div class="dashboard-grid-2" style="margin-top:14px;">
+              <div class="dashboard-field"><label for="productStatus">Listing Visibility</label><select id="productStatus"><option value="draft">Draft - not visible yet</option><option value="live">Live - show in Boutique</option><option value="sold_out">Sold Out</option></select></div>
             </div>
-            <div class="booking-subcard">
-              <h3>Bulk Block Weekdays</h3>
-              <p class="dashboard-help">Great for vendors who never work certain days.</p>
-              <div id="weekdayOptions" class="weekday-pill-grid">
-                <label><input type="checkbox" value="0"><span>Sunday</span></label>
-                <label><input type="checkbox" value="1"><span>Monday</span></label>
-                <label><input type="checkbox" value="2"><span>Tuesday</span></label>
-                <label><input type="checkbox" value="3"><span>Wednesday</span></label>
-                <label><input type="checkbox" value="4"><span>Thursday</span></label>
-                <label><input type="checkbox" value="5"><span>Friday</span></label>
-                <label><input type="checkbox" value="6"><span>Saturday</span></label>
-              </div>
-              <div class="bulk-date-grid">
-                <div class="dashboard-field"><label for="bulkStartDate">Start Date</label><input type="date" id="bulkStartDate"></div>
-                <div class="dashboard-field"><label for="bulkEndDate">End Date</label><input type="date" id="bulkEndDate"></div>
-                <div class="dashboard-field"><label for="bulkMonthsPreset">Quick Range</label><select id="bulkMonthsPreset"><option value="">Custom dates</option><option value="3">Next 3 months</option><option value="6">Next 6 months</option><option value="12">Next 12 months</option></select></div>
-                <button type="button" id="bulkAddBtn" class="bulk-add-btn">Block Selected Days</button>
-              </div>
+            <div class="upload-box" style="margin-top:14px;">
+              <h3>Listing Images</h3>
+              <p class="dashboard-help" style="margin-top:0;">Upload photos of the product, voucher, gift card design, or an example of what customers receive.</p>
+              <input type="file" id="productImageFiles" class="pretty-upload-input" accept="image/*" multiple>
+              <label for="productImageFiles" class="pretty-upload-label">Choose Listing Images</label>
+              <div id="productImageFileName" class="selected-file-note"></div>
             </div>
-            <div class="booking-subcard">
-              <h3>Unavailable Dates</h3>
-              <p class="dashboard-help">These dates will be marked unavailable on your public profile calendar and enquiry form.</p>
-              <div id="blockedDateList" class="date-chip-list"></div>
-              <div class="calendar-tip-box">Your booking link will show as a Book Now button on your public profile if filled in. Unavailable dates will be checked before couples send an enquiry.</div>
-            </div>
-            <div class="panel-save-row">
-              <button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button>
-              <span class="panel-save-msg" id="msg-booking"></span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── PROFILE PICTURE & LOGO ── -->
-    <section class="dashboard-panel" data-section="assets" style="text-align:left;">
-      <div class="panel-toggle-header" role="button" aria-expanded="false" aria-controls="body-assets" tabindex="0">
-        <div class="panel-header-left">
-          <div class="panel-header-icon">✿</div>
-          <div class="panel-header-text">
-            <h2 class="panel-header-title">Profile Picture &amp; Logo</h2>
-            <p class="panel-header-subtitle">Your profile image and brand logo</p>
-          </div>
-        </div>
-        <div class="panel-toggle-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      </div>
-      <div class="panel-divider"></div>
-      <div class="panel-body" id="body-assets">
-        <div class="panel-body-inner">
-          <div class="dashboard-card-soft">
-            <div class="brand-assets-grid">
-              <div class="asset-box">
-                <div class="asset-preview-circle"><div class="asset-empty" id="profileImageEmpty">No profile image yet</div><img id="profileImagePreview" style="display:none;" alt="Profile image preview"></div>
-                <input type="file" id="profileImageFile" class="pretty-upload-input" accept="image/*">
-                <label for="profileImageFile" class="pretty-upload-label">Upload Profile Picture</label>
-                <div id="profileImageFileName" class="selected-file-note"></div>
-              </div>
-              <div class="asset-box">
-                <div class="asset-preview-square"><div class="asset-empty" id="logoEmpty">No logo yet</div><img id="logoPreview" style="display:none;" alt="Logo preview"></div>
-                <input type="file" id="logoFile" class="pretty-upload-input" accept="image/*">
-                <label for="logoFile" class="pretty-upload-label">Upload Logo</label>
-                <div id="logoFileName" class="selected-file-note"></div>
-              </div>
-            </div>
-            <div class="panel-save-row">
-              <button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button>
-              <span class="panel-save-msg" id="msg-assets"></span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── MEDIA UPLOADS ── -->
-    <section class="dashboard-panel" data-section="media" style="text-align:left;">
-      <div class="panel-toggle-header" role="button" aria-expanded="false" aria-controls="body-media" tabindex="0">
-        <div class="panel-header-left">
-          <div class="panel-header-icon">◈</div>
-          <div class="panel-header-text">
-            <h2 class="panel-header-title">Media Uploads</h2>
-            <p class="panel-header-subtitle">Photos and videos showcasing your work</p>
-          </div>
-        </div>
-        <div class="panel-toggle-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      </div>
-      <div class="panel-divider"></div>
-      <div class="panel-body" id="body-media">
-        <div class="panel-body-inner">
-          <div class="dashboard-card-soft">
-            <div class="media-uploader-grid">
-              <div class="upload-box"><h3>Upload Photos</h3><input type="file" id="galleryImageFiles" class="pretty-upload-input" accept="image/*" multiple><label for="galleryImageFiles" class="pretty-upload-label">Choose Photos</label><div id="galleryImageFileName" class="selected-file-note"></div></div>
-              <div class="upload-box"><h3>Upload Videos</h3><input type="file" id="galleryVideoFiles" class="pretty-upload-input" accept="video/*" multiple><label for="galleryVideoFiles" class="pretty-upload-label">Choose Videos</label><div id="galleryVideoFileName" class="selected-file-note"></div></div>
-            </div>
-            <div id="imagePreview" class="media-preview-grid"></div>
-            <div id="videoPreview" class="media-preview-grid"></div>
-            <div class="panel-save-row">
-              <button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button>
-              <span class="panel-save-msg" id="msg-media"></span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── STYLE TAGS ── -->
-    <section class="dashboard-panel" data-section="styles" style="text-align:left;">
-      <div class="panel-toggle-header" role="button" aria-expanded="false" aria-controls="body-styles" tabindex="0">
-        <div class="panel-header-left">
-          <div class="panel-header-icon">❋</div>
-          <div class="panel-header-text">
-            <h2 class="panel-header-title">Style Tags</h2>
-            <p class="panel-header-subtitle">Words that describe your aesthetic</p>
-          </div>
-        </div>
-        <div class="panel-toggle-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      </div>
-      <div class="panel-divider"></div>
-      <div class="panel-body" id="body-styles">
-        <div class="panel-body-inner">
-          <div class="dashboard-card-soft"><div id="styleTagOptions" class="mini-pill-grid"></div></div>
-          <div class="panel-save-row">
-            <button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button>
-            <span class="panel-save-msg" id="msg-styles"></span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── CATEGORIES ── -->
-    <section class="dashboard-panel" data-section="categories" style="text-align:left;">
-      <div class="panel-toggle-header" role="button" aria-expanded="false" aria-controls="body-categories" tabindex="0">
-        <div class="panel-header-left">
-          <div class="panel-header-icon">◇</div>
-          <div class="panel-header-text">
-            <h2 class="panel-header-title">Categories</h2>
-            <p class="panel-header-subtitle">Services you offer on the hub</p>
-          </div>
-        </div>
-        <div class="panel-toggle-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      </div>
-      <div class="panel-divider"></div>
-      <div class="panel-body" id="body-categories">
-        <div class="panel-body-inner">
-          <div class="dashboard-card-soft">
-            <div id="categoryOptions" class="dropdown-content-form"></div>
-            <p class="dashboard-help">Choose the specific services you offer. These match the categories couples browse on the website.</p>
-          </div>
-          <div class="panel-save-row">
-            <button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button>
-            <span class="panel-save-msg" id="msg-categories"></span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── COUNTRIES ── -->
-    <section class="dashboard-panel" data-section="countries" style="text-align:left;">
-      <div class="panel-toggle-header" role="button" aria-expanded="false" aria-controls="body-countries" tabindex="0">
-        <div class="panel-header-left">
-          <div class="panel-header-icon">✶</div>
-          <div class="panel-header-text">
-            <h2 class="panel-header-title">Countries You Service</h2>
-            <p class="panel-header-subtitle">Where you genuinely work</p>
-          </div>
-        </div>
-        <div class="panel-toggle-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      </div>
-      <div class="panel-divider"></div>
-      <div class="panel-body" id="body-countries">
-        <div class="panel-body-inner">
-          <div class="dashboard-card-soft">
-            <div id="countryOptions" class="dropdown-content-form"></div>
-            <p class="dashboard-help">Select the countries you genuinely service. This helps your profile appear in country and broader region searches.</p>
-          </div>
-          <div class="panel-save-row">
-            <button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button>
-            <span class="panel-save-msg" id="msg-countries"></span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── STATES ── -->
-    <section class="dashboard-panel" data-section="states" style="text-align:left;">
-      <div class="panel-toggle-header" role="button" aria-expanded="false" aria-controls="body-states" tabindex="0">
-        <div class="panel-header-left">
-          <div class="panel-header-icon">◎</div>
-          <div class="panel-header-text">
-            <h2 class="panel-header-title">States / Provinces / Territories</h2>
-            <p class="panel-header-subtitle">Refine where you work within each country</p>
-          </div>
-        </div>
-        <div class="panel-toggle-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      </div>
-      <div class="panel-divider"></div>
-      <div class="panel-body" id="body-states">
-        <div class="panel-body-inner">
-          <div class="dashboard-card-soft">
-            <div id="stateOptions" class="dropdown-content-form"><p class="small-text">Select countries first.</p></div>
-            <p class="dashboard-help">Add your main states, provinces or territories so couples can narrow their search more easily.</p>
-          </div>
-          <div class="panel-save-row">
-            <button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button>
-            <span class="panel-save-msg" id="msg-states"></span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── REGIONS ── -->
-    <section class="dashboard-panel" data-section="regions" style="text-align:left;">
-      <div class="panel-toggle-header" role="button" aria-expanded="false" aria-controls="body-regions" tabindex="0">
-        <div class="panel-header-left">
-          <div class="panel-header-icon">◉</div>
-          <div class="panel-header-text">
-            <h2 class="panel-header-title">Regions / Cities / Areas</h2>
-            <p class="panel-header-subtitle">Specific areas where couples can find you</p>
-          </div>
-        </div>
-        <div class="panel-toggle-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      </div>
-      <div class="panel-divider"></div>
-      <div class="panel-body" id="body-regions">
-        <div class="panel-body-inner">
-          <div class="dashboard-card-soft">
-            <div id="regionOptions" class="dropdown-content-form"><p class="small-text">Select states, provinces or territories first.</p></div>
-            <p class="dashboard-help">Choose the cities, regions or local areas you service. The more accurate this is, the easier it is for couples to find you.</p>
-          </div>
-          <div class="panel-save-row">
-            <button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button>
-            <span class="panel-save-msg" id="msg-regions"></span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── BOUTIQUE ── -->
-    <section class="dashboard-panel" data-section="boutique" style="text-align:left;">
-      <div class="panel-toggle-header" role="button" aria-expanded="false" aria-controls="body-boutique" tabindex="0">
-        <div class="panel-header-left">
-          <div class="panel-header-icon">✧</div>
-          <div class="panel-header-text">
-            <h2 class="panel-header-title">Sell Products, Gift Cards &amp; Vouchers</h2>
-            <p class="panel-header-subtitle">Boutique listings for couples and guests</p>
-          </div>
-        </div>
-        <div class="panel-toggle-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      </div>
-      <div class="panel-divider"></div>
-      <div class="panel-body" id="body-boutique">
-        <div class="panel-body-inner">
-          <div class="dashboard-card-soft">
-            <div class="calendar-tip-box" style="margin-bottom:16px;">
-              <strong>What can you list?</strong><br><br>
-              Gift cards, vouchers, special offers, jewellery, favours, keepsakes, bridal accessories, cake boxes, wellness experiences and wedding-related products.<br><br>
-              Couples and guests can browse these through the <strong>Boutique</strong> link at the top of the website.
-            </div>
-            <div id="boutiqueAccessAllowed" style="display:none;">
-              <div class="status-wrap" style="margin-bottom:14px;">
-                <span class="status-pill" id="stripeStatusText">Stripe: loading...</span>
-                <span class="status-pill" id="productCountText">Products: 0</span>
-              </div>
-              <div class="dashboard-actions" style="margin-bottom:14px;">
-                <button type="button" id="connectStripeBtn" class="pretty-button">Connect Stripe</button>
-                <a href="shop.html" class="apply-button">View Boutique Shop</a>
-              </div>
-              <div class="calendar-tip-box">You can use your own payment method, ask customers to enquire first, or connect Stripe later for direct checkout.</div>
-              <div class="dashboard-grid-2" style="margin-top:18px;">
-                <div class="dashboard-field"><label for="productName">Listing Name</label><input type="text" id="productName" placeholder="Gift card, bridal voucher, jewellery set, favour box..."></div>
-                <div class="dashboard-field"><label for="productPrice">Price / Value</label><input type="number" id="productPrice" min="0" step="0.01" placeholder="49.00"></div>
-              </div>
-              <div class="dashboard-grid-2" style="margin-top:14px;">
-                <div class="dashboard-field"><label for="productCategory">Listing Type</label><select id="productCategory"><option value="">Choose type</option><option value="gift_card">Gift Card</option><option value="voucher">Voucher / Offer</option><option value="product">Physical Product</option><option value="jewellery">Jewellery</option><option value="bridal_accessories">Bridal Accessories</option><option value="wedding_favours">Wedding Favours</option><option value="keepsakes">Keepsakes</option><option value="experience">Experience</option><option value="other">Other</option></select></div>
-                <div class="dashboard-field"><label for="productStock">Quantity Available</label><input type="number" id="productStock" min="0" step="1" placeholder="10"></div>
-              </div>
-              <div class="dashboard-field" style="margin-top:14px;"><label for="productDescription">What's Included</label><textarea id="productDescription" rows="4" placeholder="Explain what they receive, how it works, inclusions, expiry dates for vouchers, lead times, sizing, colours or custom options."></textarea></div>
-              <div class="dashboard-grid-2" style="margin-top:18px;">
-                <div class="dashboard-field"><label for="paymentMethod">How do you want to get paid?</label><select id="paymentMethod"><option value="own">Use my own payment method</option><option value="stripe">Sell through the hub with Stripe</option><option value="enquiry">Customer enquires first</option></select></div>
-                <div class="dashboard-field"><label for="productPurchaseLink">Payment / Booking Link</label><input type="text" id="productPurchaseLink" placeholder="Website checkout, payment link, booking link or Instagram link"></div>
-              </div>
-              <p class="dashboard-help">If you use your own payment method, add the link customers should use. If they need to enquire first, you can leave this blank.</p>
-              <div class="dashboard-grid-2" style="margin-top:14px;">
-                <div class="dashboard-field"><label for="fulfilmentMethod">How will customers receive this?</label><select id="fulfilmentMethod"><option value="email">Email delivery</option><option value="pickup">Local pickup</option><option value="local_delivery">Local delivery</option><option value="domestic_shipping">Ships within your country</option><option value="international_shipping">Ships internationally</option><option value="enquiry">Arrange after enquiry</option></select></div>
-                <div class="dashboard-field"><label for="fulfilmentDetails">Delivery / Pickup / Redemption Details</label><input type="text" id="fulfilmentDetails" placeholder="Brisbane pickup, ships Australia-wide, emailed within 24 hours..."></div>
-              </div>
-              <div class="dashboard-grid-2" style="margin-top:14px;">
-                <div class="dashboard-field"><label for="productStatus">Listing Visibility</label><select id="productStatus"><option value="draft">Draft - not visible yet</option><option value="live">Live - show in Boutique</option><option value="sold_out">Sold Out</option></select></div>
-              </div>
-              <div class="upload-box" style="margin-top:14px;">
-                <h3>Listing Images</h3>
-                <p class="dashboard-help" style="margin-top:0;">Upload photos of the product, voucher, gift card design, or an example of what customers receive.</p>
-                <input type="file" id="productImageFiles" class="pretty-upload-input" accept="image/*" multiple>
-                <label for="productImageFiles" class="pretty-upload-label">Choose Listing Images</label>
-                <div id="productImageFileName" class="selected-file-note"></div>
-              </div>
-              <div class="dashboard-actions" style="margin-top:16px;">
-                <button type="button" id="saveProductBtn" class="pretty-button">Add Boutique Listing</button>
-              </div>
-              <p id="boutiqueMessage" class="dashboard-help"></p>
-              <div style="margin-top:22px;">
-                <h3 class="dashboard-section-title" style="font-size:1.2rem; margin-bottom:12px;">Your Boutique Listings</h3>
-                <div id="boutiqueProductList" class="media-preview-grid"></div>
-              </div>
-            </div>
-            <div id="boutiqueAccessLocked" style="display:none;">
-              <p class="dashboard-help" style="margin-top:0;">Boutique access is included for Founding Vendors and our highest membership tier.</p>
-              <div class="calendar-tip-box" style="margin-top:14px;"><strong>Want to sell through the Boutique?</strong><br><br>The Boutique lets eligible vendors list gift cards, vouchers, products, jewellery, favours, keepsakes and wedding extras for couples and guests to browse.<br><br>Founding Vendors receive this access for free as part of their founding vendor benefits.</div>
-              <div class="dashboard-actions" style="margin-top:16px;">
-                <a href="pricing.html" class="pretty-button">View Membership Options</a>
-                <a href="contact.html" class="apply-button">Ask About Boutique Access</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── ACCOUNT SETTINGS ── -->
-    <section class="dashboard-panel account-settings-card" data-section="account" style="text-align:left;">
-      <div class="panel-toggle-header" role="button" aria-expanded="false" aria-controls="body-account" tabindex="0">
-        <div class="panel-header-left">
-          <div class="panel-header-icon">⚙</div>
-          <div class="panel-header-text">
-            <h2 class="panel-header-title">Account Settings</h2>
-            <p class="panel-header-subtitle">Name, login email and password</p>
-          </div>
-        </div>
-        <div class="panel-toggle-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      </div>
-      <div class="panel-divider"></div>
-      <div class="panel-body" id="body-account">
-        <div class="panel-body-inner">
-          <div class="dashboard-card-soft">
-            <div class="dashboard-grid-2">
-              <div class="dashboard-field"><label for="accountName">Your Name</label><input type="text" id="accountName" placeholder="Your name"></div>
-              <div class="dashboard-field"><label for="accountEmail">Login Email</label><input type="email" id="accountEmail" placeholder="you@example.com"></div>
-            </div>
-            <div class="dashboard-field" style="margin-top:14px;"><label for="accountPassword">New Password</label><input type="password" id="accountPassword" placeholder="Leave blank if not changing"></div>
             <div class="dashboard-actions" style="margin-top:16px;">
-              <button type="button" id="saveAccountBtn" class="pretty-button">Update Account</button>
+              <button type="button" id="saveProductBtn" class="pretty-button">Add Boutique Listing</button>
             </div>
-            <p id="accountMessage" class="dashboard-help"></p>
-            <p class="dashboard-help">If changing your email or password does not work, Firebase may ask you to log in again first.</p>
+            <p id="boutiqueMessage" class="dashboard-help"></p>
+            <div style="margin-top:22px;">
+              <h3 class="dashboard-section-title" style="font-size:1.2rem; margin-bottom:12px;">Your Boutique Listings</h3>
+              <div id="boutiqueProductList" class="media-preview-grid"></div>
+            </div>
+          </div>
+          <div id="boutiqueAccessLocked" style="display:none;">
+            <p class="dashboard-help" style="margin-top:0;">Boutique access is included for Founding Vendors and our highest membership tier.</p>
+            <div class="calendar-tip-box" style="margin-top:14px;"><strong>Want to sell through the Boutique?</strong><br><br>The Boutique lets eligible vendors list gift cards, vouchers, products, jewellery, favours, keepsakes and wedding extras for couples and guests to browse.<br><br>Founding Vendors receive this access for free as part of their founding vendor benefits.</div>
+            <div class="dashboard-actions" style="margin-top:16px;">
+              <a href="pricing.html" class="pretty-button">View Membership Options</a>
+              <a href="contact.html" class="apply-button">Ask About Boutique Access</a>
+            </div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
+
+  <!-- ── ACCOUNT SETTINGS ── -->
+  <section class="dashboard-panel account-settings-card" data-section="account" style="text-align:left;">
+    <div class="panel-toggle-header" role="button" aria-expanded="false" aria-controls="body-account" tabindex="0">
+      <div class="panel-header-left">
+        <div class="panel-header-icon">⚙</div>
+        <div class="panel-header-text">
+          <h2 class="panel-header-title">Account Settings</h2>
+          <p class="panel-header-subtitle">Name, login email and password</p>
+        </div>
+      </div>
+      <div class="panel-toggle-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    </div>
+    <div class="panel-divider"></div>
+    <div class="panel-body" id="body-account">
+      <div class="panel-body-inner">
+        <div class="dashboard-card-soft">
+          <div class="dashboard-grid-2">
+            <div class="dashboard-field"><label for="accountName">Your Name</label><input type="text" id="accountName" placeholder="Your name"></div>
+            <div class="dashboard-field"><label for="accountEmail">Login Email</label><input type="email" id="accountEmail" placeholder="you@example.com"></div>
+          </div>
+          <div class="dashboard-field" style="margin-top:14px;"><label for="accountPassword">New Password</label><input type="password" id="accountPassword" placeholder="Leave blank if not changing"></div>
+          <div class="dashboard-actions" style="margin-top:16px;">
+            <button type="button" id="saveAccountBtn" class="pretty-button">Update Account</button>
+          </div>
+          <p id="accountMessage" class="dashboard-help"></p>
+          <p class="dashboard-help">If changing your email or password does not work, Firebase may ask you to log in again first.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
 </main>
 
@@ -943,11 +934,11 @@
   </div>
 </footer>
 
-<!-- ── PANEL TOGGLE JS — COMPLETELY UNCHANGED ── -->
+<!-- ── PANEL TOGGLE JS ── -->
 <script>
   document.querySelectorAll(".panel-toggle-header").forEach(header => {
     const bodyId = header.getAttribute("aria-controls");
-    const body = document.getElementById(bodyId);
+    const body   = document.getElementById(bodyId);
     if (!body) return;
     function toggle(forceOpen) {
       const isOpen = typeof forceOpen === "boolean" ? forceOpen : header.getAttribute("aria-expanded") !== "true";
@@ -958,110 +949,117 @@
     header.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); } });
     header._toggle = toggle;
   });
-  document.getElementById("expandAllBtn").addEventListener("click", () => { document.querySelectorAll(".panel-toggle-header").forEach(h => h._toggle && h._toggle(true)); });
+  document.getElementById("expandAllBtn").addEventListener("click",   () => { document.querySelectorAll(".panel-toggle-header").forEach(h => h._toggle && h._toggle(true)); });
   document.getElementById("collapseAllBtn").addEventListener("click", () => { document.querySelectorAll(".panel-toggle-header").forEach(h => h._toggle && h._toggle(false)); });
 </script>
 
-<!-- ── ALL FIREBASE JS — COMPLETELY UNCHANGED ── -->
+<!-- ── FIREBASE JS ── -->
 <script type="module">
 import {
   auth, db, storage, onAuthStateChanged, doc, getDoc, setDoc, serverTimestamp,
   ref, uploadBytes, getDownloadURL, collection, addDoc, getDocs,
   query, where, orderBy, deleteDoc, updateDoc, increment
 } from "./firebase.js";
-import { onSnapshot } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
-import { updateEmail, updatePassword } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
-import { LOCATION_DATA } from "./locations.js";
+import { onSnapshot }                   from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+import { updateEmail, updatePassword }  from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+import { LOCATION_DATA }                from "./locations.js";
 
-  const categoryOptions = document.getElementById("categoryOptions");
-  const styleTagOptions = document.getElementById("styleTagOptions");
-  const countryOptions = document.getElementById("countryOptions");
-  const stateOptions = document.getElementById("stateOptions");
-  const regionOptions = document.getElementById("regionOptions");
-  const businessName = document.getElementById("businessName");
-  const email = document.getElementById("email");
-  const phone = document.getElementById("phone");
-  const instagram = document.getElementById("instagram");
-  const website = document.getElementById("website");
-  const facebook = document.getElementById("facebook");
-  const tiktok = document.getElementById("tiktok");
-  const youtube = document.getElementById("youtube");
-  const pinterest = document.getElementById("pinterest");
-  const linkedin = document.getElementById("linkedin");
-  const x = document.getElementById("x");
-  const serviceAreas = document.getElementById("serviceAreas");
-  const displayLocation = document.getElementById("displayLocation");
-  const bookingLink = document.getElementById("bookingLink");
-  const availabilityStatus = document.getElementById("availabilityStatus");
-  const bookingNotes = document.getElementById("bookingNotes");
-  const blockedDateInput = document.getElementById("blockedDateInput");
-  const addBlockedDateBtn = document.getElementById("addBlockedDateBtn");
-  const blockedDateList = document.getElementById("blockedDateList");
-  const weekdayOptions = document.getElementById("weekdayOptions");
-  const bulkStartDate = document.getElementById("bulkStartDate");
-  const bulkEndDate = document.getElementById("bulkEndDate");
-  const bulkMonthsPreset = document.getElementById("bulkMonthsPreset");
-  const bulkAddBtn = document.getElementById("bulkAddBtn");
-  const bio = document.getElementById("bio");
-  const profileImageFile = document.getElementById("profileImageFile");
-  const logoFile = document.getElementById("logoFile");
-  const galleryImageFiles = document.getElementById("galleryImageFiles");
-  const galleryVideoFiles = document.getElementById("galleryVideoFiles");
-  const profileImageFileName = document.getElementById("profileImageFileName");
-  const logoFileName = document.getElementById("logoFileName");
-  const galleryImageFileName = document.getElementById("galleryImageFileName");
-  const galleryVideoFileName = document.getElementById("galleryVideoFileName");
-  const profileImagePreview = document.getElementById("profileImagePreview");
-  const profileImageEmpty = document.getElementById("profileImageEmpty");
-  const logoPreview = document.getElementById("logoPreview");
-  const logoEmpty = document.getElementById("logoEmpty");
-  const profileLive = document.getElementById("profileLive");
-  const viewProfileBtn = document.getElementById("viewProfileBtn");
-  const accountStatusText = document.getElementById("accountStatusText");
+  // ── DOM refs ──
+  const categoryOptions     = document.getElementById("categoryOptions");
+  const styleTagOptions     = document.getElementById("styleTagOptions");
+  const countryOptions      = document.getElementById("countryOptions");
+  const stateOptions        = document.getElementById("stateOptions");
+  const regionOptions       = document.getElementById("regionOptions");
+  const businessName        = document.getElementById("businessName");
+  const email               = document.getElementById("email");
+  const phone               = document.getElementById("phone");
+  const instagram           = document.getElementById("instagram");
+  const website             = document.getElementById("website");
+  const facebook            = document.getElementById("facebook");
+  const tiktok              = document.getElementById("tiktok");
+  const youtube             = document.getElementById("youtube");
+  const pinterest           = document.getElementById("pinterest");
+  const linkedin            = document.getElementById("linkedin");
+  const x                   = document.getElementById("x");
+  const serviceAreas        = document.getElementById("serviceAreas");
+  const displayLocation     = document.getElementById("displayLocation");
+  const bookingLink         = document.getElementById("bookingLink");
+  const availabilityStatus  = document.getElementById("availabilityStatus");
+  const bookingNotes        = document.getElementById("bookingNotes");
+  const blockedDateInput    = document.getElementById("blockedDateInput");
+  const addBlockedDateBtn   = document.getElementById("addBlockedDateBtn");
+  const blockedDateList     = document.getElementById("blockedDateList");
+  const weekdayOptions      = document.getElementById("weekdayOptions");
+  const bulkStartDate       = document.getElementById("bulkStartDate");
+  const bulkEndDate         = document.getElementById("bulkEndDate");
+  const bulkMonthsPreset    = document.getElementById("bulkMonthsPreset");
+  const bulkAddBtn          = document.getElementById("bulkAddBtn");
+  const bio                 = document.getElementById("bio");
+  const profileImageFile    = document.getElementById("profileImageFile");
+  const logoFile            = document.getElementById("logoFile");
+  const galleryImageFiles   = document.getElementById("galleryImageFiles");
+  const galleryVideoFiles   = document.getElementById("galleryVideoFiles");
+  const profileImageFileName  = document.getElementById("profileImageFileName");
+  const logoFileName          = document.getElementById("logoFileName");
+  const galleryImageFileName  = document.getElementById("galleryImageFileName");
+  const galleryVideoFileName  = document.getElementById("galleryVideoFileName");
+  const profileImagePreview   = document.getElementById("profileImagePreview");
+  const profileImageEmpty     = document.getElementById("profileImageEmpty");
+  const logoPreview           = document.getElementById("logoPreview");
+  const logoEmpty             = document.getElementById("logoEmpty");
+  const profileLive           = document.getElementById("profileLive");
+  const viewProfileBtn        = document.getElementById("viewProfileBtn");
+  const accountStatusText     = document.getElementById("accountStatusText");
   const subscriptionStatusText = document.getElementById("subscriptionStatusText");
-  const viewsStatusText = document.getElementById("viewsStatusText");
-  const imagePreview = document.getElementById("imagePreview");
-  const videoPreview = document.getElementById("videoPreview");
-  const accountName = document.getElementById("accountName");
-  const accountEmail = document.getElementById("accountEmail");
-  const accountPassword = document.getElementById("accountPassword");
-  const saveAccountBtn = document.getElementById("saveAccountBtn");
-  const accountMessage = document.getElementById("accountMessage");
+  const viewsStatusText       = document.getElementById("viewsStatusText");
+  const imagePreview          = document.getElementById("imagePreview");
+  const videoPreview          = document.getElementById("videoPreview");
+  const accountName           = document.getElementById("accountName");
+  const accountEmail          = document.getElementById("accountEmail");
+  const accountPassword       = document.getElementById("accountPassword");
+  const saveAccountBtn        = document.getElementById("saveAccountBtn");
+  const accountMessage        = document.getElementById("accountMessage");
   const boutiqueAccessAllowed = document.getElementById("boutiqueAccessAllowed");
-  const boutiqueAccessLocked = document.getElementById("boutiqueAccessLocked");
-  const stripeStatusText = document.getElementById("stripeStatusText");
-  const productCountText = document.getElementById("productCountText");
-  const connectStripeBtn = document.getElementById("connectStripeBtn");
-  const productName = document.getElementById("productName");
-  const productPrice = document.getElementById("productPrice");
-  const productCategory = document.getElementById("productCategory");
-  const productStock = document.getElementById("productStock");
-  const productDescription = document.getElementById("productDescription");
-  const paymentMethod = document.getElementById("paymentMethod");
-  const productPurchaseLink = document.getElementById("productPurchaseLink");
-  const fulfilmentMethod = document.getElementById("fulfilmentMethod");
-  const fulfilmentDetails = document.getElementById("fulfilmentDetails");
-  const productStatus = document.getElementById("productStatus");
-  const productImageFiles = document.getElementById("productImageFiles");
-  const productImageFileName = document.getElementById("productImageFileName");
-  const saveProductBtn = document.getElementById("saveProductBtn");
-  const boutiqueMessage = document.getElementById("boutiqueMessage");
-  const boutiqueProductList = document.getElementById("boutiqueProductList");
-  const msgUnreadBadge = document.getElementById("msgUnreadBadge");
-  const msgSummaryPreview = document.getElementById("msgSummaryPreview");
-  const navMsgBadge = document.getElementById("navMsgBadge");
-  const messagesNavLink = document.getElementById("messagesNavLink");
+  const boutiqueAccessLocked  = document.getElementById("boutiqueAccessLocked");
+  const stripeStatusText      = document.getElementById("stripeStatusText");
+  const productCountText      = document.getElementById("productCountText");
+  const connectStripeBtn      = document.getElementById("connectStripeBtn");
+  const productName           = document.getElementById("productName");
+  const productPrice          = document.getElementById("productPrice");
+  const productCategory       = document.getElementById("productCategory");
+  const productStock          = document.getElementById("productStock");
+  const productDescription    = document.getElementById("productDescription");
+  const paymentMethod         = document.getElementById("paymentMethod");
+  const productPurchaseLink   = document.getElementById("productPurchaseLink");
+  const fulfilmentMethod      = document.getElementById("fulfilmentMethod");
+  const fulfilmentDetails     = document.getElementById("fulfilmentDetails");
+  const productStatus         = document.getElementById("productStatus");
+  const productImageFiles     = document.getElementById("productImageFiles");
+  const productImageFileName  = document.getElementById("productImageFileName");
+  const saveProductBtn        = document.getElementById("saveProductBtn");
+  const boutiqueMessage       = document.getElementById("boutiqueMessage");
+  const boutiqueProductList   = document.getElementById("boutiqueProductList");
+  const msgUnreadBadge        = document.getElementById("msgUnreadBadge");
+  const msgSummaryPreview     = document.getElementById("msgSummaryPreview");
+  const messagesNavLink       = document.getElementById("messagesLink");
+  const msgNavBadge           = document.getElementById("msgNavBadge");
 
   let currentBoutiqueProducts = [];
-  let currentUser = null;
-  let currentProfileImageUrl = "";
-  let currentLogoUrl = "";
-  let currentGalleryImages = [];
-  let currentGalleryVideos = [];
-  let currentBlockedDates = [];
-  let currentVendorAccess = { subscriptionActive: false, paidSetupFee: false, complimentaryPlan: false, plan: "", accessType: "", membershipTier: "", tier: "", shopAccess: false, accountStatus: "active", profileVisible: false, published: false };
+  let currentUser             = null;
+  let currentProfileImageUrl  = "";
+  let currentLogoUrl          = "";
+  let currentGalleryImages    = [];
+  let currentGalleryVideos    = [];
+  let currentBlockedDates     = [];
+  let currentVendorAccess     = {
+    subscriptionActive: false, paidSetupFee: false, complimentaryPlan: false,
+    plan: "", accessType: "", membershipTier: "", tier: "", shopAccess: false,
+    accountStatus: "active", profileVisible: false, published: false
+  };
 
+  // ── Helpers ──
   const STYLE_TAGS = ["Indoor","Outdoor","Luxury","Modern","Romantic","Coastal","Boho","Minimal","Classic","Editorial","Garden","Rustic","Elegant","Destination","Intimate","Bold","Timeless","Whimsical"];
+
   const CATEGORY_GROUPS = [
     { title: "Photo & Video", items: [["wedding_photographer","Photographer"],["wedding_videographer","Videographer"],["wedding_content_creator","Content Creator"],["photo_and_video_team","Photo & Video Team"],["engagement_photographer","Engagement Photographer"],["drone_operator","Drone Operator"]] },
     { title: "Beauty", items: [["wedding_makeup_artist","Makeup Artist"],["wedding_hair_stylist","Hair Stylist"],["nail_artist","Nail Artist"],["beauty_salon","Beauty Salon"],["spray_tan","Tanning"],["skin_aesthetics","Skin & Aesthetics"],["brow_artist","Brow Artist"],["lash_artist","Lash Artist"],["barber_grooming","Barber / Grooming"]] },
@@ -1085,224 +1083,742 @@ import { LOCATION_DATA } from "./locations.js";
     { title: "Accommodation", items: [["guest_accommodation","Guest Accommodation"],["bridal_suite","Bridal Suite"],["honeymoon_stay","Honeymoon Stay"]] }
   ];
 
-  function getCheckedValues(container) { return Array.from(container.querySelectorAll("input:checked")).map(i => i.value); }
-  function createPillCheckbox(value, labelText, checked = false, name = "") { const label = document.createElement("label"); const input = document.createElement("input"); const span = document.createElement("span"); input.type = "checkbox"; input.value = value; if (name) input.name = name; input.checked = checked; span.textContent = labelText; label.appendChild(input); label.appendChild(span); return label; }
-  function hasVendorAccess(v) { return (!v.accountStatus || v.accountStatus === "active") && (v.subscriptionActive === true || v.paidSetupFee === true || v.complimentaryPlan === true || v.plan === "complimentary" || v.accessType === "complimentary-invite"); }
-  function hasShopAccess(v) { return (!v.accountStatus || v.accountStatus === "active") && (v.complimentaryPlan === true || v.plan === "complimentary" || v.accessType === "complimentary-invite" || v.shopAccess === true || ["platinum_prestige","platinum-prestige","platinum prestige"].some(p => v.plan === p || v.membershipTier === p || v.tier === p)); }
-  function getPlanAccessLabel(v) { if (v.complimentaryPlan === true || v.plan === "complimentary" || v.accessType === "complimentary-invite") return "complimentary"; if (v.subscriptionActive === true) return "active subscription"; if (v.paidSetupFee === true) return "setup paid"; return "inactive"; }
-  function getProfileViews(v) { return typeof v.profileViews === "number" ? v.profileViews : typeof v.viewCount === "number" ? v.viewCount : typeof v.views === "number" ? v.views : 0; }
-  function updateViewProfileVisibility(v) { viewProfileBtn.style.display = (profileLive.checked && hasVendorAccess(v)) ? "inline-flex" : "none"; }
-  function updateBoutiqueAccessVisibility(v) { const ok = hasShopAccess(v); boutiqueAccessAllowed.style.display = ok ? "block" : "none"; boutiqueAccessLocked.style.display = ok ? "none" : "block"; }
-  function renderStyleTags(sel = []) { styleTagOptions.innerHTML = ""; STYLE_TAGS.forEach(t => styleTagOptions.appendChild(createPillCheckbox(t, t, sel.includes(t), "styleTags"))); }
+  // ── FIX: robust URL deduplication used everywhere ──
+  function dedupeUrls(arr) {
+    if (!Array.isArray(arr)) return [];
+    const seen = new Set();
+    return arr.filter(u => {
+      const k = String(u || "").trim();
+      if (!k || seen.has(k)) return false;
+      seen.add(k); return true;
+    });
+  }
+
+  function getCheckedValues(container) {
+    return Array.from(container.querySelectorAll("input:checked")).map(i => i.value);
+  }
+
+  function createPillCheckbox(value, labelText, checked = false, name = "") {
+    const label = document.createElement("label");
+    const input = document.createElement("input");
+    const span  = document.createElement("span");
+    input.type    = "checkbox";
+    input.value   = value;
+    if (name) input.name = name;
+    input.checked = checked;
+    span.textContent = labelText;
+    label.appendChild(input); label.appendChild(span);
+    return label;
+  }
+
+  function hasVendorAccess(v) {
+    return (!v.accountStatus || v.accountStatus === "active") &&
+      (v.subscriptionActive === true || v.paidSetupFee === true || v.complimentaryPlan === true
+        || v.plan === "complimentary" || v.accessType === "complimentary-invite");
+  }
+
+  function hasShopAccess(v) {
+    return (!v.accountStatus || v.accountStatus === "active") &&
+      (v.complimentaryPlan === true || v.plan === "complimentary"
+        || v.accessType === "complimentary-invite" || v.shopAccess === true
+        || ["platinum_prestige","platinum-prestige","platinum prestige"].some(p =>
+            v.plan === p || v.membershipTier === p || v.tier === p));
+  }
+
+  function getPlanAccessLabel(v) {
+    if (v.complimentaryPlan === true || v.plan === "complimentary" || v.accessType === "complimentary-invite") return "complimentary";
+    if (v.subscriptionActive === true) return "active subscription";
+    if (v.paidSetupFee === true)       return "setup paid";
+    return "inactive";
+  }
+
+  function getProfileViews(v) {
+    return typeof v.profileViews === "number" ? v.profileViews
+         : typeof v.viewCount    === "number" ? v.viewCount
+         : typeof v.views        === "number" ? v.views : 0;
+  }
+
+  function updateViewProfileVisibility(v) {
+    if (viewProfileBtn) viewProfileBtn.style.display = (profileLive.checked && hasVendorAccess(v)) ? "inline-flex" : "none";
+  }
+
+  function updateBoutiqueAccessVisibility(v) {
+    const ok = hasShopAccess(v);
+    if (boutiqueAccessAllowed) boutiqueAccessAllowed.style.display = ok ? "block" : "none";
+    if (boutiqueAccessLocked)  boutiqueAccessLocked.style.display  = ok ? "none"  : "block";
+  }
+
+  function renderStyleTags(sel = []) {
+    styleTagOptions.innerHTML = "";
+    STYLE_TAGS.forEach(t => styleTagOptions.appendChild(createPillCheckbox(t, t, sel.includes(t), "styleTags")));
+  }
 
   function renderCategoryOptions(sel = []) {
     categoryOptions.innerHTML = "";
     CATEGORY_GROUPS.forEach(g => {
       const selCount = g.items.filter(([v]) => sel.includes(v)).length;
-      const det = document.createElement("details"); det.className = "category-dropdown"; det.open = selCount > 0;
-      const sum = document.createElement("summary"); const ti = document.createElement("span"); ti.textContent = g.title; const co = document.createElement("span"); co.className = "category-dropdown-count"; co.textContent = selCount > 0 ? `${selCount} selected` : "Tap to choose"; sum.appendChild(ti); sum.appendChild(co); det.appendChild(sum);
-      const inn = document.createElement("div"); inn.className = "category-dropdown-inner"; g.items.forEach(([v, l]) => inn.appendChild(createPillCheckbox(v, l, sel.includes(v), "categories"))); det.appendChild(inn);
+      const det  = document.createElement("details");
+      det.className = "category-dropdown";
+      det.open = selCount > 0;
+      const sum = document.createElement("summary");
+      const ti  = document.createElement("span"); ti.textContent = g.title;
+      const co  = document.createElement("span"); co.className = "category-dropdown-count";
+      co.textContent = selCount > 0 ? `${selCount} selected` : "Tap to choose";
+      sum.appendChild(ti); sum.appendChild(co); det.appendChild(sum);
+      const inn = document.createElement("div"); inn.className = "category-dropdown-inner";
+      g.items.forEach(([v, l]) => inn.appendChild(createPillCheckbox(v, l, sel.includes(v), "categories")));
+      det.appendChild(inn);
       categoryOptions.appendChild(det);
     });
   }
 
-  function renderCountries(sel = []) { countryOptions.innerHTML = ""; Object.keys(LOCATION_DATA).sort((a,b) => a.localeCompare(b)).forEach(c => countryOptions.appendChild(createPillCheckbox(c, c, sel.includes(c), "countries"))); countryOptions.querySelectorAll("input").forEach(i => i.addEventListener("change", () => { renderStates([]); renderRegions([]); })); }
-  function renderStates(sel = []) { const sc = getCheckedValues(countryOptions); stateOptions.innerHTML = ""; regionOptions.innerHTML = '<p class="small-text">Select countries first.</p>'; if (!sc.length) { stateOptions.innerHTML = '<p class="small-text">Select countries first.</p>'; return; } let has = false; sc.forEach(c => { const cd = LOCATION_DATA[c]; if (!cd) return; const h = document.createElement("div"); h.className = "region-heading"; h.textContent = c; stateOptions.appendChild(h); Object.keys(cd).sort((a,b) => a.localeCompare(b)).forEach(s => { has = true; stateOptions.appendChild(createPillCheckbox(s, s, sel.includes(s), "states")); }); }); if (!has) { stateOptions.innerHTML = '<p class="small-text">No states found.</p>'; return; } stateOptions.querySelectorAll("input").forEach(i => i.addEventListener("change", () => renderRegions(getCheckedValues(regionOptions)))); }
-  function renderRegions(prev = []) { const sc = getCheckedValues(countryOptions); const ss = getCheckedValues(stateOptions); regionOptions.innerHTML = ""; if (!sc.length || !ss.length) { regionOptions.innerHTML = '<p class="small-text">Select states first.</p>'; return; } let has = false; sc.forEach(c => { const cd = LOCATION_DATA[c]; if (!cd) return; ss.forEach(s => { const rs = cd[s]; if (!rs?.length) return; has = true; const h = document.createElement("div"); h.className = "region-heading"; h.textContent = `${c} — ${s}`; regionOptions.appendChild(h); rs.forEach(r => regionOptions.appendChild(createPillCheckbox(r, r, prev.includes(r), "regions"))); }); }); if (!has) regionOptions.innerHTML = '<p class="small-text">No regions found.</p>'; }
+  function renderCountries(sel = []) {
+    countryOptions.innerHTML = "";
+    Object.keys(LOCATION_DATA).sort((a,b) => a.localeCompare(b)).forEach(c =>
+      countryOptions.appendChild(createPillCheckbox(c, c, sel.includes(c), "countries"))
+    );
+    countryOptions.querySelectorAll("input").forEach(i =>
+      i.addEventListener("change", () => { renderStates([]); renderRegions([]); })
+    );
+  }
 
-  function setSingleImagePreview(url, img, empty) { if (url) { img.src = url; img.style.display = "block"; empty.style.display = "none"; } else { img.removeAttribute("src"); img.style.display = "none"; empty.style.display = "block"; } }
-  function buildMediaCard(type, url, onRemove, index = 0) { const wrap = document.createElement("div"); wrap.className = "media-preview-item"; if (type === "image" && index === 0) { const b = document.createElement("div"); b.className = "cover-photo-badge"; b.textContent = "Cover photo"; wrap.appendChild(b); } if (type === "image") { const img = document.createElement("img"); img.src = url; img.loading = "lazy"; wrap.appendChild(img); const ctrl = document.createElement("div"); ctrl.className = "media-order-controls"; const up = document.createElement("button"); up.type = "button"; up.className = "media-order-btn"; up.textContent = "Move Up"; up.disabled = index === 0; up.addEventListener("click", () => moveImageUp(index)); const dn = document.createElement("button"); dn.type = "button"; dn.className = "media-order-btn"; dn.textContent = "Move Down"; dn.disabled = index === currentGalleryImages.length - 1; dn.addEventListener("click", () => moveImageDown(index)); ctrl.appendChild(up); ctrl.appendChild(dn); wrap.appendChild(ctrl); } else { const v = document.createElement("video"); v.src = url; v.controls = true; v.preload = "metadata"; wrap.appendChild(v); } const rm = document.createElement("button"); rm.type = "button"; rm.className = "remove-media-btn"; rm.textContent = "Remove"; rm.addEventListener("click", onRemove); wrap.appendChild(rm); return wrap; }
-  function moveImageUp(i) { if (i <= 0) return; [currentGalleryImages[i-1], currentGalleryImages[i]] = [currentGalleryImages[i], currentGalleryImages[i-1]]; setImagePreview(); }
+  function renderStates(sel = []) {
+    const sc = getCheckedValues(countryOptions);
+    stateOptions.innerHTML = "";
+    regionOptions.innerHTML = '<p class="small-text">Select countries first.</p>';
+    if (!sc.length) { stateOptions.innerHTML = '<p class="small-text">Select countries first.</p>'; return; }
+    let has = false;
+    sc.forEach(c => {
+      const cd = LOCATION_DATA[c]; if (!cd) return;
+      const h = document.createElement("div"); h.className = "region-heading"; h.textContent = c;
+      stateOptions.appendChild(h);
+      Object.keys(cd).sort((a,b) => a.localeCompare(b)).forEach(s => {
+        has = true;
+        stateOptions.appendChild(createPillCheckbox(s, s, sel.includes(s), "states"));
+      });
+    });
+    if (!has) { stateOptions.innerHTML = '<p class="small-text">No states found.</p>'; return; }
+    stateOptions.querySelectorAll("input").forEach(i =>
+      i.addEventListener("change", () => renderRegions(getCheckedValues(regionOptions)))
+    );
+  }
+
+  function renderRegions(prev = []) {
+    const sc = getCheckedValues(countryOptions);
+    const ss = getCheckedValues(stateOptions);
+    regionOptions.innerHTML = "";
+    if (!sc.length || !ss.length) { regionOptions.innerHTML = '<p class="small-text">Select states first.</p>'; return; }
+    let has = false;
+    sc.forEach(c => {
+      const cd = LOCATION_DATA[c]; if (!cd) return;
+      ss.forEach(s => {
+        const rs = cd[s]; if (!rs?.length) return;
+        has = true;
+        const h = document.createElement("div"); h.className = "region-heading"; h.textContent = `${c} — ${s}`;
+        regionOptions.appendChild(h);
+        rs.forEach(r => regionOptions.appendChild(createPillCheckbox(r, r, prev.includes(r), "regions")));
+      });
+    });
+    if (!has) regionOptions.innerHTML = '<p class="small-text">No regions found.</p>';
+  }
+
+  // ── Image preview helpers ──
+  function setSingleImagePreview(url, img, empty) {
+    if (!img || !empty) return;
+    if (url) { img.src = url; img.style.display = "block"; empty.style.display = "none"; }
+    else     { img.removeAttribute("src"); img.style.display = "none"; empty.style.display = "block"; }
+  }
+
+  // ── FIX: buildMediaCard — cover badge, reorder buttons, remove ──
+  function buildMediaCard(type, url, onRemove, index = 0) {
+    const wrap = document.createElement("div");
+    wrap.className = "media-preview-item";
+    if (type === "image" && index === 0) {
+      const b = document.createElement("div");
+      b.className = "cover-photo-badge";
+      b.textContent = "Cover photo";
+      wrap.appendChild(b);
+    }
+    if (type === "image") {
+      const img = document.createElement("img");
+      img.src = url; img.loading = "lazy";
+      img.onerror = () => { img.style.display = "none"; }; // FIX: hide broken previews
+      wrap.appendChild(img);
+      const ctrl = document.createElement("div"); ctrl.className = "media-order-controls";
+      const up   = document.createElement("button"); up.type = "button"; up.className = "media-order-btn"; up.textContent = "Move Up";   up.disabled = index === 0;
+      const dn   = document.createElement("button"); dn.type = "button"; dn.className = "media-order-btn"; dn.textContent = "Move Down"; dn.disabled = index === currentGalleryImages.length - 1;
+      up.addEventListener("click", () => moveImageUp(index));
+      dn.addEventListener("click", () => moveImageDown(index));
+      ctrl.appendChild(up); ctrl.appendChild(dn); wrap.appendChild(ctrl);
+    } else {
+      const v = document.createElement("video");
+      v.src = url; v.controls = true; v.preload = "metadata";
+      wrap.appendChild(v);
+    }
+    const rm = document.createElement("button"); rm.type = "button"; rm.className = "remove-media-btn"; rm.textContent = "Remove";
+    rm.addEventListener("click", onRemove);
+    wrap.appendChild(rm);
+    return wrap;
+  }
+
+  function moveImageUp(i)   { if (i <= 0) return; [currentGalleryImages[i-1], currentGalleryImages[i]] = [currentGalleryImages[i], currentGalleryImages[i-1]]; setImagePreview(); }
   function moveImageDown(i) { if (i >= currentGalleryImages.length - 1) return; [currentGalleryImages[i+1], currentGalleryImages[i]] = [currentGalleryImages[i], currentGalleryImages[i+1]]; setImagePreview(); }
-  function setImagePreview() { imagePreview.innerHTML = ""; currentGalleryImages.forEach((u, i) => imagePreview.appendChild(buildMediaCard("image", u, () => { currentGalleryImages = currentGalleryImages.filter(x => x !== u); setImagePreview(); }, i))); }
-  function setVideoPreview() { videoPreview.innerHTML = ""; currentGalleryVideos.slice(0, 8).forEach(u => videoPreview.appendChild(buildMediaCard("video", u, () => { currentGalleryVideos = currentGalleryVideos.filter(x => x !== u); setVideoPreview(); }))); }
-  function showSelectedFileNames(input, el, multi) { const f = Array.from(input.files || []); el.textContent = f.length ? (multi ? `${f.length} file${f.length===1?"":"s"} selected` : f[0].name) : ""; }
-  function previewLocalSingleImage(file, img, empty) { if (!file) return; img.src = URL.createObjectURL(file); img.style.display = "block"; empty.style.display = "none"; }
-  function toLocalDateString(d) { return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`; }
-  function formatDateForDisplay(s) { return s ? new Date(s+"T00:00:00").toLocaleDateString("en-AU", { day:"numeric", month:"short", year:"numeric" }) : ""; }
+
+  function setImagePreview() {
+    if (!imagePreview) return;
+    imagePreview.innerHTML = "";
+    currentGalleryImages.forEach((u, i) =>
+      imagePreview.appendChild(buildMediaCard("image", u, () => {
+        currentGalleryImages = currentGalleryImages.filter(img => img !== u);
+        setImagePreview();
+      }, i))
+    );
+  }
+
+  function setVideoPreview() {
+    if (!videoPreview) return;
+    videoPreview.innerHTML = "";
+    currentGalleryVideos.slice(0, 8).forEach(u =>
+      videoPreview.appendChild(buildMediaCard("video", u, () => {
+        currentGalleryVideos = currentGalleryVideos.filter(v => v !== u);
+        setVideoPreview();
+      }))
+    );
+  }
+
+  function showSelectedFileNames(input, el, multi) {
+    if (!input || !el) return;
+    const f = Array.from(input.files || []);
+    el.textContent = f.length ? (multi ? `${f.length} file${f.length===1?"":"s"} selected` : f[0].name) : "";
+  }
+
+  function previewLocalSingleImage(file, img, empty) {
+    if (!file || !img || !empty) return;
+    img.src = URL.createObjectURL(file);
+    img.style.display   = "block";
+    empty.style.display = "none";
+  }
+
+  function toLocalDateString(d) {
+    return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+  }
+  function formatDateForDisplay(s) {
+    return s ? new Date(s+"T00:00:00").toLocaleDateString("en-AU",{day:"numeric",month:"short",year:"numeric"}) : "";
+  }
   function addMonthsToDate(d, m) { const c = new Date(d); c.setMonth(c.getMonth() + m); return c; }
 
-  function renderBlockedDates() { blockedDateList.innerHTML = ""; if (!currentBlockedDates.length) { blockedDateList.innerHTML = '<p class="small-text">No unavailable dates added yet.</p>'; return; } currentBlockedDates.slice().sort().forEach(dv => { const chip = document.createElement("div"); chip.className = "date-chip"; const t = document.createElement("span"); t.textContent = formatDateForDisplay(dv); const rm = document.createElement("button"); rm.type = "button"; rm.className = "date-remove-btn"; rm.textContent = "Remove"; rm.addEventListener("click", () => { currentBlockedDates = currentBlockedDates.filter(d => d !== dv); renderBlockedDates(); }); chip.appendChild(t); chip.appendChild(rm); blockedDateList.appendChild(chip); }); }
-  function addBlockedDate() { const v = blockedDateInput.value; if (!v) return; if (!currentBlockedDates.includes(v)) currentBlockedDates.push(v); currentBlockedDates = [...new Set(currentBlockedDates)].sort(); blockedDateInput.value = ""; renderBlockedDates(); }
-  function applyBulkWeekdayBlock() { const wd = Array.from(weekdayOptions.querySelectorAll("input:checked")).map(i => Number(i.value)); if (!wd.length) { return; } let sv = bulkStartDate.value; let ev = bulkEndDate.value; const pm = bulkMonthsPreset.value; const today = toLocalDateString(new Date()); if (!sv) { sv = today; bulkStartDate.value = sv; } if (!ev && pm) { ev = toLocalDateString(addMonthsToDate(new Date(sv+"T00:00:00"), Number(pm))); bulkEndDate.value = ev; } if (!ev) { return; } if (ev < sv) { return; } const sd = new Date(sv+"T00:00:00"); const ed = new Date(ev+"T00:00:00"); let added = 0; const ex = new Set(currentBlockedDates); for (let d = new Date(sd); d <= ed; d.setDate(d.getDate()+1)) { if (wd.includes(d.getDay())) { const ds = toLocalDateString(d); if (!ex.has(ds)) { ex.add(ds); added++; } } } currentBlockedDates = Array.from(ex).sort(); renderBlockedDates(); }
+  function renderBlockedDates() {
+    if (!blockedDateList) return;
+    blockedDateList.innerHTML = "";
+    if (!currentBlockedDates.length) {
+      blockedDateList.innerHTML = '<p class="small-text">No unavailable dates added yet.</p>'; return;
+    }
+    currentBlockedDates.slice().sort().forEach(dv => {
+      const chip = document.createElement("div"); chip.className = "date-chip";
+      const t    = document.createElement("span"); t.textContent = formatDateForDisplay(dv);
+      const rm   = document.createElement("button"); rm.type = "button"; rm.className = "date-remove-btn"; rm.textContent = "Remove";
+      rm.addEventListener("click", () => { currentBlockedDates = currentBlockedDates.filter(d => d !== dv); renderBlockedDates(); });
+      chip.appendChild(t); chip.appendChild(rm); blockedDateList.appendChild(chip);
+    });
+  }
 
-  profileImageFile.addEventListener("change", e => { showSelectedFileNames(profileImageFile, profileImageFileName, false); if (e.target.files?.[0]) previewLocalSingleImage(e.target.files[0], profileImagePreview, profileImageEmpty); });
-  logoFile.addEventListener("change", e => { showSelectedFileNames(logoFile, logoFileName, false); if (e.target.files?.[0]) previewLocalSingleImage(e.target.files[0], logoPreview, logoEmpty); });
-  galleryImageFiles.addEventListener("change", () => showSelectedFileNames(galleryImageFiles, galleryImageFileName, true));
-  galleryVideoFiles.addEventListener("change", () => showSelectedFileNames(galleryVideoFiles, galleryVideoFileName, true));
-  productImageFiles.addEventListener("change", () => showSelectedFileNames(productImageFiles, productImageFileName, true));
-  profileLive.addEventListener("change", () => { currentVendorAccess.profileVisible = profileLive.checked; currentVendorAccess.published = profileLive.checked; updateViewProfileVisibility(currentVendorAccess); });
-  addBlockedDateBtn.addEventListener("click", addBlockedDate);
-  blockedDateInput.addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); addBlockedDate(); } });
-  bulkAddBtn.addEventListener("click", applyBulkWeekdayBlock);
-  bulkMonthsPreset.addEventListener("change", () => { const pm = bulkMonthsPreset.value; if (!pm) return; const base = bulkStartDate.value ? new Date(bulkStartDate.value+"T00:00:00") : new Date(); if (!bulkStartDate.value) bulkStartDate.value = toLocalDateString(base); bulkEndDate.value = toLocalDateString(addMonthsToDate(base, Number(pm))); });
+  // FIX: trim date input before adding
+  function addBlockedDate() {
+    const v = (blockedDateInput?.value || "").trim();
+    if (!v) return;
+    currentBlockedDates = [...new Set([...currentBlockedDates, v])].sort();
+    if (blockedDateInput) blockedDateInput.value = "";
+    renderBlockedDates();
+  }
 
+  function applyBulkWeekdayBlock() {
+    const wd = Array.from(weekdayOptions?.querySelectorAll("input:checked") || []).map(i => Number(i.value));
+    if (!wd.length) return;
+    let sv = bulkStartDate?.value || "";
+    let ev = bulkEndDate?.value   || "";
+    const pm  = bulkMonthsPreset?.value || "";
+    const today = toLocalDateString(new Date());
+    if (!sv) { sv = today; if (bulkStartDate) bulkStartDate.value = sv; }
+    if (!ev && pm) {
+      ev = toLocalDateString(addMonthsToDate(new Date(sv+"T00:00:00"), Number(pm)));
+      if (bulkEndDate) bulkEndDate.value = ev;
+    }
+    if (!ev || ev < sv) return;
+    const sd = new Date(sv+"T00:00:00"); const ed = new Date(ev+"T00:00:00");
+    const ex = new Set(currentBlockedDates);
+    for (let d = new Date(sd); d <= ed; d.setDate(d.getDate()+1)) {
+      if (wd.includes(d.getDay())) ex.add(toLocalDateString(d));
+    }
+    currentBlockedDates = Array.from(ex).sort();
+    renderBlockedDates();
+  }
+
+  // ── File input listeners ──
+  profileImageFile?.addEventListener("change", e => {
+    showSelectedFileNames(profileImageFile, profileImageFileName, false);
+    if (e.target.files?.[0]) previewLocalSingleImage(e.target.files[0], profileImagePreview, profileImageEmpty);
+  });
+  logoFile?.addEventListener("change", e => {
+    showSelectedFileNames(logoFile, logoFileName, false);
+    if (e.target.files?.[0]) previewLocalSingleImage(e.target.files[0], logoPreview, logoEmpty);
+  });
+  galleryImageFiles?.addEventListener("change", () => showSelectedFileNames(galleryImageFiles, galleryImageFileName, true));
+  galleryVideoFiles?.addEventListener("change", () => showSelectedFileNames(galleryVideoFiles, galleryVideoFileName, true));
+  productImageFiles?.addEventListener("change", () => showSelectedFileNames(productImageFiles, productImageFileName, true));
+
+  profileLive?.addEventListener("change", () => {
+    currentVendorAccess.profileVisible = profileLive.checked;
+    currentVendorAccess.published      = profileLive.checked;
+    updateViewProfileVisibility(currentVendorAccess);
+  });
+
+  addBlockedDateBtn?.addEventListener("click", addBlockedDate);
+  blockedDateInput?.addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); addBlockedDate(); } });
+  bulkAddBtn?.addEventListener("click", applyBulkWeekdayBlock);
+  bulkMonthsPreset?.addEventListener("change", () => {
+    const pm = bulkMonthsPreset.value;
+    if (!pm) return;
+    const base = bulkStartDate?.value ? new Date(bulkStartDate.value+"T00:00:00") : new Date();
+    if (bulkStartDate && !bulkStartDate.value) bulkStartDate.value = toLocalDateString(base);
+    if (bulkEndDate) bulkEndDate.value = toLocalDateString(addMonthsToDate(base, Number(pm)));
+  });
+
+  // ── FIX: uploadFileToStorage — safer canvas conversion ──
   async function uploadFileToStorage(file, folder, uid) {
     const safeBase = file.name.replace(/\.[^/.]+$/, "").replace(/[^a-zA-Z0-9._-]/g, "_");
-    const isImage = file.type.startsWith("image/");
+    const isImage  = file.type.startsWith("image/");
     let uploadFile = file;
-    let fileName = `${Date.now()}-${safeBase}`;
+    let fileName   = `${Date.now()}-${safeBase}`;
+
     if (isImage) {
       try {
         uploadFile = await new Promise((resolve, reject) => {
           const img = new Image();
+          const blobUrl = URL.createObjectURL(file);
           img.onload = () => {
+            URL.revokeObjectURL(blobUrl); // FIX: clean up object URL
             const canvas = document.createElement("canvas");
-            canvas.width = img.naturalWidth; canvas.height = img.naturalHeight;
+            canvas.width  = img.naturalWidth;
+            canvas.height = img.naturalHeight;
             canvas.getContext("2d").drawImage(img, 0, 0);
-            canvas.toBlob(blob => { if (!blob) reject(new Error("Conversion failed")); else resolve(new File([blob], `${safeBase}.webp`, { type: "image/webp" })); }, "image/webp", 0.9);
+            canvas.toBlob(
+              blob => blob ? resolve(new File([blob], `${safeBase}.webp`, { type: "image/webp" })) : reject(new Error("Conversion failed")),
+              "image/webp", 0.9
+            );
           };
-          img.onerror = reject;
-          img.src = URL.createObjectURL(file);
+          img.onerror = () => { URL.revokeObjectURL(blobUrl); reject(new Error("Image load failed")); };
+          img.src = blobUrl;
         });
         fileName += ".webp";
-      } catch { fileName += file.name.includes(".") ? file.name.slice(file.name.lastIndexOf(".")) : ""; }
-    } else { fileName += file.name.includes(".") ? file.name.slice(file.name.lastIndexOf(".")) : ""; }
+      } catch (convErr) {
+        // FIX: conversion failed — upload original file unchanged
+        console.warn("WebP conversion failed, uploading original:", convErr);
+        uploadFile = file;
+        fileName  += file.name.includes(".") ? file.name.slice(file.name.lastIndexOf(".")) : "";
+      }
+    } else {
+      fileName += file.name.includes(".") ? file.name.slice(file.name.lastIndexOf(".")) : "";
+    }
+
     const r = ref(storage, `${folder}/${uid}/${fileName}`);
     await uploadBytes(r, uploadFile, { contentType: uploadFile.type });
     return await getDownloadURL(r);
   }
 
-  function updateStripeStatus(v = {}) { if (stripeStatusText) stripeStatusText.textContent = (v.stripeConnected === true || v.stripeChargesEnabled === true || v.stripeAccountId) ? "Stripe: connected" : "Stripe: not connected"; }
-  function clearProductForm() { [productName, productPrice, productCategory, productStock, productDescription, productPurchaseLink, productImageFiles].forEach(el => el.value = ""); paymentMethod.value = "own"; fulfilmentMethod.value = "email"; fulfilmentDetails.value = ""; productStatus.value = "draft"; productImageFileName.textContent = ""; }
+  function updateStripeStatus(v = {}) {
+    if (stripeStatusText) {
+      stripeStatusText.textContent = (v.stripeConnected === true || v.stripeChargesEnabled === true || v.stripeAccountId)
+        ? "Stripe: connected" : "Stripe: not connected";
+    }
+  }
 
+  function clearProductForm() {
+    [productName, productPrice, productCategory, productStock, productDescription, productPurchaseLink, productImageFiles]
+      .forEach(el => { if (el) el.value = ""; });
+    if (paymentMethod)    paymentMethod.value    = "own";
+    if (fulfilmentMethod) fulfilmentMethod.value = "email";
+    if (fulfilmentDetails) fulfilmentDetails.value = "";
+    if (productStatus)    productStatus.value    = "draft";
+    if (productImageFileName) productImageFileName.textContent = "";
+  }
+
+  // FIX: renderBoutiqueProducts — guard against missing product id
   function renderBoutiqueProducts() {
-    boutiqueProductList.innerHTML = "";
+    if (!boutiqueProductList) return;
     if (productCountText) productCountText.textContent = `Products: ${currentBoutiqueProducts.length}`;
-    if (!currentBoutiqueProducts.length) { boutiqueProductList.innerHTML = '<p class="small-text">No boutique products added yet.</p>'; return; }
+    boutiqueProductList.innerHTML = "";
+    if (!currentBoutiqueProducts.length) {
+      boutiqueProductList.innerHTML = '<p class="small-text">No boutique products added yet.</p>'; return;
+    }
     currentBoutiqueProducts.forEach(p => {
+      if (!p || !p.id) return; // FIX: skip malformed records
       const card = document.createElement("div"); card.className = "media-preview-item";
-      const iu = Array.isArray(p.images) && p.images.length ? p.images[0] : "";
-      if (iu) { const img = document.createElement("img"); img.src = iu; img.loading = "lazy"; card.appendChild(img); }
-      const t = document.createElement("h3"); t.textContent = p.name || "Untitled";
+      const iu   = Array.isArray(p.images) && p.images.length ? p.images[0] : "";
+      if (iu) {
+        const img = document.createElement("img"); img.src = iu; img.loading = "lazy";
+        img.onerror = () => { img.style.display = "none"; };
+        card.appendChild(img);
+      }
+      const t  = document.createElement("h3"); t.textContent = p.name || "Untitled";
       const pr = document.createElement("p"); pr.className = "small-text"; pr.textContent = p.price ? `$${Number(p.price).toFixed(2)}` : "Price not set";
       const st = document.createElement("p"); st.className = "small-text"; st.textContent = `Status: ${p.status || "draft"}`;
       const sk = document.createElement("p"); sk.className = "small-text"; sk.textContent = `Stock: ${p.stock ?? 0}`;
-      const viewBtn = document.createElement("a"); viewBtn.className = "apply-button"; viewBtn.href = `product.html?id=${p.id}`; viewBtn.textContent = "View Product"; viewBtn.style.marginTop = "8px";
-      const deleteBtn = document.createElement("button"); deleteBtn.type = "button"; deleteBtn.className = "remove-media-btn"; deleteBtn.textContent = "Delete Product"; deleteBtn.addEventListener("click", () => deleteBoutiqueProduct(p.id));
+      const viewBtn   = document.createElement("a"); viewBtn.className = "apply-button"; viewBtn.href = `product.html?id=${p.id}`; viewBtn.textContent = "View Product"; viewBtn.style.marginTop = "8px"; viewBtn.style.display = "inline-flex";
+      const deleteBtn = document.createElement("button"); deleteBtn.type = "button"; deleteBtn.className = "remove-media-btn"; deleteBtn.textContent = "Delete Product";
+      deleteBtn.addEventListener("click", () => deleteBoutiqueProduct(p.id));
       card.appendChild(t); card.appendChild(pr); card.appendChild(st); card.appendChild(sk); card.appendChild(viewBtn); card.appendChild(deleteBtn);
       boutiqueProductList.appendChild(card);
     });
   }
 
   async function loadBoutiqueProducts(uid) {
-    const snap = await getDocs(query(collection(db, "boutiqueProducts"), where("vendorId", "==", uid), orderBy("createdAt", "desc")));
-    currentBoutiqueProducts = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-    renderBoutiqueProducts();
+    try {
+      const snap = await getDocs(query(collection(db, "boutiqueProducts"), where("vendorId","==",uid), orderBy("createdAt","desc")));
+      currentBoutiqueProducts = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      renderBoutiqueProducts();
+    } catch (err) {
+      console.error("Failed to load boutique products:", err);
+    }
   }
 
   async function deleteBoutiqueProduct(productId) {
-    if (!confirm("Delete this product?")) return;
-    try { await deleteDoc(doc(db, "boutiqueProducts", productId)); boutiqueMessage.textContent = "Product deleted."; await loadBoutiqueProducts(currentUser.uid); }
-    catch (error) { console.error(error); boutiqueMessage.textContent = "Could not delete product."; }
+    if (!productId || !confirm("Delete this product?")) return;
+    try {
+      await deleteDoc(doc(db, "boutiqueProducts", productId));
+      if (boutiqueMessage) boutiqueMessage.textContent = "Product deleted.";
+      await loadBoutiqueProducts(currentUser.uid);
+    } catch (err) {
+      console.error(err);
+      if (boutiqueMessage) boutiqueMessage.textContent = "Could not delete product.";
+    }
   }
 
   async function saveBoutiqueProduct() {
-    if (!currentUser || !hasShopAccess(currentVendorAccess)) { boutiqueMessage.textContent = "Boutique access is not active."; return; }
-    const name = productName.value.trim(); const price = Number(productPrice.value || 0);
-    if (!name) { boutiqueMessage.textContent = "Please add a product name."; return; }
-    if (!price || price < 0) { boutiqueMessage.textContent = "Please add a valid price."; return; }
-    boutiqueMessage.textContent = "Uploading...";
+    if (!currentUser || !hasShopAccess(currentVendorAccess)) {
+      if (boutiqueMessage) boutiqueMessage.textContent = "Boutique access is not active."; return;
+    }
+    const name  = productName?.value.trim() || "";
+    const price = Number(productPrice?.value || 0);
+    if (!name)          { if (boutiqueMessage) boutiqueMessage.textContent = "Please add a product name."; return; }
+    if (!price || price < 0) { if (boutiqueMessage) boutiqueMessage.textContent = "Please add a valid price."; return; }
+    if (boutiqueMessage) boutiqueMessage.textContent = "Uploading...";
     try {
       const imgs = [];
-      if (productImageFiles.files?.length) { for (const f of Array.from(productImageFiles.files)) imgs.push(await uploadFileToStorage(f, "boutique-product-images", currentUser.uid)); }
-      await addDoc(collection(db, "boutiqueProducts"), { vendorId: currentUser.uid, vendorName: businessName.value.trim(), name, price, category: productCategory.value, stock: Number(productStock.value||0), description: productDescription.value.trim(), paymentMethod: paymentMethod.value, purchaseLink: productPurchaseLink.value.trim(), fulfilmentMethod: fulfilmentMethod.value, fulfilmentDetails: fulfilmentDetails.value.trim(), status: productStatus.value||"draft", images: imgs, visible: productStatus.value === "live", createdAt: serverTimestamp(), updatedAt: serverTimestamp() });
-      clearProductForm(); await loadBoutiqueProducts(currentUser.uid); boutiqueMessage.textContent = "Product added successfully.";
-    } catch (err) { console.error(err); boutiqueMessage.textContent = "There was a problem adding this product."; }
+      if (productImageFiles?.files?.length) {
+        for (const f of Array.from(productImageFiles.files)) {
+          imgs.push(await uploadFileToStorage(f, "boutique-product-images", currentUser.uid));
+        }
+      }
+      await addDoc(collection(db, "boutiqueProducts"), {
+        vendorId: currentUser.uid,
+        vendorName: businessName?.value.trim() || "",
+        name, price,
+        category:         productCategory?.value   || "",
+        stock:            Number(productStock?.value || 0),
+        description:      productDescription?.value.trim() || "",
+        paymentMethod:    paymentMethod?.value     || "own",
+        purchaseLink:     productPurchaseLink?.value.trim() || "",
+        fulfilmentMethod: fulfilmentMethod?.value  || "email",
+        fulfilmentDetails: fulfilmentDetails?.value.trim() || "",
+        status:           productStatus?.value     || "draft",
+        images:           imgs,
+        visible:          productStatus?.value === "live",
+        createdAt:        serverTimestamp(),
+        updatedAt:        serverTimestamp()
+      });
+      clearProductForm();
+      await loadBoutiqueProducts(currentUser.uid);
+      if (boutiqueMessage) boutiqueMessage.textContent = "Product added successfully.";
+    } catch (err) {
+      console.error(err);
+      if (boutiqueMessage) boutiqueMessage.textContent = "There was a problem adding this product.";
+    }
   }
 
   async function loadVendorData(uid) {
-    const userSnap = await getDoc(doc(db, "users", uid));
-    if (!userSnap.exists() || userSnap.data().role !== "vendor") { window.location.href = "login.html"; return; }
-    const userData = userSnap.data();
-    const vendorSnap = await getDoc(doc(db, "vendors", uid));
-    const vd = vendorSnap.exists() ? vendorSnap.data() : {};
-    currentVendorAccess = { subscriptionActive: vd.subscriptionActive===true, paidSetupFee: vd.paidSetupFee===true, complimentaryPlan: vd.complimentaryPlan===true, plan: vd.plan||"", accessType: vd.accessType||"", membershipTier: vd.membershipTier||"", tier: vd.tier||"", shopAccess: vd.shopAccess===true, accountStatus: vd.accountStatus||"active", profileVisible: vd.profileVisible===true, published: vd.published===true };
-    businessName.value = vd.businessName||""; email.value = vd.email||currentUser.email||""; accountName.value = userData.name||""; accountEmail.value = userData.email||currentUser.email||"";
-    phone.value = vd.phone||""; instagram.value = vd.instagram||""; website.value = vd.website||""; facebook.value = vd.facebook||""; tiktok.value = vd.tiktok||""; youtube.value = vd.youtube||""; pinterest.value = vd.pinterest||""; linkedin.value = vd.linkedin||""; x.value = vd.x||""; serviceAreas.value = vd.serviceAreas||""; displayLocation.value = vd.displayLocation||""; bookingLink.value = vd.bookingLink||""; availabilityStatus.value = vd.availabilityStatus||""; bookingNotes.value = vd.bookingNotes||""; bio.value = vd.bio||"";
+    // FIX: check users doc role before continuing
+    let userData = {};
+    try {
+      const userSnap = await getDoc(doc(db, "users", uid));
+      if (!userSnap.exists() || userSnap.data().role !== "vendor") {
+        window.location.href = "login.html"; return;
+      }
+      userData = userSnap.data();
+    } catch (err) {
+      console.error("Failed to load user doc:", err);
+      window.location.href = "login.html"; return;
+    }
+
+    let vd = {};
+    try {
+      const vendorSnap = await getDoc(doc(db, "vendors", uid));
+      if (vendorSnap.exists()) vd = vendorSnap.data();
+    } catch (err) {
+      console.error("Failed to load vendor doc:", err);
+    }
+
+    currentVendorAccess = {
+      subscriptionActive: vd.subscriptionActive === true,
+      paidSetupFee:       vd.paidSetupFee       === true,
+      complimentaryPlan:  vd.complimentaryPlan   === true,
+      plan:               vd.plan       || "",
+      accessType:         vd.accessType || "",
+      membershipTier:     vd.membershipTier || "",
+      tier:               vd.tier || "",
+      shopAccess:         vd.shopAccess   === true,
+      accountStatus:      vd.accountStatus || "active",
+      profileVisible:     vd.profileVisible === true,
+      published:          vd.published      === true
+    };
+
+    if (businessName)       businessName.value       = vd.businessName || "";
+    if (email)              email.value              = vd.email || currentUser.email || "";
+    if (accountName)        accountName.value        = userData.name || "";
+    if (accountEmail)       accountEmail.value       = userData.email || currentUser.email || "";
+    if (phone)              phone.value              = vd.phone || "";
+    if (instagram)          instagram.value          = vd.instagram || "";
+    if (website)            website.value            = vd.website || "";
+    if (facebook)           facebook.value           = vd.facebook || "";
+    if (tiktok)             tiktok.value             = vd.tiktok || "";
+    if (youtube)            youtube.value            = vd.youtube || "";
+    if (pinterest)          pinterest.value          = vd.pinterest || "";
+    if (linkedin)           linkedin.value           = vd.linkedin || "";
+    if (x)                  x.value                  = vd.x || "";
+    if (serviceAreas)       serviceAreas.value       = vd.serviceAreas || "";
+    if (displayLocation)    displayLocation.value    = vd.displayLocation || "";
+    if (bookingLink)        bookingLink.value        = vd.bookingLink || "";
+    if (availabilityStatus) availabilityStatus.value = vd.availabilityStatus || "";
+    if (bookingNotes)       bookingNotes.value       = vd.bookingNotes || "";
+    if (bio)                bio.value                = vd.bio || "";
+
     currentBlockedDates = Array.isArray(vd.blockedDates) ? vd.blockedDates.filter(Boolean) : [];
-    currentProfileImageUrl = vd.profileImageUrl||""; currentLogoUrl = vd.logoUrl||"";
-    currentGalleryImages = Array.isArray(vd.images) ? [...vd.images] : []; currentGalleryVideos = Array.isArray(vd.videos) ? [...vd.videos] : [];
-    profileLive.checked = vd.profileVisible===true || vd.published===true;
-    accountStatusText.textContent = `Account status: ${vd.accountStatus||"active"}`;
-    subscriptionStatusText.textContent = `Plan access: ${getPlanAccessLabel(vd)}`;
-    viewsStatusText.textContent = `Profile views: ${getProfileViews(vd)}`;
+
+    // FIX: deduplicate on load so stale duplicates from Firestore are cleaned up
+    currentProfileImageUrl = vd.profileImageUrl || "";
+    currentLogoUrl         = vd.logoUrl         || "";
+    currentGalleryImages   = dedupeUrls(vd.images || []);
+    currentGalleryVideos   = dedupeUrls(vd.videos || []);
+
+    if (profileLive) profileLive.checked = vd.profileVisible === true || vd.published === true;
+
+    if (accountStatusText)      accountStatusText.textContent      = `Account status: ${vd.accountStatus || "active"}`;
+    if (subscriptionStatusText) subscriptionStatusText.textContent = `Plan access: ${getPlanAccessLabel(vd)}`;
+    if (viewsStatusText)        viewsStatusText.textContent        = `Profile views: ${getProfileViews(vd)}`;
+
     renderStyleTags(Array.isArray(vd.styleTags) ? vd.styleTags : []);
     renderCategoryOptions(Array.isArray(vd.categories) ? vd.categories : []);
-    const selCountries = Array.isArray(vd.countries) && vd.countries.length ? vd.countries : vd.country ? [vd.country] : ["Australia"];
-    renderCountries(selCountries); renderStates(Array.isArray(vd.states) ? vd.states : []); renderRegions(Array.isArray(vd.regions) ? vd.regions : []);
-    viewProfileBtn.href = `vendor.html?id=${uid}`;
+
+    const selCountries = Array.isArray(vd.countries) && vd.countries.length
+      ? vd.countries : vd.country ? [vd.country] : ["Australia"];
+    renderCountries(selCountries);
+    renderStates(Array.isArray(vd.states)   ? vd.states   : []);
+    renderRegions(Array.isArray(vd.regions) ? vd.regions  : []);
+
+    if (viewProfileBtn) viewProfileBtn.href = `vendor.html?id=${uid}`;
+
     setSingleImagePreview(currentProfileImageUrl, profileImagePreview, profileImageEmpty);
     setSingleImagePreview(currentLogoUrl, logoPreview, logoEmpty);
     setImagePreview(); setVideoPreview(); renderBlockedDates();
-    updateViewProfileVisibility(currentVendorAccess); updateBoutiqueAccessVisibility(vd); updateStripeStatus(vd);
+    updateViewProfileVisibility(currentVendorAccess);
+    updateBoutiqueAccessVisibility(vd);
+    updateStripeStatus(vd);
+
     if (hasShopAccess(vd)) await loadBoutiqueProducts(uid);
     loadMessagesSummary(uid);
     if (messagesNavLink) messagesNavLink.style.display = "inline-flex";
   }
 
+  // FIX: loadMessagesSummary — catch snapshot errors
   function loadMessagesSummary(uid) {
-    onSnapshot(
-      query(collection(db, "conversations"), where("vendorId", "==", uid), orderBy("lastMessageAt", "desc")),
-      (snap) => {
-        let total = 0; snap.forEach(d => { total += (d.data().vendorUnread || 0); });
-        if (total > 0) { msgUnreadBadge.textContent = total; msgUnreadBadge.style.display = "inline-flex"; if (navMsgBadge) { navMsgBadge.textContent = total; navMsgBadge.style.display = "inline"; } }
-        else { msgUnreadBadge.style.display = "none"; if (navMsgBadge) navMsgBadge.style.display = "none"; }
-        if (!snap.empty) { const latest = snap.docs[0].data(); msgSummaryPreview.textContent = latest.lastMessage ? `${latest.coupleName || "Couple"}: ${latest.lastMessage}` : "No messages yet. Conversations begin when a couple messages you from your vendor profile ♡"; }
-        else { msgSummaryPreview.textContent = "No messages yet. Conversations begin when a couple messages you from your vendor profile ♡"; }
-      }
-    );
+    try {
+      onSnapshot(
+        query(collection(db,"conversations"), where("vendorId","==",uid), orderBy("lastMessageAt","desc")),
+        (snap) => {
+          let total = 0;
+          snap.forEach(d => { total += (d.data().vendorUnread || 0); });
+          if (total > 0) {
+            if (msgUnreadBadge) { msgUnreadBadge.textContent = total; msgUnreadBadge.style.display = "inline-flex"; }
+            if (msgNavBadge)    { msgNavBadge.textContent    = total; msgNavBadge.style.display    = "inline"; }
+          } else {
+            if (msgUnreadBadge) msgUnreadBadge.style.display = "none";
+            if (msgNavBadge)    msgNavBadge.style.display    = "none";
+          }
+          if (!snap.empty) {
+            const latest = snap.docs[0].data();
+            if (msgSummaryPreview) {
+              msgSummaryPreview.textContent = latest.lastMessage
+                ? `${latest.coupleName || "Couple"}: ${latest.lastMessage}`
+                : "No messages yet. Conversations begin when a couple messages you from your vendor profile ♡";
+            }
+          }
+        },
+        (err) => { console.error("Messages snapshot error:", err); }
+      );
+    } catch (err) {
+      console.error("Failed to subscribe to messages:", err);
+    }
   }
 
+  // FIX: saveAccountSettings — only call updateEmail if address actually changed
   async function saveAccountSettings() {
-    if (!currentUser) return; accountMessage.textContent = "Updating account...";
+    if (!currentUser) return;
+    if (accountMessage) accountMessage.textContent = "Updating account...";
     try {
-      const n = accountName.value.trim(); const e = accountEmail.value.trim().toLowerCase(); const p = accountPassword.value.trim();
+      const n = accountName?.value.trim()  || "";
+      const e = accountEmail?.value.trim().toLowerCase() || "";
+      const p = accountPassword?.value.trim() || "";
       await setDoc(doc(db,"users",currentUser.uid), { name:n, email:e, role:"vendor", updatedAt:serverTimestamp() }, { merge:true });
       if (e && e !== currentUser.email) await updateEmail(currentUser, e);
-      if (p) { if (p.length < 6) { accountMessage.textContent = "Password must be at least 6 characters."; return; } await updatePassword(currentUser, p); }
-      await setDoc(doc(db,"vendors",currentUser.uid), { email:e }, { merge:true });
-      email.value = e; accountPassword.value = ""; accountMessage.textContent = "Account details updated successfully.";
-    } catch (err) { console.error(err); accountMessage.textContent = "Could not update. You may need to log in again first."; }
+      if (p) {
+        if (p.length < 6) { if (accountMessage) accountMessage.textContent = "Password must be at least 6 characters."; return; }
+        await updatePassword(currentUser, p);
+      }
+      await setDoc(doc(db,"vendors",currentUser.uid), { email: e || currentUser.email }, { merge:true });
+      if (email) email.value = e || currentUser.email;
+      if (accountPassword) accountPassword.value = "";
+      if (accountMessage)  accountMessage.textContent = "Account details updated successfully.";
+    } catch (err) {
+      console.error(err);
+      if (accountMessage) accountMessage.textContent = "Could not update. You may need to log in again first.";
+    }
   }
 
   async function saveVendorData(showMsg) {
     const show = showMsg || (() => {});
     if (!currentUser) return;
     try {
-      const vSnap = await getDoc(doc(db,"vendors",currentUser.uid)); const ev = vSnap.exists() ? vSnap.data() : {};
-      currentVendorAccess = { subscriptionActive: ev.subscriptionActive===true, paidSetupFee: ev.paidSetupFee===true, complimentaryPlan: ev.complimentaryPlan===true, plan: ev.plan||"", accessType: ev.accessType||"", membershipTier: ev.membershipTier||"", tier: ev.tier||"", shopAccess: ev.shopAccess===true, accountStatus: ev.accountStatus||"active", profileVisible: ev.profileVisible===true, published: ev.published===true };
-      const st = getCheckedValues(styleTagOptions); const cats = getCheckedValues(categoryOptions); const cos = getCheckedValues(countryOptions); const sts = getCheckedValues(stateOptions); const regs = getCheckedValues(regionOptions);
-      let pi = currentProfileImageUrl; let li = currentLogoUrl; let gi = [...currentGalleryImages]; let gv = [...currentGalleryVideos];
-      if (profileImageFile.files?.[0]) pi = await uploadFileToStorage(profileImageFile.files[0], "vendor-profile-images", currentUser.uid);
-      if (logoFile.files?.[0]) li = await uploadFileToStorage(logoFile.files[0], "vendor-logos", currentUser.uid);
-      if (galleryImageFiles.files?.length) { const u = []; for (const f of Array.from(galleryImageFiles.files)) u.push(await uploadFileToStorage(f, "vendor-gallery-images", currentUser.uid)); gi = [...gi, ...u]; }
-      if (galleryVideoFiles.files?.length) { const u = []; for (const f of Array.from(galleryVideoFiles.files)) u.push(await uploadFileToStorage(f, "vendor-gallery-videos", currentUser.uid)); gv = [...gv, ...u]; }
-      gi = [...new Set(gi)]; gv = [...new Set(gv)]; currentBlockedDates = [...new Set(currentBlockedDates)].sort();
-      const cover = gi[0] || ""; const shop = hasShopAccess(currentVendorAccess);
-      await setDoc(doc(db,"vendors",currentUser.uid), { uid:currentUser.uid, businessName:businessName.value.trim(), email:email.value.trim().toLowerCase(), phone:phone.value.trim(), instagram:instagram.value.trim(), website:website.value.trim(), facebook:facebook.value.trim(), tiktok:tiktok.value.trim(), youtube:youtube.value.trim(), pinterest:pinterest.value.trim(), linkedin:linkedin.value.trim(), x:x.value.trim(), serviceAreas:serviceAreas.value.trim(), displayLocation:displayLocation.value.trim(), bookingLink:bookingLink.value.trim(), availabilityStatus:availabilityStatus.value.trim(), bookingNotes:bookingNotes.value.trim(), blockedDates:currentBlockedDates, bio:bio.value.trim(), profileImageUrl:pi, logoUrl:li, coverImageUrl:cover, images:gi, galleryImages:gi, imageUrls:gi, videos:gv, galleryVideos:gv, videoUrls:gv, styleTags:st, categories:cats, countries:cos, country:cos[0]||"", states:sts, regions:regs, profileVisible:profileLive.checked, published:profileLive.checked, shopAccess:shop, updatedAt:serverTimestamp() }, { merge:true });
-      currentProfileImageUrl = pi; currentLogoUrl = li; currentGalleryImages = gi; currentGalleryVideos = gv;
-      currentVendorAccess = { ...currentVendorAccess, shopAccess:shop, profileVisible:profileLive.checked, published:profileLive.checked };
-      profileImageFile.value = ""; logoFile.value = ""; galleryImageFiles.value = ""; galleryVideoFiles.value = "";
-      profileImageFileName.textContent = ""; logoFileName.textContent = ""; galleryImageFileName.textContent = ""; galleryVideoFileName.textContent = "";
-      setSingleImagePreview(pi, profileImagePreview, profileImageEmpty); setSingleImagePreview(li, logoPreview, logoEmpty);
-      setImagePreview(); setVideoPreview(); renderBlockedDates(); updateViewProfileVisibility(currentVendorAccess); updateBoutiqueAccessVisibility(currentVendorAccess);
+      const vSnap = await getDoc(doc(db,"vendors",currentUser.uid));
+      const ev    = vSnap.exists() ? vSnap.data() : {};
+      currentVendorAccess = {
+        subscriptionActive: ev.subscriptionActive === true,
+        paidSetupFee:       ev.paidSetupFee       === true,
+        complimentaryPlan:  ev.complimentaryPlan   === true,
+        plan:               ev.plan       || "",
+        accessType:         ev.accessType || "",
+        membershipTier:     ev.membershipTier || "",
+        tier:               ev.tier || "",
+        shopAccess:         ev.shopAccess   === true,
+        accountStatus:      ev.accountStatus || "active",
+        profileVisible:     ev.profileVisible === true,
+        published:          ev.published      === true
+      };
+
+      const st   = getCheckedValues(styleTagOptions);
+      const cats = getCheckedValues(categoryOptions);
+      const cos  = getCheckedValues(countryOptions);
+      const sts  = getCheckedValues(stateOptions);
+      const regs = getCheckedValues(regionOptions);
+
+      let pi = currentProfileImageUrl;
+      let li = currentLogoUrl;
+      let gi = [...currentGalleryImages];
+      let gv = [...currentGalleryVideos];
+
+      if (profileImageFile?.files?.[0])   pi = await uploadFileToStorage(profileImageFile.files[0],    "vendor-profile-images", currentUser.uid);
+      if (logoFile?.files?.[0])           li = await uploadFileToStorage(logoFile.files[0],             "vendor-logos",          currentUser.uid);
+
+      if (galleryImageFiles?.files?.length) {
+        const u = [];
+        for (const f of Array.from(galleryImageFiles.files)) u.push(await uploadFileToStorage(f, "vendor-gallery-images", currentUser.uid));
+        gi = [...gi, ...u];
+      }
+      if (galleryVideoFiles?.files?.length) {
+        const u = [];
+        for (const f of Array.from(galleryVideoFiles.files)) u.push(await uploadFileToStorage(f, "vendor-gallery-videos", currentUser.uid));
+        gv = [...gv, ...u];
+      }
+
+      // FIX: always deduplicate before saving
+      gi = dedupeUrls(gi);
+      gv = dedupeUrls(gv);
+      currentBlockedDates = [...new Set(currentBlockedDates)].sort();
+
+      // FIX: coverImageUrl always comes from gi[0] — never left stale
+      const cover = gi[0] || "";
+      const shop  = hasShopAccess(currentVendorAccess);
+
+      await setDoc(doc(db,"vendors",currentUser.uid), {
+        uid:              currentUser.uid,
+        businessName:     businessName?.value.trim()       || "",
+        email:            email?.value.trim().toLowerCase() || "",
+        phone:            phone?.value.trim()              || "",
+        instagram:        instagram?.value.trim()          || "",
+        website:          website?.value.trim()            || "",
+        facebook:         facebook?.value.trim()           || "",
+        tiktok:           tiktok?.value.trim()             || "",
+        youtube:          youtube?.value.trim()            || "",
+        pinterest:        pinterest?.value.trim()          || "",
+        linkedin:         linkedin?.value.trim()           || "",
+        x:                x?.value.trim()                  || "",
+        serviceAreas:     serviceAreas?.value.trim()       || "",
+        displayLocation:  displayLocation?.value.trim()    || "",
+        bookingLink:      bookingLink?.value.trim()        || "",
+        availabilityStatus: availabilityStatus?.value.trim() || "",
+        bookingNotes:     bookingNotes?.value.trim()       || "",
+        blockedDates:     currentBlockedDates,
+        bio:              bio?.value.trim()                || "",
+        profileImageUrl:  pi,
+        logoUrl:          li,
+        // FIX: coverImageUrl always = first gallery image
+        coverImageUrl:    cover,
+        images:           gi,
+        galleryImages:    gi,
+        imageUrls:        gi,
+        videos:           gv,
+        galleryVideos:    gv,
+        videoUrls:        gv,
+        styleTags:        st,
+        categories:       cats,
+        countries:        cos,
+        country:          cos[0] || "",
+        states:           sts,
+        regions:          regs,
+        profileVisible:   profileLive?.checked || false,
+        published:        profileLive?.checked || false,
+        shopAccess:       shop,
+        updatedAt:        serverTimestamp()
+      }, { merge: true });
+
+      currentProfileImageUrl = pi;
+      currentLogoUrl         = li;
+      currentGalleryImages   = gi;
+      currentGalleryVideos   = gv;
+      currentVendorAccess    = { ...currentVendorAccess, shopAccess: shop, profileVisible: profileLive?.checked || false, published: profileLive?.checked || false };
+
+      // Clear file inputs
+      if (profileImageFile)  profileImageFile.value  = "";
+      if (logoFile)          logoFile.value          = "";
+      if (galleryImageFiles) galleryImageFiles.value = "";
+      if (galleryVideoFiles) galleryVideoFiles.value = "";
+      if (profileImageFileName) profileImageFileName.textContent = "";
+      if (logoFileName)         logoFileName.textContent         = "";
+      if (galleryImageFileName) galleryImageFileName.textContent = "";
+      if (galleryVideoFileName) galleryVideoFileName.textContent = "";
+
+      setSingleImagePreview(pi, profileImagePreview, profileImageEmpty);
+      setSingleImagePreview(li, logoPreview, logoEmpty);
+      setImagePreview(); setVideoPreview(); renderBlockedDates();
+      updateViewProfileVisibility(currentVendorAccess);
+      updateBoutiqueAccessVisibility(currentVendorAccess);
       show("Your changes have been saved ♡");
-    } catch (err) { console.error(err); show("There was a problem saving your changes."); }
+    } catch (err) {
+      console.error(err);
+      show("There was a problem saving your changes.");
+    }
   }
 
   window.saveVendorProfile = async function(btn) {
-    const row = btn.closest(".panel-save-row");
+    const row   = btn.closest(".panel-save-row");
     const msgEl = row ? row.querySelector(".panel-save-msg") : null;
-    const show = (text) => { if (msgEl) msgEl.textContent = text; };
+    const show  = (text) => { if (msgEl) msgEl.textContent = text; };
     show("Saving…"); btn.disabled = true;
     await saveVendorData(show);
     btn.disabled = false;
     setTimeout(() => show(""), 3000);
   };
 
-  saveAccountBtn.addEventListener("click", saveAccountSettings);
-  saveProductBtn.addEventListener("click", saveBoutiqueProduct);
+  saveAccountBtn?.addEventListener("click", saveAccountSettings);
+  saveProductBtn?.addEventListener("click", saveBoutiqueProduct);
 
   onAuthStateChanged(auth, async (user) => {
     if (!user) { window.location.href = "login.html"; return; }
