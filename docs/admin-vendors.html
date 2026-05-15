@@ -491,11 +491,8 @@ function videoFields(arr) { return {videos:arr,galleryVideos:arr,videoUrls:arr};
 function setStatus(msg, type="") { saveStatus.textContent=msg; saveStatus.className="save-status"+(type?" "+type:""); }
 function formatDate(v) { if(!v) return "Not saved"; try{return v.toDate?v.toDate().toLocaleString():new Date(v).toLocaleString();}catch{return "Not saved";} }
 function cleanUploadName(file,fallback="file") {
-  const typeExt=file.type?.includes("/")?file.type.split("/")[1].replace("jpeg","jpg"):"";
-  const nameExt=file.name.includes(".")?file.name.split(".").pop().toLowerCase():"";
-  const ext=(nameExt||typeExt||"bin").replace(/[^a-z0-9]/g,"");
   const base=file.name.replace(/\.[^/.]+$/,"").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"").slice(0,32);
-  return `${Date.now()}-${base||fallback}.${ext}`;
+  return `${Date.now()}-${base||fallback}.webp`;
 }
 
 const getSub    = v => v.subscriptionType||v.subscription||v.plan||"unknown";
