@@ -1,6 +1,10 @@
 [
   {
-    "origin": ["https://ourweddingdayhub.com", "https://www.ourweddingdayhub.com"],
+    "origin": [
+      "https://ourweddingdayhub.com",
+      "https://www.ourweddingdayhub.com",
+      "https://firebasestorage.googleapis.com"
+    ],
     "method": ["GET"],
     "maxAgeSeconds": 3600
   }
