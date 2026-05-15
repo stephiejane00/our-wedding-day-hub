@@ -8,237 +8,134 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
   <style>
-    /* ── TOKENS ── */
-    :root {
-      --ink:        #1A1A16;
-      --ink-mid:    #4A4A44;
-      --ink-muted:  #8A8A82;
-      --ink-ghost:  #C0C0B8;
-      --ink-rule:   #DDDDD8;
-      --cream:      #FAFAF8;
-      --cream-warm: #F4F0EA;
-      --cream-deep: #EDE8E0;
-      --gold:       #9A7A5A;
-      --gold-light: #C4A882;
-      --font-serif: 'Cormorant Garamond', Georgia, serif;
-      --font-sans:  'Plus Jakarta Sans', 'Helvetica Neue', Arial, sans-serif;
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { background: var(--cream); font-family: var(--font-sans); color: var(--ink); -webkit-font-smoothing: antialiased; }
-
-    /* ── TOPBAR ── */
-    .site-topbar {
-      background: var(--cream); border-bottom: 1px solid var(--ink-rule);
-      padding: 0 36px; display: flex; align-items: center; gap: 20px;
-      min-height: 64px; position: sticky; top: 0; z-index: 200;
-    }
-    .site-topbar-logo-wrap { display: inline-flex; align-items: center; }
-    .site-topbar-logo { width: 44px; height: 44px; object-fit: contain; }
-    .site-topbar-title { flex: 1; }
-    .site-topbar-title h1 { font-family: var(--font-serif); font-size: 1.05rem; font-weight: 400; letter-spacing: 0.01em; color: var(--ink); }
-    .site-topbar-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-    .site-topbar-link, .site-topbar-btn {
-      display: inline-flex; align-items: center; justify-content: center;
-      min-height: 34px; padding: 6px 14px; font-family: var(--font-sans);
-      font-size: 0.75rem; letter-spacing: 0.06em; text-decoration: none; white-space: nowrap; transition: all 0.2s ease;
-    }
-    .site-topbar-link { color: var(--ink-muted); border: none; background: none; }
-    .site-topbar-link:hover { color: var(--ink); }
-    .site-topbar-btn { background: var(--ink); color: var(--cream); font-weight: 600; border: none; cursor: pointer; }
-    .site-topbar-btn:hover { background: var(--ink-mid); }
-
-    /* ── PAGE LAYOUT ── */
-    .vendor-page { max-width: 1280px; margin: 0 auto; padding: 32px 36px 60px; }
-    .vendor-layout { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(280px, 0.9fr); gap: 1px; align-items: start; background: var(--ink-rule); border: 0.5px solid var(--ink-rule); }
-    .vendor-left { display: flex; flex-direction: column; background: var(--cream); }
-
-    /* ── CARD BASE ── */
-    .vendor-card {
-      background: var(--cream); padding: 28px 32px;
-      border-bottom: 0.5px solid var(--ink-rule);
-      border-radius: 0; box-shadow: none; border-top: none; border-left: none; border-right: none;
-      transition: none;
-    }
-    .vendor-card:last-child { border-bottom: none; }
-
-    /* ── GALLERY ── */
-    .vendor-gallery-card { padding: 0; overflow: hidden; border-bottom: 0.5px solid var(--ink-rule); }
-    .vendor-gallery-stage {
-      position: relative; overflow: hidden; background: var(--cream-deep);
-      cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-select: none;
-    }
-    .vendor-gallery-stage:active { cursor: grabbing; }
-    .vendor-gallery-media { width: 100%; height: 580px; display: block; background: var(--cream-deep); }
-    .vendor-gallery-media img { width: 100%; height: 100%; display: block; object-fit: contain; background: var(--cream-deep); transition: filter 0.35s ease; }
-    .vendor-gallery-media video { width: 100%; height: 100%; display: block; object-fit: cover; }
-
-    .vendor-gallery-arrow {
-      position: absolute; top: 50%; transform: translateY(-50%);
-      width: 40px; height: 40px; border: none; background: rgba(250,250,248,0.9);
-      color: var(--ink); font-size: 22px; line-height: 1; cursor: pointer;
-      display: inline-flex; align-items: center; justify-content: center;
-      z-index: 2; transition: background 0.2s ease;
-    }
-    .vendor-gallery-arrow.left  { left: 0; }
-    .vendor-gallery-arrow.right { right: 0; }
-    .vendor-gallery-arrow:hover { background: var(--cream-warm); }
-    .vendor-gallery-arrow[hidden] { display: none !important; }
-
-    .gallery-swipe-hint { display: none; position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%); background: rgba(26,26,22,0.6); color: var(--cream); font-family: var(--font-sans); font-size: 0.68rem; padding: 5px 12px; white-space: nowrap; pointer-events: none; z-index: 3; letter-spacing: 0.08em; text-transform: uppercase; }
-    @media (max-width: 700px) { .gallery-swipe-hint { display: block; } }
-
-    .vendor-gallery-dots { display: flex; justify-content: center; align-items: center; gap: 8px; padding: 14px 18px 16px; border-bottom: 0.5px solid var(--ink-rule); }
-    .vendor-gallery-dot { width: 5px; height: 5px; border-radius: 50%; border: none; background: var(--ink-rule); cursor: pointer; padding: 0; transition: background 0.2s ease, transform 0.2s ease; }
-    .vendor-gallery-dot.active { background: var(--ink); transform: scale(1.2); }
-
-    /* ── VENDOR HEADER ── */
-    .vendor-header-card { padding: 32px 32px 28px; }
-    .vendor-kicker { font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-ghost); margin-bottom: 8px; }
-    .vendor-title { font-family: var(--font-serif); font-size: clamp(1.8rem, 3vw, 2.8rem); font-weight: 300; line-height: 0.97; letter-spacing: -0.03em; color: var(--ink); margin-bottom: 8px; }
-    .vendor-category { font-family: var(--font-sans); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-ghost); margin-bottom: 6px; }
-    .vendor-tagline { font-family: var(--font-serif); font-style: italic; font-size: 1rem; color: var(--gold); margin-bottom: 12px; }
-    .vendor-about { font-family: var(--font-sans); font-size: 0.88rem; color: var(--ink-muted); line-height: 1.85; white-space: pre-wrap; margin-top: 10px; }
-
-    .vendor-section-title { font-family: var(--font-serif); font-size: 1.3rem; font-weight: 300; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 16px; }
-
-    /* ── CALENDAR ── */
-    .availability-calendar { margin-top: 16px; }
-    .cal-header { display: grid; grid-template-columns: 36px 1fr 36px; align-items: center; gap: 10px; margin-bottom: 16px; }
-    .cal-nav { width: 36px; height: 36px; border: 0.5px solid var(--ink-rule); background: var(--cream); color: var(--ink); cursor: pointer; font-size: 1.1rem; display: inline-flex; align-items: center; justify-content: center; transition: all 0.18s ease; border-radius: 0; }
-    .cal-nav:hover { background: var(--cream-warm); border-color: var(--ink-muted); }
-    .cal-month-label { text-align: center; font-family: var(--font-serif); font-size: 1.05rem; font-weight: 400; color: var(--ink); letter-spacing: 0.01em; }
-    .cal-weekdays, .cal-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; }
-    .cal-weekdays { margin-bottom: 4px; }
-    .cal-weekday { text-align: center; font-family: var(--font-sans); font-size: 0.62rem; font-weight: 700; color: var(--ink-ghost); text-transform: uppercase; letter-spacing: 0.08em; padding: 4px 0; }
-    .cal-day { min-height: 42px; border: 0.5px solid var(--ink-rule); background: var(--cream); color: var(--ink-mid); padding: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-family: var(--font-sans); font-size: 0.82rem; font-weight: 500; transition: all 0.18s ease; border-radius: 0; }
-    .cal-day:hover:not(.unavailable):not(.past) { background: var(--cream-warm); border-color: var(--ink-muted); }
-    .cal-day.empty { background: transparent; border: none; cursor: default; }
-    .cal-day.unavailable { background: var(--cream-deep); color: var(--ink-ghost); cursor: not-allowed; text-decoration: line-through; border-color: transparent; }
-    .cal-day.past { background: var(--cream-warm); color: var(--ink-ghost); cursor: not-allowed; border-color: transparent; }
-    .cal-day.selected { background: var(--ink); border-color: var(--ink); color: var(--cream); }
-    .cal-day.today { border-color: var(--gold-light); }
-    .cal-selected-note { margin-top: 12px; padding: 12px 14px; background: var(--cream-warm); border-left: 2px solid var(--gold-light); font-family: var(--font-serif); font-style: italic; font-size: 0.95rem; color: var(--ink-mid); line-height: 1.6; }
-
-    /* ── ENQUIRY FORM ── */
-    .enquiry-form { display: grid; gap: 10px; margin-top: 16px; }
-    .enquiry-form input, .enquiry-form textarea { width: 100%; border: 0.5px solid var(--ink-rule); border-radius: 0; padding: 11px 13px; font-family: var(--font-sans); font-size: 0.86rem; background: var(--cream); color: var(--ink); box-sizing: border-box; transition: border-color 0.2s ease; outline: none; }
-    .enquiry-form input:focus, .enquiry-form textarea:focus { border-color: var(--gold); }
-    .enquiry-form textarea { min-height: 120px; resize: vertical; }
-
-    /* ── BUTTONS ── */
-    .lux-btn {
-      display: inline-flex; align-items: center; justify-content: center;
-      min-height: 42px; padding: 10px 20px; border: none; font-family: var(--font-sans);
-      font-weight: 700; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
-      cursor: pointer; text-decoration: none;
-      background: var(--ink); color: var(--cream);
-      transition: background 0.2s; border-radius: 0; box-shadow: none;
-    }
-    .lux-btn:hover { background: var(--ink-mid); transform: none; filter: none; box-shadow: none; }
-    .lux-btn:active { transform: none; }
-    .lux-btn-ghost { background: var(--cream); border: 0.5px solid var(--ink-rule); color: var(--ink); }
-    .lux-btn-ghost:hover { background: var(--cream-warm); }
-    .lux-btn[hidden] { display: none !important; }
-    .message-btn-wrap { margin-top: 10px; }
-
-    /* ── TESTIMONIALS ── */
-    .testimonial-list { display: grid; gap: 12px; }
-    .testimonial-item { padding: 18px 16px; background: var(--cream-warm); border-top: 0.5px solid var(--ink-rule); }
-    .testimonial-quote { font-family: var(--font-serif); font-style: italic; font-size: 0.98rem; color: var(--ink-mid); line-height: 1.75; margin: 0 0 10px; }
-    .testimonial-name { font-family: var(--font-sans); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink); margin: 0; }
-    .testimonial-date { color: var(--ink-ghost); font-weight: 500; }
-
-    /* ── SIDEBAR ── */
-    .sidebar-card {
-      position: sticky; top: 0;
-      background: var(--cream-warm);
-      padding: 28px 24px;
-      border-left: 0.5px solid var(--ink-rule);
-      min-height: 100%;
-      display: flex; flex-direction: column; gap: 0;
-      border-radius: 0; box-shadow: none; border-top: none; border-right: none; border-bottom: none;
-    }
-    .profile-pic-wrap { display: flex; justify-content: center; margin-bottom: 16px; }
-    .profile-pic { width: 120px; height: 120px; border-radius: 0; object-fit: cover; display: block; background: var(--cream-deep); border: 0.5px solid var(--ink-rule); }
-    .sidebar-business-name { font-family: var(--font-serif); font-size: 1.5rem; font-weight: 300; letter-spacing: -0.025em; color: var(--ink); text-align: center; margin-bottom: 6px; }
-    .sidebar-copy { font-family: var(--font-sans); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-ghost); text-align: center; margin-bottom: 14px; }
-    .vendor-logo-wrap { display: flex; justify-content: center; align-items: center; margin-bottom: 16px; }
-    .vendor-logo { max-width: 180px; max-height: 100px; width: auto; height: auto; object-fit: contain; display: block; }
-    .favorite-btn { width: 100%; margin: 0 0 8px; }
-    .favorite-btn.saved { background: var(--gold); }
-    .contact-stack { display: grid; gap: 8px; margin-top: 8px; }
-    .stack-btn { display: inline-flex; align-items: center; justify-content: center; text-align: center; text-decoration: none; padding: 10px 14px; min-height: 40px; border: 0.5px solid var(--ink-rule); cursor: pointer; font-family: var(--font-sans); font-weight: 600; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; background: var(--cream); color: var(--ink); transition: background 0.2s, border-color 0.2s; border-radius: 0; box-shadow: none; }
-    .stack-btn:hover { background: var(--cream-deep); border-color: var(--ink-muted); transform: none; filter: none; }
-    .stack-btn[hidden] { display: none !important; }
-    .sidebar-locations { margin-top: 20px; padding-top: 16px; border-top: 0.5px solid var(--ink-rule); }
-    .sidebar-locations h3 { font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-ghost); text-align: center; margin-bottom: 10px; }
-    .sidebar-location-item { font-family: var(--font-sans); font-size: 0.78rem; color: var(--ink-muted); line-height: 1.55; text-align: center; margin-bottom: 5px; }
-    #statusMessage { margin-top: 10px; min-height: 20px; font-family: var(--font-sans); color: var(--ink-muted); font-size: 0.78rem; text-align: center; }
-
-    .booking-frame { width: 100%; min-height: 680px; border: 0.5px solid var(--ink-rule); background: var(--cream); }
-    .empty-block { font-family: var(--font-sans); color: var(--ink-muted); line-height: 1.75; font-size: 0.86rem; }
-
-    /* ── MESSAGE MODAL ── */
-    .msg-modal-backdrop { position: fixed; inset: 0; background: rgba(26,26,22,0.55); display: none; align-items: center; justify-content: center; padding: 20px; z-index: 4000; }
-    .msg-modal-backdrop.open { display: flex; }
-    .msg-modal { width: 100%; max-width: 520px; background: var(--cream); border: 0.5px solid var(--ink-rule); padding: 36px 32px 28px; position: relative; border-radius: 0; box-shadow: 0 24px 60px rgba(26,26,22,0.18); }
-    .msg-modal-close { position: absolute; top: 16px; right: 16px; width: 34px; height: 34px; border: 0.5px solid var(--ink-rule); background: var(--cream); color: var(--ink); cursor: pointer; font-size: 1rem; display: inline-flex; align-items: center; justify-content: center; transition: background 0.18s ease; border-radius: 0; }
-    .msg-modal-close:hover { background: var(--cream-warm); }
-    .msg-modal-kicker { font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-ghost); margin: 0 0 8px; }
-    .msg-modal-title { font-family: var(--font-serif); font-size: 1.7rem; font-weight: 300; letter-spacing: -0.03em; color: var(--ink); margin: 0 0 6px; }
-    .msg-modal-sub { font-family: var(--font-sans); font-size: 0.82rem; color: var(--ink-muted); line-height: 1.7; margin: 0 0 18px; }
-    .msg-form { display: grid; gap: 10px; }
-    .msg-form input, .msg-form textarea { width: 100%; border: 0.5px solid var(--ink-rule); border-radius: 0; background: var(--cream); padding: 11px 13px; font-family: var(--font-sans); font-size: 0.86rem; color: var(--ink); box-sizing: border-box; transition: border-color 0.2s; outline: none; }
-    .msg-form input:focus, .msg-form textarea:focus { border-color: var(--gold); }
-    .msg-form textarea { min-height: 110px; resize: vertical; }
-    .msg-status { font-family: var(--font-sans); font-size: 0.78rem; color: var(--ink-muted); text-align: center; margin: 8px 0 0; min-height: 20px; }
-    .msg-login-note { text-align: center; padding: 16px 0 8px; }
-    .msg-login-note p { font-family: var(--font-sans); color: var(--ink-muted); line-height: 1.75; margin: 0 0 14px; font-size: 0.86rem; }
-
-    /* ── FOOTER ── */
-    .site-footer { background: var(--ink); border-top: 1px solid var(--ink-mid); }
-    .footer-content { padding: 40px 36px 32px; display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: start; }
-    .footer-logo-col { display: flex; flex-direction: column; gap: 6px; }
-    .footer-eyebrow { font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-muted); }
-    .footer-title { font-family: var(--font-serif); font-size: 1.4rem; font-weight: 300; color: var(--cream); letter-spacing: -0.02em; margin: 4px 0 6px; }
-    .footer-text { font-family: var(--font-sans); font-size: 0.78rem; color: var(--ink-muted); line-height: 1.6; max-width: 360px; }
-    .footer-tagline { font-family: var(--font-serif); font-style: italic; font-size: 0.95rem; color: var(--gold-light); margin-top: 16px; }
-    .footer-abn { font-family: var(--font-sans); font-size: 0.68rem; color: var(--ink-muted); margin-top: 4px; }
-    .footer-links-col { display: flex; flex-direction: column; gap: 10px; align-items: flex-end; }
-    .footer-links { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
-    .footer-links a { font-family: var(--font-sans); font-size: 0.72rem; letter-spacing: 0.06em; color: var(--ink-muted); text-decoration: none; transition: color 0.2s; }
-    .footer-links a:hover { color: var(--cream); }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 980px) {
-      .vendor-page { padding: 20px 20px 48px; }
-      .vendor-layout { grid-template-columns: 1fr; background: none; border: none; gap: 0; }
-      .vendor-left { border: 0.5px solid var(--ink-rule); }
-      .sidebar-card { position: static; border-left: none; border-top: 0.5px solid var(--ink); min-height: unset; }
-      .vendor-gallery-media { height: 420px; }
-      .footer-content { grid-template-columns: 1fr; gap: 24px; }
-      .footer-links-col { align-items: flex-start; }
-      .footer-links { align-items: flex-start; }
-    }
-    @media (max-width: 700px) {
-      .site-topbar { padding: 0 16px; min-height: 56px; }
-      .vendor-page { padding: 0 0 40px; }
-      .vendor-card { padding: 20px 18px; }
-      .vendor-header-card { padding: 22px 18px; }
-      .vendor-gallery-media { height: 300px; }
-      .vendor-gallery-arrow { width: 36px; height: 36px; font-size: 18px; }
-      .profile-pic { width: 100px; height: 100px; }
-      .msg-modal { padding: 28px 20px 22px; }
-      .footer-content { padding: 28px 20px 24px; }
-    }
+    :root{--ink:#1A1A16;--ink-mid:#4A4A44;--ink-muted:#8A8A82;--ink-ghost:#C0C0B8;--ink-rule:#DDDDD8;--cream:#FAFAF8;--cream-warm:#F4F0EA;--cream-deep:#EDE8E0;--gold:#9A7A5A;--gold-light:#C4A882;--font-serif:'Cormorant Garamond',Georgia,serif;--font-sans:'Plus Jakarta Sans','Helvetica Neue',Arial,sans-serif}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--cream);font-family:var(--font-sans);color:var(--ink);-webkit-font-smoothing:antialiased}
+    .site-topbar{background:var(--cream);border-bottom:1px solid var(--ink-rule);padding:0 36px;display:flex;align-items:center;gap:20px;min-height:64px;position:sticky;top:0;z-index:200}
+    .site-topbar-logo-wrap{display:inline-flex;align-items:center}
+    .site-topbar-logo{width:44px;height:44px;object-fit:contain}
+    .site-topbar-title{flex:1}
+    .site-topbar-title h1{font-family:var(--font-serif);font-size:1.05rem;font-weight:400;letter-spacing:0.01em;color:var(--ink)}
+    .site-topbar-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+    .site-topbar-link,.site-topbar-btn{display:inline-flex;align-items:center;justify-content:center;min-height:34px;padding:6px 14px;font-family:var(--font-sans);font-size:0.75rem;letter-spacing:0.06em;text-decoration:none;white-space:nowrap;transition:all 0.2s ease}
+    .site-topbar-link{color:var(--ink-muted);border:none;background:none}
+    .site-topbar-link:hover{color:var(--ink)}
+    .site-topbar-btn{background:var(--ink);color:var(--cream);font-weight:600;border:none;cursor:pointer}
+    .site-topbar-btn:hover{background:var(--ink-mid)}
+    .vendor-page{max-width:1280px;margin:0 auto;padding:32px 36px 60px}
+    .vendor-layout{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(280px,0.9fr);gap:1px;align-items:start;background:var(--ink-rule);border:0.5px solid var(--ink-rule)}
+    .vendor-left{display:flex;flex-direction:column;background:var(--cream)}
+    .vendor-card{background:var(--cream);padding:28px 32px;border-bottom:0.5px solid var(--ink-rule);border-radius:0;box-shadow:none;border-top:none;border-left:none;border-right:none;transition:none}
+    .vendor-card:last-child{border-bottom:none}
+    .vendor-gallery-card{padding:0;overflow:hidden;border-bottom:0.5px solid var(--ink-rule)}
+    .vendor-gallery-stage{position:relative;overflow:hidden;background:var(--cream-deep);cursor:grab;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+    .vendor-gallery-stage:active{cursor:grabbing}
+    .vendor-gallery-media{width:100%;height:580px;display:block;background:var(--cream-deep)}
+    .vendor-gallery-media img{width:100%;height:100%;display:block;object-fit:contain;background:var(--cream-deep);transition:filter 0.35s ease}
+    .vendor-gallery-media video{width:100%;height:100%;display:block;object-fit:cover}
+    .vendor-gallery-arrow{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;border:none;background:rgba(250,250,248,0.9);color:var(--ink);font-size:22px;line-height:1;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;z-index:2;transition:background 0.2s ease}
+    .vendor-gallery-arrow.left{left:0}
+    .vendor-gallery-arrow.right{right:0}
+    .vendor-gallery-arrow:hover{background:var(--cream-warm)}
+    .vendor-gallery-arrow[hidden]{display:none!important}
+    .gallery-swipe-hint{display:none;position:absolute;bottom:14px;left:50%;transform:translateX(-50%);background:rgba(26,26,22,0.6);color:var(--cream);font-family:var(--font-sans);font-size:0.68rem;padding:5px 12px;white-space:nowrap;pointer-events:none;z-index:3;letter-spacing:0.08em;text-transform:uppercase}
+    @media(max-width:700px){.gallery-swipe-hint{display:block}}
+    .vendor-gallery-dots{display:flex;justify-content:center;align-items:center;gap:8px;padding:14px 18px 16px;border-bottom:0.5px solid var(--ink-rule)}
+    .vendor-gallery-dot{width:5px;height:5px;border-radius:50%;border:none;background:var(--ink-rule);cursor:pointer;padding:0;transition:background 0.2s ease,transform 0.2s ease}
+    .vendor-gallery-dot.active{background:var(--ink);transform:scale(1.2)}
+    .vendor-header-card{padding:32px 32px 28px}
+    .vendor-kicker{font-family:var(--font-sans);font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink-ghost);margin-bottom:8px}
+    .vendor-title{font-family:var(--font-serif);font-size:clamp(1.8rem,3vw,2.8rem);font-weight:300;line-height:0.97;letter-spacing:-0.03em;color:var(--ink);margin-bottom:8px}
+    .vendor-category{font-family:var(--font-sans);font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-ghost);margin-bottom:6px}
+    .vendor-tagline{font-family:var(--font-serif);font-style:italic;font-size:1rem;color:var(--gold);margin-bottom:12px}
+    .vendor-about{font-family:var(--font-sans);font-size:0.88rem;color:var(--ink-muted);line-height:1.85;white-space:pre-wrap;margin-top:10px}
+    .vendor-section-title{font-family:var(--font-serif);font-size:1.3rem;font-weight:300;letter-spacing:-0.02em;color:var(--ink);margin-bottom:16px}
+    .availability-calendar{margin-top:16px}
+    .cal-header{display:grid;grid-template-columns:36px 1fr 36px;align-items:center;gap:10px;margin-bottom:16px}
+    .cal-nav{width:36px;height:36px;border:0.5px solid var(--ink-rule);background:var(--cream);color:var(--ink);cursor:pointer;font-size:1.1rem;display:inline-flex;align-items:center;justify-content:center;transition:all 0.18s ease;border-radius:0}
+    .cal-nav:hover{background:var(--cream-warm);border-color:var(--ink-muted)}
+    .cal-month-label{text-align:center;font-family:var(--font-serif);font-size:1.05rem;font-weight:400;color:var(--ink);letter-spacing:0.01em}
+    .cal-weekdays,.cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
+    .cal-weekdays{margin-bottom:4px}
+    .cal-weekday{text-align:center;font-family:var(--font-sans);font-size:0.62rem;font-weight:700;color:var(--ink-ghost);text-transform:uppercase;letter-spacing:0.08em;padding:4px 0}
+    .cal-day{min-height:42px;border:0.5px solid var(--ink-rule);background:var(--cream);color:var(--ink-mid);padding:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:var(--font-sans);font-size:0.82rem;font-weight:500;transition:all 0.18s ease;border-radius:0}
+    .cal-day:hover:not(.unavailable):not(.past){background:var(--cream-warm);border-color:var(--ink-muted)}
+    .cal-day.empty{background:transparent;border:none;cursor:default}
+    .cal-day.unavailable{background:var(--cream-deep);color:var(--ink-ghost);cursor:not-allowed;text-decoration:line-through;border-color:transparent}
+    .cal-day.past{background:var(--cream-warm);color:var(--ink-ghost);cursor:not-allowed;border-color:transparent}
+    .cal-day.selected{background:var(--ink);border-color:var(--ink);color:var(--cream)}
+    .cal-day.today{border-color:var(--gold-light)}
+    .cal-selected-note{margin-top:12px;padding:12px 14px;background:var(--cream-warm);border-left:2px solid var(--gold-light);font-family:var(--font-serif);font-style:italic;font-size:0.95rem;color:var(--ink-mid);line-height:1.6}
+    .enquiry-form{display:grid;gap:10px;margin-top:16px}
+    .enquiry-form input,.enquiry-form textarea{width:100%;border:0.5px solid var(--ink-rule);border-radius:0;padding:11px 13px;font-family:var(--font-sans);font-size:0.86rem;background:var(--cream);color:var(--ink);box-sizing:border-box;transition:border-color 0.2s ease;outline:none}
+    .enquiry-form input:focus,.enquiry-form textarea:focus{border-color:var(--gold)}
+    .enquiry-form textarea{min-height:120px;resize:vertical}
+    .lux-btn{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:10px 20px;border:none;font-family:var(--font-sans);font-weight:700;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;text-decoration:none;background:var(--ink);color:var(--cream);transition:background 0.2s;border-radius:0;box-shadow:none}
+    .lux-btn:hover{background:var(--ink-mid);transform:none;filter:none;box-shadow:none}
+    .lux-btn:active{transform:none}
+    .lux-btn-ghost{background:var(--cream);border:0.5px solid var(--ink-rule);color:var(--ink)}
+    .lux-btn-ghost:hover{background:var(--cream-warm)}
+    .lux-btn[hidden]{display:none!important}
+    .message-btn-wrap{margin-top:10px}
+    .testimonial-list{display:grid;gap:12px}
+    .testimonial-item{padding:18px 16px;background:var(--cream-warm);border-top:0.5px solid var(--ink-rule)}
+    .testimonial-quote{font-family:var(--font-serif);font-style:italic;font-size:0.98rem;color:var(--ink-mid);line-height:1.75;margin:0 0 10px}
+    .testimonial-name{font-family:var(--font-sans);font-size:0.72rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--ink);margin:0}
+    .testimonial-date{color:var(--ink-ghost);font-weight:500}
+    .sidebar-card{position:sticky;top:0;background:var(--cream-warm);padding:28px 24px;border-left:0.5px solid var(--ink-rule);min-height:100%;display:flex;flex-direction:column;gap:0;border-radius:0;box-shadow:none;border-top:none;border-right:none;border-bottom:none}
+    .profile-pic-wrap{display:flex;justify-content:center;margin-bottom:16px}
+    .profile-pic{width:120px;height:120px;border-radius:0;object-fit:cover;display:block;background:var(--cream-deep);border:0.5px solid var(--ink-rule)}
+    .sidebar-business-name{font-family:var(--font-serif);font-size:1.5rem;font-weight:300;letter-spacing:-0.025em;color:var(--ink);text-align:center;margin-bottom:6px}
+    .sidebar-copy{font-family:var(--font-sans);font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-ghost);text-align:center;margin-bottom:14px}
+    .vendor-logo-wrap{display:flex;justify-content:center;align-items:center;margin-bottom:16px}
+    .vendor-logo{max-width:180px;max-height:100px;width:auto;height:auto;object-fit:contain;display:block}
+    .favorite-btn{width:100%;margin:0 0 8px}
+    .favorite-btn.saved{background:var(--gold)}
+    .contact-stack{display:grid;gap:8px;margin-top:8px}
+    .stack-btn{display:inline-flex;align-items:center;justify-content:center;text-align:center;text-decoration:none;padding:10px 14px;min-height:40px;border:0.5px solid var(--ink-rule);cursor:pointer;font-family:var(--font-sans);font-weight:600;font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;background:var(--cream);color:var(--ink);transition:background 0.2s,border-color 0.2s;border-radius:0;box-shadow:none}
+    .stack-btn:hover{background:var(--cream-deep);border-color:var(--ink-muted);transform:none;filter:none}
+    .stack-btn[hidden]{display:none!important}
+    .sidebar-locations{margin-top:20px;padding-top:16px;border-top:0.5px solid var(--ink-rule)}
+    .sidebar-locations h3{font-family:var(--font-sans);font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-ghost);text-align:center;margin-bottom:10px}
+    .sidebar-location-item{font-family:var(--font-sans);font-size:0.78rem;color:var(--ink-muted);line-height:1.55;text-align:center;margin-bottom:5px}
+    #statusMessage{margin-top:10px;min-height:20px;font-family:var(--font-sans);color:var(--ink-muted);font-size:0.78rem;text-align:center}
+    .booking-frame{width:100%;min-height:680px;border:0.5px solid var(--ink-rule);background:var(--cream)}
+    .empty-block{font-family:var(--font-sans);color:var(--ink-muted);line-height:1.75;font-size:0.86rem}
+    .msg-modal-backdrop{position:fixed;inset:0;background:rgba(26,26,22,0.55);display:none;align-items:center;justify-content:center;padding:20px;z-index:4000}
+    .msg-modal-backdrop.open{display:flex}
+    .msg-modal{width:100%;max-width:520px;background:var(--cream);border:0.5px solid var(--ink-rule);padding:36px 32px 28px;position:relative;border-radius:0;box-shadow:0 24px 60px rgba(26,26,22,0.18)}
+    .msg-modal-close{position:absolute;top:16px;right:16px;width:34px;height:34px;border:0.5px solid var(--ink-rule);background:var(--cream);color:var(--ink);cursor:pointer;font-size:1rem;display:inline-flex;align-items:center;justify-content:center;transition:background 0.18s ease;border-radius:0}
+    .msg-modal-close:hover{background:var(--cream-warm)}
+    .msg-modal-kicker{font-family:var(--font-sans);font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-ghost);margin:0 0 8px}
+    .msg-modal-title{font-family:var(--font-serif);font-size:1.7rem;font-weight:300;letter-spacing:-0.03em;color:var(--ink);margin:0 0 6px}
+    .msg-modal-sub{font-family:var(--font-sans);font-size:0.82rem;color:var(--ink-muted);line-height:1.7;margin:0 0 18px}
+    .msg-form{display:grid;gap:10px}
+    .msg-form input,.msg-form textarea{width:100%;border:0.5px solid var(--ink-rule);border-radius:0;background:var(--cream);padding:11px 13px;font-family:var(--font-sans);font-size:0.86rem;color:var(--ink);box-sizing:border-box;transition:border-color 0.2s;outline:none}
+    .msg-form input:focus,.msg-form textarea:focus{border-color:var(--gold)}
+    .msg-form textarea{min-height:110px;resize:vertical}
+    .msg-status{font-family:var(--font-sans);font-size:0.78rem;color:var(--ink-muted);text-align:center;margin:8px 0 0;min-height:20px}
+    .msg-login-note{text-align:center;padding:16px 0 8px}
+    .msg-login-note p{font-family:var(--font-sans);color:var(--ink-muted);line-height:1.75;margin:0 0 14px;font-size:0.86rem}
+    .site-footer{background:var(--ink);border-top:1px solid var(--ink-mid)}
+    .footer-content{padding:40px 36px 32px;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:start}
+    .footer-logo-col{display:flex;flex-direction:column;gap:6px}
+    .footer-eyebrow{font-family:var(--font-sans);font-size:0.65rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-muted)}
+    .footer-title{font-family:var(--font-serif);font-size:1.4rem;font-weight:300;color:var(--cream);letter-spacing:-0.02em;margin:4px 0 6px}
+    .footer-text{font-family:var(--font-sans);font-size:0.78rem;color:var(--ink-muted);line-height:1.6;max-width:360px}
+    .footer-tagline{font-family:var(--font-serif);font-style:italic;font-size:0.95rem;color:var(--gold-light);margin-top:16px}
+    .footer-abn{font-family:var(--font-sans);font-size:0.68rem;color:var(--ink-muted);margin-top:4px}
+    .footer-links-col{display:flex;flex-direction:column;gap:10px;align-items:flex-end}
+    .footer-links{display:flex;flex-direction:column;gap:8px;align-items:flex-end}
+    .footer-links a{font-family:var(--font-sans);font-size:0.72rem;letter-spacing:0.06em;color:var(--ink-muted);text-decoration:none;transition:color 0.2s}
+    .footer-links a:hover{color:var(--cream)}
+    @media(max-width:980px){.vendor-page{padding:20px 20px 48px}.vendor-layout{grid-template-columns:1fr;background:none;border:none;gap:0}.vendor-left{border:0.5px solid var(--ink-rule)}.sidebar-card{position:static;border-left:none;border-top:0.5px solid var(--ink);min-height:unset}.vendor-gallery-media{height:420px}.footer-content{grid-template-columns:1fr;gap:24px}.footer-links-col{align-items:flex-start}.footer-links{align-items:flex-start}}
+    @media(max-width:700px){.site-topbar{padding:0 16px;min-height:56px}.vendor-page{padding:0 0 40px}.vendor-card{padding:20px 18px}.vendor-header-card{padding:22px 18px}.vendor-gallery-media{height:300px}.vendor-gallery-arrow{width:36px;height:36px;font-size:18px}.profile-pic{width:100px;height:100px}.msg-modal{padding:28px 20px 22px}.footer-content{padding:28px 20px 24px}}
   </style>
 </head>
-
 <body>
+
 <header class="site-topbar">
   <a href="index.html" class="site-topbar-logo-wrap" aria-label="Go to homepage">
     <img src="images/logo1.png" alt="Our Wedding Day Hub" class="site-topbar-logo">
@@ -247,14 +144,14 @@
   <nav class="site-topbar-actions">
     <a href="categories.html" class="site-topbar-link">Categories</a>
     <a href="shop.html" class="site-topbar-link">Boutique</a>
-    <a href="messages.html" id="messagesLink" class="site-topbar-link" style="display:none; position:relative;">
+    <a href="messages.html" id="messagesLink" class="site-topbar-link" style="display:none;position:relative;">
       Messages
-      <span id="msgNavBadge" style="display:none; position:absolute; top:-6px; right:-10px; background:var(--ink); color:var(--cream); font-size:0.64rem; font-weight:700; padding:2px 6px; border-radius:999px; line-height:1.2; min-width:18px; text-align:center;">0</span>
+      <span id="msgNavBadge" style="display:none;position:absolute;top:-6px;right:-10px;background:var(--ink);color:var(--cream);font-size:0.64rem;font-weight:700;padding:2px 6px;border-radius:999px;line-height:1.2;min-width:18px;text-align:center">0</span>
     </a>
     <a href="login.html" id="loginLink" class="site-topbar-link">Log In</a>
     <a href="signup.html" id="joinLink" class="site-topbar-btn">Join</a>
-    <a href="dashboard.html" id="dashboardLink" class="site-topbar-link" style="display:none;">Dashboard</a>
-    <button id="logoutLink" class="site-topbar-btn" style="display:none;">Log Out</button>
+    <a href="dashboard.html" id="dashboardLink" class="site-topbar-link" style="display:none">Dashboard</a>
+    <button id="logoutLink" class="site-topbar-btn" style="display:none">Log Out</button>
   </nav>
 </header>
 
@@ -262,13 +159,12 @@
   <div class="vendor-layout">
     <section class="vendor-left">
 
-      <!-- Gallery -->
       <section class="vendor-card vendor-gallery-card">
         <div class="vendor-gallery-stage">
           <button type="button" id="prevMediaBtn" class="vendor-gallery-arrow left" aria-label="Previous">‹</button>
           <div class="vendor-gallery-media">
             <img id="mainImage" src="images/header4.png" alt="Vendor gallery image" loading="eager" fetchpriority="high">
-            <video id="mainVideo" controls playsinline style="display:none;"></video>
+            <video id="mainVideo" controls playsinline preload="metadata" style="display:none"></video>
           </div>
           <button type="button" id="nextMediaBtn" class="vendor-gallery-arrow right" aria-label="Next">›</button>
           <div class="gallery-swipe-hint">Swipe to browse ♡</div>
@@ -276,7 +172,6 @@
         <div id="galleryDots" class="vendor-gallery-dots"></div>
       </section>
 
-      <!-- Header -->
       <section class="vendor-card vendor-header-card">
         <p class="vendor-kicker">Trusted Wedding Vendors Worldwide</p>
         <h1 id="businessName" class="vendor-title">Loading vendor...</h1>
@@ -285,13 +180,11 @@
         <p id="vendorAbout" class="vendor-about"></p>
       </section>
 
-      <!-- Testimonials -->
-      <section class="vendor-card" id="testimonialsCard" style="display:none;">
+      <section class="vendor-card" id="testimonialsCard" style="display:none">
         <h2 class="vendor-section-title">Kind Words</h2>
         <div id="vendorTestimonials"></div>
       </section>
 
-      <!-- Availability Calendar -->
       <div class="vendor-card" id="enquiriesCard">
         <h2 class="vendor-section-title">Check Availability</h2>
         <p class="empty-block" id="calendarIntro">Select a date to check if this vendor is available — then send an enquiry below.</p>
@@ -306,34 +199,32 @@
             <div class="cal-weekday">Wed</div><div class="cal-weekday">Thu</div><div class="cal-weekday">Fri</div><div class="cal-weekday">Sat</div>
           </div>
           <div id="calGrid" class="cal-grid"></div>
-          <div id="calSelectedNote" class="cal-selected-note" style="display:none;"></div>
+          <div id="calSelectedNote" class="cal-selected-note" style="display:none"></div>
         </div>
       </div>
 
-      <!-- Enquiry Form -->
       <div class="vendor-card" id="enquiryFormCard">
         <h2 class="vendor-section-title">Send an Enquiry</h2>
-        <p class="empty-block" style="margin-bottom:16px;">Fill in your details below and the vendor will be in touch. Select a date above and it will appear here automatically.</p>
+        <p class="empty-block" style="margin-bottom:16px">Fill in your details below and the vendor will be in touch. Select a date above and it will appear here automatically.</p>
         <div id="enquiryFormWrap">
           <form id="enquiryForm" class="enquiry-form">
             <input type="text" id="enquiryName" placeholder="Your name" required>
             <input type="email" id="enquiryEmail" placeholder="Your email" required>
-            <input type="text" id="enquiryDate" placeholder="Preferred date — select from calendar above or type your own" readonly style="cursor:pointer;">
+            <input type="text" id="enquiryDate" placeholder="Preferred date — select from calendar above or type your own" readonly style="cursor:pointer">
             <textarea id="enquiryMessage" placeholder="Tell the vendor about your wedding — date, location, style, and anything else they should know..." required></textarea>
             <button type="submit" class="lux-btn">Send Enquiry →</button>
           </form>
-          <p id="enquiryStatus" style="margin-top:10px; font-family:var(--font-sans); color:var(--ink-muted); font-size:0.78rem; min-height:20px;"></p>
+          <p id="enquiryStatus" style="margin-top:10px;font-family:var(--font-sans);color:var(--ink-muted);font-size:0.78rem;min-height:20px"></p>
         </div>
       </div>
 
-      <!-- External booking embed -->
-      <div class="vendor-card" id="bookingCard" style="display:none;">
+      <div class="vendor-card" id="bookingCard" style="display:none">
         <h2 class="vendor-section-title">Book Online</h2>
         <p class="empty-block" id="bookingIntro">Book directly through this vendor's calendar.</p>
-        <div id="bookingEmbedWrap" style="margin-top:16px;">
+        <div id="bookingEmbedWrap" style="margin-top:16px">
           <iframe id="bookingFrame" class="booking-frame" title="Vendor booking calendar" src="" loading="lazy"></iframe>
         </div>
-        <div id="bookingFallback" style="display:none; margin-top:16px;">
+        <div id="bookingFallback" style="display:none;margin-top:16px">
           <div class="contact-stack">
             <a id="bookingFallbackBtn" class="lux-btn" target="_blank" rel="noopener noreferrer">Open Booking Link →</a>
           </div>
@@ -342,21 +233,20 @@
 
     </section>
 
-    <!-- Sidebar -->
     <aside class="vendor-card sidebar-card">
       <div class="profile-pic-wrap">
         <img id="profilePic" class="profile-pic" src="" alt="Vendor profile picture" loading="lazy">
       </div>
       <h2 id="sidebarBusinessName" class="sidebar-business-name">Loading...</h2>
-      <div id="logoWrap" class="vendor-logo-wrap" style="display:none;">
+      <div id="logoWrap" class="vendor-logo-wrap" style="display:none">
         <img id="logoImage" class="vendor-logo" src="" alt="Vendor logo" loading="lazy">
       </div>
       <p id="sidebarCategory" class="sidebar-copy"></p>
       <button id="favoriteBtn" class="lux-btn favorite-btn">♡ Save to favourites</button>
       <div class="message-btn-wrap">
-        <button id="messageBtn" class="lux-btn" style="width:100%;">✦ Send a Message</button>
+        <button id="messageBtn" class="lux-btn" style="width:100%">✦ Send a Message</button>
       </div>
-      <div class="contact-stack" style="margin-top:12px;">
+      <div class="contact-stack" style="margin-top:12px">
         <a id="websiteBtn"   class="stack-btn" target="_blank" rel="noopener noreferrer">Website</a>
         <a id="emailBtn"     class="stack-btn">Email</a>
         <a id="instagramBtn" class="stack-btn" target="_blank" rel="noopener noreferrer">Instagram</a>
@@ -364,7 +254,7 @@
         <a id="tiktokBtn"    class="stack-btn" target="_blank" rel="noopener noreferrer">TikTok</a>
         <a id="youtubeBtn"   class="stack-btn" target="_blank" rel="noopener noreferrer">YouTube</a>
       </div>
-      <div id="sidebarLocations" class="sidebar-locations" style="display:none;">
+      <div id="sidebarLocations" class="sidebar-locations" style="display:none">
         <h3>Locations</h3>
         <p id="sidebarLocation"     class="sidebar-location-item"></p>
         <p id="sidebarServiceAreas" class="sidebar-location-item"></p>
@@ -377,11 +267,10 @@
   </div>
 </main>
 
-<!-- ── MESSAGE MODAL — structure identical, only visual CSS changed ── -->
 <div id="msgModalBackdrop" class="msg-modal-backdrop" aria-hidden="true">
   <div class="msg-modal">
     <button type="button" id="msgModalClose" class="msg-modal-close" aria-label="Close">×</button>
-    <div id="msgLoggedIn" style="display:none;">
+    <div id="msgLoggedIn" style="display:none">
       <p class="msg-modal-kicker">Send a Message</p>
       <h2 class="msg-modal-title" id="msgModalTitle">Message Vendor</h2>
       <p class="msg-modal-sub">Start a conversation — they'll reply in their dashboard and you'll see it in yours.</p>
@@ -391,24 +280,23 @@
       </form>
       <p id="msgStatus" class="msg-status"></p>
     </div>
-    <div id="msgLoggedOut" style="display:none;">
+    <div id="msgLoggedOut" style="display:none">
       <p class="msg-modal-kicker">Send a Message</p>
       <h2 class="msg-modal-title">Say hello</h2>
       <div class="msg-login-note">
         <p>To message this vendor you'll need a free account. It only takes a moment to create one.</p>
-        <a href="login.html" class="lux-btn" style="display:block; text-align:center; margin-bottom:8px;">Log In</a>
-        <a href="signup.html" class="lux-btn lux-btn-ghost" style="display:block; text-align:center;">Create Free Account</a>
+        <a href="login.html" class="lux-btn" style="display:block;text-align:center;margin-bottom:8px">Log In</a>
+        <a href="signup.html" class="lux-btn lux-btn-ghost" style="display:block;text-align:center">Create Free Account</a>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ── FOOTER ── -->
 <footer class="site-footer">
   <div class="footer-content">
     <div class="footer-logo-col">
       <a href="index.html" aria-label="Go to homepage">
-        <img src="images/logo1.png" alt="Our Wedding Day Hub" style="width:52px; height:52px; object-fit:contain; opacity:0.5; margin-bottom:6px;">
+        <img src="images/logo1.png" alt="Our Wedding Day Hub" style="width:52px;height:52px;object-fit:contain;opacity:0.5;margin-bottom:6px">
       </a>
       <p class="footer-eyebrow">Wedding planning directory</p>
       <h2 class="footer-title">Everything your wedding deserves.</h2>
@@ -419,459 +307,400 @@
     </div>
     <div class="footer-links-col">
       <div class="footer-links">
-        <a href="about.html">About Us</a>
-        <a href="how-it-works.html">How It Works</a>
-        <a href="pricing.html">Pricing</a>
-        <a href="contact.html">Contact Us</a>
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="about.html">About Us</a><a href="how-it-works.html">How It Works</a>
+        <a href="pricing.html">Pricing</a><a href="contact.html">Contact Us</a>
+        <a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms &amp; Conditions</a>
         <a href="refund-policy.html">Refund Policy</a>
         <a href="https://www.equaldex.com/equality-index" target="_blank" rel="noopener noreferrer">Global Equality Index</a>
-        <a href="#" onclick="return false;">Events4Us (Coming Soon)</a>
+        <a href="#" onclick="return false">Events4Us (Coming Soon)</a>
       </div>
-      <p style="font-family:var(--font-sans); font-size:0.65rem; color:var(--ink-muted); margin-top:12px; letter-spacing:0.06em;">Proudly inclusive • Worldwide • Built with heart</p>
+      <p style="font-family:var(--font-sans);font-size:0.65rem;color:var(--ink-muted);margin-top:12px;letter-spacing:0.06em">Proudly inclusive • Worldwide • Built with heart</p>
     </div>
   </div>
 </footer>
 
-<!-- ── ALL JAVASCRIPT COMPLETELY UNCHANGED ── -->
 <script type="module">
 import { db, auth, doc, getDoc, updateDoc, increment, onAuthStateChanged, signOut, collection, addDoc, serverTimestamp, query, where, getDocs } from "./firebase.js";
 
 const params   = new URLSearchParams(window.location.search);
 const vendorId = params.get("id");
 
-const businessNameEl        = document.getElementById("businessName");
-const vendorCategoryEl      = document.getElementById("vendorCategory");
-const vendorTaglineEl       = document.getElementById("vendorTagline");
-const vendorAboutEl         = document.getElementById("vendorAbout");
-const mainImage             = document.getElementById("mainImage");
-const mainVideo             = document.getElementById("mainVideo");
-const prevMediaBtn          = document.getElementById("prevMediaBtn");
-const nextMediaBtn          = document.getElementById("nextMediaBtn");
-const galleryDots           = document.getElementById("galleryDots");
-const profilePicEl          = document.getElementById("profilePic");
-const sidebarBusinessNameEl = document.getElementById("sidebarBusinessName");
-const sidebarCategoryEl     = document.getElementById("sidebarCategory");
-const logoWrap              = document.getElementById("logoWrap");
-const logoImage             = document.getElementById("logoImage");
-const websiteBtn            = document.getElementById("websiteBtn");
-const emailBtn              = document.getElementById("emailBtn");
-const instagramBtn          = document.getElementById("instagramBtn");
-const facebookBtn           = document.getElementById("facebookBtn");
-const tiktokBtn             = document.getElementById("tiktokBtn");
-const youtubeBtn            = document.getElementById("youtubeBtn");
-const sidebarLocations      = document.getElementById("sidebarLocations");
-const sidebarLocationEl     = document.getElementById("sidebarLocation");
-const sidebarServiceAreasEl = document.getElementById("sidebarServiceAreas");
-const sidebarRegionsEl      = document.getElementById("sidebarRegions");
-const sidebarStatesEl       = document.getElementById("sidebarStates");
-const sidebarCountriesEl    = document.getElementById("sidebarCountries");
-const favoriteBtn           = document.getElementById("favoriteBtn");
-const statusMessage         = document.getElementById("statusMessage");
-const joinLink              = document.getElementById("joinLink");
-const loginLink             = document.getElementById("loginLink");
-const dashboardLink         = document.getElementById("dashboardLink");
-const logoutLink            = document.getElementById("logoutLink");
-const bookingCard           = document.getElementById("bookingCard");
-const bookingFrame          = document.getElementById("bookingFrame");
-const bookingEmbedWrap      = document.getElementById("bookingEmbedWrap");
-const bookingFallback       = document.getElementById("bookingFallback");
-const bookingFallbackBtn    = document.getElementById("bookingFallbackBtn");
-const enquiryForm           = document.getElementById("enquiryForm");
-const enquiryName           = document.getElementById("enquiryName");
-const enquiryEmail          = document.getElementById("enquiryEmail");
-const enquiryDate           = document.getElementById("enquiryDate");
-const enquiryMessage        = document.getElementById("enquiryMessage");
-const enquiryStatus         = document.getElementById("enquiryStatus");
-const calGrid               = document.getElementById("calGrid");
-const calMonthLabel         = document.getElementById("calMonthLabel");
-const calPrevBtn            = document.getElementById("calPrevBtn");
-const calNextBtn            = document.getElementById("calNextBtn");
-const calSelectedNote       = document.getElementById("calSelectedNote");
-const messageBtn            = document.getElementById("messageBtn");
-const msgModalBackdrop      = document.getElementById("msgModalBackdrop");
-const msgModalClose         = document.getElementById("msgModalClose");
-const msgLoggedIn           = document.getElementById("msgLoggedIn");
-const msgLoggedOut          = document.getElementById("msgLoggedOut");
-const msgModalTitle         = document.getElementById("msgModalTitle");
-const msgForm               = document.getElementById("msgForm");
-const msgBody               = document.getElementById("msgBody");
-const msgStatus             = document.getElementById("msgStatus");
-const testimonialsCard      = document.getElementById("testimonialsCard");
-const vendorTestimonials    = document.getElementById("vendorTestimonials");
+const $ = id => document.getElementById(id);
+const businessNameEl        = $("businessName");
+const vendorCategoryEl      = $("vendorCategory");
+const vendorTaglineEl       = $("vendorTagline");
+const vendorAboutEl         = $("vendorAbout");
+const mainImage             = $("mainImage");
+const mainVideo             = $("mainVideo");
+const prevMediaBtn          = $("prevMediaBtn");
+const nextMediaBtn          = $("nextMediaBtn");
+const galleryDots           = $("galleryDots");
+const profilePicEl          = $("profilePic");
+const sidebarBusinessNameEl = $("sidebarBusinessName");
+const sidebarCategoryEl     = $("sidebarCategory");
+const logoWrap              = $("logoWrap");
+const logoImage             = $("logoImage");
+const websiteBtn            = $("websiteBtn");
+const emailBtn              = $("emailBtn");
+const instagramBtn          = $("instagramBtn");
+const facebookBtn           = $("facebookBtn");
+const tiktokBtn             = $("tiktokBtn");
+const youtubeBtn            = $("youtubeBtn");
+const sidebarLocations      = $("sidebarLocations");
+const sidebarLocationEl     = $("sidebarLocation");
+const sidebarServiceAreasEl = $("sidebarServiceAreas");
+const sidebarRegionsEl      = $("sidebarRegions");
+const sidebarStatesEl       = $("sidebarStates");
+const sidebarCountriesEl    = $("sidebarCountries");
+const favoriteBtn           = $("favoriteBtn");
+const statusMessage         = $("statusMessage");
+const joinLink              = $("joinLink");
+const loginLink             = $("loginLink");
+const dashboardLink         = $("dashboardLink");
+const logoutLink            = $("logoutLink");
+const bookingCard           = $("bookingCard");
+const bookingFrame          = $("bookingFrame");
+const bookingEmbedWrap      = $("bookingEmbedWrap");
+const bookingFallback       = $("bookingFallback");
+const bookingFallbackBtn    = $("bookingFallbackBtn");
+const enquiryForm           = $("enquiryForm");
+const enquiryName           = $("enquiryName");
+const enquiryEmail          = $("enquiryEmail");
+const enquiryDate           = $("enquiryDate");
+const enquiryMessage        = $("enquiryMessage");
+const enquiryStatus         = $("enquiryStatus");
+const calGrid               = $("calGrid");
+const calMonthLabel         = $("calMonthLabel");
+const calPrevBtn            = $("calPrevBtn");
+const calNextBtn            = $("calNextBtn");
+const calSelectedNote       = $("calSelectedNote");
+const messageBtn            = $("messageBtn");
+const msgModalBackdrop      = $("msgModalBackdrop");
+const msgModalClose         = $("msgModalClose");
+const msgLoggedIn           = $("msgLoggedIn");
+const msgLoggedOut          = $("msgLoggedOut");
+const msgModalTitle         = $("msgModalTitle");
+const msgForm               = $("msgForm");
+const msgBody               = $("msgBody");
+const msgStatus             = $("msgStatus");
+const testimonialsCard      = $("testimonialsCard");
+const vendorTestimonials    = $("vendorTestimonials");
 
 const favoritesKey = "favoriteVendors";
 let galleryItems      = [];
 let currentMediaIndex = 0;
 let vendorEmailAddress = "";
 let vendorBusinessName = "Vendor";
-let vendorData = null;
-let currentUser = null;
+let vendorData   = null;
+let currentUser  = null;
 let blockedDates = [];
 let calMonth = new Date().getMonth();
 let calYear  = new Date().getFullYear();
 let selectedDate = "";
 
-function cleanArray(arr) { return Array.isArray(arr) ? arr.filter(Boolean) : []; }
-function formatText(v) { if (!v) return ""; return String(v).replace(/_/g," ").replace(/-/g," ").replace(/\s+/g," ").trim().replace(/\b\w/g,c=>c.toUpperCase()); }
-function hide(el)             { if (el) el.style.display = "none"; }
-function show(el, d = "")     { if (el) el.style.display = d; }
-function setOrHide(el, val, pre = "") { if (!val) { hide(el); return false; } el.textContent = pre ? `${pre}${val}` : val; show(el); return true; }
-function setLink(el, href)    { if (!href) { hide(el); return; } el.href = href; show(el, "inline-flex"); }
-function toDateStr(d)         { return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`; }
-function prettyDate(str)      { return new Date(str+"T00:00:00").toLocaleDateString("en-AU",{day:"numeric",month:"long",year:"numeric"}); }
+// ─── Utilities ────────────────────────────────────────────────────────────────
+const cleanArray = arr => Array.isArray(arr) ? arr.filter(Boolean) : [];
+const formatText = v => {
+  if(!v) return "";
+  return String(v).replace(/_/g," ").replace(/-/g," ").replace(/\s+/g," ").trim().replace(/\b\w/g,c=>c.toUpperCase());
+};
+const hide = el => { if(el) el.style.display="none"; };
+const show = (el, d="") => { if(el) el.style.display=d; };
+const setOrHide = (el, val, pre="") => { if(!val){hide(el);return false;} el.textContent=pre?`${pre}${val}`:val; show(el); return true; };
+const setLink   = (el, href) => { if(!href){hide(el);return;} el.href=href; show(el,"inline-flex"); };
+const toDateStr = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+const prettyDate = str => new Date(str+"T00:00:00").toLocaleDateString("en-AU",{day:"numeric",month:"long",year:"numeric"});
 
-function getFavs()    { return JSON.parse(localStorage.getItem(favoritesKey)) || []; }
-function saveFavs(f)  { localStorage.setItem(favoritesKey, JSON.stringify(f)); }
+// ─── Favourites ───────────────────────────────────────────────────────────────
+const getFavs  = () => { try { return JSON.parse(localStorage.getItem(favoritesKey)) || []; } catch { return []; } };
+const saveFavs = f => { try { localStorage.setItem(favoritesKey, JSON.stringify(f)); } catch {} };
 function updateFavBtn(id) {
   const saved = getFavs().includes(id);
   favoriteBtn.textContent = saved ? "♥ Saved" : "♡ Save to favourites";
   favoriteBtn.classList.toggle("saved", saved);
 }
 favoriteBtn.addEventListener("click", () => {
-  if (!vendorId) return;
+  if(!vendorId) return;
   let f = getFavs();
-  if (f.includes(vendorId)) { f = f.filter(i=>i!==vendorId); statusMessage.textContent = "Removed from favourites."; }
-  else { f.push(vendorId); statusMessage.textContent = "Saved to favourites."; }
+  if(f.includes(vendorId)){f=f.filter(i=>i!==vendorId);statusMessage.textContent="Removed from favourites.";}
+  else{f.push(vendorId);statusMessage.textContent="Saved to favourites.";}
   saveFavs(f); updateFavBtn(vendorId);
 });
 
+// ─── Gallery builder — FIX: strict Set dedup, coverImageUrl first then images ─
+// Video detection by file extension AND mime-like URL patterns for robustness
+function isVideoUrl(url) {
+  const u = String(url).toLowerCase().split("?")[0];
+  return /\.(mp4|webm|mov|m4v|avi|ogv)$/.test(u);
+}
+
 function buildGallery(v) {
+  const seen  = new Set();
   const items = [];
 
-  function addImage(url) {
-    if (!url || typeof url !== "string") return;
-    const cleanUrl = url.trim();
-
-    if (!cleanUrl) return;
-
-    if (!items.some(i => i.src === cleanUrl)) {
-      items.push({
-        type: "image",
-        src: cleanUrl
-      });
-    }
+  function addUrl(url) {
+    if(!url || typeof url !== "string") return;
+    const clean = url.trim();
+    if(!clean || seen.has(clean)) return;
+    seen.add(clean);
+    items.push({ type: isVideoUrl(clean) ? "video" : "image", src: clean });
   }
 
-  function addVideo(url) {
-    if (!url || typeof url !== "string") return;
-    const cleanUrl = url.trim();
+  // coverImageUrl first (becomes hero/slot-0). The Set prevents duplication
+  // when the same URL appears again in the images array.
+  addUrl(v.coverImageUrl);
+  addUrl(v.coverImage);
+  addUrl(v.mainImage);
 
-    if (!cleanUrl) return;
+  // All image alias fields
+  [...cleanArray(v.images), ...cleanArray(v.galleryImages), ...cleanArray(v.imageUrls), ...cleanArray(v.media)].forEach(addUrl);
 
-    if (!items.some(i => i.src === cleanUrl)) {
-      items.push({
-        type: "video",
-        src: cleanUrl
-      });
-    }
-  }
+  // All video alias fields — explicitly typed as video regardless of URL pattern
+  const addVideo = url => {
+    if(!url || typeof url !== "string") return;
+    const clean = url.trim();
+    if(!clean || seen.has(clean)) return;
+    seen.add(clean);
+    items.push({ type: "video", src: clean });
+  };
+  [...cleanArray(v.videos), ...cleanArray(v.videoUrls), ...cleanArray(v.galleryVideos)].forEach(addVideo);
 
-  addImage(v.coverImageUrl);
-  addImage(v.coverImage);
-  addImage(v.mainImage);
-
-  [
-    ...cleanArray(v.images),
-    ...cleanArray(v.galleryImages),
-    ...cleanArray(v.imageUrls),
-    ...cleanArray(v.media)
-  ].forEach(addImage);
-
-  [
-    ...cleanArray(v.videos),
-    ...cleanArray(v.videoUrls),
-    ...cleanArray(v.galleryVideos)
-  ].forEach(addVideo);
-
-  if (!items.length) {
-    items.push({
-      type: "image",
-      src: "images/header4.png"
-    });
-  }
-
+  if(!items.length) items.push({ type: "image", src: "images/header4.png" });
   return items;
 }
 
+// ─── Gallery rendering ────────────────────────────────────────────────────────
 function renderDots() {
   galleryDots.innerHTML = "";
-  if (galleryItems.length <= 1) { hide(galleryDots); return; }
+  if(galleryItems.length <= 1){hide(galleryDots);return;}
   show(galleryDots,"flex");
-  galleryItems.forEach((_, i) => {
+  galleryItems.forEach((_,i) => {
     const d = document.createElement("button");
-    d.type = "button";
-    d.className = "vendor-gallery-dot" + (i===currentMediaIndex?" active":"");
+    d.type="button"; d.className="vendor-gallery-dot"+(i===currentMediaIndex?" active":"");
     d.setAttribute("aria-label",`Gallery item ${i+1}`);
-    d.addEventListener("click", () => { currentMediaIndex=i; updateGallery(); });
+    d.addEventListener("click",()=>{currentMediaIndex=i;updateGallery();});
     galleryDots.appendChild(d);
   });
 }
 
 function updateGallery() {
   const item = galleryItems[currentMediaIndex];
-  if (item.type==="video") {
-    hide(mainImage); show(mainVideo,"block"); mainVideo.src=item.src;
+  if(!item) return;
+  if(item.type === "video") {
+    hide(mainImage);
+    show(mainVideo,"block");
+    mainVideo.src = item.src;
   } else {
+    // Pause + clear video properly before switching to image
     mainVideo.pause(); mainVideo.removeAttribute("src"); mainVideo.load(); hide(mainVideo);
     show(mainImage,"block");
     mainImage.onerror = () => {
-      console.warn("Broken gallery image skipped:", item.src);
-      const brokenUrl = item.src;
-      galleryItems = galleryItems.filter(g => g.src !== brokenUrl);
-      if (!galleryItems.length) {
+      console.warn("Broken gallery image, skipping:", item.src);
+      const brokenSrc = item.src;
+      galleryItems = galleryItems.filter(g => g.src !== brokenSrc);
+      if(!galleryItems.length) {
         mainImage.onerror = null;
         mainImage.src = "images/header4.png";
-        prevMediaBtn.hidden = true;
-        nextMediaBtn.hidden = true;
-        hide(galleryDots);
-        return;
+        prevMediaBtn.hidden = true; nextMediaBtn.hidden = true;
+        hide(galleryDots); return;
       }
-      currentMediaIndex = currentMediaIndex % galleryItems.length;
+      currentMediaIndex = Math.min(currentMediaIndex, galleryItems.length - 1);
       updateGallery();
     };
-    mainImage.src=item.src;
+    mainImage.src = item.src;
   }
   const multi = galleryItems.length > 1;
-  prevMediaBtn.hidden = !multi;
-  nextMediaBtn.hidden = !multi;
+  prevMediaBtn.hidden = !multi; nextMediaBtn.hidden = !multi;
   renderDots();
 }
 
 prevMediaBtn.addEventListener("click", () => {
-  if (galleryItems.length > 1) { currentMediaIndex = (currentMediaIndex - 1 + galleryItems.length) % galleryItems.length; updateGallery(); }
+  if(galleryItems.length>1){currentMediaIndex=(currentMediaIndex-1+galleryItems.length)%galleryItems.length;updateGallery();}
 });
 nextMediaBtn.addEventListener("click", () => {
-  if (galleryItems.length > 1) { currentMediaIndex = (currentMediaIndex + 1) % galleryItems.length; updateGallery(); }
+  if(galleryItems.length>1){currentMediaIndex=(currentMediaIndex+1)%galleryItems.length;updateGallery();}
 });
 
-let gallerySwipeStartX = 0;
-let gallerySwipeEndX   = 0;
-let galleryIsDragging  = false;
+// ─── Swipe / drag ─────────────────────────────────────────────────────────────
+let swipeStartX = 0, swipeEndX = 0, isDragging = false;
 const galleryStage = document.querySelector(".vendor-gallery-stage");
-
-function handleGallerySwipe() {
-  const dist = gallerySwipeStartX - gallerySwipeEndX;
-  if (Math.abs(dist) < 40 || galleryItems.length <= 1) return;
-  currentMediaIndex = dist > 0
-    ? (currentMediaIndex + 1) % galleryItems.length
-    : (currentMediaIndex - 1 + galleryItems.length) % galleryItems.length;
+function handleSwipe() {
+  const dist = swipeStartX - swipeEndX;
+  if(Math.abs(dist)<40 || galleryItems.length<=1) return;
+  currentMediaIndex = dist>0 ? (currentMediaIndex+1)%galleryItems.length : (currentMediaIndex-1+galleryItems.length)%galleryItems.length;
   updateGallery();
 }
-
-if (galleryStage) {
-  galleryStage.addEventListener("touchstart", (e) => { gallerySwipeStartX = e.touches[0].clientX; }, { passive: true });
-  galleryStage.addEventListener("touchend",   (e) => { gallerySwipeEndX = e.changedTouches[0].clientX; handleGallerySwipe(); });
-  galleryStage.addEventListener("mousedown",  (e) => { galleryIsDragging = true; gallerySwipeStartX = e.clientX; });
-  galleryStage.addEventListener("mouseup",    (e) => { if (!galleryIsDragging) return; galleryIsDragging = false; gallerySwipeEndX = e.clientX; handleGallerySwipe(); });
-  galleryStage.addEventListener("mouseleave", ()  => { galleryIsDragging = false; });
+if(galleryStage) {
+  galleryStage.addEventListener("touchstart", e=>{swipeStartX=e.touches[0].clientX;},{passive:true});
+  galleryStage.addEventListener("touchend",   e=>{swipeEndX=e.changedTouches[0].clientX;handleSwipe();});
+  galleryStage.addEventListener("mousedown",  e=>{isDragging=true;swipeStartX=e.clientX;});
+  galleryStage.addEventListener("mouseup",    e=>{if(!isDragging)return;isDragging=false;swipeEndX=e.clientX;handleSwipe();});
+  galleryStage.addEventListener("mouseleave", ()=>{isDragging=false;});
 }
 
+// ─── Calendar ─────────────────────────────────────────────────────────────────
 function renderCalendar() {
   calGrid.innerHTML = "";
-  const today    = new Date();
-  const todayStr = toDateStr(today);
-  const first    = new Date(calYear, calMonth, 1);
-  const last     = new Date(calYear, calMonth+1, 0);
-  calMonthLabel.textContent = first.toLocaleDateString("en-AU",{month:"long",year:"numeric"});
-  for (let i=0; i<first.getDay(); i++) { const e=document.createElement("div"); e.className="cal-day empty"; calGrid.appendChild(e); }
-  for (let d=1; d<=last.getDate(); d++) {
-    const dateObj = new Date(calYear, calMonth, d);
-    const dateStr = toDateStr(dateObj);
-    const cell    = document.createElement("div");
-    cell.className = "cal-day";
-    cell.textContent = d;
-    const isPast    = dateStr < todayStr;
-    const isBlocked = blockedDates.includes(dateStr);
-    const isSelected = dateStr === selectedDate;
-    const isToday   = dateStr === todayStr;
-    if (isPast)         cell.classList.add("past");
-    else if (isBlocked) cell.classList.add("unavailable");
-    else if (isSelected) cell.classList.add("selected");
-    else if (isToday)   cell.classList.add("today");
-    if (!isPast && !isBlocked) {
-      cell.addEventListener("click", () => {
-        selectedDate = dateStr;
-        enquiryDate.value = prettyDate(dateStr);
-        calSelectedNote.textContent = `✓ ${prettyDate(dateStr)} looks available — scroll down to send your enquiry.`;
-        show(calSelectedNote,"block");
-        renderCalendar();
-        const formCard = document.getElementById("enquiryFormCard");
-        if (formCard) {
-          setTimeout(() => {
-            formCard.scrollIntoView({ behavior: "smooth", block: "start" });
-            formCard.style.transition = "box-shadow 0.4s ease";
-            formCard.style.boxShadow = "0 0 0 2px var(--gold-light)";
-            setTimeout(() => { formCard.style.boxShadow = ""; }, 1800);
-          }, 120);
-        }
+  const today=new Date(), todayStr=toDateStr(today);
+  const first=new Date(calYear,calMonth,1), last=new Date(calYear,calMonth+1,0);
+  calMonthLabel.textContent=first.toLocaleDateString("en-AU",{month:"long",year:"numeric"});
+  for(let i=0;i<first.getDay();i++){const e=document.createElement("div");e.className="cal-day empty";calGrid.appendChild(e);}
+  for(let d=1;d<=last.getDate();d++){
+    const ds=toDateStr(new Date(calYear,calMonth,d));
+    const cell=document.createElement("div"); cell.className="cal-day"; cell.textContent=d;
+    const isPast=ds<todayStr, isBlocked=blockedDates.includes(ds);
+    if(isPast) cell.classList.add("past");
+    else if(isBlocked) cell.classList.add("unavailable");
+    else if(ds===selectedDate) cell.classList.add("selected");
+    else if(ds===todayStr) cell.classList.add("today");
+    if(!isPast&&!isBlocked){
+      cell.addEventListener("click",()=>{
+        selectedDate=ds; enquiryDate.value=prettyDate(ds);
+        calSelectedNote.textContent=`✓ ${prettyDate(ds)} looks available — scroll down to send your enquiry.`;
+        show(calSelectedNote,"block"); renderCalendar();
+        const fc=$("enquiryFormCard");
+        if(fc) setTimeout(()=>{fc.scrollIntoView({behavior:"smooth",block:"start"});fc.style.transition="box-shadow 0.4s ease";fc.style.boxShadow="0 0 0 2px var(--gold-light)";setTimeout(()=>{fc.style.boxShadow="";},1800);},120);
       });
     }
     calGrid.appendChild(cell);
   }
 }
+calPrevBtn.addEventListener("click",()=>{calMonth--;if(calMonth<0){calMonth=11;calYear--;}renderCalendar();});
+calNextBtn.addEventListener("click",()=>{calMonth++;if(calMonth>11){calMonth=0;calYear++;}renderCalendar();});
 
-calPrevBtn.addEventListener("click", () => { calMonth--; if (calMonth<0){calMonth=11;calYear--;} renderCalendar(); });
-calNextBtn.addEventListener("click", () => { calMonth++; if (calMonth>11){calMonth=0;calYear++;} renderCalendar(); });
-
+// ─── Booking ──────────────────────────────────────────────────────────────────
 function renderBooking(v) {
-  const link = v.bookingLink||v.bookingUrl||v.calendly||v.calendlyUrl||v.calendarLink||v.calendarUrl||"";
-  if (!link) return;
+  const link=v.bookingLink||v.bookingUrl||v.calendly||v.calendlyUrl||v.calendarLink||v.calendarUrl||"";
+  if(!link) return;
   show(bookingCard,"block");
-  const lower = link.toLowerCase();
-  const embeddable = lower.includes("calendly.com") || lower.includes("tidycal.com");
-  if (embeddable) { bookingFrame.src=link; show(bookingEmbedWrap); hide(bookingFallback); }
-  else { hide(bookingEmbedWrap); show(bookingFallback,"block"); bookingFallbackBtn.href=link; }
+  const lower=link.toLowerCase();
+  if(lower.includes("calendly.com")||lower.includes("tidycal.com")){bookingFrame.src=link;show(bookingEmbedWrap);hide(bookingFallback);}
+  else{hide(bookingEmbedWrap);show(bookingFallback,"block");bookingFallbackBtn.href=link;}
 }
 
+// ─── Testimonials ─────────────────────────────────────────────────────────────
 function renderTestimonials(v) {
-  const testimonials = Array.isArray(v.testimonials)
-    ? v.testimonials.filter(t => t && t.quote && String(t.quote).trim())
-    : [];
-  if (!testimonials.length) { hide(testimonialsCard); return; }
-  vendorTestimonials.className = "testimonial-list";
-  vendorTestimonials.innerHTML = testimonials.map(t => `
+  const testimonials=Array.isArray(v.testimonials)?v.testimonials.filter(t=>t&&t.quote&&String(t.quote).trim()):[];
+  if(!testimonials.length){hide(testimonialsCard);return;}
+  vendorTestimonials.className="testimonial-list";
+  vendorTestimonials.innerHTML=testimonials.map(t=>`
     <div class="testimonial-item">
-      <p class="testimonial-quote">"${String(t.quote || "").trim()}"</p>
-      <p class="testimonial-name">
-        ${String(t.name || "Happy client").trim()}
-        ${t.date ? `<span class="testimonial-date"> · ${String(t.date).trim()}</span>` : ""}
-      </p>
-    </div>
-  `).join("");
-  show(testimonialsCard, "block");
+      <p class="testimonial-quote">"${String(t.quote||"").trim()}"</p>
+      <p class="testimonial-name">${String(t.name||"Happy client").trim()}${t.date?`<span class="testimonial-date"> · ${String(t.date).trim()}</span>`:""}</p>
+    </div>`).join("");
+  show(testimonialsCard,"block");
 }
 
+// ─── Locations ────────────────────────────────────────────────────────────────
 function renderLocations(v) {
-  const loc = formatText(v.displayLocation||"");
-  const sa  = formatText(v.serviceAreas||"");
-  const reg = cleanArray(v.regions).map(formatText).join(" • ");
-  const st  = cleanArray(v.states).map(formatText).join(" • ");
-  const co  = cleanArray(v.countries).map(formatText).join(" • ");
-  const any = setOrHide(sidebarLocationEl,loc,"Location: ")
-            | setOrHide(sidebarServiceAreasEl,sa,"Service Areas: ")
-            | setOrHide(sidebarRegionsEl,reg,"Regions: ")
-            | setOrHide(sidebarStatesEl,st,"States: ")
-            | setOrHide(sidebarCountriesEl,co,"Countries: ");
-  if (any) show(sidebarLocations,"block"); else hide(sidebarLocations);
+  const loc=formatText(v.displayLocation||""), sa=formatText(v.serviceAreas||"");
+  const reg=cleanArray(v.regions).map(formatText).join(" • ");
+  const st=cleanArray(v.states).map(formatText).join(" • ");
+  const co=cleanArray(v.countries).map(formatText).join(" • ");
+  const any=setOrHide(sidebarLocationEl,loc,"Location: ")|setOrHide(sidebarServiceAreasEl,sa,"Service Areas: ")|setOrHide(sidebarRegionsEl,reg,"Regions: ")|setOrHide(sidebarStatesEl,st,"States: ")|setOrHide(sidebarCountriesEl,co,"Countries: ");
+  if(any) show(sidebarLocations,"block"); else hide(sidebarLocations);
 }
 
-enquiryForm.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  enquiryStatus.textContent = "Sending your enquiry...";
+// ─── Enquiry form ─────────────────────────────────────────────────────────────
+enquiryForm.addEventListener("submit", async e => {
+  e.preventDefault(); enquiryStatus.textContent="Sending your enquiry...";
   try {
-    await addDoc(collection(db,"enquiries"), { vendorId, vendorName: vendorBusinessName, vendorEmail: vendorEmailAddress, coupleId: currentUser ? currentUser.uid : "guest", coupleName: enquiryName.value.trim(), coupleEmail: enquiryEmail.value.trim(), preferredDate: selectedDate || enquiryDate.value.trim(), message: enquiryMessage.value.trim(), status: "new", createdAt: serverTimestamp() });
-    enquiryStatus.textContent = "Enquiry sent! The vendor will be in touch soon ♡";
-    enquiryForm.reset(); selectedDate = ""; enquiryDate.value = "";
-    hide(calSelectedNote); renderCalendar();
-  } catch (err) { console.error(err); enquiryStatus.textContent = "Something went wrong. Please try again."; }
+    await addDoc(collection(db,"enquiries"),{vendorId,vendorName:vendorBusinessName,vendorEmail:vendorEmailAddress,coupleId:currentUser?currentUser.uid:"guest",coupleName:enquiryName.value.trim(),coupleEmail:enquiryEmail.value.trim(),preferredDate:selectedDate||enquiryDate.value.trim(),message:enquiryMessage.value.trim(),status:"new",createdAt:serverTimestamp()});
+    enquiryStatus.textContent="Enquiry sent! The vendor will be in touch soon ♡";
+    enquiryForm.reset(); selectedDate=""; enquiryDate.value=""; hide(calSelectedNote); renderCalendar();
+  } catch(err){console.error(err);enquiryStatus.textContent="Something went wrong. Please try again.";}
 });
 
+// ─── Message modal ────────────────────────────────────────────────────────────
 function openMsgModal() {
-  msgModalBackdrop.classList.add("open");
-  msgModalBackdrop.setAttribute("aria-hidden","false");
-  msgStatus.textContent = ""; msgBody.value = "";
-  if (currentUser) { show(msgLoggedIn,"block"); hide(msgLoggedOut); msgModalTitle.textContent = `Message ${vendorBusinessName}`; }
-  else             { hide(msgLoggedIn); show(msgLoggedOut,"block"); }
+  msgModalBackdrop.classList.add("open"); msgModalBackdrop.setAttribute("aria-hidden","false");
+  msgStatus.textContent=""; msgBody.value="";
+  if(currentUser){show(msgLoggedIn,"block");hide(msgLoggedOut);msgModalTitle.textContent=`Message ${vendorBusinessName}`;}
+  else{hide(msgLoggedIn);show(msgLoggedOut,"block");}
 }
 function closeMsgModal() { msgModalBackdrop.classList.remove("open"); msgModalBackdrop.setAttribute("aria-hidden","true"); }
+messageBtn.addEventListener("click",openMsgModal);
+msgModalClose.addEventListener("click",closeMsgModal);
+msgModalBackdrop.addEventListener("click",e=>{if(e.target===msgModalBackdrop)closeMsgModal();});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeMsgModal();});
 
-messageBtn.addEventListener("click", openMsgModal);
-msgModalClose.addEventListener("click", closeMsgModal);
-msgModalBackdrop.addEventListener("click", e => { if (e.target===msgModalBackdrop) closeMsgModal(); });
-document.addEventListener("keydown", e => { if (e.key==="Escape") closeMsgModal(); });
-
-msgForm.addEventListener("submit", async (e) => {
+msgForm.addEventListener("submit", async e => {
   e.preventDefault();
-  if (!currentUser || !vendorId) return;
-  const body = msgBody.value.trim();
-  if (!body) return;
-  msgStatus.textContent = "Sending...";
+  if(!currentUser||!vendorId) return;
+  const body=msgBody.value.trim(); if(!body) return;
+  msgStatus.textContent="Sending...";
   try {
-    const convQuery = query(collection(db,"conversations"), where("vendorId","==",vendorId), where("coupleId","==",currentUser.uid));
-    const existing = await getDocs(convQuery);
+    const convQuery=query(collection(db,"conversations"),where("vendorId","==",vendorId),where("coupleId","==",currentUser.uid));
+    const existing=await getDocs(convQuery);
     let convId;
-    if (!existing.empty) {
-      convId = existing.docs[0].id;
-      await updateDoc(doc(db,"conversations",convId), { lastMessage: body, lastMessageAt: serverTimestamp(), vendorUnread: increment(1) });
+    if(!existing.empty){
+      convId=existing.docs[0].id;
+      await updateDoc(doc(db,"conversations",convId),{lastMessage:body,lastMessageAt:serverTimestamp(),vendorUnread:increment(1)});
     } else {
-      let coupleName = currentUser.email;
-      try { const userSnap = await getDoc(doc(db,"users",currentUser.uid)); if (userSnap.exists()) { const ud = userSnap.data(); coupleName = ud.partnerOne && ud.partnerTwo ? `${ud.partnerOne} & ${ud.partnerTwo}` : ud.name || currentUser.email; } } catch {}
-      const convRef = await addDoc(collection(db,"conversations"), { vendorId, coupleId: currentUser.uid, vendorName: vendorBusinessName, coupleName, vendorEmail: vendorEmailAddress, coupleEmail: currentUser.email, lastMessage: body, lastMessageAt: serverTimestamp(), vendorUnread: 1, coupleUnread: 0, createdAt: serverTimestamp() });
-      convId = convRef.id;
+      let coupleName=currentUser.email;
+      try{const us=await getDoc(doc(db,"users",currentUser.uid));if(us.exists()){const ud=us.data();coupleName=ud.partnerOne&&ud.partnerTwo?`${ud.partnerOne} & ${ud.partnerTwo}`:ud.name||currentUser.email;}}catch{}
+      const cr=await addDoc(collection(db,"conversations"),{vendorId,coupleId:currentUser.uid,vendorName:vendorBusinessName,coupleName,vendorEmail:vendorEmailAddress,coupleEmail:currentUser.email,lastMessage:body,lastMessageAt:serverTimestamp(),vendorUnread:1,coupleUnread:0,createdAt:serverTimestamp()});
+      convId=cr.id;
     }
-    await addDoc(collection(db,"conversations",convId,"messages"), { senderId: currentUser.uid, senderName: currentUser.email, body, sentAt: serverTimestamp(), read: false });
-    msgStatus.textContent = "Message sent! You'll see the reply in your dashboard ♡";
-    msgBody.value = "";
-  } catch (err) { console.error(err); msgStatus.textContent = "Something went wrong. Please try again."; }
+    await addDoc(collection(db,"conversations",convId,"messages"),{senderId:currentUser.uid,senderName:currentUser.email,body,sentAt:serverTimestamp(),read:false});
+    msgStatus.textContent="Message sent! You'll see the reply in your dashboard ♡"; msgBody.value="";
+  } catch(err){console.error(err);msgStatus.textContent="Something went wrong. Please try again.";}
 });
 
-async function trackView(id) { try { await updateDoc(doc(db,"vendors",id), { profileViews: increment(1) }); } catch {} }
+// ─── Load vendor ──────────────────────────────────────────────────────────────
+async function trackView(id){try{await updateDoc(doc(db,"vendors",id),{profileViews:increment(1)});}catch{}}
 
 async function loadVendor() {
-  if (!vendorId) { businessNameEl.textContent = "Vendor not found"; sidebarBusinessNameEl.textContent = "Vendor not found"; return; }
+  if(!vendorId){businessNameEl.textContent="Vendor not found";sidebarBusinessNameEl.textContent="Vendor not found";return;}
   try {
-    const snap = await getDoc(doc(db,"vendors",vendorId));
-    if (!snap.exists()) { businessNameEl.textContent = "Vendor not found"; sidebarBusinessNameEl.textContent = "Vendor not found"; return; }
-    vendorData = snap.data();
+    const snap=await getDoc(doc(db,"vendors",vendorId));
+    if(!snap.exists()){businessNameEl.textContent="Vendor not found";sidebarBusinessNameEl.textContent="Vendor not found";return;}
+    vendorData=snap.data();
     trackView(vendorId);
-    const name = vendorData.businessName || "Vendor";
-    vendorBusinessName = name; vendorEmailAddress = vendorData.email || vendorData.contactEmail || "";
-    blockedDates = Array.isArray(vendorData.blockedDates) ? vendorData.blockedDates.filter(Boolean) : [];
+
+    const name=vendorData.businessName||"Vendor";
+    vendorBusinessName=name; vendorEmailAddress=vendorData.email||vendorData.contactEmail||"";
+    blockedDates=Array.isArray(vendorData.blockedDates)?vendorData.blockedDates.filter(Boolean):[];
     renderCalendar();
-    const category = Array.isArray(vendorData.categories) && vendorData.categories.length ? vendorData.categories.map(formatText).join(" • ") : formatText(vendorData.category||"");
-    const about = vendorData.bio || vendorData.shortBio || vendorData.description || "Beautiful vendor profile coming soon.";
-    businessNameEl.textContent = name;
-    sidebarBusinessNameEl.textContent = name;
-    vendorAboutEl.textContent = about;
-    setOrHide(vendorCategoryEl, category); setOrHide(vendorTaglineEl, formatText(vendorData.tagline||"")); setOrHide(sidebarCategoryEl, category);
-    const profileImg =
-  vendorData.profileImageUrl ||
-  vendorData.profilePhotoUrl ||
-  vendorData.profileImage ||
-  vendorData.photoURL ||
-  "";
-    if (profileImg) {
-      profilePicEl.onerror = () => { console.warn("Broken profile image:", profileImg); hide(profilePicEl); };
-      profilePicEl.src=profileImg;
-      show(profilePicEl,"block");
-    } else hide(profilePicEl);
-    const logo =
-  vendorData.logoUrl ||
-  vendorData.logo ||
-  vendorData.businessLogo ||
-  "";
-    if (logo) {
-      logoImage.onerror = () => { console.warn("Broken logo image:", logo); hide(logoWrap); };
-      logoImage.src=logo;
-      show(logoWrap,"flex");
-    } else hide(logoWrap);
-    galleryItems = buildGallery(vendorData); updateGallery();
-    renderBooking(vendorData);
-    renderTestimonials(vendorData);
-    renderLocations(vendorData);
-    setLink(websiteBtn,   vendorData.website||"");
-    setLink(emailBtn,     vendorEmailAddress ? `mailto:${vendorEmailAddress}` : "");
-    setLink(instagramBtn, vendorData.instagram||"");
-    setLink(facebookBtn,  vendorData.facebook||"");
-    setLink(tiktokBtn,    vendorData.tiktok||"");
-    setLink(youtubeBtn,   vendorData.youtube||"");
+
+    const category=Array.isArray(vendorData.categories)&&vendorData.categories.length?vendorData.categories.map(formatText).join(" • "):formatText(vendorData.category||"");
+    const about=vendorData.bio||vendorData.shortBio||vendorData.description||"Beautiful vendor profile coming soon.";
+    businessNameEl.textContent=name; sidebarBusinessNameEl.textContent=name;
+    vendorAboutEl.textContent=about;
+    setOrHide(vendorCategoryEl,category); setOrHide(vendorTaglineEl,formatText(vendorData.tagline||"")); setOrHide(sidebarCategoryEl,category);
+
+    const profileImg=vendorData.profileImageUrl||vendorData.profilePhotoUrl||vendorData.profileImage||vendorData.photoURL||"";
+    if(profileImg){profilePicEl.onerror=()=>{console.warn("Broken profile image");hide(profilePicEl);};profilePicEl.src=profileImg;show(profilePicEl,"block");}
+    else hide(profilePicEl);
+
+    const logo=vendorData.logoUrl||vendorData.logo||vendorData.businessLogo||"";
+    if(logo){logoImage.onerror=()=>{console.warn("Broken logo");hide(logoWrap);};logoImage.src=logo;show(logoWrap,"flex");}
+    else hide(logoWrap);
+
+    galleryItems=buildGallery(vendorData); updateGallery();
+    renderBooking(vendorData); renderTestimonials(vendorData); renderLocations(vendorData);
+
+    setLink(websiteBtn,vendorData.website||"");
+    setLink(emailBtn,vendorEmailAddress?`mailto:${vendorEmailAddress}`:"");
+    setLink(instagramBtn,vendorData.instagram||"");
+    setLink(facebookBtn,vendorData.facebook||"");
+    setLink(tiktokBtn,vendorData.tiktok||"");
+    setLink(youtubeBtn,vendorData.youtube||"");
     updateFavBtn(vendorId);
-  } catch (err) {
-    console.error("Error loading vendor:", err);
-    businessNameEl.textContent = "There was a problem loading this vendor";
-    sidebarBusinessNameEl.textContent = "Vendor profile";
+  } catch(err){
+    console.error("Error loading vendor:",err);
+    businessNameEl.textContent="There was a problem loading this vendor";
+    sidebarBusinessNameEl.textContent="Vendor profile";
   }
 }
 
-onAuthStateChanged(auth, (user) => {
-  currentUser = user;
-  if (user) { hide(joinLink); hide(loginLink); show(dashboardLink,"inline-block"); show(logoutLink,"inline-block"); }
-  else       { show(joinLink,"inline-block"); show(loginLink,"inline-block"); hide(dashboardLink); hide(logoutLink); }
+onAuthStateChanged(auth, user=>{
+  currentUser=user;
+  if(user){hide(joinLink);hide(loginLink);show(dashboardLink,"inline-block");show(logoutLink,"inline-block");}
+  else{show(joinLink,"inline-block");show(loginLink,"inline-block");hide(dashboardLink);hide(logoutLink);}
 });
 
-logoutLink.addEventListener("click", async () => { try { await signOut(auth); window.location.href="index.html"; } catch {} });
+logoutLink.addEventListener("click",async()=>{try{await signOut(auth);window.location.href="index.html";}catch{}});
 
 loadVendor();
 </script>
