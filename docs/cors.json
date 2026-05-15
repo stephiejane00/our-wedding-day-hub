@@ -1,0 +1,7 @@
+[
+  {
+    "origin": ["https://ourweddingdayhub.com", "https://www.ourweddingdayhub.com"],
+    "method": ["GET"],
+    "maxAgeSeconds": 3600
+  }
+]
