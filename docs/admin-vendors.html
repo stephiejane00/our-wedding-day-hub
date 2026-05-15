@@ -729,10 +729,10 @@ testimonialDateInput.value = selectedVendor.testimonials?.[0]?.date || "";
     async function uploadSingleImage(file, folder, fields) {
       if (!selectedVendorId || !file || !file.type.startsWith("image/")) { setStatus("Please choose a valid image file.", "err"); return; }
      const fileName = cleanUploadName(file);
-
+      
 const fRef = ref(
   storage,
-  `${folder}/${selectedVendor.uid || selectedVendorId}/${fileName}`
+  `${folder}/${selectedVendorId}/${fileName}`
 );
       await uploadBytes(fRef, file, {
   contentType: file.type || "image/jpeg"
