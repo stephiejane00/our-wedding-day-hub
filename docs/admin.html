@@ -3,450 +3,774 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Main Admin | Our Wedding Day Hub</title>
+  <title>Admin | Our Wedding Day Hub</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Quill rich text editor -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.7/quill.snow.min.css" rel="stylesheet">
 
   <style>
+    /* ── TOKENS ── */
     :root {
-      --text:#3b2f2a;
-      --muted:#8c7f75;
-      --cream:#fffaf7;
-      --border:#eadfd6;
-      --soft:#fff8f4;
-      --accent:#b98f7a;
-      --danger:#9b3d35;
-      --success:#3a5e38;
+      --ink:        #1A1A16;
+      --ink-mid:    #4A4A44;
+      --ink-muted:  #8A8A82;
+      --ink-ghost:  #C0C0B8;
+      --ink-rule:   #DDDDD8;
+      --cream:      #FAFAF8;
+      --cream-warm: #F4F0EA;
+      --cream-deep: #EDE8E0;
+      --gold:       #9A7A5A;
+      --gold-light: #C4A882;
+      --danger:     #8B3A3A;
+      --success:    #3A5E38;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans:  'Plus Jakarta Sans', 'Helvetica Neue', Arial, sans-serif;
     }
 
-    * { box-sizing:border-box; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--cream); font-family: var(--font-sans); color: var(--ink); -webkit-font-smoothing: antialiased; min-height: 100vh; }
 
-    body {
-      margin:0;
-      font-family:'DM Sans', sans-serif;
-      background: radial-gradient(circle at top left, rgba(200,166,161,.14), transparent 32%), #f7f1ed;
-      color:var(--text);
+    /* ── TOPBAR ── */
+    .admin-topbar {
+      background: var(--ink); border-bottom: 1px solid var(--ink-mid);
+      padding: 0 40px; display: flex; align-items: center; gap: 16px;
+      min-height: 60px; position: sticky; top: 0; z-index: 200;
     }
-
-    .page {
-      max-width:1100px;
-      margin:0 auto;
-      padding:28px 20px 70px;
+    .admin-topbar-logo { width: 36px; height: 36px; object-fit: contain; opacity: 0.7; }
+    .admin-topbar-title { font-family: var(--font-serif); font-size: 1rem; font-weight: 400; color: var(--cream); opacity: 0.7; flex: 1; }
+    .admin-topbar-badge {
+      font-family: var(--font-sans); font-size: 0.62rem; font-weight: 700;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      background: var(--gold); color: var(--cream); padding: 4px 10px;
     }
-
-    .hero,
-    .card {
-      background:linear-gradient(180deg, #fffdfa, #fff8f4);
-      border:1px solid var(--border);
-      border-radius:28px;
-      padding:26px;
-      box-shadow:0 18px 40px rgba(45,31,24,.05);
-      margin-bottom:18px;
+    .admin-topbar-user { font-family: var(--font-sans); font-size: 0.72rem; color: var(--ink-muted); }
+    .admin-topbar-links { display: flex; gap: 0; margin-left: 16px; }
+    .admin-topbar-link {
+      font-family: var(--font-sans); font-size: 0.68rem; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase; padding: 6px 12px;
+      color: var(--ink-muted); text-decoration: none; border-left: 1px solid var(--ink-mid); transition: color 0.2s;
     }
+    .admin-topbar-link:hover { color: var(--cream); }
 
-    .logo {
-      width:88px;
-      margin-bottom:16px;
+    /* ── PAGE ── */
+    .admin-page { max-width: 1200px; margin: 0 auto; padding: 0 40px 80px; }
+
+    /* ── HERO ── */
+    .admin-hero {
+      display: grid; grid-template-columns: 1fr auto;
+      align-items: center; gap: 24px;
+      padding: 40px 0 32px; border-bottom: 1px solid var(--ink-rule);
     }
+    .admin-hero-eyebrow { font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-ghost); margin-bottom: 8px; }
+    .admin-hero-title { font-family: var(--font-serif); font-size: clamp(2.4rem, 4vw, 3.6rem); font-weight: 300; line-height: 0.97; letter-spacing: -0.04em; color: var(--ink); margin-bottom: 8px; }
+    .admin-hero-sub { font-family: var(--font-sans); font-size: 0.86rem; color: var(--ink-muted); line-height: 1.7; }
 
-    .eyebrow {
-      text-transform:uppercase;
-      letter-spacing:.22em;
-      font-size:.75rem;
-      color:var(--accent);
-      font-weight:700;
-      margin:0 0 8px;
+    .admin-status {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 16px; border: 0.5px solid var(--ink-rule);
+      font-family: var(--font-sans); font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.06em; white-space: nowrap;
     }
+    .admin-status.ok { background: #E8F0E8; color: var(--success); border-color: #C8DCC8; }
+    .admin-status.err { background: #F0E8E8; color: var(--danger); border-color: #DCC8C8; }
+    .admin-status.checking { background: var(--cream-warm); color: var(--ink-muted); }
+    .admin-status::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
 
-    h1, h2 {
-      font-family:'Cormorant Garamond', serif;
-      font-weight:500;
-      letter-spacing:-.03em;
-      margin:0;
+    /* ── SECTIONS ── */
+    .admin-section { border-bottom: 1px solid var(--ink-rule); padding: 36px 0; }
+    .admin-section:last-child { border-bottom: none; }
+    .admin-section-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 24px; }
+    .admin-section-kicker { font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-ghost); margin-bottom: 5px; }
+    .admin-section-title { font-family: var(--font-serif); font-size: 1.8rem; font-weight: 300; letter-spacing: -0.02em; color: var(--ink); line-height: 1; }
+
+    /* ── QUICK LINKS GRID ── */
+    .admin-links-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; background: var(--ink-rule); }
+    .admin-link-card {
+      background: var(--cream); padding: 24px 26px; text-decoration: none; color: var(--ink);
+      border-right: 0.5px solid var(--ink-rule); transition: background 0.2s; display: flex; flex-direction: column; gap: 6px;
     }
+    .admin-link-card:last-child { border-right: none; }
+    .admin-link-card:hover { background: var(--cream-warm); }
+    .admin-link-card strong { font-family: var(--font-serif); font-size: 1.4rem; font-weight: 300; letter-spacing: -0.02em; color: var(--ink); }
+    .admin-link-card span { font-family: var(--font-sans); font-size: 0.78rem; color: var(--ink-muted); line-height: 1.55; }
+    .admin-link-card-arrow { font-family: var(--font-sans); font-size: 0.68rem; letter-spacing: 0.08em; color: var(--ink-ghost); margin-top: 8px; }
 
-    h1 {
-      font-size:clamp(2.7rem, 6vw, 4.4rem);
-      line-height:.9;
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 38px; padding: 9px 18px; border: none;
+      font-family: var(--font-sans); font-weight: 700; font-size: 0.7rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      cursor: pointer; text-decoration: none; transition: background 0.2s; gap: 6px;
     }
+    .btn-primary { background: var(--ink); color: var(--cream); }
+    .btn-primary:hover { background: var(--ink-mid); }
+    .btn-secondary { background: var(--cream-warm); color: var(--ink); border: 0.5px solid var(--ink-rule); }
+    .btn-secondary:hover { background: var(--cream-deep); }
+    .btn-danger { background: #F0E8E8; color: var(--danger); border: 0.5px solid #DCC8C8; }
+    .btn-danger:hover { background: #E8D8D8; }
+    .btn-success { background: #E8F0E8; color: var(--success); border: 0.5px solid #C8DCC8; }
+    .btn-success:hover { background: #D8E8D8; }
+    .btn-sm { min-height: 32px; padding: 6px 14px; font-size: 0.65rem; }
 
-    h2 {
-      font-size:2rem;
-      margin-bottom:8px;
+    /* ── TESTIMONIAL CARDS ── */
+    .testimonial-card { background: var(--cream-warm); border: 0.5px solid var(--ink-rule); padding: 20px 22px; margin-bottom: 1px; }
+    .testimonial-card blockquote { font-family: var(--font-serif); font-style: italic; font-size: 1.1rem; color: var(--ink-mid); line-height: 1.55; margin-bottom: 10px; }
+    .testimonial-meta { font-family: var(--font-sans); font-size: 0.76rem; color: var(--ink-muted); margin-bottom: 14px; line-height: 1.6; }
+    .testimonial-meta strong { color: var(--ink); font-weight: 600; }
+    .testimonial-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .admin-empty { padding: 24px; background: var(--cream-warm); border: 0.5px solid var(--ink-rule); font-family: var(--font-sans); font-size: 0.82rem; color: var(--ink-muted); text-align: center; }
+
+    /* ── HIDDEN ── */
+    .hidden { display: none !important; }
+
+    /* ── JOURNAL SECTION ── */
+
+    /* Post list */
+    .journal-post-list { display: grid; gap: 0; background: var(--ink-rule); }
+    .journal-post-row {
+      background: var(--cream); padding: 16px 22px;
+      display: grid; grid-template-columns: auto 1fr auto auto auto;
+      align-items: center; gap: 16px;
+      border-bottom: 0.5px solid var(--ink-rule); transition: background 0.2s;
     }
+    .journal-post-row:last-child { border-bottom: none; }
+    .journal-post-row:hover { background: var(--cream-warm); }
+    .journal-post-status-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .journal-post-status-dot.live { background: var(--success); }
+    .journal-post-status-dot.draft { background: var(--ink-ghost); }
+    .journal-post-title-col { min-width: 0; }
+    .journal-post-title-text { font-family: var(--font-serif); font-size: 1.05rem; font-weight: 300; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .journal-post-meta-text { font-family: var(--font-sans); font-size: 0.68rem; color: var(--ink-ghost); letter-spacing: 0.04em; margin-top: 2px; }
+    .journal-post-tag { font-family: var(--font-sans); font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 9px; background: var(--cream-deep); color: var(--ink-muted); white-space: nowrap; }
+    .journal-post-featured-badge { font-family: var(--font-sans); font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 9px; background: var(--ink); color: var(--cream); }
 
-    p {
-      color:var(--muted);
-      line-height:1.65;
+    /* Editor panel */
+    .journal-editor-panel {
+      background: var(--cream); border: 0.5px solid var(--ink-rule);
+      padding: 0; margin-top: 20px; display: none;
     }
-
-    .status {
-      display:inline-flex;
-      margin-top:18px;
-      padding:10px 15px;
-      border-radius:999px;
-      background:#f6eee8;
-      border:1px solid var(--border);
-      font-weight:700;
-      font-size:.9rem;
+    .journal-editor-panel.open { display: block; }
+    .journal-editor-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 24px; border-bottom: 0.5px solid var(--ink-rule);
+      background: var(--cream-warm);
     }
+    .journal-editor-header-title { font-family: var(--font-serif); font-size: 1.3rem; font-weight: 300; color: var(--ink); }
+    .journal-editor-body { padding: 28px 24px; display: grid; gap: 20px; }
+    .journal-editor-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .journal-editor-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
 
-    .status.ok { color:var(--success); background:#e5ede4; }
-    .status.err { color:var(--danger); background:#f9e8e8; }
-
-    .grid {
-      display:grid;
-      grid-template-columns:repeat(2, minmax(0, 1fr));
-      gap:16px;
+    .journal-field label {
+      display: block; margin-bottom: 7px;
+      font-family: var(--font-sans); font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-muted);
     }
-
-    .admin-link {
-      display:block;
-      text-decoration:none;
-      color:var(--text);
-      background:#fff;
-      border:1px solid var(--border);
-      border-radius:24px;
-      padding:22px;
-      transition:.2s ease;
+    .journal-field input,
+    .journal-field select,
+    .journal-field textarea {
+      width: 100%; border: none; border-bottom: 1px solid var(--ink-rule);
+      border-radius: 0; background: transparent; padding: 11px 0;
+      font-family: var(--font-sans); font-size: 0.9rem; color: var(--ink);
+      outline: none; transition: border-color 0.2s; box-sizing: border-box;
     }
+    .journal-field input:focus,
+    .journal-field select:focus,
+    .journal-field textarea:focus { border-color: var(--gold); }
+    .journal-field textarea { min-height: 80px; resize: vertical; }
+    .journal-field-full { grid-column: 1 / -1; }
 
-    .admin-link:hover {
-      transform:translateY(-2px);
-      box-shadow:0 14px 30px rgba(45,31,24,.08);
+    /* Quill overrides */
+    .journal-quill-wrap { border: 0.5px solid var(--ink-rule); }
+    .journal-quill-wrap .ql-toolbar { border: none; border-bottom: 0.5px solid var(--ink-rule); background: var(--cream-warm); font-family: var(--font-sans); }
+    .journal-quill-wrap .ql-container { border: none; font-family: var(--font-sans); font-size: 0.9rem; }
+    .journal-quill-wrap .ql-editor { min-height: 300px; padding: 20px; color: var(--ink); }
+    .journal-quill-wrap .ql-editor p { line-height: 1.8; margin-bottom: 10px; }
+    .journal-quill-wrap .ql-editor h1, .journal-quill-wrap .ql-editor h2, .journal-quill-wrap .ql-editor h3 { font-family: var(--font-serif); font-weight: 300; letter-spacing: -0.02em; color: var(--ink); }
+
+    /* Toggle row */
+    .journal-toggles { display: flex; gap: 24px; flex-wrap: wrap; align-items: center; padding: 16px 0; border-top: 0.5px solid var(--ink-rule); }
+    .journal-toggle-item { display: flex; align-items: center; gap: 10px; }
+    .journal-toggle-item label { font-family: var(--font-sans); font-size: 0.78rem; font-weight: 600; color: var(--ink-mid); cursor: pointer; }
+    .journal-toggle-item input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--ink); cursor: pointer; }
+
+    .journal-editor-footer {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      padding: 16px 24px; border-top: 0.5px solid var(--ink-rule);
+      background: var(--cream-warm); flex-wrap: wrap;
     }
+    .journal-save-msg { font-family: var(--font-serif); font-style: italic; font-size: 0.9rem; color: var(--gold); min-height: 1em; }
 
-    .admin-link strong {
-      display:block;
-      font-family:'Cormorant Garamond', serif;
-      font-size:1.8rem;
-      font-weight:500;
-      margin-bottom:4px;
+    /* Image preview */
+    .journal-image-preview { margin-top: 8px; max-width: 100%; max-height: 140px; object-fit: cover; display: none; border: 0.5px solid var(--ink-rule); }
+
+    /* Stats bar */
+    .journal-stats { display: flex; gap: 0; background: var(--ink-rule); margin-bottom: 20px; }
+    .journal-stat { flex: 1; background: var(--cream); padding: 16px 20px; border-right: 0.5px solid var(--ink-rule); }
+    .journal-stat:last-child { border-right: none; }
+    .journal-stat-num { font-family: var(--font-serif); font-size: 2rem; font-weight: 300; color: var(--ink); line-height: 1; }
+    .journal-stat-label { font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-ghost); margin-top: 4px; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .admin-links-grid { grid-template-columns: 1fr; }
+      .admin-link-card { border-right: none; border-bottom: 0.5px solid var(--ink-rule); }
+      .journal-editor-row, .journal-editor-row-3 { grid-template-columns: 1fr; }
+      .journal-post-row { grid-template-columns: auto 1fr auto; }
+      .journal-post-row .journal-post-tag, .journal-post-row .journal-post-featured-badge { display: none; }
     }
-
-    .admin-link span {
-      color:var(--muted);
-      font-size:.95rem;
-      line-height:1.5;
-    }
-
-    .hidden { display:none !important; }
-
-    .testimonial {
-      background:#fff;
-      border:1px solid var(--border);
-      border-radius:22px;
-      padding:18px;
-      margin-top:12px;
-    }
-
-    .testimonial blockquote {
-      margin:0 0 12px;
-      font-family:'Cormorant Garamond', serif;
-      font-size:1.35rem;
-      line-height:1.25;
-    }
-
-    .meta {
-      font-size:.88rem;
-      color:var(--muted);
-      margin-bottom:14px;
-    }
-
-    .actions {
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-
-    button, .button {
-      border:none;
-      border-radius:999px;
-      padding:11px 16px;
-      font-family:'DM Sans', sans-serif;
-      font-weight:800;
-      cursor:pointer;
-      text-decoration:none;
-      display:inline-flex;
-      color:#fff;
-      background:linear-gradient(135deg, #d8b59f, #b98f7a);
-    }
-
-    button.secondary, .button.secondary {
-      background:#eadfd8;
-      color:var(--text);
-    }
-
-    button.danger {
-      background:#f4d8d5;
-      color:var(--danger);
-    }
-
-    .empty {
-      padding:20px;
-      border:1px dashed var(--border);
-      border-radius:20px;
-      background:#fffaf7;
-      color:var(--muted);
-      text-align:center;
-    }
-
-    @media (max-width:760px) {
-      .grid { grid-template-columns:1fr; }
+    @media (max-width: 700px) {
+      .admin-topbar { padding: 0 20px; }
+      .admin-page { padding: 0 20px 60px; }
+      .admin-hero { grid-template-columns: 1fr; gap: 14px; }
+      .journal-stats { flex-wrap: wrap; }
+      .journal-stat { min-width: 50%; }
     }
   </style>
 </head>
 
 <body>
-  <main class="page">
-    <section class="hero">
-      <a href="index.html"><img src="images/logo.png" class="logo" alt="Our Wedding Day Hub"></a>
-      <p class="eyebrow">admin portal</p>
-      <h1>Main Admin</h1>
-      <p>Manage vendors, couples, and testimonials awaiting review.</p>
-      <div id="authStatus" class="status">Checking admin access…</div>
-    </section>
 
-    <div id="adminTools" class="hidden">
-      <section class="card">
-        <h2>Admin Pages</h2>
-        <div class="grid">
-          <a class="admin-link" href="admin-vendors.html">
-            <strong>Vendor Admin</strong>
-            <span>Edit vendors, profiles, galleries, pricing, visibility and boutique access.</span>
-          </a>
+<!-- ── TOPBAR ── -->
+<header class="admin-topbar">
+  <img src="images/logo1.png" alt="Our Wedding Day Hub" class="admin-topbar-logo">
+  <span class="admin-topbar-title">Our Wedding Day Hub</span>
+  <span class="admin-topbar-badge">Admin</span>
+  <div class="admin-topbar-links">
+    <a href="index.html" class="admin-topbar-link">Site</a>
+    <a href="admin-vendors.html" class="admin-topbar-link">Vendors</a>
+    <a href="admin-couples.html" class="admin-topbar-link">Couples</a>
+  </div>
+  <span class="admin-topbar-user" id="topbarUser"></span>
+</header>
 
-          <a class="admin-link" href="admin-couples.html">
-            <strong>Couples Admin</strong>
-            <span>View, search, edit and manage couple accounts.</span>
-          </a>
-        </div>
-      </section>
+<main class="admin-page">
 
-      <section class="card">
-        <h2>Testimonials Awaiting Review</h2>
-        <p id="testimonialMessage">Loading testimonials…</p>
-        <div id="testimonialList"></div>
-      </section>
+  <!-- ── HERO ── -->
+  <div class="admin-hero">
+    <div>
+      <p class="admin-hero-eyebrow">Admin Portal</p>
+      <h1 class="admin-hero-title">Main Admin</h1>
+      <p class="admin-hero-sub">Manage vendors, couples, testimonials and The Journal from one place.</p>
     </div>
-  </main>
+    <div id="authStatus" class="admin-status checking">Checking admin access…</div>
+  </div>
 
-  <script type="module">
-    import {
-      auth,
-      db,
-      onAuthStateChanged,
-      collection,
-      getDocs,
-      doc,
-      updateDoc
-    } from "./firebase.js";
+  <!-- ── EVERYTHING BELOW IS GATED ── -->
+  <div id="adminTools" class="hidden">
 
-    const ADMIN_EMAILS = ["stephanie@ourweddingdayhub.com"];
+    <!-- ── QUICK LINKS ── -->
+    <div class="admin-section">
+      <div class="admin-section-head">
+        <div>
+          <p class="admin-section-kicker">Navigation</p>
+          <h2 class="admin-section-title">Admin pages</h2>
+        </div>
+      </div>
+      <div class="admin-links-grid">
+        <a class="admin-link-card" href="admin-vendors.html">
+          <strong>Vendor Admin</strong>
+          <span>Edit vendors, profiles, galleries, pricing, visibility and boutique access.</span>
+          <span class="admin-link-card-arrow">Open →</span>
+        </a>
+        <a class="admin-link-card" href="admin-couples.html">
+          <strong>Couples Admin</strong>
+          <span>View, search, edit and manage couple accounts.</span>
+          <span class="admin-link-card-arrow">Open →</span>
+        </a>
+        <a class="admin-link-card" href="journal.html" target="_blank">
+          <strong>The Journal</strong>
+          <span>View the live public journal page as couples and vendors see it.</span>
+          <span class="admin-link-card-arrow">View live →</span>
+        </a>
+      </div>
+    </div>
 
-    const authStatus = document.getElementById("authStatus");
-    const adminTools = document.getElementById("adminTools");
-    const testimonialMessage = document.getElementById("testimonialMessage");
-    const testimonialList = document.getElementById("testimonialList");
+    <!-- ── THE JOURNAL ── -->
+    <div class="admin-section" id="journalSection">
+      <div class="admin-section-head">
+        <div>
+          <p class="admin-section-kicker">Content</p>
+          <h2 class="admin-section-title">The Journal</h2>
+        </div>
+        <button class="btn btn-primary" id="newPostBtn">+ New Article</button>
+      </div>
 
-    let vendors = [];
-    let pendingTestimonials = [];
+      <!-- Stats -->
+      <div class="journal-stats" id="journalStats">
+        <div class="journal-stat"><div class="journal-stat-num" id="statTotal">–</div><div class="journal-stat-label">Total articles</div></div>
+        <div class="journal-stat"><div class="journal-stat-num" id="statLive">–</div><div class="journal-stat-label">Published</div></div>
+        <div class="journal-stat"><div class="journal-stat-num" id="statDraft">–</div><div class="journal-stat-label">Drafts</div></div>
+        <div class="journal-stat"><div class="journal-stat-num" id="statFeatured">–</div><div class="journal-stat-label">Featured</div></div>
+      </div>
 
-    function isAdmin(user) {
-      return user && ADMIN_EMAILS.includes(user.email);
-    }
+      <!-- Editor panel (hidden until new/edit) -->
+      <div class="journal-editor-panel" id="journalEditor">
+        <div class="journal-editor-header">
+          <span class="journal-editor-header-title" id="editorTitle">New Article</span>
+          <button class="btn btn-secondary btn-sm" id="closeEditorBtn">✕ Close</button>
+        </div>
+        <div class="journal-editor-body">
 
-    function esc(value) {
-      return String(value ?? "")
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
-    }
-
-    function isPendingTestimonial(testimonial) {
-      const status = String(testimonial.status || "").toLowerCase();
-
-      return (
-        testimonial &&
-        testimonial.quote &&
-        (
-          testimonial.approved === false ||
-          status === "pending" ||
-          status === "awaiting_review" ||
-          testimonial.visible === false
-        )
-      );
-    }
-
-    async function loadTestimonials() {
-      testimonialMessage.textContent = "Loading testimonials…";
-      testimonialList.innerHTML = "";
-
-      const snapshot = await getDocs(collection(db, "vendors"));
-
-      vendors = snapshot.docs.map(docSnap => ({
-        id: docSnap.id,
-        ...docSnap.data()
-      }));
-
-      pendingTestimonials = [];
-
-      vendors.forEach(vendor => {
-        const testimonials = Array.isArray(vendor.testimonials)
-          ? vendor.testimonials
-          : [];
-
-        testimonials.forEach((testimonial, index) => {
-          if (isPendingTestimonial(testimonial)) {
-            pendingTestimonials.push({
-              vendorId: vendor.id,
-              vendorName: vendor.businessName || "Unnamed vendor",
-              index,
-              testimonial,
-              allTestimonials: testimonials
-            });
-          }
-        });
-      });
-
-      renderTestimonials();
-    }
-
-    function renderTestimonials() {
-      if (!pendingTestimonials.length) {
-        testimonialMessage.textContent = "";
-        testimonialList.innerHTML = `
-          <div class="empty">
-            No testimonials awaiting review.
+          <!-- Row 1: title + tag -->
+          <div class="journal-editor-row">
+            <div class="journal-field">
+              <label for="postTitle">Article Title *</label>
+              <input type="text" id="postTitle" placeholder="Your article headline...">
+            </div>
+            <div class="journal-field">
+              <label for="postCategory">Category</label>
+              <select id="postCategory">
+                <option value="Planning Tips">Planning Tips</option>
+                <option value="Real Weddings">Real Weddings</option>
+                <option value="Vendor Spotlight">Vendor Spotlight</option>
+                <option value="Beauty &amp; Style">Beauty &amp; Style</option>
+                <option value="Budget &amp; Planning">Budget &amp; Planning</option>
+                <option value="Inspiration">Inspiration</option>
+              </select>
+            </div>
           </div>
-        `;
-        return;
-      }
 
-      testimonialMessage.textContent =
-        `${pendingTestimonials.length} testimonial${pendingTestimonials.length === 1 ? "" : "s"} awaiting review.`;
+          <!-- Row 2: excerpt -->
+          <div class="journal-field">
+            <label for="postExcerpt">Excerpt / Summary <span style="font-weight:400; text-transform:none; letter-spacing:0; color:var(--ink-ghost);">(shown on the journal index card)</span></label>
+            <textarea id="postExcerpt" placeholder="A short summary that appears on the journal page..."></textarea>
+          </div>
 
-      testimonialList.innerHTML = pendingTestimonials.map((item, itemIndex) => {
-        const t = item.testimonial;
-
-        return `
-          <article class="testimonial">
-            <blockquote>“${esc(t.quote)}”</blockquote>
-            <div class="meta">
-              <strong>${esc(t.name || "No client name")}</strong>
-              ${t.date ? ` · ${esc(t.date)}` : ""}
-              <br>
-              Vendor: ${esc(item.vendorName)}
+          <!-- Row 3: image -->
+          <div class="journal-editor-row">
+            <div class="journal-field">
+              <label for="postImageUrl">Cover Image URL</label>
+              <input type="text" id="postImageUrl" placeholder="https://... or images/yourphoto.jpg">
+              <img id="postImagePreview" class="journal-image-preview" alt="Cover preview">
             </div>
-
-            <div class="actions">
-              <button type="button" data-action="approve" data-index="${itemIndex}">
-                Approve
-              </button>
-
-              <button type="button" class="danger" data-action="remove" data-index="${itemIndex}">
-                Delete
-              </button>
-
-              <a class="button secondary" href="admin-vendors.html">
-                Open Vendor Admin
-              </a>
+            <div class="journal-field">
+              <label for="postAuthor">Author</label>
+              <input type="text" id="postAuthor" placeholder="e.g. The Hub Team">
             </div>
-          </article>
-        `;
-      }).join("");
-    }
+          </div>
 
-    async function approveTestimonial(item) {
-      const updatedTestimonials = item.allTestimonials.map((testimonial, index) => {
-        if (index !== item.index) return testimonial;
+          <!-- Rich text body -->
+          <div class="journal-field journal-field-full">
+            <label>Article Body <span style="font-weight:400; text-transform:none; letter-spacing:0; color:var(--ink-ghost);">(full article with formatting)</span></label>
+            <div class="journal-quill-wrap">
+              <div id="quillEditor"></div>
+            </div>
+          </div>
 
-        return {
-          ...testimonial,
-          approved: true,
-          visible: true,
-          status: "approved",
-          reviewedAt: new Date()
-        };
-      });
+          <!-- Toggles -->
+          <div class="journal-toggles">
+            <div class="journal-toggle-item">
+              <input type="checkbox" id="postVisible">
+              <label for="postVisible">Published — visible on The Journal</label>
+            </div>
+            <div class="journal-toggle-item">
+              <input type="checkbox" id="postFeatured">
+              <label for="postFeatured">Featured — shown as the hero article</label>
+            </div>
+          </div>
 
-      await updateDoc(doc(db, "vendors", item.vendorId), {
-        testimonials: updatedTestimonials,
-        updatedAt: new Date()
-      });
+        </div>
+        <div class="journal-editor-footer">
+          <div class="journal-save-msg" id="journalSaveMsg"></div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="btn btn-danger btn-sm" id="deletePostBtn" style="display:none;">Delete article</button>
+            <button class="btn btn-secondary" id="saveDraftBtn">Save as draft</button>
+            <button class="btn btn-primary" id="publishPostBtn">Publish article →</button>
+          </div>
+        </div>
+      </div>
 
-      await loadTestimonials();
-    }
+      <!-- Post list -->
+      <div id="journalPostList" class="journal-post-list">
+        <div class="admin-empty">Loading articles…</div>
+      </div>
+    </div>
 
-    async function removeTestimonial(item) {
-      const confirmed = confirm("Delete this testimonial?");
-      if (!confirmed) return;
+    <!-- ── TESTIMONIALS ── -->
+    <div class="admin-section">
+      <div class="admin-section-head">
+        <div>
+          <p class="admin-section-kicker">Moderation</p>
+          <h2 class="admin-section-title">Testimonials awaiting review</h2>
+        </div>
+      </div>
+      <p id="testimonialMessage" style="font-family:var(--font-sans); font-size:0.82rem; color:var(--ink-muted); margin-bottom:14px;"></p>
+      <div id="testimonialList"></div>
+    </div>
 
-      const updatedTestimonials = item.allTestimonials.filter((_, index) => {
-        return index !== item.index;
-      });
+  </div><!-- /adminTools -->
 
-      await updateDoc(doc(db, "vendors", item.vendorId), {
-        testimonials: updatedTestimonials,
-        updatedAt: new Date()
-      });
+</main>
 
-      await loadTestimonials();
-    }
+<!-- Quill JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.7/quill.min.js"></script>
 
-    testimonialList.addEventListener("click", async (event) => {
-      const button = event.target.closest("button[data-action]");
-      if (!button) return;
+<script type="module">
+  import {
+    auth,
+    db,
+    onAuthStateChanged,
+    collection,
+    getDocs,
+    doc,
+    updateDoc,
+    addDoc,
+    deleteDoc,
+    serverTimestamp,
+    getDoc
+  } from "./firebase.js";
 
-      const item = pendingTestimonials[Number(button.dataset.index)];
-      if (!item) return;
+  // ── ADMIN CONFIG ──
+  const ADMIN_EMAILS = ["stephanie@ourweddingdayhub.com"];
 
-      button.disabled = true;
+  // ── DOM REFS ──
+  const authStatus       = document.getElementById("authStatus");
+  const adminTools       = document.getElementById("adminTools");
+  const testimonialMsg   = document.getElementById("testimonialMessage");
+  const testimonialList  = document.getElementById("testimonialList");
+  const topbarUser       = document.getElementById("topbarUser");
 
-      try {
-        if (button.dataset.action === "approve") {
-          await approveTestimonial(item);
-        }
+  // Journal refs
+  const journalPostList  = document.getElementById("journalPostList");
+  const journalEditor    = document.getElementById("journalEditor");
+  const editorTitle      = document.getElementById("editorTitle");
+  const newPostBtn       = document.getElementById("newPostBtn");
+  const closeEditorBtn   = document.getElementById("closeEditorBtn");
+  const saveDraftBtn     = document.getElementById("saveDraftBtn");
+  const publishPostBtn   = document.getElementById("publishPostBtn");
+  const deletePostBtn    = document.getElementById("deletePostBtn");
+  const journalSaveMsg   = document.getElementById("journalSaveMsg");
+  const postTitle        = document.getElementById("postTitle");
+  const postCategory     = document.getElementById("postCategory");
+  const postExcerpt      = document.getElementById("postExcerpt");
+  const postImageUrl     = document.getElementById("postImageUrl");
+  const postImagePreview = document.getElementById("postImagePreview");
+  const postAuthor       = document.getElementById("postAuthor");
+  const postVisible      = document.getElementById("postVisible");
+  const postFeatured     = document.getElementById("postFeatured");
 
-        if (button.dataset.action === "remove") {
-          await removeTestimonial(item);
-        }
-      } catch (error) {
-        console.error(error);
-        alert("Could not update testimonial. Check your Firestore rules.");
-      } finally {
-        button.disabled = false;
-      }
+  // Stats
+  const statTotal    = document.getElementById("statTotal");
+  const statLive     = document.getElementById("statLive");
+  const statDraft    = document.getElementById("statDraft");
+  const statFeatured = document.getElementById("statFeatured");
+
+  // Quill
+  let quill = null;
+  let editingPostId = null;
+  let allPosts = [];
+  let vendors = [];
+  let pendingTestimonials = [];
+
+  // ── HELPERS ──
+  function isAdmin(user) { return user && ADMIN_EMAILS.includes(user.email); }
+
+  function esc(v) {
+    return String(v ?? "")
+      .replaceAll("&","&amp;").replaceAll("<","&lt;")
+      .replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");
+  }
+
+  function isPendingTestimonial(t) {
+    const status = String(t.status || "").toLowerCase();
+    return t && t.quote && (t.approved === false || status === "pending" || status === "awaiting_review" || t.visible === false);
+  }
+
+  function fmtDate(ts) {
+    if (!ts) return "";
+    const d = ts.toDate ? ts.toDate() : new Date(ts);
+    return d.toLocaleDateString("en-AU", { day:"numeric", month:"short", year:"numeric" });
+  }
+
+  // ── INIT QUILL ──
+  function initQuill() {
+    if (quill) return;
+    quill = new Quill("#quillEditor", {
+      theme: "snow",
+      modules: {
+        toolbar: [
+          [{ header: [1, 2, 3, false] }],
+          ["bold", "italic", "underline"],
+          [{ list: "ordered" }, { list: "bullet" }],
+          ["blockquote", "code-block"],
+          ["link", "image"],
+          [{ align: [] }],
+          ["clean"]
+        ]
+      },
+      placeholder: "Write your article here — add headings, images, formatting and more..."
     });
+  }
 
-    onAuthStateChanged(auth, async (user) => {
-      if (!user) {
-        authStatus.className = "status err";
-        authStatus.innerHTML = `Please log in first: <a href="login.html">Log in</a>`;
-        return;
+  // ── IMAGE PREVIEW ──
+  postImageUrl.addEventListener("input", () => {
+    const url = postImageUrl.value.trim();
+    if (url) { postImagePreview.src = url; postImagePreview.style.display = "block"; }
+    else { postImagePreview.style.display = "none"; }
+  });
+
+  // ── JOURNAL: LOAD POSTS ──
+  async function loadJournalPosts() {
+    journalPostList.innerHTML = '<div class="admin-empty">Loading…</div>';
+    try {
+      const snap = await getDocs(collection(db, "journalPosts"));
+      allPosts = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      allPosts.sort((a, b) => { const ta = a.createdAt?.toDate?.() || 0; const tb = b.createdAt?.toDate?.() || 0; return tb - ta; });
+      renderJournalPosts();
+    } catch (err) {
+      console.error(err);
+      journalPostList.innerHTML = '<div class="admin-empty">Could not load articles. Check Firestore rules.</div>';
+    }
+  }
+
+  function renderJournalPosts() {
+    const live = allPosts.filter(p => p.visible);
+    const draft = allPosts.filter(p => !p.visible);
+    const featured = allPosts.filter(p => p.featured);
+    statTotal.textContent = allPosts.length;
+    statLive.textContent = live.length;
+    statDraft.textContent = draft.length;
+    statFeatured.textContent = featured.length;
+
+    if (!allPosts.length) {
+      journalPostList.innerHTML = '<div class="admin-empty">No articles yet. Click "+ New Article" to write your first one.</div>';
+      return;
+    }
+
+    journalPostList.innerHTML = allPosts.map(post => `
+      <div class="journal-post-row" data-id="${post.id}">
+        <div class="journal-post-status-dot ${post.visible ? 'live' : 'draft'}" title="${post.visible ? 'Published' : 'Draft'}"></div>
+        <div class="journal-post-title-col">
+          <div class="journal-post-title-text">${esc(post.title || 'Untitled')}</div>
+          <div class="journal-post-meta-text">${esc(post.author || '')}${post.author && post.createdAt ? ' · ' : ''}${fmtDate(post.createdAt)}</div>
+        </div>
+        <span class="journal-post-tag">${esc(post.category || '')}</span>
+        ${post.featured ? '<span class="journal-post-featured-badge">Featured</span>' : ''}
+        <div style="display:flex; gap:6px;">
+          <button class="btn btn-secondary btn-sm" data-action="edit" data-id="${post.id}">Edit</button>
+          <button class="btn btn-${post.visible ? 'secondary' : 'success'} btn-sm" data-action="toggle" data-id="${post.id}">${post.visible ? 'Unpublish' : 'Publish'}</button>
+        </div>
+      </div>
+    `).join("");
+  }
+
+  // ── JOURNAL: OPEN EDITOR ──
+  function openEditor(post = null) {
+    initQuill();
+    editingPostId = post ? post.id : null;
+    editorTitle.textContent = post ? "Edit Article" : "New Article";
+    deletePostBtn.style.display = post ? "inline-flex" : "none";
+
+    // Populate fields
+    postTitle.value = post?.title || "";
+    postCategory.value = post?.category || "Planning Tips";
+    postExcerpt.value = post?.excerpt || "";
+    postImageUrl.value = post?.image || "";
+    postAuthor.value = post?.author || "The Hub Team";
+    postVisible.checked = post?.visible || false;
+    postFeatured.checked = post?.featured || false;
+    journalSaveMsg.textContent = "";
+
+    // Image preview
+    if (post?.image) { postImagePreview.src = post.image; postImagePreview.style.display = "block"; }
+    else { postImagePreview.style.display = "none"; }
+
+    // Quill body
+    if (post?.body) { quill.root.innerHTML = post.body; }
+    else { quill.setText(""); }
+
+    journalEditor.classList.add("open");
+    journalEditor.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function closeEditor() {
+    journalEditor.classList.remove("open");
+    editingPostId = null;
+  }
+
+  // ── JOURNAL: SAVE ──
+  async function savePost(publish = null) {
+    const title = postTitle.value.trim();
+    if (!title) { journalSaveMsg.textContent = "Please add a title."; return; }
+
+    const body = quill.root.innerHTML;
+    const visible = publish !== null ? publish : postVisible.checked;
+
+    const data = {
+      title,
+      category: postCategory.value,
+      excerpt: postExcerpt.value.trim(),
+      image: postImageUrl.value.trim(),
+      author: postAuthor.value.trim() || "The Hub Team",
+      body,
+      visible,
+      featured: postFeatured.checked,
+      updatedAt: serverTimestamp()
+    };
+
+    journalSaveMsg.textContent = "Saving…";
+
+    try {
+      if (editingPostId) {
+        await updateDoc(doc(db, "journalPosts", editingPostId), data);
+      } else {
+        data.createdAt = serverTimestamp();
+        const ref = await addDoc(collection(db, "journalPosts"), data);
+        editingPostId = ref.id;
+        deletePostBtn.style.display = "inline-flex";
+        editorTitle.textContent = "Edit Article";
       }
+      journalSaveMsg.textContent = visible ? "Published ✓" : "Saved as draft ✓";
+      await loadJournalPosts();
+      setTimeout(() => { journalSaveMsg.textContent = ""; }, 3000);
+    } catch (err) {
+      console.error(err);
+      journalSaveMsg.textContent = "Error saving. Check Firestore rules.";
+    }
+  }
 
-      if (!isAdmin(user)) {
-        authStatus.className = "status err";
-        authStatus.textContent = "Logged in, but this account is not approved for admin access.";
-        return;
-      }
+  // ── JOURNAL: DELETE ──
+  async function deletePost() {
+    if (!editingPostId) return;
+    if (!confirm("Permanently delete this article? This cannot be undone.")) return;
+    try {
+      await deleteDoc(doc(db, "journalPosts", editingPostId));
+      closeEditor();
+      await loadJournalPosts();
+    } catch (err) { console.error(err); alert("Could not delete. Check Firestore rules."); }
+  }
 
-      authStatus.className = "status ok";
-      authStatus.textContent = `Admin access approved: ${user.email}`;
-      adminTools.classList.remove("hidden");
+  // ── JOURNAL: TOGGLE VISIBILITY ──
+  async function togglePostVisibility(id) {
+    const post = allPosts.find(p => p.id === id);
+    if (!post) return;
+    try {
+      await updateDoc(doc(db, "journalPosts", id), { visible: !post.visible, updatedAt: serverTimestamp() });
+      await loadJournalPosts();
+    } catch (err) { console.error(err); alert("Could not update. Check Firestore rules."); }
+  }
 
-      try {
-        await loadTestimonials();
-      } catch (error) {
-        console.error(error);
-        testimonialMessage.textContent = "Could not load testimonials. Check Firebase rules and firebase.js exports.";
-      }
+  // ── JOURNAL: EVENT DELEGATION ──
+  newPostBtn.addEventListener("click", () => openEditor(null));
+  closeEditorBtn.addEventListener("click", closeEditor);
+  saveDraftBtn.addEventListener("click", () => savePost(false));
+  publishPostBtn.addEventListener("click", () => savePost(true));
+  deletePostBtn.addEventListener("click", deletePost);
+
+  journalPostList.addEventListener("click", async (e) => {
+    const btn = e.target.closest("button[data-action]");
+    if (!btn) return;
+    const id = btn.dataset.id;
+    if (btn.dataset.action === "edit") {
+      const post = allPosts.find(p => p.id === id);
+      if (post) openEditor(post);
+    }
+    if (btn.dataset.action === "toggle") {
+      btn.disabled = true;
+      await togglePostVisibility(id);
+      btn.disabled = false;
+    }
+  });
+
+  // ── TESTIMONIALS (COMPLETELY UNCHANGED) ──
+  async function loadTestimonials() {
+    testimonialMsg.textContent = "Loading testimonials…";
+    testimonialList.innerHTML = "";
+    const snapshot = await getDocs(collection(db, "vendors"));
+    vendors = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+    pendingTestimonials = [];
+    vendors.forEach(vendor => {
+      const testimonials = Array.isArray(vendor.testimonials) ? vendor.testimonials : [];
+      testimonials.forEach((testimonial, index) => {
+        if (isPendingTestimonial(testimonial)) {
+          pendingTestimonials.push({ vendorId: vendor.id, vendorName: vendor.businessName || "Unnamed vendor", index, testimonial, allTestimonials: testimonials });
+        }
+      });
     });
-  </script>
+    renderTestimonials();
+  }
+
+  function renderTestimonials() {
+    if (!pendingTestimonials.length) {
+      testimonialMsg.textContent = "";
+      testimonialList.innerHTML = '<div class="admin-empty">No testimonials awaiting review.</div>';
+      return;
+    }
+    testimonialMsg.textContent = `${pendingTestimonials.length} testimonial${pendingTestimonials.length === 1 ? "" : "s"} awaiting review.`;
+    testimonialList.innerHTML = pendingTestimonials.map((item, itemIndex) => {
+      const t = item.testimonial;
+      return `
+        <article class="testimonial-card">
+          <blockquote>"${esc(t.quote)}"</blockquote>
+          <div class="testimonial-meta">
+            <strong>${esc(t.name || "No client name")}</strong>${t.date ? ` · ${esc(t.date)}` : ""}<br>
+            Vendor: ${esc(item.vendorName)}
+          </div>
+          <div class="testimonial-actions">
+            <button class="btn btn-success btn-sm" data-action="approve" data-index="${itemIndex}">Approve</button>
+            <button class="btn btn-danger btn-sm" data-action="remove" data-index="${itemIndex}">Delete</button>
+            <a class="btn btn-secondary btn-sm" href="admin-vendors.html">Open Vendor Admin</a>
+          </div>
+        </article>
+      `;
+    }).join("");
+  }
+
+  async function approveTestimonial(item) {
+    const updated = item.allTestimonials.map((t, i) => i !== item.index ? t : { ...t, approved: true, visible: true, status: "approved", reviewedAt: new Date() });
+    await updateDoc(doc(db, "vendors", item.vendorId), { testimonials: updated, updatedAt: new Date() });
+    await loadTestimonials();
+  }
+
+  async function removeTestimonial(item) {
+    if (!confirm("Delete this testimonial?")) return;
+    const updated = item.allTestimonials.filter((_, i) => i !== item.index);
+    await updateDoc(doc(db, "vendors", item.vendorId), { testimonials: updated, updatedAt: new Date() });
+    await loadTestimonials();
+  }
+
+  testimonialList.addEventListener("click", async (e) => {
+    const btn = e.target.closest("button[data-action]");
+    if (!btn) return;
+    const item = pendingTestimonials[Number(btn.dataset.index)];
+    if (!item) return;
+    btn.disabled = true;
+    try {
+      if (btn.dataset.action === "approve") await approveTestimonial(item);
+      if (btn.dataset.action === "remove") await removeTestimonial(item);
+    } catch (err) { console.error(err); alert("Could not update testimonial. Check your Firestore rules."); }
+    finally { btn.disabled = false; }
+  });
+
+  // ── AUTH (UNCHANGED LOGIC, NEW UI) ──
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) {
+      authStatus.className = "admin-status err";
+      authStatus.innerHTML = `Not logged in. <a href="login.html" style="color:inherit; font-weight:700;">Log in →</a>`;
+      return;
+    }
+    if (!isAdmin(user)) {
+      authStatus.className = "admin-status err";
+      authStatus.textContent = "Logged in, but this account is not approved for admin access.";
+      return;
+    }
+    authStatus.className = "admin-status ok";
+    authStatus.textContent = `Admin: ${user.email}`;
+    topbarUser.textContent = user.email;
+    adminTools.classList.remove("hidden");
+    try {
+      await Promise.all([loadTestimonials(), loadJournalPosts()]);
+    } catch (err) {
+      console.error(err);
+      testimonialMsg.textContent = "Could not load data. Check Firebase rules.";
+    }
+  });
+</script>
 </body>
 </html>
