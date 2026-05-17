@@ -23,7 +23,8 @@ import {
   orderBy,
   onSnapshot,
   deleteDoc,
-  serverTimestamp
+  serverTimestamp,
+  limit
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 import {
   getStorage,
@@ -70,6 +71,7 @@ export {
   onSnapshot,
   deleteDoc,
   serverTimestamp,
+  limit,
   ref,
   uploadBytes,
   getDownloadURL
