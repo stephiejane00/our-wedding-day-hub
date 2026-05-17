@@ -865,19 +865,23 @@ function renderBudget() {
 
 document.getElementById("editBudgetBtn").addEventListener("click", () => {
   const el = document.getElementById("budgetInput");
-  const isHidden = el.style.display === "none" || el.style.display === "";
-  el.style.display = isHidden ? "block" : "none";
-  if (isHidden) document.getElementById("budgetTotalInput").value = budgetTotal || "";
+  const showing = el.style.display === "block";
+  el.style.display = showing ? "none" : "block";
+  if (!showing) document.getElementById("budgetTotalInput").value = budgetTotal > 0 ? budgetTotal : "";
 });
 
 document.getElementById("saveBudgetTotalBtn").addEventListener("click", async () => {
-  const raw = document.getElementById("budgetTotalInput").value;
-  const val = parseFloat(raw);
-  if (raw === "" || isNaN(val) || val < 0) return;
+  const input = document.getElementById("budgetTotalInput");
+  const val = Number(input.value);
+  console.log("Budget save clicked, val:", val);
+  if (!input.value || val < 0) { console.log("Invalid value, returning"); return; }
   budgetTotal = val;
   document.getElementById("budgetInput").style.display = "none";
   renderBudget();
-  await saveBudget();
+  try {
+    await setDoc(doc(db, "users", currentUser.uid), { budgetTotal: val }, { merge: true });
+    console.log("Budget saved to Firestore:", val);
+  } catch (err) { console.error("Budget save error:", err); }
 });
 
 document.getElementById("addBudgetCatBtn").addEventListener("click", async () => {
