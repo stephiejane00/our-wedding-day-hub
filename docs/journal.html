@@ -328,33 +328,33 @@
   <!-- ── FILTER TABS ── -->
   <div class="journal-filters">
     <button class="journal-filter-btn active" data-filter="all">All</button>
-    <button class="journal-filter-btn" data-filter="planning">Planning Tips</button>
-    <button class="journal-filter-btn" data-filter="vendors">Vendor Spotlights</button>
-    <button class="journal-filter-btn" data-filter="weddings">Real Weddings</button>
-    <button class="journal-filter-btn" data-filter="beauty">Beauty &amp; Style</button>
-    <button class="journal-filter-btn" data-filter="budget">Budget &amp; Planning</button>
+    <button class="journal-filter-btn" data-filter="Planning Tips">Planning Tips</button>
+    <button class="journal-filter-btn" data-filter="Vendor Spotlight">Vendor Spotlights</button>
+    <button class="journal-filter-btn" data-filter="Real Weddings">Real Weddings</button>
+    <button class="journal-filter-btn" data-filter="Beauty &amp; Style">Beauty &amp; Style</button>
+    <button class="journal-filter-btn" data-filter="Budget &amp; Planning">Budget &amp; Planning</button>
   </div>
 
-  <!-- ── FEATURED ARTICLE ── -->
-  <section class="journal-featured">
+  <!-- ── FEATURED ARTICLE (dynamic) ── -->
+  <section class="journal-featured" id="journalFeatured" style="display:none;">
     <div class="journal-featured-inner">
       <div class="journal-featured-image-wrap">
-        <img src="images/city.jpg" alt="Wedding editorial" class="journal-featured-image" loading="lazy">
+        <img id="featuredImage" src="" alt="" class="journal-featured-image" loading="lazy">
         <span class="journal-featured-tag">Featured</span>
       </div>
       <div class="journal-featured-copy">
         <div>
-          <p class="journal-featured-meta">Planning Tips · 8 min read</p>
-          <h2 class="journal-featured-title">How to build your vendor team from scratch — and actually enjoy it</h2>
-          <p class="journal-featured-excerpt">Finding the right people for your wedding can feel overwhelming. Hundreds of vendors, dozens of categories, and a budget that needs to stretch. But with the right framework, it becomes one of the most exciting parts of planning your day. Here's how to approach it with clarity, confidence, and a little joy.</p>
+          <p class="journal-featured-meta" id="featuredMeta"></p>
+          <h2 class="journal-featured-title" id="featuredTitle"></h2>
+          <p class="journal-featured-excerpt" id="featuredExcerpt"></p>
         </div>
-        <a href="contact.html" class="journal-read-btn">Read the full story →</a>
+        <a id="featuredLink" href="#" class="journal-read-btn">Read the full story →</a>
       </div>
     </div>
   </section>
 
-  <!-- ── LATEST ARTICLES ── -->
-  <section style="border-bottom: 1px solid var(--ink-rule); padding-bottom: 36px;">
+  <!-- ── DYNAMIC ARTICLES ── -->
+  <section id="journalArticlesSection" style="border-bottom: 1px solid var(--ink-rule); padding-bottom: 36px;">
     <div class="journal-section-head">
       <div>
         <p class="journal-section-kicker">Latest</p>
@@ -362,145 +362,10 @@
       </div>
       <a href="contact.html" class="journal-see-all">Submit your story →</a>
     </div>
-    <div class="journal-grid">
-      <article class="journal-card">
-        <div class="journal-card-image-wrap">
-          <img src="images/rain.jpg" alt="Romantic wedding" class="journal-card-image" loading="lazy">
-          <span class="journal-card-tag">Real Wedding</span>
-        </div>
-        <div class="journal-card-body">
-          <p class="journal-card-meta">Real Weddings · 5 min read</p>
-          <h3 class="journal-card-title">A rainy day, a covered bridge, and a love story that needed no sunshine</h3>
-          <p class="journal-card-excerpt">Some weddings are made more beautiful by the weather. This couple's story is proof.</p>
-          <a href="contact.html" class="journal-card-link">Read more →</a>
-        </div>
-      </article>
-      <article class="journal-card">
-        <div class="journal-card-image-wrap">
-          <img src="images/bouquet.png" alt="Wedding flowers" class="journal-card-image" loading="lazy">
-          <span class="journal-card-tag">Vendor Spotlight</span>
-        </div>
-        <div class="journal-card-body">
-          <p class="journal-card-meta">Vendor Spotlight · 4 min read</p>
-          <h3 class="journal-card-title">Behind the blooms — how one florist builds a wedding look from a single mood word</h3>
-          <p class="journal-card-excerpt">She asks couples one question before she touches a single stem. The results are extraordinary.</p>
-          <a href="contact.html" class="journal-card-link">Read more →</a>
-        </div>
-      </article>
-      <article class="journal-card">
-        <div class="journal-card-image-wrap">
-          <img src="images/cutecar.jpg" alt="Wedding couple" class="journal-card-image" loading="lazy">
-          <span class="journal-card-tag">Planning Tips</span>
-        </div>
-        <div class="journal-card-body">
-          <p class="journal-card-meta">Planning Tips · 6 min read</p>
-          <h3 class="journal-card-title">The wedding budget conversation no one wants to have — and how to have it well</h3>
-          <p class="journal-card-excerpt">Money conversations don't have to be stressful. Here's a simple framework for couples to navigate theirs.</p>
-          <a href="contact.html" class="journal-card-link">Read more →</a>
-        </div>
-      </article>
+    <div id="journalGrid" class="journal-grid">
+      <!-- populated by JS -->
     </div>
-  </section>
-
-  <!-- ── VENDOR SPOTLIGHT (wide) ── -->
-  <section class="journal-spotlight">
-    <div class="journal-section-head" style="padding-bottom: 24px;">
-      <div>
-        <p class="journal-section-kicker">Vendor Spotlight</p>
-        <h2 class="journal-section-title">People worth knowing</h2>
-      </div>
-    </div>
-    <div class="journal-spotlight-inner">
-      <div class="journal-spotlight-image-wrap">
-        <img src="images/brides.png" alt="Vendor spotlight" class="journal-spotlight-image" loading="lazy">
-      </div>
-      <div class="journal-spotlight-copy">
-        <p class="journal-spotlight-label">Vendor Spotlight · Photographer</p>
-        <h3 class="journal-spotlight-title">"I don't photograph weddings. I document the moments between moments."</h3>
-        <p class="journal-spotlight-text">Meet the Brisbane photographer redefining what wedding photography can feel like — quieter, more intimate, and more honest than anything you've seen on Pinterest. We sat down to talk craft, couples, and why she still gets nervous before every shoot.</p>
-        <a href="categories.html" class="journal-read-btn" style="margin-top: 22px;">Find photographers like this →</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── PLANNING TIPS GRID ── -->
-  <section style="border-bottom: 1px solid var(--ink-rule); padding-bottom: 36px;">
-    <div class="journal-section-head">
-      <div>
-        <p class="journal-section-kicker">Planning</p>
-        <h2 class="journal-section-title">Tips worth keeping</h2>
-      </div>
-    </div>
-    <div class="journal-tips-grid">
-      <div class="journal-tip-card">
-        <span class="journal-tip-number">01</span>
-        <h3 class="journal-tip-title">Book your venue and celebrant first — everything else follows</h3>
-        <p class="journal-tip-text">Your date can't be confirmed until you have a venue, and your ceremony can't happen without a celebrant. Lock these two in early and the rest of your planning will feel infinitely clearer.</p>
-      </div>
-      <div class="journal-tip-card">
-        <span class="journal-tip-number">02</span>
-        <h3 class="journal-tip-title">Your guest list is your budget — know it before you book anything</h3>
-        <p class="journal-tip-text">Almost every line item in a wedding scales with numbers. Knowing your rough guest count before you start approaching vendors will save you hours of recalculating quotes.</p>
-      </div>
-      <div class="journal-tip-card">
-        <span class="journal-tip-number">03</span>
-        <h3 class="journal-tip-title">Send a warm message before a formal enquiry — vendors are people too</h3>
-        <p class="journal-tip-text">The best vendors are often fully booked through referrals and warm connections. A personal, genuine first message goes a lot further than a copy-pasted enquiry form.</p>
-      </div>
-      <div class="journal-tip-card">
-        <span class="journal-tip-number">04</span>
-        <h3 class="journal-tip-title">Save your favourites as you browse — you'll thank yourself later</h3>
-        <p class="journal-tip-text">When you're comparing vendors weeks later, you'll wish you'd saved everyone you liked as you went. Use the save feature on every profile that catches your eye, even if you're not ready yet.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── MORE ARTICLES ── -->
-  <section style="border-bottom: 1px solid var(--ink-rule); padding-bottom: 36px;">
-    <div class="journal-section-head">
-      <div>
-        <p class="journal-section-kicker">Beauty &amp; Style</p>
-        <h2 class="journal-section-title">Looking &amp; feeling your best</h2>
-      </div>
-    </div>
-    <div class="journal-grid">
-      <article class="journal-card">
-        <div class="journal-card-image-wrap">
-          <img src="images/bride.png" alt="Bridal beauty" class="journal-card-image" loading="lazy">
-          <span class="journal-card-tag">Beauty</span>
-        </div>
-        <div class="journal-card-body">
-          <p class="journal-card-meta">Beauty &amp; Style · 5 min read</p>
-          <h3 class="journal-card-title">The trial run is not optional — here's how to make the most of it</h3>
-          <p class="journal-card-excerpt">Your hair and makeup trial is the single most important appointment before your wedding day. Here's a guide to getting it right.</p>
-          <a href="contact.html" class="journal-card-link">Read more →</a>
-        </div>
-      </article>
-      <article class="journal-card">
-        <div class="journal-card-image-wrap">
-          <img src="images/bouquet.png" alt="Wedding florals" class="journal-card-image" loading="lazy">
-          <span class="journal-card-tag">Style</span>
-        </div>
-        <div class="journal-card-body">
-          <p class="journal-card-meta">Beauty &amp; Style · 4 min read</p>
-          <h3 class="journal-card-title">How to create a cohesive wedding aesthetic without a mood board degree</h3>
-          <p class="journal-card-excerpt">You don't need to be a designer to have a beautiful, considered look for your day. A few simple principles go a long way.</p>
-          <a href="contact.html" class="journal-card-link">Read more →</a>
-        </div>
-      </article>
-      <article class="journal-card">
-        <div class="journal-card-image-wrap">
-          <img src="images/cta.png" alt="Wedding couple" class="journal-card-image" loading="lazy">
-          <span class="journal-card-tag">Real Wedding</span>
-        </div>
-        <div class="journal-card-body">
-          <p class="journal-card-meta">Real Weddings · 7 min read</p>
-          <h3 class="journal-card-title">Soft, warm, and completely intentional — how this couple styled their day with $800 in florals</h3>
-          <p class="journal-card-excerpt">Budget doesn't determine beauty. This couple proves it, with one of the most thoughtfully styled weddings we've seen.</p>
-          <a href="contact.html" class="journal-card-link">Read more →</a>
-        </div>
-      </article>
-    </div>
+    <p id="journalEmpty" style="display:none; padding:40px 48px; font-family:var(--font-sans); font-size:0.86rem; color:var(--ink-muted); font-style:italic;">No articles published yet — check back soon ♡</p>
   </section>
 
   <!-- ── NEWSLETTER ── -->
@@ -514,13 +379,29 @@
       <div class="journal-newsletter-form">
         <label for="journalEmail">Your email address</label>
         <input type="email" id="journalEmail" placeholder="you@example.com">
-        <button type="button" class="journal-newsletter-btn" onclick="handleNewsletterSignup()">Subscribe to The Journal →</button>
+        <button type="button" class="journal-newsletter-btn" id="journalNewsletterBtn">Subscribe to The Journal →</button>
         <p class="journal-newsletter-note" id="journalNewsletterStatus">Join the community of couples and vendors who love a good story.</p>
       </div>
     </div>
   </section>
 
 </main>
+
+<!-- ── ARTICLE MODAL ── -->
+<div id="articleModal" style="display:none; position:fixed; inset:0; z-index:1000; background:rgba(26,26,22,0.6); overflow-y:auto; padding:40px 20px;">
+  <div style="max-width:760px; margin:0 auto; background:var(--cream); border:0.5px solid var(--ink-rule); position:relative;">
+    <div style="display:flex; align-items:center; justify-content:space-between; padding:16px 24px; border-bottom:0.5px solid var(--ink-rule); background:var(--cream-warm);">
+      <span id="modalCategory" style="font-family:var(--font-sans); font-size:0.65rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-ghost);"></span>
+      <button id="closeModalBtn" style="border:0.5px solid var(--ink-rule); background:var(--cream); padding:6px 14px; font-family:var(--font-sans); font-size:0.68rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; cursor:pointer; color:var(--ink-muted); transition:background 0.2s;" onmouseover="this.style.background='var(--cream-deep)'" onmouseout="this.style.background='var(--cream)'">✕ Close</button>
+    </div>
+    <img id="modalImage" src="" alt="" style="width:100%; aspect-ratio:16/9; object-fit:cover; display:none;">
+    <div style="padding:36px 40px 48px;">
+      <p id="modalAuthorDate" style="font-family:var(--font-sans); font-size:0.72rem; letter-spacing:0.08em; color:var(--ink-ghost); margin-bottom:14px; text-transform:uppercase;"></p>
+      <h1 id="modalTitle" style="font-family:var(--font-serif); font-size:clamp(1.8rem,3vw,2.8rem); font-weight:300; line-height:1.02; letter-spacing:-0.03em; color:var(--ink); margin-bottom:20px;"></h1>
+      <div id="modalBody" style="font-family:var(--font-sans); font-size:0.9rem; color:var(--ink-mid); line-height:1.85;"></div>
+    </div>
+  </div>
+</div>
 
 <!-- ── FOOTER ── -->
 <footer class="site-footer">
@@ -554,23 +435,133 @@
   </div>
 </footer>
 
-<script>
+<script type="module">
+  import { db, collection, getDocs, query, where, orderBy } from "./firebase.js";
+
+  let allPosts = [];
+  let activeFilter = "all";
+
+  function esc(v) { return String(v ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+
+  function fmtDate(ts) {
+    if (!ts) return "";
+    const d = ts.toDate ? ts.toDate() : new Date(ts);
+    return d.toLocaleDateString("en-AU", { day:"numeric", month:"long", year:"numeric" });
+  }
+
+  function openArticle(post) {
+    const modal = document.getElementById("articleModal");
+    document.getElementById("modalTitle").textContent = post.title || "";
+    document.getElementById("modalCategory").textContent = post.category || "";
+    document.getElementById("modalAuthorDate").textContent = [post.author, fmtDate(post.createdAt)].filter(Boolean).join(" · ");
+    const img = document.getElementById("modalImage");
+    if (post.image) { img.src = post.image; img.alt = post.title || ""; img.style.display = "block"; }
+    else { img.style.display = "none"; }
+    // Render rich text body safely
+    const bodyEl = document.getElementById("modalBody");
+    bodyEl.innerHTML = post.body || `<p style="font-family:var(--font-serif);font-style:italic;color:var(--ink-muted);">${esc(post.excerpt || "")}</p>`;
+    modal.style.display = "block";
+    document.body.style.overflow = "hidden";
+    modal.scrollTop = 0;
+  }
+
+  document.getElementById("closeModalBtn").addEventListener("click", closeModal);
+  document.getElementById("articleModal").addEventListener("click", (e) => { if (e.target === document.getElementById("articleModal")) closeModal(); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeModal(); });
+  function closeModal() {
+    document.getElementById("articleModal").style.display = "none";
+    document.body.style.overflow = "";
+  }
+
+  function renderPosts(posts) {
+    const grid = document.getElementById("journalGrid");
+    const empty = document.getElementById("journalEmpty");
+    const featured = document.getElementById("journalFeatured");
+
+    // Featured
+    const featuredPost = posts.find(p => p.featured);
+    if (featuredPost) {
+      document.getElementById("featuredImage").src = featuredPost.image || "images/bride.png";
+      document.getElementById("featuredImage").alt = featuredPost.title || "";
+      document.getElementById("featuredMeta").textContent = [featuredPost.category, featuredPost.author].filter(Boolean).join(" · ");
+      document.getElementById("featuredTitle").textContent = featuredPost.title || "";
+      document.getElementById("featuredExcerpt").textContent = featuredPost.excerpt || "";
+      document.getElementById("featuredLink").onclick = (e) => { e.preventDefault(); openArticle(featuredPost); };
+      featured.style.display = "block";
+    } else {
+      featured.style.display = "none";
+    }
+
+    // Grid (skip the featured post so it doesn't double-up)
+    const gridPosts = posts.filter(p => !p.featured);
+    grid.innerHTML = "";
+    if (!gridPosts.length && !featuredPost) {
+      empty.style.display = "block";
+      return;
+    }
+    empty.style.display = "none";
+
+    gridPosts.forEach(post => {
+      const card = document.createElement("article");
+      card.className = "journal-card";
+      card.style.cursor = "pointer";
+      card.innerHTML = `
+        <div class="journal-card-image-wrap">
+          <img src="${esc(post.image || 'images/bride.png')}" alt="${esc(post.title || '')}" class="journal-card-image" loading="lazy">
+          <span class="journal-card-tag">${esc(post.category || '')}</span>
+        </div>
+        <div class="journal-card-body">
+          <p class="journal-card-meta">${esc(post.category || '')}${post.author ? ' · ' + esc(post.author) : ''}</p>
+          <h3 class="journal-card-title">${esc(post.title || 'Untitled')}</h3>
+          <p class="journal-card-excerpt">${esc(post.excerpt || '')}</p>
+          <span class="journal-card-link">Read more →</span>
+        </div>
+      `;
+      card.addEventListener("click", () => openArticle(post));
+      grid.appendChild(card);
+    });
+  }
+
+  function applyFilter() {
+    const filtered = activeFilter === "all"
+      ? allPosts
+      : allPosts.filter(p => p.category === activeFilter);
+    renderPosts(filtered);
+  }
+
   // Filter tabs
   document.querySelectorAll(".journal-filter-btn").forEach(btn => {
     btn.addEventListener("click", () => {
       document.querySelectorAll(".journal-filter-btn").forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
+      activeFilter = btn.dataset.filter;
+      applyFilter();
     });
   });
 
+  // Load posts from Firestore
+  async function loadPosts() {
+    try {
+      const snap = await getDocs(query(collection(db, "journalPosts"), where("visible", "==", true), orderBy("createdAt", "desc")));
+      allPosts = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      applyFilter();
+    } catch (err) {
+      console.error("Journal load error:", err);
+      document.getElementById("journalEmpty").style.display = "block";
+      document.getElementById("journalEmpty").textContent = "Could not load articles right now.";
+    }
+  }
+
+  loadPosts();
+
   // Newsletter
-  function handleNewsletterSignup() {
+  document.getElementById("journalNewsletterBtn").addEventListener("click", () => {
     const email = document.getElementById("journalEmail").value.trim();
     const status = document.getElementById("journalNewsletterStatus");
     if (!email || !email.includes("@")) { status.textContent = "Please enter a valid email address."; return; }
     status.textContent = "Thank you! You're on the list ♡";
     document.getElementById("journalEmail").value = "";
-  }
+  });
 </script>
 
 <script type="module" src="nav.js"></script>
