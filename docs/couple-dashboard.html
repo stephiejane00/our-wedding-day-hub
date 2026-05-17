@@ -558,18 +558,43 @@ document.getElementById("logoutLink").addEventListener("click", async () => {
   window.location.href = "index.html";
 });
 
-// ── LOAD USER DATA — real-time so saves always reflect ──
+// ── LOAD USER DATA — real-time listener ──
 let unsubUserData = null;
+let dataLoaded = false;
+
 function loadUserDataRealtime() {
   if (unsubUserData) unsubUserData();
+  dataLoaded = false;
   unsubUserData = onSnapshot(doc(db, "users", currentUser.uid), (snap) => {
     if (snap.exists()) {
       userData = snap.data();
+    } else {
+      // New user — create their document with role set
+      setDoc(doc(db, "users", currentUser.uid), { role: "couple", createdAt: new Date().toISOString() }, { merge: true }).catch(console.error);
     }
-    applyUserData();
+    if (!dataLoaded) {
+      // Only populate form fields on the very first load
+      dataLoaded = true;
+      applyUserData();
+    } else {
+      // On subsequent updates just refresh non-form UI
+      refreshNonFormUI();
+    }
   }, (err) => {
     console.error("Error loading user data:", err);
   });
+}
+
+function refreshNonFormUI() {
+  // Update countdown, budget, checklist, inspiration — but NOT form fields the user might be typing in
+  budgetTotal = parseFloat(userData.budgetTotal) || 0;
+  budgetCategories = Array.isArray(userData.budgetCategories) ? userData.budgetCategories : [];
+  checklistItems = Array.isArray(userData.checklist) ? userData.checklist : getDefaultChecklist();
+  inspirationImages = Array.isArray(userData.inspirationImages) ? userData.inspirationImages : [];
+  if (userData.weddingDate) updateCountdown(userData.weddingDate);
+  renderBudget();
+  renderChecklist();
+  renderInspiration();
 }
 
 function applyUserData() {
@@ -652,7 +677,7 @@ document.getElementById("profilePhotoInput").addEventListener("change", async (e
   e.target.value = "";
 });
 
-// ── SAVE DETAILS — BUG FIX: write to ONE canonical set of field names ──
+// ── SAVE DETAILS ──
 document.getElementById("saveDetailsBtn").addEventListener("click", async () => {
   const p1 = document.getElementById("partner1Name").value.trim();
   const p2 = document.getElementById("partner2Name").value.trim();
@@ -661,7 +686,6 @@ document.getElementById("saveDetailsBtn").addEventListener("click", async () => 
   const statusEl = document.getElementById("detailsStatus");
   statusEl.textContent = "Saving...";
   try {
-    // Write ONLY to canonical fields. Reading code checks both so old data still loads.
     await setDoc(doc(db, "users", currentUser.uid), {
       partnerOne: p1,
       partnerTwo: p2,
@@ -671,18 +695,17 @@ document.getElementById("saveDetailsBtn").addEventListener("click", async () => 
       updatedAt: new Date().toISOString()
     }, { merge: true });
 
-    // Keep local userData in sync
+    // Update local cache so onSnapshot doesn't wipe UI
     userData = { ...userData, partnerOne: p1, partnerTwo: p2, weddingDate: date, weddingVenue: venue };
 
     const displayName = p1 && p2 ? `${p1} & ${p2}` : p1 || p2 || "";
     document.getElementById("welcomeTitle").textContent = displayName || "Your Wedding Dashboard";
     const heroTitle = document.getElementById("coupleHeroTitle");
     if (heroTitle) heroTitle.innerHTML = displayName ? `${escapeHtml(p1)} &amp; ${escapeHtml(p2)}` : "Your love story<br>starts here";
-
     if (date) updateCountdown(date);
     statusEl.textContent = "Details saved ♡";
     setTimeout(() => { statusEl.textContent = ""; }, 2500);
-  } catch (err) { console.error(err); statusEl.textContent = "Something went wrong."; }
+  } catch (err) { console.error(err); statusEl.textContent = "Something went wrong — " + err.message; }
 });
 
 // ── NOTES ──
