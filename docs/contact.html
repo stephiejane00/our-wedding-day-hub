@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Enquiries | Our Wedding Day Hub</title>
+  <title>My Wedding Dashboard | Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,12 +31,13 @@
     body { background: var(--cream); font-family: var(--font-sans); color: var(--ink); -webkit-font-smoothing: antialiased; }
 
     @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes heroFadeIn { from { opacity: 0; transform: scale(1.01); } to { opacity: 1; transform: scale(1); } }
 
     /* ── TOPBAR ── */
     .site-topbar {
       background: var(--cream); border-bottom: 1px solid var(--ink-rule);
       padding: 0 36px; display: flex; align-items: center; gap: 20px;
-      min-height: 64px; position: sticky; top: 0; z-index: 200;
+      min-height: 64px; position: sticky; top: 0; z-index: 200; flex-wrap: wrap;
     }
     .site-topbar-logo-wrap { display: inline-flex; align-items: center; }
     .site-topbar-logo { width: 44px; height: 44px; object-fit: contain; }
@@ -46,7 +47,7 @@
     .site-topbar-link, .site-topbar-btn {
       display: inline-flex; align-items: center; justify-content: center;
       min-height: 34px; padding: 6px 14px; font-family: var(--font-sans);
-      font-size: 0.75rem; letter-spacing: 0.06em; text-decoration: none; white-space: nowrap; transition: all 0.2s ease;
+      font-size: 0.75rem; letter-spacing: 0.06em; text-decoration: none; white-space: nowrap; transition: all 0.2s;
     }
     .site-topbar-link { color: var(--ink-muted); border: none; background: none; }
     .site-topbar-link:hover { color: var(--ink); }
@@ -54,119 +55,197 @@
     .site-topbar-btn:hover { background: var(--ink-mid); }
 
     /* ── HERO ── */
-    .contact-hero {
-      display: grid; grid-template-columns: 1fr 1fr;
-      align-items: stretch; border-bottom: 1px solid var(--ink);
-    }
-    .contact-hero-copy {
+    .couple-hero-card { border-bottom: 1px solid var(--ink); }
+    .couple-hero-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; align-items: stretch; min-height: 400px; }
+    .couple-hero-copy {
       padding: 48px 40px 40px; display: flex; flex-direction: column;
       justify-content: space-between; border-right: 1px solid var(--ink-rule);
     }
-    .contact-hero-copy > * { animation: fadeUp 0.7s ease forwards; opacity: 0; }
-    .contact-hero-copy > *:nth-child(1) { animation-delay: 0.05s; }
-    .contact-hero-copy > *:nth-child(2) { animation-delay: 0.12s; }
-    .contact-hero-copy > *:nth-child(3) { animation-delay: 0.2s; }
-    .contact-hero-copy > *:nth-child(4) { animation-delay: 0.3s; }
-    .contact-hero-copy > *:nth-child(5) { animation-delay: 0.38s; }
+    .couple-hero-copy > * { animation: fadeUp 0.7s ease forwards; opacity: 0; }
+    .couple-hero-copy > *:nth-child(1) { animation-delay: 0.05s; }
+    .couple-hero-copy > *:nth-child(2) { animation-delay: 0.12s; }
+    .couple-hero-copy > *:nth-child(3) { animation-delay: 0.2s; }
+    .couple-hero-copy > *:nth-child(4) { animation-delay: 0.28s; }
+    .couple-hero-kicker { font-family: var(--font-sans); font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-ghost); }
+    .couple-hero-title { font-family: var(--font-serif); font-size: clamp(2rem, 3.6vw, 3.2rem); font-weight: 300; line-height: 0.97; letter-spacing: -0.03em; color: var(--ink); }
+    .couple-hero-script { font-family: var(--font-serif); font-style: italic; font-size: 1.15rem; color: var(--gold); }
+    .couple-hero-sub { font-family: var(--font-sans); font-size: 0.88rem; color: var(--ink-muted); line-height: 1.8; max-width: 420px; }
+    .couple-hero-image-wrap { position: relative; overflow: hidden; background: var(--cream-deep); min-height: clamp(340px, 40vw, 500px); }
+    .couple-hero-image { width: 100%; height: 100%; display: block; object-fit: cover; opacity: 0; animation: heroFadeIn 0.9s ease forwards; transition: transform 0.9s; }
+    .couple-hero-image-wrap:hover .couple-hero-image { transform: scale(1.025); }
 
-    .contact-logo { width: 80px; opacity: 0.9; display: block; }
-    .contact-kicker { font-family: var(--font-sans); font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-ghost); }
-    .contact-title { font-family: var(--font-serif); font-size: clamp(2.2rem, 3.8vw, 3.4rem); font-weight: 300; line-height: 0.95; letter-spacing: -0.03em; color: var(--ink); }
-    .contact-script { font-family: var(--font-serif); font-style: italic; font-size: 1.15rem; color: var(--gold); letter-spacing: 0.01em; }
-    .contact-intro { font-family: var(--font-sans); font-size: 0.88rem; color: var(--ink-muted); line-height: 1.75; max-width: 420px; }
-
-    .contact-hero-image-wrap {
-      position: relative; overflow: hidden; background: var(--cream-deep);
-      min-height: clamp(380px, 46vw, 580px);
+    /* ── WELCOME STRIP ── */
+    .couple-welcome-strip {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 36px; border-bottom: 1px solid var(--ink-rule);
+      background: var(--cream-warm); gap: 24px; flex-wrap: wrap;
     }
-    .contact-hero-image { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform 0.9s ease; }
-    .contact-hero-image-wrap:hover .contact-hero-image { transform: scale(1.025); }
+    .couple-welcome-strip > * { animation: fadeUp 0.6s ease forwards; opacity: 0; }
+    .couple-welcome-strip > *:nth-child(1) { animation-delay: 0.1s; }
+    .couple-welcome-strip > *:nth-child(2) { animation-delay: 0.2s; }
+    .couple-welcome-kicker { font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-ghost); margin-bottom: 4px; }
+    .couple-welcome-title { font-family: var(--font-serif); font-size: clamp(1.5rem, 2.5vw, 2.2rem); font-weight: 300; letter-spacing: -0.025em; color: var(--ink); line-height: 1.05; }
+    .couple-welcome-sub { font-family: var(--font-sans); font-size: 0.82rem; color: var(--ink-muted); line-height: 1.7; margin-top: 4px; }
+    .couple-countdown-wrap { text-align: center; flex-shrink: 0; }
+    .couple-countdown-days { font-family: var(--font-serif); font-size: clamp(2.8rem, 5vw, 4.5rem); font-weight: 300; color: var(--ink); letter-spacing: -0.04em; line-height: 1; display: block; }
+    .couple-countdown-label { font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-ghost); margin-top: 4px; display: block; }
 
-    /* ── TRUST STRIP ── */
-    .trust-strip { display: flex; border-bottom: 1px solid var(--ink-rule); }
-    .trust-strip span {
-      flex: 1; text-align: center; padding: 10px 16px;
-      font-family: var(--font-sans); font-size: 0.68rem; letter-spacing: 0.14em;
-      text-transform: uppercase; color: var(--ink-ghost);
-      border-right: 1px solid var(--ink-rule);
+    /* ── PAGE GRID ── */
+    .couple-dashboard { max-width: 1400px; margin: 0 auto; }
+    .couple-body { display: grid; grid-template-columns: 1.4fr 1fr; align-items: start; border-top: 0.5px solid var(--ink-rule); }
+    .couple-main { border-right: 0.5px solid var(--ink-rule); }
+
+    /* ── CARDS ── */
+    .couple-card {
+      padding: 28px 32px; border-bottom: 0.5px solid var(--ink-rule);
+      background: var(--cream); transition: none;
     }
-    .trust-strip span:last-child { border-right: none; }
+    .couple-card:hover { box-shadow: none; }
+    .couple-card-kicker { font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-ghost); margin-bottom: 8px; }
+    .couple-card-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
+    .couple-card-title { font-family: var(--font-serif); font-size: 1.4rem; font-weight: 300; letter-spacing: -0.025em; color: var(--ink); }
+    .couple-card p { font-family: var(--font-sans); font-size: 0.86rem; color: var(--ink-muted); line-height: 1.75; margin-bottom: 10px; }
+    .couple-card p:last-child { margin-bottom: 0; }
 
-    /* ── CONTACT BODY ── */
-    .contact-body { border-bottom: 1px solid var(--ink-rule); }
-    .contact-body-grid {
-      display: grid; grid-template-columns: 0.9fr 1.1fr;
-      gap: 0; background: var(--ink-rule); margin-top: 20px;
-    }
+    /* ── SIDEBAR ── */
+    .couple-sidebar { display: grid; gap: 0; }
+    .couple-sidebar-card { padding: 24px 24px; border-bottom: 0.5px solid var(--ink-rule); background: var(--cream-warm); }
+    .couple-sidebar-card h2 { font-family: var(--font-serif); font-size: 1.3rem; font-weight: 300; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 14px; }
 
-    /* ── INFO SIDE ── */
-    .contact-info { background: var(--cream-warm); padding: 36px; }
-    .contact-info-label { font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-ghost); margin-bottom: 10px; }
-    .contact-info h2 { font-family: var(--font-serif); font-size: 1.6rem; font-weight: 300; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 12px; }
-    .contact-info p { font-family: var(--font-sans); font-size: 0.86rem; color: var(--ink-muted); line-height: 1.8; margin-bottom: 10px; }
-    .contact-info p:last-of-type { margin-bottom: 0; }
-
-    .contact-details { display: grid; gap: 0; margin-top: 20px; background: var(--ink-rule); }
-    .contact-detail { padding: 16px 18px; background: var(--cream); border-bottom: 0.5px solid var(--ink-rule); }
-    .contact-detail:last-child { border-bottom: none; }
-    .contact-detail strong { display: block; margin-bottom: 4px; font-family: var(--font-sans); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink); }
-    .contact-detail p { font-family: var(--font-sans); font-size: 0.82rem; color: var(--ink-muted); line-height: 1.65; margin: 0; }
-
-    .contact-socials-wrap { margin-top: 24px; }
-    .contact-socials-title { font-family: var(--font-sans); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-ghost); margin-bottom: 10px; }
-    .contact-socials { display: flex; flex-wrap: wrap; gap: 6px; }
-    .contact-social-link {
+    /* ── BUTTONS ── */
+    .couple-save-btn {
       display: inline-flex; align-items: center; justify-content: center;
-      min-height: 36px; padding: 7px 16px;
-      font-family: var(--font-sans); font-size: 0.72rem; font-weight: 600;
-      letter-spacing: 0.08em; text-transform: uppercase;
-      color: var(--ink); text-decoration: none;
-      border: 0.5px solid var(--ink-rule); background: var(--cream);
-      transition: background 0.2s, border-color 0.2s;
-    }
-    .contact-social-link:hover { background: var(--cream-deep); border-color: var(--ink-muted); }
-
-    /* ── FORM SIDE ── */
-    .contact-form-wrap { background: var(--cream); padding: 36px; }
-    .contact-form-label { font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-ghost); margin-bottom: 10px; }
-    .contact-form-wrap h2 { font-family: var(--font-serif); font-size: 1.6rem; font-weight: 300; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 18px; }
-
-    .contact-form { display: grid; gap: 0; background: var(--ink-rule); }
-    .form-group { position: relative; background: var(--cream); border-bottom: 0.5px solid var(--ink-rule); }
-    .form-group:last-of-type { border-bottom: none; }
-    .form-group input, .form-group textarea {
-      width: 100%; border: none; border-radius: 0; padding: 22px 16px 10px;
-      font-family: var(--font-sans); font-size: 0.88rem; background: transparent;
-      color: var(--ink); box-sizing: border-box; outline: none; transition: background 0.2s;
-    }
-    .form-group textarea { min-height: 160px; resize: vertical; }
-    .form-group input:focus, .form-group textarea:focus { background: var(--cream-warm); }
-    .form-group label {
-      position: absolute; left: 16px; top: 16px; color: var(--ink-ghost);
-      font-family: var(--font-sans); font-size: 0.86rem; pointer-events: none; transition: all 0.18s ease;
-    }
-    .form-group input:focus + label,
-    .form-group input:not(:placeholder-shown) + label,
-    .form-group textarea:focus + label,
-    .form-group textarea:not(:placeholder-shown) + label {
-      top: 7px; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-ghost);
-    }
-
-    .contact-submit {
-      display: inline-flex; align-items: center; justify-content: center;
-      min-height: 44px; padding: 11px 24px; border: none;
+      min-height: 40px; padding: 10px 20px; border: none;
       font-family: var(--font-sans); font-weight: 700; font-size: 0.72rem;
       letter-spacing: 0.12em; text-transform: uppercase;
-      cursor: pointer; background: var(--ink); color: var(--cream);
-      transition: background 0.2s; margin-top: 16px;
+      background: var(--ink); color: var(--cream); cursor: pointer; transition: background 0.2s;
     }
-    .contact-submit:hover { background: var(--ink-mid); transform: none; filter: none; }
-    .contact-submit:active { transform: none; }
+    .couple-save-btn:hover { background: var(--ink-mid); transform: none; box-shadow: none; }
+    .couple-save-status, .couple-notes-status {
+      font-family: var(--font-serif); font-style: italic; font-size: 0.92rem;
+      color: var(--gold); min-height: 1.2em; margin-top: 8px !important; display: block;
+    }
 
-    .contact-success {
-      margin: 12px 0 0; font-family: var(--font-serif); font-style: italic;
-      font-size: 1rem; color: var(--gold); line-height: 1.6;
+    /* ── FIELDS ── */
+    .couple-date-form { display: grid; gap: 14px; }
+    .couple-date-form label {
+      display: block; margin-bottom: 6px;
+      font-family: var(--font-sans); font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-ghost);
     }
+    .couple-date-form input[type="date"],
+    .couple-date-form input[type="text"] {
+      width: 100%; border: none; border-bottom: 1px solid var(--ink-rule);
+      border-radius: 0; padding: 11px 0; font-family: var(--font-sans);
+      font-size: 0.9rem; color: var(--ink); background: transparent;
+      transition: border-color 0.2s; outline: none;
+    }
+    .couple-date-form input:focus { border-color: var(--gold); }
+
+    /* ── PROFILE PHOTO ── */
+    .profile-photo-wrap { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; padding-bottom: 18px; border-bottom: 0.5px solid var(--ink-rule); }
+    .profile-photo-circle { width: 64px; height: 64px; object-fit: cover; border: 0.5px solid var(--ink-rule); background: var(--cream-deep); flex: 0 0 64px; }
+    .profile-photo-empty { width: 64px; height: 64px; border: 0.5px solid var(--ink-rule); background: var(--cream-deep); flex: 0 0 64px; display: flex; align-items: center; justify-content: center; color: var(--ink-ghost); font-size: 1.3rem; }
+    .profile-photo-upload-label {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 36px; padding: 8px 16px;
+      font-family: var(--font-sans); font-weight: 700; font-size: 0.68rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      background: var(--ink); color: var(--cream); cursor: pointer; transition: background 0.2s;
+    }
+    .profile-photo-upload-label:hover { background: var(--ink-mid); transform: none; }
+    .profile-photo-status { font-family: var(--font-sans); font-size: 0.74rem; color: var(--ink-ghost); margin-top: 4px; }
+
+    /* ── CHECKLIST ── */
+    .couple-checklist { display: grid; gap: 6px; }
+    .checklist-item { display: flex; align-items: center; gap: 12px; padding: 11px 14px; background: var(--cream-warm); border: 0.5px solid var(--ink-rule); cursor: pointer; transition: background 0.18s; }
+    .checklist-item:hover { background: var(--cream-deep); }
+    .checklist-item.done { opacity: 0.55; }
+    .checklist-item.done .checklist-label { text-decoration: line-through; color: var(--ink-ghost); }
+    .checklist-check { width: 18px; height: 18px; border: 0.5px solid var(--ink-rule); background: var(--cream); flex: 0 0 18px; display: flex; align-items: center; justify-content: center; font-size: 0.72rem; color: var(--ink); transition: background 0.18s; }
+    .checklist-item.done .checklist-check { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+    .checklist-label { flex: 1; font-family: var(--font-sans); font-size: 0.86rem; color: var(--ink-mid); line-height: 1.5; }
+    .checklist-progress { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+    .checklist-bar-wrap { flex: 1; height: 3px; background: var(--ink-rule); overflow: hidden; }
+    .checklist-bar { height: 100%; background: var(--ink); transition: width 0.4s ease; }
+    .checklist-pct { font-family: var(--font-sans); font-size: 0.72rem; font-weight: 700; color: var(--ink-muted); white-space: nowrap; }
+    .checklist-add { display: flex; gap: 8px; margin-top: 12px; }
+    .checklist-add input { flex: 1; border: none; border-bottom: 1px solid var(--ink-rule); border-radius: 0; padding: 10px 0; font-family: var(--font-sans); font-size: 0.86rem; color: var(--ink); background: transparent; outline: none; transition: border-color 0.2s; }
+    .checklist-add input:focus { border-color: var(--gold); }
+    .checklist-add button { min-height: 38px; padding: 8px 16px; border: none; background: var(--ink); color: var(--cream); font-family: var(--font-sans); font-weight: 700; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; }
+    .checklist-add button:hover { background: var(--ink-mid); transform: none; box-shadow: none; }
+
+    /* ── FAVOURITES ── */
+    .couple-favs-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .couple-fav-card { border: 0.5px solid var(--ink-rule); overflow: hidden; background: var(--cream); cursor: pointer; transition: background 0.2s; }
+    .couple-fav-card:hover { background: var(--cream-warm); transform: none; box-shadow: none; }
+    .couple-fav-card img { width: 100%; aspect-ratio: 1.3/1; object-fit: cover; display: block; }
+    .couple-fav-card:hover img { transform: none; }
+    .couple-fav-info { padding: 8px 10px; }
+    .couple-fav-name { font-family: var(--font-serif); font-size: 1rem; font-weight: 300; letter-spacing: -0.01em; color: var(--ink); margin: 0 0 3px; }
+    .couple-fav-cat { font-family: var(--font-sans); font-size: 0.72rem; color: var(--ink-ghost); margin: 0; }
+    .couple-favs-empty { font-family: var(--font-sans); color: var(--ink-muted); font-size: 0.86rem; line-height: 1.7; }
+    .couple-fav-clear { border: none; background: transparent; color: var(--ink-ghost); font-family: var(--font-sans); font-size: 0.72rem; letter-spacing: 0.06em; text-decoration: underline; cursor: pointer; padding: 0; transition: color 0.2s; }
+    .couple-fav-clear:hover { color: var(--ink); }
+
+    /* ── MESSAGES ── */
+    .couple-messages-list { display: grid; gap: 8px; }
+    .couple-msg-item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px; background: var(--cream-warm); border: 0.5px solid var(--ink-rule); cursor: pointer; transition: background 0.18s; }
+    .couple-msg-item:hover { background: var(--cream-deep); transform: none; }
+    .couple-msg-item.unread { border-left: 2px solid var(--gold-light); }
+    .couple-msg-avatar { width: 38px; height: 38px; object-fit: cover; background: var(--cream-deep); flex: 0 0 38px; }
+    .couple-msg-content { flex: 1; min-width: 0; }
+    .couple-msg-name { font-family: var(--font-serif); font-size: 1rem; font-weight: 300; color: var(--ink); margin: 0 0 2px; }
+    .couple-msg-preview { font-family: var(--font-sans); font-size: 0.78rem; color: var(--ink-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.5; margin: 0; }
+    .couple-msg-time { font-family: var(--font-sans); font-size: 0.7rem; color: var(--ink-ghost); white-space: nowrap; margin-top: 2px; }
+    .couple-msg-unread-dot { width: 7px; height: 7px; background: var(--gold-light); flex: 0 0 7px; margin-top: 5px; }
+    .couple-msgs-empty { font-family: var(--font-sans); color: var(--ink-muted); font-size: 0.86rem; line-height: 1.7; }
+
+    /* ── NOTES ── */
+    .couple-notes-area {
+      width: 100%; border: none; border-bottom: 1px solid var(--ink-rule);
+      border-radius: 0; padding: 12px 0; font-family: var(--font-sans);
+      font-size: 0.88rem; color: var(--ink); background: transparent;
+      min-height: 130px; resize: vertical; outline: none; transition: border-color 0.2s;
+    }
+    .couple-notes-area:focus { border-color: var(--gold); }
+
+    /* ── QUICK LINKS ── */
+    .couple-quicklinks-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .couple-quicklink { display: flex; align-items: center; gap: 10px; padding: 12px 14px; background: var(--cream); border: 0.5px solid var(--ink-rule); text-decoration: none; color: var(--ink); transition: background 0.18s; }
+    .couple-quicklink:hover { background: var(--cream-deep); transform: none; }
+    .couple-quicklink-icon { font-size: 1.1rem; flex: 0 0 auto; color: var(--ink-ghost); }
+    .couple-quicklink-text strong { display: block; font-family: var(--font-sans); font-size: 0.78rem; font-weight: 700; color: var(--ink); margin-bottom: 1px; }
+    .couple-quicklink-text span { font-family: var(--font-sans); font-size: 0.72rem; color: var(--ink-muted); }
+
+    /* ── BUDGET ── */
+    .budget-total-row { display: flex; align-items: baseline; gap: 8px; margin-bottom: 14px; }
+    .budget-total-label { font-family: var(--font-sans); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-ghost); }
+    .budget-total-amount { font-family: var(--font-serif); font-size: 1.8rem; font-weight: 300; color: var(--ink); letter-spacing: -0.03em; flex: 1; }
+    .budget-edit-btn { border: none; background: transparent; font-family: var(--font-sans); color: var(--ink-ghost); font-size: 0.72rem; letter-spacing: 0.06em; text-decoration: underline; cursor: pointer; padding: 0; transition: color 0.2s; }
+    .budget-edit-btn:hover { color: var(--ink); }
+    .budget-categories { display: grid; gap: 6px; margin-bottom: 12px; }
+    .budget-cat-row { display: flex; align-items: center; gap: 10px; }
+    .budget-cat-label { flex: 1; font-family: var(--font-sans); font-size: 0.82rem; color: var(--ink-mid); }
+    .budget-cat-amount { font-family: var(--font-sans); font-size: 0.82rem; font-weight: 600; color: var(--ink); white-space: nowrap; }
+    .budget-cat-bar-wrap { width: 60px; height: 3px; background: var(--ink-rule); overflow: hidden; }
+    .budget-cat-bar { height: 100%; background: var(--ink); }
+    .budget-add-row { display: flex; gap: 6px; margin-top: 10px; }
+    .budget-add-row input { flex: 1; border: none; border-bottom: 1px solid var(--ink-rule); border-radius: 0; padding: 8px 0; font-family: var(--font-sans); font-size: 0.82rem; color: var(--ink); background: transparent; outline: none; min-width: 0; transition: border-color 0.2s; }
+    .budget-add-row input:focus { border-color: var(--gold); }
+    .budget-add-row button { min-height: 34px; padding: 6px 12px; border: none; background: var(--ink); color: var(--cream); font-family: var(--font-sans); font-weight: 700; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; white-space: nowrap; transition: background 0.2s; }
+    .budget-add-row button:hover { background: var(--ink-mid); transform: none; }
+    .budget-remaining { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: var(--cream-deep); border: 0.5px solid var(--ink-rule); margin-top: 12px; }
+    .budget-remaining-label { font-family: var(--font-sans); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-ghost); }
+    .budget-remaining-amount { font-family: var(--font-serif); font-size: 1.4rem; font-weight: 300; color: var(--ink); letter-spacing: -0.03em; }
+
+    /* ── INSPIRATION ── */
+    .inspiration-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .inspiration-card { overflow: hidden; border: 0.5px solid var(--ink-rule); background: var(--cream-deep); aspect-ratio: 1/1; cursor: pointer; transition: opacity 0.2s; }
+    .inspiration-card:hover { opacity: 0.9; transform: none; }
+    .inspiration-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .inspiration-add { width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px; border: 0.5px dashed var(--ink-rule); background: transparent; color: var(--ink-ghost); font-family: var(--font-sans); font-size: 0.78rem; letter-spacing: 0.06em; cursor: pointer; margin-top: 8px; transition: background 0.18s, border-color 0.18s; }
+    .inspiration-add:hover { background: var(--cream-deep); border-color: var(--ink-muted); }
 
     /* ── FOOTER ── */
     .site-footer { background: var(--ink); border-top: 1px solid var(--ink-mid); }
@@ -182,35 +261,27 @@
     .footer-links a { font-family: var(--font-sans); font-size: 0.72rem; letter-spacing: 0.06em; color: var(--ink-muted); text-decoration: none; transition: color 0.2s; }
     .footer-links a:hover { color: var(--cream); }
 
-    /* ── SECTION HEAD ── */
-    .section-head {
-      display: flex; justify-content: space-between; align-items: flex-end;
-      padding: 36px 36px 0; border-top: 1px solid var(--ink); gap: 16px;
-    }
-    .section-kicker { font-family: var(--font-sans); font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-ghost); margin-bottom: 5px; }
-    .section-title { font-family: var(--font-serif); font-size: 1.7rem; font-weight: 300; letter-spacing: -0.02em; color: var(--ink); line-height: 1; }
-
     /* ── RESPONSIVE ── */
-    @media (max-width: 980px) {
-      .contact-hero { grid-template-columns: 1fr; }
-      .contact-hero-copy { border-right: none; border-bottom: 1px solid var(--ink-rule); }
-      .contact-hero-image-wrap { min-height: 300px; }
-      .contact-body-grid { grid-template-columns: 1fr; }
-      .footer-content { grid-template-columns: 1fr; gap: 24px; }
-      .footer-links-col { align-items: flex-start; }
-      .footer-links { align-items: flex-start; }
+    @media (max-width: 1100px) {
+      .couple-body { grid-template-columns: 1fr; }
+      .couple-main { border-right: none; }
+      .couple-sidebar { grid-template-columns: repeat(2, 1fr); border-top: 0.5px solid var(--ink-rule); }
+      .couple-sidebar-card { border-right: 0.5px solid var(--ink-rule); }
+      .couple-sidebar-card:nth-child(even) { border-right: none; }
     }
     @media (max-width: 700px) {
       .site-topbar { padding: 0 16px; min-height: 56px; }
-      .contact-hero-copy { padding: 28px 20px; }
-      .contact-hero-image-wrap { min-height: 260px; }
-      .contact-info, .contact-form-wrap { padding: 24px 20px; }
-      .section-head { padding: 24px 20px 0; flex-wrap: wrap; gap: 6px; }
-      .contact-submit { width: 100%; }
-      .contact-socials { flex-direction: column; }
-      .contact-social-link { width: 100%; }
-      .trust-strip { display: none; }
-      .footer-content { padding: 28px 20px 24px; }
+      .couple-hero-grid { grid-template-columns: 1fr; }
+      .couple-hero-copy { border-right: none; border-bottom: 1px solid var(--ink-rule); padding: 28px 20px; }
+      .couple-hero-image-wrap { min-height: 260px; }
+      .couple-welcome-strip { padding: 16px 20px; }
+      .couple-card { padding: 20px 18px; }
+      .couple-sidebar { grid-template-columns: 1fr; }
+      .couple-sidebar-card { border-right: none; }
+      .couple-favs-grid, .couple-quicklinks-grid, .inspiration-grid { grid-template-columns: 1fr; }
+      .footer-content { padding: 28px 20px 24px; grid-template-columns: 1fr; gap: 24px; }
+      .footer-links-col { align-items: flex-start; }
+      .footer-links { align-items: flex-start; }
     }
   </style>
 </head>
@@ -225,7 +296,6 @@
   <nav class="site-topbar-actions">
     <a href="categories.html" class="site-topbar-link">Categories</a>
     <a href="shop.html" class="site-topbar-link">Boutique</a>
-<a href="journal.html" class="site-topbar-link">The Journal</a>
     <a href="messages.html" id="messagesLink" class="site-topbar-link" style="display:none; position:relative;">
       Messages
       <span id="msgNavBadge" style="display:none; position:absolute; top:-6px; right:-10px; background:var(--ink); color:var(--cream); font-size:0.64rem; font-weight:700; padding:2px 6px; border-radius:999px; line-height:1.2; min-width:18px; text-align:center;">0</span>
@@ -237,96 +307,184 @@
   </nav>
 </header>
 
-<main>
+<main class="couple-dashboard">
 
   <!-- ── HERO ── -->
-  <section class="contact-hero">
-    <div class="contact-hero-copy">
-      <a href="index.html" aria-label="Go to homepage">
-        <img src="images/logo1.png" alt="Our Wedding Day Hub" class="contact-logo" loading="eager">
-      </a>
-      <p class="contact-kicker">Enquiries</p>
-      <h1 class="contact-title">We'd love to<br>hear from you</h1>
-      <p class="contact-script">always happy to help ♡</p>
-      <p class="contact-intro">Have a question, need support, or want to learn more? Send us a message and we'll get back to you as soon as we can — whether you're a couple or a vendor.</p>
-    </div>
-    <div class="contact-hero-image-wrap">
-      <img src="images/city.jpg" alt="Bride" class="contact-hero-image" loading="lazy">
+  <section class="couple-hero-card">
+    <div class="couple-hero-grid">
+      <div class="couple-hero-copy">
+        <p class="couple-hero-kicker">Your Wedding Hub</p>
+        <h1 id="coupleHeroTitle" class="couple-hero-title">Your love story<br>starts here</h1>
+        <p class="couple-hero-script">everything in one place ♡</p>
+        <p class="couple-hero-sub">Save your favourite vendors, track your checklist, manage your budget, and message the people who'll make your day unforgettable.</p>
+      </div>
+      <div class="couple-hero-image-wrap">
+        <img src="images/cutecar.jpg" alt="Romantic wedding couple on a vintage car" class="couple-hero-image" loading="eager">
+      </div>
     </div>
   </section>
 
-  <!-- ── TRUST STRIP ── -->
-  <div class="trust-strip">
-    <span>Trusted across Australia &amp; worldwide</span>
-    <span>Proudly independent</span>
-    <span>Built with heart</span>
-    <span>Proudly inclusive</span>
+  <!-- ── WELCOME STRIP ── -->
+  <div class="couple-welcome-strip">
+    <div>
+      <p class="couple-welcome-kicker">Welcome back</p>
+      <h2 id="welcomeTitle" class="couple-welcome-title">Your Wedding Dashboard</h2>
+      <p id="welcomeSub" class="couple-welcome-sub">Everything you need to plan your perfect day.</p>
+    </div>
+    <div class="couple-countdown-wrap">
+      <span class="couple-countdown-days" id="countdownDays">–</span>
+      <span class="couple-countdown-label">days to go</span>
+    </div>
   </div>
 
-  <!-- ── CONTACT BODY ── -->
-  <section class="contact-body">
-    <div class="section-head">
-      <div>
-        <p class="section-kicker">Get in Touch</p>
-        <h2 class="section-title">We're here to help</h2>
-      </div>
-    </div>
-    <div class="contact-body-grid">
+  <!-- ── BODY ── -->
+  <div class="couple-body">
 
-      <div class="contact-info">
-        <p class="contact-info-label">Get in touch</p>
-        <h2>We're here to help</h2>
-        <p>We want every part of Our Wedding Day Hub to feel warm, simple, and easy. If you have a question about the platform, vendor profiles, or getting started, just reach out.</p>
-        <p>We'll do our best to point you in the right direction and respond as soon as possible.</p>
+    <!-- ── MAIN ── -->
+    <div class="couple-main">
 
-        <div class="contact-details">
-          <div class="contact-detail">
-            <strong>For couples</strong>
-            <p>Questions about finding vendors, browsing categories, and discovering the right fit for your day.</p>
-          </div>
-          <div class="contact-detail">
-            <strong>For vendors</strong>
-            <p>Questions about joining, creating your profile, visibility, account support, or founding vendor access.</p>
-          </div>
-          <div class="contact-detail">
-            <strong>General support</strong>
-            <p>Help with enquiries, platform information, or anything else you need.</p>
-          </div>
+      <!-- Checklist -->
+      <div class="couple-card">
+        <p class="couple-card-kicker">Planning</p>
+        <div class="couple-card-header">
+          <h2 class="couple-card-title">Wedding Checklist</h2>
         </div>
-
-        <div class="contact-socials-wrap">
-          <p class="contact-socials-title">Follow along</p>
-          <div class="contact-socials">
-            <a href="https://www.instagram.com/ourweddingdayhub/?hl=en" target="_blank" rel="noopener noreferrer" class="contact-social-link">Instagram</a>
-            <a href="https://www.facebook.com/profile.php?id=61572140110179" target="_blank" rel="noopener noreferrer" class="contact-social-link">Facebook</a>
-            <a href="https://www.tiktok.com/@ourweddingdayhub" target="_blank" rel="noopener noreferrer" class="contact-social-link">TikTok</a>
-          </div>
+        <div class="checklist-progress">
+          <div class="checklist-bar-wrap"><div class="checklist-bar" id="checklistBar" style="width:0%"></div></div>
+          <span class="checklist-pct" id="checklistPct">0%</span>
+        </div>
+        <div id="checklistItems" class="couple-checklist"></div>
+        <div class="checklist-add" style="margin-top:14px;">
+          <input type="text" id="checklistInput" placeholder="Add a task...">
+          <button type="button" id="checklistAddBtn">Add</button>
         </div>
       </div>
 
-      <div class="contact-form-wrap">
-        <p class="contact-form-label">Send a message</p>
-        <h2>Send us a message</h2>
-        <form id="contact-form" class="contact-form" action="https://formspree.io/f/xaqlwjro" method="POST">
-          <div class="form-group">
-            <input type="text" id="name" name="name" placeholder=" " required>
-            <label for="name">Your Name</label>
-          </div>
-          <div class="form-group">
-            <input type="email" id="email" name="email" placeholder=" " required>
-            <label for="email">Email</label>
-          </div>
-          <div class="form-group">
-            <textarea id="message" name="message" placeholder=" " required></textarea>
-            <label for="message">Message</label>
-          </div>
-          <button type="submit" class="contact-submit">Send Message →</button>
-          <p class="contact-success" style="display:none;">Message sent — thank you, we'll be in touch soon ♡</p>
-        </form>
+      <!-- Saved Vendors -->
+      <div class="couple-card">
+        <p class="couple-card-kicker">Discovered</p>
+        <div class="couple-card-header">
+          <h2 class="couple-card-title">Saved Vendors</h2>
+          <button type="button" class="couple-fav-clear" id="clearFavsBtn" style="display:none;">Clear all</button>
+        </div>
+        <div id="coupleFavsGrid" class="couple-favs-grid"></div>
+        <p id="coupleFavsEmpty" class="couple-favs-empty" style="display:none;">No saved vendors yet. Browse categories and save the ones you love ♡</p>
+      </div>
+
+      <!-- Messages -->
+      <div class="couple-card">
+        <p class="couple-card-kicker">Conversations</p>
+        <div class="couple-card-header">
+          <h2 class="couple-card-title">Messages</h2>
+          <a href="messages.html" style="font-family:var(--font-sans); font-size:0.72rem; letter-spacing:0.06em; color:var(--ink-muted); text-decoration:none; font-weight:600;">View all →</a>
+        </div>
+        <div id="coupleMessagesList" class="couple-messages-list"></div>
+        <p id="coupleMsgsEmpty" class="couple-msgs-empty" style="display:none;">No messages yet. Send a message from any vendor profile to start a conversation ♡</p>
+      </div>
+
+      <!-- Notes -->
+      <div class="couple-card">
+        <p class="couple-card-kicker">Notes</p>
+        <h2 class="couple-card-title" style="margin-bottom:12px;">Planning Notes</h2>
+        <p>Jot down ideas, reminders, or anything important for your day.</p>
+        <textarea id="coupleNotes" class="couple-notes-area" placeholder="Start typing your planning notes..."></textarea>
+        <button type="button" id="saveNotesBtn" class="couple-save-btn" style="margin-top:12px;">Save Notes</button>
+        <span id="notesStatus" class="couple-notes-status"></span>
       </div>
 
     </div>
-  </section>
+
+    <!-- ── SIDEBAR ── -->
+    <aside class="couple-sidebar">
+
+      <!-- Wedding Details -->
+      <div class="couple-sidebar-card">
+        <h2>Wedding Details</h2>
+
+        <div class="profile-photo-wrap">
+          <div id="profilePhotoPreviewWrap">
+            <div class="profile-photo-empty" id="profilePhotoEmpty">♡</div>
+            <img id="profilePhotoImg" class="profile-photo-circle" style="display:none;" alt="Your profile photo">
+          </div>
+          <div>
+            <input type="file" id="profilePhotoInput" accept="image/*" style="display:none;">
+            <label for="profilePhotoInput" class="profile-photo-upload-label">Upload Photo</label>
+            <p class="profile-photo-status" id="profilePhotoStatus">Shown to vendors when you message them</p>
+          </div>
+        </div>
+
+        <div class="couple-date-form">
+          <div>
+            <label for="partner1Name">Partner 1 Name</label>
+            <input type="text" id="partner1Name" placeholder="Name">
+          </div>
+          <div>
+            <label for="partner2Name">Partner 2 Name</label>
+            <input type="text" id="partner2Name" placeholder="Name">
+          </div>
+          <div>
+            <label for="weddingDate">Wedding Date</label>
+            <input type="date" id="weddingDate">
+          </div>
+          <div>
+            <label for="weddingVenue">Venue / Location</label>
+            <input type="text" id="weddingVenue" placeholder="e.g. The Estate, Byron Bay">
+          </div>
+          <button type="button" id="saveDetailsBtn" class="couple-save-btn">Save Details</button>
+          <span id="detailsStatus" class="couple-save-status"></span>
+        </div>
+      </div>
+
+      <!-- Budget -->
+      <div class="couple-sidebar-card">
+        <h2>Budget Tracker</h2>
+        <div class="budget-total-row">
+          <span class="budget-total-label">Total Budget</span>
+          <span class="budget-total-amount" id="budgetTotal">–</span>
+          <button type="button" class="budget-edit-btn" id="editBudgetBtn">Edit</button>
+        </div>
+        <div id="budgetInput" style="display:none; margin-bottom:12px;">
+          <div class="budget-add-row">
+            <input type="number" id="budgetTotalInput" placeholder="Total budget (e.g. 30000)" min="0">
+            <button type="button" id="saveBudgetTotalBtn">Save</button>
+          </div>
+        </div>
+        <div id="budgetCategories" class="budget-categories"></div>
+        <div class="budget-add-row">
+          <input type="text" id="budgetCatName" placeholder="Category name">
+          <input type="number" id="budgetCatAmount" placeholder="Amount" style="max-width:90px;">
+          <button type="button" id="addBudgetCatBtn">Add</button>
+        </div>
+        <div class="budget-remaining">
+          <span class="budget-remaining-label">Remaining</span>
+          <span class="budget-remaining-amount" id="budgetRemaining">–</span>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="couple-sidebar-card">
+        <h2>Explore</h2>
+        <div class="couple-quicklinks-grid">
+          <a href="categories.html?type=photo_video" class="couple-quicklink"><span class="couple-quicklink-icon">◈</span><div class="couple-quicklink-text"><strong>Photo &amp; Video</strong><span>Photographers</span></div></a>
+          <a href="categories.html?type=beauty" class="couple-quicklink"><span class="couple-quicklink-icon">✦</span><div class="couple-quicklink-text"><strong>Beauty</strong><span>Hair &amp; Makeup</span></div></a>
+          <a href="categories.html?type=venues" class="couple-quicklink"><span class="couple-quicklink-icon">◇</span><div class="couple-quicklink-text"><strong>Venues</strong><span>Find a space</span></div></a>
+          <a href="categories.html?type=entertainment" class="couple-quicklink"><span class="couple-quicklink-icon">❋</span><div class="couple-quicklink-text"><strong>Music</strong><span>DJs &amp; bands</span></div></a>
+          <a href="categories.html?type=styling_florals" class="couple-quicklink"><span class="couple-quicklink-icon">✿</span><div class="couple-quicklink-text"><strong>Florals</strong><span>Florists &amp; styling</span></div></a>
+          <a href="categories.html" class="couple-quicklink"><span class="couple-quicklink-icon">◎</span><div class="couple-quicklink-text"><strong>All Categories</strong><span>Browse all vendors</span></div></a>
+        </div>
+      </div>
+
+      <!-- Inspiration -->
+      <div class="couple-sidebar-card">
+        <h2>Inspiration</h2>
+        <p style="font-family:var(--font-sans); font-size:0.82rem; color:var(--ink-muted); line-height:1.65; margin-bottom:12px;">Save beautiful images for your wedding vision board.</p>
+        <div id="inspirationGrid" class="inspiration-grid"></div>
+        <button type="button" id="addInspirationBtn" class="inspiration-add">+ Add Image</button>
+        <input type="file" id="inspirationFileInput" accept="image/*" style="display:none;" multiple>
+      </div>
+
+    </aside>
+  </div>
 
 </main>
 
@@ -361,19 +519,408 @@
   </div>
 </footer>
 
-<!-- ── FORM SCRIPT — COMPLETELY UNCHANGED ── -->
-<script>
-  const form = document.getElementById('contact-form');
-  const successMessage = document.querySelector('.contact-success');
-  form.addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const formData = new FormData(form);
-    const response = await fetch(form.action, { method: form.method, body: formData, headers: { 'Accept': 'application/json' } });
-    if (response.ok) { form.reset(); successMessage.style.display = 'block'; }
-    else { alert('Oops! There was a problem sending your message.'); }
+<script type="module">
+import { db, auth, storage, doc, getDoc, setDoc, onAuthStateChanged, signOut, onSnapshot, collection, query, where, orderBy, limit, ref, uploadBytes, getDownloadURL } from "./firebase.js";
+
+let currentUser = null;
+let userData = {};
+let budgetTotal = 0;
+let budgetCategories = [];
+let checklistItems = [];
+let inspirationImages = [];
+let unsubConversations = null;
+let unsubUserData = null;
+
+// ── AUTH ──
+onAuthStateChanged(auth, async (user) => {
+  if (!user) { window.location.href = "login.html"; return; }
+  currentUser = user;
+  // Show correct nav state manually (no nav.js on this page to avoid conflicts)
+  const loginLink = document.getElementById("loginLink");
+  const joinLink = document.getElementById("joinLink");
+  const dashboardLink = document.getElementById("dashboardLink");
+  const logoutLinkEl = document.getElementById("logoutLink");
+  const messagesLinkEl = document.getElementById("messagesLink");
+  if (loginLink) loginLink.style.display = "none";
+  if (joinLink) joinLink.style.display = "none";
+  if (dashboardLink) dashboardLink.style.display = "inline-flex";
+  if (logoutLinkEl) logoutLinkEl.style.display = "inline-flex";
+  if (messagesLinkEl) messagesLinkEl.style.display = "inline-flex";
+  loadUserDataRealtime();
+  setupUnreadBadge();
+  setupConversationsListener();
+});
+
+document.getElementById("logoutLink").addEventListener("click", async () => {
+  if (unsubConversations) unsubConversations();
+  if (unsubUserData) unsubUserData();
+  await signOut(auth);
+  window.location.href = "index.html";
+});
+
+// ── LOAD USER DATA — real-time listener ──
+let unsubUserData = null;
+let dataLoaded = false;
+
+function loadUserDataRealtime() {
+  if (unsubUserData) unsubUserData();
+  dataLoaded = false;
+  unsubUserData = onSnapshot(doc(db, "users", currentUser.uid), (snap) => {
+    if (snap.exists()) {
+      userData = snap.data();
+    } else {
+      // New user — create their document with role set
+      setDoc(doc(db, "users", currentUser.uid), { role: "couple", createdAt: new Date().toISOString() }, { merge: true }).catch(console.error);
+    }
+    if (!dataLoaded) {
+      // Only populate form fields on the very first load
+      dataLoaded = true;
+      applyUserData();
+    } else {
+      // On subsequent updates just refresh non-form UI
+      refreshNonFormUI();
+    }
+  }, (err) => {
+    console.error("Error loading user data:", err);
   });
+}
+
+function refreshNonFormUI() {
+  // Update countdown, budget, checklist, inspiration — but NOT form fields the user might be typing in
+  budgetTotal = parseFloat(userData.budgetTotal) || 0;
+  budgetCategories = Array.isArray(userData.budgetCategories) ? userData.budgetCategories : [];
+  checklistItems = Array.isArray(userData.checklist) ? userData.checklist : getDefaultChecklist();
+  inspirationImages = Array.isArray(userData.inspirationImages) ? userData.inspirationImages : [];
+  if (userData.weddingDate) updateCountdown(userData.weddingDate);
+  renderBudget();
+  renderChecklist();
+  renderInspiration();
+}
+
+function applyUserData() {
+  // Canonical read: partnerOne / partnerTwo, with legacy fallbacks
+  const p1 = userData.partnerOne || userData.partner1Name || "";
+  const p2 = userData.partnerTwo || userData.partner2Name || "";
+
+  // Update UI names
+  const displayName = p1 && p2 ? `${p1} & ${p2}` : p1 || p2 || "";
+  document.getElementById("welcomeTitle").textContent = displayName || "Your Wedding Dashboard";
+  const heroTitle = document.getElementById("coupleHeroTitle");
+  if (heroTitle) heroTitle.innerHTML = displayName ? `${escapeHtml(p1)} &amp; ${escapeHtml(p2)}` : "Your love story<br>starts here";
+
+  // Populate form fields
+  document.getElementById("partner1Name").value = p1;
+  document.getElementById("partner2Name").value = p2;
+  if (userData.weddingDate) {
+    document.getElementById("weddingDate").value = userData.weddingDate;
+    updateCountdown(userData.weddingDate);
+  }
+  document.getElementById("weddingVenue").value = userData.weddingVenue || "";
+  document.getElementById("coupleNotes").value = userData.notes || "";
+
+  budgetTotal = parseFloat(userData.budgetTotal) || 0;
+  budgetCategories = Array.isArray(userData.budgetCategories) ? userData.budgetCategories : [];
+  checklistItems = Array.isArray(userData.checklist) ? userData.checklist : getDefaultChecklist();
+  inspirationImages = Array.isArray(userData.inspirationImages) ? userData.inspirationImages : [];
+
+  // Profile photo
+  if (userData.profilePhotoUrl) {
+    const img = document.getElementById("profilePhotoImg");
+    const empty = document.getElementById("profilePhotoEmpty");
+    if (img) { img.src = userData.profilePhotoUrl; img.style.display = "block"; }
+    if (empty) empty.style.display = "none";
+  }
+
+  renderBudget();
+  renderChecklist();
+  renderFavourites();
+  renderInspiration();
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+
+function updateCountdown(dateStr) {
+  if (!dateStr) return;
+  const weddingDate = new Date(dateStr + "T00:00:00");
+  const today = new Date(); today.setHours(0,0,0,0);
+  const diff = Math.round((weddingDate - today) / 86400000);
+  const el = document.getElementById("countdownDays");
+  if (!el) return;
+  if (diff > 0) el.textContent = diff;
+  else if (diff === 0) el.textContent = "Today";
+  else el.textContent = "♡";
+}
+
+// ── PROFILE PHOTO UPLOAD ──
+document.getElementById("profilePhotoInput").addEventListener("change", async (e) => {
+  const file = e.target.files?.[0];
+  if (!file || !currentUser) return;
+  const statusEl = document.getElementById("profilePhotoStatus");
+  statusEl.textContent = "Uploading...";
+  try {
+    // Use uid-based filename so it overwrites previous photo, no accumulation
+    const ext = file.name.includes(".") ? file.name.slice(file.name.lastIndexOf(".")) : ".jpg";
+    const fileRef = ref(storage, `couple-profile-photos/${currentUser.uid}/profile${ext}`);
+    await uploadBytes(fileRef, file);
+    const url = await getDownloadURL(fileRef);
+    await setDoc(doc(db, "users", currentUser.uid), { profilePhotoUrl: url }, { merge: true });
+    userData.profilePhotoUrl = url;
+    const img = document.getElementById("profilePhotoImg");
+    const empty = document.getElementById("profilePhotoEmpty");
+    if (img) { img.src = url; img.style.display = "block"; }
+    if (empty) empty.style.display = "none";
+    statusEl.textContent = "Photo saved ♡";
+    setTimeout(() => { statusEl.textContent = "Shown to vendors when you message them"; }, 2500);
+  } catch (err) { console.error(err); statusEl.textContent = "Upload failed. Please try again."; }
+  e.target.value = "";
+});
+
+// ── SAVE DETAILS ──
+document.getElementById("saveDetailsBtn").addEventListener("click", async () => {
+  const p1 = document.getElementById("partner1Name").value.trim();
+  const p2 = document.getElementById("partner2Name").value.trim();
+  const date = document.getElementById("weddingDate").value;
+  const venue = document.getElementById("weddingVenue").value.trim();
+  const statusEl = document.getElementById("detailsStatus");
+  statusEl.textContent = "Saving...";
+  try {
+    await setDoc(doc(db, "users", currentUser.uid), {
+      partnerOne: p1,
+      partnerTwo: p2,
+      weddingDate: date,
+      weddingVenue: venue,
+      role: "couple",
+      updatedAt: new Date().toISOString()
+    }, { merge: true });
+
+    // Update local cache so onSnapshot doesn't wipe UI
+    userData = { ...userData, partnerOne: p1, partnerTwo: p2, weddingDate: date, weddingVenue: venue };
+
+    const displayName = p1 && p2 ? `${p1} & ${p2}` : p1 || p2 || "";
+    document.getElementById("welcomeTitle").textContent = displayName || "Your Wedding Dashboard";
+    const heroTitle = document.getElementById("coupleHeroTitle");
+    if (heroTitle) heroTitle.innerHTML = displayName ? `${escapeHtml(p1)} &amp; ${escapeHtml(p2)}` : "Your love story<br>starts here";
+    if (date) updateCountdown(date);
+    statusEl.textContent = "Details saved ♡";
+    setTimeout(() => { statusEl.textContent = ""; }, 2500);
+  } catch (err) { console.error(err); statusEl.textContent = "Something went wrong — " + err.message; }
+});
+
+// ── NOTES ──
+document.getElementById("saveNotesBtn").addEventListener("click", async () => {
+  const notes = document.getElementById("coupleNotes").value;
+  const statusEl = document.getElementById("notesStatus");
+  try {
+    await setDoc(doc(db, "users", currentUser.uid), { notes }, { merge: true });
+    userData.notes = notes;
+    statusEl.textContent = "Notes saved ♡";
+    setTimeout(() => { statusEl.textContent = ""; }, 2200);
+  } catch (err) { console.error(err); statusEl.textContent = "Something went wrong."; }
+});
+
+// ── CHECKLIST ──
+function getDefaultChecklist() {
+  return [
+    { id: "c1", text: "Set your wedding date", done: false },
+    { id: "c2", text: "Book your venue", done: false },
+    { id: "c3", text: "Find a celebrant", done: false },
+    { id: "c4", text: "Book photographer", done: false },
+    { id: "c5", text: "Book hair & makeup", done: false },
+    { id: "c6", text: "Choose your dress / attire", done: false },
+    { id: "c7", text: "Book catering or choose venue catering", done: false },
+    { id: "c8", text: "Send invitations", done: false },
+    { id: "c9", text: "Plan honeymoon", done: false },
+    { id: "c10", text: "Confirm all vendors", done: false },
+  ];
+}
+
+function renderChecklist() {
+  const container = document.getElementById("checklistItems");
+  container.innerHTML = "";
+  const done = checklistItems.filter(i => i.done).length;
+  const pct = checklistItems.length ? Math.round((done / checklistItems.length) * 100) : 0;
+  document.getElementById("checklistBar").style.width = pct + "%";
+  document.getElementById("checklistPct").textContent = pct + "%";
+  checklistItems.forEach((item, idx) => {
+    const el = document.createElement("div");
+    el.className = "checklist-item" + (item.done ? " done" : "");
+    el.innerHTML = `<div class="checklist-check">${item.done ? "✓" : ""}</div><span class="checklist-label">${escapeHtml(item.text)}</span>`;
+    el.addEventListener("click", () => { checklistItems[idx].done = !checklistItems[idx].done; saveChecklist(); renderChecklist(); });
+    container.appendChild(el);
+  });
+}
+
+document.getElementById("checklistAddBtn").addEventListener("click", addChecklistItem);
+document.getElementById("checklistInput").addEventListener("keydown", e => { if (e.key === "Enter") addChecklistItem(); });
+
+function addChecklistItem() {
+  const input = document.getElementById("checklistInput");
+  const text = input.value.trim();
+  if (!text) return;
+  checklistItems.push({ id: "c" + Date.now(), text, done: false });
+  input.value = "";
+  saveChecklist();
+  renderChecklist();
+}
+
+async function saveChecklist() {
+  try { await setDoc(doc(db, "users", currentUser.uid), { checklist: checklistItems }, { merge: true }); }
+  catch (err) { console.error(err); }
+}
+
+// ── FAVOURITES ──
+function getFavs() { return JSON.parse(localStorage.getItem("favoriteVendors") || "[]"); }
+
+async function renderFavourites() {
+  const favIds = getFavs();
+  const grid = document.getElementById("coupleFavsGrid");
+  const empty = document.getElementById("coupleFavsEmpty");
+  const clearBtn = document.getElementById("clearFavsBtn");
+  grid.innerHTML = "";
+  if (!favIds.length) { empty.style.display = "block"; clearBtn.style.display = "none"; return; }
+  empty.style.display = "none"; clearBtn.style.display = "inline";
+  for (const vendorId of favIds) {
+    try {
+      const snap = await getDoc(doc(db, "vendors", vendorId));
+      if (!snap.exists()) continue;
+      const v = snap.data();
+      const name = v.businessName || "Vendor";
+      const img = v.coverImageUrl || (Array.isArray(v.images) && v.images[0]) || v.profileImageUrl || "images/bouquet.png";
+      const cat = Array.isArray(v.categories) && v.categories.length ? v.categories.slice(0,2).map(c => c.replace(/_/g," ").replace(/\b\w/g,x=>x.toUpperCase())).join(" · ") : "";
+      const card = document.createElement("div");
+      card.className = "couple-fav-card";
+      card.innerHTML = `<img src="${img}" alt="${escapeHtml(name)}" loading="lazy"><div class="couple-fav-info"><p class="couple-fav-name">${escapeHtml(name)}</p>${cat?`<p class="couple-fav-cat">${escapeHtml(cat)}</p>`:""}</div>`;
+      card.addEventListener("click", () => { window.location.href = `vendor.html?id=${vendorId}`; });
+      grid.appendChild(card);
+    } catch {}
+  }
+}
+
+document.getElementById("clearFavsBtn").addEventListener("click", () => { localStorage.removeItem("favoriteVendors"); renderFavourites(); });
+
+// ── MESSAGES PREVIEW ──
+function setupConversationsListener() {
+  if (!currentUser) return;
+  const q = query(collection(db, "conversations"), where("coupleId", "==", currentUser.uid), orderBy("lastMessageAt", "desc"), limit(5));
+  unsubConversations = onSnapshot(q, (snap) => {
+    const list = document.getElementById("coupleMessagesList");
+    const empty = document.getElementById("coupleMsgsEmpty");
+    list.innerHTML = "";
+    if (snap.empty) { empty.style.display = "block"; return; }
+    empty.style.display = "none";
+    snap.docs.forEach(docSnap => {
+      const conv = docSnap.data();
+      const unread = (conv.coupleUnread || 0) > 0;
+      const time = conv.lastMessageAt?.toDate ? conv.lastMessageAt.toDate().toLocaleDateString("en-AU", { day: "numeric", month: "short" }) : "";
+      const item = document.createElement("div");
+      item.className = "couple-msg-item" + (unread ? " unread" : "");
+      item.innerHTML = `
+        <img class="couple-msg-avatar" src="${conv.vendorProfileImage || "images/logo1.png"}" alt="${escapeHtml(conv.vendorName || "Vendor")}" loading="lazy">
+        <div class="couple-msg-content">
+          <p class="couple-msg-name">${escapeHtml(conv.vendorName || "Vendor")}</p>
+          <p class="couple-msg-preview">${escapeHtml(conv.lastMessage || "")}</p>
+          <span class="couple-msg-time">${time}</span>
+        </div>
+        ${unread ? '<div class="couple-msg-unread-dot"></div>' : ""}
+      `;
+      item.addEventListener("click", () => { window.location.href = `messages.html?conv=${docSnap.id}`; });
+      list.appendChild(item);
+    });
+  }, (err) => { console.error("Conversations error:", err); });
+}
+
+// ── UNREAD BADGE ──
+function setupUnreadBadge() {
+  if (!currentUser) return;
+  const q = query(collection(db, "conversations"), where("coupleId", "==", currentUser.uid));
+  onSnapshot(q, (snap) => {
+    let total = 0;
+    snap.forEach(d => { total += (d.data().coupleUnread || 0); });
+    const badge = document.getElementById("msgNavBadge");
+    if (badge) { badge.textContent = total > 0 ? String(total) : "0"; badge.style.display = total > 0 ? "inline" : "none"; }
+  });
+}
+
+// ── BUDGET ──
+function renderBudget() {
+  document.getElementById("budgetTotal").textContent = budgetTotal ? `A$${budgetTotal.toLocaleString()}` : "–";
+  const container = document.getElementById("budgetCategories");
+  container.innerHTML = "";
+  const spent = budgetCategories.reduce((sum, c) => sum + (parseFloat(c.amount) || 0), 0);
+  budgetCategories.forEach((cat) => {
+    const pct = budgetTotal ? Math.min(100, Math.round(((parseFloat(cat.amount) || 0) / budgetTotal) * 100)) : 0;
+    const row = document.createElement("div");
+    row.className = "budget-cat-row";
+    row.innerHTML = `<span class="budget-cat-label">${escapeHtml(cat.name)}</span><span class="budget-cat-amount">A$${(parseFloat(cat.amount)||0).toLocaleString()}</span><div class="budget-cat-bar-wrap"><div class="budget-cat-bar" style="width:${pct}%"></div></div>`;
+    container.appendChild(row);
+  });
+  const remaining = budgetTotal - spent;
+  document.getElementById("budgetRemaining").textContent = budgetTotal ? `A$${remaining.toLocaleString()}` : "–";
+}
+
+document.getElementById("editBudgetBtn").addEventListener("click", () => {
+  const el = document.getElementById("budgetInput");
+  el.style.display = el.style.display === "none" ? "block" : "none";
+  if (el.style.display === "block") document.getElementById("budgetTotalInput").value = budgetTotal || "";
+});
+
+document.getElementById("saveBudgetTotalBtn").addEventListener("click", async () => {
+  const val = parseFloat(document.getElementById("budgetTotalInput").value);
+  if (isNaN(val) || val < 0) return;
+  budgetTotal = val;
+  document.getElementById("budgetInput").style.display = "none";
+  renderBudget();
+  await saveBudget();
+});
+
+document.getElementById("addBudgetCatBtn").addEventListener("click", async () => {
+  const name = document.getElementById("budgetCatName").value.trim();
+  const amount = parseFloat(document.getElementById("budgetCatAmount").value);
+  if (!name || isNaN(amount)) return;
+  budgetCategories.push({ name, amount });
+  document.getElementById("budgetCatName").value = "";
+  document.getElementById("budgetCatAmount").value = "";
+  renderBudget();
+  await saveBudget();
+});
+
+async function saveBudget() {
+  try { await setDoc(doc(db, "users", currentUser.uid), { budgetTotal, budgetCategories }, { merge: true }); }
+  catch (err) { console.error(err); }
+}
+
+// ── INSPIRATION ──
+function renderInspiration() {
+  const grid = document.getElementById("inspirationGrid");
+  grid.innerHTML = "";
+  inspirationImages.forEach(src => {
+    const card = document.createElement("div");
+    card.className = "inspiration-card";
+    card.innerHTML = `<img src="${src}" alt="Inspiration" loading="lazy">`;
+    grid.appendChild(card);
+  });
+}
+
+document.getElementById("addInspirationBtn").addEventListener("click", () => { document.getElementById("inspirationFileInput").click(); });
+document.getElementById("inspirationFileInput").addEventListener("change", async (e) => {
+  const files = Array.from(e.target.files);
+  if (!files.length || !currentUser) return;
+  for (const file of files) {
+    try {
+      const ext = file.name.includes(".") ? file.name.slice(file.name.lastIndexOf(".")) : ".jpg";
+      const fileRef = ref(storage, `couple-inspiration/${currentUser.uid}/${Date.now()}-${Math.random().toString(36).slice(2)}${ext}`);
+      await uploadBytes(fileRef, file);
+      const url = await getDownloadURL(fileRef);
+      inspirationImages.push(url);
+      renderInspiration();
+      await setDoc(doc(db, "users", currentUser.uid), { inspirationImages }, { merge: true });
+    } catch (err) { console.error("Inspiration upload failed:", err); }
+  }
+  e.target.value = "";
+});
 </script>
 
-<script type="module" src="nav.js"></script>
 </body>
 </html>
