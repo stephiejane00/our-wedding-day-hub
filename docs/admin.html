@@ -342,11 +342,18 @@
             <textarea id="postExcerpt" placeholder="A short summary that appears on the journal page..."></textarea>
           </div>
 
-          <!-- Row 3: image -->
+          <!-- Row 3: image + author -->
           <div class="journal-editor-row">
             <div class="journal-field">
-              <label for="postImageUrl">Cover Image URL</label>
-              <input type="text" id="postImageUrl" placeholder="https://... or images/yourphoto.jpg">
+              <label>Cover Image</label>
+              <!-- Upload button -->
+              <div style="display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid var(--ink-rule);">
+                <input type="file" id="postImageFile" accept="image/*" style="display:none;">
+                <label for="postImageFile" class="btn btn-secondary btn-sm" style="cursor:pointer; margin:0;">Upload Image</label>
+                <span id="postImageUploadStatus" style="font-family:var(--font-sans); font-size:0.74rem; color:var(--ink-muted);">or paste a URL below</span>
+              </div>
+              <!-- URL fallback -->
+              <input type="text" id="postImageUrl" placeholder="https://... paste a URL or upload above" style="margin-top:8px; border:none; border-bottom:1px solid var(--ink-rule); border-radius:0; background:transparent; padding:10px 0; width:100%; font-family:var(--font-sans); font-size:0.84rem; color:var(--ink); outline:none;">
               <img id="postImagePreview" class="journal-image-preview" alt="Cover preview">
             </div>
             <div class="journal-field">
@@ -415,6 +422,7 @@
   import {
     auth,
     db,
+    storage,
     onAuthStateChanged,
     collection,
     getDocs,
@@ -423,7 +431,10 @@
     addDoc,
     deleteDoc,
     serverTimestamp,
-    getDoc
+    getDoc,
+    ref,
+    uploadBytes,
+    getDownloadURL
   } from "./firebase.js";
 
   // ── ADMIN CONFIG ──
@@ -508,11 +519,35 @@
     });
   }
 
-  // ── IMAGE PREVIEW ──
+  // ── IMAGE PREVIEW (URL) ──
   postImageUrl.addEventListener("input", () => {
     const url = postImageUrl.value.trim();
     if (url) { postImagePreview.src = url; postImagePreview.style.display = "block"; }
     else { postImagePreview.style.display = "none"; }
+  });
+
+  // ── COVER IMAGE UPLOAD ──
+  document.getElementById("postImageFile").addEventListener("change", async (e) => {
+    const file = e.target.files?.[0];
+    const statusEl = document.getElementById("postImageUploadStatus");
+    if (!file) return;
+    statusEl.textContent = "Uploading…";
+    try {
+      const ext = file.name.includes(".") ? file.name.slice(file.name.lastIndexOf(".")) : ".jpg";
+      const fileName = `journal-covers/${Date.now()}-${Math.random().toString(36).slice(2)}${ext}`;
+      const fileRef = ref(storage, fileName);
+      await uploadBytes(fileRef, file, { contentType: file.type });
+      const url = await getDownloadURL(fileRef);
+      postImageUrl.value = url;
+      postImagePreview.src = url;
+      postImagePreview.style.display = "block";
+      statusEl.textContent = "Uploaded ✓";
+      setTimeout(() => { statusEl.textContent = "or paste a URL below"; }, 3000);
+    } catch (err) {
+      console.error(err);
+      statusEl.textContent = "Upload failed — check Storage rules.";
+    }
+    e.target.value = "";
   });
 
   // ── JOURNAL: LOAD POSTS ──
