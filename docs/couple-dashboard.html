@@ -319,7 +319,7 @@
         <p class="couple-hero-sub">Save your favourite vendors, track your checklist, manage your budget, and message the people who'll make your day unforgettable.</p>
       </div>
       <div class="couple-hero-image-wrap">
-        <img src="images/cutecar.jpg" alt="Romantic wedding couple on a vintage car" class="couple-hero-image" loading="eager">
+        <img id="coupleHeroImage" src="images/cutecar.jpg" alt="Your wedding hero photo" class="couple-hero-image" loading="eager">
       </div>
     </div>
   </section>
@@ -520,7 +520,7 @@
 </footer>
 
 <script type="module">
-import { db, auth, storage, doc, getDoc, setDoc, onAuthStateChanged, signOut, onSnapshot, collection, query, where, orderBy, limit, ref, uploadBytes, getDownloadURL } from "./firebase.js";
+import { db, auth, storage, doc, getDoc, setDoc, onAuthStateChanged, signOut, onSnapshot, collection, query, where, orderBy, ref, uploadBytes, getDownloadURL } from "./firebase.js";
 
 let currentUser = null;
 let userData = {};
@@ -622,12 +622,14 @@ function applyUserData() {
   checklistItems = Array.isArray(userData.checklist) ? userData.checklist : getDefaultChecklist();
   inspirationImages = Array.isArray(userData.inspirationImages) ? userData.inspirationImages : [];
 
-  // Profile photo
+  // Profile photo — also set as hero image (only visible to this user)
   if (userData.profilePhotoUrl) {
     const img = document.getElementById("profilePhotoImg");
     const empty = document.getElementById("profilePhotoEmpty");
+    const heroImg = document.getElementById("coupleHeroImage");
     if (img) { img.src = userData.profilePhotoUrl; img.style.display = "block"; }
     if (empty) empty.style.display = "none";
+    if (heroImg) { heroImg.src = userData.profilePhotoUrl; heroImg.style.objectFit = "cover"; }
   }
 
   renderBudget();
@@ -668,8 +670,10 @@ document.getElementById("profilePhotoInput").addEventListener("change", async (e
     userData.profilePhotoUrl = url;
     const img = document.getElementById("profilePhotoImg");
     const empty = document.getElementById("profilePhotoEmpty");
+    const heroImg = document.getElementById("coupleHeroImage");
     if (img) { img.src = url; img.style.display = "block"; }
     if (empty) empty.style.display = "none";
+    if (heroImg) { heroImg.src = url; heroImg.style.objectFit = "cover"; }
     statusEl.textContent = "Photo saved ♡";
     setTimeout(() => { statusEl.textContent = "Shown to vendors when you message them"; }, 2500);
   } catch (err) { console.error(err); statusEl.textContent = "Upload failed. Please try again."; }
@@ -802,7 +806,7 @@ document.getElementById("clearFavsBtn").addEventListener("click", () => { localS
 // ── MESSAGES PREVIEW ──
 function setupConversationsListener() {
   if (!currentUser) return;
-  const q = query(collection(db, "conversations"), where("coupleId", "==", currentUser.uid), orderBy("lastMessageAt", "desc"), limit(5));
+  const q = query(collection(db, "conversations"), where("coupleId", "==", currentUser.uid), orderBy("lastMessageAt", "desc"));
   unsubConversations = onSnapshot(q, (snap) => {
     const list = document.getElementById("coupleMessagesList");
     const empty = document.getElementById("coupleMsgsEmpty");
@@ -861,13 +865,15 @@ function renderBudget() {
 
 document.getElementById("editBudgetBtn").addEventListener("click", () => {
   const el = document.getElementById("budgetInput");
-  el.style.display = el.style.display === "none" ? "block" : "none";
-  if (el.style.display === "block") document.getElementById("budgetTotalInput").value = budgetTotal || "";
+  const isHidden = el.style.display === "none" || el.style.display === "";
+  el.style.display = isHidden ? "block" : "none";
+  if (isHidden) document.getElementById("budgetTotalInput").value = budgetTotal || "";
 });
 
 document.getElementById("saveBudgetTotalBtn").addEventListener("click", async () => {
-  const val = parseFloat(document.getElementById("budgetTotalInput").value);
-  if (isNaN(val) || val < 0) return;
+  const raw = document.getElementById("budgetTotalInput").value;
+  const val = parseFloat(raw);
+  if (raw === "" || isNaN(val) || val < 0) return;
   budgetTotal = val;
   document.getElementById("budgetInput").style.display = "none";
   renderBudget();
