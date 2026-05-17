@@ -296,7 +296,6 @@
   <nav class="site-topbar-actions">
     <a href="categories.html" class="site-topbar-link">Categories</a>
     <a href="shop.html" class="site-topbar-link">Boutique</a>
-<a href="journal.html" class="site-topbar-link">The Journal</a>
     <a href="messages.html" id="messagesLink" class="site-topbar-link" style="display:none; position:relative;">
       Messages
       <span id="msgNavBadge" style="display:none; position:absolute; top:-6px; right:-10px; background:var(--ink); color:var(--cream); font-size:0.64rem; font-weight:700; padding:2px 6px; border-radius:999px; line-height:1.2; min-width:18px; text-align:center;">0</span>
@@ -521,7 +520,7 @@
 </footer>
 
 <script type="module">
-import { db, auth, storage, doc, getDoc, setDoc, onAuthStateChanged, signOut, collection, query, where, onSnapshot, orderBy, limit, ref, uploadBytes, getDownloadURL } from "./firebase.js";
+import { db, auth, storage, doc, getDoc, setDoc, onAuthStateChanged, signOut, onSnapshot, collection, query, where, orderBy, limit, ref, uploadBytes, getDownloadURL } from "./firebase.js";
 
 let currentUser = null;
 let userData = {};
@@ -530,31 +529,47 @@ let budgetCategories = [];
 let checklistItems = [];
 let inspirationImages = [];
 let unsubConversations = null;
+let unsubUserData = null;
 
 // ── AUTH ──
 onAuthStateChanged(auth, async (user) => {
   if (!user) { window.location.href = "login.html"; return; }
   currentUser = user;
-  await loadUserData();
+  // Show correct nav state manually (no nav.js on this page to avoid conflicts)
+  const loginLink = document.getElementById("loginLink");
+  const joinLink = document.getElementById("joinLink");
+  const dashboardLink = document.getElementById("dashboardLink");
+  const logoutLinkEl = document.getElementById("logoutLink");
+  const messagesLinkEl = document.getElementById("messagesLink");
+  if (loginLink) loginLink.style.display = "none";
+  if (joinLink) joinLink.style.display = "none";
+  if (dashboardLink) dashboardLink.style.display = "inline-flex";
+  if (logoutLinkEl) logoutLinkEl.style.display = "inline-flex";
+  if (messagesLinkEl) messagesLinkEl.style.display = "inline-flex";
+  loadUserDataRealtime();
   setupUnreadBadge();
   setupConversationsListener();
 });
 
 document.getElementById("logoutLink").addEventListener("click", async () => {
   if (unsubConversations) unsubConversations();
+  if (unsubUserData) unsubUserData();
   await signOut(auth);
   window.location.href = "index.html";
 });
 
-// ── LOAD USER DATA ──
-// BUG FIX: use ONE canonical field set — partnerOne / partnerTwo — with fallback
-// reading from legacy fields on load, but always writing to the canonical fields.
-async function loadUserData() {
-  try {
-    const snap = await getDoc(doc(db, "users", currentUser.uid));
-    if (snap.exists()) userData = snap.data();
+// ── LOAD USER DATA — real-time so saves always reflect ──
+let unsubUserData = null;
+function loadUserDataRealtime() {
+  if (unsubUserData) unsubUserData();
+  unsubUserData = onSnapshot(doc(db, "users", currentUser.uid), (snap) => {
+    if (snap.exists()) {
+      userData = snap.data();
+    }
     applyUserData();
-  } catch (err) { console.error("Error loading user data:", err); }
+  }, (err) => {
+    console.error("Error loading user data:", err);
+  });
 }
 
 function applyUserData() {
@@ -884,6 +899,5 @@ document.getElementById("inspirationFileInput").addEventListener("change", async
 });
 </script>
 
-<script type="module" src="nav.js"></script>
 </body>
 </html>
