@@ -53,34 +53,110 @@
     .site-topbar-btn { background: var(--ink); color: var(--cream); font-weight: 600; border: none; cursor: pointer; }
     .site-topbar-btn:hover { background: var(--ink-mid); }
 
-    /* ── HERO ── */
-    .journal-hero {
-      display: grid; grid-template-columns: 1fr 1fr;
-      align-items: stretch; border-bottom: 1px solid var(--ink);
-    }
-    .journal-hero-copy {
-      padding: 56px 48px 48px; display: flex; flex-direction: column;
-      justify-content: space-between; border-right: 1px solid var(--ink-rule);
-    }
-    .journal-hero-copy > * { animation: fadeUp 0.7s ease forwards; opacity: 0; }
-    .journal-hero-copy > *:nth-child(1) { animation-delay: 0.05s; }
-    .journal-hero-copy > *:nth-child(2) { animation-delay: 0.12s; }
-    .journal-hero-copy > *:nth-child(3) { animation-delay: 0.2s; }
-    .journal-hero-copy > *:nth-child(4) { animation-delay: 0.3s; }
-    .journal-hero-copy > *:nth-child(5) { animation-delay: 0.38s; }
+/* ── HERO ── */
+.journal-hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+  border-bottom: 1px solid var(--ink);
+}
 
-    .journal-logo { width: 80px; opacity: 0.9; display: block; }
-    .journal-kicker { font-family: var(--font-sans); font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-ghost); }
-    .journal-title { font-family: var(--font-serif); font-size: clamp(2.4rem, 4.5vw, 4.2rem); font-weight: 300; line-height: 0.95; letter-spacing: -0.04em; color: var(--ink); }
-    .journal-script { font-family: var(--font-serif); font-style: italic; font-size: 1.2rem; color: var(--gold); }
-    .journal-intro { font-family: var(--font-sans); font-size: 0.88rem; color: var(--ink-muted); line-height: 1.8; max-width: 440px; }
+.journal-hero-copy {
+  padding: 90px 40px 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-right: 1px solid var(--ink-rule);
+  position: relative;
+}
 
-    .journal-hero-image-wrap {
-      overflow: hidden; background: var(--cream-deep);
-      min-height: clamp(400px, 50vw, 600px);
-    }
-    .journal-hero-image { width: 100%; height: 100%; display: block; object-fit: cover; opacity: 0; animation: heroFadeIn 0.9s ease forwards; transition: transform 0.9s; }
-    .journal-hero-image-wrap:hover .journal-hero-image { transform: scale(1.025); }
+.journal-kicker,
+.journal-title,
+.journal-script,
+.journal-intro {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: 440px;
+}
+
+.journal-hero-copy > * {
+  animation: fadeUp 0.7s ease forwards;
+  opacity: 0;
+}
+
+.journal-hero-copy > *:nth-child(1) { animation-delay: 0.05s; }
+.journal-hero-copy > *:nth-child(2) { animation-delay: 0.12s; }
+.journal-hero-copy > *:nth-child(3) { animation-delay: 0.2s; }
+.journal-hero-copy > *:nth-child(4) { animation-delay: 0.3s; }
+.journal-hero-copy > *:nth-child(5) { animation-delay: 0.38s; }
+
+.journal-hero-copy > a {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+}
+
+.journal-logo {
+  width: 110px;
+  opacity: 0.9;
+  display: block;
+}
+
+.journal-kicker {
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-ghost);
+  margin-bottom: 24px;
+}
+
+.journal-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.4rem, 4.5vw, 4.2rem);
+  font-weight: 300;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  color: var(--ink);
+  margin-bottom: 30px;
+}
+
+.journal-script {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.2rem;
+  color: var(--gold);
+  margin-bottom: 38px;
+}
+
+.journal-intro {
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  color: var(--ink-muted);
+  line-height: 1.8;
+}
+
+.journal-hero-image-wrap {
+  overflow: hidden;
+  background: var(--cream-deep);
+  min-height: clamp(400px, 50vw, 600px);
+}
+
+.journal-hero-image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  opacity: 0;
+  animation: heroFadeIn 0.9s ease forwards;
+  transition: transform 0.9s;
+}
+
+.journal-hero-image-wrap:hover .journal-hero-image {
+  transform: scale(1.025);
+}
 
     /* ── ISSUE STRIP ── */
     .journal-issue-strip {
