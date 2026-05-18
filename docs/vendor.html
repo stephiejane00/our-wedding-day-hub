@@ -303,17 +303,51 @@
       .footer-links-col { align-items: flex-start; }
       .footer-links { align-items: flex-start; }
     }
-    @media (max-width: 700px) {
-      .site-topbar { padding: 0 16px; min-height: 56px; }
-      .vendor-page { padding: 0 0 40px; }
-      .vendor-card { padding: 20px 18px; }
-      .vendor-header-card { padding: 22px 18px; }
-      .vendor-gallery-media { height: 300px; }
-      .vendor-gallery-arrow { width: 36px; height: 36px; font-size: 18px; }
-      .profile-pic { width: 100px; height: 100px; }
-      .msg-modal { padding: 28px 20px 22px; }
-      .footer-content { padding: 28px 20px 24px; }
-    }
+@media (max-width: 700px) {
+  .site-topbar { padding: 0 16px; min-height: 56px; position: relative; }
+  .vendor-page { padding: 0 0 40px; }
+  .vendor-card { padding: 20px 18px; }
+  .vendor-header-card { padding: 22px 18px; }
+  .vendor-gallery-media { height: 300px; }
+  .vendor-gallery-arrow { width: 36px; height: 36px; font-size: 18px; }
+  .profile-pic { width: 100px; height: 100px; }
+  .msg-modal { padding: 28px 20px 22px; }
+  .footer-content { padding: 28px 20px 24px; }
+
+  .vendor-layout {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar-card {
+    order: -1;
+    width: 100%;
+    border-left: none;
+    border-bottom: 0.5px solid var(--ink-rule);
+  }
+
+  .vendor-left {
+    width: 100%;
+  }
+
+  .vendor-gallery-media {
+    height: 260px;
+  }
+
+  .cal-day {
+    min-height: 36px;
+    padding: 4px;
+    font-size: 0.76rem;
+  }
+
+  .cal-weekday {
+    font-size: 0.56rem;
+  }
+
+  .booking-frame {
+    min-height: 520px;
+  }
+}
   </style>
 </head>
 
