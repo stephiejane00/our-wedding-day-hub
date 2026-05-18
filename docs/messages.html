@@ -54,25 +54,105 @@
     .site-topbar-btn { background: var(--ink); color: var(--cream); font-weight: 600; border: none; cursor: pointer; }
     .site-topbar-btn:hover { background: var(--ink-mid); }
 
-    /* ── HERO ── */
-    .messages-hero-card { border-bottom: 1px solid var(--ink); }
-    .messages-hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; align-items: stretch; min-height: 280px; }
-    .messages-hero-copy {
-      padding: 40px 40px 36px; display: flex; flex-direction: column;
-      justify-content: space-between; border-right: 1px solid var(--ink-rule);
-    }
-    .messages-hero-copy > * { animation: fadeUp 0.7s ease forwards; opacity: 0; }
-    .messages-hero-copy > *:nth-child(1) { animation-delay: 0.05s; }
-    .messages-hero-copy > *:nth-child(2) { animation-delay: 0.1s; }
-    .messages-hero-copy > *:nth-child(3) { animation-delay: 0.18s; }
-    .messages-hero-copy > *:nth-child(4) { animation-delay: 0.26s; }
-    .messages-hero-logo { width: 52px; display: block; opacity: 0.9; }
-    .messages-hero-kicker { font-family: var(--font-sans); font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-ghost); }
-    .messages-hero-title { font-family: var(--font-serif); font-size: clamp(2rem, 3.8vw, 3rem); font-weight: 300; line-height: 0.97; letter-spacing: -0.03em; color: var(--ink); }
-    .messages-hero-script { font-family: var(--font-serif); font-style: italic; font-size: 1.1rem; color: var(--gold); }
-    .messages-hero-image-wrap { position: relative; overflow: hidden; background: var(--cream-deep); min-height: clamp(240px, 32vw, 380px); }
-    .messages-hero-image { width: 100%; height: 100%; display: block; object-fit: cover; opacity: 0; animation: heroFadeIn 0.9s ease forwards; transition: transform 0.9s; }
-    .messages-hero-image-wrap:hover .messages-hero-image { transform: scale(1.025); }
+  /* ── HERO ── */
+.messages-hero-card {
+  border-bottom: 1px solid var(--ink);
+}
+
+.messages-hero-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: stretch;
+  min-height: 340px;
+}
+
+.messages-hero-copy {
+  padding: 90px 40px 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-right: 1px solid var(--ink-rule);
+  position: relative;
+}
+
+.messages-hero-kicker,
+.messages-hero-title,
+.messages-hero-script {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: 520px;
+}
+
+.messages-hero-copy > * {
+  animation: fadeUp 0.7s ease forwards;
+  opacity: 0;
+}
+
+.messages-hero-copy > *:nth-child(1) { animation-delay: 0.05s; }
+.messages-hero-copy > *:nth-child(2) { animation-delay: 0.1s; }
+.messages-hero-copy > *:nth-child(3) { animation-delay: 0.18s; }
+.messages-hero-copy > *:nth-child(4) { animation-delay: 0.26s; }
+
+.messages-hero-copy > a {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+}
+
+.messages-hero-logo {
+  width: 110px;
+  display: block;
+  opacity: 0.9;
+}
+
+.messages-hero-kicker {
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-ghost);
+  margin-bottom: 24px;
+}
+
+.messages-hero-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 3.8vw, 3rem);
+  font-weight: 300;
+  line-height: 0.97;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  margin-bottom: 30px;
+}
+
+.messages-hero-script {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.1rem;
+  color: var(--gold);
+}
+
+.messages-hero-image-wrap {
+  position: relative;
+  overflow: hidden;
+  background: var(--cream-deep);
+  min-height: clamp(240px, 32vw, 380px);
+}
+
+.messages-hero-image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  opacity: 0;
+  animation: heroFadeIn 0.9s ease forwards;
+  transition: transform 0.9s;
+}
+
+.messages-hero-image-wrap:hover .messages-hero-image {
+  transform: scale(1.025);
+}
 
     /* ── PAGE ── */
     .messages-page { max-width: 1100px; margin: 0 auto 48px; padding: 24px 36px 0; animation: fadeUp 0.5s ease forwards; }
