@@ -53,34 +53,110 @@
     .site-topbar-btn { background: var(--ink); color: var(--cream); font-weight: 600; border: none; cursor: pointer; }
     .site-topbar-btn:hover { background: var(--ink-mid); }
 
-    /* ── HERO ── */
-    .privacy-hero {
-      display: grid; grid-template-columns: 1fr 1fr;
-      align-items: stretch; border-bottom: 1px solid var(--ink);
-    }
-    .privacy-hero-copy {
-      padding: 48px 40px 40px; display: flex; flex-direction: column;
-      justify-content: space-between; border-right: 1px solid var(--ink-rule);
-    }
-    .privacy-hero-copy > * { animation: fadeUp 0.7s ease forwards; opacity: 0; }
-    .privacy-hero-copy > *:nth-child(1) { animation-delay: 0.05s; }
-    .privacy-hero-copy > *:nth-child(2) { animation-delay: 0.12s; }
-    .privacy-hero-copy > *:nth-child(3) { animation-delay: 0.2s; }
-    .privacy-hero-copy > *:nth-child(4) { animation-delay: 0.3s; }
-    .privacy-hero-copy > *:nth-child(5) { animation-delay: 0.38s; }
+ /* ── HERO ── */
+.privacy-hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+  border-bottom: 1px solid var(--ink);
+}
 
-    .privacy-logo { width: 80px; opacity: 0.9; display: block; }
-    .privacy-kicker { font-family: var(--font-sans); font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-ghost); }
-    .privacy-title { font-family: var(--font-serif); font-size: clamp(2.2rem, 3.8vw, 3.4rem); font-weight: 300; line-height: 0.95; letter-spacing: -0.03em; color: var(--ink); }
-    .privacy-script { font-family: var(--font-serif); font-style: italic; font-size: 1.15rem; color: var(--gold); letter-spacing: 0.01em; }
-    .privacy-intro { font-family: var(--font-sans); font-size: 0.88rem; color: var(--ink-muted); line-height: 1.75; max-width: 420px; }
+.privacy-hero-copy {
+  padding: 90px 40px 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-right: 1px solid var(--ink-rule);
+  position: relative;
+}
 
-    .privacy-hero-image-wrap {
-      position: relative; overflow: hidden; background: var(--cream-deep);
-      min-height: clamp(380px, 46vw, 580px);
-    }
-    .privacy-hero-image { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform 0.9s ease; }
-    .privacy-hero-image-wrap:hover .privacy-hero-image { transform: scale(1.025); }
+.privacy-kicker,
+.privacy-title,
+.privacy-script,
+.privacy-intro {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: 440px;
+}
+
+.privacy-hero-copy > * {
+  animation: fadeUp 0.7s ease forwards;
+  opacity: 0;
+}
+
+.privacy-hero-copy > *:nth-child(1) { animation-delay: 0.05s; }
+.privacy-hero-copy > *:nth-child(2) { animation-delay: 0.12s; }
+.privacy-hero-copy > *:nth-child(3) { animation-delay: 0.2s; }
+.privacy-hero-copy > *:nth-child(4) { animation-delay: 0.3s; }
+.privacy-hero-copy > *:nth-child(5) { animation-delay: 0.38s; }
+
+.privacy-hero-copy > a {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+}
+
+.privacy-logo {
+  width: 110px;
+  opacity: 0.9;
+  display: block;
+}
+
+.privacy-kicker {
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-ghost);
+  margin-bottom: 24px;
+}
+
+.privacy-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 3.8vw, 3.4rem);
+  font-weight: 300;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  margin-bottom: 30px;
+}
+
+.privacy-script {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--gold);
+  letter-spacing: 0.01em;
+  margin-bottom: 38px;
+}
+
+.privacy-intro {
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  color: var(--ink-muted);
+  line-height: 1.75;
+}
+
+.privacy-hero-image-wrap {
+  position: relative;
+  overflow: hidden;
+  background: var(--cream-deep);
+  min-height: clamp(380px, 46vw, 580px);
+}
+
+.privacy-hero-image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.9s ease;
+}
+
+.privacy-hero-image-wrap:hover .privacy-hero-image {
+  transform: scale(1.025);
+}
 
     /* ── TRUST STRIP ── */
     .trust-strip { display: flex; border-bottom: 1px solid var(--ink-rule); }
