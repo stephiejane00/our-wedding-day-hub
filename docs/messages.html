@@ -634,7 +634,7 @@ import {
           wrap.className = "msg-bubble-wrap " + (isMine ? "mine" : "theirs");
           const bubble = document.createElement("div");
           bubble.className = "msg-bubble " + (isMine ? "mine" : "theirs");
-          if (m.type === "update") {
+          if (m.type === "update" || m.type === "product_order" || m.type === "shipping_update") {
 
   bubble.innerHTML = `
     <div class="msg-card">
