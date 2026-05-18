@@ -82,88 +82,117 @@
     padding:0 0 56px;
   }
 
-  .shop-hero{
-    background:var(--cream);
-    border-bottom:1px solid var(--ink);
-    margin:0;
-    border-radius:0;
-    overflow:hidden;
-    box-shadow:none;
-  }
+.shop-hero{
+  background:var(--cream);
+  border-bottom:1px solid var(--ink);
+  margin:0;
+  border-radius:0;
+  overflow:hidden;
+  box-shadow:none;
+}
 
-  .shop-hero-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    align-items:stretch;
-    min-height:520px;
-  }
+.shop-hero-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  align-items:stretch;
+  min-height:520px;
+}
 
-  .shop-hero-copy{
-    padding:48px 40px 40px;
-    display:flex;
-    flex-direction:column;
-    justify-content:space-between;
-    border-right:1px solid var(--ink-rule);
-  }
+.shop-hero-copy{
+  padding:90px 40px 70px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  border-right:1px solid var(--ink-rule);
+  position:relative;
+}
 
-  .shop-hero-copy>*{animation:fadeUp .7s ease forwards;opacity:0}
-  .shop-hero-copy>*:nth-child(1){animation-delay:.05s}
-  .shop-hero-copy>*:nth-child(2){animation-delay:.12s}
-  .shop-hero-copy>*:nth-child(3){animation-delay:.2s}
-  .shop-hero-copy>*:nth-child(4){animation-delay:.3s}
-  .shop-hero-copy>*:nth-child(5){animation-delay:.38s}
+.shop-kicker,
+.shop-title,
+.shop-script,
+.shop-intro{
+  text-align:center;
+  margin-left:auto;
+  margin-right:auto;
+  width:100%;
+  max-width:440px;
+}
 
-  .shop-logo-wrap{display:inline-block}
-  .shop-logo{width:80px;opacity:.9;display:block}
+.shop-hero-copy>*{
+  animation:fadeUp .7s ease forwards;
+  opacity:0;
+}
 
-  .shop-kicker{
-    font-family:var(--font-sans);
-    font-size:.68rem;
-    letter-spacing:.22em;
-    text-transform:uppercase;
-    color:var(--ink-ghost);
-  }
+.shop-hero-copy>*:nth-child(1){animation-delay:.05s}
+.shop-hero-copy>*:nth-child(2){animation-delay:.12s}
+.shop-hero-copy>*:nth-child(3){animation-delay:.2s}
+.shop-hero-copy>*:nth-child(4){animation-delay:.3s}
+.shop-hero-copy>*:nth-child(5){animation-delay:.38s}
 
-  .shop-title{
-    font-family:var(--font-serif);
-    font-size:clamp(2.3rem,4vw,3.7rem);
-    font-weight:300;
-    line-height:.95;
-    letter-spacing:-.03em;
-    color:var(--ink);
-  }
+.shop-logo-wrap{
+  position:absolute;
+  top:40px;
+  left:40px;
+}
 
-  .shop-script{
-    font-family:var(--font-serif);
-    font-style:italic;
-    font-size:1.2rem;
-    color:var(--gold);
-  }
+.shop-logo{
+  width:110px;
+  opacity:.9;
+  display:block;
+}
 
-  .shop-intro{
-    max-width:430px;
-    font-size:.88rem;
-    color:var(--ink-muted);
-    line-height:1.75;
-  }
+.shop-kicker{
+  font-family:var(--font-sans);
+  font-size:.68rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--ink-ghost);
+  margin-bottom:24px;
+}
 
-  .shop-hero-image-wrap{
-    position:relative;
-    overflow:hidden;
-    background:var(--cream-deep);
-    min-height:480px;
-  }
+.shop-title{
+  font-family:var(--font-serif);
+  font-size:clamp(2.3rem,4vw,3.7rem);
+  font-weight:300;
+  line-height:.95;
+  letter-spacing:-.03em;
+  color:var(--ink);
+  margin-bottom:30px;
+}
 
-  .shop-hero-image{
-    width:100%;
-    height:100%;
-    display:block;
-    object-fit:cover;
-    object-position:center;
-    transition:transform .9s ease;
-  }
+.shop-script{
+  font-family:var(--font-serif);
+  font-style:italic;
+  font-size:1.2rem;
+  color:var(--gold);
+  margin-bottom:38px;
+}
 
-  .shop-hero-image-wrap:hover .shop-hero-image{transform:scale(1.025)}
+.shop-intro{
+  font-size:.88rem;
+  color:var(--ink-muted);
+  line-height:1.75;
+}
+
+.shop-hero-image-wrap{
+  position:relative;
+  overflow:hidden;
+  background:var(--cream-deep);
+  min-height:480px;
+}
+
+.shop-hero-image{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:cover;
+  object-position:center;
+  transition:transform .9s ease;
+}
+
+.shop-hero-image-wrap:hover .shop-hero-image{
+  transform:scale(1.025);
+}
 
   #shopMainContent{
     border-bottom:1px solid var(--ink-rule);
