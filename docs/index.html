@@ -549,7 +549,7 @@
 
     .vendor-card-name {
       font-family: var(--font-serif);
-      font-size: 1.05rem;
+      font-size: 1.25rem;
       font-weight: 400;
       color: var(--ink);
       line-height: 1.2;
@@ -805,6 +805,99 @@
     .location-pill:hover { background: var(--cream-deep); border-color: var(--ink-muted); }
     .location-pill:first-child:hover { background: var(--ink-mid); }
 
+    /* ── JOURNAL PREVIEW ── */
+    .journal-preview-section {
+      border-bottom: 1px solid var(--ink-rule);
+    }
+
+    .journal-preview-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0;
+      background: var(--ink-rule);
+      margin-top: 20px;
+    }
+
+    .journal-preview-card {
+      background: var(--cream);
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: var(--ink);
+      cursor: pointer;
+      transition: background 0.2s;
+      overflow: hidden;
+    }
+    .journal-preview-card:hover { background: var(--cream-warm); }
+
+    .journal-preview-img {
+      width: 100%;
+      aspect-ratio: 3 / 2;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+      background: var(--cream-deep);
+    }
+    .journal-preview-card:hover .journal-preview-img { transform: scale(1.03); }
+
+    .journal-preview-body {
+      padding: 16px 20px 20px;
+      border-top: 0.5px solid var(--ink-rule);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .journal-preview-cat {
+      font-family: var(--font-sans);
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-ghost);
+    }
+
+    .journal-preview-title {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      font-weight: 300;
+      line-height: 1.25;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+
+    .journal-preview-excerpt {
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      color: var(--ink-muted);
+      line-height: 1.65;
+      margin-top: 2px;
+      flex: 1;
+    }
+
+    .journal-preview-read {
+      font-family: var(--font-sans);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-ghost);
+      margin-top: 8px;
+      transition: color 0.2s;
+    }
+    .journal-preview-card:hover .journal-preview-read { color: var(--ink); }
+
+    .journal-preview-empty {
+      grid-column: 1 / -1;
+      padding: 40px;
+      text-align: center;
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--ink-ghost);
+      background: var(--cream);
+    }
+
     /* ── FOOTER ── */
     .site-footer {
       background: var(--ink);
@@ -897,6 +990,7 @@
       .vendors-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .category-cards-grid.category-cards-grid-home { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .home-testimonials-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .journal-preview-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .footer-content { grid-template-columns: 1fr; gap: 24px; }
       .footer-links-col { align-items: flex-start; }
       .footer-links { align-items: flex-start; }
@@ -910,6 +1004,7 @@
       .vendors-arrow { width: 40px; flex-basis: 40px; font-size: 1.1rem; }
       .category-cards-grid.category-cards-grid-home { grid-template-columns: 1fr; }
       .home-testimonials-grid { grid-template-columns: 1fr; }
+      .journal-preview-grid { grid-template-columns: 1fr; }
       .section-head,
       .testimonials-section-head { padding: 24px 20px 0; flex-wrap: wrap; gap: 6px; }
       .location-pills { padding: 16px 20px 0; }
@@ -937,7 +1032,6 @@
   <nav class="site-topbar-actions">
     <a href="categories.html" class="site-topbar-link">Categories</a>
     <a href="shop.html" class="site-topbar-link">Boutique</a>
-<a href="journal.html" class="site-topbar-link">The Journal</a>
 
     <a href="messages.html" id="messagesLink" class="site-topbar-link" style="display:none; position:relative;">
       Messages
@@ -1164,6 +1258,19 @@
 
 </main>
 
+<!-- ── JOURNAL PREVIEW ── -->
+<section class="homepage-section journal-preview-section">
+  <div class="section-head">
+    <div>
+      <p class="section-kicker">From The Journal</p>
+      <h2 class="section-title-serif">Stories &amp; inspiration</h2>
+      <span class="section-script-line">for your wedding journey ♡</span>
+    </div>
+    <a href="journal.html" class="section-all-link">Read all articles</a>
+  </div>
+  <div id="journalPreviewGrid" class="journal-preview-grid"></div>
+</section>
+
 <!-- ── FOOTER ── -->
 <footer class="site-footer">
   <div class="footer-content">
@@ -1197,7 +1304,7 @@
 
 <!-- ── ALL JAVASCRIPT UNCHANGED ── -->
 <script type="module">
-  import { db, auth, collection, getDocs, onAuthStateChanged, signOut } from "./firebase.js";
+  import { db, auth, collection, getDocs, query, where, orderBy, limit, onAuthStateChanged, signOut } from "./firebase.js";
 
   const vendorsGrid       = document.getElementById("vendorsGrid");
   const emptyMessage      = document.getElementById("emptyMessage");
@@ -1445,16 +1552,16 @@
   function setRefreshImages() {
     const heroImage  = document.getElementById("heroImage");
     const heroImages = [
-      "images/city.png",
+      "images/hero-1.png",
       "images/sunset.jpg",
-      "images/heart.png",
+      "images/rain.jpg",
       "images/bride.png",
       "images/kiss.png",
-      "images/heart.png",
-      "images/beautiful.png",
       "images/stair.png",
+      "images/city.jpg",
+      "images/cutecar.jpg",
       "images/love.png",
-      "images/spin.png"
+      "images/marriage.png"
     ];
     if (!heroImage) return;
 
@@ -1521,10 +1628,49 @@
   searchBtn.addEventListener("click", goToSearchResults);
   searchInput.addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); goToSearchResults(); } });
 
+  async function loadJournalPreview() {
+    const grid = document.getElementById("journalPreviewGrid");
+    if (!grid) return;
+    try {
+      const snap = await getDocs(query(
+        collection(db, "journalPosts"),
+        where("visible", "==", true),
+        orderBy("createdAt", "desc"),
+        limit(3)
+      ));
+      if (snap.empty) {
+        grid.innerHTML = `<div class="journal-preview-empty">Articles coming soon — check back shortly ♡</div>`;
+        return;
+      }
+      grid.innerHTML = snap.docs.map(d => {
+        const p = d.data();
+        const title = String(p.title || "").trim();
+        const excerpt = String(p.excerpt || "").trim();
+        const img = String(p.image || "").trim();
+        const cat = String(p.category || "").trim();
+        const short = excerpt.length > 100 ? excerpt.slice(0, 100).trim() + "…" : excerpt;
+        return `
+          <a href="journal.html" class="journal-preview-card">
+            ${img ? `<img src="${img}" alt="${title}" class="journal-preview-img" loading="lazy">` : `<div class="journal-preview-img" style="min-height:180px;"></div>`}
+            <div class="journal-preview-body">
+              ${cat ? `<p class="journal-preview-cat">${cat}</p>` : ""}
+              <h3 class="journal-preview-title">${title}</h3>
+              ${short ? `<p class="journal-preview-excerpt">${short}</p>` : ""}
+              <p class="journal-preview-read">Read article →</p>
+            </div>
+          </a>`;
+      }).join("");
+    } catch (err) {
+      console.error("Journal preview error:", err);
+      grid.innerHTML = `<div class="journal-preview-empty">Articles coming soon ♡</div>`;
+    }
+  }
+
   /* ── INIT ── */
   setRefreshImages();
   loadVendors();
   loadSiteTestimonials();
+  loadJournalPreview();
 </script>
 
 <script type="module" src="nav.js"></script>
