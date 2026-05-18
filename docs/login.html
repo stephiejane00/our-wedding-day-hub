@@ -53,37 +53,113 @@
     .site-topbar-btn { background: var(--ink); color: var(--cream); font-weight: 600; border: none; cursor: pointer; }
     .site-topbar-btn:hover { background: var(--ink-mid); }
 
-    /* ── HERO ── */
-    .login-hero-card {
-      border-bottom: 1px solid var(--ink);
-    }
-    .login-hero-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      align-items: stretch; min-height: 560px;
-    }
-    .login-hero-copy {
-      padding: 48px 40px 40px; display: flex; flex-direction: column;
-      justify-content: space-between; border-right: 1px solid var(--ink-rule);
-    }
-    .login-hero-copy > * { animation: fadeUp 0.7s ease forwards; opacity: 0; }
-    .login-hero-copy > *:nth-child(1) { animation-delay: 0.05s; }
-    .login-hero-copy > *:nth-child(2) { animation-delay: 0.12s; }
-    .login-hero-copy > *:nth-child(3) { animation-delay: 0.2s; }
-    .login-hero-copy > *:nth-child(4) { animation-delay: 0.3s; }
-    .login-hero-copy > *:nth-child(5) { animation-delay: 0.38s; }
+  /* ── HERO ── */
+.login-hero-card {
+  border-bottom: 1px solid var(--ink);
+}
 
-    .login-logo { width: 80px; opacity: 0.9; display: block; }
-    .login-kicker { font-family: var(--font-sans); font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-ghost); }
-    .login-title { font-family: var(--font-serif); font-size: clamp(2.2rem, 3.8vw, 3.6rem); font-weight: 300; line-height: 0.95; letter-spacing: -0.03em; color: var(--ink); }
-    .login-script { font-family: var(--font-serif); font-style: italic; font-size: 1.2rem; color: var(--gold); }
-    .login-intro { font-family: var(--font-sans); font-size: 0.88rem; color: var(--ink-muted); line-height: 1.8; max-width: 420px; }
+.login-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+  min-height: 560px;
+}
 
-    .login-hero-image-wrap {
-      position: relative; overflow: hidden; background: var(--cream-deep);
-      min-height: clamp(380px, 46vw, 580px);
-    }
-    .login-hero-image { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform 0.8s ease; }
-    .login-hero-image-wrap:hover .login-hero-image { transform: scale(1.025); }
+.login-hero-copy {
+  padding: 90px 40px 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-right: 1px solid var(--ink-rule);
+  position: relative;
+}
+
+.login-kicker,
+.login-title,
+.login-script,
+.login-intro {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: 440px;
+}
+
+.login-hero-copy > * {
+  animation: fadeUp 0.7s ease forwards;
+  opacity: 0;
+}
+
+.login-hero-copy > *:nth-child(1) { animation-delay: 0.05s; }
+.login-hero-copy > *:nth-child(2) { animation-delay: 0.12s; }
+.login-hero-copy > *:nth-child(3) { animation-delay: 0.2s; }
+.login-hero-copy > *:nth-child(4) { animation-delay: 0.3s; }
+.login-hero-copy > *:nth-child(5) { animation-delay: 0.38s; }
+
+.login-hero-copy > a {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+}
+
+.login-logo {
+  width: 110px;
+  opacity: 0.9;
+  display: block;
+}
+
+.login-kicker {
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-ghost);
+  margin-bottom: 24px;
+}
+
+.login-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 3.8vw, 3.6rem);
+  font-weight: 300;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  margin-bottom: 30px;
+}
+
+.login-script {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.2rem;
+  color: var(--gold);
+  margin-bottom: 38px;
+}
+
+.login-intro {
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  color: var(--ink-muted);
+  line-height: 1.8;
+}
+
+.login-hero-image-wrap {
+  position: relative;
+  overflow: hidden;
+  background: var(--cream-deep);
+  min-height: clamp(380px, 46vw, 580px);
+}
+
+.login-hero-image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.8s ease;
+}
+
+.login-hero-image-wrap:hover .login-hero-image {
+  transform: scale(1.025);
+}
 
     /* ── TRUST STRIP ── */
     .trust-strip { display: flex; border-bottom: 1px solid var(--ink-rule); }
