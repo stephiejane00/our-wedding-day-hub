@@ -217,6 +217,43 @@
     .msg-bubble { max-width: 68%; padding: 11px 15px; line-height: 1.65; font-family: var(--font-sans); font-size: 0.86rem; word-break: break-word; overflow-wrap: break-word; white-space: pre-wrap; }
     .msg-bubble.theirs { background: var(--cream-warm); border: 0.5px solid var(--ink-rule); color: var(--ink-mid); }
     .msg-bubble.mine { background: var(--ink); color: var(--cream); }
+    .msg-card {
+  min-width: 260px;
+}
+
+.msg-card-kicker {
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-ghost);
+  margin-bottom: 10px;
+  font-family: var(--font-sans);
+}
+
+.msg-card-title {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  font-weight: 300;
+  margin-bottom: 10px;
+  color: inherit;
+}
+
+.msg-card-text {
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+
+.msg-card-status {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 6px 10px;
+  background: var(--ink);
+  color: var(--cream);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-family: var(--font-sans);
+}
     .msg-bubble-time { font-family: var(--font-sans); font-size: 0.7rem; color: var(--ink-ghost); margin-top: 4px; }
     .msg-bubble-wrap.mine .msg-bubble-time { text-align: right; }
 
@@ -597,7 +634,33 @@ import {
           wrap.className = "msg-bubble-wrap " + (isMine ? "mine" : "theirs");
           const bubble = document.createElement("div");
           bubble.className = "msg-bubble " + (isMine ? "mine" : "theirs");
-          bubble.textContent = m.body || "";
+          if (m.type === "update") {
+
+  bubble.innerHTML = `
+    <div class="msg-card">
+      <p class="msg-card-kicker">${m.kicker || "Update"}</p>
+
+      <h3 class="msg-card-title">
+        ${m.title || ""}
+      </h3>
+
+      <p class="msg-card-text">
+        ${m.body || ""}
+      </p>
+
+      ${m.status ? `
+        <div class="msg-card-status">
+          ${m.status}
+        </div>
+      ` : ""}
+    </div>
+  `;
+
+} else {
+
+  bubble.textContent = m.body || "";
+
+}
           const timeEl = document.createElement("div");
           timeEl.className = "msg-bubble-time";
           timeEl.textContent = timeAgo(m.sentAt);
