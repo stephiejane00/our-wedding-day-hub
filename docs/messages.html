@@ -638,6 +638,7 @@ import {
   const heroTitle = document.getElementById("heroTitle");
   const heroScript = document.getElementById("heroScript");
   const heroImage = document.getElementById("heroImage");
+  const orderUpdatesList = document.getElementById("orderUpdatesList");
 
   function timeAgo(ts) {
     if (!ts) return "";
@@ -764,7 +765,62 @@ import {
       if (snap.empty) { convList.innerHTML = `<div class="empty-state"><p>No messages yet ♡</p><small>Browse vendors and send a message from their profile to start a conversation.</small><div style="margin-top:16px;"><a href="categories.html" style="display:inline-flex;align-items:center;justify-content:center;padding:10px 22px;background:var(--ink);color:var(--cream);font-family:var(--font-sans);font-weight:700;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;">Browse Vendors →</a></div></div>`; msgTabBadge.style.display = "none"; if (navMsgBadge) navMsgBadge.style.display = "none"; return; }
       snap.forEach(convDoc => { const c = convDoc.data(); const unread = c.coupleUnread || 0; totalUnread += unread; convList.appendChild(buildConvItem(convDoc, c.vendorName || "Vendor", c.vendorEmail || "", unread, "coupleUnread")); });
       if (totalUnread > 0) { msgTabBadge.textContent = totalUnread; msgTabBadge.style.display = "inline-flex"; if (navMsgBadge) { navMsgBadge.textContent = totalUnread; navMsgBadge.style.display = "inline"; } } else { msgTabBadge.style.display = "none"; if (navMsgBadge) navMsgBadge.style.display = "none"; }
+   });
+  }
+
+  function loadOrderUpdates(uid) {
+  if (!orderUpdatesList) return;
+
+  const q = query(
+    collection(db, "orderUpdates"),
+    where("buyerId", "==", uid),
+    orderBy("createdAt", "desc")
+  );
+
+  onSnapshot(q, (snap) => {
+    orderUpdatesList.innerHTML = "";
+
+    if (snap.empty) {
+      orderUpdatesList.innerHTML = `
+        <div class="empty-state">
+          <p>No order updates yet</p>
+          <small>Your boutique purchases and vendor updates will appear here ♡</small>
+        </div>
+      `;
+      return;
+    }
+
+    snap.forEach(docSnap => {
+      const o = docSnap.data();
+
+      const card = document.createElement("div");
+      card.style.cssText = `
+        border:0.5px solid var(--ink-rule);
+        background:var(--cream-warm);
+        padding:22px;
+      `;
+
+      card.innerHTML = `
+        <p style="font-family:var(--font-sans);font-size:0.62rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-ghost);margin-bottom:10px;">
+          ${o.vendorName || "Boutique Order"}
+        </p>
+
+        <h3 style="font-family:var(--font-serif);font-size:1.5rem;font-weight:300;margin-bottom:10px;">
+          ${o.productName || "Order Update"}
+        </h3>
+
+        <p style="font-family:var(--font-sans);font-size:0.86rem;color:var(--ink-muted);line-height:1.7;margin-bottom:14px;">
+          ${o.message || ""}
+        </p>
+
+        <span style="display:inline-block;padding:6px 10px;background:var(--ink);color:var(--cream);font-family:var(--font-sans);font-size:0.65rem;letter-spacing:0.08em;text-transform:uppercase;">
+          ${o.status || "Update"}
+        </span>
+      `;
+
+      orderUpdatesList.appendChild(card);
     });
+  });
   }
 
   onAuthStateChanged(auth, async (user) => {
@@ -783,6 +839,7 @@ import {
     } else {
       pageSubtitle.textContent = "Your conversations with wedding vendors";
       loadCoupleConversations(user.uid);
+      loadOrderUpdates(user.uid);
     }
 
     const convParam = new URLSearchParams(window.location.search).get("conv");
