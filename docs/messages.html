@@ -738,6 +738,10 @@ import {
   bubble.textContent = m.body || "";
 
 }
+          const timeEl = document.createElement("div");
+timeEl.className = "msg-bubble-time";
+timeEl.textContent = timeAgo(m.sentAt);
+          
 const inner = document.createElement("div");
 
 if (m.type === "update" || m.type === "product_order" || m.type === "shipping_update") {
