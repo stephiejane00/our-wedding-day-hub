@@ -738,13 +738,24 @@ import {
   bubble.textContent = m.body || "";
 
 }
-          const timeEl = document.createElement("div");
-          timeEl.className = "msg-bubble-time";
-          timeEl.textContent = timeAgo(m.sentAt);
-          const inner = document.createElement("div");
-          inner.appendChild(bubble); inner.appendChild(timeEl);
-          wrap.appendChild(inner);
-          threadMsgs.appendChild(wrap);
+const inner = document.createElement("div");
+
+if (m.type === "update" || m.type === "product_order" || m.type === "shipping_update") {
+
+  inner.style.width = "100%";
+  inner.style.maxWidth = "520px";
+
+} else {
+
+  inner.style.maxWidth = "68%";
+
+}
+
+inner.appendChild(bubble);
+inner.appendChild(timeEl);
+
+wrap.appendChild(inner);
+threadMsgs.appendChild(wrap);
         });
         threadMsgs.scrollTop = threadMsgs.scrollHeight;
       }
