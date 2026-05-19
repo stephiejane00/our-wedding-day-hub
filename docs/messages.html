@@ -241,6 +241,17 @@
 .msg-card {
   width: min(420px, 100%);
   min-width: 260px;
+  padding: 22px;
+  text-align: left;
+}
+    .msg-card-title,
+.msg-card-text,
+.msg-card-kicker {
+  text-align: left;
+}
+
+.msg-bubble:has(.msg-card) {
+  padding: 0;
 }
 
 .msg-card-kicker {
