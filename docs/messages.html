@@ -777,7 +777,8 @@ const q = query(
   where("buyerId", "==", uid)
 );
 
-  onSnapshot(q, (snap) => {
+onSnapshot(q, (snap) => {
+    alert("Found " + snap.size + " order updates");
     orderUpdatesList.innerHTML = "";
 
     if (snap.empty) {
