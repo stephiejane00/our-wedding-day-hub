@@ -160,21 +160,23 @@ onAuthStateChanged(auth, async (user) => {
   const dashboardUrl = getDashboardUrl(role);
   setLoggedInNav(dashboardUrl);
 
-  // Messages link + badge only for vendors
-  if (role === 'vendor') {
-    startUnreadListener(user.uid);
-    // Only ask for push permission once — don't nag on every page load
-    if ('Notification' in window && 'serviceWorker' in navigator) {
-      if (Notification.permission === 'default') {
-        // Slight delay so it doesn't fire immediately on page load
-        setTimeout(() => setupPushNotifications(user.uid), 3000);
-      } else if (Notification.permission === 'granted') {
-        setupPushNotifications(user.uid);
-      }
+// Show messages link for everyone
+if (messagesLink) {
+  messagesLink.style.display = 'inline-flex';
+}
+
+// Vendor unread badge + notifications
+if (role === 'vendor') {
+  startUnreadListener(user.uid);
+
+  if ('Notification' in window && 'serviceWorker' in navigator) {
+    if (Notification.permission === 'default') {
+      setTimeout(() => setupPushNotifications(user.uid), 3000);
+    } else if (Notification.permission === 'granted') {
+      setupPushNotifications(user.uid);
     }
-  } else {
-    if (messagesLink) messagesLink.style.display = 'none';
   }
+}
 
   // Only auto-redirect from LOGIN page
   if (currentPage === 'login.html' && dashboardUrl) {
