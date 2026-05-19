@@ -771,9 +771,11 @@ import {
 function loadOrderUpdates(uid) {
   if (!orderUpdatesList) return;
 
+const matchField = userRole === "vendor" ? "vendorId" : "buyerId";
+
 const q = query(
   collection(db, "orderUpdates"),
-  where("buyerId", "==", uid)
+  where(matchField, "==", uid)
 );
 
 onSnapshot(q, (snap) => {
@@ -829,17 +831,22 @@ onSnapshot(q, (snap) => {
     try { const userSnap = await getDoc(doc(db, "users", user.uid)); userRole = userSnap.exists() ? (userSnap.data().role || "couple") : "couple"; }
     catch { try { const vendorSnap = await getDoc(doc(db, "vendors", user.uid)); userRole = vendorSnap.exists() ? "vendor" : "couple"; } catch { userRole = "couple"; } }
 
-    if (userRole === "vendor") {
-      pageSubtitle.textContent = "Your conversations from couples";
-      heroTitle.textContent = "Your Inbox";
-      heroScript.textContent = "every message from every couple ♡";
-      heroImage.src = "images/cta.png";
-      loadVendorConversations(user.uid);
-    } else {
-      pageSubtitle.textContent = "Your conversations with wedding vendors";
-      loadCoupleConversations(user.uid);
-      loadOrderUpdates(user.uid);
-    }
+if (userRole === "vendor") {
+  pageSubtitle.textContent = "Your conversations from couples";
+  heroTitle.textContent = "Your Inbox";
+  heroScript.textContent = "every message from every couple ♡";
+  heroImage.src = "images/cta.png";
+
+  loadVendorConversations(user.uid);
+  loadOrderUpdates(user.uid);
+
+} else {
+
+  pageSubtitle.textContent = "Your conversations with wedding vendors";
+
+  loadCoupleConversations(user.uid);
+  loadOrderUpdates(user.uid);
+}
 
     const convParam = new URLSearchParams(window.location.search).get("conv");
     if (convParam) {
