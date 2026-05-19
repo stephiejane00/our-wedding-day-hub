@@ -817,13 +817,37 @@ onSnapshot(q, (snap) => {
         <span style="display:inline-block;padding:6px 10px;background:var(--ink);color:var(--cream);font-family:var(--font-sans);font-size:0.65rem;letter-spacing:0.08em;text-transform:uppercase;">
           ${o.status || "Update"}
         </span>
+        ${userRole === "vendor" ? `
+  <div style="margin-top:16px; display:flex; gap:8px; flex-wrap:wrap;">
+    <button class="pretty-button" type="button" onclick="updateOrderStatus('${docSnap.id}', 'Packed')">Packed</button>
+    <button class="pretty-button" type="button" onclick="updateOrderStatus('${docSnap.id}', 'Shipped')">Shipped</button>
+    <button class="pretty-button" type="button" onclick="updateOrderStatus('${docSnap.id}', 'Ready For Pickup')">Ready For Pickup</button>
+    <button class="pretty-button" type="button" onclick="updateOrderStatus('${docSnap.id}', 'Voucher Sent')">Voucher Sent</button>
+  </div>
+` : ""}
       `;
 
       orderUpdatesList.appendChild(card);
     });
   });
   }
+window.updateOrderStatus = async function(orderId, newStatus) {
 
+  try {
+
+    await updateDoc(doc(db, "orderUpdates", orderId), {
+      status: newStatus,
+      updatedAt: serverTimestamp()
+    });
+
+  } catch (err) {
+
+    console.error(err);
+    alert("Could not update order.");
+
+  }
+
+};
   onAuthStateChanged(auth, async (user) => {
     if (!user) { window.location.href = "login.html"; return; }
     currentUser = user;
