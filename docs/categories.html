@@ -152,6 +152,13 @@
     .categories-filter-bar {
       display: flex; flex-wrap: wrap; gap: 6px;
     }
+    .hidden-categories-wrap {
+  display: none;
+  flex-wrap: wrap;
+  gap: 6px;
+  width: 100%;
+  margin-top: 8px;
+}
     .categories-filter-pill {
       display: inline-flex; align-items: center; justify-content: center;
       padding: 6px 14px; min-height: 34px;
@@ -792,20 +799,99 @@
       });
     }
 
-    function buildFilterPills() {
-      categoriesFilterBar.innerHTML = "";
-      MAIN_CATEGORY_ORDER.forEach(key => {
-        const config = CATEGORY_GROUPS[key];
-        if (!config) return;
-        const pill = document.createElement("a");
-        pill.className = "categories-filter-pill";
-        pill.dataset.type = key;
-        pill.href = key === "all" ? "categories.html" : `categories.html?type=${key}`;
-        pill.textContent = config.title;
-        if ((selectedType || "all") === key) pill.classList.add("active");
-        categoriesFilterBar.appendChild(pill);
-      });
+function buildFilterPills() {
+  categoriesFilterBar.innerHTML = "";
+
+  const featuredCategories = [
+    "photo_video",
+    "beauty",
+    "fashion",
+    "food_drink",
+    "venues",
+    "planning_support",
+    "entertainment",
+    "ceremony_services",
+    "accommodation",
+    "experiences_unique_services"
+  ];
+
+  const hiddenCategories = MAIN_CATEGORY_ORDER.filter(
+    key => !featuredCategories.includes(key) && key !== "all"
+  );
+
+  // Featured categories
+  featuredCategories.forEach(key => {
+    const config = CATEGORY_GROUPS[key];
+    if (!config) return;
+
+    const pill = document.createElement("a");
+    pill.className = "categories-filter-pill";
+    pill.dataset.type = key;
+    pill.href = `categories.html?type=${key}`;
+    pill.textContent = config.title;
+
+    if ((selectedType || "all") === key) {
+      pill.classList.add("active");
     }
+
+    categoriesFilterBar.appendChild(pill);
+  });
+
+  // All categories button
+  const allBtn = document.createElement("a");
+  allBtn.className = "categories-filter-pill";
+  allBtn.dataset.type = "all";
+  allBtn.href = "categories.html";
+  allBtn.textContent = "All Categories";
+
+  if ((selectedType || "all") === "all") {
+    allBtn.classList.add("active");
+  }
+
+  categoriesFilterBar.appendChild(allBtn);
+
+  // More button
+  const moreBtn = document.createElement("button");
+  moreBtn.className = "categories-filter-pill";
+  moreBtn.type = "button";
+  moreBtn.textContent = "More Categories";
+
+  categoriesFilterBar.appendChild(moreBtn);
+
+  // Hidden wrap
+  const hiddenWrap = document.createElement("div");
+  hiddenWrap.className = "hidden-categories-wrap";
+
+  hiddenCategories.forEach(key => {
+    const config = CATEGORY_GROUPS[key];
+    if (!config) return;
+
+    const pill = document.createElement("a");
+    pill.className = "categories-filter-pill";
+    pill.dataset.type = key;
+    pill.href = `categories.html?type=${key}`;
+    pill.textContent = config.title;
+
+    if ((selectedType || "all") === key) {
+      pill.classList.add("active");
+      hiddenWrap.style.display = "flex";
+    }
+
+    hiddenWrap.appendChild(pill);
+  });
+
+  moreBtn.addEventListener("click", () => {
+    const isOpen = hiddenWrap.style.display === "flex";
+
+    hiddenWrap.style.display = isOpen ? "none" : "flex";
+
+    moreBtn.textContent = isOpen
+      ? "More Categories"
+      : "Less Categories";
+  });
+
+  categoriesFilterBar.appendChild(hiddenWrap);
+}
 
     function getSelectedMainCategoryConfig() { return CATEGORY_GROUPS[selectedType] || CATEGORY_GROUPS.all; }
 
