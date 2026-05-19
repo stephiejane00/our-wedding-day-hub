@@ -769,13 +769,14 @@ import {
   }
 
 function loadOrderUpdates(uid) {
-  alert("Order updates function is running");
   if (!orderUpdatesList) return;
 
-const q = collection(db, "orderUpdates");
+const q = query(
+  collection(db, "orderUpdates"),
+  where("buyerId", "==", uid)
+);
 
 onSnapshot(q, (snap) => {
-    alert("Found " + snap.size + " order updates");
     orderUpdatesList.innerHTML = "";
 
     if (snap.empty) {
