@@ -772,10 +772,7 @@ function loadOrderUpdates(uid) {
   alert("Order updates function is running");
   if (!orderUpdatesList) return;
 
-const q = query(
-  collection(db, "orderUpdates"),
-  where("buyerId", "==", uid)
-);
+const q = collection(db, "orderUpdates");
 
 onSnapshot(q, (snap) => {
     alert("Found " + snap.size + " order updates");
