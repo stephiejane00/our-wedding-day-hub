@@ -1406,177 +1406,105 @@ import { LOCATION_DATA } from "./locations.js";
 <!-- ── GOOGLE PLACES LOCATION SEARCH ── -->
 <script>
 (function() {
-  const MAPS_KEY = "AIzaSyDQ2gwuJoe2si8xYfhB6n9mESfSon4zRq8";
   let selectedLocations = [];
   let debounceTimer = null;
 
-  // Use fetch-based Places Autocomplete (new API — works without billing issues)
-  async function fetchPlacePredictions(input) {
-    if (!input || input.length < 2) return [];
-    try {
-      const url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${encodeURIComponent(input)}&types=(regions)&key=${MAPS_KEY}`;
-      // Use a CORS proxy approach via the Maps JS API endpoint
-      const res = await fetch(
-        `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${encodeURIComponent(input)}&types=(regions)&language=en&key=${MAPS_KEY}`
-      );
-      if (!res.ok) return [];
-      const data = await res.json();
-      return data.predictions || [];
-    } catch { return []; }
-  }
+  const FALLBACK = ["Australia","New Zealand","United Kingdom","United States","Canada","Ireland","South Africa","France","Italy","Spain","Greece","Portugal","Germany","Netherlands","Switzerland","Japan","Singapore","Thailand","Indonesia","Philippines","Malaysia","India","Dubai, UAE","Bali, Indonesia","Tuscany, Italy","Paris, France","London, UK","New York, USA","Sydney, Australia","Melbourne, Australia","Brisbane, Australia","Perth, Australia","Adelaide, Australia","Gold Coast, Queensland","Sunshine Coast, Queensland","Byron Bay, New South Wales","Hunter Valley, New South Wales","Yarra Valley, Victoria","Mornington Peninsula, Victoria","Auckland, New Zealand","Queenstown, New Zealand","Edinburgh, Scotland","Dublin, Ireland","Barcelona, Spain","Rome, Italy","Santorini, Greece","Amalfi Coast, Italy","Worldwide","Online / Virtual"];
 
-  // Fallback: simple built-in list of countries + major cities for when API isn't working
-  const FALLBACK_LOCATIONS = [
-    "Australia","New Zealand","United Kingdom","United States","Canada","Ireland","South Africa",
-    "France","Italy","Spain","Greece","Portugal","Germany","Netherlands","Switzerland","Austria",
-    "Japan","Singapore","Thailand","Indonesia","Philippines","Malaysia","India","China","Hong Kong",
-    "Brazil","Argentina","Chile","Mexico","Colombia","Peru",
-    "Dubai, UAE","Bali, Indonesia","Tuscany, Italy","Paris, France","London, UK","New York, USA",
-    "Sydney, Australia","Melbourne, Australia","Brisbane, Australia","Perth, Australia","Adelaide, Australia",
-    "Auckland, New Zealand","Queenstown, New Zealand","Christchurch, New Zealand",
-    "Queensland, Australia","New South Wales, Australia","Victoria, Australia","Western Australia",
-    "Gold Coast, Queensland, Australia","Sunshine Coast, Queensland, Australia",
-    "Byron Bay, New South Wales, Australia","Hunter Valley, New South Wales, Australia",
-    "Yarra Valley, Victoria, Australia","Mornington Peninsula, Victoria, Australia",
-    "Edinburgh, Scotland","Dublin, Ireland","Barcelona, Spain","Rome, Italy","Santorini, Greece",
-    "Amalfi Coast, Italy","Provence, France","Algarve, Portugal","Ibiza, Spain","Mykonos, Greece",
-    "Worldwide","Online / Virtual"
-  ];
-
-  function getFallbackPredictions(q) {
+  function getFallback(q) {
     const lq = q.toLowerCase();
-    return FALLBACK_LOCATIONS
-      .filter(l => l.toLowerCase().includes(lq))
-      .slice(0, 8)
-      .map(l => ({ description: l, place_id: `fallback_${l}`, types: [] }));
+    return FALLBACK.filter(l => l.toLowerCase().includes(lq)).slice(0, 8).map(l => ({ description: l }));
   }
 
-  function setupLocationSearch() {
-
-  function setupLocationSearch() {
+  function setupSearch() {
     const input = document.getElementById("locationSearchInput");
     const dropdown = document.getElementById("locationDropdown");
     if (!input || !dropdown) return;
-
     input.addEventListener("input", () => {
+      clearTimeout(debounceTimer);
       const q = input.value.trim();
       if (!q || q.length < 2) { dropdown.style.display = "none"; return; }
-      clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(async () => {
-        // Try Google Places API first, fall back to built-in list
-        let predictions = await fetchPlacePredictions(q);
-        if (!predictions.length) predictions = getFallbackPredictions(q);
+      debounceTimer = setTimeout(() => {
+        const results = getFallback(q);
         dropdown.innerHTML = "";
-        if (!predictions.length) { dropdown.style.display = "none"; return; }
-        predictions.slice(0, 8).forEach(p => {
+        if (!results.length) { dropdown.style.display = "none"; return; }
+        results.forEach(r => {
           const item = document.createElement("div");
           item.style.cssText = "padding:10px 14px; font-family:var(--font-sans); font-size:0.84rem; color:var(--ink); cursor:pointer; border-bottom:0.5px solid var(--ink-rule); display:flex; align-items:center; gap:10px; background:var(--cream);";
-          item.innerHTML = `<span style="color:var(--ink-ghost); font-size:0.9rem;">⊕</span><span>${p.description}</span>`;
+          item.innerHTML = `<span style="color:var(--ink-ghost);">⊕</span><span>${r.description}</span>`;
           item.addEventListener("mouseenter", () => item.style.background = "var(--cream-warm)");
           item.addEventListener("mouseleave", () => item.style.background = "var(--cream)");
           item.addEventListener("mousedown", e => {
             e.preventDefault();
-            addLocation({ label: p.description, placeId: p.place_id || `loc_${p.description}`, types: p.types || [] });
+            addLocation({ label: r.description, placeId: `loc_${r.description}`, types: [] });
             input.value = "";
             dropdown.style.display = "none";
           });
           dropdown.appendChild(item);
         });
         dropdown.style.display = "block";
-      }, 250);
+      }, 200);
     });
-
     input.addEventListener("blur", () => setTimeout(() => { dropdown.style.display = "none"; }, 150));
-    input.addEventListener("keydown", e => { if (e.key === "Escape") { dropdown.style.display = "none"; input.blur(); } });
+    input.addEventListener("keydown", e => { if (e.key === "Escape") { dropdown.style.display = "none"; } });
   }
 
   function addLocation(loc) {
     if (selectedLocations.find(l => l.placeId === loc.placeId)) return;
     selectedLocations.push(loc);
-    renderLocationTags();
-    syncHiddenFields();
+    renderTags();
+    sync();
   }
 
   function removeLocation(placeId) {
     selectedLocations = selectedLocations.filter(l => l.placeId !== placeId);
-    renderLocationTags();
-    syncHiddenFields();
+    renderTags();
+    sync();
   }
 
-  function renderLocationTags() {
+  function renderTags() {
     const container = document.getElementById("locationTags");
     if (!container) return;
     container.innerHTML = "";
+    if (!selectedLocations.length) {
+      container.innerHTML = '<p style="font-family:var(--font-sans); font-size:0.78rem; color:var(--ink-ghost); margin:0;">No locations added yet — search above to add your first one.</p>';
+      return;
+    }
     selectedLocations.forEach(loc => {
       const tag = document.createElement("div");
       tag.style.cssText = "display:inline-flex; align-items:center; gap:7px; padding:6px 12px; background:var(--ink); color:var(--cream); font-family:var(--font-sans); font-size:0.76rem; font-weight:600;";
-      tag.innerHTML = `<span>${loc.label}</span><button type="button" style="border:none; background:none; color:rgba(255,255,255,0.55); cursor:pointer; font-size:1rem; line-height:1; padding:0; display:inline-flex; align-items:center;" aria-label="Remove ${loc.label}">×</button>`;
+      tag.innerHTML = `<span>${loc.label}</span><button type="button" style="border:none;background:none;color:rgba(255,255,255,0.55);cursor:pointer;font-size:1rem;line-height:1;padding:0;">×</button>`;
       tag.querySelector("button").addEventListener("click", () => removeLocation(loc.placeId));
       container.appendChild(tag);
     });
-    if (!selectedLocations.length) {
-      container.innerHTML = '<p style="font-family:var(--font-sans); font-size:0.78rem; color:var(--ink-ghost); margin:0;">No locations added yet — search above to add your first one.</p>';
-    }
   }
 
-  // Sync to the hidden fields that the existing saveVendorData() reads from
-  function syncHiddenFields() {
-    // Extract countries, states, regions from the selected locations
-    const countries = new Set();
-    const states = new Set();
-    const regions = [];
-
+  function sync() {
+    const countries = new Set(), states = new Set(), regions = [];
     selectedLocations.forEach(loc => {
+      const parts = loc.label.split(",").map(s => s.trim());
       const types = loc.types || [];
-      const label = loc.label;
-      const parts = label.split(",").map(s => s.trim());
-
-      if (types.includes("country")) {
-        countries.add(parts[0]);
-      } else if (types.includes("administrative_area_level_1")) {
-        if (parts.length >= 2) countries.add(parts[parts.length - 1]);
-        states.add(parts[0]);
-      } else {
-        // city / region / locality
-        if (parts.length >= 2) {
-          const country = parts[parts.length - 1];
-          countries.add(country);
-          if (parts.length >= 3) states.add(parts[parts.length - 2]);
-        }
-        regions.push(parts[0]);
-      }
+      if (types.includes("country")) { countries.add(parts[0]); }
+      else if (types.includes("administrative_area_level_1")) { if (parts.length >= 2) countries.add(parts[parts.length-1]); states.add(parts[0]); }
+      else { if (parts.length >= 2) { countries.add(parts[parts.length-1]); if (parts.length >= 3) states.add(parts[parts.length-2]); } regions.push(parts[0]); }
     });
-
-    // Worldwide toggle
-    const worldwide = document.getElementById("worldwideToggle");
-    if (worldwide?.checked) countries.add("worldwide");
-
-    // Store on window so saveVendorData can access it
+    const wt = document.getElementById("worldwideToggle");
+    if (wt && wt.checked) countries.add("worldwide");
     window._placesCountries = [...countries];
     window._placesStates = [...states];
     window._placesRegions = regions;
     window._placesLocations = selectedLocations.map(l => l.label);
   }
 
-  // Called by loadVendorData to populate from saved Firestore data
   window.loadSavedLocations = function(locationsArray, worldwide) {
-    selectedLocations = (locationsArray || []).map((label, i) => ({
-      label,
-      placeId: `saved_${i}_${label}`,
-      types: []
-    }));
+    selectedLocations = (locationsArray || []).map((label, i) => ({ label, placeId: `saved_${i}`, types: [] }));
     const wt = document.getElementById("worldwideToggle");
-    if (wt) wt.checked = !!worldwide;
-    renderLocationTags();
-    syncHiddenFields();
-
-    // Toggle listener
-    wt?.addEventListener("change", syncHiddenFields);
+    if (wt) { wt.checked = !!worldwide; wt.addEventListener("change", sync); }
+    renderTags();
+    sync();
   };
 
-  // Init
-  google.maps.importLibrary("places").then(() => setupLocationSearch()).catch(() => setupFallbackSearch());
-  window.addEventListener("load", renderLocationTags);
+  window.addEventListener("DOMContentLoaded", () => { setupSearch(); renderTags(); });
 })();
 </script>
 </body>
