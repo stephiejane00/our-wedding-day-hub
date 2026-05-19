@@ -771,11 +771,10 @@ import {
   function loadOrderUpdates(uid) {
   if (!orderUpdatesList) return;
 
-  const q = query(
-    collection(db, "orderUpdates"),
-    where("buyerId", "==", uid),
-    orderBy("createdAt", "desc")
-  );
+const q = query(
+  collection(db, "orderUpdates"),
+  where("buyerId", "==", uid)
+);
 
   onSnapshot(q, (snap) => {
     orderUpdatesList.innerHTML = "";
