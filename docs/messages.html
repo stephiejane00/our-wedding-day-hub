@@ -707,53 +707,16 @@ import {
           wrap.className = "msg-bubble-wrap " + (isMine ? "mine" : "theirs");
           const bubble = document.createElement("div");
           bubble.className = "msg-bubble " + (isMine ? "mine" : "theirs");
-          if (m.type === "update" || m.type === "product_order" || m.type === "shipping_update") {
-  bubble.style.maxWidth = "520px";
-  bubble.style.width = "min(520px, 90%)";
-}
-          if (m.type === "update" || m.type === "product_order" || m.type === "shipping_update") {
 
-  bubble.innerHTML = `
-    <div class="msg-card">
-      <p class="msg-card-kicker">${m.kicker || "Update"}</p>
-
-      <h3 class="msg-card-title">
-        ${m.title || ""}
-      </h3>
-
-      <p class="msg-card-text">
-        ${m.body || ""}
-      </p>
-
-      ${m.status ? `
-        <div class="msg-card-status">
-          ${m.status}
-        </div>
-      ` : ""}
-    </div>
-  `;
-
-} else {
-
-  bubble.textContent = m.body || "";
-
-}
+bubble.textContent = m.body || "";
+          
           const timeEl = document.createElement("div");
 timeEl.className = "msg-bubble-time";
 timeEl.textContent = timeAgo(m.sentAt);
           
 const inner = document.createElement("div");
 
-if (m.type === "update" || m.type === "product_order" || m.type === "shipping_update") {
-
-  inner.style.width = "100%";
-  inner.style.maxWidth = "520px";
-
-} else {
-
-  inner.style.maxWidth = "68%";
-
-}
+inner.style.maxWidth = "68%";
 
 inner.appendChild(bubble);
 inner.appendChild(timeEl);
