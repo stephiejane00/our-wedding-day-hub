@@ -1574,10 +1574,9 @@ import { LOCATION_DATA } from "./locations.js";
     wt?.addEventListener("change", syncHiddenFields);
   };
 
-  // Init empty state on page load
-  window.addEventListener("load", () => {
-    renderLocationTags();
-  });
+  // Init
+  google.maps.importLibrary("places").then(() => setupLocationSearch()).catch(() => setupFallbackSearch());
+  window.addEventListener("load", renderLocationTags);
 })();
 </script>
 </body>
