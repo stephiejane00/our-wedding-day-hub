@@ -556,26 +556,22 @@
     const grid = document.getElementById("journalGrid");
     const empty = document.getElementById("journalEmpty");
     const featured = document.getElementById("journalFeatured");
-
-    // Hide the old featured section — we show everything in the grid now
     featured.style.display = "none";
-
     grid.innerHTML = "";
 
-    if (!posts.length) {
-      empty.style.display = "block";
-      return;
-    }
+    if (!posts.length) { empty.style.display = "block"; return; }
     empty.style.display = "none";
 
-    // Card size pattern — cycles for any number of posts
-    // hero(2col+2row), tall(1col+2row), small, small, wide(2col), small, small, small...
-    const sizePattern = ["card-hero", "card-tall", "card-small", "card-small", "card-wide", "card-small", "card-small", "card-small"];
-
     posts.forEach((post, i) => {
-      const sizeClass = posts.length === 1 ? "card-hero" : sizePattern[i % sizePattern.length];
+      // Only use fancy sizing when there are 4+ posts — otherwise plain equal cards
+      let sizeClass = "";
+      if (posts.length >= 4) {
+        const pattern = ["card-hero", "card-tall", "card-small", "card-small", "card-wide", "card-small", "card-small", "card-small"];
+        sizeClass = pattern[i % pattern.length];
+      }
+
       const card = document.createElement("article");
-      card.className = `journal-card ${sizeClass}`;
+      card.className = `journal-card${sizeClass ? " " + sizeClass : ""}`;
       card.innerHTML = `
         <div class="journal-card-image-wrap">
           <img src="${esc(post.image || 'images/bride.png')}" alt="${esc(post.title || '')}" class="journal-card-image" loading="lazy">
