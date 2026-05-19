@@ -238,7 +238,8 @@
   color: var(--ink-mid);
   margin-right: auto;
 }
-    .msg-card {
+.msg-card {
+  width: min(420px, 100%);
   min-width: 260px;
 }
 
@@ -695,6 +696,10 @@ import {
           wrap.className = "msg-bubble-wrap " + (isMine ? "mine" : "theirs");
           const bubble = document.createElement("div");
           bubble.className = "msg-bubble " + (isMine ? "mine" : "theirs");
+          if (m.type === "update" || m.type === "product_order" || m.type === "shipping_update") {
+  bubble.style.maxWidth = "520px";
+  bubble.style.width = "min(520px, 90%)";
+}
           if (m.type === "update" || m.type === "product_order" || m.type === "shipping_update") {
 
   bubble.innerHTML = `
