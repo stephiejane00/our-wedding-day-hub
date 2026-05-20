@@ -445,7 +445,17 @@
     <div class="signup-form-card">
       <span class="signup-mini-badge">✦ Create account</span>
       <h2>Join</h2>
-      <p class="small-text">Choose your account type below to get started.</p>
+     <p class="small-text">
+  Choose your account type below to get started.
+  <br><br>
+
+  <strong style="color:var(--ink);">
+    Important:
+  </strong>
+
+  You’ll need to verify your email before logging in.
+  Please check your spam or junk folder if you don’t see the email within a few minutes ♡
+</p>
 
       <form id="signupForm" class="signup-form">
         <div>
@@ -699,7 +709,7 @@
         console.warn("Constant Contact signup failed:", ccError);
       }
 
-      message.textContent = 'Account created! Please verify your email and check your spam/junk folder just in case.';
+      message.textContent = 'Your account has been created ♡ Please verify your email before logging in. Your verification email may arrive in your spam or junk folder.';
       setTimeout(() => { window.location.href = 'login.html'; }, 2000);
 
     } catch (error) {
