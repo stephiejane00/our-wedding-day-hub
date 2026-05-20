@@ -1442,7 +1442,7 @@ import { LOCATION_DATA } from "./locations.js";
     const liveStatusBadge = document.getElementById("liveStatusBadge");
     const liveStatusText = document.getElementById("liveStatusText");
     const name = vd.businessName || "";
-    if (heroTitle) heroTitle.textContent = name ? `Welcome back, ${name} ♡` : "Welcome back ♡";
+    if (heroTitle) heroTitle.textContent = name ? `Welcome back, ${name}` : "Welcome back";
     const isLive = vd.profileVisible === true || vd.published === true;
     if (liveStatusBadge) liveStatusBadge.classList.toggle("is-live", isLive);
     if (liveStatusText) liveStatusText.textContent = isLive ? "Profile is live — couples can find you" : "Profile not live — turn on in Status";
