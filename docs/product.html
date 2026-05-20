@@ -81,7 +81,9 @@
     .product-qty-control { display: flex; align-items: center; border: 0.5px solid var(--ink-rule); }
     .product-qty-btn { width: 36px; height: 36px; border: none; background: var(--cream-warm); color: var(--ink); font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
     .product-qty-btn:hover { background: var(--cream-deep); }
-    .product-qty-input { width: 48px; height: 36px; border: none; border-left: 0.5px solid var(--ink-rule); border-right: 0.5px solid var(--ink-rule); background: var(--cream); text-align: center; font-family: var(--font-sans); font-size: 0.9rem; font-weight: 600; color: var(--ink); outline: none; }
+    .product-qty-input { width: 48px; height: 36px; border: none; border-left: 0.5px solid var(--ink-rule); border-right: 0.5px solid var(--ink-rule); background: var(--cream); text-align: center; font-family: var(--font-sans); font-size: 0.9rem; font-weight: 600; color: var(--ink); outline: none; -moz-appearance: textfield; appearance: textfield; }
+    .product-qty-input::-webkit-outer-spin-button,
+    .product-qty-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 
     /* ── ACTIONS ── */
     .product-actions { display: flex; flex-direction: column; gap: 10px; margin-top: 28px; }
