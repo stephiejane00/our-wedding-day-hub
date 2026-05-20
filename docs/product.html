@@ -333,6 +333,16 @@ async function loadProduct() {
             <span class="product-meta-label">Type</span>
             <span class="product-meta-value">${esc(productData.category.replace(/_/g," ").replace(/\b\w/g,c=>c.toUpperCase()))}</span>
           </div>` : ""}
+          ${productData.shippingCost ? `
+          <div class="product-meta-row">
+            <span class="product-meta-label">Shipping</span>
+            <span class="product-meta-value">${esc(productData.shippingCost)}</span>
+          </div>` : ""}
+          ${productData.shippingLocations ? `
+          <div class="product-meta-row">
+            <span class="product-meta-label">Ships To</span>
+            <span class="product-meta-value">${esc(productData.shippingLocations)}</span>
+          </div>` : ""}
         </div>
 
         <div class="product-divider"></div>
