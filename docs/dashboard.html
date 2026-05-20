@@ -65,15 +65,8 @@
     .dashboard-stack { display: grid; gap: 0; border-left: none; border-right: none; }
 
     /* ── HERO ── */
-    .dashboard-hero-card {
-      border-bottom: 1px solid var(--ink);
-      background: var(--cream);
-      overflow: hidden;
-    }
-    .dashboard-hero-grid {
-      display: grid; grid-template-columns: 1.05fr 0.95fr;
-      align-items: stretch; min-height: 480px;
-    }
+    .dashboard-hero-card { border-bottom: 1px solid var(--ink); background: var(--cream); overflow: hidden; }
+    .dashboard-hero-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; align-items: stretch; min-height: 480px; }
     .dashboard-hero-copy {
       padding: 56px 48px 48px; display: flex; flex-direction: column;
       justify-content: space-between; border-right: 1px solid var(--ink-rule);
@@ -84,6 +77,7 @@
     .dashboard-hero-copy > *:nth-child(3) { animation-delay: 0.2s; }
     .dashboard-hero-copy > *:nth-child(4) { animation-delay: 0.28s; }
     .dashboard-hero-copy > *:nth-child(5) { animation-delay: 0.35s; }
+    .dashboard-hero-copy > *:nth-child(6) { animation-delay: 0.42s; }
 
     .dashboard-logo-wrap { display: inline-flex; text-decoration: none; }
     .dashboard-logo { width: 80px; opacity: 0.9; display: block; }
@@ -97,6 +91,34 @@
     .dashboard-hero-image-wrap:hover .dashboard-hero-image { transform: scale(1.025); }
 
     .dashboard-actions { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+
+    /* ── LIVE STATUS INDICATOR ── */
+    .dashboard-live-status {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 14px; border: 0.5px solid var(--ink-rule);
+      font-family: var(--font-sans); font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.06em; background: var(--cream-warm);
+    }
+    .dashboard-live-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ink-ghost); flex-shrink: 0; transition: background 0.3s; }
+    .dashboard-live-status.is-live .dashboard-live-dot { background: #4CAF50; box-shadow: 0 0 0 3px rgba(76,175,80,0.18); }
+    .dashboard-live-status.is-live { border-color: #c8dcc8; background: #e8f0e8; color: #3a5e38; }
+
+    /* ── STAT STRIP ── */
+    .dashboard-stat-strip {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 0; background: var(--ink-rule);
+      border-bottom: 1px solid var(--ink-rule);
+      animation: fadeUp 0.5s ease 0.3s forwards; opacity: 0;
+    }
+    .dashboard-stat-item {
+      background: var(--cream-warm); padding: 18px 24px;
+      border-right: 0.5px solid var(--ink-rule);
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .dashboard-stat-item:last-child { border-right: none; }
+    .dashboard-stat-num { font-family: var(--font-serif); font-size: 2rem; font-weight: 300; color: var(--ink); line-height: 1; letter-spacing: -0.03em; }
+    .dashboard-stat-label { font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-ghost); }
+    .dashboard-stat-item.has-alert .dashboard-stat-num { color: var(--gold); }
 
     /* ── BUTTONS ── */
     .pretty-button, .apply-button {
@@ -374,6 +396,7 @@
       .dashboard-hero-grid, .dashboard-grid-2, .dashboard-grid-3,
       .media-uploader-grid, .brand-assets-grid, .bulk-date-grid { grid-template-columns: 1fr; }
       .dashboard-hero-copy { padding: 40px 36px; }
+      .dashboard-stat-strip { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 700px) {
       .site-topbar { padding: 0 16px; min-height: 56px; }
@@ -430,18 +453,42 @@
             <img src="images/logo1.png" alt="Our Wedding Day Hub" class="dashboard-logo">
           </a>
           <p class="dashboard-kicker">Vendor Dashboard</p>
-          <h1 class="dashboard-hero-title">Curate Your Vendor Profile</h1>
-          <p class="dashboard-hero-script">show couples what makes you special ♡</p>
-          <p class="dashboard-hero-text">Update your business details, upload your brand assets and media, choose your categories and service locations, and control when your profile appears.</p>
-          <div class="dashboard-actions">
+          <h1 class="dashboard-hero-title" id="dashboardHeroTitle">Welcome back ♡</h1>
+          <p class="dashboard-hero-script" id="dashboardHeroScript">your profile is your first impression</p>
+          <p class="dashboard-hero-text">Update your details, upload your best work, set your locations and go live — couples are searching for someone exactly like you.</p>
+          <div class="dashboard-actions" style="gap:12px; flex-wrap:wrap; align-items:center;">
+            <div class="dashboard-live-status" id="liveStatusBadge">
+              <span class="dashboard-live-dot"></span>
+              <span id="liveStatusText">Profile not live yet</span>
+            </div>
             <a href="#" id="viewProfileBtn" class="apply-button" style="display:none;">View Public Profile →</a>
           </div>
         </div>
         <div class="dashboard-hero-image-wrap">
-          <img src="images/rain.jpg" alt="Romantic couple on a bridge in the rain" class="dashboard-hero-image">
+          <img src="images/rain.jpg" alt="Romantic couple" class="dashboard-hero-image">
         </div>
       </div>
     </section>
+
+    <!-- ── STAT STRIP ── -->
+    <div class="dashboard-stat-strip" id="dashboardStatStrip">
+      <div class="dashboard-stat-item">
+        <span class="dashboard-stat-num" id="statViews">–</span>
+        <span class="dashboard-stat-label">Profile Views</span>
+      </div>
+      <div class="dashboard-stat-item" id="statMessagesItem">
+        <span class="dashboard-stat-num" id="statMessages">–</span>
+        <span class="dashboard-stat-label">Unread Messages</span>
+      </div>
+      <div class="dashboard-stat-item">
+        <span class="dashboard-stat-num" id="statProducts">–</span>
+        <span class="dashboard-stat-label">Boutique Listings</span>
+      </div>
+      <div class="dashboard-stat-item">
+        <span class="dashboard-stat-num" id="statCategories">–</span>
+        <span class="dashboard-stat-label">Categories Listed</span>
+      </div>
+    </div>
 
     <!-- ── EXPAND / COLLAPSE ALL ── -->
     <div class="dashboard-controls">
@@ -455,8 +502,8 @@
         <div class="panel-header-left">
           <div class="panel-header-icon">✦</div>
           <div class="panel-header-text">
-            <h2 class="panel-header-title">Status</h2>
-            <p class="panel-header-subtitle">Account status and profile visibility</p>
+            <h2 class="panel-header-title">Status &amp; Visibility</h2>
+            <p class="panel-header-subtitle">Turn your profile on or off — couples can only find you when you're live</p>
           </div>
         </div>
         <div class="panel-toggle-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
@@ -489,7 +536,7 @@
           <div class="panel-header-icon">✉</div>
           <div class="panel-header-text">
             <h2 class="panel-header-title">Messages</h2>
-            <p class="panel-header-subtitle">Conversations from couples — reply from your inbox</p>
+            <p class="panel-header-subtitle">Couples who've reached out — reply here or in your full inbox</p>
           </div>
         </div>
         <div class="panel-toggle-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
@@ -513,7 +560,7 @@
           <div class="panel-header-icon">◐</div>
           <div class="panel-header-text">
             <h2 class="panel-header-title">Business Details</h2>
-            <p class="panel-header-subtitle">Name, contact info, social links &amp; bio</p>
+            <p class="panel-header-subtitle">Your name, contact info, social links &amp; bio — this is what couples read first</p>
           </div>
         </div>
         <div class="panel-toggle-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
@@ -564,7 +611,7 @@
           <div class="panel-header-icon">◆</div>
           <div class="panel-header-text">
             <h2 class="panel-header-title">Booking &amp; Availability</h2>
-            <p class="panel-header-subtitle">Booking link, notes &amp; unavailable dates</p>
+            <p class="panel-header-subtitle">Add your booking link and block out dates so couples know when you're free</p>
           </div>
         </div>
         <div class="panel-toggle-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
@@ -631,7 +678,7 @@
           <div class="panel-header-icon">✿</div>
           <div class="panel-header-text">
             <h2 class="panel-header-title">Profile Picture &amp; Logo</h2>
-            <p class="panel-header-subtitle">Your profile image and brand logo</p>
+            <p class="panel-header-subtitle">Put a face to the name — profiles with photos get significantly more enquiries</p>
           </div>
         </div>
         <div class="panel-toggle-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
@@ -670,7 +717,7 @@
           <div class="panel-header-icon">◈</div>
           <div class="panel-header-text">
             <h2 class="panel-header-title">Media Uploads</h2>
-            <p class="panel-header-subtitle">Photos and videos showcasing your work</p>
+            <p class="panel-header-subtitle">Show your best work — drag to reorder, first image becomes your cover photo</p>
           </div>
         </div>
         <div class="panel-toggle-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
@@ -701,7 +748,7 @@
           <div class="panel-header-icon">❋</div>
           <div class="panel-header-text">
             <h2 class="panel-header-title">Style Tags</h2>
-            <p class="panel-header-subtitle">Words that describe your aesthetic</p>
+            <p class="panel-header-subtitle">Help couples find your vibe — choose words that describe your aesthetic</p>
           </div>
         </div>
         <div class="panel-toggle-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
@@ -725,7 +772,7 @@
           <div class="panel-header-icon">◇</div>
           <div class="panel-header-text">
             <h2 class="panel-header-title">Categories</h2>
-            <p class="panel-header-subtitle">Services you offer on the hub</p>
+            <p class="panel-header-subtitle">Tell couples exactly what you offer — this is how they find you when browsing</p>
           </div>
         </div>
         <div class="panel-toggle-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
@@ -752,7 +799,7 @@
           <div class="panel-header-icon">✶</div>
           <div class="panel-header-text">
             <h2 class="panel-header-title">Service Locations</h2>
-            <p class="panel-header-subtitle">Every city, region or country where you take bookings</p>
+            <p class="panel-header-subtitle">Where do you work? Add every city, region or country — the more specific, the better</p>
           </div>
         </div>
         <div class="panel-toggle-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
@@ -1314,6 +1361,9 @@ import { LOCATION_DATA } from "./locations.js";
     const snap = await getDocs(query(collection(db, "boutiqueProducts"), where("vendorId", "==", uid), orderBy("createdAt", "desc")));
     currentBoutiqueProducts = snap.docs.map(d => ({ id: d.id, ...d.data() }));
     renderBoutiqueProducts();
+    // Update stat strip
+    const statProducts = document.getElementById("statProducts");
+    if (statProducts) statProducts.textContent = currentBoutiqueProducts.length;
   }
 
   async function deleteBoutiqueProduct(productId) {
@@ -1385,6 +1435,24 @@ import { LOCATION_DATA } from "./locations.js";
     accountStatusText.textContent = `Account status: ${vd.accountStatus||"active"}`;
     subscriptionStatusText.textContent = `Plan access: ${getPlanAccessLabel(vd)}`;
     viewsStatusText.textContent = `Profile views: ${getProfileViews(vd)}`;
+
+    // ── PERSONALISED HERO ──
+    const heroTitle = document.getElementById("dashboardHeroTitle");
+    const heroScript = document.getElementById("dashboardHeroScript");
+    const liveStatusBadge = document.getElementById("liveStatusBadge");
+    const liveStatusText = document.getElementById("liveStatusText");
+    const name = vd.businessName || "";
+    if (heroTitle) heroTitle.textContent = name ? `Welcome back, ${name} ♡` : "Welcome back ♡";
+    const isLive = vd.profileVisible === true || vd.published === true;
+    if (liveStatusBadge) liveStatusBadge.classList.toggle("is-live", isLive);
+    if (liveStatusText) liveStatusText.textContent = isLive ? "Profile is live — couples can find you" : "Profile not live — turn on in Status";
+    if (heroScript) heroScript.textContent = isLive ? "couples are discovering you right now ♡" : "your profile is your first impression ♡";
+
+    // ── STAT STRIP ──
+    const statViews = document.getElementById("statViews");
+    const statCategories = document.getElementById("statCategories");
+    if (statViews) statViews.textContent = getProfileViews(vd) || "0";
+    if (statCategories) statCategories.textContent = Array.isArray(vd.categories) ? vd.categories.length : "0";
     renderStyleTags(Array.isArray(vd.styleTags) ? vd.styleTags : []);
     renderCategoryOptions(Array.isArray(vd.categories) ? vd.categories : []);
     // Load locations into the new Places search panel
@@ -1410,6 +1478,11 @@ import { LOCATION_DATA } from "./locations.js";
         let total = 0; snap.forEach(d => { total += (d.data().vendorUnread || 0); });
         if (total > 0) { msgUnreadBadge.textContent = total; msgUnreadBadge.style.display = "inline-flex"; if (navMsgBadge) { navMsgBadge.textContent = total; navMsgBadge.style.display = "inline"; } }
         else { msgUnreadBadge.style.display = "none"; if (navMsgBadge) navMsgBadge.style.display = "none"; }
+        // Update stat strip
+        const statMessages = document.getElementById("statMessages");
+        const statMessagesItem = document.getElementById("statMessagesItem");
+        if (statMessages) statMessages.textContent = total || "0";
+        if (statMessagesItem) statMessagesItem.classList.toggle("has-alert", total > 0);
         if (!snap.empty) { const latest = snap.docs[0].data(); msgSummaryPreview.textContent = latest.lastMessage ? `${latest.coupleName || "Couple"}: ${latest.lastMessage}` : "No messages yet. Conversations begin when a couple messages you from your vendor profile ♡"; }
         else { msgSummaryPreview.textContent = "No messages yet. Conversations begin when a couple messages you from your vendor profile ♡"; }
       }
