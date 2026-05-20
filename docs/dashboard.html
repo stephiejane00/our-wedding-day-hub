@@ -853,6 +853,9 @@
                 <div class="dashboard-field"><label for="fulfilmentDetails">Delivery / Pickup / Redemption Details</label><input type="text" id="fulfilmentDetails" placeholder="Brisbane pickup, ships Australia-wide, emailed within 24 hours..."></div>
               </div>
               <div class="dashboard-grid-2" style="margin-top:14px;">
+                <div class="dashboard-field"><label for="shippingCost">Shipping Cost</label><input type="text" id="shippingCost" placeholder="e.g. Free, A$9.95 flat rate, Calculated at checkout"></div>
+                <div class="dashboard-field"><label for="shippingLocations">Ships To / Available In</label><input type="text" id="shippingLocations" placeholder="e.g. Australia-wide, QLD only, Worldwide"></div>
+              <div class="dashboard-grid-2" style="margin-top:14px;">
                 <div class="dashboard-field"><label for="productStatus">Listing Visibility</label><select id="productStatus"><option value="draft">Draft - not visible yet</option><option value="live">Live - show in Boutique</option><option value="sold_out">Sold Out</option></select></div>
               </div>
               <div class="upload-box" style="margin-top:14px;">
@@ -1046,6 +1049,8 @@ import { LOCATION_DATA } from "./locations.js";
   const productPurchaseLink = document.getElementById("productPurchaseLink");
   const fulfilmentMethod = document.getElementById("fulfilmentMethod");
   const fulfilmentDetails = document.getElementById("fulfilmentDetails");
+  const shippingCost = document.getElementById("shippingCost");
+  const shippingLocations = document.getElementById("shippingLocations");
   const productStatus = document.getElementById("productStatus");
   const productImageFiles = document.getElementById("productImageFiles");
   const productImageFileName = document.getElementById("productImageFileName");
@@ -1221,7 +1226,7 @@ import { LOCATION_DATA } from "./locations.js";
   }
 
   function updateStripeStatus(v = {}) { if (stripeStatusText) stripeStatusText.textContent = (v.stripeConnected === true || v.stripeChargesEnabled === true || v.stripeAccountId) ? "Stripe: connected" : "Stripe: not connected"; }
-  function clearProductForm() { [productName, productPrice, productCategory, productStock, productDescription, productPurchaseLink, productImageFiles].forEach(el => el.value = ""); paymentMethod.value = "own"; fulfilmentMethod.value = "email"; fulfilmentDetails.value = ""; productStatus.value = "draft"; productImageFileName.textContent = ""; }
+  function clearProductForm() { [productName, productPrice, productCategory, productStock, productDescription, productPurchaseLink, productImageFiles, shippingCost, shippingLocations].forEach(el => el.value = ""); paymentMethod.value = "own"; fulfilmentMethod.value = "email"; fulfilmentDetails.value = ""; productStatus.value = "draft"; productImageFileName.textContent = ""; }
 
   function renderBoutiqueProducts() {
     boutiqueProductList.innerHTML = "";
@@ -1286,7 +1291,7 @@ import { LOCATION_DATA } from "./locations.js";
     try {
       const imgs = [];
       if (productImageFiles.files?.length) { for (const f of Array.from(productImageFiles.files)) imgs.push(await uploadFileToStorage(f, "boutique-product-images", currentUser.uid)); }
-      await addDoc(collection(db, "boutiqueProducts"), { vendorId: currentUser.uid, vendorName: businessName.value.trim(), name, price, category: productCategory.value, stock: Number(productStock.value||0), description: productDescription.value.trim(), paymentMethod: paymentMethod.value, purchaseLink: productPurchaseLink.value.trim(), fulfilmentMethod: fulfilmentMethod.value, fulfilmentDetails: fulfilmentDetails.value.trim(), status: productStatus.value||"draft", images: imgs, visible: productStatus.value === "live", createdAt: serverTimestamp(), updatedAt: serverTimestamp() });
+      await addDoc(collection(db, "boutiqueProducts"), { vendorId: currentUser.uid, vendorName: businessName.value.trim(), name, price, category: productCategory.value, stock: Number(productStock.value||0), description: productDescription.value.trim(), paymentMethod: paymentMethod.value, purchaseLink: productPurchaseLink.value.trim(), fulfilmentMethod: fulfilmentMethod.value, fulfilmentDetails: fulfilmentDetails.value.trim(), shippingCost: shippingCost.value.trim(), shippingLocations: shippingLocations.value.trim(), status: productStatus.value||"draft", images: imgs, visible: productStatus.value === "live", createdAt: serverTimestamp(), updatedAt: serverTimestamp() });
       clearProductForm(); await loadBoutiqueProducts(currentUser.uid); boutiqueMessage.textContent = "Product added successfully.";
     } catch (err) { console.error(err); boutiqueMessage.textContent = "There was a problem adding this product."; }
   }
