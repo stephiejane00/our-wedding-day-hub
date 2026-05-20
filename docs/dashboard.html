@@ -867,6 +867,7 @@
               </div>
               <div class="dashboard-actions" style="margin-top:16px;">
                 <button type="button" id="saveProductBtn" class="pretty-button">Add Boutique Listing</button>
+                <button type="button" id="cancelEditBtn" class="apply-button" style="display:none;">Cancel Edit</button>
               </div>
               <p id="boutiqueMessage" class="dashboard-help"></p>
               <div style="margin-top:22px;">
@@ -1226,7 +1227,42 @@ import { LOCATION_DATA } from "./locations.js";
   }
 
   function updateStripeStatus(v = {}) { if (stripeStatusText) stripeStatusText.textContent = (v.stripeConnected === true || v.stripeChargesEnabled === true || v.stripeAccountId) ? "Stripe: connected" : "Stripe: not connected"; }
-  function clearProductForm() { [productName, productPrice, productCategory, productStock, productDescription, productPurchaseLink, productImageFiles, shippingCost, shippingLocations].forEach(el => el.value = ""); paymentMethod.value = "own"; fulfilmentMethod.value = "email"; fulfilmentDetails.value = ""; productStatus.value = "draft"; productImageFileName.textContent = ""; }
+
+  let editingProductId = null;
+
+  function clearProductForm() {
+    editingProductId = null;
+    saveProductBtn.textContent = "Add Boutique Listing";
+    const cancelBtn = document.getElementById("cancelEditBtn");
+    if (cancelBtn) cancelBtn.style.display = "none";
+    [productName, productPrice, productCategory, productStock, productDescription, productPurchaseLink, productImageFiles, shippingCost, shippingLocations].forEach(el => el.value = "");
+    paymentMethod.value = "own"; fulfilmentMethod.value = "email"; fulfilmentDetails.value = ""; productStatus.value = "draft"; productImageFileName.textContent = "";
+    boutiqueMessage.textContent = "";
+  }
+
+  function populateProductForm(p) {
+    editingProductId = p.id;
+    saveProductBtn.textContent = "Save Changes";
+    const cancelBtn = document.getElementById("cancelEditBtn");
+    if (cancelBtn) cancelBtn.style.display = "inline-flex";
+    productName.value = p.name || "";
+    productPrice.value = p.price || "";
+    productCategory.value = p.category || "";
+    productStock.value = p.stock || "";
+    productDescription.value = p.description || "";
+    productPurchaseLink.value = p.purchaseLink || "";
+    paymentMethod.value = p.paymentMethod || "own";
+    fulfilmentMethod.value = p.fulfilmentMethod || "email";
+    fulfilmentDetails.value = p.fulfilmentDetails || "";
+    shippingCost.value = p.shippingCost || "";
+    shippingLocations.value = p.shippingLocations || "";
+    productStatus.value = p.status || "draft";
+    productImageFileName.textContent = "";
+    boutiqueMessage.textContent = "";
+    // Scroll form into view
+    const form = document.getElementById("saveProductBtn");
+    if (form) form.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
 
   function renderBoutiqueProducts() {
     boutiqueProductList.innerHTML = "";
@@ -1258,12 +1294,16 @@ import { LOCATION_DATA } from "./locations.js";
       `;
       const actions = document.createElement("div");
       actions.className = "boutique-product-card-actions";
+      const editBtn = document.createElement("button");
+      editBtn.type = "button"; editBtn.textContent = "Edit";
+      editBtn.style.cssText = "background:var(--ink); color:var(--cream); border-color:var(--ink);";
+      editBtn.addEventListener("click", () => populateProductForm(p));
       const viewBtn = document.createElement("a");
       viewBtn.href = `product.html?id=${p.id}`; viewBtn.textContent = "View";
       const deleteBtn = document.createElement("button");
       deleteBtn.type = "button"; deleteBtn.textContent = "Delete";
       deleteBtn.addEventListener("click", () => deleteBoutiqueProduct(p.id));
-      actions.appendChild(viewBtn); actions.appendChild(deleteBtn);
+      actions.appendChild(editBtn); actions.appendChild(viewBtn); actions.appendChild(deleteBtn);
       body.appendChild(actions);
       card.appendChild(body);
       boutiqueProductList.appendChild(card);
@@ -1287,13 +1327,46 @@ import { LOCATION_DATA } from "./locations.js";
     const name = productName.value.trim(); const price = Number(productPrice.value || 0);
     if (!name) { boutiqueMessage.textContent = "Please add a product name."; return; }
     if (!price || price < 0) { boutiqueMessage.textContent = "Please add a valid price."; return; }
-    boutiqueMessage.textContent = "Uploading...";
+    boutiqueMessage.textContent = editingProductId ? "Saving changes..." : "Uploading...";
     try {
       const imgs = [];
       if (productImageFiles.files?.length) { for (const f of Array.from(productImageFiles.files)) imgs.push(await uploadFileToStorage(f, "boutique-product-images", currentUser.uid)); }
-      await addDoc(collection(db, "boutiqueProducts"), { vendorId: currentUser.uid, vendorName: businessName.value.trim(), name, price, category: productCategory.value, stock: Number(productStock.value||0), description: productDescription.value.trim(), paymentMethod: paymentMethod.value, purchaseLink: productPurchaseLink.value.trim(), fulfilmentMethod: fulfilmentMethod.value, fulfilmentDetails: fulfilmentDetails.value.trim(), shippingCost: shippingCost.value.trim(), shippingLocations: shippingLocations.value.trim(), status: productStatus.value||"draft", images: imgs, visible: productStatus.value === "live", createdAt: serverTimestamp(), updatedAt: serverTimestamp() });
-      clearProductForm(); await loadBoutiqueProducts(currentUser.uid); boutiqueMessage.textContent = "Product added successfully.";
-    } catch (err) { console.error(err); boutiqueMessage.textContent = "There was a problem adding this product."; }
+
+      const data = {
+        vendorId: currentUser.uid, vendorName: businessName.value.trim(),
+        name, price, category: productCategory.value,
+        stock: Number(productStock.value||0),
+        description: productDescription.value.trim(),
+        paymentMethod: paymentMethod.value,
+        purchaseLink: productPurchaseLink.value.trim(),
+        fulfilmentMethod: fulfilmentMethod.value,
+        fulfilmentDetails: fulfilmentDetails.value.trim(),
+        shippingCost: shippingCost.value.trim(),
+        shippingLocations: shippingLocations.value.trim(),
+        status: productStatus.value||"draft",
+        visible: productStatus.value === "live",
+        updatedAt: serverTimestamp()
+      };
+
+      if (editingProductId) {
+        // Edit mode — update existing, only add new images if uploaded
+        if (imgs.length) {
+          const existing = currentBoutiqueProducts.find(p => p.id === editingProductId);
+          data.images = [...(existing?.images || []), ...imgs];
+        }
+        await updateDoc(doc(db, "boutiqueProducts", editingProductId), data);
+        boutiqueMessage.textContent = "Changes saved ♡";
+      } else {
+        // Create mode
+        data.images = imgs;
+        data.createdAt = serverTimestamp();
+        await addDoc(collection(db, "boutiqueProducts"), data);
+        boutiqueMessage.textContent = "Product added successfully ♡";
+      }
+
+      clearProductForm();
+      await loadBoutiqueProducts(currentUser.uid);
+    } catch (err) { console.error(err); boutiqueMessage.textContent = "There was a problem saving this product."; }
   }
 
   async function loadVendorData(uid) {
@@ -1398,6 +1471,10 @@ import { LOCATION_DATA } from "./locations.js";
 
   saveAccountBtn.addEventListener("click", saveAccountSettings);
   saveProductBtn.addEventListener("click", saveBoutiqueProduct);
+  document.getElementById("cancelEditBtn")?.addEventListener("click", () => {
+    clearProductForm();
+    document.getElementById("cancelEditBtn").style.display = "none";
+  });
 
   onAuthStateChanged(auth, async (user) => {
     if (!user) { window.location.href = "login.html"; return; }
