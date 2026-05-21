@@ -377,6 +377,64 @@
     /* ── BOUTIQUE ── */
     .dashboard-panel .dashboard-actions { justify-content: flex-start; }
 
+    /* ── DASHBOARD CARD GRID ── */
+    .dash-main { max-width: 1280px; margin: 0 auto; padding: 36px 40px 60px; }
+    .dash-section-label { font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-ghost); margin-bottom: 12px; padding-left: 1px; }
+    .dash-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 12px; }
+    .dash-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 28px; }
+
+    .dash-card {
+      background: var(--cream); border: 0.5px solid var(--ink-rule);
+      padding: 22px 22px 18px; cursor: pointer;
+      display: flex; flex-direction: column; gap: 6px;
+      transition: background 0.18s, border-color 0.18s;
+    }
+    .dash-card:hover { background: var(--cream-warm); border-color: var(--ink-mid); }
+    .dash-card-wide { flex-direction: column; }
+    .dash-card-icon { font-size: 1.1rem; color: var(--ink-ghost); line-height: 1; }
+    .dash-card-title { font-family: var(--font-serif); font-size: 1.15rem; font-weight: 300; color: var(--ink); letter-spacing: -0.01em; }
+    .dash-card-sub { font-family: var(--font-sans); font-size: 0.78rem; color: var(--ink-muted); line-height: 1.55; }
+    .dash-card-badge { display: inline-flex; align-items: center; font-family: var(--font-sans); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em; padding: 4px 10px; margin-top: 4px; width: fit-content; }
+    .dash-badge-ok { background: #e8f0e8; color: #3a5e38; border: 0.5px solid #c8dcc8; }
+    .dash-badge-todo { background: var(--cream-deep); color: var(--ink-muted); border: 0.5px solid var(--ink-rule); }
+    .dash-badge-off { background: var(--cream-deep); color: var(--ink-ghost); border: 0.5px solid var(--ink-rule); }
+    .dash-card-arrow { font-family: var(--font-sans); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); background: var(--cream-deep); border: 0.5px solid var(--ink-rule); padding: 8px 16px; width: fit-content; margin-top: 12px; }
+
+    /* ── MESSAGES CARD ── */
+    .dash-msg-card { background: var(--cream); border: 0.5px solid var(--ink-rule); padding: 20px 24px; margin-bottom: 28px; display: flex; align-items: flex-start; gap: 24px; }
+    .dash-msg-left { display: flex; align-items: center; gap: 10px; flex-shrink: 0; padding-top: 2px; }
+    .dash-msg-title { font-family: var(--font-serif); font-size: 1.15rem; font-weight: 300; color: var(--ink); }
+    .dash-msg-right { flex: 1; min-width: 0; }
+    .dash-msg-preview { font-family: var(--font-sans); font-size: 0.82rem; color: var(--ink-muted); line-height: 1.6; margin-bottom: 8px; }
+    .dash-msg-link { font-family: var(--font-sans); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
+    .dash-msg-link:hover { color: var(--gold); }
+
+    /* ── ACCOUNT ZONE ── */
+    .dash-account-divider { height: 1px; background: var(--ink-rule); margin: 0 0 24px; }
+    .dash-account-card { background: var(--cream-warm); border: 0.5px solid var(--ink-rule); padding: 18px 22px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: background 0.18s; }
+    .dash-account-card:hover { background: var(--cream-deep); }
+    .dash-account-left { display: flex; align-items: center; gap: 14px; }
+    .dash-account-icon { font-size: 1.1rem; color: var(--ink-ghost); }
+    .dash-account-title { font-family: var(--font-serif); font-size: 1.05rem; font-weight: 300; color: var(--ink-mid); }
+    .dash-account-sub { font-family: var(--font-sans); font-size: 0.74rem; color: var(--ink-ghost); }
+    .dash-account-arrow { font-family: var(--font-sans); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-ghost); }
+
+    /* ── DRAWERS ── */
+    .dash-drawer-overlay { display: none; position: fixed; inset: 0; background: rgba(26,26,22,0.35); z-index: 300; }
+    .dash-drawer-overlay.open { display: block; }
+    .dash-drawer {
+      position: fixed; top: 0; right: 0; bottom: 0; width: min(580px, 100vw);
+      background: var(--cream); border-left: 1px solid var(--ink-rule);
+      z-index: 400; overflow-y: auto;
+      transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+    .dash-drawer.open { transform: translateX(0); }
+    .dash-drawer-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 28px; border-bottom: 0.5px solid var(--ink-rule); position: sticky; top: 0; background: var(--cream); z-index: 10; }
+    .dash-drawer-title { font-family: var(--font-serif); font-size: 1.5rem; font-weight: 300; letter-spacing: -0.02em; color: var(--ink); }
+    .dash-drawer-close { background: none; border: 0.5px solid var(--ink-rule); width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.9rem; color: var(--ink-muted); flex-shrink: 0; transition: background 0.18s; }
+    .dash-drawer-close:hover { background: var(--cream-warm); }
+    .dash-drawer-body { padding: 28px 28px 48px; }
+
     /* ── FOOTER ── */
     .site-footer { background: var(--ink); border-top: 1px solid var(--ink-mid); }
     .footer-content { padding: 40px 36px 32px; display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: start; }
@@ -397,13 +455,10 @@
       .media-uploader-grid, .brand-assets-grid, .bulk-date-grid { grid-template-columns: 1fr; }
       .dashboard-hero-copy { padding: 40px 36px; }
       .dashboard-stat-strip { grid-template-columns: repeat(2, 1fr); }
+      .dash-grid-3 { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 700px) {
       .site-topbar { padding: 0 16px; min-height: 56px; }
-      .panel-toggle-header { padding: 16px 20px; }
-      .panel-body-inner { padding: 0 20px 24px; }
-      .panel-divider { margin: 0; }
-      .dashboard-controls { padding: 12px 20px; }
       .dashboard-hero-copy { padding: 28px 20px; }
       .dashboard-actions { flex-direction: column; align-items: stretch; }
       .dashboard-actions .pretty-button, .dashboard-actions .apply-button,
@@ -416,6 +471,10 @@
       .dashboard-save-bar { flex-direction: column; }
       .dashboard-save-bar .pretty-button { width: 100%; min-width: 0; }
       .dashboard-card-soft { padding: 16px 18px; }
+      .dash-main { padding: 24px 16px 48px; }
+      .dash-grid-3, .dash-grid-2 { grid-template-columns: 1fr; }
+      .dash-drawer { width: 100vw; }
+      .dash-drawer-body { padding: 20px 20px 48px; }
       .footer-content { padding: 28px 20px 24px; grid-template-columns: 1fr; gap: 24px; }
       .footer-links-col { align-items: flex-start; }
       .footer-links { align-items: flex-start; }
@@ -432,7 +491,6 @@
   <nav class="site-topbar-actions">
     <a href="categories.html" class="site-topbar-link">Categories</a>
     <a href="shop.html" class="site-topbar-link">Boutique</a>
-    <a href="journal.html" class="site-topbar-link">The Journal</a>
     <a href="messages.html" id="messagesLink" class="site-topbar-link" style="display:none; position:relative;">
       Messages
       <span id="msgNavBadge" style="display:none; position:absolute; top:-6px; right:-10px; background:var(--ink); color:var(--cream); font-size:0.64rem; font-weight:700; padding:2px 6px; border-radius:999px; line-height:1.2; min-width:18px; text-align:center;">0</span>
@@ -491,14 +549,456 @@
       </div>
     </div>
 
-    <!-- ── EXPAND / COLLAPSE ALL ── -->
-    <div class="dashboard-controls">
-      <button class="ctrl-btn" id="expandAllBtn">Expand all</button>
-      <button class="ctrl-btn" id="collapseAllBtn">Collapse all</button>
+    <!-- ── DASHBOARD GRID ── -->
+    <div class="dash-main">
+
+      <!-- ── YOUR PROFILE SECTION ── -->
+      <p class="dash-section-label">Your Profile</p>
+      <div class="dash-grid-3">
+
+        <!-- Status -->
+        <div class="dash-card" id="card-status" onclick="openPanel('status')">
+          <div class="dash-card-icon">✦</div>
+          <div class="dash-card-title">Status &amp; Visibility</div>
+          <div class="dash-card-sub">Go live when you're ready for couples to find you</div>
+          <div class="dash-card-badge dash-badge-off" id="badge-status">● Not live</div>
+        </div>
+
+        <!-- Business Details -->
+        <div class="dash-card" id="card-business" onclick="openPanel('business')">
+          <div class="dash-card-icon">◐</div>
+          <div class="dash-card-title">Business Details</div>
+          <div class="dash-card-sub">Name, bio, contact info &amp; social links</div>
+          <div class="dash-card-badge dash-badge-todo" id="badge-business">○ Fill in your details</div>
+        </div>
+
+        <!-- Booking -->
+        <div class="dash-card" id="card-booking" onclick="openPanel('booking')">
+          <div class="dash-card-icon">◆</div>
+          <div class="dash-card-title">Booking &amp; Availability</div>
+          <div class="dash-card-sub">Booking link &amp; block-out dates</div>
+          <div class="dash-card-badge dash-badge-todo" id="badge-booking">○ Add a booking link</div>
+        </div>
+
+        <!-- Profile Picture -->
+        <div class="dash-card" id="card-assets" onclick="openPanel('assets')">
+          <div class="dash-card-icon">✿</div>
+          <div class="dash-card-title">Profile Picture &amp; Logo</div>
+          <div class="dash-card-sub">Photos get significantly more enquiries</div>
+          <div class="dash-card-badge dash-badge-todo" id="badge-assets">○ Add a photo</div>
+        </div>
+
+        <!-- Media -->
+        <div class="dash-card" id="card-media" onclick="openPanel('media')">
+          <div class="dash-card-icon">◈</div>
+          <div class="dash-card-title">Media Uploads</div>
+          <div class="dash-card-sub">First image becomes your cover photo</div>
+          <div class="dash-card-badge dash-badge-todo" id="badge-media">○ Upload photos</div>
+        </div>
+
+        <!-- Style Tags -->
+        <div class="dash-card" id="card-styles" onclick="openPanel('styles')">
+          <div class="dash-card-icon">❋</div>
+          <div class="dash-card-title">Style Tags</div>
+          <div class="dash-card-sub">Words that describe your aesthetic &amp; vibe</div>
+          <div class="dash-card-badge dash-badge-todo" id="badge-styles">○ None added</div>
+        </div>
+
+      </div>
+      <div class="dash-grid-2">
+
+        <!-- Categories -->
+        <div class="dash-card" id="card-categories" onclick="openPanel('categories')">
+          <div class="dash-card-icon">◇</div>
+          <div class="dash-card-title">Categories</div>
+          <div class="dash-card-sub">How couples find you when browsing the hub</div>
+          <div class="dash-card-badge dash-badge-todo" id="badge-categories">○ None selected</div>
+        </div>
+
+        <!-- Locations -->
+        <div class="dash-card" id="card-locations" onclick="openPanel('locations')">
+          <div class="dash-card-icon">✶</div>
+          <div class="dash-card-title">Service Locations</div>
+          <div class="dash-card-sub">Every city, region or country you cover</div>
+          <div class="dash-card-badge dash-badge-todo" id="badge-locations">○ No locations yet</div>
+        </div>
+
+      </div>
+
+      <!-- ── MESSAGES ── -->
+      <p class="dash-section-label">Messages &amp; Orders</p>
+      <div class="dash-msg-card">
+        <div class="dash-msg-left">
+          <span class="dash-msg-title">Messages</span>
+          <span class="msg-unread-badge" id="msgUnreadBadge" style="display:none;">0</span>
+        </div>
+        <div class="dash-msg-right">
+          <p class="dash-msg-preview" id="msgSummaryPreview">No messages yet. Conversations begin when a couple messages you ♡</p>
+          <a href="messages.html" class="dash-msg-link">Open messages →</a>
+        </div>
+      </div>
+
+      <!-- ── BOUTIQUE ── -->
+      <p class="dash-section-label">Boutique</p>
+      <div class="dash-card dash-card-wide" id="card-boutique" onclick="openPanel('boutique')">
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;">
+          <div style="display:flex; flex-direction:column; gap:5px;">
+            <div class="dash-card-icon">✧</div>
+            <div class="dash-card-title">Sell Products, Gift Cards &amp; Vouchers</div>
+            <div class="dash-card-sub">Boutique listings for couples and guests — gift cards, vouchers, jewellery, favours and more</div>
+          </div>
+          <span class="dash-card-arrow">Manage →</span>
+        </div>
+      </div>
+
+      <!-- ── ACCOUNT (separated out) ── -->
+      <div class="dash-account-divider"></div>
+      <p class="dash-section-label" style="color:var(--ink-ghost);">Account</p>
+      <div class="dash-account-card" id="card-account" onclick="openPanel('account')">
+        <div class="dash-account-left">
+          <span class="dash-account-icon">⚙</span>
+          <div>
+            <div class="dash-account-title">Account Settings</div>
+            <div class="dash-account-sub">Name, login email and password</div>
+          </div>
+        </div>
+        <span class="dash-account-arrow">Edit →</span>
+      </div>
+
     </div>
 
-    <!-- ── STATUS ── -->
-    <section class="dashboard-panel" data-section="status">
+    <!-- ── PANEL DRAWERS (hidden until card clicked) ── -->
+    <div class="dash-drawer-overlay" id="drawerOverlay" onclick="closePanel()"></div>
+
+    <!-- Status drawer -->
+    <div class="dash-drawer" id="drawer-status">
+      <div class="dash-drawer-header">
+        <h2 class="dash-drawer-title">Status &amp; Visibility</h2>
+        <button class="dash-drawer-close" onclick="closePanel()">✕</button>
+      </div>
+      <div class="dash-drawer-body">
+        <div class="status-wrap" style="margin-bottom:16px;">
+          <span class="status-pill" id="accountStatusText">Account status: loading...</span>
+          <span class="status-pill" id="subscriptionStatusText">Plan access: loading...</span>
+          <span class="status-pill" id="viewsStatusText">Profile views: 0</span>
+        </div>
+        <div class="inline-toggle">
+          <input type="checkbox" id="profileLive">
+          <label for="profileLive" style="margin:0; font-family:var(--font-sans); font-size:0.86rem; color:var(--ink-mid);">Make my profile live on the hub</label>
+        </div>
+        <p class="dashboard-help">Turn this on when you are ready for couples to see your profile. Your listing can appear when your account is active and you have either a paid plan or complimentary vendor access.</p>
+        <div class="panel-save-row">
+          <button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button>
+          <span class="panel-save-msg" id="msg-status"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Business Details drawer -->
+    <div class="dash-drawer" id="drawer-business">
+      <div class="dash-drawer-header">
+        <h2 class="dash-drawer-title">Business Details</h2>
+        <button class="dash-drawer-close" onclick="closePanel()">✕</button>
+      </div>
+      <div class="dash-drawer-body">
+        <div class="dashboard-grid-2">
+          <div class="dashboard-field"><label for="businessName">Business Name</label><input type="text" id="businessName"></div>
+          <div class="dashboard-field"><label for="email">Business Email</label><input type="email" id="email"></div>
+        </div>
+        <div class="dashboard-grid-3" style="margin-top:14px;">
+          <div class="dashboard-field"><label for="phone">Phone</label><input type="text" id="phone"></div>
+          <div class="dashboard-field"><label for="instagram">Instagram</label><input type="text" id="instagram" placeholder="@yourhandle or full link"></div>
+          <div class="dashboard-field"><label for="website">Website</label><input type="text" id="website" placeholder="https://yourwebsite.com"></div>
+        </div>
+        <div class="dashboard-grid-3" style="margin-top:14px;">
+          <div class="dashboard-field"><label for="facebook">Facebook</label><input type="text" id="facebook" placeholder="https://facebook.com/..."></div>
+          <div class="dashboard-field"><label for="tiktok">TikTok</label><input type="text" id="tiktok" placeholder="https://tiktok.com/..."></div>
+          <div class="dashboard-field"><label for="youtube">YouTube</label><input type="text" id="youtube" placeholder="https://youtube.com/..."></div>
+        </div>
+        <div class="dashboard-grid-3" style="margin-top:14px;">
+          <div class="dashboard-field"><label for="pinterest">Pinterest</label><input type="text" id="pinterest" placeholder="https://pinterest.com/..."></div>
+          <div class="dashboard-field"><label for="linkedin">LinkedIn</label><input type="text" id="linkedin" placeholder="https://linkedin.com/..."></div>
+          <div class="dashboard-field"><label for="x">X (Twitter)</label><input type="text" id="x" placeholder="https://x.com/..."></div>
+        </div>
+        <p class="dashboard-help">Only the links you fill in will appear on your public profile.</p>
+        <div class="dashboard-grid-2" style="margin-top:14px;">
+          <div class="dashboard-field"><label for="serviceAreas">Service Areas Summary</label><input type="text" id="serviceAreas" placeholder="Brisbane, Gold Coast, Sunshine Coast"></div>
+          <div class="dashboard-field"><label for="displayLocation">Display Location</label><input type="text" id="displayLocation" placeholder="Brisbane, Queensland"></div>
+        </div>
+        <div class="dashboard-field" style="margin-top:14px;"><label for="bio">Bio</label><textarea id="bio" rows="6" placeholder="Tell couples about your business..."></textarea></div>
+        <div class="panel-save-row">
+          <button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button>
+          <span class="panel-save-msg" id="msg-business"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Booking drawer -->
+    <div class="dash-drawer" id="drawer-booking">
+      <div class="dash-drawer-header">
+        <h2 class="dash-drawer-title">Booking &amp; Availability</h2>
+        <button class="dash-drawer-close" onclick="closePanel()">✕</button>
+      </div>
+      <div class="dash-drawer-body">
+        <div class="booking-layout">
+          <div class="booking-subcard">
+            <h3>Booking Link &amp; Availability</h3>
+            <p class="dashboard-help">Add your booking page and a short status update so couples know whether you are taking enquiries right now.</p>
+            <div class="dashboard-grid-2">
+              <div class="dashboard-field"><label for="bookingLink">Booking Link</label><input type="text" id="bookingLink" placeholder="https://calendly.com/... or your booking page"></div>
+              <div class="dashboard-field"><label for="availabilityStatus">Availability Status</label><input type="text" id="availabilityStatus" placeholder="Now booking 2026 weddings"></div>
+            </div>
+            <div class="dashboard-field" style="margin-top:14px;"><label for="bookingNotes">Booking Notes</label><textarea id="bookingNotes" rows="4" placeholder="Share anything couples should know before booking..."></textarea></div>
+          </div>
+          <div class="booking-subcard">
+            <h3>Block One Unavailable Date</h3>
+            <p class="dashboard-help">Add a single date when you are already booked or not available.</p>
+            <div class="date-manager-top">
+              <div class="dashboard-field"><label for="blockedDateInput">Unavailable Date</label><input type="date" id="blockedDateInput"></div>
+              <button type="button" id="addBlockedDateBtn" class="date-add-btn">Add Date</button>
+            </div>
+          </div>
+          <div class="booking-subcard">
+            <h3>Bulk Block Weekdays</h3>
+            <p class="dashboard-help">Great for vendors who never work certain days.</p>
+            <div id="weekdayOptions" class="weekday-pill-grid">
+              <label><input type="checkbox" value="0"><span>Sunday</span></label>
+              <label><input type="checkbox" value="1"><span>Monday</span></label>
+              <label><input type="checkbox" value="2"><span>Tuesday</span></label>
+              <label><input type="checkbox" value="3"><span>Wednesday</span></label>
+              <label><input type="checkbox" value="4"><span>Thursday</span></label>
+              <label><input type="checkbox" value="5"><span>Friday</span></label>
+              <label><input type="checkbox" value="6"><span>Saturday</span></label>
+            </div>
+            <div class="bulk-date-grid">
+              <div class="dashboard-field"><label for="bulkStartDate">Start Date</label><input type="date" id="bulkStartDate"></div>
+              <div class="dashboard-field"><label for="bulkEndDate">End Date</label><input type="date" id="bulkEndDate"></div>
+              <div class="dashboard-field"><label for="bulkMonthsPreset">Quick Range</label><select id="bulkMonthsPreset"><option value="">Custom dates</option><option value="3">Next 3 months</option><option value="6">Next 6 months</option><option value="12">Next 12 months</option></select></div>
+              <button type="button" id="bulkAddBtn" class="bulk-add-btn">Block Selected Days</button>
+            </div>
+          </div>
+          <div class="booking-subcard">
+            <h3>Unavailable Dates</h3>
+            <div id="blockedDateList" class="date-chip-list"></div>
+            <div class="calendar-tip-box">Your booking link will show as a Book Now button on your public profile if filled in. Unavailable dates will be checked before couples send an enquiry.</div>
+          </div>
+        </div>
+        <div class="panel-save-row">
+          <button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button>
+          <span class="panel-save-msg" id="msg-booking"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Profile Picture drawer -->
+    <div class="dash-drawer" id="drawer-assets">
+      <div class="dash-drawer-header">
+        <h2 class="dash-drawer-title">Profile Picture &amp; Logo</h2>
+        <button class="dash-drawer-close" onclick="closePanel()">✕</button>
+      </div>
+      <div class="dash-drawer-body">
+        <div class="brand-assets-grid">
+          <div class="asset-box">
+            <div class="asset-preview-circle"><div class="asset-empty" id="profileImageEmpty">No profile image yet</div><img id="profileImagePreview" style="display:none;" alt="Profile image preview"></div>
+            <input type="file" id="profileImageFile" class="pretty-upload-input" accept="image/*">
+            <label for="profileImageFile" class="pretty-upload-label">Upload Profile Picture</label>
+            <div id="profileImageFileName" class="selected-file-note"></div>
+          </div>
+          <div class="asset-box">
+            <div class="asset-preview-square"><div class="asset-empty" id="logoEmpty">No logo yet</div><img id="logoPreview" style="display:none;" alt="Logo preview"></div>
+            <input type="file" id="logoFile" class="pretty-upload-input" accept="image/*">
+            <label for="logoFile" class="pretty-upload-label">Upload Logo</label>
+            <div id="logoFileName" class="selected-file-note"></div>
+          </div>
+        </div>
+        <div class="panel-save-row">
+          <button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button>
+          <span class="panel-save-msg" id="msg-assets"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Media drawer -->
+    <div class="dash-drawer" id="drawer-media">
+      <div class="dash-drawer-header">
+        <h2 class="dash-drawer-title">Media Uploads</h2>
+        <button class="dash-drawer-close" onclick="closePanel()">✕</button>
+      </div>
+      <div class="dash-drawer-body">
+        <p class="dashboard-help" style="margin-bottom:16px;">Show your best work — drag to reorder, first image becomes your cover photo.</p>
+        <div class="media-uploader-grid">
+          <div class="upload-box"><h3>Upload Photos</h3><input type="file" id="galleryImageFiles" class="pretty-upload-input" accept="image/*" multiple><label for="galleryImageFiles" class="pretty-upload-label">Choose Photos</label><div id="galleryImageFileName" class="selected-file-note"></div></div>
+          <div class="upload-box"><h3>Upload Videos</h3><input type="file" id="galleryVideoFiles" class="pretty-upload-input" accept="video/*" multiple><label for="galleryVideoFiles" class="pretty-upload-label">Choose Videos</label><div id="galleryVideoFileName" class="selected-file-note"></div></div>
+        </div>
+        <div id="imagePreview" class="media-preview-grid"></div>
+        <div id="videoPreview" class="media-preview-grid"></div>
+        <div class="panel-save-row">
+          <button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button>
+          <span class="panel-save-msg" id="msg-media"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Style Tags drawer -->
+    <div class="dash-drawer" id="drawer-styles">
+      <div class="dash-drawer-header">
+        <h2 class="dash-drawer-title">Style Tags</h2>
+        <button class="dash-drawer-close" onclick="closePanel()">✕</button>
+      </div>
+      <div class="dash-drawer-body">
+        <p class="dashboard-help" style="margin-bottom:16px;">Help couples find your vibe — choose words that describe your aesthetic.</p>
+        <div id="styleTagOptions" class="mini-pill-grid"></div>
+        <div class="panel-save-row">
+          <button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button>
+          <span class="panel-save-msg" id="msg-styles"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Categories drawer -->
+    <div class="dash-drawer" id="drawer-categories">
+      <div class="dash-drawer-header">
+        <h2 class="dash-drawer-title">Categories</h2>
+        <button class="dash-drawer-close" onclick="closePanel()">✕</button>
+      </div>
+      <div class="dash-drawer-body">
+        <p class="dashboard-help" style="margin-bottom:16px;">Tell couples exactly what you offer — this is how they find you when browsing.</p>
+        <div id="categoryOptions" class="dropdown-content-form"></div>
+        <div class="panel-save-row">
+          <button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button>
+          <span class="panel-save-msg" id="msg-categories"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Locations drawer -->
+    <div class="dash-drawer" id="drawer-locations">
+      <div class="dash-drawer-header">
+        <h2 class="dash-drawer-title">Service Locations</h2>
+        <button class="dash-drawer-close" onclick="closePanel()">✕</button>
+      </div>
+      <div class="dash-drawer-body">
+        <p class="dashboard-help" style="margin-bottom:16px;">Search any city, region, state or country and add it. The more accurate this is, the easier you are to find.</p>
+        <div style="position:relative;">
+          <input type="text" id="locationSearchInput" placeholder="e.g. Brisbane, Tuscany, New Zealand…" autocomplete="off" style="width:100%; border:none; border-bottom:1px solid var(--ink-rule); background:transparent; padding:12px 0; font-family:var(--font-sans); font-size:0.9rem; color:var(--ink); outline:none; transition:border-color 0.2s;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--ink-rule)'">
+          <div id="locationDropdown" style="display:none; position:absolute; top:100%; left:0; right:0; background:var(--cream); border:0.5px solid var(--ink-rule); border-top:none; z-index:200; max-height:240px; overflow-y:auto; box-shadow:0 8px 24px rgba(26,26,22,0.1);"></div>
+        </div>
+        <div id="locationTags" style="display:flex; flex-wrap:wrap; gap:7px; margin-top:14px; min-height:6px;"></div>
+        <div style="margin-top:16px; padding-top:14px; border-top:0.5px solid var(--ink-rule); display:flex; align-items:center; gap:10px;">
+          <input type="checkbox" id="worldwideToggle" style="width:16px; height:16px; accent-color:var(--ink); cursor:pointer;">
+          <label for="worldwideToggle" style="font-family:var(--font-sans); font-size:0.82rem; color:var(--ink-mid); cursor:pointer; margin:0;">I work worldwide — online, destination or international bookings</label>
+        </div>
+        <div style="display:none;">
+          <div id="countryOptions"></div>
+          <div id="stateOptions"></div>
+          <div id="regionOptions"></div>
+        </div>
+        <div class="panel-save-row">
+          <button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button>
+          <span class="panel-save-msg" id="msg-locations"></span>
+          <span class="panel-save-msg" id="msg-countries" style="display:none;"></span>
+          <span class="panel-save-msg" id="msg-states" style="display:none;"></span>
+          <span class="panel-save-msg" id="msg-regions" style="display:none;"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Boutique drawer -->
+    <div class="dash-drawer" id="drawer-boutique">
+      <div class="dash-drawer-header">
+        <h2 class="dash-drawer-title">Sell Products, Gift Cards &amp; Vouchers</h2>
+        <button class="dash-drawer-close" onclick="closePanel()">✕</button>
+      </div>
+      <div class="dash-drawer-body">
+        <div class="calendar-tip-box" style="margin-bottom:16px;">
+          <strong>What can you list?</strong><br><br>
+          Gift cards, vouchers, special offers, jewellery, favours, keepsakes, bridal accessories, cake boxes, wellness experiences and wedding-related products.<br><br>
+          Couples and guests can browse these through the <strong>Boutique</strong> link at the top of the website.
+        </div>
+        <div id="boutiqueAccessAllowed" style="display:none;">
+          <div class="status-wrap" style="margin-bottom:14px;">
+            <span class="status-pill" id="stripeStatusText">Stripe: loading...</span>
+            <span class="status-pill" id="productCountText">Products: 0</span>
+          </div>
+          <div class="dashboard-actions" style="margin-bottom:14px;">
+            <button type="button" id="connectStripeBtn" class="pretty-button">Connect Stripe</button>
+            <a href="shop.html" class="apply-button">View Boutique Shop</a>
+          </div>
+          <div class="calendar-tip-box">You can use your own payment method, ask customers to enquire first, or connect Stripe later for direct checkout.</div>
+          <div class="dashboard-grid-2" style="margin-top:18px;">
+            <div class="dashboard-field"><label for="productName">Listing Name</label><input type="text" id="productName" placeholder="Gift card, bridal voucher, jewellery set, favour box..."></div>
+            <div class="dashboard-field"><label for="productPrice">Price / Value</label><input type="number" id="productPrice" min="0" step="0.01" placeholder="49.00"></div>
+          </div>
+          <div class="dashboard-grid-2" style="margin-top:14px;">
+            <div class="dashboard-field"><label for="productCategory">Listing Type</label><select id="productCategory"><option value="">Choose type</option><option value="gift_card">Gift Card</option><option value="voucher">Voucher / Offer</option><option value="product">Physical Product</option><option value="jewellery">Jewellery</option><option value="bridal_accessories">Bridal Accessories</option><option value="wedding_favours">Wedding Favours</option><option value="keepsakes">Keepsakes</option><option value="experience">Experience</option><option value="other">Other</option></select></div>
+            <div class="dashboard-field"><label for="productStock">Quantity Available</label><input type="number" id="productStock" min="0" step="1" placeholder="10"></div>
+          </div>
+          <div class="dashboard-field" style="margin-top:14px;"><label for="productDescription">What's Included</label><textarea id="productDescription" rows="4" placeholder="Explain what they receive, how it works, inclusions, expiry dates for vouchers, lead times, sizing, colours or custom options."></textarea></div>
+          <div class="dashboard-grid-2" style="margin-top:18px;">
+            <div class="dashboard-field"><label for="paymentMethod">How do you want to get paid?</label><select id="paymentMethod"><option value="own">Use my own payment method</option><option value="stripe">Sell through the hub with Stripe</option><option value="enquiry">Customer enquires first</option></select></div>
+            <div class="dashboard-field"><label for="productPurchaseLink">Payment / Booking Link</label><input type="text" id="productPurchaseLink" placeholder="Website checkout, payment link, booking link or Instagram link"></div>
+          </div>
+          <p class="dashboard-help">If you use your own payment method, add the link customers should use. If they need to enquire first, you can leave this blank.</p>
+          <div class="dashboard-grid-2" style="margin-top:14px;">
+            <div class="dashboard-field"><label for="fulfilmentMethod">How will customers receive this?</label><select id="fulfilmentMethod"><option value="email">Email delivery</option><option value="pickup">Local pickup</option><option value="local_delivery">Local delivery</option><option value="domestic_shipping">Ships within your country</option><option value="international_shipping">Ships internationally</option><option value="enquiry">Arrange after enquiry</option></select></div>
+            <div class="dashboard-field"><label for="fulfilmentDetails">Delivery / Pickup / Redemption Details</label><input type="text" id="fulfilmentDetails" placeholder="Brisbane pickup, ships Australia-wide, emailed within 24 hours..."></div>
+          </div>
+          <div class="dashboard-grid-2" style="margin-top:14px;">
+            <div class="dashboard-field"><label for="shippingCost">Shipping Cost</label><input type="text" id="shippingCost" placeholder="e.g. Free, A$9.95 flat rate, Calculated at checkout"></div>
+            <div class="dashboard-field"><label for="shippingLocations">Ships To / Available In</label><input type="text" id="shippingLocations" placeholder="e.g. Australia-wide, QLD only, Worldwide"></div>
+          </div>
+          <div class="dashboard-grid-2" style="margin-top:14px;">
+            <div class="dashboard-field"><label for="productStatus">Listing Visibility</label><select id="productStatus"><option value="draft">Draft - not visible yet</option><option value="live">Live - show in Boutique</option><option value="sold_out">Sold Out</option></select></div>
+          </div>
+          <div class="upload-box" style="margin-top:14px;">
+            <h3>Listing Images</h3>
+            <p class="dashboard-help" style="margin-top:0;">Upload photos of the product, voucher, gift card design, or an example of what customers receive.</p>
+            <input type="file" id="productImageFiles" class="pretty-upload-input" accept="image/*" multiple>
+            <label for="productImageFiles" class="pretty-upload-label">Choose Listing Images</label>
+            <div id="productImageFileName" class="selected-file-note"></div>
+          </div>
+          <div class="dashboard-actions" style="margin-top:16px;">
+            <button type="button" id="saveProductBtn" class="pretty-button">Add Boutique Listing</button>
+            <button type="button" id="cancelEditBtn" class="apply-button" style="display:none;">Cancel Edit</button>
+          </div>
+          <p id="boutiqueMessage" class="dashboard-help"></p>
+          <div style="margin-top:22px;">
+            <h3 class="dashboard-section-title" style="font-size:1.2rem; margin-bottom:12px;">Your Boutique Listings</h3>
+            <div id="boutiqueProductList" class="boutique-product-grid"></div>
+          </div>
+        </div>
+        <div id="boutiqueAccessLocked" style="display:none;">
+          <p class="dashboard-help" style="margin-top:0;">Boutique access is included for Founding Vendors and our highest membership tier.</p>
+          <div class="calendar-tip-box" style="margin-top:14px;"><strong>Want to sell through the Boutique?</strong><br><br>The Boutique lets eligible vendors list gift cards, vouchers, products, jewellery, favours, keepsakes and wedding extras for couples and guests to browse.<br><br>Founding Vendors receive this access for free as part of their founding vendor benefits.</div>
+          <div class="dashboard-actions" style="margin-top:16px;">
+            <a href="pricing.html" class="pretty-button">View Membership Options</a>
+            <a href="contact.html" class="apply-button">Ask About Boutique Access</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Account Settings drawer -->
+    <div class="dash-drawer" id="drawer-account">
+      <div class="dash-drawer-header">
+        <h2 class="dash-drawer-title">Account Settings</h2>
+        <button class="dash-drawer-close" onclick="closePanel()">✕</button>
+      </div>
+      <div class="dash-drawer-body">
+        <div class="dashboard-grid-2">
+          <div class="dashboard-field"><label for="accountName">Your Name</label><input type="text" id="accountName" placeholder="Your name"></div>
+          <div class="dashboard-field"><label for="accountEmail">Login Email</label><input type="email" id="accountEmail" placeholder="you@example.com"></div>
+        </div>
+        <div class="dashboard-field" style="margin-top:14px;"><label for="accountPassword">New Password</label><input type="password" id="accountPassword" placeholder="Leave blank if not changing"></div>
+        <div class="dashboard-actions" style="margin-top:16px;">
+          <button type="button" id="saveAccountBtn" class="pretty-button">Update Account</button>
+        </div>
+        <p id="accountMessage" class="dashboard-help"></p>
+        <p class="dashboard-help">If changing your email or password does not work, Firebase may ask you to log in again first.</p>
+      </div>
+    </div>
+
+</main>
       <div class="panel-toggle-header" role="button" aria-expanded="true" aria-controls="body-status" tabindex="0">
         <div class="panel-header-left">
           <div class="panel-header-icon">✦</div>
@@ -1000,23 +1500,29 @@
   </div>
 </footer>
 
-<!-- ── PANEL TOGGLE JS — COMPLETELY UNCHANGED ── -->
+<!-- ── DRAWER JS ── -->
 <script>
-  document.querySelectorAll(".panel-toggle-header").forEach(header => {
-    const bodyId = header.getAttribute("aria-controls");
-    const body = document.getElementById(bodyId);
-    if (!body) return;
-    function toggle(forceOpen) {
-      const isOpen = typeof forceOpen === "boolean" ? forceOpen : header.getAttribute("aria-expanded") !== "true";
-      header.setAttribute("aria-expanded", isOpen ? "true" : "false");
-      isOpen ? body.classList.add("open") : body.classList.remove("open");
-    }
-    header.addEventListener("click", () => toggle());
-    header.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); } });
-    header._toggle = toggle;
-  });
-  document.getElementById("expandAllBtn").addEventListener("click", () => { document.querySelectorAll(".panel-toggle-header").forEach(h => h._toggle && h._toggle(true)); });
-  document.getElementById("collapseAllBtn").addEventListener("click", () => { document.querySelectorAll(".panel-toggle-header").forEach(h => h._toggle && h._toggle(false)); });
+  function openPanel(name) {
+    document.querySelectorAll(".dash-drawer").forEach(d => d.classList.remove("open"));
+    const drawer = document.getElementById("drawer-" + name);
+    if (drawer) drawer.classList.add("open");
+    document.getElementById("drawerOverlay").classList.add("open");
+    document.body.style.overflow = "hidden";
+  }
+  function closePanel() {
+    document.querySelectorAll(".dash-drawer").forEach(d => d.classList.remove("open"));
+    document.getElementById("drawerOverlay").classList.remove("open");
+    document.body.style.overflow = "";
+  }
+  document.addEventListener("keydown", e => { if (e.key === "Escape") closePanel(); });
+
+  // Badge helpers — called from Firebase JS after data loads
+  window.updateDashBadge = function(section, state, label) {
+    const el = document.getElementById("badge-" + section);
+    if (!el) return;
+    el.className = "dash-card-badge " + (state === "ok" ? "dash-badge-ok" : state === "live" ? "dash-badge-ok" : "dash-badge-todo");
+    el.textContent = label;
+  };
 </script>
 
 <!-- ── ALL FIREBASE JS — COMPLETELY UNCHANGED ── -->
@@ -1443,7 +1949,7 @@ import { LOCATION_DATA } from "./locations.js";
     const liveStatusBadge = document.getElementById("liveStatusBadge");
     const liveStatusText = document.getElementById("liveStatusText");
     const name = vd.businessName || "";
-    if (heroTitle) heroTitle.textContent = name ? `Welcome back, ${name}` : "Welcome back";
+    if (heroTitle) heroTitle.textContent = name ? `Welcome back, ${name} ♡` : "Welcome back ♡";
     const isLive = vd.profileVisible === true || vd.published === true;
     if (liveStatusBadge) liveStatusBadge.classList.toggle("is-live", isLive);
     if (liveStatusText) liveStatusText.textContent = isLive ? "Profile is live — couples can find you" : "Profile not live — turn on in Status";
@@ -1454,6 +1960,21 @@ import { LOCATION_DATA } from "./locations.js";
     const statCategories = document.getElementById("statCategories");
     if (statViews) statViews.textContent = getProfileViews(vd) || "0";
     if (statCategories) statCategories.textContent = Array.isArray(vd.categories) ? vd.categories.length : "0";
+
+    // ── CARD BADGES ──
+    const isLiveNow = vd.profileVisible === true || vd.published === true;
+    window.updateDashBadge?.("status", isLiveNow ? "live" : "off", isLiveNow ? "● Live — couples can find you" : "● Not live");
+    window.updateDashBadge?.("business", vd.businessName ? "ok" : "todo", vd.businessName ? "✓ Filled in" : "○ Fill in your details");
+    window.updateDashBadge?.("booking", vd.bookingLink ? "ok" : "todo", vd.bookingLink ? "✓ Booking link added" : "○ Add a booking link");
+    window.updateDashBadge?.("assets", vd.profileImageUrl ? "ok" : "todo", vd.profileImageUrl ? "✓ Photo uploaded" : "○ Add a photo");
+    const imgCount = Array.isArray(vd.images) ? vd.images.length : 0;
+    window.updateDashBadge?.("media", imgCount > 0 ? "ok" : "todo", imgCount > 0 ? `✓ ${imgCount} photo${imgCount===1?"":"s"}` : "○ Upload photos");
+    const tagCount = Array.isArray(vd.styleTags) ? vd.styleTags.length : 0;
+    window.updateDashBadge?.("styles", tagCount > 0 ? "ok" : "todo", tagCount > 0 ? `✓ ${tagCount} tag${tagCount===1?"":"s"}` : "○ None added");
+    const catCount = Array.isArray(vd.categories) ? vd.categories.length : 0;
+    window.updateDashBadge?.("categories", catCount > 0 ? "ok" : "todo", catCount > 0 ? `✓ ${catCount} selected` : "○ None selected");
+    const locCount = Array.isArray(vd.serviceLocationLabels) ? vd.serviceLocationLabels.length : 0;
+    window.updateDashBadge?.("locations", locCount > 0 ? "ok" : "todo", locCount > 0 ? `✓ ${locCount} location${locCount===1?"":"s"}` : "○ No locations yet");
     renderStyleTags(Array.isArray(vd.styleTags) ? vd.styleTags : []);
     renderCategoryOptions(Array.isArray(vd.categories) ? vd.categories : []);
     // Load locations into the new Places search panel
@@ -1530,6 +2051,24 @@ import { LOCATION_DATA } from "./locations.js";
       setSingleImagePreview(pi, profileImagePreview, profileImageEmpty); setSingleImagePreview(li, logoPreview, logoEmpty);
       setImagePreview(); setVideoPreview(); renderBlockedDates(); updateViewProfileVisibility(currentVendorAccess); updateBoutiqueAccessVisibility(currentVendorAccess);
       show("Your changes have been saved ♡");
+      // Refresh badges
+      const vdSnap2 = await getDoc(doc(db,"vendors",currentUser.uid));
+      if (vdSnap2.exists()) {
+        const vd2 = vdSnap2.data();
+        const isLiveNow2 = vd2.profileVisible === true || vd2.published === true;
+        window.updateDashBadge?.("status", isLiveNow2 ? "live" : "off", isLiveNow2 ? "● Live — couples can find you" : "● Not live");
+        window.updateDashBadge?.("business", vd2.businessName ? "ok" : "todo", vd2.businessName ? "✓ Filled in" : "○ Fill in your details");
+        window.updateDashBadge?.("booking", vd2.bookingLink ? "ok" : "todo", vd2.bookingLink ? "✓ Booking link added" : "○ Add a booking link");
+        window.updateDashBadge?.("assets", vd2.profileImageUrl ? "ok" : "todo", vd2.profileImageUrl ? "✓ Photo uploaded" : "○ Add a photo");
+        const ic2 = Array.isArray(vd2.images) ? vd2.images.length : 0;
+        window.updateDashBadge?.("media", ic2 > 0 ? "ok" : "todo", ic2 > 0 ? `✓ ${ic2} photo${ic2===1?"":"s"}` : "○ Upload photos");
+        const tc2 = Array.isArray(vd2.styleTags) ? vd2.styleTags.length : 0;
+        window.updateDashBadge?.("styles", tc2 > 0 ? "ok" : "todo", tc2 > 0 ? `✓ ${tc2} tag${tc2===1?"":"s"}` : "○ None added");
+        const cc2 = Array.isArray(vd2.categories) ? vd2.categories.length : 0;
+        window.updateDashBadge?.("categories", cc2 > 0 ? "ok" : "todo", cc2 > 0 ? `✓ ${cc2} selected` : "○ None selected");
+        const lc2 = Array.isArray(vd2.serviceLocationLabels) ? vd2.serviceLocationLabels.length : 0;
+        window.updateDashBadge?.("locations", lc2 > 0 ? "ok" : "todo", lc2 > 0 ? `✓ ${lc2} location${lc2===1?"":"s"}` : "○ No locations yet");
+      }
     } catch (err) { console.error(err); show("There was a problem saving your changes."); }
   }
 
