@@ -583,7 +583,7 @@
         <div class="journal-post-status-dot ${post.visible ? 'live' : 'draft'}" title="${post.visible ? 'Published' : 'Draft'}"></div>
         <div class="journal-post-title-col">
           <div class="journal-post-title-text">${esc(post.title || 'Untitled')}</div>
-          <div class="journal-post-meta-text">${esc(post.author || '')}${post.author && post.createdAt ? ' · ' : ''}${fmtDate(post.createdAt)}</div>
+          <div class="journal-post-meta-text">${esc(post.author || '')}${post.author && post.createdAt ? ' · ' : ''}${fmtDate(post.publishedAt)}</div>
         </div>
         <span class="journal-post-tag">${esc(post.category || '')}</span>
         ${post.featured ? '<span class="journal-post-featured-badge">Featured</span>' : ''}
@@ -647,6 +647,7 @@
       visible,
       featured: postFeatured.checked,
       updatedAt: serverTimestamp()
+      publishedAt: visible ? serverTimestamp() : null
     };
 
     journalSaveMsg.textContent = "Saving…";
