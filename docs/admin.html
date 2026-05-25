@@ -646,8 +646,8 @@
       body,
       visible,
       featured: postFeatured.checked,
-      updatedAt: serverTimestamp()
-      publishedAt: visible ? serverTimestamp() : null
+updatedAt: serverTimestamp(),
+publishedAt: visible ? serverTimestamp() : null
     };
 
     journalSaveMsg.textContent = "Saving…";
