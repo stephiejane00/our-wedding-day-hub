@@ -556,7 +556,8 @@
     try {
       const snap = await getDocs(collection(db, "journalPosts"));
       allPosts = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-      allPosts.sort((a, b) => { const ta = a.createdAt?.toDate?.() || 0; const tb = b.createdAt?.toDate?.() || 0; return tb - ta; });
+      allPosts.sort((a, b) => { const ta = a.publishedAt?.toDate?.() || a.createdAt?.toDate?.() || 0;
+const tb = b.publishedAt?.toDate?.() || b.createdAt?.toDate?.() || 0; return tb - ta; });
       renderJournalPosts();
     } catch (err) {
       console.error(err);
@@ -686,12 +687,18 @@ publishedAt: visible ? serverTimestamp() : null
   async function togglePostVisibility(id) {
     const post = allPosts.find(p => p.id === id);
     if (!post) return;
-    try {
-      await updateDoc(doc(db, "journalPosts", id), { visible: !post.visible, updatedAt: serverTimestamp() });
-      await loadJournalPosts();
-    } catch (err) { console.error(err); alert("Could not update. Check Firestore rules."); }
+try {
+  await updateDoc(doc(db, "journalPosts", id), {
+    visible: !post.visible,
+    updatedAt: serverTimestamp(),
+    publishedAt: !post.visible ? serverTimestamp() : null
+  });
+  await loadJournalPosts();
+} catch (err) {
+  console.error(err);
+  alert("Could not update. Check Firestore rules.");
+}
   }
-
   // ── JOURNAL: EVENT DELEGATION ──
   newPostBtn.addEventListener("click", () => openEditor(null));
   closeEditorBtn.addEventListener("click", closeEditor);
