@@ -514,7 +514,7 @@
       document.getElementById("featuredMeta").textContent = [featuredPost.author, featuredPost.category].filter(Boolean).join(" · ");
       document.getElementById("featuredTitle").textContent = featuredPost.title || "";
       document.getElementById("featuredExcerpt").textContent = featuredPost.excerpt || "";
-      document.getElementById("featuredLink").addEventListener("click", (e) => { e.preventDefault(); openArticle(featuredPost); });
+      document.getElementById("featuredLink").href = `article.html?id=${featuredPost.id}`;
     }
 
     // Size pattern for masonry cards — no row/column spanning needed
@@ -537,7 +537,9 @@
           <span class="journal-card-link">Read more →</span>
         </div>
       `;
-      card.addEventListener("click", () => openArticle(post));
+      card.addEventListener("click", () => {
+  window.location.href = `article.html?id=${post.id}`;
+});
       grid.appendChild(card);
     });
   }
@@ -560,7 +562,7 @@
 
   async function loadPosts() {
     try {
-      const snap = await getDocs(query(collection(db, "journalPosts"), where("visible", "==", true), orderBy("createdAt", "desc")));
+      const snap = await getDocs(query(collection(db, "journalPosts"), where("visible", "==", true), orderBy("publishedAt", "desc")));
       allPosts = snap.docs.map(d => ({ id: d.id, ...d.data() }));
       applyFilter();
     } catch (err) {
