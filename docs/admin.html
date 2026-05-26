@@ -505,15 +505,18 @@
     quill = new Quill("#quillEditor", {
       theme: "snow",
       modules: {
-        toolbar: [
-          [{ header: [1, 2, 3, false] }],
-          ["bold", "italic", "underline"],
-          [{ list: "ordered" }, { list: "bullet" }],
-          ["blockquote", "code-block"],
-          ["link", "image"],
-          [{ align: [] }],
-          ["clean"]
-        ]
+toolbar: [
+  [{ header: [1, 2, 3, false] }],
+  [{ font: [] }],
+  [{ size: ["small", false, "large", "huge"] }],
+  ["bold", "italic", "underline"],
+  [{ color: [] }, { background: [] }],
+  [{ list: "ordered" }, { list: "bullet" }],
+  ["blockquote"],
+  ["link", "image"],
+  [{ align: [] }],
+  ["clean"]
+]
       },
       placeholder: "Write your article here — add headings, images, formatting and more..."
     });
