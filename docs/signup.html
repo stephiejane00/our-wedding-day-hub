@@ -515,7 +515,15 @@
       formWrap.style.display = 'none';
       successWrap.style.display = 'block';
       successWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      setTimeout(() => { window.location.href = 'login.html'; }, 5000);
+      <div style="margin-top:24px; display:grid; gap:12px;">
+  <p style="font-family:var(--font-sans); font-size:0.82rem; color:var(--ink-muted); line-height:1.7;">
+    You can safely leave this page while you verify your email. Once verified, simply return and log in to access your dashboard.
+  </p>
+
+  <a href="login.html" class="signup-submit-btn" style="text-decoration:none;">
+    I’ve verified my email → Log In
+  </a>
+</div>
 
     } catch (error) {
       console.error(error);
