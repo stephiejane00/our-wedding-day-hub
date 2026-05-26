@@ -5,72 +5,579 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Article | Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css">
-</head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-<body style="background:#FAFAF8; color:#1A1A16; font-family:Arial, sans-serif; margin:0;">
-
-  <main style="max-width:900px; margin:0 auto; padding:40px 20px;">
-    <a href="journal.html" style="color:#8A8A82; text-decoration:none;">← Back to The Journal</a>
-
-    <p id="articleMeta" style="margin-top:40px; text-transform:uppercase; letter-spacing:0.12em; color:#8A8A82; font-size:12px;"></p>
-
-    <h1 id="articleTitle" style="font-family:Georgia, serif; font-size:48px; font-weight:300; line-height:1; margin:16px 0;"></h1>
-
-    <img id="articleImage" src="" alt="" style="width:100%; max-height:520px; object-fit:cover; margin:24px 0; display:none;">
-
-    <section style="border:1px solid #DDDDD8; padding:22px; margin:30px 0; text-align:center;">
-      <p style="font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:#8A8A82;">Featured</p>
-      <h3 style="font-family:Georgia, serif; font-weight:300; font-size:26px; margin:8px 0;">Wedding vendors worth discovering</h3>
-      <a href="categories.html" style="color:#1A1A16;">Browse the directory →</a>
-    </section>
-
-    <article id="articleBody" style="font-size:16px; line-height:1.9; color:#4A4A44;"></article>
-  </main>
-
-  <script type="module">
-    import { db, doc, getDoc } from "./firebase.js";
-
-    function fmtDate(ts) {
-      if (!ts) return "";
-      const d = ts.toDate ? ts.toDate() : new Date(ts);
-      return d.toLocaleDateString("en-AU", { day:"numeric", month:"long", year:"numeric" });
+  <style>
+    :root {
+      --ink:        #1A1A16;
+      --ink-mid:    #4A4A44;
+      --ink-muted:  #8A8A82;
+      --ink-ghost:  #C0C0B8;
+      --ink-rule:   #DDDDD8;
+      --cream:      #FAFAF8;
+      --cream-warm: #F4F0EA;
+      --cream-deep: #EDE8E0;
+      --gold:       #9A7A5A;
+      --gold-light: #C4A882;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans:  'Plus Jakarta Sans', 'Helvetica Neue', Arial, sans-serif;
     }
 
-    async function loadArticle() {
-      const params = new URLSearchParams(window.location.search);
-      const id = params.get("id");
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--cream); font-family: var(--font-sans); color: var(--ink); -webkit-font-smoothing: antialiased; }
 
-      if (!id) {
-        document.getElementById("articleTitle").textContent = "Article not found";
-        return;
-      }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
+    /* ── TOPBAR ── */
+    .site-topbar {
+      background: var(--cream);
+      border-bottom: 1px solid var(--ink-rule);
+      padding: 0 36px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      min-height: 64px;
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      flex-wrap: wrap;
+    }
+    .site-topbar-logo-wrap { display: inline-flex; align-items: center; }
+    .site-topbar-logo { width: 44px; height: 44px; object-fit: contain; }
+    .site-topbar-title { flex: 1; }
+    .site-topbar-title h1 {
+      font-family: var(--font-serif);
+      font-size: 1.05rem;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+      color: var(--ink);
+    }
+    .site-topbar-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .site-topbar-link,
+    .site-topbar-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 34px; padding: 6px 14px;
+      font-family: var(--font-sans); font-size: 0.75rem; letter-spacing: 0.06em;
+      text-decoration: none; white-space: nowrap; transition: all 0.2s ease;
+    }
+    .site-topbar-link { color: var(--ink-muted); border: none; background: none; }
+    .site-topbar-link:hover { color: var(--ink); }
+    .site-topbar-btn { background: var(--ink); color: var(--cream); font-weight: 600; border: none; cursor: pointer; }
+    .site-topbar-btn:hover { background: var(--ink-mid); }
+
+    /* ── ARTICLE BREADCRUMB STRIP ── */
+    .article-breadcrumb {
+      padding: 12px 48px;
+      border-bottom: 1px solid var(--ink-rule);
+      background: var(--cream-warm);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .article-breadcrumb a {
+      font-family: var(--font-sans);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .article-breadcrumb a:hover { color: var(--ink); }
+    .article-breadcrumb-sep {
+      font-size: 0.65rem;
+      color: var(--ink-ghost);
+    }
+    .article-breadcrumb-current {
+      font-family: var(--font-sans);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-ghost);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 260px;
+    }
+
+    /* ── ARTICLE HERO ── */
+    .article-hero {
+      border-bottom: 1px solid var(--ink);
+      background: var(--cream);
+    }
+    .article-hero-inner {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 56px 48px 40px;
+      text-align: center;
+    }
+    .article-category-tag {
+      display: inline-block;
+      font-family: var(--font-sans);
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-ghost);
+      margin-bottom: 20px;
+      animation: fadeUp 0.5s ease forwards;
+      opacity: 0;
+    }
+    .article-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.2rem, 4vw, 3.8rem);
+      font-weight: 300;
+      line-height: 1.02;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      margin-bottom: 24px;
+      animation: fadeUp 0.6s 0.08s ease forwards;
+      opacity: 0;
+    }
+    .article-meta {
+      font-family: var(--font-sans);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-ghost);
+      animation: fadeUp 0.6s 0.16s ease forwards;
+      opacity: 0;
+    }
+    .article-meta-dot {
+      display: inline-block;
+      width: 3px; height: 3px;
+      background: var(--ink-ghost);
+      border-radius: 50%;
+      margin: 0 8px;
+      vertical-align: middle;
+    }
+
+    /* ── HERO IMAGE ── */
+    .article-image-wrap {
+      width: 100%;
+      max-width: 760px;
+      margin: 0 auto;
+      overflow: hidden;
+      border-top: 0.5px solid var(--ink-rule);
+      animation: fadeUp 0.7s 0.22s ease forwards;
+      opacity: 0;
+    }
+    .article-image-wrap img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ── MAIN LAYOUT ── */
+    .article-layout {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 0;
+      max-width: 1160px;
+      margin: 0 auto;
+      border-top: 1px solid var(--ink);
+      align-items: start;
+    }
+
+    /* ── ARTICLE BODY ── */
+    .article-body-col {
+      padding: 48px 56px 72px;
+      border-right: 0.5px solid var(--ink-rule);
+      min-width: 0;
+    }
+    .article-body {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-weight: 300;
+      line-height: 1.85;
+      color: var(--ink-mid);
+    }
+    .article-body p { margin-bottom: 1.4em; }
+    .article-body h1, .article-body h2, .article-body h3 {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      line-height: 1.1;
+      margin: 1.8em 0 0.6em;
+    }
+    .article-body h1 { font-size: 2rem; }
+    .article-body h2 { font-size: 1.6rem; }
+    .article-body h3 { font-size: 1.3rem; }
+    .article-body a { color: var(--ink); border-bottom: 1px solid var(--ink-rule); text-decoration: none; transition: border-color 0.2s; }
+    .article-body a:hover { border-color: var(--ink); }
+    .article-body strong { font-weight: 600; color: var(--ink); }
+    .article-body em { font-style: italic; color: var(--ink-mid); }
+    .article-body blockquote {
+      border-left: 2px solid var(--gold);
+      padding: 6px 0 6px 24px;
+      margin: 2em 0;
+      font-style: italic;
+      font-size: 1.3rem;
+      color: var(--ink-mid);
+    }
+    .article-body ul, .article-body ol {
+      padding-left: 1.4em;
+      margin-bottom: 1.4em;
+    }
+    .article-body li { margin-bottom: 0.5em; }
+    .article-body img {
+      width: 100%;
+      height: auto;
+      display: block;
+      margin: 2em 0;
+      border: 0.5px solid var(--ink-rule);
+    }
+    .article-body hr {
+      border: none;
+      border-top: 0.5px solid var(--ink-rule);
+      margin: 2.5em 0;
+    }
+
+    /* Article rule divider at bottom */
+    .article-body-footer {
+      margin-top: 48px;
+      padding-top: 32px;
+      border-top: 1px solid var(--ink-rule);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .article-back-link {
+      font-family: var(--font-sans);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: gap 0.2s;
+    }
+    .article-back-link:hover { gap: 10px; }
+    .article-share-label {
+      font-family: var(--font-sans);
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-ghost);
+    }
+
+    /* ── SIDEBAR ── */
+    .article-sidebar {
+      padding: 40px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      position: sticky;
+      top: 64px;
+    }
+
+    /* Sidebar section */
+    .sidebar-section {
+      padding-bottom: 28px;
+      margin-bottom: 28px;
+      border-bottom: 0.5px solid var(--ink-rule);
+    }
+    .sidebar-section:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+    .sidebar-kicker {
+      font-family: var(--font-sans);
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-ghost);
+      margin-bottom: 12px;
+    }
+    .sidebar-title {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      font-weight: 300;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+    .sidebar-text {
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      color: var(--ink-muted);
+      line-height: 1.65;
+      margin-bottom: 14px;
+    }
+    .sidebar-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-sans);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid var(--ink-rule);
+      padding-bottom: 2px;
+      transition: border-color 0.2s, gap 0.2s;
+    }
+    .sidebar-btn:hover { border-color: var(--ink); gap: 10px; }
+
+    /* Ad placeholder — right-sized for a banner */
+    .sidebar-ad-placeholder {
+      background: var(--cream-warm);
+      border: 0.5px dashed var(--ink-rule);
+      aspect-ratio: 1 / 1.4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-align: center;
+      padding: 20px;
+    }
+    .sidebar-ad-label {
+      font-family: var(--font-sans);
+      font-size: 0.58rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-ghost);
+    }
+    .sidebar-ad-sub {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 0.88rem;
+      color: var(--ink-ghost);
+    }
+
+    /* ── FOOTER ── */
+    .site-footer { background: var(--ink); border-top: 1px solid var(--ink-mid); }
+    .footer-content { padding: 40px 36px 32px; display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: start; }
+    .footer-logo-col { display: flex; flex-direction: column; gap: 6px; }
+    .footer-eyebrow { font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-muted); }
+    .footer-title { font-family: var(--font-serif); font-size: 1.4rem; font-weight: 300; color: var(--cream); letter-spacing: -0.02em; margin: 4px 0 6px; }
+    .footer-text { font-family: var(--font-sans); font-size: 0.78rem; color: var(--ink-muted); line-height: 1.6; max-width: 360px; }
+    .footer-tagline { font-family: var(--font-serif); font-style: italic; font-size: 0.95rem; color: var(--gold-light); margin-top: 16px; }
+    .footer-abn { font-family: var(--font-sans); font-size: 0.68rem; color: var(--ink-muted); margin-top: 4px; }
+    .footer-links-col { display: flex; flex-direction: column; gap: 10px; align-items: flex-end; }
+    .footer-links { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
+    .footer-links a { font-family: var(--font-sans); font-size: 0.72rem; letter-spacing: 0.06em; color: var(--ink-muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--cream); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      .article-layout { grid-template-columns: 1fr; }
+      .article-body-col { border-right: none; border-bottom: 0.5px solid var(--ink-rule); padding: 36px 28px 56px; }
+      .article-sidebar { position: static; padding: 32px 28px; flex-direction: row; flex-wrap: wrap; gap: 24px; }
+      .sidebar-section { flex: 1 1 240px; border-bottom: none; border-right: 0.5px solid var(--ink-rule); margin-bottom: 0; padding-bottom: 0; padding-right: 24px; }
+      .sidebar-section:last-child { border-right: none; padding-right: 0; }
+      .sidebar-ad-placeholder { aspect-ratio: unset; min-height: 140px; }
+      .footer-content { grid-template-columns: 1fr; }
+      .footer-links-col { align-items: flex-start; }
+      .footer-links { align-items: flex-start; }
+    }
+    @media (max-width: 700px) {
+      .site-topbar { padding: 0 16px; min-height: 56px; }
+      .article-breadcrumb { padding: 10px 16px; }
+      .article-hero-inner { padding: 36px 20px 28px; }
+      .article-body-col { padding: 28px 20px 48px; }
+      .article-sidebar { padding: 24px 20px; flex-direction: column; }
+      .sidebar-section { border-right: none; padding-right: 0; border-bottom: 0.5px solid var(--ink-rule); padding-bottom: 24px; margin-bottom: 24px; }
+      .footer-content { padding: 28px 20px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── TOPBAR ── -->
+<header class="site-topbar">
+  <a href="index.html" class="site-topbar-logo-wrap" aria-label="Go to homepage">
+    <img src="images/logo1.png" alt="Our Wedding Day Hub" class="site-topbar-logo">
+  </a>
+  <div class="site-topbar-title"><h1>Our Wedding Day Hub</h1></div>
+  <nav class="site-topbar-actions">
+    <a href="categories.html" class="site-topbar-link">Categories</a>
+    <a href="shop.html" class="site-topbar-link">Boutique</a>
+    <a href="journal.html" class="site-topbar-link" style="color:var(--ink);">The Journal</a>
+    <a href="messages.html" id="messagesLink" class="site-topbar-link" style="display:none; position:relative;">
+      Messages
+      <span id="msgNavBadge" style="display:none; position:absolute; top:-6px; right:-10px; background:var(--ink); color:var(--cream); font-size:0.64rem; font-weight:700; padding:2px 6px; border-radius:999px; line-height:1.2; min-width:18px; text-align:center;">0</span>
+    </a>
+    <a href="login.html" id="loginLink" class="site-topbar-link">Log In</a>
+    <a href="signup.html" id="joinLink" class="site-topbar-btn">Join</a>
+    <a href="dashboard.html" id="dashboardLink" class="site-topbar-link" style="display:none;">Dashboard</a>
+    <button id="logoutLink" class="site-topbar-btn" style="display:none;">Log Out</button>
+  </nav>
+</header>
+
+<!-- ── BREADCRUMB ── -->
+<div class="article-breadcrumb">
+  <a href="journal.html">← The Journal</a>
+  <span class="article-breadcrumb-sep">/</span>
+  <span class="article-breadcrumb-current" id="breadcrumbTitle">Article</span>
+</div>
+
+<main>
+
+  <!-- ── ARTICLE HEADER ── -->
+  <div class="article-hero">
+    <div class="article-hero-inner">
+      <p class="article-category-tag" id="articleCategory"></p>
+      <h1 class="article-title" id="articleTitle"></h1>
+      <p class="article-meta" id="articleMeta"></p>
+    </div>
+    <div class="article-image-wrap" id="articleImageWrap" style="display:none;">
+      <img id="articleImage" src="" alt="">
+    </div>
+  </div>
+
+  <!-- ── BODY + SIDEBAR ── -->
+  <div class="article-layout">
+
+    <!-- Body -->
+    <div class="article-body-col">
+      <div class="article-body" id="articleBody"></div>
+      <div class="article-body-footer">
+        <a href="journal.html" class="article-back-link">← Back to The Journal</a>
+        <span class="article-share-label">Our Wedding Day Hub</span>
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <aside class="article-sidebar">
+
+      <!-- Ad placeholder — remove display:none and swap inner div for real ad code when ready -->
+      <div class="sidebar-section" style="display:none;">
+        <p class="sidebar-kicker">Advertisement</p>
+        <div class="sidebar-ad-placeholder" id="adPlaceholder">
+          <span class="sidebar-ad-label">Ad space</span>
+          <span class="sidebar-ad-sub">Your brand here</span>
+        </div>
+      </div>
+
+      <!-- Submit your story -->
+      <div class="sidebar-section">
+        <p class="sidebar-kicker">The Journal</p>
+        <h3 class="sidebar-title">Got a story to share?</h3>
+        <p class="sidebar-text">Real weddings, vendor features, planning advice — we'd love to hear from you.</p>
+        <a href="contact.html" class="sidebar-btn">Submit your story →</a>
+      </div>
+
+    </aside>
+  </div>
+
+</main>
+
+<!-- ── FOOTER ── -->
+<footer class="site-footer">
+  <div class="footer-content">
+    <div class="footer-logo-col">
+      <a href="index.html" aria-label="Go to homepage">
+        <img src="images/logo1.png" alt="Our Wedding Day Hub" style="width:52px; height:52px; object-fit:contain; opacity:0.5; margin-bottom:6px;">
+      </a>
+      <p class="footer-eyebrow">Wedding planning directory</p>
+      <h2 class="footer-title">Everything your wedding deserves.</h2>
+      <p class="footer-text">Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.</p>
+      <p class="footer-tagline">everything your wedding day deserves. ♡</p>
+      <p class="footer-abn">© 2026 Our Wedding Day Hub</p>
+      <p class="footer-abn">ABN 76 688 637 041 • Australia</p>
+    </div>
+    <div class="footer-links-col">
+      <div class="footer-links">
+        <a href="about.html">About Us</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="journal.html">The Journal</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="refund-policy.html">Refund Policy</a>
+        <a href="https://www.equaldex.com/equality-index" target="_blank" rel="noopener noreferrer">Global Equality Index</a>
+        <a href="#" onclick="return false;">Events4Us (Coming Soon)</a>
+      </div>
+      <p style="font-family:var(--font-sans); font-size:0.65rem; color:var(--ink-muted); margin-top:12px; letter-spacing:0.06em;">Proudly inclusive • Worldwide • Built with heart</p>
+    </div>
+  </div>
+</footer>
+
+<script type="module">
+  import { db, doc, getDoc } from "./firebase.js";
+
+  function fmtDate(ts) {
+    if (!ts) return "";
+    const d = ts.toDate ? ts.toDate() : new Date(ts);
+    return d.toLocaleDateString("en-AU", { day:"numeric", month:"long", year:"numeric" });
+  }
+
+  async function loadArticle() {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+
+    if (!id) {
+      document.getElementById("articleTitle").textContent = "Article not found";
+      return;
+    }
+
+    try {
       const snap = await getDoc(doc(db, "journalPosts", id));
-
       if (!snap.exists()) {
         document.getElementById("articleTitle").textContent = "Article not found";
         return;
       }
 
       const post = snap.data();
-
       document.title = `${post.title || "Article"} | Our Wedding Day Hub`;
-      document.getElementById("articleTitle").textContent = post.title || "";
-      document.getElementById("articleMeta").textContent =
-        [post.author, post.category, fmtDate(post.publishedAt || post.createdAt)].filter(Boolean).join(" · ");
 
-      const img = document.getElementById("articleImage");
+      // Category tag
+      const categoryEl = document.getElementById("articleCategory");
+      if (post.category) categoryEl.textContent = post.category;
+
+      // Title
+      document.getElementById("articleTitle").textContent = post.title || "";
+
+      // Breadcrumb
+      document.getElementById("breadcrumbTitle").textContent = post.title || "Article";
+
+      // Meta line
+      const metaParts = [post.author, fmtDate(post.publishedAt || post.createdAt)].filter(Boolean);
+      const metaEl = document.getElementById("articleMeta");
+      metaEl.innerHTML = metaParts.join('<span class="article-meta-dot"></span>');
+
+      // Cover image
       if (post.image) {
+        const wrap = document.getElementById("articleImageWrap");
+        const img = document.getElementById("articleImage");
         img.src = post.image;
         img.alt = post.title || "";
-        img.style.display = "block";
+        wrap.style.display = "block";
       }
 
-      document.getElementById("articleBody").innerHTML = post.body || post.excerpt || "";
+      // Body
+      document.getElementById("articleBody").innerHTML = post.body || `<p>${post.excerpt || ""}</p>`;
+
+    } catch (err) {
+      console.error(err);
+      document.getElementById("articleTitle").textContent = "Could not load article";
     }
+  }
 
-    loadArticle();
-  </script>
+  loadArticle();
+</script>
 
+<script type="module" src="nav.js"></script>
 </body>
 </html>
