@@ -1,9 +1,76 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Article</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Article | Our Wedding Day Hub</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <h1>Article page coming soon</h1>
+
+<body style="background:#FAFAF8; color:#1A1A16; font-family:Arial, sans-serif; margin:0;">
+
+  <main style="max-width:900px; margin:0 auto; padding:40px 20px;">
+    <a href="journal.html" style="color:#8A8A82; text-decoration:none;">← Back to The Journal</a>
+
+    <p id="articleMeta" style="margin-top:40px; text-transform:uppercase; letter-spacing:0.12em; color:#8A8A82; font-size:12px;"></p>
+
+    <h1 id="articleTitle" style="font-family:Georgia, serif; font-size:48px; font-weight:300; line-height:1; margin:16px 0;"></h1>
+
+    <img id="articleImage" src="" alt="" style="width:100%; max-height:520px; object-fit:cover; margin:24px 0; display:none;">
+
+    <section style="border:1px solid #DDDDD8; padding:22px; margin:30px 0; text-align:center;">
+      <p style="font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:#8A8A82;">Featured</p>
+      <h3 style="font-family:Georgia, serif; font-weight:300; font-size:26px; margin:8px 0;">Wedding vendors worth discovering</h3>
+      <a href="categories.html" style="color:#1A1A16;">Browse the directory →</a>
+    </section>
+
+    <article id="articleBody" style="font-size:16px; line-height:1.9; color:#4A4A44;"></article>
+  </main>
+
+  <script type="module">
+    import { db, doc, getDoc } from "./firebase.js";
+
+    function fmtDate(ts) {
+      if (!ts) return "";
+      const d = ts.toDate ? ts.toDate() : new Date(ts);
+      return d.toLocaleDateString("en-AU", { day:"numeric", month:"long", year:"numeric" });
+    }
+
+    async function loadArticle() {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get("id");
+
+      if (!id) {
+        document.getElementById("articleTitle").textContent = "Article not found";
+        return;
+      }
+
+      const snap = await getDoc(doc(db, "journalPosts", id));
+
+      if (!snap.exists()) {
+        document.getElementById("articleTitle").textContent = "Article not found";
+        return;
+      }
+
+      const post = snap.data();
+
+      document.title = `${post.title || "Article"} | Our Wedding Day Hub`;
+      document.getElementById("articleTitle").textContent = post.title || "";
+      document.getElementById("articleMeta").textContent =
+        [post.author, post.category, fmtDate(post.publishedAt || post.createdAt)].filter(Boolean).join(" · ");
+
+      const img = document.getElementById("articleImage");
+      if (post.image) {
+        img.src = post.image;
+        img.alt = post.title || "";
+        img.style.display = "block";
+      }
+
+      document.getElementById("articleBody").innerHTML = post.body || post.excerpt || "";
+    }
+
+    loadArticle();
+  </script>
+
 </body>
 </html>
