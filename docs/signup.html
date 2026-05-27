@@ -333,7 +333,7 @@
             Check your <strong>spam or junk folder</strong> — verification emails sometimes land there. If you still can't find it, try logging in and we'll offer to resend it.
           </div>
         </div>
-        <p style="margin-top:20px; font-family:var(--font-sans); font-size:0.82rem; color:var(--ink-muted);">Redirecting you to login in a moment…</p>
+        <p style="margin-top:20px; font-family:var(--font-sans); font-size:0.82rem; color:var(--ink-muted);">Redirecting you to your dashboard…</p>
       </div>
 
     </div>
@@ -515,16 +515,12 @@
       formWrap.style.display = 'none';
       successWrap.style.display = 'block';
       successWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      <div style="margin-top:24px; display:grid; gap:12px;">
-  <p style="font-family:var(--font-sans); font-size:0.82rem; color:var(--ink-muted); line-height:1.7;">
-    You can safely leave this page while you verify your email. Once verified, simply return and log in to access your dashboard.
-  </p>
-
-  <a href="login.html" class="signup-submit-btn" style="text-decoration:none;">
-    I’ve verified my email → Log In
-  </a>
-</div>
-
+      setTimeout(() => {
+  window.location.href = type === 'couple'
+    ? 'couple-dashboard.html'
+    : 'dashboard.html';
+}, 1500);
+      
     } catch (error) {
       console.error(error);
       if (error.code === 'auth/email-already-in-use') {
