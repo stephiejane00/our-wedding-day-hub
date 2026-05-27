@@ -1638,9 +1638,11 @@ onAuthStateChanged(auth, async (user) => {
   currentUser = auth.currentUser;
 
   const verifyBanner = document.getElementById("verifyEmailBanner");
-  if (verifyBanner && currentUser && !currentUser.emailVerified) {
-    verifyBanner.style.display = "block";
-  }
+if (verifyBanner && currentUser && !currentUser.emailVerified) {
+  verifyBanner.style.display = "block";
+} else if (verifyBanner) {
+  verifyBanner.style.display = "none";
+}
 
   await loadVendorData(currentUser.uid);
 });
