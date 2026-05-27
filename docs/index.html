@@ -1029,6 +1029,34 @@
       .location-pills { padding: 16px 20px 0; }
       .footer-content { padding: 28px 20px 24px; }
       .trust-strip { display: none; }
+      .nav-links {
+  display: none;
+}
+
+.mobile-menu-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--ink);
+  cursor: pointer;
+  padding: 0 4px;
+}
+      .nav-links.active {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 56px;
+  right: 16px;
+  background: var(--cream);
+  border: 1px solid var(--ink-rule);
+  padding: 14px;
+  gap: 10px;
+  min-width: 200px;
+  z-index: 999;
+}
     }
 
     @media (max-width: 520px) {
@@ -1062,12 +1090,14 @@
     <span id="msgNavBadge" style="display:none; position:absolute; top:-6px; right:-10px; background:var(--ink); color:var(--cream); font-size:0.64rem; font-weight:700; padding:2px 6px; border-radius:999px; line-height:1.2; min-width:18px; text-align:center;">0</span>
   </a>
 
+  <a href="dashboard.html" id="dashboardLink" class="site-topbar-link" style="display:none;">Dashboard</a>
+  <button id="logoutLink" class="site-topbar-btn" style="display:none;">Log Out</button>
+
 </div>
    
     <a href="login.html" id="loginLink" class="site-topbar-link">Log In</a>
     <a href="signup.html" id="joinLink" class="site-topbar-btn">Join</a>
-    <a href="dashboard.html" id="dashboardLink" class="site-topbar-link" style="display:none;">Dashboard</a>
-    <button id="logoutLink" class="site-topbar-btn" style="display:none;">Log Out</button>
+    <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
   </nav>
 </header>
 
@@ -1718,5 +1748,10 @@
 </script>
 
 <script type="module" src="nav.js"></script>
+  <script>
+function toggleMenu() {
+  document.querySelector(".nav-links").classList.toggle("active");
+}
+</script>
 </body>
 </html>
