@@ -585,12 +585,9 @@
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-      await user.reload();
-      if (!user.emailVerified) {
-        await signOut(auth);
-        message.textContent = 'Please verify your email before logging in.';
-        return;
-      }
+await user.reload();
+// Let users in even if they have not verified yet.
+// The dashboard will show a gentle reminder banner instead.
       const userRef  = doc(db, 'users', user.uid);
       const userSnap = await getDoc(userRef);
       if (!userSnap.exists()) {
