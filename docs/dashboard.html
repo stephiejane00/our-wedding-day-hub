@@ -513,6 +513,9 @@
 <main class="dashboard-page">
 
     <!-- ── HERO ── -->
+  <div id="verifyEmailBanner" style="display:none; padding:16px 24px; background:#F4F0EA; border-bottom:1px solid #DDDDD8; font-family:var(--font-sans); color:var(--ink); font-size:0.86rem; line-height:1.6; text-align:center;">
+  Please verify your email when you get a moment. You can still set up your profile now, but verifying helps keep your account secure.
+</div>
     <section class="dashboard-hero-card">
       <div class="dashboard-hero-grid">
         <div class="dashboard-hero-copy">
@@ -1628,11 +1631,19 @@ import { LOCATION_DATA } from "./locations.js";
     document.getElementById("cancelEditBtn").style.display = "none";
   });
 
-  onAuthStateChanged(auth, async (user) => {
-    if (!user) { window.location.href = "login.html"; return; }
-    currentUser = user;
-    await loadVendorData(user.uid);
-  });
+onAuthStateChanged(auth, async (user) => {
+  if (!user) { window.location.href = "login.html"; return; }
+
+  await user.reload();
+  currentUser = auth.currentUser;
+
+  const verifyBanner = document.getElementById("verifyEmailBanner");
+  if (verifyBanner && currentUser && !currentUser.emailVerified) {
+    verifyBanner.style.display = "block";
+  }
+
+  await loadVendorData(currentUser.uid);
+});
 </script>
 
 <script type="module" src="nav.js"></script>
