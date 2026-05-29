@@ -49,7 +49,26 @@
     .site-topbar-logo { width: 44px; height: 44px; object-fit: contain; }
     .site-topbar-title { flex: 1; }
     .site-topbar-title h1 { font-family: var(--font-serif); font-size: 1.05rem; font-weight: 400; letter-spacing: 0.01em; color: var(--ink); }
-    .site-topbar-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .site-topbar-actions{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.mobile-menu-btn{
+  display:none;
+  background:none;
+  border:none;
+  font-size:1.4rem;
+  cursor:pointer;
+  color:var(--ink);
+}
     .site-topbar-link, .site-topbar-btn {
       display: inline-flex; align-items: center; justify-content: center;
       min-height: 34px; padding: 6px 14px; font-family: var(--font-sans);
@@ -485,6 +504,20 @@
       .footer-content { padding: 28px 20px 24px; grid-template-columns: 1fr; gap: 24px; }
       .footer-links-col { align-items: flex-start; }
       .footer-links { align-items: flex-start; }
+      .nav-links{
+  display:none;
+}
+
+.nav-links.active{
+  display:flex;
+  flex-direction:column;
+  width:100%;
+  padding-top:12px;
+}
+
+.mobile-menu-btn{
+  display:block;
+}
     }
   </style>
 </head>
@@ -496,17 +529,26 @@
   </a>
   <div class="site-topbar-title"><h1>Our Wedding Day Hub</h1></div>
   <nav class="site-topbar-actions">
-    <a href="categories.html" class="site-topbar-link">Categories</a>
-    <a href="shop.html" class="site-topbar-link">Boutique</a>
-    <a href="journal.html" class="site-topbar-link">The Journal</a>
-    <a href="messages.html" id="messagesLink" class="site-topbar-link" style="display:none; position:relative;">
-      Messages
-      <span id="msgNavBadge" style="display:none; position:absolute; top:-6px; right:-10px; background:var(--ink); color:var(--cream); font-size:0.64rem; font-weight:700; padding:2px 6px; border-radius:999px; line-height:1.2; min-width:18px; text-align:center;">0</span>
-    </a>
-    <a href="login.html" id="loginLink" class="site-topbar-link">Log In</a>
-    <a href="signup.html" id="joinLink" class="site-topbar-btn">Join</a>
-    <a href="dashboard.html" id="dashboardLink" class="site-topbar-link" style="display:inline-flex;">Dashboard</a>
-    <button id="logoutLink" class="site-topbar-btn" style="display:none;">Log Out</button>
+  <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+
+ <div class="nav-links">
+
+  <a href="categories.html" class="site-topbar-link">Categories</a>
+  <a href="shop.html" class="site-topbar-link">Boutique</a>
+  <a href="journal.html" class="site-topbar-link">The Journal</a>
+
+  <a href="messages.html" id="messagesLink" class="site-topbar-link" style="display:none; position:relative;">
+    Messages
+    <span id="msgNavBadge" style="display:none; position:absolute; top:-6px; right:-10px; background:var(--ink); color:var(--cream); font-size:0.64rem; font-weight:700; padding:2px 6px; border-radius:999px; line-height:1.2; min-width:18px; text-align:center;">0</span>
+  </a>
+
+  <a href="dashboard.html" id="dashboardLink" class="site-topbar-link" style="display:inline-flex;">Dashboard</a>
+  <button id="logoutLink" class="site-topbar-btn" style="display:none;">Log Out</button>
+
+</div>
+
+<a href="login.html" id="loginLink" class="site-topbar-link">Log In</a>
+<a href="signup.html" id="joinLink" class="site-topbar-btn">Join</a>
   </nav>
 </header>
 
@@ -1753,6 +1795,12 @@ if (verifyBanner && currentUser && !currentUser.emailVerified) {
 
   window.addEventListener("DOMContentLoaded", () => { setupSearch(); renderTags(); });
 })();
+</script>
+<script>
+function toggleMenu() {
+  document.querySelector(".nav-links").classList.toggle("active");
+}
+</script>
 </script>
 </body>
 </html>
