@@ -365,32 +365,49 @@
   margin-top: 20px;
 }
 
-    .vendors-arrow {
-      width: 48px;
-      height: auto;
-      min-height: 80px;
-      border: none;
-      border-radius: 0;
-      background: var(--cream-warm);
-      color: var(--ink-muted);
-      font-size: 1.3rem;
-      cursor: pointer;
-      flex: 0 0 48px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      align-self: stretch;
-      box-shadow: none;
-      border-right: 1px solid var(--ink-rule);
-      transition: background 0.2s ease, color 0.2s ease;
-    }
-    .vendors-arrow:last-of-type {
-      border-right: none;
-      border-left: 1px solid var(--ink-rule);
-    }
-    .vendors-arrow:hover { background: var(--cream-deep); color: var(--ink); }
-    .vendors-arrow:disabled { opacity: 0.3; cursor: default; }
+   .vendors-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
 
+  width: 34px;
+  height: 34px;
+
+  border: none;
+  border-radius: 999px;
+  background: rgba(250,250,248,0.9);
+
+  color: var(--ink-muted);
+  font-size: 1rem;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+#prevVendorsBtn {
+  left: 10px;
+}
+
+#nextVendorsBtn {
+  right: 10px;
+}
+
+.vendors-arrow:hover {
+  background: var(--cream-deep);
+  color: var(--ink);
+}
+
+.vendors-arrow:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
     .vendors-carousel-viewport {
       flex: 1;
       overflow: hidden;
@@ -1017,7 +1034,11 @@
       .lux-hero-copy { padding: 28px 20px 28px; }
       .lux-hero-image-wrap { height: 280px; min-height: 280px; max-height: 280px; }
       .vendors-grid { grid-template-columns: 1fr; }
-      .vendors-arrow { width: 40px; flex-basis: 40px; font-size: 1.1rem; }
+      .vendors-arrow {
+  width: 36px;
+  height: 36px;
+  font-size: 1rem;
+}
       .category-cards-grid.category-cards-grid-home { grid-template-columns: 1fr; }
       .home-testimonials-grid { grid-template-columns: 1fr; }
       .journal-preview-grid { grid-template-columns: 1fr; }
@@ -1080,7 +1101,11 @@
   }
 }
     @media (max-width: 520px) {
-      .vendors-arrow { width: 36px; flex-basis: 36px; font-size: 1rem; }
+      .vendors-arrow {
+  width: 34px;
+  height: 34px;
+  font-size: 0.95rem;
+}
     }
   </style>
 </head>
