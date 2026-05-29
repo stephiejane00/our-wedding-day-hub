@@ -49,10 +49,11 @@
     .site-topbar-logo { width: 44px; height: 44px; object-fit: contain; }
     .site-topbar-title { flex: 1; }
     .site-topbar-title h1 { font-family: var(--font-serif); font-size: 1.05rem; font-weight: 400; letter-spacing: 0.01em; color: var(--ink); }
-    .site-topbar-actions{
+.site-topbar-actions{
   display:flex;
   align-items:center;
   gap:12px;
+  position:relative;
 }
 
 .nav-links{
@@ -511,8 +512,16 @@
 .nav-links.active{
   display:flex;
   flex-direction:column;
-  width:100%;
-  padding-top:12px;
+  position:absolute;
+  top:56px;
+  right:16px;
+  background:var(--cream);
+  border:1px solid var(--ink-rule);
+  padding:16px;
+  gap:12px;
+  min-width:220px;
+  z-index:999;
+  box-shadow:0 12px 30px rgba(0,0,0,0.08);
 }
 
 .mobile-menu-btn{
@@ -529,8 +538,6 @@
   </a>
   <div class="site-topbar-title"><h1>Our Wedding Day Hub</h1></div>
   <nav class="site-topbar-actions">
-  <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
-
  <div class="nav-links">
 
   <a href="categories.html" class="site-topbar-link">Categories</a>
@@ -549,6 +556,8 @@
 
 <a href="login.html" id="loginLink" class="site-topbar-link">Log In</a>
 <a href="signup.html" id="joinLink" class="site-topbar-btn">Join</a>
+
+      <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
   </nav>
 </header>
 
