@@ -1,222 +1,50 @@
-import {
-  auth,
-  db,
-  onAuthStateChanged,
-  signOut,
-  doc,
-  getDoc,
-  setDoc,
-  collection,
-  query,
-  where,
-  onSnapshot
-} from './firebase.js';
+// ── SHARED SITE NAV ──
+// This injects the same topbar into every page.
 
-import {
-  getMessaging,
-  getToken,
-  onMessage
-} from 'https://www.gstatic.com/firebasejs/12.2.1/firebase-messaging.js';
+function buildSiteNav() {
+  const navMount = document.getElementById("siteNav");
+  if (!navMount) return;
 
-import { app } from './firebase.js';
+  navMount.innerHTML = `
+    <header class="site-topbar">
+      <a href="index.html" class="site-topbar-logo-wrap" aria-label="Go to homepage">
+        <img src="images/logo1.png" alt="Our Wedding Day Hub" class="site-topbar-logo">
+      </a>
 
-// ── VAPID key for FCM (from Firebase Console → Project Settings → Cloud Messaging)
-// Replace this with your actual VAPID key
-const VAPID_KEY = 'YOUR_VAPID_KEY_HERE';
+      <div class="site-topbar-title">
+        <h1>Our Wedding Day Hub</h1>
+      </div>
 
-// ── Nav elements (present on every page)
-const joinLink      = document.getElementById('joinLink');
-const loginLink     = document.getElementById('loginLink');
-const logoutLink    = document.getElementById('logoutLink');
-const dashboardLink = document.getElementById('dashboardLink');
-const messagesLink  = document.getElementById('messagesLink');
-const msgNavBadge   = document.getElementById('msgNavBadge');
+      <nav class="site-topbar-actions">
+        <div class="nav-links">
+          <a href="categories.html" class="site-topbar-link">Categories</a>
+          <a href="shop.html" class="site-topbar-link">Boutique</a>
+          <a href="journal.html" class="site-topbar-link">The Journal</a>
 
-// ── Unsubscribe handle for Firestore listener
-let unsubUnread = null;
+          <a href="messages.html" id="messagesLink" class="site-topbar-link" style="display:none; position:relative;">
+            Messages
+            <span id="msgNavBadge" style="display:none; position:absolute; top:-6px; right:-10px; background:var(--ink); color:var(--cream); font-size:0.64rem; font-weight:700; padding:2px 6px; border-radius:999px; line-height:1.2; min-width:18px; text-align:center;">0</span>
+          </a>
 
-function getDashboardUrl(role) {
-  if (role === 'couple') return 'couple-dashboard.html';
-  if (role === 'vendor') return 'dashboard.html';
-  return null;
-}
+          <a href="dashboard.html" id="dashboardLink" class="site-topbar-link" style="display:none;">Dashboard</a>
+          <button id="logoutLink" class="site-topbar-btn" style="display:none;">Log Out</button>
+        </div>
 
-function setLoggedOutNav() {
-  if (joinLink)      joinLink.style.display      = 'inline-flex';
-  if (loginLink)     loginLink.style.display     = 'inline-flex';
-  if (logoutLink)    logoutLink.style.display    = 'none';
-  if (dashboardLink) dashboardLink.style.display = 'none';
-  if (messagesLink)  messagesLink.style.display  = 'none';
-  if (unsubUnread) { unsubUnread(); unsubUnread = null; }
-}
+        <a href="login.html" id="loginLink" class="site-topbar-link">Log In</a>
+        <a href="signup.html" id="joinLink" class="site-topbar-btn">Join</a>
+        <button class="mobile-menu-btn" type="button" aria-label="Open menu">☰</button>
+      </nav>
+    </header>
+  `;
 
-function setLoggedInNav(dashboardUrl) {
-  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-  if (joinLink)  joinLink.style.display  = 'none';
-  if (loginLink) loginLink.style.display = 'none';
-  if (logoutLink) logoutLink.style.display = 'inline-flex';
+  const menuButton = navMount.querySelector(".mobile-menu-btn");
+  const navLinks = navMount.querySelector(".nav-links");
 
-  if (dashboardLink && dashboardUrl) {
-    dashboardLink.href = dashboardUrl;
-    const onDash = currentPage === 'dashboard.html' || currentPage === 'couple-dashboard.html';
-    dashboardLink.style.display = onDash ? 'none' : 'inline-flex';
-  } else if (dashboardLink) {
-    dashboardLink.style.display = 'none';
-  }
-}
-
-async function getUserRole(user) {
-  try {
-    const userSnap = await getDoc(doc(db, 'users', user.uid));
-    if (userSnap.exists()) return userSnap.data().role || null;
-    return null;
-  } catch (err) {
-    console.error('Error getting user role:', err);
-    return null;
-  }
-}
-
-// ── Live unread badge for vendors only
-function startUnreadListener(uid) {
-  if (unsubUnread) { unsubUnread(); unsubUnread = null; }
-  if (!messagesLink || !msgNavBadge) return;
-
-  messagesLink.style.display = 'inline-flex';
-
-  unsubUnread = onSnapshot(
-    query(collection(db, 'conversations'), where('vendorId', '==', uid)),
-    (snap) => {
-      let total = 0;
-      snap.forEach(d => { total += (d.data().vendorUnread || 0); });
-      if (total > 0) {
-        msgNavBadge.textContent = total > 99 ? '99+' : total;
-        msgNavBadge.style.display = 'inline-flex';
-      } else {
-        msgNavBadge.style.display = 'none';
-      }
-    }
-  );
-}
-
-// ── FCM push notifications
-async function setupPushNotifications(uid) {
-  try {
-    // Register the service worker
-    const swReg = await navigator.serviceWorker.register('/firebase-messaging-sw.js');
-
-    const messaging = getMessaging(app);
-
-    // Request permission
-    const permission = await Notification.requestPermission();
-    if (permission !== 'granted') {
-      console.log('Push notification permission denied.');
-      return;
-    }
-
-    // Get FCM token
-    const token = await getToken(messaging, {
-      vapidKey: VAPID_KEY,
-      serviceWorkerRegistration: swReg
+  if (menuButton && navLinks) {
+    menuButton.addEventListener("click", () => {
+      navLinks.classList.toggle("active");
     });
-
-    if (token) {
-      // Save token to Firestore so you can send targeted notifications
-      await setDoc(doc(db, 'vendors', uid), { fcmToken: token, fcmUpdatedAt: new Date().toISOString() }, { merge: true });
-      console.log('FCM token saved.');
-    }
-
-    // Handle foreground messages (site is open)
-    onMessage(messaging, (payload) => {
-      const title = payload.notification?.title || 'New message';
-      const body  = payload.notification?.body  || 'You have a new message.';
-      const icon  = payload.notification?.icon  || '/images/logo.png';
-
-      // Show a native notification even when the tab is open
-      if (Notification.permission === 'granted') {
-        const notif = new Notification(title, { body, icon });
-        notif.onclick = () => {
-          window.focus();
-          window.location.href = 'messages.html';
-        };
-      }
-    });
-
-  } catch (err) {
-    // Push setup is non-critical — log quietly and move on
-    console.warn('Push notification setup skipped:', err.message);
   }
 }
 
-// ── Auth state
-onAuthStateChanged(auth, async (user) => {
-  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-
-  if (!user) {
-    setLoggedOutNav();
-    return;
-  }
-
-  const role = await getUserRole(user);
-  const dashboardUrl = getDashboardUrl(role);
-  setLoggedInNav(dashboardUrl);
-
-// Show messages link for everyone
-if (messagesLink) {
-  messagesLink.style.display = 'inline-flex';
-}
-
-// Vendor unread badge + notifications
-if (role === 'vendor') {
-  startUnreadListener(user.uid);
-
-  if ('Notification' in window && 'serviceWorker' in navigator) {
-    if (Notification.permission === 'default') {
-      setTimeout(() => setupPushNotifications(user.uid), 3000);
-    } else if (Notification.permission === 'granted') {
-      setupPushNotifications(user.uid);
-    }
-  }
-}
-
-  // Only auto-redirect from LOGIN page
-  if (currentPage === 'login.html' && dashboardUrl) {
-    window.location.href = dashboardUrl;
-  }
-});
-
-// ── Logout
-if (logoutLink) {
-  logoutLink.addEventListener('click', async () => {
-    try {
-      if (unsubUnread) { unsubUnread(); unsubUnread = null; }
-      await signOut(auth);
-      window.location.href = 'index.html';
-    } catch (err) {
-      console.error('Logout failed:', err);
-      alert('Logout failed. Please try again.');
-    }
-  });
-}
-
-// ── Login / join redirect if already logged in
-if (loginLink) {
-  loginLink.addEventListener('click', async (e) => {
-    if (auth.currentUser) {
-      e.preventDefault();
-      const role = await getUserRole(auth.currentUser);
-      const url = getDashboardUrl(role);
-      if (url) window.location.href = url;
-    }
-  });
-}
-
-if (joinLink) {
-  joinLink.addEventListener('click', async (e) => {
-    if (auth.currentUser) {
-      e.preventDefault();
-      const role = await getUserRole(auth.currentUser);
-      const url = getDashboardUrl(role);
-      if (url) window.location.href = url;
-    }
-  });
-}
+buildSiteNav();
