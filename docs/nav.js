@@ -78,18 +78,26 @@ function buildSiteNav() {
       // Unread message badge
       try {
         if (db && msgNavBadge) {
-          const msgQuery  = query(
-            collection(db, "messages"),
-            where("recipientUid", "==", user.uid),
-            where("read", "==", false)
+          const msgQuery = query(
+            collection(db, "conversations"),
+            where("coupleId", "==", user.uid)
           );
-          const msgSnap   = await getDocs(msgQuery);
-          const unread    = msgSnap.size;
+          const msgSnap  = await getDocs(msgQuery);
+          let unread = 0;
+          msgSnap.forEach(d => { unread += (d.data().coupleUnread || 0); });
+          // Also check vendor unread
+          const vendorQuery = query(
+            collection(db, "conversations"),
+            where("vendorId", "==", user.uid)
+          );
+          const vendorSnap = await getDocs(vendorQuery);
+          vendorSnap.forEach(d => { unread += (d.data().vendorUnread || 0); });
+
           if (unread > 0) {
-            msgNavBadge.textContent     = unread > 99 ? "99+" : unread;
-            msgNavBadge.style.display   = "inline-block";
+            msgNavBadge.textContent   = unread > 99 ? "99+" : unread;
+            msgNavBadge.style.display = "inline-block";
           } else {
-            msgNavBadge.style.display   = "none";
+            msgNavBadge.style.display = "none";
           }
         }
       } catch (_) {
