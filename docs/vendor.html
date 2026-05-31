@@ -60,8 +60,6 @@
     .vendor-card {
       background: var(--cream); padding: 28px 32px;
       border-bottom: 0.5px solid var(--ink-rule);
-      border-radius: 0; box-shadow: none; border-top: none; border-left: none; border-right: none;
-      transition: none;
     }
     .vendor-card:last-child { border-bottom: none; }
 
@@ -69,7 +67,7 @@
     .vendor-gallery-card { padding: 0; overflow: hidden; border-bottom: 0.5px solid var(--ink-rule); }
     .vendor-gallery-stage {
       position: relative; overflow: hidden; background: var(--cream-deep);
-      cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-select: none;
+      cursor: grab; touch-action: pan-y; user-select: none;
     }
     .vendor-gallery-stage:active { cursor: grabbing; }
     .vendor-gallery-media { width: 100%; height: 580px; display: block; background: var(--cream-deep); }
@@ -136,10 +134,9 @@
       font-weight: 700; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
       cursor: pointer; text-decoration: none;
       background: var(--ink); color: var(--cream);
-      transition: background 0.2s; border-radius: 0; box-shadow: none;
+      transition: background 0.2s; border-radius: 0;
     }
-    .lux-btn:hover { background: var(--ink-mid); transform: none; filter: none; box-shadow: none; }
-    .lux-btn:active { transform: none; }
+    .lux-btn:hover { background: var(--ink-mid); }
     .lux-btn-ghost { background: var(--cream); border: 0.5px solid var(--ink-rule); color: var(--ink); }
     .lux-btn-ghost:hover { background: var(--cream-warm); }
     .lux-btn[hidden] { display: none !important; }
@@ -155,12 +152,9 @@
     /* ── SIDEBAR ── */
     .sidebar-card {
       position: sticky; top: 0;
-      background: var(--cream-warm);
-      padding: 28px 24px;
-      border-left: 0.5px solid var(--ink-rule);
-      min-height: 100%;
+      background: var(--cream-warm); padding: 28px 24px;
+      border-left: 0.5px solid var(--ink-rule); min-height: 100%;
       display: flex; flex-direction: column; gap: 0;
-      border-radius: 0; box-shadow: none; border-top: none; border-right: none; border-bottom: none;
     }
     .profile-pic-wrap { display: flex; justify-content: center; margin-bottom: 16px; }
     .profile-pic { width: 120px; height: 120px; border-radius: 0; object-fit: cover; display: block; background: var(--cream-deep); border: 0.5px solid var(--ink-rule); }
@@ -171,8 +165,8 @@
     .favorite-btn { width: 100%; margin: 0 0 8px; }
     .favorite-btn.saved { background: var(--gold); }
     .contact-stack { display: grid; gap: 8px; margin-top: 8px; }
-    .stack-btn { display: inline-flex; align-items: center; justify-content: center; text-align: center; text-decoration: none; padding: 10px 14px; min-height: 40px; border: 0.5px solid var(--ink-rule); cursor: pointer; font-family: var(--font-sans); font-weight: 600; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; background: var(--cream); color: var(--ink); transition: background 0.2s, border-color 0.2s; border-radius: 0; box-shadow: none; }
-    .stack-btn:hover { background: var(--cream-deep); border-color: var(--ink-muted); transform: none; filter: none; }
+    .stack-btn { display: inline-flex; align-items: center; justify-content: center; text-align: center; text-decoration: none; padding: 10px 14px; min-height: 40px; border: 0.5px solid var(--ink-rule); cursor: pointer; font-family: var(--font-sans); font-weight: 600; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; background: var(--cream); color: var(--ink); transition: background 0.2s, border-color 0.2s; border-radius: 0; }
+    .stack-btn:hover { background: var(--cream-deep); border-color: var(--ink-muted); }
     .stack-btn[hidden] { display: none !important; }
     .sidebar-locations { margin-top: 20px; padding-top: 16px; border-top: 0.5px solid var(--ink-rule); }
     .sidebar-locations h3 { font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-ghost); text-align: center; margin-bottom: 10px; }
@@ -185,7 +179,7 @@
     /* ── MESSAGE MODAL ── */
     .msg-modal-backdrop { position: fixed; inset: 0; background: rgba(26,26,22,0.55); display: none; align-items: center; justify-content: center; padding: 20px; z-index: 4000; }
     .msg-modal-backdrop.open { display: flex; }
-    .msg-modal { width: 100%; max-width: 520px; background: var(--cream); border: 0.5px solid var(--ink-rule); padding: 36px 32px 28px; position: relative; border-radius: 0; box-shadow: 0 24px 60px rgba(26,26,22,0.18); }
+    .msg-modal { width: 100%; max-width: 520px; background: var(--cream); border: 0.5px solid var(--ink-rule); padding: 36px 32px 28px; position: relative; box-shadow: 0 24px 60px rgba(26,26,22,0.18); }
     .msg-modal-close { position: absolute; top: 16px; right: 16px; width: 34px; height: 34px; border: 0.5px solid var(--ink-rule); background: var(--cream); color: var(--ink); cursor: pointer; font-size: 1rem; display: inline-flex; align-items: center; justify-content: center; transition: background 0.18s ease; border-radius: 0; }
     .msg-modal-close:hover { background: var(--cream-warm); }
     .msg-modal-kicker { font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-ghost); margin: 0 0 8px; }
@@ -199,98 +193,19 @@
     .msg-login-note { text-align: center; padding: 16px 0 8px; }
     .msg-login-note p { font-family: var(--font-sans); color: var(--ink-muted); line-height: 1.75; margin: 0 0 14px; font-size: 0.86rem; }
 
-/* ── FOOTER ── */
-.site-footer {
-  background: var(--ink);
-  border-top: 1px solid var(--ink-mid);
-}
-
-.footer-content {
-  padding: 72px 50px 58px;
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 90px;
-  align-items: center;
-  max-width: 1280px;
-  margin: 0 auto;
-}
-
-.footer-logo-col {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 14px;
-  max-width: 520px;
-}
-
-.footer-eyebrow {
-  font-family: var(--font-sans);
-  font-size: 0.65rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--ink-muted);
-}
-
-.footer-title {
-  font-family: var(--font-serif);
-  font-size: 1.4rem;
-  font-weight: 300;
-  color: var(--cream);
-  letter-spacing: -0.02em;
-  text-align: left;
-  margin: 4px 0 6px;
-}
-
-.footer-text {
-  font-family: var(--font-sans);
-  font-size: 0.78rem;
-  color: var(--ink-muted);
-  line-height: 1.6;
-  text-align: left;
-}
-
-.footer-tagline {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 0.95rem;
-  color: var(--gold-light);
-  text-align: left;
-  margin-top: 16px;
-}
-
-.footer-abn {
-  font-family: var(--font-sans);
-  font-size: 0.68rem;
-  color: var(--ink-muted);
-  margin-top: 4px;
-}
-
-.footer-links-col {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  align-items: flex-end;
-}
-
-.footer-links {
-  display: flex;
-  flex-direction: column;
-  gap: 13px;
-  align-items: flex-end;
-}
-
-.footer-links a {
-  font-family: var(--font-sans);
-  font-size: 0.72rem;
-  letter-spacing: 0.06em;
-  color: var(--ink-muted);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-.footer-links a:hover {
-  color: var(--cream);
-}
+    /* ── FOOTER ── */
+    .site-footer { background: var(--ink); border-top: 1px solid var(--ink-mid); }
+    .footer-content { padding: 72px 50px 58px; display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 90px; align-items: center; max-width: 1280px; margin: 0 auto; }
+    .footer-logo-col { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; max-width: 520px; }
+    .footer-eyebrow { font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-muted); }
+    .footer-title { font-family: var(--font-serif); font-size: 1.4rem; font-weight: 300; color: var(--cream); letter-spacing: -0.02em; text-align: left; margin: 4px 0 6px; }
+    .footer-text { font-family: var(--font-sans); font-size: 0.78rem; color: var(--ink-muted); line-height: 1.6; text-align: left; }
+    .footer-tagline { font-family: var(--font-serif); font-style: italic; font-size: 0.95rem; color: var(--gold-light); text-align: left; margin-top: 16px; }
+    .footer-abn { font-family: var(--font-sans); font-size: 0.68rem; color: var(--ink-muted); margin-top: 4px; }
+    .footer-links-col { display: flex; flex-direction: column; gap: 10px; align-items: flex-end; }
+    .footer-links { display: flex; flex-direction: column; gap: 13px; align-items: flex-end; }
+    .footer-links a { font-family: var(--font-sans); font-size: 0.72rem; letter-spacing: 0.06em; color: var(--ink-muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--cream); }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 980px) {
@@ -303,74 +218,56 @@
       .footer-links-col { align-items: flex-start; }
       .footer-links { align-items: flex-start; }
     }
-@media (max-width: 700px) {
-  .site-topbar { padding: 0 16px; min-height: 56px; position: relative; }
-  .vendor-page { padding: 0 0 40px; }
-  .vendor-card { padding: 20px 18px; }
-  .vendor-header-card { padding: 22px 18px; }
-  .vendor-gallery-media { height: 300px; }
-  .vendor-gallery-arrow { width: 36px; height: 36px; font-size: 18px; }
-  .profile-pic { width: 100px; height: 100px; }
-  .msg-modal { padding: 28px 20px 22px; }
-  .footer-content { padding: 28px 20px 24px; }
-
-  .vendor-layout {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .sidebar-card {
-    order: -1;
-    width: 100%;
-    border-left: none;
-    border-bottom: 0.5px solid var(--ink-rule);
-  }
-
-  .vendor-left {
-    width: 100%;
-  }
-
-  .vendor-gallery-media {
-    height: 260px;
-  }
-
-  .cal-day {
-    min-height: 36px;
-    padding: 4px;
-    font-size: 0.76rem;
-  }
-
-  .cal-weekday {
-    font-size: 0.56rem;
-  }
-
-  .booking-frame {
-    min-height: 520px;
-  }
-}
-  </style>
+    @media (max-width: 700px) {
+      .site-topbar { padding: 0 16px; min-height: 56px; position: relative; }
+      .vendor-page { padding: 0 0 40px; }
+      .vendor-card { padding: 20px 18px; }
+      .vendor-header-card { padding: 22px 18px; }
+      .vendor-gallery-media { height: 300px; }
+      .vendor-gallery-arrow { width: 36px; height: 36px; font-size: 18px; }
+      .profile-pic { width: 100px; height: 100px; }
+      .msg-modal { padding: 28px 20px 22px; }
+      .footer-content { padding: 28px 20px 24px; }
+      .vendor-layout { display: flex; flex-direction: column; }
+      .sidebar-card { order: -1; width: 100%; border-left: none; border-bottom: 0.5px solid var(--ink-rule); }
+      .vendor-left { width: 100%; }
+      .vendor-gallery-media { height: 260px; }
+      .cal-day { min-height: 36px; padding: 4px; font-size: 0.76rem; }
+      .cal-weekday { font-size: 0.56rem; }
+      .booking-frame { min-height: 520px; }
+    }
+  
+    /* ── SHARED NAV (injected by nav.js) ── */
+    .nav-links { display: flex; align-items: center; gap: 8px; }
+    .mobile-menu-btn {
+      display: none; background: none; border: none;
+      color: var(--ink); font-size: 1.5rem; cursor: pointer; padding: 4px;
+    }
+    @media (max-width: 700px) {
+      .site-topbar { padding: 0 16px !important; min-height: 56px !important; position: relative !important; }
+      .mobile-menu-btn { display: inline-flex; align-items: center; justify-content: center; }
+      .nav-links { display: none; }
+      .nav-links.active {
+        display: flex; flex-direction: column;
+        position: absolute; top: 56px; right: 12px;
+        background: rgba(250,250,248,0.97); backdrop-filter: blur(14px);
+        border: 1px solid var(--ink-rule); padding: 22px; gap: 18px;
+        min-width: 230px; z-index: 999; box-shadow: 0 18px 45px rgba(0,0,0,0.08);
+      }
+      .nav-links.active a, .nav-links.active button {
+        justify-content: flex-start; width: 100%;
+        padding: 10px 0; border-bottom: 1px solid var(--ink-rule);
+        background: none !important; color: var(--ink) !important;
+        font-size: 0.76rem; letter-spacing: 0.12em;
+      }
+      .nav-links.active a:last-child,
+      .nav-links.active button:last-child { border-bottom: none; }
+    }
+</style>
 </head>
 
 <body>
-<header class="site-topbar">
-  <a href="index.html" class="site-topbar-logo-wrap" aria-label="Go to homepage">
-    <img src="images/logo1.png" alt="Our Wedding Day Hub" class="site-topbar-logo">
-  </a>
-  <div class="site-topbar-title"><h1>Our Wedding Day Hub</h1></div>
-  <nav class="site-topbar-actions">
-    <a href="categories.html" class="site-topbar-link">Categories</a>
-    <a href="shop.html" class="site-topbar-link">Boutique</a>
-    <a href="journal.html" class="site-topbar-link">The Journal</a>
-    <a href="messages.html" id="messagesLink" class="site-topbar-link" style="display:none; position:relative;">
-      Messages
-      <span id="msgNavBadge" style="display:none; position:absolute; top:-6px; right:-10px; background:var(--ink); color:var(--cream); font-size:0.64rem; font-weight:700; padding:2px 6px; border-radius:999px; line-height:1.2; min-width:18px; text-align:center;">0</span>
-    </a>
-    <a href="login.html" id="loginLink" class="site-topbar-link">Log In</a>
-    <a href="signup.html" id="joinLink" class="site-topbar-btn">Join</a>
-    <a href="dashboard.html" id="dashboardLink" class="site-topbar-link" style="display:none;">Dashboard</a>
-    <button id="logoutLink" class="site-topbar-btn" style="display:none;">Log Out</button>
-  </nav>
-</header>
+<div id="siteNav"></div>
 
 <main class="vendor-page">
   <div class="vendor-layout">
@@ -427,13 +324,13 @@
       <!-- Enquiry Form -->
       <div class="vendor-card" id="enquiryFormCard">
         <h2 class="vendor-section-title">Send an Enquiry</h2>
-        <p class="empty-block" style="margin-bottom:16px;">Fill in your details below and the vendor will be in touch. Select a date above and it will appear here automatically.</p>
+        <p class="empty-block" style="margin-bottom:16px;">Fill in your details below and the vendor will be in touch.</p>
         <div id="enquiryFormWrap">
           <form id="enquiryForm" class="enquiry-form">
             <input type="text" id="enquiryName" placeholder="Your name" required>
             <input type="email" id="enquiryEmail" placeholder="Your email" required>
             <input type="text" id="enquiryDate" placeholder="Preferred date — select from calendar above or type your own" readonly style="cursor:pointer;">
-            <textarea id="enquiryMessage" placeholder="Tell the vendor about your wedding — date, location, style, and anything else they should know..." required></textarea>
+            <textarea id="enquiryMessage" placeholder="Tell the vendor about your wedding..." required></textarea>
             <button type="submit" class="lux-btn">Send Enquiry →</button>
           </form>
           <p id="enquiryStatus" style="margin-top:10px; font-family:var(--font-sans); color:var(--ink-muted); font-size:0.78rem; min-height:20px;"></p>
@@ -491,7 +388,7 @@
   </div>
 </main>
 
-<!-- ── MESSAGE MODAL — structure identical, only visual CSS changed ── -->
+<!-- MESSAGE MODAL -->
 <div id="msgModalBackdrop" class="msg-modal-backdrop" aria-hidden="true">
   <div class="msg-modal">
     <button type="button" id="msgModalClose" class="msg-modal-close" aria-label="Close">×</button>
@@ -509,7 +406,7 @@
       <p class="msg-modal-kicker">Send a Message</p>
       <h2 class="msg-modal-title">Say hello</h2>
       <div class="msg-login-note">
-        <p>To message this vendor you'll need a free account. It only takes a moment to create one.</p>
+        <p>To message this vendor you'll need a free account.</p>
         <a href="login.html" class="lux-btn" style="display:block; text-align:center; margin-bottom:8px;">Log In</a>
         <a href="signup.html" class="lux-btn lux-btn-ghost" style="display:block; text-align:center;">Create Free Account</a>
       </div>
@@ -517,30 +414,20 @@
   </div>
 </div>
 
-<!-- ── FOOTER ── -->
+<!-- FOOTER -->
 <footer class="site-footer">
   <div class="footer-content">
-
     <div class="footer-logo-col">
       <a href="index.html" aria-label="Go to homepage">
         <img src="images/logo1.png" alt="Our Wedding Day Hub" style="width:52px; height:52px; object-fit:contain; opacity:0.5; margin-bottom:6px;">
       </a>
-
       <p class="footer-eyebrow">Wedding planning directory</p>
-
       <h2 class="footer-title">Everything your wedding deserves.</h2>
-
-      <p class="footer-text">
-        Browse trusted wedding businesses, discover local favourites,
-        and connect with the people who can bring your day to life.
-      </p>
-
+      <p class="footer-text">Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.</p>
       <p class="footer-tagline">for every kind of love story. ♡</p>
-
       <p class="footer-abn">© 2026 Our Wedding Day Hub</p>
       <p class="footer-abn">ABN 76 688 637 041 • Australia</p>
     </div>
-
     <div class="footer-links-col">
       <div class="footer-links">
         <a href="about.html">About Us</a>
@@ -554,16 +441,13 @@
         <a href="#" onclick="return false;">Events4Us (Coming Soon)</a>
       </div>
     </div>
-
   </div>
-
   <div style="width:100%; max-width:1280px; height:1px; background:rgba(255,255,255,0.08); margin:0 auto 24px;"></div>
-
   <p style="font-family:var(--font-sans); font-size:0.65rem; color:var(--ink-muted); letter-spacing:0.12em; text-transform:uppercase; text-align:center; padding-bottom:40px;">
     Proudly inclusive • Worldwide • Built with heart
   </p>
 </footer>
-<!-- ── ALL JAVASCRIPT COMPLETELY UNCHANGED ── -->
+
 <script type="module">
 import { db, auth, doc, getDoc, updateDoc, increment, onAuthStateChanged, signOut, collection, addDoc, serverTimestamp, query, where, getDocs } from "./firebase.js";
 
@@ -814,7 +698,6 @@ function renderTestimonials(v) {
 function renderLocations(v) {
   const loc = formatText(v.displayLocation||"");
   const sa  = formatText(v.serviceAreas||"");
-  // New Places-based system: serviceLocationLabels is the canonical list
   const labels = cleanArray(v.serviceLocationLabels);
   const worldwide = v.worldwide === true;
   const reg = labels.length ? labels.join(" • ") : cleanArray(v.regions).map(formatText).join(" • ");
