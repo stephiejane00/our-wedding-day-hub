@@ -24,7 +24,6 @@
       --gold-light: #C4A882;
       --font-serif: 'Cormorant Garamond', Georgia, serif;
       --font-sans:  'Plus Jakarta Sans', 'Helvetica Neue', Arial, sans-serif;
-      /* legacy aliases for dashboard components */
       --lux-espresso: #1A1A16;
       --lux-muted:    #8A8A82;
       --lux-cream:    #FAFAF8;
@@ -39,78 +38,23 @@
     @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes heroFadeIn { from { opacity: 0; transform: scale(1.01); } to { opacity: 1; transform: scale(1); } }
 
-    /* ── TOPBAR ── */
-.site-topbar {
-  background: var(--cream);
-  border-bottom: 1px solid var(--ink-rule);
-  padding: 0 36px;
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  min-height: 64px;
-  position: sticky;
-  top: 0;
-  z-index: 200;
-}
+    .site-topbar { background: var(--cream); border-bottom: 1px solid var(--ink-rule); padding: 0 36px; display: flex; align-items: center; gap: 20px; min-height: 64px; position: sticky; top: 0; z-index: 200; }
+    .site-topbar-logo-wrap { display: inline-flex; align-items: center; }
+    .site-topbar-logo { width: 44px; height: 44px; object-fit: contain; }
+    .site-topbar-title { flex: 1; }
+    .site-topbar-title h1 { font-family: var(--font-serif); font-size: 1.05rem; font-weight: 400; letter-spacing: 0.01em; color: var(--ink); }
+    .site-topbar-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .site-topbar-link, .site-topbar-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 34px; padding: 6px 14px; font-family: var(--font-sans); font-size: 0.75rem; letter-spacing: 0.06em; text-decoration: none; white-space: nowrap; transition: all 0.2s ease; }
+    .site-topbar-link { color: var(--ink-muted); border: none; background: none; }
+    .site-topbar-link:hover { color: var(--ink); }
+    .site-topbar-btn { background: var(--ink); color: var(--cream); font-weight: 600; border: none; cursor: pointer; }
+    .site-topbar-btn:hover { background: var(--ink-mid); }
 
-.site-topbar-logo-wrap { display: inline-flex; align-items: center; }
-.site-topbar-logo { width: 44px; height: 44px; object-fit: contain; }
-
-.site-topbar-title { flex: 1; }
-.site-topbar-title h1 {
-  font-family: var(--font-serif);
-  font-size: 1.05rem;
-  font-weight: 400;
-  letter-spacing: 0.01em;
-  color: var(--ink);
-}
-
-.site-topbar-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-
-.site-topbar-link,
-.site-topbar-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 34px;
-  padding: 6px 14px;
-  font-family: var(--font-sans);
-  font-size: 0.75rem;
-  letter-spacing: 0.06em;
-  text-decoration: none;
-  white-space: nowrap;
-  transition: all 0.2s ease;
-}
-
-.site-topbar-link {
-  color: var(--ink-muted);
-  border: none;
-  background: none;
-}
-
-.site-topbar-link:hover { color: var(--ink); }
-
-.site-topbar-btn {
-  background: var(--ink);
-  color: var(--cream);
-  font-weight: 600;
-  border: none;
-  cursor: pointer;
-}
-
-.site-topbar-btn:hover { background: var(--ink-mid); }
-
-    /* ── PAGE ── */
     .dashboard-page { max-width: 100%; margin: 0 0 48px; padding: 0; }
-    .dashboard-stack { display: grid; gap: 0; border-left: none; border-right: none; }
-
-    /* ── HERO ── */
+    .dashboard-stack { display: grid; gap: 0; }
     .dashboard-hero-card { border-bottom: 1px solid var(--ink); background: var(--cream); overflow: hidden; }
     .dashboard-hero-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; align-items: stretch; min-height: 480px; }
-    .dashboard-hero-copy {
-      padding: 56px 48px 48px; display: flex; flex-direction: column;
-      justify-content: space-between; border-right: 1px solid var(--ink-rule);
-    }
+    .dashboard-hero-copy { padding: 56px 48px 48px; display: flex; flex-direction: column; justify-content: space-between; border-right: 1px solid var(--ink-rule); }
     .dashboard-hero-copy > * { animation: fadeUp 0.7s ease forwards; opacity: 0; }
     .dashboard-hero-copy > *:nth-child(1) { animation-delay: 0.05s; }
     .dashboard-hero-copy > *:nth-child(2) { animation-delay: 0.12s; }
@@ -118,195 +62,80 @@
     .dashboard-hero-copy > *:nth-child(4) { animation-delay: 0.28s; }
     .dashboard-hero-copy > *:nth-child(5) { animation-delay: 0.35s; }
     .dashboard-hero-copy > *:nth-child(6) { animation-delay: 0.42s; }
-
     .dashboard-logo-wrap { display: inline-flex; text-decoration: none; }
     .dashboard-logo { width: 80px; opacity: 0.9; display: block; }
     .dashboard-kicker { font-family: var(--font-sans); font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-ghost); }
     .dashboard-hero-title { font-family: var(--font-serif); font-size: clamp(2.4rem, 4vw, 3.8rem); font-weight: 400; line-height: 0.95; letter-spacing: -0.03em; color: var(--ink); }
     .dashboard-hero-script { font-family: var(--font-serif); font-style: italic; font-size: 1.15rem; color: var(--gold); }
     .dashboard-hero-text { font-family: var(--font-sans); font-size: 0.88rem; color: var(--ink-muted); line-height: 1.8; max-width: 460px; }
-
     .dashboard-hero-image-wrap { position: relative; overflow: hidden; background: var(--cream-deep); }
     .dashboard-hero-image { width: 100%; height: 100%; display: block; object-fit: cover; opacity: 0; animation: heroFadeIn 0.9s ease forwards; transition: transform 0.9s ease; }
     .dashboard-hero-image-wrap:hover .dashboard-hero-image { transform: scale(1.025); }
-
     .dashboard-actions { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
-
-    /* ── LIVE STATUS INDICATOR ── */
-    .dashboard-live-status {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 8px 14px; border: 0.5px solid var(--ink-rule);
-      font-family: var(--font-sans); font-size: 0.72rem; font-weight: 600;
-      letter-spacing: 0.06em; background: var(--cream-warm);
-    }
+    .dashboard-live-status { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border: 0.5px solid var(--ink-rule); font-family: var(--font-sans); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; background: var(--cream-warm); }
     .dashboard-live-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ink-ghost); flex-shrink: 0; transition: background 0.3s; }
     .dashboard-live-status.is-live .dashboard-live-dot { background: #4CAF50; box-shadow: 0 0 0 3px rgba(76,175,80,0.18); }
     .dashboard-live-status.is-live { border-color: #c8dcc8; background: #e8f0e8; color: #3a5e38; }
-
-    /* ── STAT STRIP ── */
-    .dashboard-stat-strip {
-      display: grid; grid-template-columns: repeat(4, 1fr);
-      gap: 0; background: var(--ink-rule);
-      border-bottom: 1px solid var(--ink-rule);
-      animation: fadeUp 0.5s ease 0.3s forwards; opacity: 0;
-    }
-    .dashboard-stat-item {
-      background: var(--cream-warm); padding: 18px 24px;
-      border-right: 0.5px solid var(--ink-rule);
-      display: flex; flex-direction: column; gap: 4px;
-    }
+    .dashboard-stat-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; background: var(--ink-rule); border-bottom: 1px solid var(--ink-rule); animation: fadeUp 0.5s ease 0.3s forwards; opacity: 0; }
+    .dashboard-stat-item { background: var(--cream-warm); padding: 18px 24px; border-right: 0.5px solid var(--ink-rule); display: flex; flex-direction: column; gap: 4px; }
     .dashboard-stat-item:last-child { border-right: none; }
     .dashboard-stat-num { font-family: var(--font-serif); font-size: 2rem; font-weight: 300; color: var(--ink); line-height: 1; letter-spacing: -0.03em; }
     .dashboard-stat-label { font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-ghost); }
     .dashboard-stat-item.has-alert .dashboard-stat-num { color: var(--gold); }
-
-    /* ── BUTTONS ── */
-    .pretty-button, .apply-button {
-      display: inline-flex; align-items: center; justify-content: center;
-      min-height: 40px; padding: 10px 20px; border: none;
-      font-family: var(--font-sans); font-weight: 700; font-size: 0.72rem;
-      letter-spacing: 0.12em; text-transform: uppercase;
-      cursor: pointer; text-decoration: none; transition: background 0.2s;
-    }
+    .pretty-button, .apply-button { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 10px 20px; border: none; font-family: var(--font-sans); font-weight: 700; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; text-decoration: none; transition: background 0.2s; }
     .pretty-button { background: var(--ink); color: var(--cream); }
-    .pretty-button:hover { background: var(--ink-mid); transform: none; filter: none; box-shadow: none; }
+    .pretty-button:hover { background: var(--ink-mid); }
     .apply-button { background: var(--cream-warm); color: var(--ink); border: 0.5px solid var(--ink-rule); }
-    .apply-button:hover { background: var(--cream-deep); transform: none; }
-
-    /* ── EXPAND/COLLAPSE ── */
-    .dashboard-controls {
-      display: flex; justify-content: flex-end; gap: 8px;
-      padding: 14px 40px; border-bottom: 0.5px solid var(--ink-rule);
-      background: var(--cream-warm);
-    }
-    .ctrl-btn {
-      background: none; border: 0.5px solid var(--ink-rule); padding: 6px 14px;
-      font-family: var(--font-sans); font-size: 0.72rem; font-weight: 600;
-      letter-spacing: 0.06em; text-transform: uppercase;
-      color: var(--ink-muted); cursor: pointer; transition: background 0.2s, color 0.2s;
-    }
-    .ctrl-btn:hover { background: var(--cream-deep); color: var(--ink); transform: none; }
-
-    /* ── PANELS ── */
-    .dashboard-panel {
-      border-bottom: 0.5px solid var(--ink-rule);
-      background: var(--cream);
-      overflow: hidden;
-      transition: none;
-      border-radius: 0; border-left: none; border-right: none; border-top: none;
-      box-shadow: none;
-    }
-    .dashboard-panel:hover { box-shadow: none; }
+    .apply-button:hover { background: var(--cream-deep); }
+    .dashboard-controls { display: flex; justify-content: flex-end; gap: 8px; padding: 14px 40px; border-bottom: 0.5px solid var(--ink-rule); background: var(--cream-warm); }
+    .ctrl-btn { background: none; border: 0.5px solid var(--ink-rule); padding: 6px 14px; font-family: var(--font-sans); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-muted); cursor: pointer; transition: background 0.2s, color 0.2s; }
+    .ctrl-btn:hover { background: var(--cream-deep); color: var(--ink); }
+    .dashboard-panel { border-bottom: 0.5px solid var(--ink-rule); background: var(--cream); overflow: hidden; border-radius: 0; box-shadow: none; }
     .dashboard-panel.panel-static { padding: 28px 36px; }
-
-    .panel-toggle-header {
-      display: flex; align-items: center; justify-content: space-between; gap: 16px;
-      padding: 22px 40px; cursor: pointer; user-select: none;
-      transition: background 0.18s ease;
-    }
+    .panel-toggle-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 40px; cursor: pointer; user-select: none; transition: background 0.18s ease; }
     .panel-toggle-header:hover { background: var(--cream-warm); }
-
     .panel-header-left { display: flex; align-items: center; gap: 14px; }
-    .panel-header-icon {
-      width: 40px; height: 40px; background: var(--cream-deep);
-      border: 0.5px solid var(--ink-rule);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1rem; flex-shrink: 0; color: var(--ink-muted);
-    }
+    .panel-header-icon { width: 40px; height: 40px; background: var(--cream-deep); border: 0.5px solid var(--ink-rule); display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; color: var(--ink-muted); }
     .panel-header-title { font-family: var(--font-serif); font-size: 1.4rem; font-weight: 300; letter-spacing: -0.02em; color: var(--ink); margin: 0 0 2px; }
     .panel-header-subtitle { font-family: var(--font-sans); font-size: 0.74rem; color: var(--ink-ghost); margin: 0; line-height: 1.4; letter-spacing: 0.02em; }
-
-    .panel-toggle-chevron {
-      width: 30px; height: 30px; border: 0.5px solid var(--ink-rule);
-      background: var(--cream); display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; transition: background 0.18s ease; color: var(--ink-muted);
-    }
+    .panel-toggle-chevron { width: 30px; height: 30px; border: 0.5px solid var(--ink-rule); background: var(--cream); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.18s ease; color: var(--ink-muted); }
     .panel-toggle-chevron svg { display: block; transition: transform 0.25s ease; }
     .panel-toggle-header[aria-expanded="true"] .panel-toggle-chevron { background: var(--cream-deep); }
     .panel-toggle-header[aria-expanded="true"] .panel-toggle-chevron svg { transform: rotate(180deg); }
-
     .panel-body { overflow: hidden; transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1), opacity 0.25s ease; max-height: 0; opacity: 0; }
     .panel-body.open { max-height: 9999px; opacity: 1; }
     .panel-body-inner { padding: 0 40px 36px; }
     .panel-divider { height: 0.5px; background: var(--ink-rule); margin: 0; }
-
-    /* ── DASHBOARD INTERNALS ── */
     .dashboard-section-title { font-family: var(--font-serif); font-size: 1.4rem; font-weight: 300; letter-spacing: -0.025em; color: var(--ink); margin: 0 0 6px; }
     .dashboard-subtitle { font-family: var(--font-sans); font-size: 0.86rem; color: var(--ink-muted); line-height: 1.65; margin: 0; }
     .dashboard-card-header { display: flex; flex-direction: column; gap: 5px; margin-bottom: 18px; }
     .dashboard-help { font-family: var(--font-sans); font-size: 0.82rem; color: var(--ink-muted); margin-top: 10px; line-height: 1.65; }
-
-    .dashboard-card-soft {
-      margin-top: 20px; padding: 28px 32px;
-      background: var(--cream-warm);
-      border-top: 0.5px solid var(--ink-rule);
-      border-bottom: 0.5px solid var(--ink-rule);
-    }
-
+    .dashboard-card-soft { margin-top: 20px; padding: 28px 32px; background: var(--cream-warm); border-top: 0.5px solid var(--ink-rule); border-bottom: 0.5px solid var(--ink-rule); }
     .dashboard-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
     .dashboard-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
-
-    /* ── STATUS ── */
     .status-wrap { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-start; margin-top: 6px; }
-    .status-pill {
-      display: inline-flex; align-items: center; padding: 7px 14px;
-      background: var(--cream-deep); border: 0.5px solid var(--ink-rule);
-      color: var(--ink-mid); font-family: var(--font-sans); font-size: 0.78rem; font-weight: 600;
-    }
+    .status-pill { display: inline-flex; align-items: center; padding: 7px 14px; background: var(--cream-deep); border: 0.5px solid var(--ink-rule); color: var(--ink-mid); font-family: var(--font-sans); font-size: 0.78rem; font-weight: 600; }
     .inline-toggle { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
     .inline-toggle input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--ink); }
-
-    /* ── FIELDS ── */
-    .dashboard-field label {
-      display: block; margin-bottom: 8px;
-      font-family: var(--font-sans); font-size: 0.68rem; font-weight: 700;
-      letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-muted);
-    }
-    .dashboard-field input,
-    .dashboard-field textarea,
-    .dashboard-field select {
-      width: 100%; border: none; border-bottom: 1px solid var(--ink-rule);
-      border-radius: 0; background: transparent; padding: 13px 0;
-      font-family: var(--font-sans); font-size: 0.92rem; color: var(--ink);
-      box-sizing: border-box; transition: border-color 0.2s; outline: none;
-    }
-    .dashboard-field input:focus,
-    .dashboard-field textarea:focus,
-    .dashboard-field select:focus { border-color: var(--gold); background: rgba(154,122,90,0.04); }
+    .dashboard-field label { display: block; margin-bottom: 8px; font-family: var(--font-sans); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-muted); }
+    .dashboard-field input, .dashboard-field textarea, .dashboard-field select { width: 100%; border: none; border-bottom: 1px solid var(--ink-rule); border-radius: 0; background: transparent; padding: 13px 0; font-family: var(--font-sans); font-size: 0.92rem; color: var(--ink); box-sizing: border-box; transition: border-color 0.2s; outline: none; }
+    .dashboard-field input:focus, .dashboard-field textarea:focus, .dashboard-field select:focus { border-color: var(--gold); background: rgba(154,122,90,0.04); }
     .dashboard-field textarea { resize: vertical; min-height: 120px; }
-
-    /* ── MEDIA ── */
     .media-uploader-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .upload-box {
-      border: 0.5px solid var(--ink-rule);
-      background: var(--cream); padding: 20px;
-    }
+    .upload-box { border: 0.5px solid var(--ink-rule); background: var(--cream); padding: 20px; }
     .upload-box h3 { font-family: var(--font-serif); font-size: 1.1rem; font-weight: 300; color: var(--ink); margin: 0 0 10px; }
     .pretty-upload-input { display: none; }
-    .pretty-upload-label {
-      display: inline-flex; align-items: center; justify-content: center;
-      min-height: 40px; padding: 10px 18px;
-      font-family: var(--font-sans); font-size: 0.72rem; font-weight: 700;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      background: var(--ink); color: var(--cream); cursor: pointer;
-      transition: background 0.2s; box-shadow: none;
-    }
-    .pretty-upload-label:hover { background: var(--ink-mid); transform: none; filter: none; }
+    .pretty-upload-label { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 10px 18px; font-family: var(--font-sans); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; background: var(--ink); color: var(--cream); cursor: pointer; transition: background 0.2s; }
+    .pretty-upload-label:hover { background: var(--ink-mid); }
     .selected-file-note { margin-top: 10px; font-family: var(--font-sans); font-size: 0.78rem; color: var(--ink-muted); line-height: 1.55; }
-
     .media-preview-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px; margin-top: 16px; }
-    .media-preview-item {
-      background: var(--cream-warm); border: 0.5px solid var(--ink-rule); padding: 10px;
-      cursor: grab; user-select: none; transition: opacity 0.15s, border-color 0.15s;
-    }
+    .media-preview-item { background: var(--cream-warm); border: 0.5px solid var(--ink-rule); padding: 10px; cursor: grab; user-select: none; transition: opacity 0.15s, border-color 0.15s; }
     .media-preview-item:active { cursor: grabbing; }
     .media-preview-item.dragging { opacity: 0.35; border-color: var(--gold); }
     .media-preview-item.drag-over { border: 1.5px solid var(--ink); background: var(--cream-deep); }
     .media-preview-item img, .media-preview-item video { width: 100%; display: block; background: var(--cream-deep); object-fit: cover; max-height: 200px; pointer-events: none; }
     .media-drag-handle { font-family: var(--font-sans); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-ghost); text-align: center; padding: 5px 0 3px; }
     .cover-photo-badge { display: inline-block; margin-bottom: 6px; padding: 3px 8px; background: var(--ink); color: var(--cream); font-family: var(--font-sans); font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
-
-    /* ── BOUTIQUE PRODUCT LIST ── */
     .boutique-product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0; background: var(--ink-rule); margin-top: 16px; border: 0.5px solid var(--ink-rule); }
     .boutique-product-card { background: var(--cream); display: flex; flex-direction: column; overflow: hidden; }
     .boutique-product-card img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; background: var(--cream-deep); }
@@ -314,31 +143,19 @@
     .boutique-product-card-name { font-family: var(--font-serif); font-size: 1.05rem; font-weight: 300; color: var(--ink); margin: 0; }
     .boutique-product-card-meta { font-family: var(--font-sans); font-size: 0.72rem; color: var(--ink-muted); margin: 0; }
     .boutique-product-card-actions { display: flex; gap: 6px; margin-top: 10px; padding-top: 10px; border-top: 0.5px solid var(--ink-rule); }
-    .boutique-product-card-actions a,
-    .boutique-product-card-actions button {
-      flex: 1; display: inline-flex; align-items: center; justify-content: center;
-      min-height: 32px; padding: 6px 10px; border: 0.5px solid var(--ink-rule);
-      font-family: var(--font-sans); font-size: 0.65rem; font-weight: 700;
-      letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer;
-      text-decoration: none; transition: background 0.2s; white-space: nowrap;
-    }
+    .boutique-product-card-actions a, .boutique-product-card-actions button { flex: 1; display: inline-flex; align-items: center; justify-content: center; min-height: 32px; padding: 6px 10px; border: 0.5px solid var(--ink-rule); font-family: var(--font-sans); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; text-decoration: none; transition: background 0.2s; white-space: nowrap; }
     .boutique-product-card-actions a { background: var(--cream-warm); color: var(--ink); }
     .boutique-product-card-actions a:hover { background: var(--cream-deep); }
-    .boutique-product-card-actions button { background: var(--cream); color: var(--ink-muted); border-color: var(--ink-rule); }
+    .boutique-product-card-actions button { background: var(--cream); color: var(--ink-muted); }
     .boutique-product-card-actions button:hover { background: #f9e8e8; color: #7a3535; border-color: #f0c8c8; }
-
-    /* ── BRAND ASSETS ── */
     .brand-assets-grid { display: grid; grid-template-columns: repeat(2, minmax(200px, 240px)); gap: 18px; align-items: start; }
     .asset-box { background: var(--cream-warm); border: 0.5px solid var(--ink-rule); padding: 18px; text-align: center; }
     .asset-preview-circle, .asset-preview-square { width: 140px; height: 140px; margin: 0 auto 14px; overflow: hidden; background: var(--cream-deep); border: 0.5px solid var(--ink-rule); display: flex; align-items: center; justify-content: center; }
     .asset-preview-circle img { width: 100%; height: 100%; object-fit: cover; }
     .asset-preview-square img { width: 100%; height: 100%; object-fit: contain; padding: 8px; background: var(--cream); }
     .asset-empty { font-family: var(--font-sans); color: var(--ink-ghost); font-size: 0.78rem; padding: 10px; line-height: 1.5; }
-
-    /* ── PILLS / CHECKBOXES ── */
     .mini-pill-grid, .weekday-pill-grid { display: flex; flex-wrap: wrap; gap: 8px; padding-top: 4px; }
     .dropdown-content-form { display: block; width: 100%; padding-top: 4px; }
-
     .category-dropdown { display: block; width: 100%; margin-bottom: 10px; border: 0.5px solid var(--ink-rule); background: var(--cream); overflow: hidden; }
     .category-dropdown summary { padding: 13px 16px; cursor: pointer; font-family: var(--font-sans); font-weight: 700; font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase; list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 12px; color: var(--ink); }
     .category-dropdown summary::-webkit-details-marker { display: none; }
@@ -346,91 +163,46 @@
     .category-dropdown[open] summary::after { transform: rotate(180deg); }
     .category-dropdown-count { margin-left: auto; font-family: var(--font-sans); font-size: 0.72rem; font-weight: 600; color: var(--ink-muted); background: var(--cream-deep); border: 0.5px solid var(--ink-rule); padding: 3px 10px; white-space: nowrap; }
     .category-dropdown-inner { padding: 0 16px 16px; display: flex; flex-wrap: wrap; gap: 8px; border-top: 0.5px solid var(--ink-rule); }
-
     .mini-pill-grid label, .dropdown-content-form label, .weekday-pill-grid label { display: inline-flex; align-items: center; margin: 0; position: relative; }
     .mini-pill-grid input, .dropdown-content-form input, .weekday-pill-grid input { position: absolute; opacity: 0; pointer-events: none; }
-    .mini-pill-grid span, .dropdown-content-form span, .weekday-pill-grid span {
-      display: inline-block; padding: 8px 13px;
-      background: var(--cream); border: 0.5px solid var(--ink-rule);
-      font-family: var(--font-sans); color: var(--ink); font-size: 0.8rem; line-height: 1.2;
-      cursor: pointer; transition: all 0.18s ease;
-    }
-    .mini-pill-grid label:hover span,
-    .dropdown-content-form label:hover span,
-    .weekday-pill-grid label:hover span { background: var(--cream-warm); border-color: var(--ink-muted); transform: none; }
-    .mini-pill-grid input:checked + span,
-    .dropdown-content-form input:checked + span,
-    .weekday-pill-grid input:checked + span { background: var(--ink); color: var(--cream); border-color: var(--ink); box-shadow: none; }
-
+    .mini-pill-grid span, .dropdown-content-form span, .weekday-pill-grid span { display: inline-block; padding: 8px 13px; background: var(--cream); border: 0.5px solid var(--ink-rule); font-family: var(--font-sans); color: var(--ink); font-size: 0.8rem; line-height: 1.2; cursor: pointer; transition: all 0.18s ease; }
+    .mini-pill-grid label:hover span, .dropdown-content-form label:hover span, .weekday-pill-grid label:hover span { background: var(--cream-warm); border-color: var(--ink-muted); }
+    .mini-pill-grid input:checked + span, .dropdown-content-form input:checked + span, .weekday-pill-grid input:checked + span { background: var(--ink); color: var(--cream); border-color: var(--ink); }
     .category-group-title, .region-heading { width: 100%; margin: 12px 0 4px; font-family: var(--font-sans); font-size: 0.7rem; font-weight: 700; color: var(--ink-ghost); text-transform: uppercase; letter-spacing: 0.1em; }
     .small-text { font-family: var(--font-sans); color: var(--ink-muted); font-size: 0.84rem; margin: 0; line-height: 1.6; }
-
-    /* ── BOOKING / DATES ── */
     .booking-layout { display: grid; gap: 16px; }
     .booking-subcard { background: var(--cream); border: 0.5px solid var(--ink-rule); padding: 20px; }
     .booking-subcard h3 { font-family: var(--font-serif); font-size: 1.1rem; font-weight: 300; color: var(--ink); margin: 0 0 6px; }
-
-    .remove-media-btn, .date-add-btn, .date-remove-btn, .bulk-add-btn {
-      border: none; padding: 9px 14px;
-      background: var(--ink); color: var(--cream);
-      font-family: var(--font-sans); cursor: pointer; font-weight: 700; font-size: 0.72rem;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      transition: background 0.2s; box-shadow: none;
-    }
+    .remove-media-btn, .date-add-btn, .date-remove-btn, .bulk-add-btn { border: none; padding: 9px 14px; background: var(--ink); color: var(--cream); font-family: var(--font-sans); cursor: pointer; font-weight: 700; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; transition: background 0.2s; }
     .remove-media-btn { width: 100%; margin-top: 10px; }
     .date-remove-btn { padding: 5px 10px; font-size: 0.68rem; }
-    .remove-media-btn:hover, .date-add-btn:hover, .date-remove-btn:hover, .bulk-add-btn:hover { background: var(--ink-mid); transform: none; filter: none; }
-
+    .remove-media-btn:hover, .date-add-btn:hover, .date-remove-btn:hover, .bulk-add-btn:hover { background: var(--ink-mid); }
     .media-order-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 8px; }
-    .media-order-btn {
-      border: 0.5px solid var(--ink-rule); padding: 8px 10px;
-      background: var(--cream); color: var(--ink);
-      font-family: var(--font-sans); font-weight: 600; font-size: 0.78rem;
-      cursor: pointer; transition: background 0.18s ease;
-    }
-    .media-order-btn:hover { background: var(--cream-warm); transform: none; }
-    .cover-photo-badge { display: inline-block; margin-bottom: 8px; padding: 4px 10px; background: var(--ink); color: var(--cream); font-family: var(--font-sans); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
-
+    .media-order-btn { border: 0.5px solid var(--ink-rule); padding: 8px 10px; background: var(--cream); color: var(--ink); font-family: var(--font-sans); font-weight: 600; font-size: 0.78rem; cursor: pointer; transition: background 0.18s ease; }
+    .media-order-btn:hover { background: var(--cream-warm); }
     .date-manager-top { display: flex; gap: 12px; align-items: flex-end; flex-wrap: wrap; }
     .date-manager-top .dashboard-field { flex: 1 1 220px; }
     .bulk-date-grid { display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 12px; align-items: end; margin-top: 14px; }
     .date-chip-list { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px; }
     .date-chip { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; background: var(--cream-deep); border: 0.5px solid var(--ink-rule); font-family: var(--font-sans); font-size: 0.8rem; color: var(--ink-mid); }
     .calendar-tip-box { margin-top: 12px; padding: 14px 16px; background: var(--cream-warm); border-left: 2px solid var(--gold-light); color: var(--ink-muted); font-family: var(--font-sans); font-size: 0.82rem; line-height: 1.65; }
-
-    /* ── MESSAGES ── */
     .msg-summary-box { background: var(--cream-warm); border: 0.5px solid var(--ink-rule); padding: 20px 22px; display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
     .msg-summary-box h3 { font-family: var(--font-serif); font-size: 1.1rem; font-weight: 300; color: var(--ink); display: flex; align-items: center; gap: 8px; margin: 0; }
     .msg-unread-badge { display: inline-flex; align-items: center; justify-content: center; min-width: 22px; height: 22px; background: var(--ink); color: var(--cream); font-family: var(--font-sans); font-size: 0.68rem; font-weight: 700; padding: 0 6px; }
     .msg-summary-preview { font-family: var(--font-sans); color: var(--ink-muted); font-size: 0.82rem; line-height: 1.55; margin: 0; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
     .msg-summary-link { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-sans); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink); text-decoration: none; transition: color 0.2s; }
     .msg-summary-link:hover { color: var(--gold); }
-
-    /* ── SAVE ROW ── */
     .panel-save-row { display: flex; align-items: center; gap: 14px; margin-top: 20px; padding-top: 18px; border-top: 0.5px solid var(--ink-rule); }
     .panel-save-msg { font-family: var(--font-serif); font-style: italic; font-size: 0.88rem; color: var(--gold); min-height: 1.2em; }
     .form-message { font-family: var(--font-sans); text-align: center; margin-top: 12px; color: var(--ink-muted); font-size: 0.86rem; min-height: 1.2em; }
-    .account-settings-card { background: var(--cream-warm); }
     .dashboard-save-bar { display: flex; justify-content: center; align-items: center; gap: 14px; flex-wrap: wrap; }
     .dashboard-save-bar .pretty-button { min-width: 200px; }
-
-    /* ── BOUTIQUE ── */
-    .dashboard-panel .dashboard-actions { justify-content: flex-start; }
-
-    /* ── DASHBOARD CARD GRID ── */
     .dash-main { max-width: 1280px; margin: 0 auto; padding: 36px 40px 60px; }
     .dash-section-label { font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-mid); margin-bottom: 12px; padding-left: 1px; font-weight: 700; }
     .dash-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 12px; }
     .dash-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 28px; }
-
-    .dash-card {
-      background: var(--cream); border: 0.5px solid var(--ink-rule);
-      padding: 26px 24px 22px; cursor: pointer;
-      display: flex; flex-direction: column; gap: 7px;
-      transition: background 0.18s, border-color 0.18s, box-shadow 0.18s;
-    }
+    .dash-card { background: var(--cream); border: 0.5px solid var(--ink-rule); padding: 26px 24px 22px; cursor: pointer; display: flex; flex-direction: column; gap: 7px; transition: background 0.18s, border-color 0.18s, box-shadow 0.18s; }
     .dash-card:hover { background: var(--cream-warm); border-color: var(--ink); box-shadow: 0 4px 20px rgba(26,26,22,0.07); }
-    .dash-card-wide { flex-direction: column; }
     .dash-card-icon { font-size: 1.3rem; color: var(--ink-mid); line-height: 1; margin-bottom: 2px; }
     .dash-card-title { font-family: var(--font-serif); font-size: 1.3rem; font-weight: 400; color: var(--ink); letter-spacing: -0.02em; line-height: 1.1; }
     .dash-card-sub { font-family: var(--font-sans); font-size: 0.78rem; color: var(--ink-muted); line-height: 1.55; }
@@ -440,8 +212,6 @@
     .dash-badge-off { background: var(--ink); color: var(--cream); border: 0.5px solid var(--ink); }
     .dash-card-arrow { font-family: var(--font-sans); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cream); background: var(--ink); border: none; padding: 10px 18px; width: fit-content; margin-top: 12px; transition: background 0.18s; }
     .dash-card:hover .dash-card-arrow { background: var(--ink-mid); }
-
-    /* ── MESSAGES CARD ── */
     .dash-msg-card { background: var(--cream); border: 0.5px solid var(--ink-rule); padding: 20px 24px; margin-bottom: 28px; display: flex; align-items: flex-start; gap: 24px; }
     .dash-msg-left { display: flex; align-items: center; gap: 10px; flex-shrink: 0; padding-top: 2px; }
     .dash-msg-title { font-family: var(--font-serif); font-size: 1.15rem; font-weight: 300; color: var(--ink); }
@@ -449,8 +219,6 @@
     .dash-msg-preview { font-family: var(--font-sans); font-size: 0.82rem; color: var(--ink-muted); line-height: 1.6; margin-bottom: 8px; }
     .dash-msg-link { font-family: var(--font-sans); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
     .dash-msg-link:hover { color: var(--gold); }
-
-    /* ── ACCOUNT ZONE ── */
     .dash-account-divider { height: 1px; background: var(--ink-rule); margin: 0 0 24px; }
     .dash-account-card { background: var(--cream-warm); border: 0.5px solid var(--ink-rule); padding: 18px 22px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: background 0.18s; }
     .dash-account-card:hover { background: var(--cream-deep); }
@@ -459,24 +227,15 @@
     .dash-account-title { font-family: var(--font-serif); font-size: 1.05rem; font-weight: 300; color: var(--ink-mid); }
     .dash-account-sub { font-family: var(--font-sans); font-size: 0.74rem; color: var(--ink-ghost); }
     .dash-account-arrow { font-family: var(--font-sans); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-ghost); }
-
-    /* ── DRAWERS ── */
     .dash-drawer-overlay { display: none; position: fixed; inset: 0; background: rgba(26,26,22,0.35); z-index: 300; }
     .dash-drawer-overlay.open { display: block; }
-    .dash-drawer {
-      position: fixed; top: 0; right: 0; bottom: 0; width: min(580px, 100vw);
-      background: var(--cream); border-left: 1px solid var(--ink-rule);
-      z-index: 400; overflow-y: auto;
-      transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
-    }
+    .dash-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(580px, 100vw); background: var(--cream); border-left: 1px solid var(--ink-rule); z-index: 400; overflow-y: auto; transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.4,0,0.2,1); }
     .dash-drawer.open { transform: translateX(0); }
     .dash-drawer-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 28px; border-bottom: 0.5px solid var(--ink-rule); position: sticky; top: 0; background: var(--cream); z-index: 10; }
     .dash-drawer-title { font-family: var(--font-serif); font-size: 1.5rem; font-weight: 300; letter-spacing: -0.02em; color: var(--ink); }
     .dash-drawer-close { background: none; border: 0.5px solid var(--ink-rule); width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.9rem; color: var(--ink-muted); flex-shrink: 0; transition: background 0.18s; }
     .dash-drawer-close:hover { background: var(--cream-warm); }
     .dash-drawer-body { padding: 28px 28px 48px; }
-
-    /* ── FOOTER ── */
     .site-footer { background: var(--ink); border-top: 1px solid var(--ink-mid); }
     .footer-content { padding: 40px 36px 32px; display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: start; }
     .footer-logo-col { display: flex; flex-direction: column; gap: 6px; }
@@ -489,28 +248,13 @@
     .footer-links { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
     .footer-links a { font-family: var(--font-sans); font-size: 0.72rem; letter-spacing: 0.06em; color: var(--ink-muted); text-decoration: none; transition: color 0.2s; }
     .footer-links a:hover { color: var(--cream); }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 1080px) {
-      .dashboard-hero-grid { grid-template-columns: 1fr; }
-      .dashboard-grid-2, .dashboard-grid-3,
-      .media-uploader-grid, .brand-assets-grid, .bulk-date-grid { grid-template-columns: 1fr; }
-      .dashboard-hero-copy { padding: 40px 36px; }
-      .dashboard-hero-image-wrap { min-height: 280px; }
-      .dashboard-stat-strip { grid-template-columns: repeat(2, 1fr); }
-      .dash-grid-3 { grid-template-columns: repeat(2, 1fr); }
-    }
+    @media (max-width: 1080px) { .dashboard-hero-grid { grid-template-columns: 1fr; } .dashboard-grid-2, .dashboard-grid-3, .media-uploader-grid, .brand-assets-grid, .bulk-date-grid { grid-template-columns: 1fr; } .dashboard-hero-copy { padding: 40px 36px; } .dashboard-hero-image-wrap { min-height: 280px; } .dashboard-stat-strip { grid-template-columns: repeat(2, 1fr); } .dash-grid-3 { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 700px) {
       .site-topbar { padding: 0 16px; min-height: 56px; }
       .dashboard-hero-copy { padding: 24px 20px; }
       .dashboard-hero-image-wrap { display: none; }
       .dashboard-stat-strip { grid-template-columns: repeat(2, 1fr); }
       .dashboard-actions { flex-direction: column; align-items: stretch; }
-      .dashboard-actions .pretty-button, .dashboard-actions .apply-button,
-      .pretty-upload-label, .date-add-btn, .bulk-add-btn, .remove-media-btn { width: 100%; }
-      .boutique-product-card-actions a,
-      .boutique-product-card-actions button { width: auto; flex: 1; }
-      .media-preview-grid { grid-template-columns: 1fr; }
       .boutique-product-grid { grid-template-columns: 1fr 1fr; }
       .date-chip { width: 100%; justify-content: space-between; }
       .dashboard-save-bar { flex-direction: column; }
@@ -525,62 +269,13 @@
       .footer-content { padding: 28px 20px 24px; grid-template-columns: 1fr; gap: 24px; }
       .footer-links-col { align-items: flex-start; }
       .footer-links { align-items: flex-start; }
- .nav-links {
-  display: none;
-}
-
-.mobile-menu-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  color: var(--ink);
-  cursor: pointer;
-  padding: 0 4px;
-}
-.nav-links.active {
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  top: 62px;
-  right: 12px;
-  background: rgba(250, 250, 248, 0.96);
-  backdrop-filter: blur(14px);
-  border: 1px solid var(--ink-rule);
-  padding: 22px;
-  gap: 18px;
-  min-width: 230px;
-  z-index: 999;
-  box-shadow: 0 18px 45px rgba(0,0,0,0.08);
-}
-
-.nav-links.active a,
-.nav-links.active button {
-  justify-content: flex-start;
-  width: 100%;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--ink-rule);
-  background: none;
-  color: var(--ink);
-  font-size: 0.76rem;
-  letter-spacing: 0.12em;
-}
-.nav-links.active a:last-child,
-.nav-links.active button:last-child {
-  border-bottom: none;
-}
-
-.mobile-menu-btn{
-  display:inline-flex;
-}
+      .nav-links { display: none; }
+      .mobile-menu-btn { display: inline-flex; align-items: center; justify-content: center; background: none; border: none; font-size: 1.5rem; color: var(--ink); cursor: pointer; padding: 0 4px; }
+      .nav-links.active { display: flex; flex-direction: column; position: absolute; top: 62px; right: 12px; background: rgba(250,250,248,0.96); backdrop-filter: blur(14px); border: 1px solid var(--ink-rule); padding: 22px; gap: 18px; min-width: 230px; z-index: 999; box-shadow: 0 18px 45px rgba(0,0,0,0.08); }
+      .nav-links.active a, .nav-links.active button { justify-content: flex-start; width: 100%; padding: 10px 0; border-bottom: 1px solid var(--ink-rule); background: none; color: var(--ink); font-size: 0.76rem; letter-spacing: 0.12em; }
+      .nav-links.active a:last-child, .nav-links.active button:last-child { border-bottom: none; }
     }
-    @media (min-width: 701px) {
-  .mobile-menu-btn {
-    display: none;
-  }
-}
+    @media (min-width: 701px) { .mobile-menu-btn { display: none; } }
   </style>
 </head>
 <body>
@@ -591,562 +286,359 @@
   </a>
   <div class="site-topbar-title"><h1>Our Wedding Day Hub</h1></div>
   <nav class="site-topbar-actions">
- <div class="nav-links">
-
-  <a href="categories.html" class="site-topbar-link">Categories</a>
-  <a href="shop.html" class="site-topbar-link">Boutique</a>
-  <a href="journal.html" class="site-topbar-link">The Journal</a>
-
-  <a href="messages.html" id="messagesLink" class="site-topbar-link" style="display:none; position:relative;">
-    Messages
-    <span id="msgNavBadge" style="display:none; position:absolute; top:-6px; right:-10px; background:var(--ink); color:var(--cream); font-size:0.64rem; font-weight:700; padding:2px 6px; border-radius:999px; line-height:1.2; min-width:18px; text-align:center;">0</span>
-  </a>
-
-  <a href="dashboard.html" id="dashboardLink" class="site-topbar-link" style="display:inline-flex;">Dashboard</a>
-  <button id="logoutLink" class="site-topbar-btn" style="display:none;">Log Out</button>
-
-</div>
-
-<a href="login.html" id="loginLink" class="site-topbar-link">Log In</a>
-<a href="signup.html" id="joinLink" class="site-topbar-btn">Join</a>
-
-      <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+    <div class="nav-links">
+      <a href="categories.html" class="site-topbar-link">Categories</a>
+      <a href="shop.html" class="site-topbar-link">Boutique</a>
+      <a href="journal.html" class="site-topbar-link">The Journal</a>
+      <a href="messages.html" id="messagesLink" class="site-topbar-link" style="display:none; position:relative;">
+        Messages
+        <span id="msgNavBadge" style="display:none; position:absolute; top:-6px; right:-10px; background:var(--ink); color:var(--cream); font-size:0.64rem; font-weight:700; padding:2px 6px; border-radius:999px; line-height:1.2; min-width:18px; text-align:center;">0</span>
+      </a>
+      <a href="dashboard.html" id="dashboardLink" class="site-topbar-link" style="display:inline-flex;">Dashboard</a>
+      <button id="logoutLink" class="site-topbar-btn" style="display:none;">Log Out</button>
+    </div>
+    <a href="login.html" id="loginLink" class="site-topbar-link" style="display:none;">Log In</a>
+    <a href="signup.html" id="joinLink" class="site-topbar-btn" style="display:none;">Join</a>
+    <button class="mobile-menu-btn" onclick="toggleMenu()">&#9776;</button>
   </nav>
 </header>
 
 <main class="dashboard-page">
 
-    <!-- ── HERO ── -->
   <div id="verifyEmailBanner" style="display:none; padding:16px 24px; background:#F4F0EA; border-bottom:1px solid #DDDDD8; font-family:var(--font-sans); color:var(--ink); font-size:0.86rem; line-height:1.6; text-align:center;">
-  Please verify your email when you get a moment. You can still set up your profile now, but verifying helps keep your account secure.
-</div>
-    <section class="dashboard-hero-card">
-      <div class="dashboard-hero-grid">
-        <div class="dashboard-hero-copy">
-          <a href="index.html" class="dashboard-logo-wrap" aria-label="Go to homepage">
-            <img src="images/logo1.png" alt="Our Wedding Day Hub" class="dashboard-logo">
-          </a>
-          <p class="dashboard-kicker">Vendor Dashboard</p>
-          <h1 class="dashboard-hero-title" id="dashboardHeroTitle">Welcome back ♡</h1>
-          <p class="dashboard-hero-script" id="dashboardHeroScript">your profile is your first impression</p>
-          <p class="dashboard-hero-text">Update your details, upload your best work, set your locations and go live — couples are searching for someone exactly like you.</p>
-          <div class="dashboard-actions" style="gap:12px; flex-wrap:wrap; align-items:center;">
-            <div class="dashboard-live-status" id="liveStatusBadge">
-              <span class="dashboard-live-dot"></span>
-              <span id="liveStatusText">Profile not live yet</span>
-            </div>
-            <a href="#" id="viewProfileBtn" class="apply-button" style="display:none;">View Public Profile →</a>
-          </div>
-        </div>
-        <div class="dashboard-hero-image-wrap">
-          <img src="images/spin.png" alt="Romantic couple" class="dashboard-hero-image">
-        </div>
-      </div>
-    </section>
+    Please verify your email when you get a moment. You can still set up your profile now, but verifying helps keep your account secure.
+  </div>
 
-    <!-- ── STAT STRIP ── -->
-    <div class="dashboard-stat-strip" id="dashboardStatStrip">
-      <div class="dashboard-stat-item">
-        <span class="dashboard-stat-num" id="statViews">–</span>
-        <span class="dashboard-stat-label">Profile Views</span>
+  <section class="dashboard-hero-card">
+    <div class="dashboard-hero-grid">
+      <div class="dashboard-hero-copy">
+        <a href="index.html" class="dashboard-logo-wrap" aria-label="Go to homepage"><img src="images/logo1.png" alt="Our Wedding Day Hub" class="dashboard-logo"></a>
+        <p class="dashboard-kicker">Vendor Dashboard</p>
+        <h1 class="dashboard-hero-title" id="dashboardHeroTitle">Welcome back &#9825;</h1>
+        <p class="dashboard-hero-script" id="dashboardHeroScript">your profile is your first impression</p>
+        <p class="dashboard-hero-text">Update your details, upload your best work, set your locations and go live — couples are searching for someone exactly like you.</p>
+        <div class="dashboard-actions" style="gap:12px; flex-wrap:wrap; align-items:center;">
+          <div class="dashboard-live-status" id="liveStatusBadge">
+            <span class="dashboard-live-dot"></span>
+            <span id="liveStatusText">Profile not live yet</span>
+          </div>
+          <a href="#" id="viewProfileBtn" class="apply-button" style="display:none;">View Public Profile &#8594;</a>
+        </div>
       </div>
-      <div class="dashboard-stat-item" id="statMessagesItem">
-        <span class="dashboard-stat-num" id="statMessages">–</span>
-        <span class="dashboard-stat-label">Unread Messages</span>
-      </div>
-      <div class="dashboard-stat-item">
-        <span class="dashboard-stat-num" id="statProducts">–</span>
-        <span class="dashboard-stat-label">Boutique Listings</span>
-      </div>
-      <div class="dashboard-stat-item">
-        <span class="dashboard-stat-num" id="statCategories">–</span>
-        <span class="dashboard-stat-label">Categories Listed</span>
+      <div class="dashboard-hero-image-wrap"><img src="images/spin.png" alt="Romantic couple" class="dashboard-hero-image"></div>
+    </div>
+  </section>
+
+  <div class="dashboard-stat-strip" id="dashboardStatStrip">
+    <div class="dashboard-stat-item"><span class="dashboard-stat-num" id="statViews">&#8211;</span><span class="dashboard-stat-label">Profile Views</span></div>
+    <div class="dashboard-stat-item" id="statMessagesItem"><span class="dashboard-stat-num" id="statMessages">&#8211;</span><span class="dashboard-stat-label">Unread Messages</span></div>
+    <div class="dashboard-stat-item"><span class="dashboard-stat-num" id="statProducts">&#8211;</span><span class="dashboard-stat-label">Boutique Listings</span></div>
+    <div class="dashboard-stat-item"><span class="dashboard-stat-num" id="statCategories">&#8211;</span><span class="dashboard-stat-label">Categories Listed</span></div>
+  </div>
+
+  <div class="dash-main">
+    <p class="dash-section-label">Your Profile</p>
+    <div class="dash-grid-3">
+      <div class="dash-card" id="card-status" onclick="openPanel('status')"><div class="dash-card-icon">&#10022;</div><div class="dash-card-title">Status &amp; Visibility</div><div class="dash-card-sub">Go live when you're ready for couples to find you</div><div class="dash-card-badge dash-badge-off" id="badge-status">&#9679; Not live</div></div>
+      <div class="dash-card" id="card-business" onclick="openPanel('business')"><div class="dash-card-icon">&#9680;</div><div class="dash-card-title">Business Details</div><div class="dash-card-sub">Name, bio, contact info &amp; social links</div><div class="dash-card-badge dash-badge-todo" id="badge-business">&#9675; Fill in your details</div></div>
+      <div class="dash-card" id="card-booking" onclick="openPanel('booking')"><div class="dash-card-icon">&#9670;</div><div class="dash-card-title">Booking &amp; Availability</div><div class="dash-card-sub">Booking link &amp; block-out dates</div><div class="dash-card-badge dash-badge-todo" id="badge-booking">&#9675; Add a booking link</div></div>
+      <div class="dash-card" id="card-assets" onclick="openPanel('assets')"><div class="dash-card-icon">&#10047;</div><div class="dash-card-title">Profile Picture &amp; Logo</div><div class="dash-card-sub">Photos get significantly more enquiries</div><div class="dash-card-badge dash-badge-todo" id="badge-assets">&#9675; Add a photo</div></div>
+      <div class="dash-card" id="card-media" onclick="openPanel('media')"><div class="dash-card-icon">&#10504;</div><div class="dash-card-title">Media Uploads</div><div class="dash-card-sub">First image becomes your cover photo</div><div class="dash-card-badge dash-badge-todo" id="badge-media">&#9675; Upload photos</div></div>
+      <div class="dash-card" id="card-styles" onclick="openPanel('styles')"><div class="dash-card-icon">&#10059;</div><div class="dash-card-title">Style Tags</div><div class="dash-card-sub">Words that describe your aesthetic &amp; vibe</div><div class="dash-card-badge dash-badge-todo" id="badge-styles">&#9675; None added</div></div>
+    </div>
+    <div class="dash-grid-2">
+      <div class="dash-card" id="card-categories" onclick="openPanel('categories')"><div class="dash-card-icon">&#9671;</div><div class="dash-card-title">Categories</div><div class="dash-card-sub">How couples find you when browsing the hub</div><div class="dash-card-badge dash-badge-todo" id="badge-categories">&#9675; None selected</div></div>
+      <div class="dash-card" id="card-locations" onclick="openPanel('locations')"><div class="dash-card-icon">&#10038;</div><div class="dash-card-title">Service Locations</div><div class="dash-card-sub">Every city, region or country you cover</div><div class="dash-card-badge dash-badge-todo" id="badge-locations">&#9675; No locations yet</div></div>
+    </div>
+
+    <p class="dash-section-label">Messages &amp; Orders</p>
+    <div class="dash-msg-card">
+      <div class="dash-msg-left"><span class="dash-msg-title">Messages</span><span class="msg-unread-badge" id="msgUnreadBadge" style="display:none;">0</span></div>
+      <div class="dash-msg-right"><p class="dash-msg-preview" id="msgSummaryPreview">No messages yet. Conversations begin when a couple messages you &#9825;</p><a href="messages.html" class="dash-msg-link">Open messages &#8594;</a></div>
+    </div>
+
+    <p class="dash-section-label">Boutique</p>
+    <div class="dash-card dash-card-wide" id="card-boutique" onclick="openPanel('boutique')">
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;">
+        <div style="display:flex; flex-direction:column; gap:5px;"><div class="dash-card-icon">&#10023;</div><div class="dash-card-title">Sell Products, Gift Cards &amp; Vouchers</div><div class="dash-card-sub">Boutique listings for couples and guests</div></div>
+        <span class="dash-card-arrow">Manage &#8594;</span>
       </div>
     </div>
 
-    <!-- ── DASHBOARD GRID ── -->
-    <div class="dash-main">
+    <div class="dash-account-divider"></div>
+    <p class="dash-section-label" style="color:var(--ink-ghost);">Account</p>
+    <div class="dash-account-card" id="card-account" onclick="openPanel('account')">
+      <div class="dash-account-left"><span class="dash-account-icon">&#9881;</span><div><div class="dash-account-title">Account Settings</div><div class="dash-account-sub">Name, login email and password</div></div></div>
+      <span class="dash-account-arrow">Edit &#8594;</span>
+    </div>
+  </div>
 
-      <!-- ── YOUR PROFILE SECTION ── -->
-      <p class="dash-section-label">Your Profile</p>
-      <div class="dash-grid-3">
+  <div class="dash-drawer-overlay" id="drawerOverlay" onclick="closePanel()"></div>
 
-        <!-- Status -->
-        <div class="dash-card" id="card-status" onclick="openPanel('status')">
-          <div class="dash-card-icon">✦</div>
-          <div class="dash-card-title">Status &amp; Visibility</div>
-          <div class="dash-card-sub">Go live when you're ready for couples to find you</div>
-          <div class="dash-card-badge dash-badge-off" id="badge-status">● Not live</div>
-        </div>
-
-        <!-- Business Details -->
-        <div class="dash-card" id="card-business" onclick="openPanel('business')">
-          <div class="dash-card-icon">◐</div>
-          <div class="dash-card-title">Business Details</div>
-          <div class="dash-card-sub">Name, bio, contact info &amp; social links</div>
-          <div class="dash-card-badge dash-badge-todo" id="badge-business">○ Fill in your details</div>
-        </div>
-
-        <!-- Booking -->
-        <div class="dash-card" id="card-booking" onclick="openPanel('booking')">
-          <div class="dash-card-icon">◆</div>
-          <div class="dash-card-title">Booking &amp; Availability</div>
-          <div class="dash-card-sub">Booking link &amp; block-out dates</div>
-          <div class="dash-card-badge dash-badge-todo" id="badge-booking">○ Add a booking link</div>
-        </div>
-
-        <!-- Profile Picture -->
-        <div class="dash-card" id="card-assets" onclick="openPanel('assets')">
-          <div class="dash-card-icon">✿</div>
-          <div class="dash-card-title">Profile Picture &amp; Logo</div>
-          <div class="dash-card-sub">Photos get significantly more enquiries</div>
-          <div class="dash-card-badge dash-badge-todo" id="badge-assets">○ Add a photo</div>
-        </div>
-
-        <!-- Media -->
-        <div class="dash-card" id="card-media" onclick="openPanel('media')">
-          <div class="dash-card-icon">◈</div>
-          <div class="dash-card-title">Media Uploads</div>
-          <div class="dash-card-sub">First image becomes your cover photo</div>
-          <div class="dash-card-badge dash-badge-todo" id="badge-media">○ Upload photos</div>
-        </div>
-
-        <!-- Style Tags -->
-        <div class="dash-card" id="card-styles" onclick="openPanel('styles')">
-          <div class="dash-card-icon">❋</div>
-          <div class="dash-card-title">Style Tags</div>
-          <div class="dash-card-sub">Words that describe your aesthetic &amp; vibe</div>
-          <div class="dash-card-badge dash-badge-todo" id="badge-styles">○ None added</div>
-        </div>
-
+  <!-- Status drawer -->
+  <div class="dash-drawer" id="drawer-status">
+    <div class="dash-drawer-header"><h2 class="dash-drawer-title">Status &amp; Visibility</h2><button class="dash-drawer-close" onclick="closePanel()">&#10005;</button></div>
+    <div class="dash-drawer-body">
+      <div class="status-wrap" style="margin-bottom:16px;">
+        <span class="status-pill" id="accountStatusText">Account status: loading...</span>
+        <span class="status-pill" id="subscriptionStatusText">Plan access: loading...</span>
+        <span class="status-pill" id="viewsStatusText">Profile views: 0</span>
       </div>
-      <div class="dash-grid-2">
+      <div class="inline-toggle"><input type="checkbox" id="profileLive"><label for="profileLive" style="margin:0; font-family:var(--font-sans); font-size:0.86rem; color:var(--ink-mid);">Make my profile live on the hub</label></div>
+      <p class="dashboard-help">Turn this on when you are ready for couples to see your profile.</p>
+      <div class="panel-save-row"><button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button><span class="panel-save-msg" id="msg-status"></span></div>
+    </div>
+  </div>
 
-        <!-- Categories -->
-        <div class="dash-card" id="card-categories" onclick="openPanel('categories')">
-          <div class="dash-card-icon">◇</div>
-          <div class="dash-card-title">Categories</div>
-          <div class="dash-card-sub">How couples find you when browsing the hub</div>
-          <div class="dash-card-badge dash-badge-todo" id="badge-categories">○ None selected</div>
-        </div>
-
-        <!-- Locations -->
-        <div class="dash-card" id="card-locations" onclick="openPanel('locations')">
-          <div class="dash-card-icon">✶</div>
-          <div class="dash-card-title">Service Locations</div>
-          <div class="dash-card-sub">Every city, region or country you cover</div>
-          <div class="dash-card-badge dash-badge-todo" id="badge-locations">○ No locations yet</div>
-        </div>
-
+  <!-- Business Details drawer -->
+  <div class="dash-drawer" id="drawer-business">
+    <div class="dash-drawer-header"><h2 class="dash-drawer-title">Business Details</h2><button class="dash-drawer-close" onclick="closePanel()">&#10005;</button></div>
+    <div class="dash-drawer-body">
+      <div class="dashboard-grid-2">
+        <div class="dashboard-field"><label for="businessName">Business Name</label><input type="text" id="businessName"></div>
+        <div class="dashboard-field"><label for="email">Business Email</label><input type="email" id="email"></div>
       </div>
-
-      <!-- ── MESSAGES ── -->
-      <p class="dash-section-label">Messages &amp; Orders</p>
-      <div class="dash-msg-card">
-        <div class="dash-msg-left">
-          <span class="dash-msg-title">Messages</span>
-          <span class="msg-unread-badge" id="msgUnreadBadge" style="display:none;">0</span>
-        </div>
-        <div class="dash-msg-right">
-          <p class="dash-msg-preview" id="msgSummaryPreview">No messages yet. Conversations begin when a couple messages you ♡</p>
-          <a href="messages.html" class="dash-msg-link">Open messages →</a>
-        </div>
+      <div class="dashboard-grid-3" style="margin-top:14px;">
+        <div class="dashboard-field"><label for="phone">Phone</label><input type="text" id="phone"></div>
+        <div class="dashboard-field"><label for="instagram">Instagram</label><input type="text" id="instagram" placeholder="@yourhandle or full link"></div>
+        <div class="dashboard-field"><label for="website">Website</label><input type="text" id="website" placeholder="https://yourwebsite.com"></div>
       </div>
+      <div class="dashboard-grid-3" style="margin-top:14px;">
+        <div class="dashboard-field"><label for="facebook">Facebook</label><input type="text" id="facebook"></div>
+        <div class="dashboard-field"><label for="tiktok">TikTok</label><input type="text" id="tiktok"></div>
+        <div class="dashboard-field"><label for="youtube">YouTube</label><input type="text" id="youtube"></div>
+      </div>
+      <div class="dashboard-grid-3" style="margin-top:14px;">
+        <div class="dashboard-field"><label for="pinterest">Pinterest</label><input type="text" id="pinterest"></div>
+        <div class="dashboard-field"><label for="linkedin">LinkedIn</label><input type="text" id="linkedin"></div>
+        <div class="dashboard-field"><label for="x">X (Twitter)</label><input type="text" id="x"></div>
+      </div>
+      <p class="dashboard-help">Only the links you fill in will appear on your public profile.</p>
+      <div class="dashboard-grid-2" style="margin-top:14px;">
+        <div class="dashboard-field"><label for="serviceAreas">Service Areas Summary</label><input type="text" id="serviceAreas" placeholder="Brisbane, Gold Coast, Sunshine Coast"></div>
+        <div class="dashboard-field"><label for="displayLocation">Display Location</label><input type="text" id="displayLocation" placeholder="Brisbane, Queensland"></div>
+      </div>
+      <div class="dashboard-field" style="margin-top:14px;"><label for="bio">Bio</label><textarea id="bio" rows="6" placeholder="Tell couples about your business..."></textarea></div>
+      <div class="panel-save-row"><button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button><span class="panel-save-msg" id="msg-business"></span></div>
+    </div>
+  </div>
 
-      <!-- ── BOUTIQUE ── -->
-      <p class="dash-section-label">Boutique</p>
-      <div class="dash-card dash-card-wide" id="card-boutique" onclick="openPanel('boutique')">
-        <div style="display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;">
-          <div style="display:flex; flex-direction:column; gap:5px;">
-            <div class="dash-card-icon">✧</div>
-            <div class="dash-card-title">Sell Products, Gift Cards &amp; Vouchers</div>
-            <div class="dash-card-sub">Boutique listings for couples and guests — gift cards, vouchers, jewellery, favours and more</div>
+  <!-- Booking drawer -->
+  <div class="dash-drawer" id="drawer-booking">
+    <div class="dash-drawer-header"><h2 class="dash-drawer-title">Booking &amp; Availability</h2><button class="dash-drawer-close" onclick="closePanel()">&#10005;</button></div>
+    <div class="dash-drawer-body">
+      <div class="booking-layout">
+        <div class="booking-subcard">
+          <h3>Booking Link &amp; Availability</h3>
+          <p class="dashboard-help">Add your booking page and a short status update so couples know whether you are taking enquiries right now.</p>
+          <div class="dashboard-grid-2">
+            <div class="dashboard-field"><label for="bookingLink">Booking Link</label><input type="text" id="bookingLink" placeholder="https://calendly.com/..."></div>
+            <div class="dashboard-field"><label for="availabilityStatus">Availability Status</label><input type="text" id="availabilityStatus" placeholder="Now booking 2026 weddings"></div>
           </div>
-          <span class="dash-card-arrow">Manage →</span>
+          <div class="dashboard-field" style="margin-top:14px;"><label for="bookingNotes">Booking Notes</label><textarea id="bookingNotes" rows="4" placeholder="Share anything couples should know before booking..."></textarea></div>
         </div>
-      </div>
-
-      <!-- ── ACCOUNT (separated out) ── -->
-      <div class="dash-account-divider"></div>
-      <p class="dash-section-label" style="color:var(--ink-ghost);">Account</p>
-      <div class="dash-account-card" id="card-account" onclick="openPanel('account')">
-        <div class="dash-account-left">
-          <span class="dash-account-icon">⚙</span>
-          <div>
-            <div class="dash-account-title">Account Settings</div>
-            <div class="dash-account-sub">Name, login email and password</div>
+        <div class="booking-subcard">
+          <h3>Block One Unavailable Date</h3>
+          <p class="dashboard-help">Add a single date when you are already booked or not available.</p>
+          <div class="date-manager-top">
+            <div class="dashboard-field"><label for="blockedDateInput">Unavailable Date</label><input type="date" id="blockedDateInput"></div>
+            <button type="button" id="addBlockedDateBtn" class="date-add-btn">Add Date</button>
           </div>
         </div>
-        <span class="dash-account-arrow">Edit →</span>
+        <div class="booking-subcard">
+          <h3>Bulk Block Weekdays</h3>
+          <p class="dashboard-help">Great for vendors who never work certain days.</p>
+          <div id="weekdayOptions" class="weekday-pill-grid">
+            <label><input type="checkbox" value="0"><span>Sunday</span></label>
+            <label><input type="checkbox" value="1"><span>Monday</span></label>
+            <label><input type="checkbox" value="2"><span>Tuesday</span></label>
+            <label><input type="checkbox" value="3"><span>Wednesday</span></label>
+            <label><input type="checkbox" value="4"><span>Thursday</span></label>
+            <label><input type="checkbox" value="5"><span>Friday</span></label>
+            <label><input type="checkbox" value="6"><span>Saturday</span></label>
+          </div>
+          <div class="bulk-date-grid">
+            <div class="dashboard-field"><label for="bulkStartDate">Start Date</label><input type="date" id="bulkStartDate"></div>
+            <div class="dashboard-field"><label for="bulkEndDate">End Date</label><input type="date" id="bulkEndDate"></div>
+            <div class="dashboard-field"><label for="bulkMonthsPreset">Quick Range</label><select id="bulkMonthsPreset"><option value="">Custom dates</option><option value="3">Next 3 months</option><option value="6">Next 6 months</option><option value="12">Next 12 months</option></select></div>
+            <button type="button" id="bulkAddBtn" class="bulk-add-btn">Block Selected Days</button>
+          </div>
+        </div>
+        <div class="booking-subcard">
+          <h3>Unavailable Dates</h3>
+          <div id="blockedDateList" class="date-chip-list"></div>
+          <div class="calendar-tip-box">Your booking link will show as a Book Now button on your public profile if filled in.</div>
+        </div>
       </div>
-
+      <div class="panel-save-row"><button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button><span class="panel-save-msg" id="msg-booking"></span></div>
     </div>
+  </div>
 
-    <!-- ── PANEL DRAWERS (hidden until card clicked) ── -->
-    <div class="dash-drawer-overlay" id="drawerOverlay" onclick="closePanel()"></div>
-
-    <!-- Status drawer -->
-    <div class="dash-drawer" id="drawer-status">
-      <div class="dash-drawer-header">
-        <h2 class="dash-drawer-title">Status &amp; Visibility</h2>
-        <button class="dash-drawer-close" onclick="closePanel()">✕</button>
+  <!-- Profile Picture drawer -->
+  <div class="dash-drawer" id="drawer-assets">
+    <div class="dash-drawer-header"><h2 class="dash-drawer-title">Profile Picture &amp; Logo</h2><button class="dash-drawer-close" onclick="closePanel()">&#10005;</button></div>
+    <div class="dash-drawer-body">
+      <div class="brand-assets-grid">
+        <div class="asset-box"><div class="asset-preview-circle"><div class="asset-empty" id="profileImageEmpty">No profile image yet</div><img id="profileImagePreview" style="display:none;" alt="Profile image preview"></div><input type="file" id="profileImageFile" class="pretty-upload-input" accept="image/*"><label for="profileImageFile" class="pretty-upload-label">Upload Profile Picture</label><div id="profileImageFileName" class="selected-file-note"></div></div>
+        <div class="asset-box"><div class="asset-preview-square"><div class="asset-empty" id="logoEmpty">No logo yet</div><img id="logoPreview" style="display:none;" alt="Logo preview"></div><input type="file" id="logoFile" class="pretty-upload-input" accept="image/*"><label for="logoFile" class="pretty-upload-label">Upload Logo</label><div id="logoFileName" class="selected-file-note"></div></div>
       </div>
-      <div class="dash-drawer-body">
-        <div class="status-wrap" style="margin-bottom:16px;">
-          <span class="status-pill" id="accountStatusText">Account status: loading...</span>
-          <span class="status-pill" id="subscriptionStatusText">Plan access: loading...</span>
-          <span class="status-pill" id="viewsStatusText">Profile views: 0</span>
-        </div>
-        <div class="inline-toggle">
-          <input type="checkbox" id="profileLive">
-          <label for="profileLive" style="margin:0; font-family:var(--font-sans); font-size:0.86rem; color:var(--ink-mid);">Make my profile live on the hub</label>
-        </div>
-        <p class="dashboard-help">Turn this on when you are ready for couples to see your profile. Your listing can appear when your account is active and you have either a paid plan or complimentary vendor access.</p>
-        <div class="panel-save-row">
-          <button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button>
-          <span class="panel-save-msg" id="msg-status"></span>
-        </div>
+      <div class="panel-save-row"><button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button><span class="panel-save-msg" id="msg-assets"></span></div>
+    </div>
+  </div>
+
+  <!-- Media drawer -->
+  <div class="dash-drawer" id="drawer-media">
+    <div class="dash-drawer-header"><h2 class="dash-drawer-title">Media Uploads</h2><button class="dash-drawer-close" onclick="closePanel()">&#10005;</button></div>
+    <div class="dash-drawer-body">
+      <p class="dashboard-help" style="margin-bottom:16px;">Show your best work — drag to reorder, first image becomes your cover photo.</p>
+      <div class="media-uploader-grid">
+        <div class="upload-box"><h3>Upload Photos</h3><input type="file" id="galleryImageFiles" class="pretty-upload-input" accept="image/*" multiple><label for="galleryImageFiles" class="pretty-upload-label">Choose Photos</label><div id="galleryImageFileName" class="selected-file-note"></div></div>
+        <div class="upload-box"><h3>Upload Videos</h3><input type="file" id="galleryVideoFiles" class="pretty-upload-input" accept="video/*" multiple><label for="galleryVideoFiles" class="pretty-upload-label">Choose Videos</label><div id="galleryVideoFileName" class="selected-file-note"></div></div>
+      </div>
+      <div id="imagePreview" class="media-preview-grid"></div>
+      <div id="videoPreview" class="media-preview-grid"></div>
+      <div class="panel-save-row"><button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button><span class="panel-save-msg" id="msg-media"></span></div>
+    </div>
+  </div>
+
+  <!-- Style Tags drawer -->
+  <div class="dash-drawer" id="drawer-styles">
+    <div class="dash-drawer-header"><h2 class="dash-drawer-title">Style Tags</h2><button class="dash-drawer-close" onclick="closePanel()">&#10005;</button></div>
+    <div class="dash-drawer-body">
+      <p class="dashboard-help" style="margin-bottom:16px;">Help couples find your vibe — choose words that describe your aesthetic.</p>
+      <div id="styleTagOptions" class="mini-pill-grid"></div>
+      <div class="panel-save-row"><button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button><span class="panel-save-msg" id="msg-styles"></span></div>
+    </div>
+  </div>
+
+  <!-- Categories drawer -->
+  <div class="dash-drawer" id="drawer-categories">
+    <div class="dash-drawer-header"><h2 class="dash-drawer-title">Categories</h2><button class="dash-drawer-close" onclick="closePanel()">&#10005;</button></div>
+    <div class="dash-drawer-body">
+      <p class="dashboard-help" style="margin-bottom:16px;">Tell couples exactly what you offer — this is how they find you when browsing.</p>
+      <div id="categoryOptions" class="dropdown-content-form"></div>
+      <div class="panel-save-row"><button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button><span class="panel-save-msg" id="msg-categories"></span></div>
+    </div>
+  </div>
+
+  <!-- Locations drawer -->
+  <div class="dash-drawer" id="drawer-locations">
+    <div class="dash-drawer-header"><h2 class="dash-drawer-title">Service Locations</h2><button class="dash-drawer-close" onclick="closePanel()">&#10005;</button></div>
+    <div class="dash-drawer-body">
+      <p class="dashboard-help" style="margin-bottom:16px;">Search any city, region, state or country and add it.</p>
+      <div style="position:relative;">
+        <input type="text" id="locationSearchInput" placeholder="e.g. Brisbane, Tuscany, New Zealand&#8230;" autocomplete="off" style="width:100%; border:none; border-bottom:1px solid var(--ink-rule); background:transparent; padding:12px 0; font-family:var(--font-sans); font-size:0.9rem; color:var(--ink); outline:none; transition:border-color 0.2s;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--ink-rule)'">
+        <div id="locationDropdown" style="display:none; position:absolute; top:100%; left:0; right:0; background:var(--cream); border:0.5px solid var(--ink-rule); border-top:none; z-index:200; max-height:240px; overflow-y:auto; box-shadow:0 8px 24px rgba(26,26,22,0.1);"></div>
+      </div>
+      <div id="locationTags" style="display:flex; flex-wrap:wrap; gap:7px; margin-top:14px; min-height:6px;"></div>
+      <div style="margin-top:16px; padding-top:14px; border-top:0.5px solid var(--ink-rule); display:flex; align-items:center; gap:10px;">
+        <input type="checkbox" id="worldwideToggle" style="width:16px; height:16px; accent-color:var(--ink); cursor:pointer;">
+        <label for="worldwideToggle" style="font-family:var(--font-sans); font-size:0.82rem; color:var(--ink-mid); cursor:pointer; margin:0;">I work worldwide</label>
+      </div>
+      <div style="display:none;"><div id="countryOptions"></div><div id="stateOptions"></div><div id="regionOptions"></div></div>
+      <div class="panel-save-row">
+        <button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button>
+        <span class="panel-save-msg" id="msg-locations"></span>
+        <span class="panel-save-msg" id="msg-countries" style="display:none;"></span>
+        <span class="panel-save-msg" id="msg-states" style="display:none;"></span>
+        <span class="panel-save-msg" id="msg-regions" style="display:none;"></span>
       </div>
     </div>
+  </div>
 
-    <!-- Business Details drawer -->
-    <div class="dash-drawer" id="drawer-business">
-      <div class="dash-drawer-header">
-        <h2 class="dash-drawer-title">Business Details</h2>
-        <button class="dash-drawer-close" onclick="closePanel()">✕</button>
-      </div>
-      <div class="dash-drawer-body">
-        <div class="dashboard-grid-2">
-          <div class="dashboard-field"><label for="businessName">Business Name</label><input type="text" id="businessName"></div>
-          <div class="dashboard-field"><label for="email">Business Email</label><input type="email" id="email"></div>
+  <!-- Boutique drawer -->
+  <div class="dash-drawer" id="drawer-boutique">
+    <div class="dash-drawer-header"><h2 class="dash-drawer-title">Sell Products, Gift Cards &amp; Vouchers</h2><button class="dash-drawer-close" onclick="closePanel()">&#10005;</button></div>
+    <div class="dash-drawer-body">
+      <div class="calendar-tip-box" style="margin-bottom:16px;"><strong>What can you list?</strong><br><br>Gift cards, vouchers, special offers, jewellery, favours, keepsakes, bridal accessories, cake boxes, wellness experiences and wedding-related products.<br><br>Couples and guests can browse these through the <strong>Boutique</strong> link at the top of the website.</div>
+      <div id="boutiqueAccessAllowed" style="display:none;">
+        <div class="status-wrap" style="margin-bottom:14px;"><span class="status-pill" id="stripeStatusText">Stripe: loading...</span><span class="status-pill" id="productCountText">Products: 0</span></div>
+        <div class="dashboard-actions" style="margin-bottom:14px;"><button type="button" id="connectStripeBtn" class="pretty-button">Connect Stripe</button><a href="shop.html" class="apply-button">View Boutique Shop</a></div>
+        <div class="calendar-tip-box">You can use your own payment method, ask customers to enquire first, or connect Stripe later for direct checkout.</div>
+        <div class="dashboard-grid-2" style="margin-top:18px;">
+          <div class="dashboard-field"><label for="productName">Listing Name</label><input type="text" id="productName" placeholder="Gift card, bridal voucher..."></div>
+          <div class="dashboard-field"><label for="productPrice">Price / Value</label><input type="number" id="productPrice" min="0" step="0.01" placeholder="49.00"></div>
         </div>
-        <div class="dashboard-grid-3" style="margin-top:14px;">
-          <div class="dashboard-field"><label for="phone">Phone</label><input type="text" id="phone"></div>
-          <div class="dashboard-field"><label for="instagram">Instagram</label><input type="text" id="instagram" placeholder="@yourhandle or full link"></div>
-          <div class="dashboard-field"><label for="website">Website</label><input type="text" id="website" placeholder="https://yourwebsite.com"></div>
-        </div>
-        <div class="dashboard-grid-3" style="margin-top:14px;">
-          <div class="dashboard-field"><label for="facebook">Facebook</label><input type="text" id="facebook" placeholder="https://facebook.com/..."></div>
-          <div class="dashboard-field"><label for="tiktok">TikTok</label><input type="text" id="tiktok" placeholder="https://tiktok.com/..."></div>
-          <div class="dashboard-field"><label for="youtube">YouTube</label><input type="text" id="youtube" placeholder="https://youtube.com/..."></div>
-        </div>
-        <div class="dashboard-grid-3" style="margin-top:14px;">
-          <div class="dashboard-field"><label for="pinterest">Pinterest</label><input type="text" id="pinterest" placeholder="https://pinterest.com/..."></div>
-          <div class="dashboard-field"><label for="linkedin">LinkedIn</label><input type="text" id="linkedin" placeholder="https://linkedin.com/..."></div>
-          <div class="dashboard-field"><label for="x">X (Twitter)</label><input type="text" id="x" placeholder="https://x.com/..."></div>
-        </div>
-        <p class="dashboard-help">Only the links you fill in will appear on your public profile.</p>
         <div class="dashboard-grid-2" style="margin-top:14px;">
-          <div class="dashboard-field"><label for="serviceAreas">Service Areas Summary</label><input type="text" id="serviceAreas" placeholder="Brisbane, Gold Coast, Sunshine Coast"></div>
-          <div class="dashboard-field"><label for="displayLocation">Display Location</label><input type="text" id="displayLocation" placeholder="Brisbane, Queensland"></div>
+          <div class="dashboard-field"><label for="productCategory">Listing Type</label><select id="productCategory"><option value="">Choose type</option><option value="gift_card">Gift Card</option><option value="voucher">Voucher / Offer</option><option value="product">Physical Product</option><option value="jewellery">Jewellery</option><option value="bridal_accessories">Bridal Accessories</option><option value="wedding_favours">Wedding Favours</option><option value="keepsakes">Keepsakes</option><option value="experience">Experience</option><option value="other">Other</option></select></div>
+          <div class="dashboard-field"><label for="productStock">Quantity Available</label><input type="number" id="productStock" min="0" step="1" placeholder="10"></div>
         </div>
-        <div class="dashboard-field" style="margin-top:14px;"><label for="bio">Bio</label><textarea id="bio" rows="6" placeholder="Tell couples about your business..."></textarea></div>
-        <div class="panel-save-row">
-          <button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button>
-          <span class="panel-save-msg" id="msg-business"></span>
+        <div class="dashboard-field" style="margin-top:14px;"><label for="productDescription">What's Included</label><textarea id="productDescription" rows="4" placeholder="Explain what they receive..."></textarea></div>
+        <div class="dashboard-grid-2" style="margin-top:18px;">
+          <div class="dashboard-field"><label for="paymentMethod">How do you want to get paid?</label><select id="paymentMethod"><option value="own">Use my own payment method</option><option value="stripe">Sell through the hub with Stripe</option><option value="enquiry">Customer enquires first</option></select></div>
+          <div class="dashboard-field"><label for="productPurchaseLink">Payment / Booking Link</label><input type="text" id="productPurchaseLink" placeholder="Website checkout, payment link..."></div>
         </div>
-      </div>
-    </div>
-
-    <!-- Booking drawer -->
-    <div class="dash-drawer" id="drawer-booking">
-      <div class="dash-drawer-header">
-        <h2 class="dash-drawer-title">Booking &amp; Availability</h2>
-        <button class="dash-drawer-close" onclick="closePanel()">✕</button>
-      </div>
-      <div class="dash-drawer-body">
-        <div class="booking-layout">
-          <div class="booking-subcard">
-            <h3>Booking Link &amp; Availability</h3>
-            <p class="dashboard-help">Add your booking page and a short status update so couples know whether you are taking enquiries right now.</p>
-            <div class="dashboard-grid-2">
-              <div class="dashboard-field"><label for="bookingLink">Booking Link</label><input type="text" id="bookingLink" placeholder="https://calendly.com/... or your booking page"></div>
-              <div class="dashboard-field"><label for="availabilityStatus">Availability Status</label><input type="text" id="availabilityStatus" placeholder="Now booking 2026 weddings"></div>
-            </div>
-            <div class="dashboard-field" style="margin-top:14px;"><label for="bookingNotes">Booking Notes</label><textarea id="bookingNotes" rows="4" placeholder="Share anything couples should know before booking..."></textarea></div>
-          </div>
-          <div class="booking-subcard">
-            <h3>Block One Unavailable Date</h3>
-            <p class="dashboard-help">Add a single date when you are already booked or not available.</p>
-            <div class="date-manager-top">
-              <div class="dashboard-field"><label for="blockedDateInput">Unavailable Date</label><input type="date" id="blockedDateInput"></div>
-              <button type="button" id="addBlockedDateBtn" class="date-add-btn">Add Date</button>
-            </div>
-          </div>
-          <div class="booking-subcard">
-            <h3>Bulk Block Weekdays</h3>
-            <p class="dashboard-help">Great for vendors who never work certain days.</p>
-            <div id="weekdayOptions" class="weekday-pill-grid">
-              <label><input type="checkbox" value="0"><span>Sunday</span></label>
-              <label><input type="checkbox" value="1"><span>Monday</span></label>
-              <label><input type="checkbox" value="2"><span>Tuesday</span></label>
-              <label><input type="checkbox" value="3"><span>Wednesday</span></label>
-              <label><input type="checkbox" value="4"><span>Thursday</span></label>
-              <label><input type="checkbox" value="5"><span>Friday</span></label>
-              <label><input type="checkbox" value="6"><span>Saturday</span></label>
-            </div>
-            <div class="bulk-date-grid">
-              <div class="dashboard-field"><label for="bulkStartDate">Start Date</label><input type="date" id="bulkStartDate"></div>
-              <div class="dashboard-field"><label for="bulkEndDate">End Date</label><input type="date" id="bulkEndDate"></div>
-              <div class="dashboard-field"><label for="bulkMonthsPreset">Quick Range</label><select id="bulkMonthsPreset"><option value="">Custom dates</option><option value="3">Next 3 months</option><option value="6">Next 6 months</option><option value="12">Next 12 months</option></select></div>
-              <button type="button" id="bulkAddBtn" class="bulk-add-btn">Block Selected Days</button>
-            </div>
-          </div>
-          <div class="booking-subcard">
-            <h3>Unavailable Dates</h3>
-            <div id="blockedDateList" class="date-chip-list"></div>
-            <div class="calendar-tip-box">Your booking link will show as a Book Now button on your public profile if filled in. Unavailable dates will be checked before couples send an enquiry.</div>
-          </div>
+        <p class="dashboard-help">If you use your own payment method, add the link customers should use.</p>
+        <div class="dashboard-grid-2" style="margin-top:14px;">
+          <div class="dashboard-field"><label for="fulfilmentMethod">How will customers receive this?</label><select id="fulfilmentMethod"><option value="email">Email delivery</option><option value="pickup">Local pickup</option><option value="local_delivery">Local delivery</option><option value="domestic_shipping">Ships within your country</option><option value="international_shipping">Ships internationally</option><option value="enquiry">Arrange after enquiry</option></select></div>
+          <div class="dashboard-field"><label for="fulfilmentDetails">Delivery / Pickup / Redemption Details</label><input type="text" id="fulfilmentDetails" placeholder="Brisbane pickup, ships Australia-wide..."></div>
         </div>
-        <div class="panel-save-row">
-          <button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button>
-          <span class="panel-save-msg" id="msg-booking"></span>
+        <div class="dashboard-grid-2" style="margin-top:14px;">
+          <div class="dashboard-field"><label for="shippingCost">Shipping Cost</label><input type="text" id="shippingCost" placeholder="e.g. Free, A$9.95 flat rate"></div>
+          <div class="dashboard-field"><label for="shippingLocations">Ships To / Available In</label><input type="text" id="shippingLocations" placeholder="e.g. Australia-wide, QLD only, Worldwide"></div>
         </div>
-      </div>
-    </div>
-
-    <!-- Profile Picture drawer -->
-    <div class="dash-drawer" id="drawer-assets">
-      <div class="dash-drawer-header">
-        <h2 class="dash-drawer-title">Profile Picture &amp; Logo</h2>
-        <button class="dash-drawer-close" onclick="closePanel()">✕</button>
-      </div>
-      <div class="dash-drawer-body">
-        <div class="brand-assets-grid">
-          <div class="asset-box">
-            <div class="asset-preview-circle"><div class="asset-empty" id="profileImageEmpty">No profile image yet</div><img id="profileImagePreview" style="display:none;" alt="Profile image preview"></div>
-            <input type="file" id="profileImageFile" class="pretty-upload-input" accept="image/*">
-            <label for="profileImageFile" class="pretty-upload-label">Upload Profile Picture</label>
-            <div id="profileImageFileName" class="selected-file-note"></div>
-          </div>
-          <div class="asset-box">
-            <div class="asset-preview-square"><div class="asset-empty" id="logoEmpty">No logo yet</div><img id="logoPreview" style="display:none;" alt="Logo preview"></div>
-            <input type="file" id="logoFile" class="pretty-upload-input" accept="image/*">
-            <label for="logoFile" class="pretty-upload-label">Upload Logo</label>
-            <div id="logoFileName" class="selected-file-note"></div>
-          </div>
+        <div class="dashboard-grid-2" style="margin-top:14px;">
+          <div class="dashboard-field"><label for="productStatus">Listing Visibility</label><select id="productStatus"><option value="draft">Draft - not visible yet</option><option value="live">Live - show in Boutique</option><option value="sold_out">Sold Out</option></select></div>
         </div>
-        <div class="panel-save-row">
-          <button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button>
-          <span class="panel-save-msg" id="msg-assets"></span>
+        <div class="upload-box" style="margin-top:14px;">
+          <h3>Listing Images</h3>
+          <p class="dashboard-help" style="margin-top:0;">Upload photos of the product, voucher, gift card design, or an example of what customers receive.</p>
+          <input type="file" id="productImageFiles" class="pretty-upload-input" accept="image/*" multiple>
+          <label for="productImageFiles" class="pretty-upload-label">Choose Listing Images</label>
+          <div id="productImageFileName" class="selected-file-note"></div>
         </div>
-      </div>
-    </div>
-
-    <!-- Media drawer -->
-    <div class="dash-drawer" id="drawer-media">
-      <div class="dash-drawer-header">
-        <h2 class="dash-drawer-title">Media Uploads</h2>
-        <button class="dash-drawer-close" onclick="closePanel()">✕</button>
-      </div>
-      <div class="dash-drawer-body">
-        <p class="dashboard-help" style="margin-bottom:16px;">Show your best work — drag to reorder, first image becomes your cover photo.</p>
-        <div class="media-uploader-grid">
-          <div class="upload-box"><h3>Upload Photos</h3><input type="file" id="galleryImageFiles" class="pretty-upload-input" accept="image/*" multiple><label for="galleryImageFiles" class="pretty-upload-label">Choose Photos</label><div id="galleryImageFileName" class="selected-file-note"></div></div>
-          <div class="upload-box"><h3>Upload Videos</h3><input type="file" id="galleryVideoFiles" class="pretty-upload-input" accept="video/*" multiple><label for="galleryVideoFiles" class="pretty-upload-label">Choose Videos</label><div id="galleryVideoFileName" class="selected-file-note"></div></div>
-        </div>
-        <div id="imagePreview" class="media-preview-grid"></div>
-        <div id="videoPreview" class="media-preview-grid"></div>
-        <div class="panel-save-row">
-          <button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button>
-          <span class="panel-save-msg" id="msg-media"></span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Style Tags drawer -->
-    <div class="dash-drawer" id="drawer-styles">
-      <div class="dash-drawer-header">
-        <h2 class="dash-drawer-title">Style Tags</h2>
-        <button class="dash-drawer-close" onclick="closePanel()">✕</button>
-      </div>
-      <div class="dash-drawer-body">
-        <p class="dashboard-help" style="margin-bottom:16px;">Help couples find your vibe — choose words that describe your aesthetic.</p>
-        <div id="styleTagOptions" class="mini-pill-grid"></div>
-        <div class="panel-save-row">
-          <button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button>
-          <span class="panel-save-msg" id="msg-styles"></span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Categories drawer -->
-    <div class="dash-drawer" id="drawer-categories">
-      <div class="dash-drawer-header">
-        <h2 class="dash-drawer-title">Categories</h2>
-        <button class="dash-drawer-close" onclick="closePanel()">✕</button>
-      </div>
-      <div class="dash-drawer-body">
-        <p class="dashboard-help" style="margin-bottom:16px;">Tell couples exactly what you offer — this is how they find you when browsing.</p>
-        <div id="categoryOptions" class="dropdown-content-form"></div>
-        <div class="panel-save-row">
-          <button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button>
-          <span class="panel-save-msg" id="msg-categories"></span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Locations drawer -->
-    <div class="dash-drawer" id="drawer-locations">
-      <div class="dash-drawer-header">
-        <h2 class="dash-drawer-title">Service Locations</h2>
-        <button class="dash-drawer-close" onclick="closePanel()">✕</button>
-      </div>
-      <div class="dash-drawer-body">
-        <p class="dashboard-help" style="margin-bottom:16px;">Search any city, region, state or country and add it. The more accurate this is, the easier you are to find.</p>
-        <div style="position:relative;">
-          <input type="text" id="locationSearchInput" placeholder="e.g. Brisbane, Tuscany, New Zealand…" autocomplete="off" style="width:100%; border:none; border-bottom:1px solid var(--ink-rule); background:transparent; padding:12px 0; font-family:var(--font-sans); font-size:0.9rem; color:var(--ink); outline:none; transition:border-color 0.2s;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--ink-rule)'">
-          <div id="locationDropdown" style="display:none; position:absolute; top:100%; left:0; right:0; background:var(--cream); border:0.5px solid var(--ink-rule); border-top:none; z-index:200; max-height:240px; overflow-y:auto; box-shadow:0 8px 24px rgba(26,26,22,0.1);"></div>
-        </div>
-        <div id="locationTags" style="display:flex; flex-wrap:wrap; gap:7px; margin-top:14px; min-height:6px;"></div>
-        <div style="margin-top:16px; padding-top:14px; border-top:0.5px solid var(--ink-rule); display:flex; align-items:center; gap:10px;">
-          <input type="checkbox" id="worldwideToggle" style="width:16px; height:16px; accent-color:var(--ink); cursor:pointer;">
-          <label for="worldwideToggle" style="font-family:var(--font-sans); font-size:0.82rem; color:var(--ink-mid); cursor:pointer; margin:0;">I work worldwide — online, destination or international bookings</label>
-        </div>
-        <div style="display:none;">
-          <div id="countryOptions"></div>
-          <div id="stateOptions"></div>
-          <div id="regionOptions"></div>
-        </div>
-        <div class="panel-save-row">
-          <button type="button" class="pretty-button" onclick="saveVendorProfile(this)">Save Changes</button>
-          <span class="panel-save-msg" id="msg-locations"></span>
-          <span class="panel-save-msg" id="msg-countries" style="display:none;"></span>
-          <span class="panel-save-msg" id="msg-states" style="display:none;"></span>
-          <span class="panel-save-msg" id="msg-regions" style="display:none;"></span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Boutique drawer -->
-    <div class="dash-drawer" id="drawer-boutique">
-      <div class="dash-drawer-header">
-        <h2 class="dash-drawer-title">Sell Products, Gift Cards &amp; Vouchers</h2>
-        <button class="dash-drawer-close" onclick="closePanel()">✕</button>
-      </div>
-      <div class="dash-drawer-body">
-        <div class="calendar-tip-box" style="margin-bottom:16px;">
-          <strong>What can you list?</strong><br><br>
-          Gift cards, vouchers, special offers, jewellery, favours, keepsakes, bridal accessories, cake boxes, wellness experiences and wedding-related products.<br><br>
-          Couples and guests can browse these through the <strong>Boutique</strong> link at the top of the website.
-        </div>
-        <div id="boutiqueAccessAllowed" style="display:none;">
-          <div class="status-wrap" style="margin-bottom:14px;">
-            <span class="status-pill" id="stripeStatusText">Stripe: loading...</span>
-            <span class="status-pill" id="productCountText">Products: 0</span>
-          </div>
-          <div class="dashboard-actions" style="margin-bottom:14px;">
-            <button type="button" id="connectStripeBtn" class="pretty-button">Connect Stripe</button>
-            <a href="shop.html" class="apply-button">View Boutique Shop</a>
-          </div>
-          <div class="calendar-tip-box">You can use your own payment method, ask customers to enquire first, or connect Stripe later for direct checkout.</div>
-          <div class="dashboard-grid-2" style="margin-top:18px;">
-            <div class="dashboard-field"><label for="productName">Listing Name</label><input type="text" id="productName" placeholder="Gift card, bridal voucher, jewellery set, favour box..."></div>
-            <div class="dashboard-field"><label for="productPrice">Price / Value</label><input type="number" id="productPrice" min="0" step="0.01" placeholder="49.00"></div>
-          </div>
-          <div class="dashboard-grid-2" style="margin-top:14px;">
-            <div class="dashboard-field"><label for="productCategory">Listing Type</label><select id="productCategory"><option value="">Choose type</option><option value="gift_card">Gift Card</option><option value="voucher">Voucher / Offer</option><option value="product">Physical Product</option><option value="jewellery">Jewellery</option><option value="bridal_accessories">Bridal Accessories</option><option value="wedding_favours">Wedding Favours</option><option value="keepsakes">Keepsakes</option><option value="experience">Experience</option><option value="other">Other</option></select></div>
-            <div class="dashboard-field"><label for="productStock">Quantity Available</label><input type="number" id="productStock" min="0" step="1" placeholder="10"></div>
-          </div>
-          <div class="dashboard-field" style="margin-top:14px;"><label for="productDescription">What's Included</label><textarea id="productDescription" rows="4" placeholder="Explain what they receive, how it works, inclusions, expiry dates for vouchers, lead times, sizing, colours or custom options."></textarea></div>
-          <div class="dashboard-grid-2" style="margin-top:18px;">
-            <div class="dashboard-field"><label for="paymentMethod">How do you want to get paid?</label><select id="paymentMethod"><option value="own">Use my own payment method</option><option value="stripe">Sell through the hub with Stripe</option><option value="enquiry">Customer enquires first</option></select></div>
-            <div class="dashboard-field"><label for="productPurchaseLink">Payment / Booking Link</label><input type="text" id="productPurchaseLink" placeholder="Website checkout, payment link, booking link or Instagram link"></div>
-          </div>
-          <p class="dashboard-help">If you use your own payment method, add the link customers should use. If they need to enquire first, you can leave this blank.</p>
-          <div class="dashboard-grid-2" style="margin-top:14px;">
-            <div class="dashboard-field"><label for="fulfilmentMethod">How will customers receive this?</label><select id="fulfilmentMethod"><option value="email">Email delivery</option><option value="pickup">Local pickup</option><option value="local_delivery">Local delivery</option><option value="domestic_shipping">Ships within your country</option><option value="international_shipping">Ships internationally</option><option value="enquiry">Arrange after enquiry</option></select></div>
-            <div class="dashboard-field"><label for="fulfilmentDetails">Delivery / Pickup / Redemption Details</label><input type="text" id="fulfilmentDetails" placeholder="Brisbane pickup, ships Australia-wide, emailed within 24 hours..."></div>
-          </div>
-          <div class="dashboard-grid-2" style="margin-top:14px;">
-            <div class="dashboard-field"><label for="shippingCost">Shipping Cost</label><input type="text" id="shippingCost" placeholder="e.g. Free, A$9.95 flat rate, Calculated at checkout"></div>
-            <div class="dashboard-field"><label for="shippingLocations">Ships To / Available In</label><input type="text" id="shippingLocations" placeholder="e.g. Australia-wide, QLD only, Worldwide"></div>
-          </div>
-          <div class="dashboard-grid-2" style="margin-top:14px;">
-            <div class="dashboard-field"><label for="productStatus">Listing Visibility</label><select id="productStatus"><option value="draft">Draft - not visible yet</option><option value="live">Live - show in Boutique</option><option value="sold_out">Sold Out</option></select></div>
-          </div>
-          <div class="upload-box" style="margin-top:14px;">
-            <h3>Listing Images</h3>
-            <p class="dashboard-help" style="margin-top:0;">Upload photos of the product, voucher, gift card design, or an example of what customers receive.</p>
-            <input type="file" id="productImageFiles" class="pretty-upload-input" accept="image/*" multiple>
-            <label for="productImageFiles" class="pretty-upload-label">Choose Listing Images</label>
-            <div id="productImageFileName" class="selected-file-note"></div>
-          </div>
-          <div class="dashboard-actions" style="margin-top:16px;">
-            <button type="button" id="saveProductBtn" class="pretty-button">Add Boutique Listing</button>
-            <button type="button" id="cancelEditBtn" class="apply-button" style="display:none;">Cancel Edit</button>
-          </div>
-          <p id="boutiqueMessage" class="dashboard-help"></p>
-          <div style="margin-top:22px;">
-            <h3 class="dashboard-section-title" style="font-size:1.2rem; margin-bottom:12px;">Your Boutique Listings</h3>
-            <div id="boutiqueProductList" class="boutique-product-grid"></div>
-          </div>
-        </div>
-        <div id="boutiqueAccessLocked" style="display:none;">
-          <p class="dashboard-help" style="margin-top:0;">Boutique access is included for Founding Vendors and our highest membership tier.</p>
-          <div class="calendar-tip-box" style="margin-top:14px;"><strong>Want to sell through the Boutique?</strong><br><br>The Boutique lets eligible vendors list gift cards, vouchers, products, jewellery, favours, keepsakes and wedding extras for couples and guests to browse.<br><br>Founding Vendors receive this access for free as part of their founding vendor benefits.</div>
-          <div class="dashboard-actions" style="margin-top:16px;">
-            <a href="pricing.html" class="pretty-button">View Membership Options</a>
-            <a href="contact.html" class="apply-button">Ask About Boutique Access</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Account Settings drawer -->
-    <div class="dash-drawer" id="drawer-account">
-      <div class="dash-drawer-header">
-        <h2 class="dash-drawer-title">Account Settings</h2>
-        <button class="dash-drawer-close" onclick="closePanel()">✕</button>
-      </div>
-      <div class="dash-drawer-body">
-        <div class="dashboard-grid-2">
-          <div class="dashboard-field"><label for="accountName">Your Name</label><input type="text" id="accountName" placeholder="Your name"></div>
-          <div class="dashboard-field"><label for="accountEmail">Login Email</label><input type="email" id="accountEmail" placeholder="you@example.com"></div>
-        </div>
-        <div class="dashboard-field" style="margin-top:14px;"><label for="accountPassword">New Password</label><input type="password" id="accountPassword" placeholder="Leave blank if not changing"></div>
         <div class="dashboard-actions" style="margin-top:16px;">
-          <button type="button" id="saveAccountBtn" class="pretty-button">Update Account</button>
+          <button type="button" id="saveProductBtn" class="pretty-button">Add Boutique Listing</button>
+          <button type="button" id="cancelEditBtn" class="apply-button" style="display:none;">Cancel Edit</button>
         </div>
-        <p id="accountMessage" class="dashboard-help"></p>
-        <p class="dashboard-help">If changing your email or password does not work, Firebase may ask you to log in again first.</p>
+        <p id="boutiqueMessage" class="dashboard-help"></p>
+        <div style="margin-top:22px;"><h3 class="dashboard-section-title" style="font-size:1.2rem; margin-bottom:12px;">Your Boutique Listings</h3><div id="boutiqueProductList" class="boutique-product-grid"></div></div>
+      </div>
+      <div id="boutiqueAccessLocked" style="display:none;">
+        <p class="dashboard-help" style="margin-top:0;">Boutique access is included for Founding Vendors and our highest membership tier.</p>
+        <div class="calendar-tip-box" style="margin-top:14px;"><strong>Want to sell through the Boutique?</strong><br><br>The Boutique lets eligible vendors list gift cards, vouchers, products, jewellery, favours, keepsakes and wedding extras for couples and guests to browse.<br><br>Founding Vendors receive this access for free as part of their founding vendor benefits.</div>
+        <div class="dashboard-actions" style="margin-top:16px;"><a href="pricing.html" class="pretty-button">View Membership Options</a><a href="contact.html" class="apply-button">Ask About Boutique Access</a></div>
       </div>
     </div>
+  </div>
+
+  <!-- Account Settings drawer -->
+  <div class="dash-drawer" id="drawer-account">
+    <div class="dash-drawer-header"><h2 class="dash-drawer-title">Account Settings</h2><button class="dash-drawer-close" onclick="closePanel()">&#10005;</button></div>
+    <div class="dash-drawer-body">
+      <div class="dashboard-grid-2">
+        <div class="dashboard-field"><label for="accountName">Your Name</label><input type="text" id="accountName" placeholder="Your name"></div>
+        <div class="dashboard-field"><label for="accountEmail">Login Email</label><input type="email" id="accountEmail" placeholder="you@example.com"></div>
+      </div>
+      <div class="dashboard-field" style="margin-top:14px;"><label for="accountPassword">New Password</label><input type="password" id="accountPassword" placeholder="Leave blank if not changing"></div>
+      <div class="dashboard-actions" style="margin-top:16px;"><button type="button" id="saveAccountBtn" class="pretty-button">Update Account</button></div>
+      <p id="accountMessage" class="dashboard-help"></p>
+      <p class="dashboard-help">If changing your email or password does not work, Firebase may ask you to log in again first.</p>
+    </div>
+  </div>
 
 </main>
 
-<!-- ── FOOTER ── -->
 <footer class="site-footer">
   <div class="footer-content">
     <div class="footer-logo-col">
-      <a href="index.html" aria-label="Go to homepage">
-        <img src="images/logo1.png" alt="Our Wedding Day Hub" style="width:52px; height:52px; object-fit:contain; opacity:0.5; margin-bottom:6px;">
-      </a>
+      <a href="index.html" aria-label="Go to homepage"><img src="images/logo1.png" alt="Our Wedding Day Hub" style="width:52px; height:52px; object-fit:contain; opacity:0.5; margin-bottom:6px;"></a>
       <p class="footer-eyebrow">Wedding planning directory</p>
       <h2 class="footer-title">Everything your wedding deserves.</h2>
       <p class="footer-text">Browse trusted wedding businesses, discover local favourites, and connect with the people who can bring your day to life.</p>
-      <p class="footer-tagline">everything your wedding day deserves. ♡</p>
-      <p class="footer-abn">© 2026 Our Wedding Day Hub</p>
-      <p class="footer-abn">ABN 76 688 637 041 • Australia</p>
+      <p class="footer-tagline">everything your wedding day deserves. &#9825;</p>
+      <p class="footer-abn">&#169; 2026 Our Wedding Day Hub</p>
+      <p class="footer-abn">ABN 76 688 637 041 &#8226; Australia</p>
     </div>
     <div class="footer-links-col">
       <div class="footer-links">
-        <a href="about.html">About Us</a>
-        <a href="how-it-works.html">How It Works</a>
-        <a href="pricing.html">Pricing</a>
-        <a href="contact.html">Contact Us</a>
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="terms.html">Terms &amp; Conditions</a>
-        <a href="refund-policy.html">Refund Policy</a>
-        <a href="https://www.equaldex.com/equality-index" target="_blank" rel="noopener noreferrer">Global Equality Index</a>
-        <a href="#" onclick="return false;">Events4Us (Coming Soon)</a>
+        <a href="about.html">About Us</a><a href="how-it-works.html">How It Works</a><a href="pricing.html">Pricing</a><a href="contact.html">Contact Us</a><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms &amp; Conditions</a><a href="refund-policy.html">Refund Policy</a><a href="https://www.equaldex.com/equality-index" target="_blank" rel="noopener noreferrer">Global Equality Index</a><a href="#" onclick="return false;">Events4Us (Coming Soon)</a>
       </div>
-      <p style="font-family:var(--font-sans); font-size:0.65rem; color:var(--ink-muted); margin-top:12px; letter-spacing:0.06em;">Proudly inclusive • Worldwide • Built with heart</p>
+      <p style="font-family:var(--font-sans); font-size:0.65rem; color:var(--ink-muted); margin-top:12px; letter-spacing:0.06em;">Proudly inclusive &#8226; Worldwide &#8226; Built with heart</p>
     </div>
   </div>
 </footer>
 
-<!-- ── DRAWER JS ── -->
 <script>
   function openPanel(name) {
     document.querySelectorAll(".dash-drawer").forEach(d => d.classList.remove("open"));
@@ -1161,17 +653,14 @@
     document.body.style.overflow = "";
   }
   document.addEventListener("keydown", e => { if (e.key === "Escape") closePanel(); });
-
-  // Badge helpers — called from Firebase JS after data loads
   window.updateDashBadge = function(section, state, label) {
     const el = document.getElementById("badge-" + section);
     if (!el) return;
-    el.className = "dash-card-badge " + (state === "ok" ? "dash-badge-ok" : state === "live" ? "dash-badge-ok" : "dash-badge-todo");
+    el.className = "dash-card-badge " + (state === "ok" || state === "live" ? "dash-badge-ok" : "dash-badge-todo");
     el.textContent = label;
   };
 </script>
 
-<!-- ── ALL FIREBASE JS — COMPLETELY UNCHANGED ── -->
 <script type="module">
 import {
   auth, db, storage, onAuthStateChanged, doc, getDoc, setDoc, serverTimestamp,
@@ -1260,8 +749,8 @@ import { LOCATION_DATA } from "./locations.js";
   const boutiqueProductList = document.getElementById("boutiqueProductList");
   const msgUnreadBadge = document.getElementById("msgUnreadBadge");
   const msgSummaryPreview = document.getElementById("msgSummaryPreview");
-  const navMsgBadge = document.getElementById("navMsgBadge");
-  const messagesNavLink = document.getElementById("messagesNavLink");
+  const navMsgBadge = document.getElementById("msgNavBadge");
+  const messagesNavLink = document.getElementById("messagesLink");
 
   let currentBoutiqueProducts = [];
   let currentUser = null;
@@ -1323,71 +812,40 @@ import { LOCATION_DATA } from "./locations.js";
 
   function setSingleImagePreview(url, img, empty) { if (url) { img.src = url; img.style.display = "block"; empty.style.display = "none"; } else { img.removeAttribute("src"); img.style.display = "none"; empty.style.display = "block"; } }
 
-  // ── DRAG-AND-DROP MEDIA REORDER ──
   let dragSrcIndex = null;
-  let dragType = null; // "image" | "video"
+  let dragType = null;
 
   function makeDraggable(el, index, type) {
     el.draggable = true;
-    el.addEventListener("dragstart", e => {
-      dragSrcIndex = index; dragType = type;
-      e.dataTransfer.effectAllowed = "move";
-      setTimeout(() => el.classList.add("dragging"), 0);
-    });
+    el.addEventListener("dragstart", e => { dragSrcIndex = index; dragType = type; e.dataTransfer.effectAllowed = "move"; setTimeout(() => el.classList.add("dragging"), 0); });
     el.addEventListener("dragend", () => el.classList.remove("dragging"));
     el.addEventListener("dragover", e => { e.preventDefault(); e.dataTransfer.dropEffect = "move"; el.classList.add("drag-over"); });
     el.addEventListener("dragleave", () => el.classList.remove("drag-over"));
-    el.addEventListener("drop", e => {
-      e.preventDefault(); el.classList.remove("drag-over");
-      if (dragSrcIndex === null || dragSrcIndex === index || dragType !== type) return;
-      const arr = type === "image" ? currentGalleryImages : currentGalleryVideos;
-      const moved = arr.splice(dragSrcIndex, 1)[0];
-      arr.splice(index, 0, moved);
-      if (type === "image") { currentGalleryImages = arr; setImagePreview(); }
-      else { currentGalleryVideos = arr; setVideoPreview(); }
-      dragSrcIndex = null;
-    });
+    el.addEventListener("drop", e => { e.preventDefault(); el.classList.remove("drag-over"); if (dragSrcIndex === null || dragSrcIndex === index || dragType !== type) return; const arr = type === "image" ? currentGalleryImages : currentGalleryVideos; const moved = arr.splice(dragSrcIndex, 1)[0]; arr.splice(index, 0, moved); if (type === "image") { currentGalleryImages = arr; setImagePreview(); } else { currentGalleryVideos = arr; setVideoPreview(); } dragSrcIndex = null; });
   }
 
   function buildMediaCard(type, url, onRemove, index = 0) {
-    const wrap = document.createElement("div");
-    wrap.className = "media-preview-item";
-    // drag handle hint
-    const handle = document.createElement("div");
-    handle.className = "media-drag-handle";
-    handle.textContent = "⠿ drag to reorder";
-    wrap.appendChild(handle);
+    const wrap = document.createElement("div"); wrap.className = "media-preview-item";
+    const handle = document.createElement("div"); handle.className = "media-drag-handle"; handle.textContent = "⠿ drag to reorder"; wrap.appendChild(handle);
     if (type === "image" && index === 0) { const b = document.createElement("div"); b.className = "cover-photo-badge"; b.textContent = "Cover photo"; wrap.appendChild(b); }
-    if (type === "image") {
-      const img = document.createElement("img"); img.src = url; img.loading = "lazy"; wrap.appendChild(img);
-    } else {
-      const v = document.createElement("video"); v.src = url; v.controls = true; v.preload = "metadata"; wrap.appendChild(v);
-    }
+    if (type === "image") { const img = document.createElement("img"); img.src = url; img.loading = "lazy"; wrap.appendChild(img); }
+    else { const v = document.createElement("video"); v.src = url; v.controls = true; v.preload = "metadata"; wrap.appendChild(v); }
     const rm = document.createElement("button"); rm.type = "button"; rm.className = "remove-media-btn"; rm.textContent = "Remove";
     rm.addEventListener("click", onRemove); wrap.appendChild(rm);
     makeDraggable(wrap, index, type);
     return wrap;
   }
 
-  function setImagePreview() {
-    imagePreview.innerHTML = "";
-    if (!currentGalleryImages.length) { imagePreview.innerHTML = '<p class="small-text" style="margin-top:8px;">No photos uploaded yet.</p>'; return; }
-    currentGalleryImages.forEach((u, i) => imagePreview.appendChild(buildMediaCard("image", u, () => { currentGalleryImages = currentGalleryImages.filter(x => x !== u); setImagePreview(); }, i)));
-  }
-  function setVideoPreview() {
-    videoPreview.innerHTML = "";
-    if (!currentGalleryVideos.length) return;
-    currentGalleryVideos.slice(0, 8).forEach((u, i) => videoPreview.appendChild(buildMediaCard("video", u, () => { currentGalleryVideos = currentGalleryVideos.filter(x => x !== u); setVideoPreview(); }, i)));
-  }
+  function setImagePreview() { imagePreview.innerHTML = ""; if (!currentGalleryImages.length) { imagePreview.innerHTML = '<p class="small-text" style="margin-top:8px;">No photos uploaded yet.</p>'; return; } currentGalleryImages.forEach((u, i) => imagePreview.appendChild(buildMediaCard("image", u, () => { currentGalleryImages = currentGalleryImages.filter(x => x !== u); setImagePreview(); }, i))); }
+  function setVideoPreview() { videoPreview.innerHTML = ""; if (!currentGalleryVideos.length) return; currentGalleryVideos.slice(0, 8).forEach((u, i) => videoPreview.appendChild(buildMediaCard("video", u, () => { currentGalleryVideos = currentGalleryVideos.filter(x => x !== u); setVideoPreview(); }, i))); }
   function showSelectedFileNames(input, el, multi) { const f = Array.from(input.files || []); el.textContent = f.length ? (multi ? `${f.length} file${f.length===1?"":"s"} selected` : f[0].name) : ""; }
   function previewLocalSingleImage(file, img, empty) { if (!file) return; img.src = URL.createObjectURL(file); img.style.display = "block"; empty.style.display = "none"; }
   function toLocalDateString(d) { return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`; }
   function formatDateForDisplay(s) { return s ? new Date(s+"T00:00:00").toLocaleDateString("en-AU", { day:"numeric", month:"short", year:"numeric" }) : ""; }
   function addMonthsToDate(d, m) { const c = new Date(d); c.setMonth(c.getMonth() + m); return c; }
-
   function renderBlockedDates() { blockedDateList.innerHTML = ""; if (!currentBlockedDates.length) { blockedDateList.innerHTML = '<p class="small-text">No unavailable dates added yet.</p>'; return; } currentBlockedDates.slice().sort().forEach(dv => { const chip = document.createElement("div"); chip.className = "date-chip"; const t = document.createElement("span"); t.textContent = formatDateForDisplay(dv); const rm = document.createElement("button"); rm.type = "button"; rm.className = "date-remove-btn"; rm.textContent = "Remove"; rm.addEventListener("click", () => { currentBlockedDates = currentBlockedDates.filter(d => d !== dv); renderBlockedDates(); }); chip.appendChild(t); chip.appendChild(rm); blockedDateList.appendChild(chip); }); }
   function addBlockedDate() { const v = blockedDateInput.value; if (!v) return; if (!currentBlockedDates.includes(v)) currentBlockedDates.push(v); currentBlockedDates = [...new Set(currentBlockedDates)].sort(); blockedDateInput.value = ""; renderBlockedDates(); }
-  function applyBulkWeekdayBlock() { const wd = Array.from(weekdayOptions.querySelectorAll("input:checked")).map(i => Number(i.value)); if (!wd.length) { return; } let sv = bulkStartDate.value; let ev = bulkEndDate.value; const pm = bulkMonthsPreset.value; const today = toLocalDateString(new Date()); if (!sv) { sv = today; bulkStartDate.value = sv; } if (!ev && pm) { ev = toLocalDateString(addMonthsToDate(new Date(sv+"T00:00:00"), Number(pm))); bulkEndDate.value = ev; } if (!ev) { return; } if (ev < sv) { return; } const sd = new Date(sv+"T00:00:00"); const ed = new Date(ev+"T00:00:00"); let added = 0; const ex = new Set(currentBlockedDates); for (let d = new Date(sd); d <= ed; d.setDate(d.getDate()+1)) { if (wd.includes(d.getDay())) { const ds = toLocalDateString(d); if (!ex.has(ds)) { ex.add(ds); added++; } } } currentBlockedDates = Array.from(ex).sort(); renderBlockedDates(); }
+  function applyBulkWeekdayBlock() { const wd = Array.from(weekdayOptions.querySelectorAll("input:checked")).map(i => Number(i.value)); if (!wd.length) return; let sv = bulkStartDate.value; let ev = bulkEndDate.value; const pm = bulkMonthsPreset.value; const today = toLocalDateString(new Date()); if (!sv) { sv = today; bulkStartDate.value = sv; } if (!ev && pm) { ev = toLocalDateString(addMonthsToDate(new Date(sv+"T00:00:00"), Number(pm))); bulkEndDate.value = ev; } if (!ev || ev < sv) return; const sd = new Date(sv+"T00:00:00"); const ed = new Date(ev+"T00:00:00"); const ex = new Set(currentBlockedDates); for (let d = new Date(sd); d <= ed; d.setDate(d.getDate()+1)) { if (wd.includes(d.getDay())) ex.add(toLocalDateString(d)); } currentBlockedDates = Array.from(ex).sort(); renderBlockedDates(); }
 
   profileImageFile.addEventListener("change", e => { showSelectedFileNames(profileImageFile, profileImageFileName, false); if (e.target.files?.[0]) previewLocalSingleImage(e.target.files[0], profileImagePreview, profileImageEmpty); });
   logoFile.addEventListener("change", e => { showSelectedFileNames(logoFile, logoFileName, false); if (e.target.files?.[0]) previewLocalSingleImage(e.target.files[0], logoPreview, logoEmpty); });
@@ -1409,12 +867,7 @@ import { LOCATION_DATA } from "./locations.js";
       try {
         uploadFile = await new Promise((resolve, reject) => {
           const img = new Image();
-          img.onload = () => {
-            const canvas = document.createElement("canvas");
-            canvas.width = img.naturalWidth; canvas.height = img.naturalHeight;
-            canvas.getContext("2d").drawImage(img, 0, 0);
-            canvas.toBlob(blob => { if (!blob) reject(new Error("Conversion failed")); else resolve(new File([blob], `${safeBase}.webp`, { type: "image/webp" })); }, "image/webp", 0.9);
-          };
+          img.onload = () => { const canvas = document.createElement("canvas"); canvas.width = img.naturalWidth; canvas.height = img.naturalHeight; canvas.getContext("2d").drawImage(img, 0, 0); canvas.toBlob(blob => { if (!blob) reject(new Error("Conversion failed")); else resolve(new File([blob], `${safeBase}.webp`, { type: "image/webp" })); }, "image/webp", 0.9); };
           img.onerror = reject;
           img.src = URL.createObjectURL(file);
         });
@@ -1431,82 +884,35 @@ import { LOCATION_DATA } from "./locations.js";
   let editingProductId = null;
 
   function clearProductForm() {
-    editingProductId = null;
-    saveProductBtn.textContent = "Add Boutique Listing";
-    const cancelBtn = document.getElementById("cancelEditBtn");
-    if (cancelBtn) cancelBtn.style.display = "none";
+    editingProductId = null; saveProductBtn.textContent = "Add Boutique Listing";
+    const cancelBtn = document.getElementById("cancelEditBtn"); if (cancelBtn) cancelBtn.style.display = "none";
     [productName, productPrice, productCategory, productStock, productDescription, productPurchaseLink, productImageFiles, shippingCost, shippingLocations].forEach(el => el.value = "");
-    paymentMethod.value = "own"; fulfilmentMethod.value = "email"; fulfilmentDetails.value = ""; productStatus.value = "draft"; productImageFileName.textContent = "";
-    boutiqueMessage.textContent = "";
+    paymentMethod.value = "own"; fulfilmentMethod.value = "email"; fulfilmentDetails.value = ""; productStatus.value = "draft"; productImageFileName.textContent = ""; boutiqueMessage.textContent = "";
   }
 
   function populateProductForm(p) {
-    editingProductId = p.id;
-    saveProductBtn.textContent = "Save Changes";
-    const cancelBtn = document.getElementById("cancelEditBtn");
-    if (cancelBtn) cancelBtn.style.display = "inline-flex";
-    productName.value = p.name || "";
-    productPrice.value = p.price || "";
-    productCategory.value = p.category || "";
-    productStock.value = p.stock || "";
-    productDescription.value = p.description || "";
-    productPurchaseLink.value = p.purchaseLink || "";
-    paymentMethod.value = p.paymentMethod || "own";
-    fulfilmentMethod.value = p.fulfilmentMethod || "email";
-    fulfilmentDetails.value = p.fulfilmentDetails || "";
-    shippingCost.value = p.shippingCost || "";
-    shippingLocations.value = p.shippingLocations || "";
-    productStatus.value = p.status || "draft";
-    productImageFileName.textContent = "";
-    boutiqueMessage.textContent = "";
-    // Scroll form into view
-    const form = document.getElementById("saveProductBtn");
-    if (form) form.scrollIntoView({ behavior: "smooth", block: "center" });
+    editingProductId = p.id; saveProductBtn.textContent = "Save Changes";
+    const cancelBtn = document.getElementById("cancelEditBtn"); if (cancelBtn) cancelBtn.style.display = "inline-flex";
+    productName.value = p.name||""; productPrice.value = p.price||""; productCategory.value = p.category||""; productStock.value = p.stock||""; productDescription.value = p.description||""; productPurchaseLink.value = p.purchaseLink||""; paymentMethod.value = p.paymentMethod||"own"; fulfilmentMethod.value = p.fulfilmentMethod||"email"; fulfilmentDetails.value = p.fulfilmentDetails||""; shippingCost.value = p.shippingCost||""; shippingLocations.value = p.shippingLocations||""; productStatus.value = p.status||"draft"; productImageFileName.textContent = ""; boutiqueMessage.textContent = "";
+    const form = document.getElementById("saveProductBtn"); if (form) form.scrollIntoView({ behavior: "smooth", block: "center" });
   }
 
   function renderBoutiqueProducts() {
     boutiqueProductList.innerHTML = "";
     if (productCountText) productCountText.textContent = `Products: ${currentBoutiqueProducts.length}`;
-    if (!currentBoutiqueProducts.length) {
-      boutiqueProductList.innerHTML = '<p class="small-text" style="padding:16px; background:var(--cream); border:0.5px solid var(--ink-rule);">No boutique listings yet — add your first one above.</p>';
-      return;
-    }
+    if (!currentBoutiqueProducts.length) { boutiqueProductList.innerHTML = '<p class="small-text" style="padding:16px; background:var(--cream); border:0.5px solid var(--ink-rule);">No boutique listings yet — add your first one above.</p>'; return; }
     currentBoutiqueProducts.forEach(p => {
-      const card = document.createElement("div");
-      card.className = "boutique-product-card";
+      const card = document.createElement("div"); card.className = "boutique-product-card";
       const iu = Array.isArray(p.images) && p.images.length ? p.images[0] : "";
-      if (iu) {
-        const img = document.createElement("img");
-        img.src = iu; img.loading = "lazy"; img.alt = p.name || "Product";
-        card.appendChild(img);
-      } else {
-        const placeholder = document.createElement("div");
-        placeholder.style.cssText = "width:100%; aspect-ratio:4/3; background:var(--cream-deep); display:flex; align-items:center; justify-content:center; color:var(--ink-ghost); font-size:1.5rem;";
-        placeholder.textContent = "✧";
-        card.appendChild(placeholder);
-      }
-      const body = document.createElement("div");
-      body.className = "boutique-product-card-body";
-      body.innerHTML = `
-        <p class="boutique-product-card-name">${p.name || "Untitled"}</p>
-        <p class="boutique-product-card-meta">${p.price ? `A$${Number(p.price).toFixed(2)}` : "Price not set"} · ${p.status === "live" ? "Live" : p.status === "sold_out" ? "Sold out" : "Draft"}</p>
-        ${p.stock !== undefined ? `<p class="boutique-product-card-meta">Stock: ${p.stock}</p>` : ""}
-      `;
-      const actions = document.createElement("div");
-      actions.className = "boutique-product-card-actions";
-      const editBtn = document.createElement("button");
-      editBtn.type = "button"; editBtn.textContent = "Edit";
-      editBtn.style.cssText = "background:var(--ink); color:var(--cream); border-color:var(--ink);";
-      editBtn.addEventListener("click", () => populateProductForm(p));
-      const viewBtn = document.createElement("a");
-      viewBtn.href = `product.html?id=${p.id}`; viewBtn.textContent = "View";
-      const deleteBtn = document.createElement("button");
-      deleteBtn.type = "button"; deleteBtn.textContent = "Delete";
-      deleteBtn.addEventListener("click", () => deleteBoutiqueProduct(p.id));
-      actions.appendChild(editBtn); actions.appendChild(viewBtn); actions.appendChild(deleteBtn);
-      body.appendChild(actions);
-      card.appendChild(body);
-      boutiqueProductList.appendChild(card);
+      if (iu) { const img = document.createElement("img"); img.src = iu; img.loading = "lazy"; img.alt = p.name||"Product"; card.appendChild(img); }
+      else { const ph = document.createElement("div"); ph.style.cssText = "width:100%; aspect-ratio:4/3; background:var(--cream-deep); display:flex; align-items:center; justify-content:center; color:var(--ink-ghost); font-size:1.5rem;"; ph.textContent = "✧"; card.appendChild(ph); }
+      const body = document.createElement("div"); body.className = "boutique-product-card-body";
+      body.innerHTML = `<p class="boutique-product-card-name">${p.name||"Untitled"}</p><p class="boutique-product-card-meta">${p.price ? `A$${Number(p.price).toFixed(2)}` : "Price not set"} · ${p.status === "live" ? "Live" : p.status === "sold_out" ? "Sold out" : "Draft"}</p>${p.stock !== undefined ? `<p class="boutique-product-card-meta">Stock: ${p.stock}</p>` : ""}`;
+      const actions = document.createElement("div"); actions.className = "boutique-product-card-actions";
+      const editBtn = document.createElement("button"); editBtn.type = "button"; editBtn.textContent = "Edit"; editBtn.style.cssText = "background:var(--ink); color:var(--cream); border-color:var(--ink);"; editBtn.addEventListener("click", () => populateProductForm(p));
+      const viewBtn = document.createElement("a"); viewBtn.href = `product.html?id=${p.id}`; viewBtn.textContent = "View";
+      const deleteBtn = document.createElement("button"); deleteBtn.type = "button"; deleteBtn.textContent = "Delete"; deleteBtn.addEventListener("click", () => deleteBoutiqueProduct(p.id));
+      actions.appendChild(editBtn); actions.appendChild(viewBtn); actions.appendChild(deleteBtn); body.appendChild(actions); card.appendChild(body); boutiqueProductList.appendChild(card);
     });
   }
 
@@ -1514,7 +920,6 @@ import { LOCATION_DATA } from "./locations.js";
     const snap = await getDocs(query(collection(db, "boutiqueProducts"), where("vendorId", "==", uid), orderBy("createdAt", "desc")));
     currentBoutiqueProducts = snap.docs.map(d => ({ id: d.id, ...d.data() }));
     renderBoutiqueProducts();
-    // Update stat strip
     const statProducts = document.getElementById("statProducts");
     if (statProducts) statProducts.textContent = currentBoutiqueProducts.length;
   }
@@ -1534,39 +939,16 @@ import { LOCATION_DATA } from "./locations.js";
     try {
       const imgs = [];
       if (productImageFiles.files?.length) { for (const f of Array.from(productImageFiles.files)) imgs.push(await uploadFileToStorage(f, "boutique-product-images", currentUser.uid)); }
-
-      const data = {
-        vendorId: currentUser.uid, vendorName: businessName.value.trim(),
-        name, price, category: productCategory.value,
-        stock: Number(productStock.value||0),
-        description: productDescription.value.trim(),
-        paymentMethod: paymentMethod.value,
-        purchaseLink: productPurchaseLink.value.trim(),
-        fulfilmentMethod: fulfilmentMethod.value,
-        fulfilmentDetails: fulfilmentDetails.value.trim(),
-        shippingCost: shippingCost.value.trim(),
-        shippingLocations: shippingLocations.value.trim(),
-        status: productStatus.value||"draft",
-        visible: productStatus.value === "live",
-        updatedAt: serverTimestamp()
-      };
-
+      const data = { vendorId: currentUser.uid, vendorName: businessName.value.trim(), name, price, category: productCategory.value, stock: Number(productStock.value||0), description: productDescription.value.trim(), paymentMethod: paymentMethod.value, purchaseLink: productPurchaseLink.value.trim(), fulfilmentMethod: fulfilmentMethod.value, fulfilmentDetails: fulfilmentDetails.value.trim(), shippingCost: shippingCost.value.trim(), shippingLocations: shippingLocations.value.trim(), status: productStatus.value||"draft", visible: productStatus.value === "live", updatedAt: serverTimestamp() };
       if (editingProductId) {
-        // Edit mode — update existing, only add new images if uploaded
-        if (imgs.length) {
-          const existing = currentBoutiqueProducts.find(p => p.id === editingProductId);
-          data.images = [...(existing?.images || []), ...imgs];
-        }
+        if (imgs.length) { const existing = currentBoutiqueProducts.find(p => p.id === editingProductId); data.images = [...(existing?.images || []), ...imgs]; }
         await updateDoc(doc(db, "boutiqueProducts", editingProductId), data);
         boutiqueMessage.textContent = "Changes saved ♡";
       } else {
-        // Create mode
-        data.images = imgs;
-        data.createdAt = serverTimestamp();
+        data.images = imgs; data.createdAt = serverTimestamp();
         await addDoc(collection(db, "boutiqueProducts"), data);
         boutiqueMessage.textContent = "Product added successfully ♡";
       }
-
       clearProductForm();
       await loadBoutiqueProducts(currentUser.uid);
     } catch (err) { console.error(err); boutiqueMessage.textContent = "There was a problem saving this product."; }
@@ -1588,8 +970,6 @@ import { LOCATION_DATA } from "./locations.js";
     accountStatusText.textContent = `Account status: ${vd.accountStatus||"active"}`;
     subscriptionStatusText.textContent = `Plan access: ${getPlanAccessLabel(vd)}`;
     viewsStatusText.textContent = `Profile views: ${getProfileViews(vd)}`;
-
-    // ── PERSONALISED HERO ──
     const heroTitle = document.getElementById("dashboardHeroTitle");
     const heroScript = document.getElementById("dashboardHeroScript");
     const liveStatusBadge = document.getElementById("liveStatusBadge");
@@ -1600,14 +980,10 @@ import { LOCATION_DATA } from "./locations.js";
     if (liveStatusBadge) liveStatusBadge.classList.toggle("is-live", isLive);
     if (liveStatusText) liveStatusText.textContent = isLive ? "Profile is live — couples can find you" : "Profile not live — turn on in Status";
     if (heroScript) heroScript.textContent = isLive ? "couples are discovering you right now ♡" : "your profile is your first impression ♡";
-
-    // ── STAT STRIP ──
     const statViews = document.getElementById("statViews");
     const statCategories = document.getElementById("statCategories");
     if (statViews) statViews.textContent = getProfileViews(vd) || "0";
     if (statCategories) statCategories.textContent = Array.isArray(vd.categories) ? vd.categories.length : "0";
-
-    // ── CARD BADGES ──
     const isLiveNow = vd.profileVisible === true || vd.published === true;
     window.updateDashBadge?.("status", isLiveNow ? "live" : "off", isLiveNow ? "● Live — couples can find you" : "● Not live");
     window.updateDashBadge?.("business", vd.businessName ? "ok" : "todo", vd.businessName ? "✓ Filled in" : "○ Fill in your details");
@@ -1623,7 +999,6 @@ import { LOCATION_DATA } from "./locations.js";
     window.updateDashBadge?.("locations", locCount > 0 ? "ok" : "todo", locCount > 0 ? `✓ ${locCount} location${locCount===1?"":"s"}` : "○ No locations yet");
     renderStyleTags(Array.isArray(vd.styleTags) ? vd.styleTags : []);
     renderCategoryOptions(Array.isArray(vd.categories) ? vd.categories : []);
-    // Load locations into the new Places search panel
     const savedLocations = Array.isArray(vd.serviceLocationLabels) && vd.serviceLocationLabels.length
       ? vd.serviceLocationLabels
       : [...(Array.isArray(vd.regions) ? vd.regions : []), ...(Array.isArray(vd.states) ? vd.states : []), ...(Array.isArray(vd.countries) && vd.countries.length ? vd.countries : vd.country ? [vd.country] : [])].filter(Boolean);
@@ -1646,7 +1021,6 @@ import { LOCATION_DATA } from "./locations.js";
         let total = 0; snap.forEach(d => { total += (d.data().vendorUnread || 0); });
         if (total > 0) { msgUnreadBadge.textContent = total; msgUnreadBadge.style.display = "inline-flex"; if (navMsgBadge) { navMsgBadge.textContent = total; navMsgBadge.style.display = "inline"; } }
         else { msgUnreadBadge.style.display = "none"; if (navMsgBadge) navMsgBadge.style.display = "none"; }
-        // Update stat strip
         const statMessages = document.getElementById("statMessages");
         const statMessagesItem = document.getElementById("statMessagesItem");
         if (statMessages) statMessages.textContent = total || "0";
@@ -1683,7 +1057,6 @@ import { LOCATION_DATA } from "./locations.js";
       if (galleryVideoFiles.files?.length) { const u = []; for (const f of Array.from(galleryVideoFiles.files)) u.push(await uploadFileToStorage(f, "vendor-gallery-videos", currentUser.uid)); gv = [...gv, ...u]; }
       gi = [...new Set(gi)]; gv = [...new Set(gv)]; currentBlockedDates = [...new Set(currentBlockedDates)].sort();
       const cover = gi[0] || ""; const shop = hasShopAccess(currentVendorAccess);
-      // Pull location data from the Places search system
       const placesCountries = window._placesCountries || cos;
       const placesStates    = window._placesStates    || sts;
       const placesRegions   = window._placesRegions   || regs;
@@ -1697,7 +1070,6 @@ import { LOCATION_DATA } from "./locations.js";
       setSingleImagePreview(pi, profileImagePreview, profileImageEmpty); setSingleImagePreview(li, logoPreview, logoEmpty);
       setImagePreview(); setVideoPreview(); renderBlockedDates(); updateViewProfileVisibility(currentVendorAccess); updateBoutiqueAccessVisibility(currentVendorAccess);
       show("Your changes have been saved ♡");
-      // Refresh badges
       const vdSnap2 = await getDoc(doc(db,"vendors",currentUser.uid));
       if (vdSnap2.exists()) {
         const vd2 = vdSnap2.data();
@@ -1735,26 +1107,40 @@ import { LOCATION_DATA } from "./locations.js";
     document.getElementById("cancelEditBtn").style.display = "none";
   });
 
-onAuthStateChanged(auth, async (user) => {
-  if (!user) { window.location.href = "login.html"; return; }
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) { window.location.href = "login.html"; return; }
+    await user.reload();
+    currentUser = auth.currentUser;
 
-  await user.reload();
-  currentUser = auth.currentUser;
+    // ── Own nav auth state ──
+    const _ll = document.getElementById("loginLink");
+    const _jl = document.getElementById("joinLink");
+    const _dl = document.getElementById("dashboardLink");
+    const _lo = document.getElementById("logoutLink");
+    if (_ll) _ll.style.display = "none";
+    if (_jl) _jl.style.display = "none";
+    if (_dl) _dl.style.display = "inline-flex";
+    if (_lo) {
+      _lo.style.display = "inline-flex";
+      _lo.addEventListener("click", async () => {
+        try { const { auth: _a, signOut: _s } = await import("./firebase.js"); await _s(_a); } catch(e){}
+        window.location.href = "index.html";
+      });
+    }
 
-  const verifyBanner = document.getElementById("verifyEmailBanner");
-if (verifyBanner && currentUser && !currentUser.emailVerified) {
-  verifyBanner.style.display = "block";
-} else if (verifyBanner) {
-  verifyBanner.style.display = "none";
-}
+    const verifyBanner = document.getElementById("verifyEmailBanner");
+    if (verifyBanner && currentUser && !currentUser.emailVerified) {
+      verifyBanner.style.display = "block";
+    } else if (verifyBanner) {
+      verifyBanner.style.display = "none";
+    }
 
-  await loadVendorData(currentUser.uid);
-});
+    await loadVendorData(currentUser.uid);
+  });
 </script>
 
 <script type="module" src="nav.js"></script>
 
-<!-- ── GOOGLE PLACES LOCATION SEARCH ── -->
 <script>
 (function() {
   let selectedLocations = [];
@@ -1762,10 +1148,7 @@ if (verifyBanner && currentUser && !currentUser.emailVerified) {
 
   const FALLBACK = ["Australia","New Zealand","United Kingdom","United States","Canada","Ireland","South Africa","France","Italy","Spain","Greece","Portugal","Germany","Netherlands","Switzerland","Japan","Singapore","Thailand","Indonesia","Philippines","Malaysia","India","Dubai, UAE","Bali, Indonesia","Tuscany, Italy","Paris, France","London, UK","New York, USA","Sydney, Australia","Melbourne, Australia","Brisbane, Australia","Perth, Australia","Adelaide, Australia","Gold Coast, Queensland","Sunshine Coast, Queensland","Byron Bay, New South Wales","Hunter Valley, New South Wales","Yarra Valley, Victoria","Mornington Peninsula, Victoria","Auckland, New Zealand","Queenstown, New Zealand","Edinburgh, Scotland","Dublin, Ireland","Barcelona, Spain","Rome, Italy","Santorini, Greece","Amalfi Coast, Italy","Worldwide","Online / Virtual"];
 
-  function getFallback(q) {
-    const lq = q.toLowerCase();
-    return FALLBACK.filter(l => l.toLowerCase().includes(lq)).slice(0, 8).map(l => ({ description: l }));
-  }
+  function getFallback(q) { const lq = q.toLowerCase(); return FALLBACK.filter(l => l.toLowerCase().includes(lq)).slice(0, 8).map(l => ({ description: l })); }
 
   function setupSearch() {
     const input = document.getElementById("locationSearchInput");
@@ -1782,49 +1165,31 @@ if (verifyBanner && currentUser && !currentUser.emailVerified) {
         results.forEach(r => {
           const item = document.createElement("div");
           item.style.cssText = "padding:10px 14px; font-family:var(--font-sans); font-size:0.84rem; color:var(--ink); cursor:pointer; border-bottom:0.5px solid var(--ink-rule); display:flex; align-items:center; gap:10px; background:var(--cream);";
-          item.innerHTML = `<span style="color:var(--ink-ghost);">⊕</span><span>${r.description}</span>`;
+          item.innerHTML = `<span style="color:var(--ink-ghost);">&#8853;</span><span>${r.description}</span>`;
           item.addEventListener("mouseenter", () => item.style.background = "var(--cream-warm)");
           item.addEventListener("mouseleave", () => item.style.background = "var(--cream)");
-          item.addEventListener("mousedown", e => {
-            e.preventDefault();
-            addLocation({ label: r.description, placeId: `loc_${r.description}`, types: [] });
-            input.value = "";
-            dropdown.style.display = "none";
-          });
+          item.addEventListener("mousedown", e => { e.preventDefault(); addLocation({ label: r.description, placeId: `loc_${r.description}`, types: [] }); input.value = ""; dropdown.style.display = "none"; });
           dropdown.appendChild(item);
         });
         dropdown.style.display = "block";
       }, 200);
     });
     input.addEventListener("blur", () => setTimeout(() => { dropdown.style.display = "none"; }, 150));
-    input.addEventListener("keydown", e => { if (e.key === "Escape") { dropdown.style.display = "none"; } });
+    input.addEventListener("keydown", e => { if (e.key === "Escape") dropdown.style.display = "none"; });
   }
 
-  function addLocation(loc) {
-    if (selectedLocations.find(l => l.placeId === loc.placeId)) return;
-    selectedLocations.push(loc);
-    renderTags();
-    sync();
-  }
-
-  function removeLocation(placeId) {
-    selectedLocations = selectedLocations.filter(l => l.placeId !== placeId);
-    renderTags();
-    sync();
-  }
+  function addLocation(loc) { if (selectedLocations.find(l => l.placeId === loc.placeId)) return; selectedLocations.push(loc); renderTags(); sync(); }
+  function removeLocation(placeId) { selectedLocations = selectedLocations.filter(l => l.placeId !== placeId); renderTags(); sync(); }
 
   function renderTags() {
     const container = document.getElementById("locationTags");
     if (!container) return;
     container.innerHTML = "";
-    if (!selectedLocations.length) {
-      container.innerHTML = '<p style="font-family:var(--font-sans); font-size:0.78rem; color:var(--ink-ghost); margin:0;">No locations added yet — search above to add your first one.</p>';
-      return;
-    }
+    if (!selectedLocations.length) { container.innerHTML = '<p style="font-family:var(--font-sans); font-size:0.78rem; color:var(--ink-ghost); margin:0;">No locations added yet — search above to add your first one.</p>'; return; }
     selectedLocations.forEach(loc => {
       const tag = document.createElement("div");
       tag.style.cssText = "display:inline-flex; align-items:center; gap:7px; padding:6px 12px; background:var(--ink); color:var(--cream); font-family:var(--font-sans); font-size:0.76rem; font-weight:600;";
-      tag.innerHTML = `<span>${loc.label}</span><button type="button" style="border:none;background:none;color:rgba(255,255,255,0.55);cursor:pointer;font-size:1rem;line-height:1;padding:0;">×</button>`;
+      tag.innerHTML = `<span>${loc.label}</span><button type="button" style="border:none;background:none;color:rgba(255,255,255,0.55);cursor:pointer;font-size:1rem;line-height:1;padding:0;">&#215;</button>`;
       tag.querySelector("button").addEventListener("click", () => removeLocation(loc.placeId));
       container.appendChild(tag);
     });
@@ -1851,17 +1216,12 @@ if (verifyBanner && currentUser && !currentUser.emailVerified) {
     selectedLocations = (locationsArray || []).map((label, i) => ({ label, placeId: `saved_${i}`, types: [] }));
     const wt = document.getElementById("worldwideToggle");
     if (wt) { wt.checked = !!worldwide; wt.addEventListener("change", sync); }
-    renderTags();
-    sync();
+    renderTags(); sync();
   };
 
   window.addEventListener("DOMContentLoaded", () => { setupSearch(); renderTags(); });
 })();
 </script>
-<script>
-function toggleMenu() {
-  document.querySelector(".nav-links").classList.toggle("active");
-}
-</script>
+<script>function toggleMenu() { document.querySelector(".nav-links").classList.toggle("active"); }</script>
 </body>
 </html>
