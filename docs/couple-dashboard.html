@@ -3,1042 +3,198 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Wedding Dashboard | Our Wedding Day Hub</title>
+  <title>Couple Dashboard | Our Wedding Day Hub</title>
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
   <style>
-    /* ── TOKENS ── */
-    :root {
-      --ink:        #1A1A16;
-      --ink-mid:    #4A4A44;
-      --ink-muted:  #8A8A82;
-      --ink-ghost:  #C0C0B8;
-      --ink-rule:   #DDDDD8;
-      --cream:      #FAFAF8;
-      --cream-warm: #F4F0EA;
-      --cream-deep: #EDE8E0;
-      --gold:       #9A7A5A;
-      --gold-light: #C4A882;
-      --font-serif: 'Cormorant Garamond', Georgia, serif;
-      --font-sans:  'Plus Jakarta Sans', 'Helvetica Neue', Arial, sans-serif;
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { background: var(--cream); font-family: var(--font-sans); color: var(--ink); -webkit-font-smoothing: antialiased; }
-
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes heroFadeIn { from { opacity: 0; transform: scale(1.01); } to { opacity: 1; transform: scale(1); } }
-
-    /* ── TOPBAR ── */
-    .site-topbar {
-      background: var(--cream); border-bottom: 1px solid var(--ink-rule);
-      padding: 0 36px; display: flex; align-items: center; gap: 20px;
-      min-height: 64px; position: sticky; top: 0; z-index: 200; flex-wrap: wrap;
-    }
-    .site-topbar-logo-wrap { display: inline-flex; align-items: center; }
-    .site-topbar-logo { width: 44px; height: 44px; object-fit: contain; }
-    .site-topbar-title { flex: 1; }
-    .site-topbar-title h1 { font-family: var(--font-serif); font-size: 1.05rem; font-weight: 400; letter-spacing: 0.01em; color: var(--ink); }
-    .site-topbar-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-    .site-topbar-link, .site-topbar-btn {
-      display: inline-flex; align-items: center; justify-content: center;
-      min-height: 34px; padding: 6px 14px; font-family: var(--font-sans);
-      font-size: 0.75rem; letter-spacing: 0.06em; text-decoration: none; white-space: nowrap; transition: all 0.2s;
-    }
-    .site-topbar-link { color: var(--ink-muted); border: none; background: none; }
-    .site-topbar-link:hover { color: var(--ink); }
-    .site-topbar-btn { background: var(--ink); color: var(--cream); font-weight: 600; border: none; cursor: pointer; }
-    .site-topbar-btn:hover { background: var(--ink-mid); }
-
-    /* ── HERO ── */
-    .couple-hero-card { border-bottom: 1px solid var(--ink); }
-    .couple-hero-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; align-items: stretch; min-height: 400px; }
-.couple-hero-copy {
-  padding: 48px 40px 40px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 18px;
-  border-right: 1px solid var(--ink-rule);
-}
-    .couple-hero-copy > * { animation: fadeUp 0.7s ease forwards; opacity: 0; }
-    .couple-hero-copy > *:nth-child(1) { animation-delay: 0.05s; }
-    .couple-hero-copy > *:nth-child(2) { animation-delay: 0.12s; }
-    .couple-hero-copy > *:nth-child(3) { animation-delay: 0.2s; }
-    .couple-hero-copy > *:nth-child(4) { animation-delay: 0.28s; }
-    .couple-hero-kicker { font-family: var(--font-sans); font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-ghost); }
-    .couple-hero-title { font-family: var(--font-serif); font-size: clamp(2rem, 3.6vw, 3.2rem); font-weight: 300; line-height: 0.97; letter-spacing: -0.03em; color: var(--ink); }
-    .couple-hero-script { font-family: var(--font-serif); font-style: italic; font-size: 1.15rem; color: var(--gold); }
-.couple-hero-sub {
-  font-family: var(--font-sans);
-  font-size: 0.88rem;
-  color: var(--ink-muted);
-  line-height: 1.8;
-  max-width: 380px;
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-}
-    .couple-hero-image-wrap { position: relative; overflow: hidden; background: var(--cream-deep); min-height: clamp(340px, 40vw, 500px); }
-    .couple-hero-image { width: 100%; height: 100%; display: block; object-fit: cover; opacity: 0; animation: heroFadeIn 0.9s ease forwards; transition: transform 0.9s; }
-    .couple-hero-image-wrap:hover .couple-hero-image { transform: scale(1.025); }
-
-    /* ── WELCOME STRIP ── */
-    .couple-welcome-strip {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 20px 36px; border-bottom: 1px solid var(--ink-rule);
-      background: var(--cream-warm); gap: 24px; flex-wrap: wrap;
-    }
-    .couple-welcome-strip > * { animation: fadeUp 0.6s ease forwards; opacity: 0; }
-    .couple-welcome-strip > *:nth-child(1) { animation-delay: 0.1s; }
-    .couple-welcome-strip > *:nth-child(2) { animation-delay: 0.2s; }
-    .couple-welcome-kicker { font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-ghost); margin-bottom: 4px; }
-    .couple-welcome-title { font-family: var(--font-serif); font-size: clamp(1.5rem, 2.5vw, 2.2rem); font-weight: 300; letter-spacing: -0.025em; color: var(--ink); line-height: 1.05; }
-    .couple-welcome-sub { font-family: var(--font-sans); font-size: 0.82rem; color: var(--ink-muted); line-height: 1.7; margin-top: 4px; }
-    .couple-countdown-wrap { text-align: center; flex-shrink: 0; }
-    .couple-countdown-days { font-family: var(--font-serif); font-size: clamp(2.8rem, 5vw, 4.5rem); font-weight: 300; color: var(--ink); letter-spacing: -0.04em; line-height: 1; display: block; }
-    .couple-countdown-label { font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-ghost); margin-top: 4px; display: block; }
-
-    /* ── PAGE GRID ── */
-    .couple-dashboard { max-width: 1400px; margin: 0 auto; }
-    .couple-body { display: grid; grid-template-columns: 1.4fr 1fr; align-items: start; border-top: 0.5px solid var(--ink-rule); }
-    .couple-main { border-right: 0.5px solid var(--ink-rule); }
-
-    /* ── CARDS ── */
-    .couple-card {
-      padding: 28px 32px; border-bottom: 0.5px solid var(--ink-rule);
-      background: var(--cream); transition: none;
-    }
-    .couple-card:hover { box-shadow: none; }
-    .couple-card-kicker { font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-ghost); margin-bottom: 8px; }
-    .couple-card-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
-    .couple-card-title { font-family: var(--font-serif); font-size: 1.4rem; font-weight: 300; letter-spacing: -0.025em; color: var(--ink); }
-    .couple-card p { font-family: var(--font-sans); font-size: 0.86rem; color: var(--ink-muted); line-height: 1.75; margin-bottom: 10px; }
-    .couple-card p:last-child { margin-bottom: 0; }
-
-    /* ── SIDEBAR ── */
-    .couple-sidebar { display: grid; gap: 0; }
-    .couple-sidebar-card { padding: 24px 24px; border-bottom: 0.5px solid var(--ink-rule); background: var(--cream-warm); }
-    .couple-sidebar-card h2 { font-family: var(--font-serif); font-size: 1.3rem; font-weight: 300; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 14px; }
-
-    /* ── BUTTONS ── */
-    .couple-save-btn {
-      display: inline-flex; align-items: center; justify-content: center;
-      min-height: 40px; padding: 10px 20px; border: none;
-      font-family: var(--font-sans); font-weight: 700; font-size: 0.72rem;
-      letter-spacing: 0.12em; text-transform: uppercase;
-      background: var(--ink); color: var(--cream); cursor: pointer; transition: background 0.2s;
-    }
-    .couple-save-btn:hover { background: var(--ink-mid); transform: none; box-shadow: none; }
-    .couple-save-status, .couple-notes-status {
-      font-family: var(--font-serif); font-style: italic; font-size: 0.92rem;
-      color: var(--gold); min-height: 1.2em; margin-top: 8px !important; display: block;
-    }
-
-    /* ── FIELDS ── */
-    .couple-date-form { display: grid; gap: 14px; }
-    .couple-date-form label {
-      display: block; margin-bottom: 6px;
-      font-family: var(--font-sans); font-size: 0.7rem; font-weight: 700;
-      letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-ghost);
-    }
-    .couple-date-form input[type="date"],
-    .couple-date-form input[type="text"] {
-      width: 100%; border: none; border-bottom: 1px solid var(--ink-rule);
-      border-radius: 0; padding: 11px 0; font-family: var(--font-sans);
-      font-size: 0.9rem; color: var(--ink); background: transparent;
-      transition: border-color 0.2s; outline: none;
-    }
-    .couple-date-form input:focus { border-color: var(--gold); }
-
-    /* ── PROFILE PHOTO ── */
-    .profile-photo-wrap { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; padding-bottom: 18px; border-bottom: 0.5px solid var(--ink-rule); }
-    .profile-photo-circle { width: 64px; height: 64px; object-fit: cover; border: 0.5px solid var(--ink-rule); background: var(--cream-deep); flex: 0 0 64px; }
-    .profile-photo-empty { width: 64px; height: 64px; border: 0.5px solid var(--ink-rule); background: var(--cream-deep); flex: 0 0 64px; display: flex; align-items: center; justify-content: center; color: var(--ink-ghost); font-size: 1.3rem; }
-    .profile-photo-upload-label {
-      display: inline-flex; align-items: center; justify-content: center;
-      min-height: 36px; padding: 8px 16px;
-      font-family: var(--font-sans); font-weight: 700; font-size: 0.68rem;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      background: var(--ink); color: var(--cream); cursor: pointer; transition: background 0.2s;
-    }
-    .profile-photo-upload-label:hover { background: var(--ink-mid); transform: none; }
-    .profile-photo-status { font-family: var(--font-sans); font-size: 0.74rem; color: var(--ink-ghost); margin-top: 4px; }
-
-    /* ── CHECKLIST ── */
-    .couple-checklist { display: grid; gap: 6px; }
-    .checklist-item { display: flex; align-items: center; gap: 12px; padding: 11px 14px; background: var(--cream-warm); border: 0.5px solid var(--ink-rule); cursor: pointer; transition: background 0.18s; }
-    .checklist-item:hover { background: var(--cream-deep); }
-    .checklist-item.done { opacity: 0.55; }
-    .checklist-item.done .checklist-label { text-decoration: line-through; color: var(--ink-ghost); }
-    .checklist-check { width: 18px; height: 18px; border: 0.5px solid var(--ink-rule); background: var(--cream); flex: 0 0 18px; display: flex; align-items: center; justify-content: center; font-size: 0.72rem; color: var(--ink); transition: background 0.18s; }
-    .checklist-item.done .checklist-check { background: var(--ink); color: var(--cream); border-color: var(--ink); }
-    .checklist-label { flex: 1; font-family: var(--font-sans); font-size: 0.86rem; color: var(--ink-mid); line-height: 1.5; }
-    .checklist-progress { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
-    .checklist-bar-wrap { flex: 1; height: 3px; background: var(--ink-rule); overflow: hidden; }
-    .checklist-bar { height: 100%; background: var(--ink); transition: width 0.4s ease; }
-    .checklist-pct { font-family: var(--font-sans); font-size: 0.72rem; font-weight: 700; color: var(--ink-muted); white-space: nowrap; }
-    .checklist-add { display: flex; gap: 8px; margin-top: 12px; }
-    .checklist-add input { flex: 1; border: none; border-bottom: 1px solid var(--ink-rule); border-radius: 0; padding: 10px 0; font-family: var(--font-sans); font-size: 0.86rem; color: var(--ink); background: transparent; outline: none; transition: border-color 0.2s; }
-    .checklist-add input:focus { border-color: var(--gold); }
-    .checklist-add button { min-height: 38px; padding: 8px 16px; border: none; background: var(--ink); color: var(--cream); font-family: var(--font-sans); font-weight: 700; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; }
-    .checklist-add button:hover { background: var(--ink-mid); transform: none; box-shadow: none; }
-
-    /* ── FAVOURITES ── */
-    .couple-favs-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-    .couple-fav-card { border: 0.5px solid var(--ink-rule); overflow: hidden; background: var(--cream); cursor: pointer; transition: background 0.2s; }
-    .couple-fav-card:hover { background: var(--cream-warm); transform: none; box-shadow: none; }
-    .couple-fav-card img { width: 100%; aspect-ratio: 1.3/1; object-fit: cover; display: block; }
-    .couple-fav-card:hover img { transform: none; }
-    .couple-fav-info { padding: 8px 10px; }
-    .couple-fav-name { font-family: var(--font-serif); font-size: 1rem; font-weight: 300; letter-spacing: -0.01em; color: var(--ink); margin: 0 0 3px; }
-    .couple-fav-cat { font-family: var(--font-sans); font-size: 0.72rem; color: var(--ink-ghost); margin: 0; }
-    .couple-favs-empty { font-family: var(--font-sans); color: var(--ink-muted); font-size: 0.86rem; line-height: 1.7; }
-    .couple-fav-clear { border: none; background: transparent; color: var(--ink-ghost); font-family: var(--font-sans); font-size: 0.72rem; letter-spacing: 0.06em; text-decoration: underline; cursor: pointer; padding: 0; transition: color 0.2s; }
-    .couple-fav-clear:hover { color: var(--ink); }
-
-    /* ── MESSAGES ── */
-    .couple-messages-list { display: grid; gap: 8px; }
-    .couple-msg-item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px; background: var(--cream-warm); border: 0.5px solid var(--ink-rule); cursor: pointer; transition: background 0.18s; }
-    .couple-msg-item:hover { background: var(--cream-deep); transform: none; }
-    .couple-msg-item.unread { border-left: 2px solid var(--gold-light); }
-    .couple-msg-avatar { width: 38px; height: 38px; object-fit: cover; background: var(--cream-deep); flex: 0 0 38px; }
-    .couple-msg-content { flex: 1; min-width: 0; }
-    .couple-msg-name { font-family: var(--font-serif); font-size: 1rem; font-weight: 300; color: var(--ink); margin: 0 0 2px; }
-    .couple-msg-preview { font-family: var(--font-sans); font-size: 0.78rem; color: var(--ink-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.5; margin: 0; }
-    .couple-msg-time { font-family: var(--font-sans); font-size: 0.7rem; color: var(--ink-ghost); white-space: nowrap; margin-top: 2px; }
-    .couple-msg-unread-dot { width: 7px; height: 7px; background: var(--gold-light); flex: 0 0 7px; margin-top: 5px; }
-    .couple-msgs-empty { font-family: var(--font-sans); color: var(--ink-muted); font-size: 0.86rem; line-height: 1.7; }
-
-    /* ── NOTES ── */
-    .couple-notes-area {
-      width: 100%; border: none; border-bottom: 1px solid var(--ink-rule);
-      border-radius: 0; padding: 12px 0; font-family: var(--font-sans);
-      font-size: 0.88rem; color: var(--ink); background: transparent;
-      min-height: 130px; resize: vertical; outline: none; transition: border-color 0.2s;
-    }
-    .couple-notes-area:focus { border-color: var(--gold); }
-
-    /* ── QUICK LINKS ── */
-    .couple-quicklinks-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-    .couple-quicklink { display: flex; align-items: center; gap: 10px; padding: 12px 14px; background: var(--cream); border: 0.5px solid var(--ink-rule); text-decoration: none; color: var(--ink); transition: background 0.18s; }
-    .couple-quicklink:hover { background: var(--cream-deep); transform: none; }
-    .couple-quicklink-icon { font-size: 1.1rem; flex: 0 0 auto; color: var(--ink-ghost); }
-    .couple-quicklink-text strong { display: block; font-family: var(--font-sans); font-size: 0.78rem; font-weight: 700; color: var(--ink); margin-bottom: 1px; }
-    .couple-quicklink-text span { font-family: var(--font-sans); font-size: 0.72rem; color: var(--ink-muted); }
-
-    /* ── BUDGET ── */
-    .budget-total-row { display: flex; align-items: baseline; gap: 8px; margin-bottom: 14px; }
-    .budget-total-label { font-family: var(--font-sans); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-ghost); }
-    .budget-total-amount { font-family: var(--font-serif); font-size: 1.8rem; font-weight: 300; color: var(--ink); letter-spacing: -0.03em; flex: 1; }
-    .budget-edit-btn { border: none; background: transparent; font-family: var(--font-sans); color: var(--ink-ghost); font-size: 0.72rem; letter-spacing: 0.06em; text-decoration: underline; cursor: pointer; padding: 0; transition: color 0.2s; }
-    .budget-edit-btn:hover { color: var(--ink); }
-    .budget-categories { display: grid; gap: 6px; margin-bottom: 12px; }
-    .budget-cat-row { display: flex; align-items: center; gap: 10px; }
-    .budget-cat-label { flex: 1; font-family: var(--font-sans); font-size: 0.82rem; color: var(--ink-mid); }
-    .budget-cat-amount { font-family: var(--font-sans); font-size: 0.82rem; font-weight: 600; color: var(--ink); white-space: nowrap; }
-    .budget-cat-bar-wrap { width: 60px; height: 3px; background: var(--ink-rule); overflow: hidden; }
-    .budget-cat-bar { height: 100%; background: var(--ink); }
-    .budget-add-row { display: flex; gap: 6px; margin-top: 10px; }
-    .budget-add-row input { flex: 1; border: none; border-bottom: 1px solid var(--ink-rule); border-radius: 0; padding: 8px 0; font-family: var(--font-sans); font-size: 0.82rem; color: var(--ink); background: transparent; outline: none; min-width: 0; transition: border-color 0.2s; }
-    .budget-add-row input:focus { border-color: var(--gold); }
-    .budget-add-row button { min-height: 34px; padding: 6px 12px; border: none; background: var(--ink); color: var(--cream); font-family: var(--font-sans); font-weight: 700; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; white-space: nowrap; transition: background 0.2s; }
-    .budget-add-row button:hover { background: var(--ink-mid); transform: none; }
-    .budget-remaining { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: var(--cream-deep); border: 0.5px solid var(--ink-rule); margin-top: 12px; }
-    .budget-remaining-label { font-family: var(--font-sans); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-ghost); }
-    .budget-remaining-amount { font-family: var(--font-serif); font-size: 1.4rem; font-weight: 300; color: var(--ink); letter-spacing: -0.03em; }
-
-    /* ── INSPIRATION ── */
-    .inspiration-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-    .inspiration-card { overflow: hidden; border: 0.5px solid var(--ink-rule); background: var(--cream-deep); aspect-ratio: 1/1; cursor: pointer; transition: opacity 0.2s; }
-    .inspiration-card:hover { opacity: 0.9; transform: none; }
-    .inspiration-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .inspiration-add { width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px; border: 0.5px dashed var(--ink-rule); background: transparent; color: var(--ink-ghost); font-family: var(--font-sans); font-size: 0.78rem; letter-spacing: 0.06em; cursor: pointer; margin-top: 8px; transition: background 0.18s, border-color 0.18s; }
-    .inspiration-add:hover { background: var(--cream-deep); border-color: var(--ink-muted); }
-
-  /* ── FOOTER ── */
-.site-footer {
-  background: var(--ink);
-  border-top: 1px solid var(--ink-mid);
-}
-
-.footer-content {
-  padding: 72px 50px 58px;
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 90px;
-  align-items: center;
-  max-width: 1280px;
-  margin: 0 auto;
-}
-
-.footer-logo-col {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 14px;
-  max-width: 520px;
-}
-
-.footer-eyebrow {
-  font-family: var(--font-sans);
-  font-size: 0.65rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--ink-muted);
-}
-
-.footer-title {
-  font-family: var(--font-serif);
-  font-size: 1.4rem;
-  font-weight: 300;
-  color: var(--cream);
-  letter-spacing: -0.02em;
-  text-align: left;
-  margin: 4px 0 6px;
-}
-
-.footer-text {
-  font-family: var(--font-sans);
-  font-size: 0.78rem;
-  color: var(--ink-muted);
-  line-height: 1.6;
-  text-align: left;
-}
-
-.footer-tagline {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 0.95rem;
-  color: var(--gold-light);
-  text-align: left;
-  margin-top: 16px;
-}
-
-.footer-abn {
-  font-family: var(--font-sans);
-  font-size: 0.68rem;
-  color: var(--ink-muted);
-  margin-top: 4px;
-}
-
-.footer-links-col {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  align-items: flex-end;
-}
-
-.footer-links {
-  display: flex;
-  flex-direction: column;
-  gap: 13px;
-  align-items: flex-end;
-}
-
-.footer-links a {
-  font-family: var(--font-sans);
-  font-size: 0.72rem;
-  letter-spacing: 0.06em;
-  color: var(--ink-muted);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-.footer-links a:hover {
-  color: var(--cream);
-}
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 1100px) {
-      .couple-body { grid-template-columns: 1fr; }
-      .couple-main { border-right: none; }
-      .couple-sidebar { grid-template-columns: repeat(2, 1fr); border-top: 0.5px solid var(--ink-rule); }
-      .couple-sidebar-card { border-right: 0.5px solid var(--ink-rule); }
-      .couple-sidebar-card:nth-child(even) { border-right: none; }
+    :root{--ink:#1A1A16;--ink-mid:#4A4A44;--ink-muted:#8A8A82;--ink-ghost:#C0C0B8;--ink-rule:#DDDDD8;--cream:#FAFAF8;--cream-warm:#F4F0EA;--cream-deep:#EDE8E0;--gold:#9A7A5A;--gold-light:#C4A882;--font-serif:'Cormorant Garamond',Georgia,serif;--font-sans:'Plus Jakarta Sans','Helvetica Neue',Arial,sans-serif}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{background:var(--cream);font-family:var(--font-sans);color:var(--ink);-webkit-font-smoothing:antialiased}
+    .site-topbar{background:var(--cream);border-bottom:1px solid var(--ink-rule);padding:0 36px;display:flex;align-items:center;gap:20px;min-height:64px;position:sticky;top:0;z-index:200}.site-topbar-logo-wrap{display:inline-flex;align-items:center}.site-topbar-logo{width:44px;height:44px;object-fit:contain}.site-topbar-title{flex:1}.site-topbar-title h1{font-family:var(--font-serif);font-size:1.05rem;font-weight:400;letter-spacing:.01em;color:var(--ink)}.site-topbar-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.site-topbar-link,.site-topbar-btn{display:inline-flex;align-items:center;justify-content:center;min-height:34px;padding:6px 14px;font-family:var(--font-sans);font-size:.75rem;letter-spacing:.06em;text-decoration:none;white-space:nowrap;transition:all .2s ease}.site-topbar-link{color:var(--ink-muted);border:none;background:none}.site-topbar-link:hover{color:var(--ink)}.site-topbar-btn{background:var(--ink);color:var(--cream);font-weight:600;border:none;cursor:pointer}.site-topbar-btn:hover{background:var(--ink-mid)}
+    .dash-layout{display:grid;grid-template-columns:240px 1fr;min-height:calc(100vh - 64px);border-top:1px solid var(--ink-rule)}
+    .dash-sidebar{border-right:1px solid var(--ink-rule);background:var(--cream-warm);padding:28px 0;display:flex;flex-direction:column;gap:0}
+    .dash-sidebar-section{padding:0 20px;margin-bottom:22px}
+    .dash-sidebar-label{font-family:var(--font-sans);font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-ghost);margin-bottom:8px;padding:0 4px}
+    .dash-nav-link{display:flex;align-items:center;gap:9px;padding:9px 12px;font-family:var(--font-sans);font-size:.78rem;color:var(--ink-muted);text-decoration:none;transition:all .2s;border-radius:0;margin-bottom:2px}
+    .dash-nav-link:hover,.dash-nav-link.active{background:var(--cream-deep);color:var(--ink)}
+    .dash-main{padding:32px 36px;display:flex;flex-direction:column;gap:24px}
+    .dash-header-row{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;border-bottom:.5px solid var(--ink-rule);padding-bottom:20px}
+    .dash-welcome{font-family:var(--font-serif);font-size:1.5rem;font-weight:300;letter-spacing:-.02em;color:var(--ink)}
+    .dash-subtitle{font-family:var(--font-sans);font-size:.78rem;color:var(--ink-muted);margin-top:3px}
+    .dash-section-title{font-family:var(--font-serif);font-size:1.2rem;font-weight:300;letter-spacing:-.02em;color:var(--ink);margin-bottom:14px}
+    .favourites-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+    .fav-card{text-decoration:none;background:var(--cream-warm);border:.5px solid var(--ink-rule);padding:14px;display:flex;flex-direction:column;gap:6px;transition:background .2s}.fav-card:hover{background:var(--cream-deep)}
+    .fav-card-name{font-family:var(--font-serif);font-size:1rem;font-weight:300;color:var(--ink)}
+    .fav-card-cat{font-family:var(--font-sans);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-ghost)}
+    .fav-card-remove{margin-top:6px;font-family:var(--font-sans);font-size:.68rem;color:var(--ink-ghost);cursor:pointer;background:none;border:none;text-align:left;padding:0;transition:color .2s}.fav-card-remove:hover{color:var(--ink)}
+    .empty-state{font-family:var(--font-sans);font-size:.84rem;color:var(--ink-muted);line-height:1.75;padding:20px 0}
+    .btn-ink{display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:9px 18px;font-family:var(--font-sans);font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--cream);background:var(--ink);text-decoration:none;border:none;cursor:pointer;transition:background .2s}.btn-ink:hover{background:var(--ink-mid)}
+    .account-form{display:grid;gap:0;border:.5px solid var(--ink-rule);max-width:480px}
+    .account-field{position:relative;border-bottom:.5px solid var(--ink-rule);background:var(--cream)}
+    .account-field:last-of-type{border-bottom:none}
+    .account-field input{width:100%;border:none;padding:20px 14px 10px;font-family:var(--font-sans);font-size:.88rem;background:transparent;color:var(--ink);outline:none;transition:background .2s}
+    .account-field input:focus{background:var(--cream-warm)}
+    .account-field label{position:absolute;left:14px;top:12px;color:var(--ink-ghost);font-family:var(--font-sans);font-size:.82rem;pointer-events:none;transition:all .18s ease}
+    .account-field input:focus+label,.account-field input:not(:placeholder-shown)+label{top:6px;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-ghost)}
+    .form-msg{font-family:var(--font-sans);font-size:.78rem;color:var(--gold);margin-top:10px;min-height:18px}
+    @media(max-width:700px){.site-topbar{padding:0 16px;min-height:56px}.dash-layout{grid-template-columns:1fr}.dash-sidebar{border-right:none;border-bottom:1px solid var(--ink-rule);padding:16px 0}.dash-main{padding:20px}}
+  
+    /* ── SHARED NAV (injected by nav.js) ── */
+    .nav-links { display: flex; align-items: center; gap: 8px; }
+    .mobile-menu-btn {
+      display: none; background: none; border: none;
+      color: var(--ink); font-size: 1.5rem; cursor: pointer; padding: 4px;
     }
     @media (max-width: 700px) {
-      .site-topbar { padding: 0 16px; min-height: 56px; position: relative; }
-      .couple-hero-grid { grid-template-columns: 1fr; }
-      .couple-hero-copy { border-right: none; border-bottom: 1px solid var(--ink-rule); padding: 28px 20px; }
-      .couple-hero-image-wrap { min-height: 260px; }
-      .couple-welcome-strip { padding: 16px 20px; }
-      .couple-card { padding: 20px 18px; }
-      .couple-sidebar { grid-template-columns: 1fr; }
-      .couple-sidebar-card { border-right: none; }
-      .couple-favs-grid, .couple-quicklinks-grid, .inspiration-grid { grid-template-columns: 1fr; }
-      .footer-content { padding: 28px 20px 24px; grid-template-columns: 1fr; gap: 24px; }
-      .footer-links-col { align-items: flex-start; }
-      .footer-links { align-items: flex-start; }
+      .site-topbar { padding: 0 16px !important; min-height: 56px !important; position: relative !important; }
+      .mobile-menu-btn { display: inline-flex; align-items: center; justify-content: center; }
+      .nav-links { display: none; }
+      .nav-links.active {
+        display: flex; flex-direction: column;
+        position: absolute; top: 56px; right: 12px;
+        background: rgba(250,250,248,0.97); backdrop-filter: blur(14px);
+        border: 1px solid var(--ink-rule); padding: 22px; gap: 18px;
+        min-width: 230px; z-index: 999; box-shadow: 0 18px 45px rgba(0,0,0,0.08);
+      }
+      .nav-links.active a, .nav-links.active button {
+        justify-content: flex-start; width: 100%;
+        padding: 10px 0; border-bottom: 1px solid var(--ink-rule);
+        background: none !important; color: var(--ink) !important;
+        font-size: 0.76rem; letter-spacing: 0.12em;
+      }
+      .nav-links.active a:last-child,
+      .nav-links.active button:last-child { border-bottom: none; }
     }
-  </style>
+</style>
 </head>
 <body>
-
-<!-- ── TOPBAR ── -->
 <header class="site-topbar">
-  <a href="index.html" class="site-topbar-logo-wrap" aria-label="Go to homepage">
-    <img src="images/logo1.png" alt="Our Wedding Day Hub" class="site-topbar-logo">
-  </a>
+  <a href="index.html" class="site-topbar-logo-wrap" aria-label="Go to homepage"><img src="images/logo1.png" alt="Our Wedding Day Hub" class="site-topbar-logo"></a>
   <div class="site-topbar-title"><h1>Our Wedding Day Hub</h1></div>
   <nav class="site-topbar-actions">
     <a href="categories.html" class="site-topbar-link">Categories</a>
     <a href="shop.html" class="site-topbar-link">Boutique</a>
     <a href="journal.html" class="site-topbar-link">The Journal</a>
-    <a href="messages.html" id="messagesLink" class="site-topbar-link" style="display:none; position:relative;">
-      Messages
-      <span id="msgNavBadge" style="display:none; position:absolute; top:-6px; right:-10px; background:var(--ink); color:var(--cream); font-size:0.64rem; font-weight:700; padding:2px 6px; border-radius:999px; line-height:1.2; min-width:18px; text-align:center;">0</span>
-    </a>
-    <a href="login.html" id="loginLink" class="site-topbar-link">Log In</a>
-    <a href="signup.html" id="joinLink" class="site-topbar-btn">Join</a>
-    <a href="dashboard.html" id="dashboardLink" class="site-topbar-link" style="display:none;">Dashboard</a>
-    <button id="logoutLink" class="site-topbar-btn" style="display:none;">Log Out</button>
+    <a href="messages.html" id="messagesLink" class="site-topbar-link" style="display:none;position:relative;">Messages<span id="msgNavBadge" style="display:none;position:absolute;top:-6px;right:-10px;background:var(--ink);color:var(--cream);font-size:.64rem;font-weight:700;padding:2px 6px;border-radius:999px;line-height:1.2;min-width:18px;text-align:center;">0</span></a>
+    <a href="login.html" id="loginLink" class="site-topbar-link" style="display:none;">Log In</a>
+    <a href="signup.html" id="joinLink" class="site-topbar-btn" style="display:none;">Join</a>
+    <a href="couple-dashboard.html" class="site-topbar-link">Dashboard</a>
+    <button id="logoutBtn" class="site-topbar-btn">Log Out</button>
   </nav>
 </header>
-
-<main class="couple-dashboard">
-
-  <!-- ── HERO ── -->
-  <section class="couple-hero-card">
-    <div class="couple-hero-grid">
-      <div class="couple-hero-copy">
-        <p class="couple-hero-kicker">Your Wedding Hub</p>
-        <h1 id="coupleHeroTitle" class="couple-hero-title">Your love story<br>starts here</h1>
-        <p class="couple-hero-script">everything in one place ♡</p>
-        <p class="couple-hero-sub">Save your favourite vendors, track your checklist, manage your budget, and message the people who'll make your day unforgettable.</p>
-      </div>
-      <div class="couple-hero-image-wrap">
-        <img id="coupleHeroImage" src="images/cutecar.jpg" alt="Your wedding hero photo" class="couple-hero-image" loading="eager">
-      </div>
+<div class="dash-layout" id="dashLayout" style="display:none;">
+  <aside class="dash-sidebar">
+    <div class="dash-sidebar-section">
+      <p class="dash-sidebar-label">Planning</p>
+      <a href="#favourites" class="dash-nav-link active" onclick="showSection('favourites',this)">&#9825; Saved Vendors</a>
+      <a href="#messages" class="dash-nav-link" onclick="showSection('messages',this)">&#9993; Messages</a>
     </div>
-  </section>
-
-  <!-- ── WELCOME STRIP ── -->
-  <div class="couple-welcome-strip">
-    <div>
-      <p class="couple-welcome-kicker">Welcome back</p>
-      <h2 id="welcomeTitle" class="couple-welcome-title">Your Wedding Dashboard</h2>
-      <p id="welcomeSub" class="couple-welcome-sub">Everything you need to plan your perfect day.</p>
+    <div class="dash-sidebar-section">
+      <p class="dash-sidebar-label">Account</p>
+      <a href="#account" class="dash-nav-link" onclick="showSection('account',this)">&#9881; Account Details</a>
     </div>
-    <div class="couple-countdown-wrap">
-      <span class="couple-countdown-days" id="countdownDays">–</span>
-      <span class="couple-countdown-label">days to go</span>
+  </aside>
+  <main class="dash-main">
+    <div class="dash-header-row">
+      <div><div id="dashWelcome" class="dash-welcome">Welcome back</div><div class="dash-subtitle">Your wedding planning dashboard</div></div>
+      <a href="categories.html" class="btn-ink">Browse Vendors &#8594;</a>
     </div>
-  </div>
-
-  <!-- ── BODY ── -->
-  <div class="couple-body">
-
-    <!-- ── MAIN ── -->
-    <div class="couple-main">
-
-      <!-- Checklist -->
-      <div class="couple-card">
-        <p class="couple-card-kicker">Planning</p>
-        <div class="couple-card-header">
-          <h2 class="couple-card-title">Wedding Checklist</h2>
-        </div>
-        <div class="checklist-progress">
-          <div class="checklist-bar-wrap"><div class="checklist-bar" id="checklistBar" style="width:0%"></div></div>
-          <span class="checklist-pct" id="checklistPct">0%</span>
-        </div>
-        <div id="checklistItems" class="couple-checklist"></div>
-        <div class="checklist-add" style="margin-top:14px;">
-          <input type="text" id="checklistInput" placeholder="Add a task...">
-          <button type="button" id="checklistAddBtn">Add</button>
-        </div>
-      </div>
-
-      <!-- Saved Vendors -->
-      <div class="couple-card">
-        <p class="couple-card-kicker">Discovered</p>
-        <div class="couple-card-header">
-          <h2 class="couple-card-title">Saved Vendors</h2>
-          <button type="button" class="couple-fav-clear" id="clearFavsBtn" style="display:none;">Clear all</button>
-        </div>
-        <div id="coupleFavsGrid" class="couple-favs-grid"></div>
-        <p id="coupleFavsEmpty" class="couple-favs-empty" style="display:none;">No saved vendors yet. Browse categories and save the ones you love ♡</p>
-      </div>
-
-      <!-- Messages -->
-      <div class="couple-card">
-        <p class="couple-card-kicker">Conversations</p>
-        <div class="couple-card-header">
-          <h2 class="couple-card-title">Messages</h2>
-          <a href="messages.html" style="font-family:var(--font-sans); font-size:0.72rem; letter-spacing:0.06em; color:var(--ink-muted); text-decoration:none; font-weight:600;">View all →</a>
-        </div>
-        <div id="coupleMessagesList" class="couple-messages-list"></div>
-        <p id="coupleMsgsEmpty" class="couple-msgs-empty" style="display:none;">No messages yet. Send a message from any vendor profile to start a conversation ♡</p>
-      </div>
-
-      <!-- Notes -->
-      <div class="couple-card">
-        <p class="couple-card-kicker">Notes</p>
-        <h2 class="couple-card-title" style="margin-bottom:12px;">Planning Notes</h2>
-        <p>Jot down ideas, reminders, or anything important for your day.</p>
-        <textarea id="coupleNotes" class="couple-notes-area" placeholder="Start typing your planning notes..."></textarea>
-        <button type="button" id="saveNotesBtn" class="couple-save-btn" style="margin-top:12px;">Save Notes</button>
-        <span id="notesStatus" class="couple-notes-status"></span>
-      </div>
-
-    </div>
-
-    <!-- ── SIDEBAR ── -->
-    <aside class="couple-sidebar">
-
-      <!-- Wedding Details -->
-      <div class="couple-sidebar-card">
-        <h2>Wedding Details</h2>
-
-        <div class="profile-photo-wrap">
-          <div id="profilePhotoPreviewWrap">
-            <div class="profile-photo-empty" id="profilePhotoEmpty">♡</div>
-            <img id="profilePhotoImg" class="profile-photo-circle" style="display:none;" alt="Your profile photo">
-          </div>
-          <div>
-            <input type="file" id="profilePhotoInput" accept="image/*" style="display:none;">
-            <label for="profilePhotoInput" class="profile-photo-upload-label">Upload Photo</label>
-            <p class="profile-photo-status" id="profilePhotoStatus">Shown to vendors when you message them</p>
-          </div>
-        </div>
-
-        <div class="couple-date-form">
-          <div>
-            <label for="partner1Name">Partner 1 Name</label>
-            <input type="text" id="partner1Name" placeholder="Name">
-          </div>
-          <div>
-            <label for="partner2Name">Partner 2 Name</label>
-            <input type="text" id="partner2Name" placeholder="Name">
-          </div>
-          <div>
-            <label for="weddingDate">Wedding Date</label>
-            <input type="date" id="weddingDate">
-          </div>
-          <div>
-            <label for="weddingVenue">Venue / Location</label>
-            <input type="text" id="weddingVenue" placeholder="e.g. The Estate, Byron Bay">
-          </div>
-          <button type="button" id="saveDetailsBtn" class="couple-save-btn">Save Details</button>
-          <span id="detailsStatus" class="couple-save-status"></span>
-        </div>
-      </div>
-
-      <!-- Budget -->
-      <div class="couple-sidebar-card">
-        <h2>Budget Tracker</h2>
-        <div class="budget-total-row">
-          <span class="budget-total-label">Total Budget</span>
-          <span class="budget-total-amount" id="budgetTotal">–</span>
-          <button type="button" class="budget-edit-btn" id="editBudgetBtn">Edit</button>
-        </div>
-        <div id="budgetInput" style="display:none; margin-bottom:12px;">
-          <div class="budget-add-row">
-            <input type="number" id="budgetTotalInput" placeholder="Total budget (e.g. 30000)" min="0">
-            <button type="button" id="saveBudgetTotalBtn">Save</button>
-          </div>
-        </div>
-        <div id="budgetCategories" class="budget-categories"></div>
-        <div class="budget-add-row">
-          <input type="text" id="budgetCatName" placeholder="Category name">
-          <input type="number" id="budgetCatAmount" placeholder="Amount" style="max-width:90px;">
-          <button type="button" id="addBudgetCatBtn">Add</button>
-        </div>
-        <div class="budget-remaining">
-          <span class="budget-remaining-label">Remaining</span>
-          <span class="budget-remaining-amount" id="budgetRemaining">–</span>
-        </div>
-      </div>
-
-      <!-- Quick Links -->
-      <div class="couple-sidebar-card">
-        <h2>Explore</h2>
-        <div class="couple-quicklinks-grid">
-          <a href="categories.html?type=photo_video" class="couple-quicklink"><span class="couple-quicklink-icon">◈</span><div class="couple-quicklink-text"><strong>Photo &amp; Video</strong><span>Photographers</span></div></a>
-          <a href="categories.html?type=beauty" class="couple-quicklink"><span class="couple-quicklink-icon">✦</span><div class="couple-quicklink-text"><strong>Beauty</strong><span>Hair &amp; Makeup</span></div></a>
-          <a href="categories.html?type=venues" class="couple-quicklink"><span class="couple-quicklink-icon">◇</span><div class="couple-quicklink-text"><strong>Venues</strong><span>Find a space</span></div></a>
-          <a href="categories.html?type=entertainment" class="couple-quicklink"><span class="couple-quicklink-icon">❋</span><div class="couple-quicklink-text"><strong>Music</strong><span>DJs &amp; bands</span></div></a>
-          <a href="categories.html?type=styling_florals" class="couple-quicklink"><span class="couple-quicklink-icon">✿</span><div class="couple-quicklink-text"><strong>Florals</strong><span>Florists &amp; styling</span></div></a>
-          <a href="categories.html" class="couple-quicklink"><span class="couple-quicklink-icon">◎</span><div class="couple-quicklink-text"><strong>All Categories</strong><span>Browse all vendors</span></div></a>
-        </div>
-      </div>
-
-      <!-- Inspiration -->
-      <div class="couple-sidebar-card">
-        <h2>Inspiration</h2>
-        <p style="font-family:var(--font-sans); font-size:0.82rem; color:var(--ink-muted); line-height:1.65; margin-bottom:12px;">Save beautiful images for your wedding vision board.</p>
-        <div id="inspirationGrid" class="inspiration-grid"></div>
-        <button type="button" id="addInspirationBtn" class="inspiration-add">+ Add Image</button>
-        <input type="file" id="inspirationFileInput" accept="image/*" style="display:none;" multiple>
-      </div>
-
-    </aside>
-  </div>
-
-</main>
-
-<!-- ── FOOTER ── -->
-<footer class="site-footer">
-  <div class="footer-content">
-
-    <div class="footer-logo-col">
-      <a href="index.html" aria-label="Go to homepage">
-        <img src="images/logo1.png" alt="Our Wedding Day Hub" style="width:52px; height:52px; object-fit:contain; opacity:0.5; margin-bottom:6px;">
-      </a>
-
-      <p class="footer-eyebrow">Wedding planning directory</p>
-
-      <h2 class="footer-title">Everything your wedding deserves.</h2>
-
-      <p class="footer-text">
-        Browse trusted wedding businesses, discover local favourites,
-        and connect with the people who can bring your day to life.
-      </p>
-
-      <p class="footer-tagline">for every kind of love story. ♡</p>
-
-      <p class="footer-abn">© 2026 Our Wedding Day Hub</p>
-      <p class="footer-abn">ABN 76 688 637 041 • Australia</p>
-    </div>
-
-    <div class="footer-links-col">
-      <div class="footer-links">
-        <a href="about.html">About Us</a>
-        <a href="how-it-works.html">How It Works</a>
-        <a href="pricing.html">Pricing</a>
-        <a href="contact.html">Contact Us</a>
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="terms.html">Terms &amp; Conditions</a>
-        <a href="refund-policy.html">Refund Policy</a>
-        <a href="https://www.equaldex.com/equality-index" target="_blank" rel="noopener noreferrer">Global Equality Index</a>
-        <a href="#" onclick="return false;">Events4Us (Coming Soon)</a>
-      </div>
-    </div>
-
-  </div>
-
-  <div style="width:100%; max-width:1280px; height:1px; background:rgba(255,255,255,0.08); margin:0 auto 24px;"></div>
-
-  <p style="font-family:var(--font-sans); font-size:0.65rem; color:var(--ink-muted); letter-spacing:0.12em; text-transform:uppercase; text-align:center; padding-bottom:40px;">
-    Proudly inclusive • Worldwide • Built with heart
-  </p>
-</footer>
-
+    <!-- Favourites -->
+    <section id="sec-favourites">
+      <p class="dash-section-title">Saved Vendors</p>
+      <div id="favouritesGrid" class="favourites-grid"><p class="empty-state">Loading your saved vendors&#8230;</p></div>
+    </section>
+    <!-- Messages -->
+    <section id="sec-messages" style="display:none;">
+      <p class="dash-section-title">Messages</p>
+      <p class="empty-state">Head to <a href="messages.html" style="color:var(--ink);">Messages</a> to view and reply to your conversations.</p>
+    </section>
+    <!-- Account -->
+    <section id="sec-account" style="display:none;">
+      <p class="dash-section-title">Account Details</p>
+      <form id="accountForm" class="account-form">
+        <div class="account-field"><input type="text" id="accPartnerOne" placeholder=" "><label for="accPartnerOne">Your Name</label></div>
+        <div class="account-field"><input type="text" id="accPartnerTwo" placeholder=" "><label for="accPartnerTwo">Partner's Name</label></div>
+        <div class="account-field"><input type="text" id="accWeddingDate" placeholder=" "><label for="accWeddingDate">Wedding Date</label></div>
+      </form>
+      <button type="button" class="btn-ink" style="margin-top:12px;" onclick="saveAccount()">Save Changes</button>
+      <p id="accMsg" class="form-msg"></p>
+    </section>
+  </main>
+</div>
+<div id="authGate" style="display:none; padding:80px 40px; text-align:center;">
+  <h2 style="font-family:var(--font-serif);font-size:1.8rem;font-weight:300;color:var(--ink);margin-bottom:10px;">Your dashboard</h2>
+  <p style="font-family:var(--font-sans);font-size:.88rem;color:var(--ink-muted);margin-bottom:24px;">Please log in to access your couple dashboard.</p>
+  <a href="login.html" style="display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:10px 22px;font-family:var(--font-sans);font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--cream);background:var(--ink);text-decoration:none;">Log In &#8594;</a>
+</div>
 <script type="module">
-import { db, auth, storage, doc, getDoc, setDoc, onAuthStateChanged, signOut, onSnapshot, collection, query, where, orderBy, ref, uploadBytes, getDownloadURL } from "./firebase.js";
-
-let currentUser = null;
-let userData = {};
-let budgetTotal = 0;
-let budgetCategories = [];
-let checklistItems = [];
-let inspirationImages = [];
-let unsubConversations = null;
-let unsubUserData = null;
-
-// ── AUTH ──
-onAuthStateChanged(auth, async (user) => {
-  if (!user) { window.location.href = "login.html"; return; }
-  currentUser = user;
-  // Show correct nav state manually (no nav.js on this page to avoid conflicts)
-  const loginLink = document.getElementById("loginLink");
-  const joinLink = document.getElementById("joinLink");
-  const dashboardLink = document.getElementById("dashboardLink");
-  const logoutLinkEl = document.getElementById("logoutLink");
-  const messagesLinkEl = document.getElementById("messagesLink");
-  if (loginLink) loginLink.style.display = "none";
-  if (joinLink) joinLink.style.display = "none";
-  if (dashboardLink) dashboardLink.style.display = "inline-flex";
-  if (logoutLinkEl) logoutLinkEl.style.display = "inline-flex";
-  if (messagesLinkEl) messagesLinkEl.style.display = "inline-flex";
-  loadUserDataRealtime();
-  setupUnreadBadge();
-  setupConversationsListener();
-});
-
-document.getElementById("logoutLink").addEventListener("click", async () => {
-  if (unsubConversations) unsubConversations();
-  if (unsubUserData) unsubUserData();
-  await signOut(auth);
-  window.location.href = "index.html";
-});
-
-// ── LOAD USER DATA — real-time listener ──
-let dataLoaded = false;
-
-function loadUserDataRealtime() {
-  if (unsubUserData) unsubUserData();
-  dataLoaded = false;
-  unsubUserData = onSnapshot(doc(db, "users", currentUser.uid), (snap) => {
-    if (snap.exists()) {
-      userData = snap.data();
-    } else {
-      // New user — create their document with role set
-      setDoc(doc(db, "users", currentUser.uid), { role: "couple", createdAt: new Date().toISOString() }, { merge: true }).catch(console.error);
-    }
-    if (!dataLoaded) {
-      // Only populate form fields on the very first load
-      dataLoaded = true;
-      applyUserData();
-    } else {
-      // On subsequent updates just refresh non-form UI
-      refreshNonFormUI();
-    }
-  }, (err) => {
-    console.error("Error loading user data:", err);
-  });
+import { auth, db, onAuthStateChanged, signOut, doc, getDoc, updateDoc } from './firebase.js';
+const favKey = 'favoriteVendors';
+function getFavs() { return JSON.parse(localStorage.getItem(favKey)) || []; }
+function showSection(id, link) {
+  document.querySelectorAll('.dash-main > section').forEach(s => s.style.display = 'none');
+  document.querySelectorAll('.dash-nav-link').forEach(l => l.classList.remove('active'));
+  document.getElementById('sec-' + id).style.display = 'block';
+  if (link) link.classList.add('active');
+  return false;
 }
-
-function refreshNonFormUI() {
-  // Update countdown, budget, checklist, inspiration — but NOT form fields the user might be typing in
-  budgetTotal = parseFloat(userData.budgetTotal) || 0;
-  budgetCategories = Array.isArray(userData.budgetCategories) ? userData.budgetCategories : [];
-  checklistItems = Array.isArray(userData.checklist) ? userData.checklist : getDefaultChecklist();
-  inspirationImages = Array.isArray(userData.inspirationImages) ? userData.inspirationImages : [];
-  if (userData.weddingDate) updateCountdown(userData.weddingDate);
-  renderBudget();
-  renderChecklist();
-  renderInspiration();
-}
-
-function applyUserData() {
-  // Canonical read: partnerOne / partnerTwo, with legacy fallbacks
-  const p1 = userData.partnerOne || userData.partner1Name || "";
-  const p2 = userData.partnerTwo || userData.partner2Name || "";
-
-  // Update UI names
-  const displayName = p1 && p2 ? `${p1} & ${p2}` : p1 || p2 || "";
-  document.getElementById("welcomeTitle").textContent = displayName || "Your Wedding Dashboard";
-  const heroTitle = document.getElementById("coupleHeroTitle");
-  if (heroTitle) heroTitle.innerHTML = displayName ? `${escapeHtml(p1)} &amp; ${escapeHtml(p2)}` : "Your love story<br>starts here";
-
-  // Populate form fields
-  document.getElementById("partner1Name").value = p1;
-  document.getElementById("partner2Name").value = p2;
-  if (userData.weddingDate) {
-    document.getElementById("weddingDate").value = userData.weddingDate;
-    updateCountdown(userData.weddingDate);
-  }
-  document.getElementById("weddingVenue").value = userData.weddingVenue || "";
-  document.getElementById("coupleNotes").value = userData.notes || "";
-
-  budgetTotal = parseFloat(userData.budgetTotal) || 0;
-  budgetCategories = Array.isArray(userData.budgetCategories) ? userData.budgetCategories : [];
-  checklistItems = Array.isArray(userData.checklist) ? userData.checklist : getDefaultChecklist();
-  inspirationImages = Array.isArray(userData.inspirationImages) ? userData.inspirationImages : [];
-
-  // Profile photo — also set as hero image (only visible to this user)
-  if (userData.profilePhotoUrl) {
-    const img = document.getElementById("profilePhotoImg");
-    const empty = document.getElementById("profilePhotoEmpty");
-    const heroImg = document.getElementById("coupleHeroImage");
-    if (img) { img.src = userData.profilePhotoUrl; img.style.display = "block"; }
-    if (empty) empty.style.display = "none";
-    if (heroImg) { heroImg.src = userData.profilePhotoUrl; heroImg.style.objectFit = "cover"; }
-  }
-
-  renderBudget();
-  renderChecklist();
-  renderFavourites();
-  renderInspiration();
-}
-
-function escapeHtml(s) {
-  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
-}
-
-function updateCountdown(dateStr) {
-  if (!dateStr) return;
-  const weddingDate = new Date(dateStr + "T00:00:00");
-  const today = new Date(); today.setHours(0,0,0,0);
-  const diff = Math.round((weddingDate - today) / 86400000);
-  const el = document.getElementById("countdownDays");
-  if (!el) return;
-  if (diff > 0) el.textContent = diff;
-  else if (diff === 0) el.textContent = "Today";
-  else el.textContent = "♡";
-}
-
-// ── PROFILE PHOTO UPLOAD ──
-document.getElementById("profilePhotoInput").addEventListener("change", async (e) => {
-  const file = e.target.files?.[0];
-  if (!file || !currentUser) return;
-  const statusEl = document.getElementById("profilePhotoStatus");
-  statusEl.textContent = "Uploading...";
+window.showSection = showSection;
+window.saveAccount = async function() {
+  const msg = document.getElementById('accMsg');
   try {
-    // Use uid-based filename so it overwrites previous photo, no accumulation
-    const ext = file.name.includes(".") ? file.name.slice(file.name.lastIndexOf(".")) : ".jpg";
-    const fileRef = ref(storage, `couple-profile-photos/${currentUser.uid}/profile${ext}`);
-    await uploadBytes(fileRef, file);
-    const url = await getDownloadURL(fileRef);
-    await setDoc(doc(db, "users", currentUser.uid), { profilePhotoUrl: url }, { merge: true });
-    userData.profilePhotoUrl = url;
-    const img = document.getElementById("profilePhotoImg");
-    const empty = document.getElementById("profilePhotoEmpty");
-    const heroImg = document.getElementById("coupleHeroImage");
-    if (img) { img.src = url; img.style.display = "block"; }
-    if (empty) empty.style.display = "none";
-    if (heroImg) { heroImg.src = url; heroImg.style.objectFit = "cover"; }
-    statusEl.textContent = "Photo saved ♡";
-    setTimeout(() => { statusEl.textContent = "Shown to vendors when you message them"; }, 2500);
-  } catch (err) { console.error(err); statusEl.textContent = "Upload failed. Please try again."; }
-  e.target.value = "";
-});
-
-// ── SAVE DETAILS ──
-document.getElementById("saveDetailsBtn").addEventListener("click", async () => {
-  const p1 = document.getElementById("partner1Name").value.trim();
-  const p2 = document.getElementById("partner2Name").value.trim();
-  const date = document.getElementById("weddingDate").value;
-  const venue = document.getElementById("weddingVenue").value.trim();
-  const statusEl = document.getElementById("detailsStatus");
-  statusEl.textContent = "Saving...";
-  try {
-    await setDoc(doc(db, "users", currentUser.uid), {
-      partnerOne: p1,
-      partnerTwo: p2,
-      weddingDate: date,
-      weddingVenue: venue,
-      role: "couple",
-      updatedAt: new Date().toISOString()
-    }, { merge: true });
-
-    // Update local cache so onSnapshot doesn't wipe UI
-    userData = { ...userData, partnerOne: p1, partnerTwo: p2, weddingDate: date, weddingVenue: venue };
-
-    const displayName = p1 && p2 ? `${p1} & ${p2}` : p1 || p2 || "";
-    document.getElementById("welcomeTitle").textContent = displayName || "Your Wedding Dashboard";
-    const heroTitle = document.getElementById("coupleHeroTitle");
-    if (heroTitle) heroTitle.innerHTML = displayName ? `${escapeHtml(p1)} &amp; ${escapeHtml(p2)}` : "Your love story<br>starts here";
-    if (date) updateCountdown(date);
-    statusEl.textContent = "Details saved ♡";
-    setTimeout(() => { statusEl.textContent = ""; }, 2500);
-  } catch (err) { console.error(err); statusEl.textContent = "Something went wrong — " + err.message; }
-});
-
-// ── NOTES ──
-document.getElementById("saveNotesBtn").addEventListener("click", async () => {
-  const notes = document.getElementById("coupleNotes").value;
-  const statusEl = document.getElementById("notesStatus");
-  try {
-    await setDoc(doc(db, "users", currentUser.uid), { notes }, { merge: true });
-    userData.notes = notes;
-    statusEl.textContent = "Notes saved ♡";
-    setTimeout(() => { statusEl.textContent = ""; }, 2200);
-  } catch (err) { console.error(err); statusEl.textContent = "Something went wrong."; }
-});
-
-// ── CHECKLIST ──
-function getDefaultChecklist() {
-  return [
-    { id: "c1", text: "Set your wedding date", done: false },
-    { id: "c2", text: "Book your venue", done: false },
-    { id: "c3", text: "Find a celebrant", done: false },
-    { id: "c4", text: "Book photographer", done: false },
-    { id: "c5", text: "Book hair & makeup", done: false },
-    { id: "c6", text: "Choose your dress / attire", done: false },
-    { id: "c7", text: "Book catering or choose venue catering", done: false },
-    { id: "c8", text: "Send invitations", done: false },
-    { id: "c9", text: "Plan honeymoon", done: false },
-    { id: "c10", text: "Confirm all vendors", done: false },
-  ];
-}
-
-function renderChecklist() {
-  const container = document.getElementById("checklistItems");
-  container.innerHTML = "";
-  const done = checklistItems.filter(i => i.done).length;
-  const pct = checklistItems.length ? Math.round((done / checklistItems.length) * 100) : 0;
-  document.getElementById("checklistBar").style.width = pct + "%";
-  document.getElementById("checklistPct").textContent = pct + "%";
-  checklistItems.forEach((item, idx) => {
-    const el = document.createElement("div");
-    el.className = "checklist-item" + (item.done ? " done" : "");
-    el.innerHTML = `<div class="checklist-check">${item.done ? "✓" : ""}</div><span class="checklist-label">${escapeHtml(item.text)}</span>`;
-    el.addEventListener("click", () => { checklistItems[idx].done = !checklistItems[idx].done; saveChecklist(); renderChecklist(); });
-    container.appendChild(el);
-  });
-}
-
-document.getElementById("checklistAddBtn").addEventListener("click", addChecklistItem);
-document.getElementById("checklistInput").addEventListener("keydown", e => { if (e.key === "Enter") addChecklistItem(); });
-
-function addChecklistItem() {
-  const input = document.getElementById("checklistInput");
-  const text = input.value.trim();
-  if (!text) return;
-  checklistItems.push({ id: "c" + Date.now(), text, done: false });
-  input.value = "";
-  saveChecklist();
-  renderChecklist();
-}
-
-async function saveChecklist() {
-  try { await setDoc(doc(db, "users", currentUser.uid), { checklist: checklistItems }, { merge: true }); }
-  catch (err) { console.error(err); }
-}
-
-// ── FAVOURITES ──
-function getFavs() { return JSON.parse(localStorage.getItem("favoriteVendors") || "[]"); }
-
-async function renderFavourites() {
-  const favIds = getFavs();
-  const grid = document.getElementById("coupleFavsGrid");
-  const empty = document.getElementById("coupleFavsEmpty");
-  const clearBtn = document.getElementById("clearFavsBtn");
-  grid.innerHTML = "";
-  if (!favIds.length) { empty.style.display = "block"; clearBtn.style.display = "none"; return; }
-  empty.style.display = "none"; clearBtn.style.display = "inline";
-  for (const vendorId of favIds) {
+    const user = auth.currentUser;
+    if (!user) return;
+    await updateDoc(doc(db, 'users', user.uid), {
+      partnerOne: document.getElementById('accPartnerOne').value.trim(),
+      partnerTwo: document.getElementById('accPartnerTwo').value.trim(),
+      weddingDate: document.getElementById('accWeddingDate').value.trim()
+    });
+    msg.textContent = 'Saved &#9825;';
+  } catch(e) { msg.textContent = 'Could not save: ' + e.message; }
+};
+async function loadFavourites() {
+  const grid = document.getElementById('favouritesGrid');
+  const favs = getFavs();
+  if (!favs.length) { grid.innerHTML = '<p class="empty-state">No saved vendors yet. <a href="categories.html" style="color:var(--ink);">Browse vendors</a> and tap the heart to save them here.</p>'; return; }
+  grid.innerHTML = '';
+  for (const id of favs) {
     try {
-      const snap = await getDoc(doc(db, "vendors", vendorId));
+      const snap = await getDoc(doc(db, 'vendors', id));
       if (!snap.exists()) continue;
       const v = snap.data();
-      const name = v.businessName || "Vendor";
-      const img = v.coverImageUrl || (Array.isArray(v.images) && v.images[0]) || v.profileImageUrl || "images/bouquet.png";
-      const cat = Array.isArray(v.categories) && v.categories.length ? v.categories.slice(0,2).map(c => c.replace(/_/g," ").replace(/\b\w/g,x=>x.toUpperCase())).join(" · ") : "";
-      const card = document.createElement("div");
-      card.className = "couple-fav-card";
-      card.innerHTML = `<img src="${img}" alt="${escapeHtml(name)}" loading="lazy"><div class="couple-fav-info"><p class="couple-fav-name">${escapeHtml(name)}</p>${cat?`<p class="couple-fav-cat">${escapeHtml(cat)}</p>`:""}</div>`;
-      card.addEventListener("click", () => { window.location.href = `vendor.html?id=${vendorId}`; });
+      const card = document.createElement('div');
+      card.className = 'fav-card';
+      card.innerHTML = `<a href="vendor.html?id=${id}" class="fav-card-name">${v.businessName || 'Vendor'}</a><p class="fav-card-cat">${Array.isArray(v.categories) ? v.categories[0] : v.category || ''}</p><button class="fav-card-remove" data-id="${id}">Remove &#215;</button>`;
+      card.querySelector('.fav-card-remove').addEventListener('click', () => {
+        const updated = getFavs().filter(f => f !== id);
+        localStorage.setItem(favKey, JSON.stringify(updated));
+        loadFavourites();
+      });
       grid.appendChild(card);
     } catch {}
   }
+  if (!grid.children.length) grid.innerHTML = '<p class="empty-state">No saved vendors yet.</p>';
 }
-
-document.getElementById("clearFavsBtn").addEventListener("click", () => { localStorage.removeItem("favoriteVendors"); renderFavourites(); });
-
-// ── MESSAGES PREVIEW ──
-function setupConversationsListener() {
-  if (!currentUser) return;
-  const q = query(collection(db, "conversations"), where("coupleId", "==", currentUser.uid), orderBy("lastMessageAt", "desc"));
-  unsubConversations = onSnapshot(q, (snap) => {
-    const list = document.getElementById("coupleMessagesList");
-    const empty = document.getElementById("coupleMsgsEmpty");
-    list.innerHTML = "";
-    if (snap.empty) { empty.style.display = "block"; return; }
-    empty.style.display = "none";
-    snap.docs.forEach(docSnap => {
-      const conv = docSnap.data();
-      const unread = (conv.coupleUnread || 0) > 0;
-      const time = conv.lastMessageAt?.toDate ? conv.lastMessageAt.toDate().toLocaleDateString("en-AU", { day: "numeric", month: "short" }) : "";
-      const item = document.createElement("div");
-      item.className = "couple-msg-item" + (unread ? " unread" : "");
-      item.innerHTML = `
-        <img class="couple-msg-avatar" src="${conv.vendorProfileImage || "images/logo1.png"}" alt="${escapeHtml(conv.vendorName || "Vendor")}" loading="lazy">
-        <div class="couple-msg-content">
-          <p class="couple-msg-name">${escapeHtml(conv.vendorName || "Vendor")}</p>
-          <p class="couple-msg-preview">${escapeHtml(conv.lastMessage || "")}</p>
-          <span class="couple-msg-time">${time}</span>
-        </div>
-        ${unread ? '<div class="couple-msg-unread-dot"></div>' : ""}
-      `;
-      item.addEventListener("click", () => { window.location.href = `messages.html?conv=${docSnap.id}`; });
-      list.appendChild(item);
-    });
-  }, (err) => { console.error("Conversations error:", err); });
-}
-
-// ── UNREAD BADGE ──
-function setupUnreadBadge() {
-  if (!currentUser) return;
-  const q = query(collection(db, "conversations"), where("coupleId", "==", currentUser.uid));
-  onSnapshot(q, (snap) => {
-    let total = 0;
-    snap.forEach(d => { total += (d.data().coupleUnread || 0); });
-    const badge = document.getElementById("msgNavBadge");
-    if (badge) { badge.textContent = total > 0 ? String(total) : "0"; badge.style.display = total > 0 ? "inline" : "none"; }
-  });
-}
-
-// ── BUDGET ──
-function renderBudget() {
-  document.getElementById("budgetTotal").textContent = budgetTotal ? `A$${budgetTotal.toLocaleString()}` : "–";
-  const container = document.getElementById("budgetCategories");
-  container.innerHTML = "";
-  const spent = budgetCategories.reduce((sum, c) => sum + (parseFloat(c.amount) || 0), 0);
-  budgetCategories.forEach((cat) => {
-    const pct = budgetTotal ? Math.min(100, Math.round(((parseFloat(cat.amount) || 0) / budgetTotal) * 100)) : 0;
-    const row = document.createElement("div");
-    row.className = "budget-cat-row";
-    row.innerHTML = `<span class="budget-cat-label">${escapeHtml(cat.name)}</span><span class="budget-cat-amount">A$${(parseFloat(cat.amount)||0).toLocaleString()}</span><div class="budget-cat-bar-wrap"><div class="budget-cat-bar" style="width:${pct}%"></div></div>`;
-    container.appendChild(row);
-  });
-  const remaining = budgetTotal - spent;
-  document.getElementById("budgetRemaining").textContent = budgetTotal ? `A$${remaining.toLocaleString()}` : "–";
-}
-
-document.getElementById("editBudgetBtn").addEventListener("click", () => {
-  const el = document.getElementById("budgetInput");
-  const showing = el.style.display === "block";
-  el.style.display = showing ? "none" : "block";
-  if (!showing) document.getElementById("budgetTotalInput").value = budgetTotal > 0 ? budgetTotal : "";
-});
-
-document.getElementById("saveBudgetTotalBtn").addEventListener("click", async () => {
-  const input = document.getElementById("budgetTotalInput");
-  const val = Number(input.value);
-  console.log("Budget save clicked, val:", val);
-  if (!input.value || val < 0) { console.log("Invalid value, returning"); return; }
-  budgetTotal = val;
-  document.getElementById("budgetInput").style.display = "none";
-  renderBudget();
+onAuthStateChanged(auth, async (user) => {
+  if (!user) { document.getElementById('authGate').style.display = 'block'; document.getElementById('dashLayout').style.display = 'none'; return; }
+  document.getElementById('authGate').style.display = 'none';
+  document.getElementById('dashLayout').style.display = 'grid';
   try {
-    await setDoc(doc(db, "users", currentUser.uid), { budgetTotal: val }, { merge: true });
-    console.log("Budget saved to Firestore:", val);
-  } catch (err) { console.error("Budget save error:", err); }
+    const snap = await getDoc(doc(db, 'users', user.uid));
+    if (snap.exists()) {
+      const d = snap.data();
+      const name = d.partnerOne && d.partnerTwo ? `${d.partnerOne} &amp; ${d.partnerTwo}` : d.partnerOne || user.email;
+      document.getElementById('dashWelcome').innerHTML = `Welcome back, ${name}`;
+      if (d.partnerOne) document.getElementById('accPartnerOne').value = d.partnerOne;
+      if (d.partnerTwo) document.getElementById('accPartnerTwo').value = d.partnerTwo;
+      if (d.weddingDate) document.getElementById('accWeddingDate').value = d.weddingDate;
+    }
+  } catch {}
+  loadFavourites();
 });
-
-document.getElementById("addBudgetCatBtn").addEventListener("click", async () => {
-  const name = document.getElementById("budgetCatName").value.trim();
-  const amount = parseFloat(document.getElementById("budgetCatAmount").value);
-  if (!name || isNaN(amount)) return;
-  budgetCategories.push({ name, amount });
-  document.getElementById("budgetCatName").value = "";
-  document.getElementById("budgetCatAmount").value = "";
-  renderBudget();
-  await saveBudget();
-});
-
-async function saveBudget() {
-  try { await setDoc(doc(db, "users", currentUser.uid), { budgetTotal, budgetCategories }, { merge: true }); }
-  catch (err) { console.error(err); }
-}
-
-// ── INSPIRATION ──
-function renderInspiration() {
-  const grid = document.getElementById("inspirationGrid");
-  grid.innerHTML = "";
-  inspirationImages.forEach(src => {
-    const card = document.createElement("div");
-    card.className = "inspiration-card";
-    card.innerHTML = `<img src="${src}" alt="Inspiration" loading="lazy">`;
-    grid.appendChild(card);
-  });
-}
-
-document.getElementById("addInspirationBtn").addEventListener("click", () => { document.getElementById("inspirationFileInput").click(); });
-document.getElementById("inspirationFileInput").addEventListener("change", async (e) => {
-  const files = Array.from(e.target.files);
-  if (!files.length || !currentUser) return;
-  for (const file of files) {
-    try {
-      const ext = file.name.includes(".") ? file.name.slice(file.name.lastIndexOf(".")) : ".jpg";
-      const fileRef = ref(storage, `couple-inspiration/${currentUser.uid}/${Date.now()}-${Math.random().toString(36).slice(2)}${ext}`);
-      await uploadBytes(fileRef, file);
-      const url = await getDownloadURL(fileRef);
-      inspirationImages.push(url);
-      renderInspiration();
-      await setDoc(doc(db, "users", currentUser.uid), { inspirationImages }, { merge: true });
-    } catch (err) { console.error("Inspiration upload failed:", err); }
-  }
-  e.target.value = "";
-});
+document.getElementById('logoutBtn').addEventListener('click', async () => { await signOut(auth); window.location.href = 'index.html'; });
 </script>
-
+<script type="module" src="nav.js"></script>
 </body>
 </html>
