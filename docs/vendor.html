@@ -482,10 +482,6 @@ const sidebarStatesEl       = document.getElementById("sidebarStates");
 const sidebarCountriesEl    = document.getElementById("sidebarCountries");
 const favoriteBtn           = document.getElementById("favoriteBtn");
 const statusMessage         = document.getElementById("statusMessage");
-const joinLink              = document.getElementById("joinLink");
-const loginLink             = document.getElementById("loginLink");
-const dashboardLink         = document.getElementById("dashboardLink");
-const logoutLink            = document.getElementById("logoutLink");
 const bookingCard           = document.getElementById("bookingCard");
 const bookingFrame          = document.getElementById("bookingFrame");
 const bookingEmbedWrap      = document.getElementById("bookingEmbedWrap");
@@ -804,11 +800,9 @@ async function loadVendor() {
 
 onAuthStateChanged(auth, (user) => {
   currentUser = user;
-  if (user) { hide(joinLink); hide(loginLink); show(dashboardLink,"inline-block"); show(logoutLink,"inline-block"); }
-  else       { show(joinLink,"inline-block"); show(loginLink,"inline-block"); hide(dashboardLink); hide(logoutLink); }
+
 });
 
-logoutLink.addEventListener("click", async () => { try { await signOut(auth); window.location.href="index.html"; } catch {} });
 
 loadVendor();
 </script>
