@@ -12,210 +12,394 @@
   <style>
     :root{--ink:#1A1A16;--ink-mid:#4A4A44;--ink-muted:#8A8A82;--ink-ghost:#C0C0B8;--ink-rule:#DDDDD8;--cream:#FAFAF8;--cream-warm:#F4F0EA;--cream-deep:#EDE8E0;--gold:#9A7A5A;--gold-light:#C4A882;--font-serif:'Cormorant Garamond',Georgia,serif;--font-sans:'Plus Jakarta Sans','Helvetica Neue',Arial,sans-serif}
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{background:var(--cream);font-family:var(--font-sans);color:var(--ink);-webkit-font-smoothing:antialiased}
-    @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-    .site-topbar{background:var(--cream);border-bottom:1px solid var(--ink-rule);padding:0 36px;display:flex;align-items:center;gap:20px;min-height:64px;position:sticky;top:0;z-index:200}.site-topbar-logo-wrap{display:inline-flex;align-items:center}.site-topbar-logo{width:44px;height:44px;object-fit:contain}.site-topbar-title{flex:1}.site-topbar-title h1{font-family:var(--font-serif);font-size:1.05rem;font-weight:400;letter-spacing:.01em;color:var(--ink)}.site-topbar-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.site-topbar-link,.site-topbar-btn{display:inline-flex;align-items:center;justify-content:center;min-height:34px;padding:6px 14px;font-family:var(--font-sans);font-size:.75rem;letter-spacing:.06em;text-decoration:none;white-space:nowrap;transition:all .2s ease}.site-topbar-link{color:var(--ink-muted);border:none;background:none}.site-topbar-link:hover{color:var(--ink)}.site-topbar-btn{background:var(--ink);color:var(--cream);font-weight:600;border:none;cursor:pointer}.site-topbar-btn:hover{background:var(--ink-mid)}
-    .pricing-hero{display:grid;grid-template-columns:1fr 1fr;align-items:stretch;border-bottom:1px solid var(--ink)}.pricing-hero-copy{padding:90px 40px 70px;display:flex;flex-direction:column;justify-content:center;border-right:1px solid var(--ink-rule);position:relative}.pricing-kicker,.pricing-title,.pricing-script,.pricing-intro{text-align:center;margin-left:auto;margin-right:auto;width:100%;max-width:440px}.pricing-hero-copy>*{animation:fadeUp .7s ease forwards;opacity:0}.pricing-hero-copy>a{position:absolute;top:40px;left:40px}.pricing-logo{width:110px;opacity:.9;display:block}.pricing-kicker{font-family:var(--font-sans);font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-ghost);margin-bottom:24px}.pricing-title{font-family:var(--font-serif);font-size:clamp(2.2rem,3.8vw,3.4rem);font-weight:300;line-height:.95;letter-spacing:-.03em;color:var(--ink);margin-bottom:30px}.pricing-script{font-family:var(--font-serif);font-style:italic;font-size:1.15rem;color:var(--gold);letter-spacing:.01em;margin-bottom:38px}.pricing-intro{font-family:var(--font-sans);font-size:.88rem;color:var(--ink-muted);line-height:1.75}.pricing-hero-image-wrap{position:relative;overflow:hidden;background:var(--cream-deep);min-height:clamp(380px,46vw,580px)}.pricing-hero-image{width:100%;height:100%;display:block;object-fit:cover;transition:transform .9s ease}.pricing-hero-image-wrap:hover .pricing-hero-image{transform:scale(1.025)}
-    .trust-strip{display:flex;border-bottom:1px solid var(--ink-rule)}.trust-strip span{flex:1;text-align:center;padding:10px 16px;font-family:var(--font-sans);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-ghost);border-right:1px solid var(--ink-rule)}.trust-strip span:last-child{border-right:none}
-    .section-head{display:flex;justify-content:space-between;align-items:flex-end;padding:36px 36px 0;border-top:1px solid var(--ink);gap:16px}.section-kicker{font-family:var(--font-sans);font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-ghost);margin-bottom:5px}.section-title{font-family:var(--font-serif);font-size:1.7rem;font-weight:300;letter-spacing:-.02em;color:var(--ink);line-height:1}.section-script{font-family:var(--font-serif);font-style:italic;font-size:1rem;color:var(--gold);display:block;margin-top:2px}
-    .pricing-intro-section{border-bottom:1px solid var(--ink-rule)}.pricing-intro-inner{display:grid;grid-template-columns:1fr 1fr;gap:0;background:var(--ink-rule);margin-top:20px}.pricing-intro-col{background:var(--cream);padding:36px}.pricing-intro-col:last-child{background:var(--cream-warm)}.pricing-intro-col h2{font-family:var(--font-serif);font-size:1.6rem;font-weight:300;letter-spacing:-.02em;color:var(--ink);margin-bottom:12px}.pricing-intro-col p{font-family:var(--font-sans);font-size:.86rem;color:var(--ink-muted);line-height:1.8;margin-bottom:10px}
-    .pricing-plans{border-bottom:1px solid var(--ink-rule)}.pricing-plans-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;background:var(--ink-rule);margin-top:20px}.pricing-plan{background:var(--cream);padding:36px 28px 40px;border-right:.5px solid var(--ink-rule);display:flex;flex-direction:column;gap:0}.pricing-plan:last-child{border-right:none}.pricing-plan.featured{background:var(--ink)}.pricing-plan-badge{font-family:var(--font-sans);font-size:.6rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-light);margin-bottom:12px;display:block}.pricing-plan-name{font-family:var(--font-serif);font-size:1.6rem;font-weight:300;letter-spacing:-.02em;color:var(--ink);margin-bottom:4px}.pricing-plan.featured .pricing-plan-name{color:var(--cream)}.pricing-plan-price{font-family:var(--font-serif);font-size:2.6rem;font-weight:300;color:var(--ink);line-height:1;letter-spacing:-.03em;margin:14px 0 4px}.pricing-plan.featured .pricing-plan-price{color:var(--cream)}.pricing-plan-period{font-family:var(--font-sans);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-muted);margin-bottom:6px}.pricing-plan.featured .pricing-plan-period{color:rgba(250,250,248,.5)}.pricing-plan-setup{font-family:var(--font-sans);font-size:.78rem;color:var(--ink-muted);margin-bottom:22px;line-height:1.6}.pricing-plan.featured .pricing-plan-setup{color:rgba(250,250,248,.6)}.pricing-plan-divider{height:.5px;background:var(--ink-rule);margin:0 0 20px}.pricing-plan.featured .pricing-plan-divider{background:rgba(255,255,255,.12)}.pricing-plan-features{display:grid;gap:10px;margin-bottom:28px;flex:1}.pricing-plan-feature{font-family:var(--font-sans);font-size:.8rem;color:var(--ink-muted);line-height:1.55;padding-left:14px;position:relative}.pricing-plan-feature::before{content:'✓';position:absolute;left:0;color:var(--gold);font-size:.7rem}.pricing-plan.featured .pricing-plan-feature{color:rgba(250,250,248,.7)}.pricing-plan-feature.note{font-style:italic;color:var(--ink-ghost);padding-left:0}.pricing-plan-feature.note::before{content:none}.pricing-plan.featured .pricing-plan-feature.note{color:rgba(250,250,248,.4)}.pricing-plan-cta{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:10px 20px;font-family:var(--font-sans);font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:background .2s;border:none;background:var(--ink);color:var(--cream)}.pricing-plan-cta:hover{background:var(--ink-mid)}.pricing-plan.featured .pricing-plan-cta{background:var(--cream);color:var(--ink)}.pricing-plan.featured .pricing-plan-cta:hover{background:var(--cream-warm)}
-    .pricing-whats-included{border-bottom:1px solid var(--ink-rule)}.pricing-included-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;background:var(--ink-rule);margin-top:20px}.pricing-included-col{background:var(--cream);padding:36px}.pricing-included-col:nth-child(even){background:var(--cream-warm)}.pricing-included-col h3{font-family:var(--font-serif);font-size:1.2rem;font-weight:300;letter-spacing:-.01em;color:var(--ink);margin-bottom:14px}.pricing-included-list{display:grid;gap:8px}.pricing-included-item{display:flex;gap:10px;align-items:flex-start;font-family:var(--font-sans);font-size:.82rem;color:var(--ink-muted);line-height:1.55}.pricing-included-item::before{content:'✦';color:var(--gold-light);font-size:.7rem;flex-shrink:0;margin-top:2px}
-    .pricing-faq{border-bottom:1px solid var(--ink-rule)}.pricing-faq-grid{display:grid;gap:0;background:var(--ink-rule);margin-top:20px}.pricing-faq-item{background:var(--cream);padding:24px 28px;border-bottom:.5px solid var(--ink-rule)}.pricing-faq-item:last-child{border-bottom:none}.pricing-faq-item:nth-child(even){background:var(--cream-warm)}.pricing-faq-q{font-family:var(--font-serif);font-size:1.1rem;font-weight:400;color:var(--ink);margin-bottom:8px}.pricing-faq-a{font-family:var(--font-sans);font-size:.84rem;color:var(--ink-muted);line-height:1.8}
-    .pricing-cta{border-bottom:1px solid var(--ink-rule)}.pricing-cta-inner{display:grid;grid-template-columns:.9fr 1.1fr;gap:0;background:var(--ink-rule);margin-top:20px}.pricing-cta-image{overflow:hidden;min-height:360px}.pricing-cta-image img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}.pricing-cta-image:hover img{transform:scale(1.03)}.pricing-cta-copy{background:var(--ink);padding:40px 36px;display:flex;flex-direction:column;justify-content:center}.pricing-cta-copy h2{font-family:var(--font-serif);font-size:1.8rem;font-weight:300;letter-spacing:-.02em;color:var(--cream);margin-bottom:14px;line-height:1.1}.pricing-cta-copy p{font-family:var(--font-sans);font-size:.86rem;color:rgba(250,250,248,.55);line-height:1.8;margin-bottom:12px}.pricing-cta-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}.btn-light{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:10px 22px;font-family:var(--font-sans);font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);background:var(--cream);text-decoration:none;border:none;transition:background .2s;cursor:pointer}.btn-light:hover{background:var(--cream-warm)}.btn-ghost-light{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:10px 22px;font-family:var(--font-sans);font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--cream);background:none;text-decoration:none;border:.5px solid rgba(255,255,255,.3);transition:all .2s}.btn-ghost-light:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.6)}
-    .site-footer{background:var(--ink);border-top:1px solid var(--ink-mid)}.footer-content{padding:72px 50px 58px;display:grid;grid-template-columns:1.2fr .8fr;gap:90px;align-items:center;max-width:1280px;margin:0 auto}.footer-logo-col{display:flex;flex-direction:column;align-items:flex-start;gap:14px;max-width:520px}.footer-eyebrow{font-family:var(--font-sans);font-size:.65rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-muted)}.footer-title{font-family:var(--font-serif);font-size:1.4rem;font-weight:300;color:var(--cream);letter-spacing:-.02em;text-align:left;margin:4px 0 6px}.footer-text{font-family:var(--font-sans);font-size:.78rem;color:var(--ink-muted);line-height:1.6;text-align:left}.footer-tagline{font-family:var(--font-serif);font-style:italic;font-size:.95rem;color:var(--gold-light);text-align:left;margin-top:16px}.footer-abn{font-family:var(--font-sans);font-size:.68rem;color:var(--ink-muted);margin-top:4px}.footer-links-col{display:flex;flex-direction:column;gap:10px;align-items:flex-end}.footer-links{display:flex;flex-direction:column;gap:13px;align-items:flex-end}.footer-links a{font-family:var(--font-sans);font-size:.72rem;letter-spacing:.06em;color:var(--ink-muted);text-decoration:none;transition:color .2s}.footer-links a:hover{color:var(--cream)}
-    @media(max-width:1200px){.pricing-plans-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.pricing-plan:nth-child(2){border-right:none}.pricing-plan:nth-child(1),.pricing-plan:nth-child(2){border-bottom:.5px solid var(--ink-rule)}}
-    @media(max-width:980px){.pricing-hero,.pricing-intro-inner,.pricing-cta-inner{grid-template-columns:1fr}.pricing-hero-copy{border-right:none;border-bottom:1px solid var(--ink-rule)}.pricing-hero-image-wrap{min-height:300px}.pricing-plans-grid{grid-template-columns:1fr}.pricing-plan{border-right:none;border-bottom:.5px solid var(--ink-rule)}.pricing-plan:last-child{border-bottom:none}.pricing-included-grid{grid-template-columns:1fr}.pricing-cta-image{min-height:280px}.footer-content{grid-template-columns:1fr;gap:24px}.footer-links-col{align-items:flex-start}.footer-links{align-items:flex-start}}
-    @media(max-width:700px){.site-topbar{padding:0 16px;min-height:56px;position:relative}.pricing-hero-copy{padding:150px 20px 55px}.pricing-hero-image-wrap{min-height:260px}.section-head{padding:24px 20px 0;flex-wrap:wrap;gap:6px}.pricing-intro-col,.pricing-plan,.pricing-included-col,.pricing-faq-item,.pricing-cta-copy{padding:24px 20px}.trust-strip{display:none}.footer-content{padding:28px 20px 24px}}
-  
-    /* ── SHARED NAV (injected by nav.js) ── */
-    .nav-links { display: flex; align-items: center; gap: 8px; }
-    .mobile-menu-btn {
-      display: none; background: none; border: none;
-      color: var(--ink); font-size: 1.5rem; cursor: pointer; padding: 4px;
+    @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+    /* ── TOPBAR ── */
+    .site-topbar{background:var(--cream);border-bottom:1px solid var(--ink-rule);padding:0 36px;display:flex;align-items:center;gap:20px;min-height:64px;position:sticky;top:0;z-index:200}
+    .site-topbar-logo-wrap{display:inline-flex;align-items:center}.site-topbar-logo{width:44px;height:44px;object-fit:contain}
+    .site-topbar-title{flex:1}.site-topbar-title h1{font-family:var(--font-serif);font-size:1.05rem;font-weight:400;letter-spacing:.01em;color:var(--ink)}
+    .site-topbar-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+    .site-topbar-link,.site-topbar-btn{display:inline-flex;align-items:center;justify-content:center;min-height:34px;padding:6px 14px;font-family:var(--font-sans);font-size:.75rem;letter-spacing:.06em;text-decoration:none;white-space:nowrap;transition:all .2s ease}
+    .site-topbar-link{color:var(--ink-muted);border:none;background:none}.site-topbar-link:hover{color:var(--ink)}
+    .site-topbar-btn{background:var(--ink);color:var(--cream);font-weight:600;border:none;cursor:pointer}.site-topbar-btn:hover{background:var(--ink-mid)}
+
+    /* ── HERO — full-width banner ── */
+    .pricing-hero{position:relative;min-height:520px;display:flex;align-items:flex-end;border-bottom:1px solid var(--ink);overflow:hidden;background:var(--cream-deep)}
+    .hero-bg{position:absolute;inset:0;background-image:url('images/arm.png');background-size:cover;background-position:center;filter:brightness(.5) saturate(.8)}
+    .hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(26,26,22,.9) 0%,rgba(26,26,22,.4) 55%,rgba(26,26,22,.1) 100%)}
+    .hero-content{position:relative;z-index:2;padding:0 52px 52px;width:100%;animation:fadeUp .7s ease both}
+    .hero-eyebrow{font-family:var(--font-sans);font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(240,232,216,.45);margin-bottom:14px}
+    .hero-title{font-family:var(--font-serif);font-size:clamp(3rem,6vw,5.2rem);font-weight:300;line-height:.88;letter-spacing:-.04em;color:#f0e8d8;margin-bottom:14px}
+    .hero-title em{font-style:italic;color:var(--gold-light)}
+    .hero-script{font-family:var(--font-serif);font-style:italic;font-size:1.15rem;color:var(--gold-light);margin-bottom:22px}
+    .hero-desc{font-family:var(--font-sans);font-size:.88rem;color:rgba(240,232,216,.55);line-height:1.8;max-width:560px}
+
+    /* ── STAT STRIP — ink ── */
+    .stat-strip{display:grid;grid-template-columns:repeat(4,1fr);background:var(--ink)}
+    .stat-item{padding:20px 28px;border-right:.5px solid #4A4A44;display:flex;flex-direction:column;gap:5px;text-align:center;align-items:center}
+    .stat-item:last-child{border-right:none}
+    .stat-num{font-family:var(--font-serif);font-size:2.4rem;font-weight:300;color:#F4F0EA;line-height:1;letter-spacing:-.05em}
+    .stat-label{font-family:var(--font-sans);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:#4A4A44}
+
+    /* ── SECTION SCAFFOLD ── */
+    .section-head{padding:44px 52px 0;border-top:1px solid var(--ink)}
+    .section-kicker{font-family:var(--font-sans);font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;color:var(--ink-ghost);margin-bottom:8px}
+    .section-title{font-family:var(--font-serif);font-size:clamp(1.8rem,3vw,2.6rem);font-weight:300;letter-spacing:-.03em;color:var(--ink);line-height:.95}
+    .section-title em{font-style:italic;color:var(--gold)}
+
+    /* ── INTRO TWO-COL ── */
+    .intro-section{border-bottom:1px solid var(--ink-rule)}
+    .intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;background:var(--ink-rule);margin-top:28px}
+    .intro-col{background:var(--cream);padding:40px 44px}
+    .intro-col:last-child{background:var(--cream-warm)}
+    .intro-col h2{font-family:var(--font-serif);font-size:1.7rem;font-weight:300;letter-spacing:-.02em;color:var(--ink);margin-bottom:14px;line-height:1.05}
+    .intro-col p{font-family:var(--font-sans);font-size:.86rem;color:var(--ink-muted);line-height:1.85;margin-bottom:10px}
+
+    /* ── PLANS GRID ── */
+    .plans-section{border-bottom:1px solid var(--ink-rule)}
+    .plans-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;background:var(--ink-rule);margin-top:28px}
+
+    /* each plan card */
+    .plan{background:var(--cream);padding:36px 28px 40px;border-right:.5px solid var(--ink-rule);display:flex;flex-direction:column;position:relative;overflow:hidden;transition:background .15s}
+    .plan:last-child{border-right:none}
+    .plan:hover{background:var(--cream-warm)}
+    .plan::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--ink-rule);transition:background .2s}
+    .plan:hover::after{background:var(--gold)}
+
+    /* featured / highlighted plan */
+    .plan.featured{background:var(--ink)}
+    .plan.featured:hover{background:var(--ink-mid)}
+    .plan.featured::after{background:var(--gold-light)}
+
+    .plan-tier{font-family:var(--font-sans);font-size:.58rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-light);margin-bottom:10px}
+    .plan-name{font-family:var(--font-serif);font-size:1.9rem;font-weight:300;letter-spacing:-.03em;color:var(--ink);line-height:1;margin-bottom:18px}
+    .plan.featured .plan-name{color:#F4F0EA}
+
+    .plan-price-row{display:flex;align-items:baseline;gap:4px;margin-bottom:4px}
+    .plan-price{font-family:var(--font-serif);font-size:3rem;font-weight:300;color:var(--ink);line-height:1;letter-spacing:-.04em}
+    .plan.featured .plan-price{color:#F4F0EA}
+    .plan-price-unit{font-family:var(--font-sans);font-size:.72rem;color:var(--ink-muted);letter-spacing:.06em;text-transform:uppercase}
+    .plan.featured .plan-price-unit{color:rgba(250,250,248,.45)}
+
+    .plan-period{font-family:var(--font-sans);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-muted);margin-bottom:6px}
+    .plan.featured .plan-period{color:rgba(250,250,248,.4)}
+    .plan-setup{font-family:var(--font-sans);font-size:.76rem;color:var(--ink-muted);margin-bottom:24px;line-height:1.5;padding:8px 12px;background:var(--cream-deep)}
+    .plan.featured .plan-setup{background:rgba(255,255,255,.08);color:rgba(250,250,248,.55)}
+
+    .plan-divider{height:.5px;background:var(--ink-rule);margin:0 0 22px}
+    .plan.featured .plan-divider{background:rgba(255,255,255,.1)}
+
+    .plan-features{display:grid;gap:11px;margin-bottom:28px;flex:1}
+    .plan-feature{font-family:var(--font-sans);font-size:.78rem;color:var(--ink-muted);line-height:1.55;padding-left:16px;position:relative}
+    .plan-feature::before{content:'✓';position:absolute;left:0;color:var(--gold);font-size:.7rem;top:1px}
+    .plan.featured .plan-feature{color:rgba(250,250,248,.65)}
+    .plan-feature.note{font-style:italic;color:var(--ink-ghost);padding-left:0;font-size:.74rem}
+    .plan-feature.note::before{content:none}
+    .plan.featured .plan-feature.note{color:rgba(250,250,248,.35)}
+
+    .plan-cta{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 20px;font-family:var(--font-sans);font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:all .2s;border:none;background:var(--ink);color:var(--cream)}
+    .plan-cta:hover{background:var(--ink-mid)}
+    .plan.featured .plan-cta{background:#F4F0EA;color:var(--ink)}
+    .plan.featured .plan-cta:hover{background:#fff}
+
+    /* ── WHAT'S INCLUDED ── */
+    .included-section{border-bottom:1px solid var(--ink-rule)}
+    .included-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0;background:var(--ink-rule);margin-top:28px}
+    .included-col{background:var(--cream);padding:38px 44px}
+    .included-col:nth-child(even){background:var(--cream-warm)}
+    .included-col h3{font-family:var(--font-serif);font-size:1.35rem;font-weight:300;color:var(--ink);margin-bottom:20px;padding-bottom:12px;border-bottom:.5px solid var(--ink-rule)}
+    .included-list{display:grid;gap:12px}
+    .included-item{display:flex;gap:12px;align-items:flex-start;font-family:var(--font-sans);font-size:.82rem;color:var(--ink-muted);line-height:1.6}
+    .included-item::before{content:'✦';color:var(--gold-light);font-size:.65rem;flex-shrink:0;margin-top:3px}
+
+    /* ── FAQ ── */
+    .faq-section{border-bottom:1px solid var(--ink-rule)}
+    .faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;background:var(--ink-rule);margin-top:28px}
+    .faq-item{background:var(--cream);padding:28px 36px;border-bottom:.5px solid var(--ink-rule)}
+    .faq-item:nth-child(even){background:var(--cream-warm)}
+    .faq-item:nth-child(n+5){border-bottom:none}
+    .faq-q{font-family:var(--font-serif);font-size:1.15rem;font-weight:400;color:var(--ink);margin-bottom:10px;line-height:1.2}
+    .faq-a{font-family:var(--font-sans);font-size:.82rem;color:var(--ink-muted);line-height:1.85}
+
+    /* ── CTA BANNER ── */
+    .cta-section{border-bottom:1px solid var(--ink-rule)}
+    .cta-inner{background:var(--ink);margin-top:28px;display:grid;grid-template-columns:.85fr 1.15fr}
+    .cta-img{overflow:hidden;min-height:380px}
+    .cta-img img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(.8) saturate(.85);transition:transform .6s ease}
+    .cta-img:hover img{transform:scale(1.03)}
+    .cta-copy{padding:52px 48px;display:flex;flex-direction:column;justify-content:center}
+    .cta-copy h2{font-family:var(--font-serif);font-size:clamp(1.8rem,3vw,2.6rem);font-weight:300;letter-spacing:-.03em;color:#F4F0EA;margin-bottom:16px;line-height:1.05}
+    .cta-copy h2 em{font-style:italic;color:var(--gold-light)}
+    .cta-copy p{font-family:var(--font-sans);font-size:.86rem;color:rgba(250,250,248,.5);line-height:1.85;margin-bottom:10px}
+    .cta-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+    .btn-light{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:10px 24px;font-family:var(--font-sans);font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);background:var(--cream);text-decoration:none;border:none;transition:background .2s}
+    .btn-light:hover{background:var(--cream-warm)}
+    .btn-ghost{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:10px 24px;font-family:var(--font-sans);font-size:.68rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(250,250,248,.6);background:none;text-decoration:none;border:.5px solid rgba(255,255,255,.25);transition:all .2s}
+    .btn-ghost:hover{background:rgba(255,255,255,.07);color:#F4F0EA;border-color:rgba(255,255,255,.5)}
+
+    /* ── FOOTER ── */
+    .site-footer{background:var(--ink);border-top:1px solid var(--ink-mid)}
+    .footer-content{padding:72px 50px 58px;display:grid;grid-template-columns:1.2fr .8fr;gap:90px;align-items:center;max-width:1280px;margin:0 auto}
+    .footer-logo-col{display:flex;flex-direction:column;align-items:flex-start;gap:14px;max-width:520px}
+    .footer-eyebrow{font-family:var(--font-sans);font-size:.65rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-muted)}
+    .footer-title{font-family:var(--font-serif);font-size:1.4rem;font-weight:300;color:var(--cream);letter-spacing:-.02em;text-align:left;margin:4px 0 6px}
+    .footer-text{font-family:var(--font-sans);font-size:.78rem;color:var(--ink-muted);line-height:1.6;text-align:left}
+    .footer-tagline{font-family:var(--font-serif);font-style:italic;font-size:.95rem;color:var(--gold-light);text-align:left;margin-top:16px}
+    .footer-abn{font-family:var(--font-sans);font-size:.68rem;color:var(--ink-muted);margin-top:4px}
+    .footer-links-col{display:flex;flex-direction:column;gap:10px;align-items:flex-end}
+    .footer-links{display:flex;flex-direction:column;gap:13px;align-items:flex-end}
+    .footer-links a{font-family:var(--font-sans);font-size:.72rem;letter-spacing:.06em;color:var(--ink-muted);text-decoration:none;transition:color .2s}
+    .footer-links a:hover{color:var(--cream)}
+
+    /* ── NAV MOBILE ── */
+    .nav-links{display:flex;align-items:center;gap:8px}
+    .mobile-menu-btn{display:none;background:none;border:none;color:var(--ink);font-size:1.5rem;cursor:pointer;padding:4px}
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:1200px){.plans-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.plan:nth-child(2){border-right:none}.plan:nth-child(1),.plan:nth-child(2){border-bottom:.5px solid var(--ink-rule)}}
+    @media(max-width:980px){.intro-grid,.included-grid,.faq-grid,.cta-inner{grid-template-columns:1fr}.plans-grid{grid-template-columns:1fr}.plan{border-right:none;border-bottom:.5px solid var(--ink-rule)}.plan:last-child{border-bottom:none}.cta-img{min-height:260px}.footer-content{grid-template-columns:1fr;gap:24px}.footer-links-col{align-items:flex-start}.footer-links{align-items:flex-start}}
+    @media(max-width:700px){
+      .site-topbar{padding:0 16px;min-height:56px;position:relative}
+      .mobile-menu-btn{display:inline-flex;align-items:center;justify-content:center}
+      .nav-links{display:none}
+      .nav-links.active{display:flex;flex-direction:column;position:absolute;top:56px;right:12px;background:rgba(250,250,248,.97);backdrop-filter:blur(14px);border:1px solid var(--ink-rule);padding:22px;gap:18px;min-width:230px;z-index:999;box-shadow:0 18px 45px rgba(0,0,0,.08)}
+      .nav-links.active a,.nav-links.active button{justify-content:flex-start;width:100%;padding:10px 0;border-bottom:1px solid var(--ink-rule);background:none;color:var(--ink);font-size:.76rem;letter-spacing:.12em}
+      .nav-links.active a:last-child,.nav-links.active button:last-child{border-bottom:none}
+      .pricing-hero{min-height:380px}
+      .hero-content{padding:0 22px 36px}
+      .hero-title{font-size:clamp(2.4rem,9vw,3.2rem)}
+      .stat-strip{grid-template-columns:repeat(2,1fr)}
+      .section-head{padding:28px 22px 0}
+      .intro-col,.included-col,.faq-item{padding:28px 24px}
+      .plan{padding:28px 22px 32px}
+      .cta-copy{padding:32px 24px}
+      .footer-content{padding:28px 20px 24px}
     }
-    @media (max-width: 700px) {
-      .site-topbar { padding: 0 16px !important; min-height: 56px !important; position: relative !important; }
-      .mobile-menu-btn { display: inline-flex; align-items: center; justify-content: center; }
-      .nav-links { display: none; }
-      .nav-links.active {
-        display: flex; flex-direction: column;
-        position: absolute; top: 56px; right: 12px;
-        background: rgba(250,250,248,0.97); backdrop-filter: blur(14px);
-        border: 1px solid var(--ink-rule); padding: 22px; gap: 18px;
-        min-width: 230px; z-index: 999; box-shadow: 0 18px 45px rgba(0,0,0,0.08);
-      }
-      .nav-links.active a, .nav-links.active button {
-        justify-content: flex-start; width: 100%;
-        padding: 10px 0; border-bottom: 1px solid var(--ink-rule);
-        background: none !important; color: var(--ink) !important;
-        font-size: 0.76rem; letter-spacing: 0.12em;
-      }
-      .nav-links.active a:last-child,
-      .nav-links.active button:last-child { border-bottom: none; }
-    }
-</style>
+    @media(min-width:701px){.mobile-menu-btn{display:none}}
+  </style>
 </head>
 <body>
 <div id="siteNav"></div>
+
 <main>
+
+  <!-- ── HERO BANNER ── -->
   <section class="pricing-hero">
-    <div class="pricing-hero-copy">
-      <a href="index.html" aria-label="Go to homepage"><img src="images/logo1.png" alt="Our Wedding Day Hub" class="pricing-logo" loading="eager"></a>
-      <p class="pricing-kicker">Vendor Pricing</p>
-      <h1 class="pricing-title">Simple, honest<br>pricing</h1>
-      <p class="pricing-script">no hidden fees, ever &#9825;</p>
-      <p class="pricing-intro">Beautiful visibility for wedding businesses, without the huge directory fees. Choose the membership that fits your business and upgrade whenever you're ready.</p>
-    </div>
-    <div class="pricing-hero-image-wrap"><img src="images/arm.png" alt="Wedding couple portrait" class="pricing-hero-image" loading="lazy"></div>
-  </section>
-<div class="trust-strip">
-  <span>Australia-based</span>
-  <span>Worldwide</span>
-  <span>Cancel anytime</span>
-  <span>60 day guarantee</span>
-</div>
-  <section class="pricing-intro-section">
-    <div class="section-head"><div><p class="section-kicker">Why Our Pricing</p><h2 class="section-title">Built for real businesses</h2><span class="section-script">not big corporations &#9825;</span></div></div>
-    <div class="pricing-intro-inner">
-      <div class="pricing-intro-col"><h2>Genuinely affordable</h2><p>Most wedding platforms charge hundreds to thousands of dollars a year just to be listed. We've designed our pricing to be accessible to independent vendors — from solo celebrants to boutique photographers.</p><p>No commissions. No booking fees. No nasty surprises.</p></div>
-      <div class="pricing-intro-col"><h2>Simple and transparent</h2><p>One setup fee. One monthly membership. That's it. Each tier is clear about what's included, so you can choose the level of visibility that feels right for your business.</p><p>And if it's not right for you within the first 60 days, we'll refund up to 2 months of subscription fees.</p></div>
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Vendor Pricing</p>
+      <h1 class="hero-title">Simple, honest<br><em>pricing</em></h1>
+      <p class="hero-script">no hidden fees, ever &#9825;</p>
+      <p class="hero-desc">Beautiful visibility for wedding businesses, without the huge directory fees. Choose the membership that fits your business and upgrade whenever you're ready.</p>
     </div>
   </section>
 
-<section style="padding:40px 36px;border-top:1px solid var(--ink-rule);border-bottom:1px solid var(--ink-rule);text-align:center;background:var(--cream-warm);">
-  <p style="font-family:var(--font-serif);font-size:1.6rem;color:var(--ink);margin-bottom:12px;">
-    Wedding visibility shouldn't cost a fortune.
-  </p>
-
-  <p style="max-width:700px;margin:0 auto;font-size:.9rem;line-height:1.8;color:var(--ink-muted);">
-    Many wedding directories charge vendors hundreds or even thousands of dollars each year. We believe beautiful visibility should be accessible to businesses of all sizes.
-  </p>
-</section>
-  <section class="pricing-plans">
-    <div class="section-head"><div><p class="section-kicker">Vendor Memberships</p><h2 class="section-title">Choose your membership</h2></div></div>
-    <div class="pricing-plans-grid">
-      <div class="pricing-plan">
-        <span class="pricing-plan-badge">&#10022; Essential</span>
-        <h2 class="pricing-plan-name">The Edit</h2>
-        <div class="pricing-plan-price">$4.75<span style="font-size:1.2rem">/mo</span></div>
-        <p class="pricing-plan-period">billed monthly</p>
-        <p class="pricing-plan-setup">+ one-off $50 profile setup fee</p>
-        <div class="pricing-plan-divider"></div>
-        <div class="pricing-plan-features">
-          <div class="pricing-plan-feature">Full vendor profile page</div>
-          <div class="pricing-plan-feature">Gallery to showcase your work</div>
-          <div class="pricing-plan-feature">Category &amp; location visibility</div>
-          <div class="pricing-plan-feature">Website &amp; social links</div>
-          <div class="pricing-plan-feature">Couple enquiry form</div>
-          <div class="pricing-plan-feature">Testimonials section</div>
-          <div class="pricing-plan-feature note">60 day satisfaction guarantee</div>
-        </div>
-        <a href="signup.html" class="pricing-plan-cta">Get Started &#8594;</a>
-      </div>
-
-      <div class="pricing-plan featured">
-        <span class="pricing-plan-badge">&#10022; Popular</span>
-        <h2 class="pricing-plan-name">The Spotlight</h2>
-        <div class="pricing-plan-price">$5.95<span style="font-size:1.2rem">/mo</span></div>
-        <p class="pricing-plan-period">billed monthly</p>
-        <p class="pricing-plan-setup">+ one-off $50 profile setup fee</p>
-        <div class="pricing-plan-divider"></div>
-        <div class="pricing-plan-features">
-          <div class="pricing-plan-feature">Everything in The Edit</div>
-          <div class="pricing-plan-feature">Extra visibility opportunities</div>
-          <div class="pricing-plan-feature">Priority consideration for social spotlights</div>
-          <div class="pricing-plan-feature">More ways to be discovered by couples</div>
-          <div class="pricing-plan-feature note">Perfect for vendors ready to be seen</div>
-        </div>
-        <a href="signup.html" class="pricing-plan-cta">Get Started &#8594;</a>
-      </div>
-
-      <div class="pricing-plan">
-        <span class="pricing-plan-badge">&#10022; Editorial</span>
-        <h2 class="pricing-plan-name">The Feature</h2>
-        <div class="pricing-plan-price">$7.25<span style="font-size:1.2rem">/mo</span></div>
-        <p class="pricing-plan-period">billed monthly</p>
-        <p class="pricing-plan-setup">+ one-off $50 profile setup fee</p>
-        <div class="pricing-plan-divider"></div>
-        <div class="pricing-plan-features">
-          <div class="pricing-plan-feature">Everything in The Spotlight</div>
-          <div class="pricing-plan-feature">Premium visibility opportunities</div>
-          <div class="pricing-plan-feature">Journal feature consideration</div>
-          <div class="pricing-plan-feature">Increased exposure across the platform</div>
-          <div class="pricing-plan-feature note">Made for businesses who want more presence</div>
-        </div>
-        <a href="signup.html" class="pricing-plan-cta">Get Started &#8594;</a>
-      </div>
-
-      <div class="pricing-plan">
-        <span class="pricing-plan-badge">&#10022; Premium</span>
-        <h2 class="pricing-plan-name">The Icon</h2>
-        <div class="pricing-plan-price">$9.95<span style="font-size:1.2rem">/mo</span></div>
-        <p class="pricing-plan-period">billed monthly</p>
-        <p class="pricing-plan-setup">+ one-off $50 profile setup fee</p>
-        <div class="pricing-plan-divider"></div>
-        <div class="pricing-plan-features">
-          <div class="pricing-plan-feature">Everything in The Feature</div>
-          <div class="pricing-plan-feature">Access to The Boutique</div>
-          <div class="pricing-plan-feature">Sell gift cards, vouchers, digital products and more</div>
-          <div class="pricing-plan-feature">Priority feature opportunities</div>
-          <div class="pricing-plan-feature note">Our most visible vendor membership</div>
-        </div>
-        <a href="signup.html" class="pricing-plan-cta">Get Started &#8594;</a>
-      </div>
-    </div>
-
-    <p style="font-family:var(--font-sans);font-size:.78rem;color:var(--ink-muted);line-height:1.7;text-align:center;padding:22px 20px 0;">
-      Use code <strong>EARLYBIRD</strong> to save $15 on your one-off setup fee for a limited time.
-    </p>
-  </section>
-  <section class="pricing-whats-included">
-    <div class="section-head"><div><p class="section-kicker">What's Included</p><h2 class="section-title">Everything you need</h2></div></div>
-    <div class="pricing-included-grid">
-      <div class="pricing-included-col"><h3>Your Profile</h3><div class="pricing-included-list"><div class="pricing-included-item">Full business profile page with your name, category, and description</div><div class="pricing-included-item">Gallery of up to 10 images showcasing your work</div><div class="pricing-included-item">Tagline, bio, and testimonials section</div><div class="pricing-included-item">Business logo and profile image</div></div></div>
-      <div class="pricing-included-col"><h3>Visibility</h3><div class="pricing-included-list"><div class="pricing-included-item">Listed in relevant category and location searches</div><div class="pricing-included-item">Discoverable by couples actively planning their wedding</div><div class="pricing-included-item">Service area and country/region targeting</div><div class="pricing-included-item">Direct link to your profile you can share anywhere</div></div></div>
-      <div class="pricing-included-col"><h3>Connections</h3><div class="pricing-included-list"><div class="pricing-included-item">Enquiry form so couples can reach you directly</div><div class="pricing-included-item">Links to your website, socials, and contact details</div><div class="pricing-included-item">Optional booking link embed</div></div></div>
-      <div class="pricing-included-col"><h3>The Boutique</h3>
-
-<div class="pricing-included-list">
-  <div class="pricing-included-item">
-    Available with The Icon membership
+  <!-- ── STAT STRIP ── -->
+  <div class="stat-strip">
+    <div class="stat-item"><div class="stat-num">$0</div><div class="stat-label">Commissions ever</div></div>
+    <div class="stat-item"><div class="stat-num">60</div><div class="stat-label">Day guarantee</div></div>
+    <div class="stat-item"><div class="stat-num">$4.75</div><div class="stat-label">Starting monthly</div></div>
+    <div class="stat-item"><div class="stat-num">&#8734;</div><div class="stat-label">Cancel anytime</div></div>
   </div>
 
-  <div class="pricing-included-item">
-    Sell gift cards, vouchers, wedding guides, workshops, albums and more
-  </div>
+  <!-- ── INTRO ── -->
+  <section class="intro-section">
+    <div class="section-head">
+      <div><p class="section-kicker">Why Our Pricing</p><h2 class="section-title">Built for real businesses,<br><em>not big corporations</em></h2></div>
+    </div>
+    <div class="intro-grid">
+      <div class="intro-col">
+        <h2>Genuinely affordable</h2>
+        <p>Most wedding platforms charge hundreds to thousands of dollars a year just to be listed. We've designed our pricing to be accessible to independent vendors — from solo celebrants to boutique photographers.</p>
+        <p>No commissions. No booking fees. No nasty surprises.</p>
+      </div>
+      <div class="intro-col">
+        <h2>Simple and transparent</h2>
+        <p>One setup fee. One monthly membership. That's it. Each tier is clear about what's included, so you can choose the level of visibility that feels right for your business.</p>
+        <p>And if it's not right for you within the first 60 days, we'll refund up to 2 months of subscription fees.</p>
+      </div>
+    </div>
+  </section>
 
-  <div class="pricing-included-item">
-    Products linked directly to your vendor profile
-  </div>
+  <!-- ── PLANS ── -->
+  <section class="plans-section">
+    <div class="section-head">
+      <div><p class="section-kicker">Vendor Memberships</p><h2 class="section-title">Choose your membership</h2></div>
+    </div>
+    <div class="plans-grid">
 
-  <div class="pricing-included-item">
-    Reach couples and gift buyers looking for wedding extras
-  </div>
-</div>
+      <div class="plan">
+        <p class="plan-tier">01 — Essential</p>
+        <h2 class="plan-name">The Edit</h2>
+        <div class="plan-price-row"><span class="plan-price">$4.75</span><span class="plan-price-unit">/mo</span></div>
+        <p class="plan-period">Billed monthly</p>
+        <p class="plan-setup">+ one-off $50 profile setup fee</p>
+        <div class="plan-divider"></div>
+        <div class="plan-features">
+          <div class="plan-feature">Full vendor profile page</div>
+          <div class="plan-feature">Gallery to showcase your work</div>
+          <div class="plan-feature">Category &amp; location visibility</div>
+          <div class="plan-feature">Website &amp; social links</div>
+          <div class="plan-feature">Couple enquiry form</div>
+          <div class="plan-feature">Testimonials section</div>
+          <div class="plan-feature note">60 day satisfaction guarantee</div>
+        </div>
+        <a href="signup.html" class="plan-cta">Get Started &#8594;</a>
+      </div>
+
+      <div class="plan featured">
+        <p class="plan-tier">02 — Popular</p>
+        <h2 class="plan-name">The Spotlight</h2>
+        <div class="plan-price-row"><span class="plan-price">$5.95</span><span class="plan-price-unit">/mo</span></div>
+        <p class="plan-period">Billed monthly</p>
+        <p class="plan-setup">+ one-off $50 profile setup fee</p>
+        <div class="plan-divider"></div>
+        <div class="plan-features">
+          <div class="plan-feature">Everything in The Edit</div>
+          <div class="plan-feature">Extra visibility opportunities</div>
+          <div class="plan-feature">Priority consideration for social spotlights</div>
+          <div class="plan-feature">More ways to be discovered by couples</div>
+          <div class="plan-feature note">Perfect for vendors ready to be seen</div>
+        </div>
+        <a href="signup.html" class="plan-cta">Get Started &#8594;</a>
+      </div>
+
+      <div class="plan">
+        <p class="plan-tier">03 — Editorial</p>
+        <h2 class="plan-name">The Feature</h2>
+        <div class="plan-price-row"><span class="plan-price">$7.25</span><span class="plan-price-unit">/mo</span></div>
+        <p class="plan-period">Billed monthly</p>
+        <p class="plan-setup">+ one-off $50 profile setup fee</p>
+        <div class="plan-divider"></div>
+        <div class="plan-features">
+          <div class="plan-feature">Everything in The Spotlight</div>
+          <div class="plan-feature">Premium visibility opportunities</div>
+          <div class="plan-feature">Journal feature consideration</div>
+          <div class="plan-feature">Increased exposure across the platform</div>
+          <div class="plan-feature note">Made for businesses who want more presence</div>
+        </div>
+        <a href="signup.html" class="plan-cta">Get Started &#8594;</a>
+      </div>
+
+      <div class="plan">
+        <p class="plan-tier">04 — Premium</p>
+        <h2 class="plan-name">The Icon</h2>
+        <div class="plan-price-row"><span class="plan-price">$9.95</span><span class="plan-price-unit">/mo</span></div>
+        <p class="plan-period">Billed monthly</p>
+        <p class="plan-setup">+ one-off $50 profile setup fee</p>
+        <div class="plan-divider"></div>
+        <div class="plan-features">
+          <div class="plan-feature">Everything in The Feature</div>
+          <div class="plan-feature">Access to The Boutique</div>
+          <div class="plan-feature">Sell gift cards, vouchers, digital products and more</div>
+          <div class="plan-feature">Priority feature opportunities</div>
+          <div class="plan-feature note">Our most visible vendor membership</div>
+        </div>
+        <a href="signup.html" class="plan-cta">Get Started &#8594;</a>
+      </div>
+
     </div>
   </section>
-  <section class="pricing-faq">
-    <div class="section-head"><div><p class="section-kicker">FAQ</p><h2 class="section-title">Common questions</h2></div></div>
-    <div class="pricing-faq-grid">
-      <div class="pricing-faq-item"><p class="pricing-faq-q">Is there a free trial?</p><p class="pricing-faq-a">We offer a 60 day satisfaction guarantee — if you're not happy within the first 60 days, we'll refund up to 2 months of subscription fees.</p></div>
-      <div class="pricing-faq-item"><p class="pricing-faq-q">What's the setup fee for?</p><p class="pricing-faq-a">The one-off $50 setup fee covers your profile setup and onboarding. It's a one-time cost and is non-refundable. For a limited time, you can use EARLYBIRD to save $15 on the setup fee.</p></div>
-      <div class="pricing-faq-item"><p class="pricing-faq-q">Can I cancel anytime?</p><p class="pricing-faq-a">Yes. You can cancel your subscription at any time. Your profile remains active until the end of your billing period.</p></div>
-      <div class="pricing-faq-item"><p class="pricing-faq-q">Are there any commissions or booking fees?</p><p class="pricing-faq-a">No. We never take a commission or booking fee. Every booking made through a connection from Our Wedding Day Hub is entirely yours.</p></div>
-      <div class="pricing-faq-item"><p class="pricing-faq-q">Can couples use the platform for free?</p><p class="pricing-faq-a">Yes. Couples can browse, search, save favourites, and contact vendors completely free of charge.</p></div>
-      <div class="pricing-faq-item"><p class="pricing-faq-q">What does EARLYBIRD include?</p><p class="pricing-faq-a">EARLYBIRD gives you $15 off the one-off setup fee for a limited time. Your monthly membership stays the same.</p></div>
-      <div class="pricing-faq-item"><p class="pricing-faq-q">What payment methods do you accept?</p><p class="pricing-faq-a">We accept all major credit and debit cards through our secure payment processor.</p></div>
+
+  <!-- ── WHAT'S INCLUDED ── -->
+  <section class="included-section">
+    <div class="section-head">
+      <div><p class="section-kicker">What's Included</p><h2 class="section-title">Everything you need</h2></div>
+    </div>
+    <div class="included-grid">
+      <div class="included-col">
+        <h3>Your Profile</h3>
+        <div class="included-list">
+          <div class="included-item">Full business profile page with your name, category, and description</div>
+          <div class="included-item">Gallery to showcase your work</div>
+          <div class="included-item">Tagline, bio, and testimonials section</div>
+          <div class="included-item">Business logo and profile image</div>
+        </div>
+      </div>
+      <div class="included-col">
+        <h3>Visibility</h3>
+        <div class="included-list">
+          <div class="included-item">Listed in relevant category and location searches</div>
+          <div class="included-item">Discoverable by couples actively planning their wedding</div>
+          <div class="included-item">Service area and country/region targeting</div>
+          <div class="included-item">Direct link to your profile you can share anywhere</div>
+        </div>
+      </div>
+      <div class="included-col">
+        <h3>Connections</h3>
+        <div class="included-list">
+          <div class="included-item">Enquiry form so couples can reach you directly</div>
+          <div class="included-item">Links to your website, socials, and contact details</div>
+          <div class="included-item">Optional booking link embed</div>
+        </div>
+      </div>
+      <div class="included-col">
+        <h3>The Boutique</h3>
+        <div class="included-list">
+          <div class="included-item">Available with The Icon membership</div>
+          <div class="included-item">Sell gift cards, vouchers, wedding guides, workshops, albums and more</div>
+          <div class="included-item">Products linked directly to your vendor profile</div>
+          <div class="included-item">Reach couples and gift buyers looking for wedding extras</div>
+        </div>
+      </div>
     </div>
   </section>
-  <section class="pricing-cta">
-    <div class="section-head"><div><p class="section-kicker">Get Started</p><h2 class="section-title">Ready to join?</h2></div></div>
-    <div class="pricing-cta-inner">
-      <div class="pricing-cta-image"><img src="images/sunset.jpg" alt="Golden hour wedding couple" loading="lazy"></div>
-      <div class="pricing-cta-copy"><h2>Join Our Wedding Day Hub today</h2><p>Create your vendor profile, showcase your work, and connect with couples looking for trusted wedding businesses. Simple, transparent pricing — no surprises.</p><div class="pricing-cta-actions"><a href="signup.html" class="btn-light">Create Your Profile &#8594;</a><a href="contact.html" class="btn-ghost-light">Ask a question</a></div></div>
+
+  <!-- ── FAQ ── -->
+  <section class="faq-section">
+    <div class="section-head">
+      <div><p class="section-kicker">FAQ</p><h2 class="section-title">Common questions</h2></div>
+    </div>
+    <div class="faq-grid">
+      <div class="faq-item">
+        <p class="faq-q">Is there a free trial?</p>
+        <p class="faq-a">We offer a 60 day satisfaction guarantee — if you're not happy within the first 60 days, we'll refund up to 2 months of subscription fees.</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-q">What's the setup fee for?</p>
+        <p class="faq-a">The one-off $50 setup fee covers your profile setup and onboarding. It's a one-time cost and is non-refundable.</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-q">Can I cancel anytime?</p>
+        <p class="faq-a">Yes. You can cancel your subscription at any time. Your profile remains active until the end of your billing period.</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-q">Are there any commissions or booking fees?</p>
+        <p class="faq-a">No. We never take a commission or booking fee. Every booking made through a connection from Our Wedding Day Hub is entirely yours.</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-q">Can couples use the platform for free?</p>
+        <p class="faq-a">Yes. Couples can browse, search, save favourites, and contact vendors completely free of charge.</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-q">What payment methods do you accept?</p>
+        <p class="faq-a">We accept all major credit and debit cards through our secure payment processor.</p>
+      </div>
     </div>
   </section>
+
+  <!-- ── CTA ── -->
+  <section class="cta-section">
+    <div class="section-head">
+      <div><p class="section-kicker">Get Started</p><h2 class="section-title">Ready to join?</h2></div>
+    </div>
+    <div class="cta-inner">
+      <div class="cta-img"><img src="images/sunset.jpg" alt="Golden hour wedding couple" loading="lazy"></div>
+      <div class="cta-copy">
+        <h2>Join Our Wedding Day Hub <em>today</em></h2>
+        <p>Create your vendor profile, showcase your work, and connect with couples looking for trusted wedding businesses.</p>
+        <p>Simple, transparent pricing — no surprises, no commissions, no lock-ins.</p>
+        <div class="cta-actions">
+          <a href="signup.html" class="btn-light">Create Your Profile &#8594;</a>
+          <a href="contact.html" class="btn-ghost">Ask a question</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
 </main>
+
 <footer class="site-footer">
   <div class="footer-content">
     <div class="footer-logo-col">
@@ -232,6 +416,8 @@
   <div style="width:100%;max-width:1280px;height:1px;background:rgba(255,255,255,.08);margin:0 auto 24px;"></div>
   <p style="font-family:var(--font-sans);font-size:.65rem;color:var(--ink-muted);letter-spacing:.12em;text-transform:uppercase;text-align:center;padding-bottom:40px;">Proudly inclusive &#8226; Worldwide &#8226; Built with heart</p>
 </footer>
+
 <script type="module" src="nav.js"></script>
+<script>function toggleMenu(){document.querySelector(".nav-links").classList.toggle("active");}</script>
 </body>
 </html>
