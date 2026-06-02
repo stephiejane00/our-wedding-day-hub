@@ -55,7 +55,7 @@
     .dashboard-hero-card { border-bottom: 1px solid var(--ink); background: var(--cream); overflow: hidden; }
     .dashboard-hero-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; align-items: stretch; min-height: 480px; }
     .dashboard-hero-copy { padding: 56px 48px 48px; display: flex; flex-direction: column; justify-content: space-between; border-right: 1px solid var(--ink-rule); }
-    .dashboard-hero-copy > * { animation: fadeUp 0.7s ease forwards; opacity: 0; }
+    .dashboard-hero-copy > * { animation: fadeUp 0.7s ease both; }
     .dashboard-hero-copy > *:nth-child(1) { animation-delay: 0.05s; }
     .dashboard-hero-copy > *:nth-child(2) { animation-delay: 0.12s; }
     .dashboard-hero-copy > *:nth-child(3) { animation-delay: 0.2s; }
@@ -76,7 +76,7 @@
     .dashboard-live-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ink-ghost); flex-shrink: 0; transition: background 0.3s; }
     .dashboard-live-status.is-live .dashboard-live-dot { background: #4CAF50; box-shadow: 0 0 0 3px rgba(76,175,80,0.18); }
     .dashboard-live-status.is-live { border-color: #c8dcc8; background: #e8f0e8; color: #3a5e38; }
-    .dashboard-stat-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; background: var(--ink-rule); border-bottom: 1px solid var(--ink-rule); animation: fadeUp 0.5s ease 0.3s forwards; opacity: 0; }
+    .dashboard-stat-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; background: var(--ink-rule); border-bottom: 1px solid var(--ink-rule); animation: fadeUp 0.5s ease 0.3s both; }
     .dashboard-stat-item { background: var(--cream-warm); padding: 18px 24px; border-right: 0.5px solid var(--ink-rule); display: flex; flex-direction: column; gap: 4px; }
     .dashboard-stat-item:last-child { border-right: none; }
     .dashboard-stat-num { font-family: var(--font-serif); font-size: 2rem; font-weight: 300; color: var(--ink); line-height: 1; letter-spacing: -0.03em; }
@@ -653,6 +653,11 @@
     document.body.style.overflow = "";
   }
   document.addEventListener("keydown", e => { if (e.key === "Escape") closePanel(); });
+  // Ensure stat strip is always visible regardless of animation support
+  window.addEventListener("load", () => {
+    const strip = document.getElementById("dashboardStatStrip");
+    if (strip) strip.style.opacity = "1";
+  });
   window.updateDashBadge = function(section, state, label) {
     const el = document.getElementById("badge-" + section);
     if (!el) return;
@@ -663,7 +668,7 @@
 
 <script type="module">
 import {
-  auth, db, storage, onAuthStateChanged, doc, getDoc, setDoc, serverTimestamp,
+  auth, db, storage, onAuthStateChanged, signOut, doc, getDoc, setDoc, serverTimestamp,
   ref, uploadBytes, getDownloadURL, collection, addDoc, getDocs,
   query, where, orderBy, deleteDoc, updateDoc, increment
 } from "./firebase.js";
@@ -808,7 +813,7 @@ import { LOCATION_DATA } from "./locations.js";
 
   function renderCountries(sel = []) { countryOptions.innerHTML = ""; Object.keys(LOCATION_DATA).sort((a,b) => a.localeCompare(b)).forEach(c => countryOptions.appendChild(createPillCheckbox(c, c, sel.includes(c), "countries"))); countryOptions.querySelectorAll("input").forEach(i => i.addEventListener("change", () => { renderStates([]); renderRegions([]); })); }
   function renderStates(sel = []) { const sc = getCheckedValues(countryOptions); stateOptions.innerHTML = ""; regionOptions.innerHTML = '<p class="small-text">Select countries first.</p>'; if (!sc.length) { stateOptions.innerHTML = '<p class="small-text">Select countries first.</p>'; return; } let has = false; sc.forEach(c => { const cd = LOCATION_DATA[c]; if (!cd) return; const h = document.createElement("div"); h.className = "region-heading"; h.textContent = c; stateOptions.appendChild(h); Object.keys(cd).sort((a,b) => a.localeCompare(b)).forEach(s => { has = true; stateOptions.appendChild(createPillCheckbox(s, s, sel.includes(s), "states")); }); }); if (!has) { stateOptions.innerHTML = '<p class="small-text">No states found.</p>'; return; } stateOptions.querySelectorAll("input").forEach(i => i.addEventListener("change", () => renderRegions(getCheckedValues(regionOptions)))); }
-  function renderRegions(prev = []) { const sc = getCheckedValues(countryOptions); const ss = getCheckedValues(stateOptions); regionOptions.innerHTML = ""; if (!sc.length || !ss.length) { regionOptions.innerHTML = '<p class="small-text">Select states first.</p>'; return; } let has = false; sc.forEach(c => { const cd = LOCATION_DATA[c]; if (!cd) return; ss.forEach(s => { const rs = cd[s]; if (!rs?.length) return; has = true; const h = document.createElement("div"); h.className = "region-heading"; h.textContent = `${c} — ${s}`; regionOptions.appendChild(h); rs.forEach(r => regionOptions.appendChild(createPillCheckbox(r, r, prev.includes(r), "regions"))); }); }); if (!has) regionOptions.innerHTML = '<p class="small-text">No regions found.</p>'; }
+  function renderRegions(prev = []) { const sc = getCheckedValues(countryOptions); const ss = getCheckedValues(stateOptions); regionOptions.innerHTML = ""; if (!sc.length || !ss.length) { regionOptions.innerHTML = '<p class="small-text">Select states first.</p>'; return; } let has = false; sc.forEach(c => { const cd = LOCATION_DATA[c]; if (!cd) return; ss.forEach(s => { const rs = cd[s]; if (!(rs && rs.length)) return; has = true; const h = document.createElement("div"); h.className = "region-heading"; h.textContent = `${c} — ${s}`; regionOptions.appendChild(h); rs.forEach(r => regionOptions.appendChild(createPillCheckbox(r, r, prev.includes(r), "regions"))); }); }); if (!has) regionOptions.innerHTML = '<p class="small-text">No regions found.</p>'; }
 
   function setSingleImagePreview(url, img, empty) { if (url) { img.src = url; img.style.display = "block"; empty.style.display = "none"; } else { img.removeAttribute("src"); img.style.display = "none"; empty.style.display = "block"; } }
 
@@ -847,8 +852,8 @@ import { LOCATION_DATA } from "./locations.js";
   function addBlockedDate() { const v = blockedDateInput.value; if (!v) return; if (!currentBlockedDates.includes(v)) currentBlockedDates.push(v); currentBlockedDates = [...new Set(currentBlockedDates)].sort(); blockedDateInput.value = ""; renderBlockedDates(); }
   function applyBulkWeekdayBlock() { const wd = Array.from(weekdayOptions.querySelectorAll("input:checked")).map(i => Number(i.value)); if (!wd.length) return; let sv = bulkStartDate.value; let ev = bulkEndDate.value; const pm = bulkMonthsPreset.value; const today = toLocalDateString(new Date()); if (!sv) { sv = today; bulkStartDate.value = sv; } if (!ev && pm) { ev = toLocalDateString(addMonthsToDate(new Date(sv+"T00:00:00"), Number(pm))); bulkEndDate.value = ev; } if (!ev || ev < sv) return; const sd = new Date(sv+"T00:00:00"); const ed = new Date(ev+"T00:00:00"); const ex = new Set(currentBlockedDates); for (let d = new Date(sd); d <= ed; d.setDate(d.getDate()+1)) { if (wd.includes(d.getDay())) ex.add(toLocalDateString(d)); } currentBlockedDates = Array.from(ex).sort(); renderBlockedDates(); }
 
-  profileImageFile.addEventListener("change", e => { showSelectedFileNames(profileImageFile, profileImageFileName, false); if (e.target.files?.[0]) previewLocalSingleImage(e.target.files[0], profileImagePreview, profileImageEmpty); });
-  logoFile.addEventListener("change", e => { showSelectedFileNames(logoFile, logoFileName, false); if (e.target.files?.[0]) previewLocalSingleImage(e.target.files[0], logoPreview, logoEmpty); });
+  profileImageFile.addEventListener("change", e => { showSelectedFileNames(profileImageFile, profileImageFileName, false); if ((e.target.files && e.target.files[0])) previewLocalSingleImage(e.target.files[0], profileImagePreview, profileImageEmpty); });
+  logoFile.addEventListener("change", e => { showSelectedFileNames(logoFile, logoFileName, false); if ((e.target.files && e.target.files[0])) previewLocalSingleImage(e.target.files[0], logoPreview, logoEmpty); });
   galleryImageFiles.addEventListener("change", () => showSelectedFileNames(galleryImageFiles, galleryImageFileName, true));
   galleryVideoFiles.addEventListener("change", () => showSelectedFileNames(galleryVideoFiles, galleryVideoFileName, true));
   productImageFiles.addEventListener("change", () => showSelectedFileNames(productImageFiles, productImageFileName, true));
@@ -938,10 +943,10 @@ import { LOCATION_DATA } from "./locations.js";
     boutiqueMessage.textContent = editingProductId ? "Saving changes..." : "Uploading...";
     try {
       const imgs = [];
-      if (productImageFiles.files?.length) { for (const f of Array.from(productImageFiles.files)) imgs.push(await uploadFileToStorage(f, "boutique-product-images", currentUser.uid)); }
+      if ((productImageFiles.files && productImageFiles.files.length)) { for (const f of Array.from(productImageFiles.files)) imgs.push(await uploadFileToStorage(f, "boutique-product-images", currentUser.uid)); }
       const data = { vendorId: currentUser.uid, vendorName: businessName.value.trim(), name, price, category: productCategory.value, stock: Number(productStock.value||0), description: productDescription.value.trim(), paymentMethod: paymentMethod.value, purchaseLink: productPurchaseLink.value.trim(), fulfilmentMethod: fulfilmentMethod.value, fulfilmentDetails: fulfilmentDetails.value.trim(), shippingCost: shippingCost.value.trim(), shippingLocations: shippingLocations.value.trim(), status: productStatus.value||"draft", visible: productStatus.value === "live", updatedAt: serverTimestamp() };
       if (editingProductId) {
-        if (imgs.length) { const existing = currentBoutiqueProducts.find(p => p.id === editingProductId); data.images = [...(existing?.images || []), ...imgs]; }
+        if (imgs.length) { const existing = currentBoutiqueProducts.find(p => p.id === editingProductId); data.images = [...((existing && existing.images) || []), ...imgs]; }
         await updateDoc(doc(db, "boutiqueProducts", editingProductId), data);
         boutiqueMessage.textContent = "Changes saved ♡";
       } else {
@@ -956,7 +961,10 @@ import { LOCATION_DATA } from "./locations.js";
 
   async function loadVendorData(uid) {
     const userSnap = await getDoc(doc(db, "users", uid));
-    if (!userSnap.exists() || userSnap.data().role !== "vendor") { window.location.href = "login.html"; return; }
+    if (!userSnap.exists() || userSnap.data().role !== "vendor") {
+      console.warn("Dashboard: user doc missing or not vendor role. Exists:", userSnap.exists(), "Role:", userSnap.exists() ? userSnap.data().role : "N/A");
+      window.location.href = "login.html"; return;
+    }
     const userData = userSnap.data();
     const vendorSnap = await getDoc(doc(db, "vendors", uid));
     const vd = vendorSnap.exists() ? vendorSnap.data() : {};
@@ -985,18 +993,18 @@ import { LOCATION_DATA } from "./locations.js";
     if (statViews) statViews.textContent = getProfileViews(vd) || "0";
     if (statCategories) statCategories.textContent = Array.isArray(vd.categories) ? vd.categories.length : "0";
     const isLiveNow = vd.profileVisible === true || vd.published === true;
-    window.updateDashBadge?.("status", isLiveNow ? "live" : "off", isLiveNow ? "● Live — couples can find you" : "● Not live");
-    window.updateDashBadge?.("business", vd.businessName ? "ok" : "todo", vd.businessName ? "✓ Filled in" : "○ Fill in your details");
-    window.updateDashBadge?.("booking", vd.bookingLink ? "ok" : "todo", vd.bookingLink ? "✓ Booking link added" : "○ Add a booking link");
-    window.updateDashBadge?.("assets", vd.profileImageUrl ? "ok" : "todo", vd.profileImageUrl ? "✓ Photo uploaded" : "○ Add a photo");
+    window.updateDashBadge && window.updateDashBadge("status", isLiveNow ? "live" : "off", isLiveNow ? "● Live — couples can find you" : "● Not live");
+    window.updateDashBadge && window.updateDashBadge("business", vd.businessName ? "ok" : "todo", vd.businessName ? "✓ Filled in" : "○ Fill in your details");
+    window.updateDashBadge && window.updateDashBadge("booking", vd.bookingLink ? "ok" : "todo", vd.bookingLink ? "✓ Booking link added" : "○ Add a booking link");
+    window.updateDashBadge && window.updateDashBadge("assets", vd.profileImageUrl ? "ok" : "todo", vd.profileImageUrl ? "✓ Photo uploaded" : "○ Add a photo");
     const imgCount = Array.isArray(vd.images) ? vd.images.length : 0;
-    window.updateDashBadge?.("media", imgCount > 0 ? "ok" : "todo", imgCount > 0 ? `✓ ${imgCount} photo${imgCount===1?"":"s"}` : "○ Upload photos");
+    window.updateDashBadge && window.updateDashBadge("media", imgCount > 0 ? "ok" : "todo", imgCount > 0 ? `✓ ${imgCount} photo${imgCount===1?"":"s"}` : "○ Upload photos");
     const tagCount = Array.isArray(vd.styleTags) ? vd.styleTags.length : 0;
-    window.updateDashBadge?.("styles", tagCount > 0 ? "ok" : "todo", tagCount > 0 ? `✓ ${tagCount} tag${tagCount===1?"":"s"}` : "○ None added");
+    window.updateDashBadge && window.updateDashBadge("styles", tagCount > 0 ? "ok" : "todo", tagCount > 0 ? `✓ ${tagCount} tag${tagCount===1?"":"s"}` : "○ None added");
     const catCount = Array.isArray(vd.categories) ? vd.categories.length : 0;
-    window.updateDashBadge?.("categories", catCount > 0 ? "ok" : "todo", catCount > 0 ? `✓ ${catCount} selected` : "○ None selected");
+    window.updateDashBadge && window.updateDashBadge("categories", catCount > 0 ? "ok" : "todo", catCount > 0 ? `✓ ${catCount} selected` : "○ None selected");
     const locCount = Array.isArray(vd.serviceLocationLabels) ? vd.serviceLocationLabels.length : 0;
-    window.updateDashBadge?.("locations", locCount > 0 ? "ok" : "todo", locCount > 0 ? `✓ ${locCount} location${locCount===1?"":"s"}` : "○ No locations yet");
+    window.updateDashBadge && window.updateDashBadge("locations", locCount > 0 ? "ok" : "todo", locCount > 0 ? `✓ ${locCount} location${locCount===1?"":"s"}` : "○ No locations yet");
     renderStyleTags(Array.isArray(vd.styleTags) ? vd.styleTags : []);
     renderCategoryOptions(Array.isArray(vd.categories) ? vd.categories : []);
     const savedLocations = Array.isArray(vd.serviceLocationLabels) && vd.serviceLocationLabels.length
@@ -1051,17 +1059,17 @@ import { LOCATION_DATA } from "./locations.js";
       currentVendorAccess = { subscriptionActive: ev.subscriptionActive===true, paidSetupFee: ev.paidSetupFee===true, complimentaryPlan: ev.complimentaryPlan===true, plan: ev.plan||"", accessType: ev.accessType||"", membershipTier: ev.membershipTier||"", tier: ev.tier||"", shopAccess: ev.shopAccess===true, accountStatus: ev.accountStatus||"active", profileVisible: ev.profileVisible===true, published: ev.published===true };
       const st = getCheckedValues(styleTagOptions); const cats = getCheckedValues(categoryOptions); const cos = getCheckedValues(countryOptions); const sts = getCheckedValues(stateOptions); const regs = getCheckedValues(regionOptions);
       let pi = currentProfileImageUrl; let li = currentLogoUrl; let gi = [...currentGalleryImages]; let gv = [...currentGalleryVideos];
-      if (profileImageFile.files?.[0]) pi = await uploadFileToStorage(profileImageFile.files[0], "vendor-profile-images", currentUser.uid);
-      if (logoFile.files?.[0]) li = await uploadFileToStorage(logoFile.files[0], "vendor-logos", currentUser.uid);
-      if (galleryImageFiles.files?.length) { const u = []; for (const f of Array.from(galleryImageFiles.files)) u.push(await uploadFileToStorage(f, "vendor-gallery-images", currentUser.uid)); gi = [...gi, ...u]; }
-      if (galleryVideoFiles.files?.length) { const u = []; for (const f of Array.from(galleryVideoFiles.files)) u.push(await uploadFileToStorage(f, "vendor-gallery-videos", currentUser.uid)); gv = [...gv, ...u]; }
+      if ((profileImageFile.files && profileImageFile.files[0])) pi = await uploadFileToStorage(profileImageFile.files[0], "vendor-profile-images", currentUser.uid);
+      if ((logoFile.files && logoFile.files[0])) li = await uploadFileToStorage(logoFile.files[0], "vendor-logos", currentUser.uid);
+      if ((galleryImageFiles.files && galleryImageFiles.files.length)) { const u = []; for (const f of Array.from(galleryImageFiles.files)) u.push(await uploadFileToStorage(f, "vendor-gallery-images", currentUser.uid)); gi = [...gi, ...u]; }
+      if ((galleryVideoFiles.files && galleryVideoFiles.files.length)) { const u = []; for (const f of Array.from(galleryVideoFiles.files)) u.push(await uploadFileToStorage(f, "vendor-gallery-videos", currentUser.uid)); gv = [...gv, ...u]; }
       gi = [...new Set(gi)]; gv = [...new Set(gv)]; currentBlockedDates = [...new Set(currentBlockedDates)].sort();
       const cover = gi[0] || ""; const shop = hasShopAccess(currentVendorAccess);
       const placesCountries = window._placesCountries || cos;
       const placesStates    = window._placesStates    || sts;
       const placesRegions   = window._placesRegions   || regs;
       const placesLabels    = window._placesLocations || [];
-      const isWorldwide     = document.getElementById("worldwideToggle")?.checked || false;
+      const isWorldwide     = (document.getElementById("worldwideToggle") && document.getElementById("worldwideToggle").checked) || false;
       await setDoc(doc(db,"vendors",currentUser.uid), { uid:currentUser.uid, businessName:businessName.value.trim(), email:email.value.trim().toLowerCase(), phone:phone.value.trim(), instagram:instagram.value.trim(), website:website.value.trim(), facebook:facebook.value.trim(), tiktok:tiktok.value.trim(), youtube:youtube.value.trim(), pinterest:pinterest.value.trim(), linkedin:linkedin.value.trim(), x:x.value.trim(), serviceAreas:serviceAreas.value.trim(), displayLocation:displayLocation.value.trim(), bookingLink:bookingLink.value.trim(), availabilityStatus:availabilityStatus.value.trim(), bookingNotes:bookingNotes.value.trim(), blockedDates:currentBlockedDates, bio:bio.value.trim(), profileImageUrl:pi, logoUrl:li, coverImageUrl:cover, images:gi, galleryImages:gi, imageUrls:gi, videos:gv, galleryVideos:gv, videoUrls:gv, styleTags:st, categories:cats, countries:placesCountries, country:placesCountries[0]||"", states:placesStates, regions:placesRegions, serviceLocationLabels:placesLabels, worldwide:isWorldwide, profileVisible:profileLive.checked, published:profileLive.checked, shopAccess:shop, updatedAt:serverTimestamp() }, { merge:true });
       currentProfileImageUrl = pi; currentLogoUrl = li; currentGalleryImages = gi; currentGalleryVideos = gv;
       currentVendorAccess = { ...currentVendorAccess, shopAccess:shop, profileVisible:profileLive.checked, published:profileLive.checked };
@@ -1074,18 +1082,18 @@ import { LOCATION_DATA } from "./locations.js";
       if (vdSnap2.exists()) {
         const vd2 = vdSnap2.data();
         const isLiveNow2 = vd2.profileVisible === true || vd2.published === true;
-        window.updateDashBadge?.("status", isLiveNow2 ? "live" : "off", isLiveNow2 ? "● Live — couples can find you" : "● Not live");
-        window.updateDashBadge?.("business", vd2.businessName ? "ok" : "todo", vd2.businessName ? "✓ Filled in" : "○ Fill in your details");
-        window.updateDashBadge?.("booking", vd2.bookingLink ? "ok" : "todo", vd2.bookingLink ? "✓ Booking link added" : "○ Add a booking link");
-        window.updateDashBadge?.("assets", vd2.profileImageUrl ? "ok" : "todo", vd2.profileImageUrl ? "✓ Photo uploaded" : "○ Add a photo");
+        window.updateDashBadge && window.updateDashBadge("status", isLiveNow2 ? "live" : "off", isLiveNow2 ? "● Live — couples can find you" : "● Not live");
+        window.updateDashBadge && window.updateDashBadge("business", vd2.businessName ? "ok" : "todo", vd2.businessName ? "✓ Filled in" : "○ Fill in your details");
+        window.updateDashBadge && window.updateDashBadge("booking", vd2.bookingLink ? "ok" : "todo", vd2.bookingLink ? "✓ Booking link added" : "○ Add a booking link");
+        window.updateDashBadge && window.updateDashBadge("assets", vd2.profileImageUrl ? "ok" : "todo", vd2.profileImageUrl ? "✓ Photo uploaded" : "○ Add a photo");
         const ic2 = Array.isArray(vd2.images) ? vd2.images.length : 0;
-        window.updateDashBadge?.("media", ic2 > 0 ? "ok" : "todo", ic2 > 0 ? `✓ ${ic2} photo${ic2===1?"":"s"}` : "○ Upload photos");
+        window.updateDashBadge && window.updateDashBadge("media", ic2 > 0 ? "ok" : "todo", ic2 > 0 ? `✓ ${ic2} photo${ic2===1?"":"s"}` : "○ Upload photos");
         const tc2 = Array.isArray(vd2.styleTags) ? vd2.styleTags.length : 0;
-        window.updateDashBadge?.("styles", tc2 > 0 ? "ok" : "todo", tc2 > 0 ? `✓ ${tc2} tag${tc2===1?"":"s"}` : "○ None added");
+        window.updateDashBadge && window.updateDashBadge("styles", tc2 > 0 ? "ok" : "todo", tc2 > 0 ? `✓ ${tc2} tag${tc2===1?"":"s"}` : "○ None added");
         const cc2 = Array.isArray(vd2.categories) ? vd2.categories.length : 0;
-        window.updateDashBadge?.("categories", cc2 > 0 ? "ok" : "todo", cc2 > 0 ? `✓ ${cc2} selected` : "○ None selected");
+        window.updateDashBadge && window.updateDashBadge("categories", cc2 > 0 ? "ok" : "todo", cc2 > 0 ? `✓ ${cc2} selected` : "○ None selected");
         const lc2 = Array.isArray(vd2.serviceLocationLabels) ? vd2.serviceLocationLabels.length : 0;
-        window.updateDashBadge?.("locations", lc2 > 0 ? "ok" : "todo", lc2 > 0 ? `✓ ${lc2} location${lc2===1?"":"s"}` : "○ No locations yet");
+        window.updateDashBadge && window.updateDashBadge("locations", lc2 > 0 ? "ok" : "todo", lc2 > 0 ? `✓ ${lc2} location${lc2===1?"":"s"}` : "○ No locations yet");
       }
     } catch (err) { console.error(err); show("There was a problem saving your changes."); }
   }
@@ -1102,7 +1110,7 @@ import { LOCATION_DATA } from "./locations.js";
 
   saveAccountBtn.addEventListener("click", saveAccountSettings);
   saveProductBtn.addEventListener("click", saveBoutiqueProduct);
-  document.getElementById("cancelEditBtn")?.addEventListener("click", () => {
+  document.getElementById("cancelEditBtn") && document.getElementById("cancelEditBtn").addEventListener("click", () => {
     clearProductForm();
     document.getElementById("cancelEditBtn").style.display = "none";
   });
@@ -1122,10 +1130,10 @@ import { LOCATION_DATA } from "./locations.js";
     if (_dl) _dl.style.display = "inline-flex";
     if (_lo) {
       _lo.style.display = "inline-flex";
-      _lo.addEventListener("click", async () => {
-        try { const { auth: _a, signOut: _s } = await import("./firebase.js"); await _s(_a); } catch(e){}
+      _lo.onclick = async () => {
+        try { await signOut(auth); } catch(e) { console.error("Logout error:", e); }
         window.location.href = "index.html";
-      });
+      };
     }
 
     const verifyBanner = document.getElementById("verifyEmailBanner");
@@ -1135,7 +1143,16 @@ import { LOCATION_DATA } from "./locations.js";
       verifyBanner.style.display = "none";
     }
 
-    await loadVendorData(currentUser.uid);
+    try {
+      await loadVendorData(currentUser.uid);
+    } catch (err) {
+      console.error("Dashboard load error:", err);
+      // Show a visible error so the user knows something went wrong
+      const hero = document.getElementById("dashboardHeroTitle");
+      if (hero) hero.textContent = "Something went wrong loading your data";
+      const script = document.getElementById("dashboardHeroScript");
+      if (script) script.textContent = "Please refresh the page or check your connection";
+    }
   });
 </script>
 
