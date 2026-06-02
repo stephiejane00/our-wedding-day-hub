@@ -18,8 +18,7 @@
     .conversations-header h2{font-family:var(--font-serif);font-size:1.1rem;font-weight:300;color:var(--ink)}
     #conversationsList{flex:1}
     .conv-item{padding:14px 18px;border-bottom:.5px solid var(--ink-rule);cursor:pointer;transition:background .15s;display:flex;flex-direction:column;gap:3px}
-    .conv-item:hover{background:var(--cream-warm)}
-    .conv-item.active{background:var(--cream-deep)}
+    .conv-item:hover{background:var(--cream-warm)}.conv-item.active{background:var(--cream-deep)}
     .conv-name{font-family:var(--font-sans);font-size:.8rem;font-weight:700;color:var(--ink);display:flex;align-items:center;justify-content:space-between}
     .conv-preview{font-family:var(--font-sans);font-size:.74rem;color:var(--ink-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:220px}
     .conv-time{font-family:var(--font-sans);font-size:.68rem;color:var(--ink-ghost)}
@@ -50,38 +49,15 @@
     .auth-gate-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
     .btn-ink{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:10px 22px;font-family:var(--font-sans);font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--cream);background:var(--ink);text-decoration:none;border:none;cursor:pointer;transition:background .2s}.btn-ink:hover{background:var(--ink-mid)}
     .btn-outline{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:10px 22px;font-family:var(--font-sans);font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);background:none;text-decoration:none;border:.5px solid var(--ink-rule);transition:all .2s}.btn-outline:hover{background:var(--cream-warm);border-color:var(--ink-muted)}
+    .loading-state{padding:32px 20px;text-align:center;font-family:var(--font-sans);font-size:.82rem;color:var(--ink-muted)}
     @media(max-width:700px){.site-topbar{padding:0 16px;min-height:56px;position:relative}.messages-layout{grid-template-columns:1fr;height:auto}.conversations-panel{height:auto;border-right:none;border-bottom:1px solid var(--ink-rule)}.thread-panel{min-height:60vh}}
-  
-    /* ── SHARED NAV (injected by nav.js) ── */
-    .nav-links { display: flex; align-items: center; gap: 8px; }
-    .mobile-menu-btn {
-      display: none; background: none; border: none;
-      color: var(--ink); font-size: 1.5rem; cursor: pointer; padding: 4px;
-    }
-    @media (max-width: 700px) {
-      .site-topbar { padding: 0 16px !important; min-height: 56px !important; position: relative !important; }
-      .mobile-menu-btn { display: inline-flex; align-items: center; justify-content: center; }
-      .nav-links { display: none; }
-      .nav-links.active {
-        display: flex; flex-direction: column;
-        position: absolute; top: 56px; right: 12px;
-        background: rgba(250,250,248,0.97); backdrop-filter: blur(14px);
-        border: 1px solid var(--ink-rule); padding: 22px; gap: 18px;
-        min-width: 230px; z-index: 999; box-shadow: 0 18px 45px rgba(0,0,0,0.08);
-      }
-      .nav-links.active a, .nav-links.active button {
-        justify-content: flex-start; width: 100%;
-        padding: 10px 0; border-bottom: 1px solid var(--ink-rule);
-        background: none !important; color: var(--ink) !important;
-        font-size: 0.76rem; letter-spacing: 0.12em;
-      }
-      .nav-links.active a:last-child,
-      .nav-links.active button:last-child { border-bottom: none; }
-    }
-</style>
+    .nav-links{display:flex;align-items:center;gap:8px}.mobile-menu-btn{display:none;background:none;border:none;color:var(--ink);font-size:1.5rem;cursor:pointer;padding:4px}
+    @media(max-width:700px){.site-topbar{padding:0 16px !important;min-height:56px !important;position:relative !important}.mobile-menu-btn{display:inline-flex;align-items:center;justify-content:center}.nav-links{display:none}.nav-links.active{display:flex;flex-direction:column;position:absolute;top:56px;right:12px;background:rgba(250,250,248,.97);backdrop-filter:blur(14px);border:1px solid var(--ink-rule);padding:22px;gap:18px;min-width:230px;z-index:999;box-shadow:0 18px 45px rgba(0,0,0,.08)}.nav-links.active a,.nav-links.active button{justify-content:flex-start;width:100%;padding:10px 0;border-bottom:1px solid var(--ink-rule);background:none !important;color:var(--ink) !important;font-size:.76rem;letter-spacing:.12em}.nav-links.active a:last-child,.nav-links.active button:last-child{border-bottom:none}}
+  </style>
 </head>
 <body>
 <div id="siteNav"></div>
+
 <div id="authGate" class="auth-gate" style="display:none;">
   <h2>Your messages</h2>
   <p>Log in to view your conversations with vendors and couples.</p>
@@ -90,12 +66,11 @@
     <a href="signup.html" class="btn-outline">Create Account</a>
   </div>
 </div>
+
 <div id="messagesApp" class="messages-layout" style="display:none;">
   <div class="conversations-panel">
-    <div class="conversations-header">
-      <h2>Messages</h2>
-    </div>
-    <div id="conversationsList"></div>
+    <div class="conversations-header"><h2>Messages</h2></div>
+    <div id="conversationsList"><div class="loading-state">Loading&#8230;</div></div>
   </div>
   <div class="thread-panel" id="threadPanel">
     <div class="thread-empty" id="threadEmpty">
@@ -111,104 +86,198 @@
       </div>
       <div id="messagesThread"></div>
       <div class="thread-compose">
-        <textarea id="replyBody" placeholder="Write a message..." rows="1"></textarea>
+        <textarea id="replyBody" placeholder="Write a message&#8230;" rows="1"></textarea>
         <button type="button" class="send-btn" id="sendReplyBtn">Send</button>
       </div>
     </div>
   </div>
 </div>
+
 <script type="module">
-import { auth, db, onAuthStateChanged, collection, query, where, orderBy, onSnapshot, addDoc, updateDoc, doc, serverTimestamp, increment, getDocs } from './firebase.js';
+import {
+  auth, db, onAuthStateChanged,
+  collection, query, where, orderBy,
+  onSnapshot, addDoc, updateDoc, doc,
+  serverTimestamp, increment, getDocs, getDoc
+} from './firebase.js';
 
 let currentUser = null;
 let currentConvId = null;
 let messagesUnsub = null;
+let convsUnsub = null;
+let _isVendorCache = null;
 
-onAuthStateChanged(auth, async (user) => {
+// ── Determine vendor/couple role from users collection ──
+async function getIsVendor() {
+  if (_isVendorCache !== null) return _isVendorCache;
+  if (!currentUser) return false;
+  try {
+    const userSnap = await getDoc(doc(db, 'users', currentUser.uid));
+    if (userSnap.exists()) {
+      _isVendorCache = userSnap.data().role === 'vendor';
+      return _isVendorCache;
+    }
+    // Fallback: check vendors collection directly
+    const vendorSnap = await getDocs(query(collection(db, 'vendors'), where('uid', '==', currentUser.uid)));
+    _isVendorCache = !vendorSnap.empty;
+    return _isVendorCache;
+  } catch (e) {
+    console.error('Role check error:', e);
+    _isVendorCache = false;
+    return false;
+  }
+}
+
+onAuthStateChanged(auth, async function(user) {
   if (!user) {
     document.getElementById('authGate').style.display = 'flex';
     document.getElementById('messagesApp').style.display = 'none';
     return;
   }
   currentUser = user;
+  _isVendorCache = null; // reset on new auth
   document.getElementById('authGate').style.display = 'none';
   document.getElementById('messagesApp').style.display = 'grid';
-  loadConversations();
+
+  try {
+    await loadConversations();
+  } catch (e) {
+    console.error('Messages init error:', e);
+    document.getElementById('conversationsList').innerHTML =
+      '<div class="conv-empty">Could not load messages. Please refresh.</div>';
+  }
 });
 
-function loadConversations() {
-  const userField = isVendor() ? 'vendorId' : 'coupleId';
-  const q = query(collection(db, 'conversations'), where(userField, '==', currentUser.uid), orderBy('lastMessageAt', 'desc'));
-  onSnapshot(q, (snap) => {
+async function loadConversations() {
+  const isVend = await getIsVendor();
+  const userField = isVend ? 'vendorId' : 'coupleId';
+
+  if (convsUnsub) convsUnsub();
+
+  const q = query(
+    collection(db, 'conversations'),
+    where(userField, '==', currentUser.uid),
+    orderBy('lastMessageAt', 'desc')
+  );
+
+  convsUnsub = onSnapshot(q, function(snap) {
     const list = document.getElementById('conversationsList');
-    if (snap.empty) { list.innerHTML = '<div class="conv-empty">No conversations yet.<br>Message a vendor from their profile to start.</div>'; return; }
+    if (snap.empty) {
+      list.innerHTML = '<div class="conv-empty">No conversations yet.<br>Message a vendor from their profile to get started &#9825;</div>';
+      return;
+    }
     list.innerHTML = '';
-    snap.forEach(d => {
-      const conv = d.data();
-      const isVend = isVendor();
-      const otherName = isVend ? conv.coupleName : conv.vendorName;
-      const unread = isVend ? (conv.vendorUnread || 0) : (conv.coupleUnread || 0);
-      const item = document.createElement('div');
+    snap.forEach(function(d) {
+      var conv = d.data();
+      var otherName = isVend ? (conv.coupleName || 'Couple') : (conv.vendorName || 'Vendor');
+      var unread = isVend ? (conv.vendorUnread || 0) : (conv.coupleUnread || 0);
+      var lastMsg = conv.lastMessage || '';
+      var lastTime = '';
+      if (conv.lastMessageAt) {
+        try {
+          lastTime = new Date(conv.lastMessageAt.toDate()).toLocaleDateString('en-AU', { day: 'numeric', month: 'short' });
+        } catch(e) { lastTime = ''; }
+      }
+      var item = document.createElement('div');
       item.className = 'conv-item' + (d.id === currentConvId ? ' active' : '');
-      item.innerHTML = `<div class="conv-name">${otherName || 'Conversation'}<span>${unread > 0 ? `<span class="unread-badge">${unread}</span>` : ''}</span></div><div class="conv-preview">${conv.lastMessage || ''}</div><div class="conv-time">${conv.lastMessageAt ? new Date(conv.lastMessageAt.toDate()).toLocaleDateString('en-AU', {day:'numeric',month:'short'}) : ''}</div>`;
-      item.addEventListener('click', () => openConversation(d.id, conv, item));
+      item.innerHTML =
+        '<div class="conv-name">' + otherName +
+          '<span>' + (unread > 0 ? '<span class="unread-badge">' + unread + '</span>' : '') + '</span>' +
+        '</div>' +
+        '<div class="conv-preview">' + lastMsg + '</div>' +
+        '<div class="conv-time">' + lastTime + '</div>';
+      item.addEventListener('click', function() { openConversation(d.id, conv, item, isVend); });
       list.appendChild(item);
     });
+  }, function(err) {
+    console.error('Conversations snapshot error:', err);
+    document.getElementById('conversationsList').innerHTML =
+      '<div class="conv-empty">Could not load conversations.</div>';
   });
 }
 
-function isVendor() { return false; /* overridden below */ }
-
-async function openConversation(convId, conv, itemEl) {
+function openConversation(convId, conv, itemEl, isVend) {
   currentConvId = convId;
-  document.querySelectorAll('.conv-item').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.conv-item').forEach(function(el) { el.classList.remove('active'); });
   itemEl.classList.add('active');
+
   document.getElementById('threadEmpty').style.display = 'none';
-  const tv = document.getElementById('threadView');
+  var tv = document.getElementById('threadView');
   tv.style.display = 'flex';
-  const isVend = await getIsVendor();
-  const otherName = isVend ? conv.coupleName : conv.vendorName;
-  document.getElementById('threadTitle').textContent = otherName || 'Conversation';
-  document.getElementById('threadSubtitle').textContent = isVend ? conv.coupleEmail || '' : conv.vendorName || '';
-  const unreadField = isVend ? 'vendorUnread' : 'coupleUnread';
-  await updateDoc(doc(db, 'conversations', convId), { [unreadField]: 0 });
+
+  var otherName = isVend ? (conv.coupleName || 'Couple') : (conv.vendorName || 'Vendor');
+  var subtitle = isVend ? (conv.coupleEmail || '') : (conv.vendorName || '');
+  document.getElementById('threadTitle').textContent = otherName;
+  document.getElementById('threadSubtitle').textContent = subtitle;
+
+  // Mark as read
+  var unreadField = isVend ? 'vendorUnread' : 'coupleUnread';
+  updateDoc(doc(db, 'conversations', convId), { [unreadField]: 0 }).catch(function(e) {
+    console.warn('Could not mark as read:', e);
+  });
+
+  // Subscribe to messages
   if (messagesUnsub) messagesUnsub();
-  const mq = query(collection(db, 'conversations', convId, 'messages'), orderBy('sentAt', 'asc'));
-  messagesUnsub = onSnapshot(mq, (snap) => {
-    const thread = document.getElementById('messagesThread');
+  var mq = query(
+    collection(db, 'conversations', convId, 'messages'),
+    orderBy('sentAt', 'asc')
+  );
+  messagesUnsub = onSnapshot(mq, function(snap) {
+    var thread = document.getElementById('messagesThread');
     thread.innerHTML = '';
-    snap.forEach(md => {
-      const m = md.data();
-      const mine = m.senderId === currentUser.uid;
-      const bubble = document.createElement('div');
+    snap.forEach(function(md) {
+      var m = md.data();
+      var mine = m.senderId === currentUser.uid;
+      var bubble = document.createElement('div');
       bubble.className = 'msg-bubble ' + (mine ? 'mine' : 'theirs');
-      const time = m.sentAt ? new Date(m.sentAt.toDate()).toLocaleTimeString('en-AU', {hour:'2-digit',minute:'2-digit'}) : '';
-      bubble.innerHTML = `<div>${m.body || ''}</div><div class="msg-meta">${time}</div>`;
+      var time = '';
+      if (m.sentAt) {
+        try {
+          time = new Date(m.sentAt.toDate()).toLocaleTimeString('en-AU', { hour: '2-digit', minute: '2-digit' });
+        } catch(e) { time = ''; }
+      }
+      bubble.innerHTML = '<div>' + (m.body || '') + '</div><div class="msg-meta">' + time + '</div>';
       thread.appendChild(bubble);
     });
     thread.scrollTop = thread.scrollHeight;
+  }, function(err) {
+    console.error('Messages thread error:', err);
   });
 }
 
-let _isVendorCache = null;
-async function getIsVendor() {
-  if (_isVendorCache !== null) return _isVendorCache;
-  try {
-    const snap = await getDocs(query(collection(db, 'vendors'), where('__name__', '==', currentUser.uid)));
-    _isVendorCache = !snap.empty;
-  } catch { _isVendorCache = false; }
-  return _isVendorCache;
-}
-
-document.getElementById('sendReplyBtn').addEventListener('click', async () => {
+document.getElementById('sendReplyBtn').addEventListener('click', async function() {
   if (!currentConvId || !currentUser) return;
-  const body = document.getElementById('replyBody').value.trim();
+  var body = document.getElementById('replyBody').value.trim();
   if (!body) return;
-  const isVend = await getIsVendor();
-  const otherUnread = isVend ? 'coupleUnread' : 'vendorUnread';
-  await addDoc(collection(db, 'conversations', currentConvId, 'messages'), { senderId: currentUser.uid, senderName: currentUser.email, body, sentAt: serverTimestamp(), read: false });
-  await updateDoc(doc(db, 'conversations', currentConvId), { lastMessage: body, lastMessageAt: serverTimestamp(), [otherUnread]: increment(1) });
-  document.getElementById('replyBody').value = '';
+
+  var isVend = await getIsVendor();
+  var otherUnread = isVend ? 'coupleUnread' : 'vendorUnread';
+
+  try {
+    await addDoc(collection(db, 'conversations', currentConvId, 'messages'), {
+      senderId: currentUser.uid,
+      senderName: currentUser.displayName || currentUser.email || '',
+      body: body,
+      sentAt: serverTimestamp(),
+      read: false
+    });
+    await updateDoc(doc(db, 'conversations', currentConvId), {
+      lastMessage: body,
+      lastMessageAt: serverTimestamp(),
+      [otherUnread]: increment(1)
+    });
+    document.getElementById('replyBody').value = '';
+  } catch (e) {
+    console.error('Send error:', e);
+  }
+});
+
+// Send on Enter (Shift+Enter for new line)
+document.getElementById('replyBody').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    document.getElementById('sendReplyBtn').click();
+  }
 });
 </script>
 <script type="module" src="nav.js"></script>
