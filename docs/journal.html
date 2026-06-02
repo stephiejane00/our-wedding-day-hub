@@ -116,7 +116,7 @@ async function loadJournal() {
 
       // Date: try createdAt first (journalPosts), then publishedAt (articles)
       var dateStr = '';
-      var dateField = a.createdAt || a.publishedAt;
+      var dateField = a.publishedAt || a.createdAt;
       if (dateField) {
         try {
           dateStr = new Date(dateField.toDate()).toLocaleDateString('en-AU', {
